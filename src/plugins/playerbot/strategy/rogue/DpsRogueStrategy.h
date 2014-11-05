@@ -15,4 +15,15 @@ namespace ai
         virtual string getName() { return "dps"; }
         virtual NextAction** getDefaultActions();
     };
+
+     class DpsDaggerRogueStrategy : public MeleeCombatStrategy
+    {
+    public:
+        DpsDaggerRogueStrategy(PlayerbotAI* ai);
+
+    public:
+        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual string getName() { return "dagger dps"; }
+        virtual NextAction** getDefaultActions();
+    };
 }

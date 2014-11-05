@@ -39,6 +39,12 @@ namespace ai
         ShieldBashInterruptSpellTrigger(PlayerbotAI* ai) : InterruptSpellTrigger(ai, "shield bash") {}
     };
 
+    class BloodsurgeTrigger : public HasAuraTrigger
+    {
+    public:
+        BloodsurgeTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "bloodsurge") {}
+    };
+
     class VictoryRushTrigger : public HasAuraTrigger
     {
     public:

@@ -126,9 +126,9 @@ void CasterDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "almost full health",
         NextAction::array(0, new NextAction("rejuvenation", ACTION_LIGHT_HEAL + 2), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "party member almost full health",
-        NextAction::array(0, new NextAction("rejuvenation on party", ACTION_LIGHT_HEAL + 1), NULL)));
+   // triggers.push_back(new TriggerNode(
+    //    "party member almost full health",
+     //   NextAction::array(0, new NextAction("rejuvenation on party", ACTION_LIGHT_HEAL + 1), NULL)));
 
 
 	triggers.push_back(new TriggerNode(
@@ -151,7 +151,9 @@ void CasterDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "moonfire",
         NextAction::array(0, new NextAction("moonfire", ACTION_NORMAL + 4), NULL)));
 
-
+    triggers.push_back(new TriggerNode(
+        "party member critical health",
+        NextAction::array(0, new NextAction("tranquility", ACTION_EMERGENCY+1), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"nature's grasp",

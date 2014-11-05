@@ -52,6 +52,10 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "enemy too close for spell",
         NextAction::array(0, new NextAction("wing clip", 50.0f), new NextAction("flee",49.0f), new NextAction("concussive shot", 48.0f), NULL)));
 
+     triggers.push_back(new TriggerNode(
+        "almost full health",
+        NextAction::array(0, new NextAction("freezing trap", 70), NULL)));
+
     triggers.push_back(new TriggerNode(
         "medium threat",
         NextAction::array(0, new NextAction("feign death", 52.0f), NULL)));

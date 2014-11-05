@@ -90,6 +90,11 @@ namespace ai
                 creators["eclipse (solar)"] = &TriggerFactoryInternal::eclipse_solar;
                 creators["eclipse (lunar)"] = &TriggerFactoryInternal::eclipse_lunar;
                 creators["bash on enemy healer"] = &TriggerFactoryInternal::bash_on_enemy_healer;
+                creators["prowl"] = &TriggerFactoryInternal::prowl;
+                creators["savage roar"] = &TriggerFactoryInternal::savage_roar;
+                creators["rip"] = &TriggerFactoryInternal::rip;
+                creators["predatory swiftness"] = &TriggerFactoryInternal::predatory_swiftness;
+                creators["berserk"] = &TriggerFactoryInternal::berserk;
             }
 
         private:
@@ -113,6 +118,11 @@ namespace ai
             static Trigger* cat_form(PlayerbotAI* ai) { return new CatFormTrigger(ai); }
             static Trigger* tree_form(PlayerbotAI* ai) { return new TreeFormTrigger(ai); }
             static Trigger* bash_on_enemy_healer(PlayerbotAI* ai) { return new BashInterruptEnemyHealerSpellTrigger(ai); }
+            static Trigger* prowl(PlayerbotAI* ai) { return new ProwlTrigger(ai); }
+            static Trigger* savage_roar(PlayerbotAI* ai) { return new SavageRoarTrigger(ai); }
+            static Trigger* rip(PlayerbotAI* ai) { return new RipTrigger(ai); }
+            static Trigger* predatory_swiftness(PlayerbotAI* ai) { return new PredatorySwiftnessTrigger(ai); }
+            static Trigger* berserk(PlayerbotAI* ai) { return new BerserkTrigger(ai); }
         };
     };
 };

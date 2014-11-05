@@ -7,15 +7,15 @@ using namespace ai;
 
 bool CastSerpentStingAction::isUseful()
 {
-    return AI_VALUE2(uint8, "health", "current target") > 50;
+    return AI_VALUE2(uint8, "health", "current target") > 30;
 }
 
 bool CastViperStingAction::isUseful()
 {
-    return AI_VALUE2(uint8, "mana", "self target") < 50 && AI_VALUE2(uint8, "mana", "current target") >= 30;
+    return AI_VALUE2(uint8, "mana", "self target") < 30 && AI_VALUE2(uint8, "mana", "current target") >= 30;
 }
 
-bool CastAspectOfTheCheetahAction::isUseful() 
+bool CastAspectOfTheCheetahAction::isUseful()
 {
     return !ai->HasAnyAuraOf(GetTarget(), "aspect of the cheetah", "aspect of the pack", NULL);
 }

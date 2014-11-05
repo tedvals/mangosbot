@@ -7,6 +7,12 @@
 
 namespace ai
 {
+	class CastStealthAction : public CastBuffSpellAction
+	{
+	public:
+		CastStealthAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "stealth") {}
+	};
+
 	class CastEvasionAction : public CastBuffSpellAction
 	{
 	public:
@@ -55,6 +61,11 @@ namespace ai
 		CastBlindAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "blind") {}
 	};
 
+    class CastShadowstepAction : public CastReachTargetSpellAction
+	{
+	public:
+		CastShadowstepAction(PlayerbotAI* ai) : CastReachTargetSpellAction(ai, "shadowstep", 1.5f) {}
+	};
 
 	class CastBladeFlurryAction : public CastBuffSpellAction
 	{

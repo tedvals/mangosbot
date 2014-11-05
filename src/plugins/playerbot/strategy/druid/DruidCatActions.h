@@ -1,6 +1,18 @@
 #pragma once
 
 namespace ai {
+
+    class CastCatComboAction : public CastMeleeSpellAction
+	{
+	public:
+	    CastCatComboAction(PlayerbotAI* ai, string name) : CastMeleeSpellAction(ai, name) {}
+
+	    virtual bool isUseful()
+	    {
+	        return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "combo", "self target") <= 5;
+	    }
+	};
+
 	class CastFeralChargeCatAction : public CastReachTargetSpellAction
 	{
 	public:
@@ -13,6 +25,11 @@ namespace ai {
 		CastCowerAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "cower") {}
 	};
 
+    class CastProwlAction : public CastBuffSpellAction
+	{
+	public:
+		CastProwlAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "prowl") {}
+	};
 
 	class CastBerserkAction : public CastBuffSpellAction
 	{
@@ -37,33 +54,59 @@ namespace ai {
         }
 	};
 
-
-	class CastClawAction : public CastMeleeSpellAction {
+    class CastRipAction : public CastDebuffSpellAction {
 	public:
-		CastClawAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "claw") {}
+		CastRipAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "rip") {}
 	};
 
-	class CastMangleCatAction : public CastMeleeSpellAction {
+    class CastShredAction : public CastCatComboAction {
 	public:
-		CastMangleCatAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "mangle (cat)") {}
+		CastShredAction(PlayerbotAI* ai) : CastCatComboAction(ai, "shred") {}
 	};
 
-	class CastSwipeCatAction : public CastMeleeSpellAction {
+	class CastClawAction : public  CastCatComboAction {
 	public:
-		CastSwipeCatAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "swipe (cat)") {}
+		CastClawAction(PlayerbotAI* ai) : CastCatComboAction(ai, "claw") {}
+	};
+
+	class CastMangleCatAction : public  CastCatComboAction {
+	public:
+		CastMangleCatAction(PlayerbotAI* ai) : CastCatComboAction(ai, "mangle (cat)") {}
+	};
+
+	class CastSwipeCatAction : public  CastCatComboAction {
+	public:
+		CastSwipeCatAction(PlayerbotAI* ai) : CastCatComboAction(ai, "swipe (cat)") {}
 	};
 
 	class CastFerociousBiteAction : public CastMeleeSpellAction {
 	public:
 		CastFerociousBiteAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "ferocious bite") {}
+
+		virtual bool isUseful()
+	    {
+	        return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "energy", "self target") > 50;
+	    }
 	};
 
-
-	class CastRipAction : public CastMeleeSpellAction {
+	class CastPounceAction : public CastMeleeSpellAction {
 	public:
-		CastRipAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "rip") {}
+		CastPounceAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "pounce") {}
+
+        virtual NextAction** getPrerequisites()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("stealth"), NULL), CastMeleeSpellAction::getPrerequisites());
+        }
 	};
 
+	class CastRavageAction : public CastMeleeSpellAction {
+	public:
+		CastRavageAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "ravage") {}
 
+		virtual NextAction** getPrerequisites()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("stealth"), NULL), CastMeleeSpellAction::getPrerequisites());
+        }
+	};
 
 }

@@ -4,6 +4,13 @@
 namespace ai
 {
 
+    class StealthTrigger : public BuffTrigger
+    {
+    public:
+        StealthTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "stealth") {}
+        virtual bool IsActive() { return !ai->HasAura("stealth", bot); }
+    };
+
     class KickInterruptSpellTrigger : public InterruptSpellTrigger
     {
     public:

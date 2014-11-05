@@ -23,12 +23,14 @@ namespace ai
             StrategyFactoryInternal()
             {
                 creators["dps"] = &rogue::StrategyFactoryInternal::dps;
+                creators["dagger dps"] = &rogue::StrategyFactoryInternal::dps;
                 creators["nc"] = &rogue::StrategyFactoryInternal::nc;
                 creators["pull"] = &rogue::StrategyFactoryInternal::pull;
             }
 
         private:
             static Strategy* dps(PlayerbotAI* ai) { return new DpsRogueStrategy(ai); }
+            static Strategy* dagger_dps(PlayerbotAI* ai) { return new DpsDaggerRogueStrategy(ai); }
             static Strategy* nc(PlayerbotAI* ai) { return new GenericRogueNonCombatStrategy(ai); }
             static Strategy* pull(PlayerbotAI* ai) { return new PullStrategy(ai, "shoot"); }
         };
