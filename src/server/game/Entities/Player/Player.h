@@ -2379,14 +2379,11 @@ class Player : public Unit, public GridObject<Player>
         std::string GetMapAreaAndZoneString();
         std::string GetCoordsMapAreaAndZoneString();
 
-<<<<<<< HEAD
         TransmogMapType transmogMap; // transmogMap[iGUID] = entry
 #ifdef PRESETS
         PresetMapType presetMap; // presetMap[presetId] = presetData
 #endif
-=======
         ReforgeMapType reforgeMap; // reforgeMap[iGUID] = ReforgeData
->>>>>>> 599088e873aefa277762f0da1d8985dd32d20bf9
 
     protected:
         // Gamemaster whisper whitelist

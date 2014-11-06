@@ -13,13 +13,10 @@
 set(scripts_STAT_SRCS
   ${scripts_STAT_SRCS}
 #  ${sources_Custom}
-<<<<<<< HEAD
     Custom/Transmog/Transmogrification.h
     Custom/Transmog/Transmogrification.cpp
     Custom/Transmog/Transmogrifier.cpp
-=======
     Custom/Reforging/Reforging.cpp
->>>>>>> 599088e873aefa277762f0da1d8985dd32d20bf9
 )
 
 message("  -> Prepared: Custom")
