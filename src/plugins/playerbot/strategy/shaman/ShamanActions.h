@@ -15,7 +15,6 @@ namespace ai
         CastLesserHealingWaveOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "lesser healing wave") {}
     };
 
-
     class CastHealingWaveAction : public CastHealingSpellAction {
     public:
         CastHealingWaveAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "healing wave") {}
@@ -152,6 +151,24 @@ namespace ai
         CastWindfuryTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "windfury totem") {}
     };
 
+    class CastWrathTotemAction : public CastTotemAction
+    {
+    public:
+        CastWrathTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "totem of wrath") {}
+    };
+
+    class CastWrathAirTotemAction : public CastTotemAction
+    {
+    public:
+        CastWrathAirTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "wrath of air totem") {}
+    };
+
+    class CastGraceAirTotemAction : public CastTotemAction
+    {
+    public:
+        CastGraceAirTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "grace of air totem") {}
+    };
+
     class CastSearingTotemAction : public CastTotemAction
     {
     public:
@@ -278,6 +295,12 @@ namespace ai
         CastLightningBoltAction(PlayerbotAI* ai) : CastSpellAction(ai, "lightning bolt") {}
     };
 
+     class CastLavaBurstAction : public CastSpellAction
+    {
+    public:
+        CastLavaBurstAction(PlayerbotAI* ai) : CastSpellAction(ai, "lava burst") {}
+    };
+
     class CastThunderstormAction : public CastMeleeSpellAction
     {
     public:
@@ -301,4 +324,11 @@ namespace ai
     public:
         CastWindShearOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "wind shear") {}
     };
+
+    class CastElementalMasteryAction : public CastBuffSpellAction
+    {
+    public:
+        CastElementalMasteryAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "elemental mastery") {}
+    };
+
 }

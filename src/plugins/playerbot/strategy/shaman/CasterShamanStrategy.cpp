@@ -11,6 +11,9 @@ public:
     CasterShamanStrategyActionNodeFactory()
     {
         creators["magma totem"] = &magma_totem;
+        creators["flame shock"] = &flame_shock;
+        creators["boost"] = &elemental_mastery;
+        creators["lava burst"] = &lava_burst;
     }
 private:
     static ActionNode* magma_totem(PlayerbotAI* ai)
@@ -19,6 +22,27 @@ private:
             /*P*/ NULL,
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("fire nova"), NULL));
+    }
+    static ActionNode* flame_shock(PlayerbotAI* ai)
+    {
+        return new ActionNode ("flame shock",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("earth shock"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* elemental_mastery(PlayerbotAI* ai)
+    {
+        return new ActionNode ("elemental mastery",
+            /*P*/ NULL,
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* lava_burst(PlayerbotAI* ai)
+    {
+        return new ActionNode ("lava burst",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("lightning bolt"), NULL),
+            /*C*/ NULL);
     }
 };
 
@@ -29,7 +53,7 @@ CasterShamanStrategy::CasterShamanStrategy(PlayerbotAI* ai) : GenericShamanStrat
 
 NextAction** CasterShamanStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("lightning bolt", 10.0f), NULL);
+    return NextAction::array(0, new NextAction("elemental mastery", 20.0f), new NextAction("lava burst", 15.0f), new NextAction("lightning bolt", 10.0f),NULL);
 }
 
 void CasterShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -45,12 +69,12 @@ void CasterShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("flametongue weapon", 23.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "searing totem",
-        NextAction::array(0, new NextAction("searing totem", 19.0f), NULL)));
+        "totem of wrath",
+        NextAction::array(0, new NextAction("totem of wrath", 19.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "shock",
-        NextAction::array(0, new NextAction("earth shock", 20.0f), NULL)));
+        NextAction::array(0, new NextAction("flame shock", 20.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "frost shock snare",
@@ -58,7 +82,12 @@ void CasterShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "medium aoe",
-        NextAction::array(0, new NextAction("flametongue totem", ACTION_LIGHT_HEAL), NULL)));
+        NextAction::array(0, new NextAction("magma totem", 19.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "enemy too close for spell",
+        NextAction::array(0, new NextAction("thunderstorm", 50.0f), NULL)));
+
 }
 
 void CasterAoeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -71,5 +100,5 @@ void CasterAoeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "medium aoe",
-        NextAction::array(0, new NextAction("thunderstorm", 26.0f), NULL)));
+        NextAction::array(0, new NextAction("magma totem", 26.0f), NULL)));
 }
