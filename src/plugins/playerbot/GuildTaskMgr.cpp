@@ -10,6 +10,7 @@
 #include "PlayerbotAI.h"
 
 #include "../../plugins/ahbot/AhBotConfig.h"
+#include "RandomItemMgr.h"
 
 char * strstri (const char* str1, const char* str2);
 
@@ -40,10 +41,12 @@ void GuildTaskMgr::Update(Player* player, Player* guildMaster)
     if (!player->IsFriendlyTo(guildMaster))
         return;
 
-    if (!guildMaster->GetPlayerbotAI()->GetSecurity()->CheckLevelFor(PLAYERBOT_SECURITY_INVITE, true, player, true))
+    DenyReason reason = PLAYERBOT_DENY_NONE;
+    PlayerbotSecurityLevel secLevel = guildMaster->GetPlayerbotAI()->GetSecurity()->LevelFor(player, &reason);
+    if (secLevel == PLAYERBOT_SECURITY_DENY_ALL || (secLevel == PLAYERBOT_SECURITY_TALK && reason != PLAYERBOT_DENY_FAR))
     {
-        sLog->outMessage("gtask", LOG_LEVEL_DEBUG, "%s / %s: skipping guild task update - not enough security level",
-                guildMaster->GetGuild()->GetName().c_str(), player->GetName().c_str());
+        sLog->outMessage("gtask", LOG_LEVEL_DEBUG, "%s / %s: skipping guild task update - not enough security level, reason = %u",
+                guildMaster->GetGuild()->GetName().c_str(), player->GetName().c_str(), reason);
         return;
     }
 
@@ -151,56 +154,13 @@ bool GuildTaskMgr::CreateItemTask(uint32 owner, uint32 guildId)
     if (!player)
         return false;
 
-    vector<uint32> items;
-    ItemTemplateContainer const* itemTemplates = sObjectMgr->GetItemTemplateStore();
-    for (ItemTemplateContainer::const_iterator i = itemTemplates->begin(); i != itemTemplates->end(); ++i)
-    {
-        uint32 itemId = i->first;
-        ItemTemplate const* proto = &i->second;
-        if (!proto)
-            continue;
-
-        if (proto->Bonding == BIND_WHEN_PICKED_UP ||
-                proto->Bonding == BIND_QUEST_ITEM ||
-                proto->Bonding == BIND_WHEN_USE)
-            continue;
-
-        if (proto->Quality < ITEM_QUALITY_UNCOMMON)
-            continue;
-
-        if (proto->RequiredLevel > sAhBotConfig.maxRequiredLevel || proto->ItemLevel > sAhBotConfig.maxItemLevel)
-            continue;
-
-        if (proto->Duration & 0x80000000)
-            continue;
-
-        if (sAhBotConfig.ignoreItemIds.find(proto->ItemId) != sAhBotConfig.ignoreItemIds.end())
-            continue;
-
-        if (strstri(proto->Name1.c_str(), "qa") || strstri(proto->Name1.c_str(), "test") || strstri(proto->Name1.c_str(), "deprecated"))
-            continue;
-
-        if ((proto->Class == ITEM_CLASS_ARMOR || proto->Class == ITEM_CLASS_WEAPON) && proto->Quality < ITEM_QUALITY_RARE)
-            continue;
-
-        if (proto->Class != ITEM_CLASS_TRADE_GOODS && proto->Class != ITEM_CLASS_CONSUMABLE)
-            continue;
-
-        if (!auctionbot.GetBuyPrice(proto))
-            continue;
-
-        items.push_back(itemId);
-    }
-
-    if (items.empty())
+    uint32 itemId = sRandomItemMgr.GetRandomItem(RANDOM_ITEM_GUILD_TASK);
+    if (!itemId)
     {
         sLog->outMessage("gtask", LOG_LEVEL_ERROR, "%s / %s: no items avaible for item task",
                 sGuildMgr->GetGuildById(guildId)->GetName().c_str(), player->GetName().c_str());
         return false;
     }
-
-    uint32 index = urand(0, items.size() - 1);
-    uint32 itemId = items[index];
 
     uint32 count = GetMaxItemTaskCount(itemId);
 
@@ -551,6 +511,45 @@ bool GuildTaskMgr::HandleConsoleCommand(ChatHandler* handler, char const* args)
         return true;
     }
 
+    if (cmd == "reward")
+    {
+        sLog->outMessage("gtask", LOG_LEVEL_INFO, "Usage: gtask reward <player name>");
+        return true;
+    }
+
+    if (cmd.find("reward ") != string::npos)
+    {
+        string charName = cmd.substr(cmd.find("reward ") + 7);
+        ObjectGuid guid = sObjectMgr->GetPlayerGUIDByName(charName);
+        if (!guid)
+        {
+            sLog->outMessage("gtask", LOG_LEVEL_ERROR, "Player %s not found", charName.c_str());
+            return false;
+        }
+
+        uint32 owner = (uint32)guid.GetRawValue();
+        QueryResult result = CharacterDatabase.PQuery(
+                "select distinct guildid from ai_playerbot_guild_tasks where owner = '%u'",
+                owner);
+
+        if (result)
+        {
+            do
+            {
+                Field* fields = result->Fetch();
+                uint32 guildId = fields[0].GetUInt32();
+                Guild *guild = sGuildMgr->GetGuildById(guildId);
+                if (!guild)
+                    continue;
+
+                sGuildTaskMgr.Reward(owner, guildId);
+            } while (result->NextRow());
+
+            Field* fields = result->Fetch();
+            return true;
+        }
+    }
+
     return false;
 }
 
@@ -651,54 +650,21 @@ bool GuildTaskMgr::Reward(uint32 owner, uint32 guildId)
         body << leader->GetName() << "\n";
     }
 
-    vector<uint32> items;
-    ItemTemplateContainer const* itemTemplates = sObjectMgr->GetItemTemplateStore();
-    for (ItemTemplateContainer::const_iterator i = itemTemplates->begin(); i != itemTemplates->end(); ++i)
-    {
-        uint32 itemId = i->first;
-        ItemTemplate const* proto = &i->second;
-        if (!proto)
-            continue;
-
-        if (proto->Bonding == BIND_WHEN_PICKED_UP ||
-                proto->Bonding == BIND_QUEST_ITEM ||
-                proto->Bonding == BIND_WHEN_USE)
-            continue;
-
-        if (proto->Quality < ITEM_QUALITY_RARE)
-            continue;
-
-        if (proto->RequiredLevel > sAhBotConfig.maxRequiredLevel || proto->ItemLevel > sAhBotConfig.maxItemLevel)
-            continue;
-
-        if (proto->Duration & 0x80000000)
-            continue;
-
-        if (sAhBotConfig.ignoreItemIds.find(proto->ItemId) != sAhBotConfig.ignoreItemIds.end())
-            continue;
-
-        if (strstri(proto->Name1.c_str(), "qa") || strstri(proto->Name1.c_str(), "test") || strstri(proto->Name1.c_str(), "deprecated"))
-            continue;
-
-        items.push_back(itemId);
-    }
-
-    if (items.empty())
-    {
-        sLog->outMessage("gtask", LOG_LEVEL_ERROR, "%s / %s: no items available for guild task reward",
-                sGuildMgr->GetGuildById(guildId)->GetName().c_str(), player->GetName().c_str());
-        return false;
-    }
-
-    uint32 index = urand(0, items.size() - 1);
-    uint32 itemId = items[index];
-
-    Item* item = Item::CreateItem(itemId, 1, leader);
     SQLTransaction trans = CharacterDatabase.BeginTransaction();
-    MailDraft("Thank You", body.str()).
-            AddItem(item).
-            AddMoney(GetTaskValue(owner, guildId, "payment")).
-            SendMailTo(trans, MailReceiver(player), MailSender(leader));
+    MailDraft draft("Thank You", body.str());
+
+    uint32 count = urand(1, 3);
+    for (uint32 i = 0; i < count; ++i)
+    {
+        uint32 itemId = sRandomItemMgr.GetRandomItem(RANDOM_ITEM_GUILD_TASK_REWARD);
+        if (itemId)
+        {
+            Item* item = Item::CreateItem(itemId, 1, leader);
+            draft.AddItem(item);
+        }
+    }
+
+    draft.AddMoney(GetTaskValue(owner, guildId, "payment")).SendMailTo(trans, MailReceiver(player), MailSender(leader));
     CharacterDatabase.CommitTransaction(trans);
 
     return true;
