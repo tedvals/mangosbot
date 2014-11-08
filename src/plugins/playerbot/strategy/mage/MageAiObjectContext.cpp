@@ -82,7 +82,7 @@ namespace ai
         public:
             TriggerFactoryInternal()
             {
-                creators["fireball"] = &TriggerFactoryInternal::fireball;
+               // creators["fireball"] = &TriggerFactoryInternal::fireball;
                 creators["pyroblast"] = &TriggerFactoryInternal::pyroblast;
                 creators["combustion"] = &TriggerFactoryInternal::combustion;
                 creators["icy veins"] = &TriggerFactoryInternal::icy_veins;
@@ -95,16 +95,24 @@ namespace ai
                 creators["polymorph"] = &TriggerFactoryInternal::polymorph;
                 creators["spellsteal"] = &TriggerFactoryInternal::spellsteal;
                 creators["hot streak"] = &TriggerFactoryInternal::hot_streak;
+                creators["blazing speed"] = &TriggerFactoryInternal::blazing_speed;
+                creators["fingers of frost"] = &TriggerFactoryInternal::fingers_frost;
+                creators["brain freeze"] = &TriggerFactoryInternal::brain_freeze;
+                creators["fiery payback"] = &TriggerFactoryInternal::fiery_payback;
                 creators["living bomb"] = &TriggerFactoryInternal::living_bomb;
                 creators["missile barrage"] = &TriggerFactoryInternal::missile_barrage;
                 creators["arcane blast"] = &TriggerFactoryInternal::arcane_blast;
                 creators["counterspell on enemy healer"] = &TriggerFactoryInternal::counterspell_enemy_healer;
-
+                creators["slow on attacker"] = &TriggerFactoryInternal::slow;
             }
 
         private:
             static Trigger* hot_streak(PlayerbotAI* ai) { return new HotStreakTrigger(ai); }
-            static Trigger* fireball(PlayerbotAI* ai) { return new FireballTrigger(ai); }
+            static Trigger* blazing_speed(PlayerbotAI* ai) { return new BlazingSpeedTrigger(ai); }
+            static Trigger* fingers_frost(PlayerbotAI* ai) { return new FingersFrostTrigger(ai); }
+            static Trigger* brain_freeze(PlayerbotAI* ai) { return new BrainfreezeTrigger(ai); }
+            static Trigger* fiery_payback(PlayerbotAI* ai) { return new FieryPaybackTrigger(ai); }
+            //static Trigger* fireball(PlayerbotAI* ai) { return new FireballTrigger(ai); }
             static Trigger* pyroblast(PlayerbotAI* ai) { return new PyroblastTrigger(ai); }
             static Trigger* combustion(PlayerbotAI* ai) { return new CombustionTrigger(ai); }
             static Trigger* icy_veins(PlayerbotAI* ai) { return new IcyVeinsTrigger(ai); }
@@ -120,6 +128,7 @@ namespace ai
             static Trigger* missile_barrage(PlayerbotAI* ai) { return new MissileBarrageTrigger(ai); }
             static Trigger* arcane_blast(PlayerbotAI* ai) { return new ArcaneBlastTrigger(ai); }
             static Trigger* counterspell_enemy_healer(PlayerbotAI* ai) { return new CounterspellEnemyHealerTrigger(ai); }
+            static Trigger* slow(PlayerbotAI* ai) { return new SlowTrigger(ai); }
         };
     };
 };

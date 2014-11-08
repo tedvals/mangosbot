@@ -13,6 +13,7 @@ public:
         creators["arcane blast"] = &arcane_blast;
         creators["arcane barrage"] = &arcane_barrage;
         creators["arcane missiles"] = &arcane_missiles;
+        creators["boost"] = &arcane_power;
     }
 private:
     static ActionNode* arcane_blast(PlayerbotAI* ai)
@@ -34,6 +35,13 @@ private:
         return new ActionNode ("arcane missiles",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("shoot"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* arcane_power(PlayerbotAI* ai)
+    {
+        return new ActionNode ("arcane power",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("presence of mind"), NULL),
             /*C*/ NULL);
     }
 };
@@ -58,7 +66,24 @@ void ArcaneMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "missile barrage",
-        NextAction::array(0, new NextAction("arcane missiles", 15.0f), NULL)));
+        NextAction::array(0, new NextAction("arcane missiles", 20.0f), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "boost",
+        NextAction::array(0, new NextAction("arcane power", 40.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "slow on attacker",
+        NextAction::array(0, new NextAction("slow", 25.0f), NULL)));
 }
 
+void ArcaneMageAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+	triggers.push_back(new TriggerNode(
+		"high aoe",
+		NextAction::array(0, new NextAction("arcane explosion", 30.0f), NULL)));
+
+		triggers.push_back(new TriggerNode(
+		"medium aoe",
+		NextAction::array(0, new NextAction("cone of cold", 40.0f), NULL)));
+}

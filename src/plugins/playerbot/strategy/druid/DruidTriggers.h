@@ -134,6 +134,13 @@ namespace ai {
         virtual bool IsActive() { return !ai->HasAura("prowl", bot); }
     };
 
+    class DashTrigger : public BuffTrigger
+    {
+    public:
+        DashTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "dash") {}
+        virtual bool IsActive() { return !ai->HasAura("dash", bot); }
+    };
+
     class PredatorySwiftnessTrigger : public HasAuraTrigger
     {
     public:

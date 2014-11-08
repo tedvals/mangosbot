@@ -251,6 +251,13 @@ namespace ai
         CastHammerOfJusticeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "hammer of justice") {}
     };
 
+    class CastRepentanceAction : public CastBuffSpellAction
+    {
+    public:
+        CastRepentanceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "repentance") {}
+        virtual Value<Unit*>* GetTargetValue();
+    };
+
 	class CastHammerOfWrathAction : public CastMeleeSpellAction
 	{
 	public:

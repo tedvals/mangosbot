@@ -16,6 +16,8 @@ public:
         creators["explosive shot"] = &explosive_shot;
         creators["concussive shot"] = &concussive_shot;
         creators["viper sting"] = &viper_sting;
+        creators["boost"] = &bestial_wrath;
+        creators["bestial wrath"] = &bestial_wrath;
     }
 private:
     static ActionNode* viper_sting(PlayerbotAI* ai)
@@ -53,7 +55,13 @@ private:
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("wyvern sting", 11.0f), NULL));
     }
-
+    static ActionNode* bestial_wrath(PlayerbotAI* ai)
+    {
+        return new ActionNode ("bestial wrath",
+            /*P*/ NULL,
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
 };
 
 DpsHunterStrategy::DpsHunterStrategy(PlayerbotAI* ai) : GenericHunterStrategy(ai)
@@ -63,7 +71,7 @@ DpsHunterStrategy::DpsHunterStrategy(PlayerbotAI* ai) : GenericHunterStrategy(ai
 
 NextAction** DpsHunterStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("explosive shot", 11.0f), new NextAction("auto shot", 10.0f), NULL);
+    return NextAction::array(0, new NextAction("explosive shot", 11.0f), new NextAction("steady shot", 10.0f), NULL);
 }
 
 void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -93,6 +101,14 @@ void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "freezing trap",
         NextAction::array(0, new NextAction("freezing trap", 83.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "kill command",
+        NextAction::array(0, new NextAction("kill command", 50.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "medium threat",
+        NextAction::array(0, new NextAction("intimidation", 50.0f), NULL)));
 }
 
 void DpsAoeHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

@@ -15,6 +15,14 @@ namespace ai
 		}
     };
 
+    class HunterAspectOfTheDragonHawkTrigger : public BuffTrigger
+    {
+    public:
+        HunterAspectOfTheDragonHawkTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "aspect of the dragonhawk") {
+			checkInterval = 1;
+		}
+    };
+
 	class HunterAspectOfTheWildTrigger : public BuffTrigger
 	{
 	public:
@@ -72,6 +80,12 @@ namespace ai
         RapidFireTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "rapid fire") {}
     };
 
+    class KillCommandTrigger : public BoostTrigger
+    {
+    public:
+        KillCommandTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "kill command") {}
+    };
+
     class TrueshotAuraTrigger : public BuffTrigger
     {
     public:
@@ -82,5 +96,23 @@ namespace ai
     {
     public:
         SerpentStingOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "serpent sting") {}
+    };
+
+    class ArcaneShotOnAttackerTrigger : public TargetAuraDispelTrigger
+    {
+    public:
+        ArcaneShotOnAttackerTrigger(PlayerbotAI* ai) : TargetAuraDispelTrigger(ai, "arcane shot", DISPEL_MAGIC) {}
+    };
+
+    class SilencingShotEnemyHealerTrigger : public InterruptEnemyHealerTrigger
+    {
+    public:
+        SilencingShotEnemyHealerTrigger(PlayerbotAI* ai) : InterruptEnemyHealerTrigger(ai, "silencing shot") {}
+    };
+
+    class WyvernStingTrigger : public HasCcTargetTrigger
+    {
+    public:
+        WyvernStingTrigger(PlayerbotAI* ai) : HasCcTargetTrigger(ai, "wyvern sting") {}
     };
 }

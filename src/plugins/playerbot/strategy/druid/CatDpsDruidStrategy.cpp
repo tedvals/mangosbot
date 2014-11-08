@@ -28,10 +28,10 @@ public:
         creators["berserk"] = &berserk;
     }
 private:
-     static ActionNode* prowl(PlayerbotAI* ai)
+    static ActionNode* prowl(PlayerbotAI* ai)
     {
         return new ActionNode ("prowl",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("cat form")),
             /*A*/ NextAction::array(0, new NextAction("feral charge - cat"), NULL),
             /*C*/ NextAction::array(0, new NextAction("pounce"), NULL));
     }
@@ -45,8 +45,8 @@ private:
     static ActionNode* melee(PlayerbotAI* ai)
     {
         return new ActionNode ("melee",
-            /*P*/ NextAction::array(0, new NextAction("feral charge - cat"), NULL),
-            /*A*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("cat form")),
+            /*A*/ NextAction::array(0, new NextAction("feral charge - cat"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* feral_charge_cat(PlayerbotAI* ai)

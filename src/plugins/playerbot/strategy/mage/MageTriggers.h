@@ -17,10 +17,10 @@ namespace ai
         LivingBombTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "living bomb") {}
 	};
 
-    class FireballTrigger : public DebuffTrigger {
-    public:
-        FireballTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "fireball") {}
-	};
+    //class FireballTrigger : public DebuffTrigger {
+    //public:
+    //    FireballTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "fireball") {}
+	//};
 
     class PyroblastTrigger : public DebuffTrigger {
     public:
@@ -32,9 +32,29 @@ namespace ai
         HotStreakTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "hot streak") {}
     };
 
+    class BlazingSpeedTrigger : public HasAuraTrigger {
+    public:
+        BlazingSpeedTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "blazing speed") {}
+    };
+
     class MissileBarrageTrigger : public HasAuraTrigger {
     public:
         MissileBarrageTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "missile barrage") {}
+    };
+
+    class FingersFrostTrigger : public HasAuraTrigger {
+    public:
+        FingersFrostTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "fingers of frost") {}
+    };
+
+    class BrainfreezeTrigger : public HasAuraTrigger {
+    public:
+        BrainfreezeTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "brain freeze") {}
+    };
+
+    class FieryPaybackTrigger : public HasAuraTrigger {
+    public:
+        FieryPaybackTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "fiery payback") {}
     };
 
     class ArcaneBlastTrigger : public BuffTrigger {
@@ -52,6 +72,13 @@ namespace ai
     {
     public:
         CombustionTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "combustion") {}
+    };
+
+
+    class SummonWaterElementalTrigger : public BoostTrigger
+    {
+    public:
+        SummonWaterElementalTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "summon water elemental") {}
     };
 
     class IcyVeinsTrigger : public BoostTrigger
@@ -88,5 +115,11 @@ namespace ai
     {
     public:
         CounterspellEnemyHealerTrigger(PlayerbotAI* ai) : InterruptEnemyHealerTrigger(ai, "counterspell") {}
+    };
+
+     class SlowTrigger : public DebuffOnAttackerTrigger
+    {
+    public:
+        SlowTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "slow") {}
     };
 }

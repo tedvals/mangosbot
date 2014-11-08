@@ -95,6 +95,7 @@ namespace ai
                 creators["rip"] = &TriggerFactoryInternal::rip;
                 creators["predatory swiftness"] = &TriggerFactoryInternal::predatory_swiftness;
                 creators["berserk"] = &TriggerFactoryInternal::berserk;
+                creators["dash"] = &TriggerFactoryInternal::dash;
             }
 
         private:
@@ -123,6 +124,7 @@ namespace ai
             static Trigger* rip(PlayerbotAI* ai) { return new RipTrigger(ai); }
             static Trigger* predatory_swiftness(PlayerbotAI* ai) { return new PredatorySwiftnessTrigger(ai); }
             static Trigger* berserk(PlayerbotAI* ai) { return new BerserkTrigger(ai); }
+            static Trigger* dash(PlayerbotAI* ai) { return new DashTrigger(ai); }
         };
     };
 };

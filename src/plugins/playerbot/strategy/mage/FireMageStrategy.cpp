@@ -23,12 +23,20 @@ void FireMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("pyroblast", 25.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "fiery payback",
+        NextAction::array(0, new NextAction("pyroblast", 25.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "combustion",
         NextAction::array(0, new NextAction("combustion", 50.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy too close for spell",
         NextAction::array(0, new NextAction("dragon's breath", 70.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "blazing speed",
+        NextAction::array(0, new NextAction("flee", 60.0f), NULL)));
 }
 
 void FireMageAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

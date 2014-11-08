@@ -60,10 +60,35 @@ namespace ai
         virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance; }
     };
 
+    class CastArcaneExplosionAction : public CastSpellAction
+    {
+    public:
+        CastArcaneExplosionAction(PlayerbotAI* ai) : CastSpellAction(ai, "arcane explosion") {}
+        virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance; }
+    };
+
 	class CastFrostboltAction : public CastSpellAction
 	{
 	public:
 		CastFrostboltAction(PlayerbotAI* ai) : CastSpellAction(ai, "frostbolt") {}
+	};
+
+	class CastIceLanceAction : public CastSpellAction
+	{
+	public:
+		CastIceLanceAction(PlayerbotAI* ai) : CastSpellAction(ai, "ice lance") {}
+	};
+
+	class CastFrostfireBoltAction : public CastSpellAction
+	{
+	public:
+		CastFrostfireBoltAction(PlayerbotAI* ai) : CastSpellAction(ai, "frostfire bolt") {}
+	};
+
+    class CastDeepFreezeAction : public CastSpellAction
+	{
+	public:
+		CastDeepFreezeAction(PlayerbotAI* ai) : CastSpellAction(ai, "deep freeze") {}
 	};
 
 	class CastBlizzardAction : public CastSpellAction
@@ -84,10 +109,34 @@ namespace ai
 		CastArcaneIntellectOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "arcane intellect") {}
 	};
 
+	class CastFocusMagicOnPartyAction : public BuffOnPartyAction
+    {
+	public:
+		CastFocusMagicOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "focus magic") {}
+	};
+
 	class CastRemoveCurseAction : public CastCureSpellAction
     {
 	public:
 		CastRemoveCurseAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "remove curse") {}
+	};
+
+    class CastArcanePowerAction : public CastBuffSpellAction
+	{
+	public:
+	    CastArcanePowerAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "arcane power") {}
+	};
+
+	class CastPresenceMindAction : public CastBuffSpellAction
+	{
+	public:
+	    CastPresenceMindAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "presence of mind") {}
+	};
+
+    class CastSlowAction : public CastDebuffSpellAction
+	{
+	public:
+	    CastSlowAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "slow") {}
 	};
 
 	class CastIcyVeinsAction : public CastBuffSpellAction
@@ -100,6 +149,24 @@ namespace ai
     {
 	public:
 		CastCombustionAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "combustion") {}
+	};
+
+	class CastIceBlockAction : public CastBuffSpellAction
+    {
+	public:
+		CastIceBlockAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "ice block") {}
+	};
+
+	class CastColdSnapAction : public CastBuffSpellAction
+    {
+	public:
+		CastColdSnapAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "cold snap") {}
+	};
+
+	class CastIceBarrierAction : public CastBuffSpellAction
+    {
+	public:
+		CastIceBarrierAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "ice barrier") {}
 	};
 
     BEGIN_SPELL_ACTION(CastCounterspellAction, "counterspell")
@@ -123,10 +190,10 @@ namespace ai
 		CastConjureWaterAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "conjure water") {}
 	};
 
-	class CastIceBlockAction : public CastBuffSpellAction
+    class CastSummonWaterElementalAction : public CastBuffSpellAction
     {
 	public:
-		CastIceBlockAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "ice block") {}
+		CastSummonWaterElementalAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon water elemental") {}
 	};
 
     class CastMoltenArmorAction : public CastBuffSpellAction
@@ -172,22 +239,37 @@ namespace ai
 	    CastLivingBombAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "living bomb") {}
 	};
 
+	class CastConeColdAction : public CastDebuffSpellAction
+	{
+	public:
+	    CastConeColdAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "cone of cold") {}
+	    virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance; }
+	};
+
 	class CastDragonsBreathAction : public CastSpellAction
 	{
 	public:
 	    CastDragonsBreathAction(PlayerbotAI* ai) : CastSpellAction(ai, "dragon's breath") {}
+	    virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance; }
 	};
 
 	class CastBlastWaveAction : public CastSpellAction
 	{
 	public:
 	    CastBlastWaveAction(PlayerbotAI* ai) : CastSpellAction(ai, "blast wave") {}
+	    virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance; }
 	};
 
 	class CastInvisibilityAction : public CastBuffSpellAction
 	{
 	public:
 	    CastInvisibilityAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "invisibility") {}
+	};
+
+	class CastBlinkAction : public CastBuffSpellAction
+	{
+	public:
+	    CastBlinkAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "blink") {}
 	};
 
 	class CastEvocationAction : public CastSpellAction

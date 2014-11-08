@@ -7,7 +7,7 @@ using namespace ai;
 
 bool CastSerpentStingAction::isUseful()
 {
-    return AI_VALUE2(uint8, "health", "current target") > 30;
+    return AI_VALUE2(uint8, "health", "current target") > 20;
 }
 
 bool CastViperStingAction::isUseful()
@@ -23,4 +23,9 @@ bool CastAspectOfTheCheetahAction::isUseful()
 Value<Unit*>* CastFreezingTrap::GetTargetValue()
 {
     return context->GetValue<Unit*>("cc target", "freezing trap");
+}
+
+Value<Unit*>* CastWyvernStingAction::GetTargetValue()
+{
+    return context->GetValue<Unit*>("cc target", getName());
 }

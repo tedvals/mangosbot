@@ -1426,11 +1426,8 @@ void AddCustomScripts()
 #ifdef SCRIPTS
     /* This is where custom scripts should be added. */
 
-<<<<<<< HEAD
     AddSC_PWS_Transmogrification();
     AddSC_CS_Transmogrification();
-=======
     AddSC_REFORGER_NPC();
->>>>>>> 599088e873aefa277762f0da1d8985dd32d20bf9
 #endif
 }

@@ -115,6 +115,7 @@ namespace ai
                 creators["righteous fury"] = &TriggerFactoryInternal::righteous_fury;
                 creators["holy shield"] = &TriggerFactoryInternal::holy_shield;
                 creators["hammer of justice on enemy healer"] = &TriggerFactoryInternal::hammer_of_justice_on_enemy_target;
+                creators["repentance"] = &TriggerFactoryInternal::repentance;
             }
 
         private:
@@ -141,6 +142,7 @@ namespace ai
             static Trigger* CleanseCureMagic(PlayerbotAI* ai) { return new CleanseCureMagicTrigger(ai); }
             static Trigger* CleanseCurePartyMemberMagic(PlayerbotAI* ai) { return new CleanseCurePartyMemberMagicTrigger(ai); }
             static Trigger* hammer_of_justice_on_enemy_target(PlayerbotAI* ai) { return new HammerOfJusticeEnemyHealerTrigger(ai); }
+            static Trigger* repentance(PlayerbotAI* ai) {return new  RepentanceTrigger(ai);}
         };
     };
 };

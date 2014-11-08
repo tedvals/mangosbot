@@ -55,6 +55,10 @@ void GenericMageNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigger
         "arcane intellect on party",
         NextAction::array(0, new NextAction("arcane intellect on party", 20.0f), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "focus magic on party",
+        NextAction::array(0, new NextAction("focus magic on party", 20.0f), NULL)));
+
 	triggers.push_back(new TriggerNode(
 		"no drink",
 		NextAction::array(0, new NextAction("conjure water", 16.0f), NULL)));
@@ -70,6 +74,10 @@ void GenericMageNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigger
     triggers.push_back(new TriggerNode(
         "remove curse on party",
         NextAction::array(0, new NextAction("remove curse on party", 40.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "runaway",
+        NextAction::array(0, new NextAction("blink", 60.0f), NULL)));
 }
 
 void MageBuffManaStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

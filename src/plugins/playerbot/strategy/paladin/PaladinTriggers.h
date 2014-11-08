@@ -111,4 +111,10 @@ namespace ai
     public:
         HammerOfJusticeEnemyHealerTrigger(PlayerbotAI* ai) : InterruptEnemyHealerTrigger(ai, "hammer of justice") {}
     };
+
+    class RepentanceTrigger : public HasCcTargetTrigger
+    {
+    public:
+        RepentanceTrigger(PlayerbotAI* ai) : HasCcTargetTrigger(ai, "repentance") {}
+    };
 }

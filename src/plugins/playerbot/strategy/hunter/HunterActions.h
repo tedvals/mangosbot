@@ -16,6 +16,8 @@ namespace ai
     BEGIN_RANGED_SPELL_ACTION(CastExplosiveShotAction, "explosive shot")
     END_SPELL_ACTION()
 
+    BEGIN_RANGED_SPELL_ACTION(CastSteadyShotAction, "steady shot")
+    END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastAimedShotAction, "aimed shot")
     END_SPELL_ACTION()
@@ -29,6 +31,12 @@ namespace ai
     BEGIN_RANGED_SPELL_ACTION(CastDistractingShotAction, "distracting shot")
     END_SPELL_ACTION()
 
+    BEGIN_RANGED_SPELL_ACTION(CastSilencingShotAction, "silencing shot")
+    END_SPELL_ACTION()
+
+    BEGIN_RANGED_SPELL_ACTION(CastMisdirectionAction, "misdirection")
+    END_SPELL_ACTION()
+
     BEGIN_RANGED_SPELL_ACTION(CastMultiShotAction, "multi-shot")
     END_SPELL_ACTION()
 
@@ -39,7 +47,17 @@ namespace ai
     virtual bool isUseful();
     END_SPELL_ACTION()
 
-    BEGIN_RANGED_SPELL_ACTION(CastWyvernStingAction, "wyvern sting")
+    //BEGIN_RANGED_SPELL_ACTION(CastWyvernStingAction, "wyvern sting")
+    //END_SPELL_ACTION()
+
+    class CastWyvernStingAction : public CastBuffSpellAction
+    {
+    public:
+        CastWyvernStingAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "wyvern sting") {}
+        virtual Value<Unit*>* GetTargetValue();
+    };
+
+    BEGIN_RANGED_SPELL_ACTION(CastScatterShotAction, "scatter shot")
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastViperStingAction, "viper sting")
@@ -53,6 +71,12 @@ namespace ai
 	{
 	public:
 		CastAspectOfTheHawkAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "aspect of the hawk") {}
+	};
+
+	class CastAspectOfTheDragonHawkAction : public CastBuffSpellAction
+	{
+	public:
+		CastAspectOfTheDragonHawkAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "aspect of the dragonhawk") {}
 	};
 
 	class CastAspectOfTheWildAction : public CastBuffSpellAction
@@ -78,6 +102,12 @@ namespace ai
 	{
 	public:
 		CastAspectOfTheViperAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "aspect of the viper") {}
+	};
+
+	class CastAspectOfTheMonkeyAction : public CastBuffSpellAction
+	{
+	public:
+		CastAspectOfTheMonkeyAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "aspect of the monkey") {}
 	};
 
 	class CastCallPetAction : public CastBuffSpellAction
@@ -111,6 +141,18 @@ namespace ai
         CastFeignDeathAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "feign death") {}
     };
 
+    class CastDisengageAction : public CastBuffSpellAction
+    {
+    public:
+        CastDisengageAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "disengage") {}
+    };
+
+    class CastDeterrenceAction : public CastBuffSpellAction
+    {
+    public:
+        CastDeterrenceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "deterrence") {}
+    };
+
 	class CastRapidFireAction : public CastBuffSpellAction
 	{
 	public:
@@ -121,6 +163,24 @@ namespace ai
 	{
 	public:
 		CastReadinessAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "readiness") {}
+	};
+
+	class CastBestialWrathAction : public CastBuffSpellAction
+	{
+	public:
+		CastBestialWrathAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "bestial wrath") {}
+	};
+
+	class CastIntimidationAction : public CastBuffSpellAction
+	{
+	public:
+		CastIntimidationAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "intimidation") {}
+	};
+
+	class CastKillCommandAction : public CastBuffSpellAction
+	{
+	public:
+		CastKillCommandAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "kill command") {}
 	};
 
 	class CastBlackArrow : public CastDebuffSpellAction
@@ -150,5 +210,11 @@ namespace ai
     {
     public:
         CastSerpentStingOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "serpent sting") {}
+    };
+
+    class CastHuntersMarkActionOnAttackerAction : public CastDebuffSpellOnAttackerAction
+    {
+    public:
+        CastHuntersMarkActionOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "hunter's mark") {}
     };
 }

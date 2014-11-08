@@ -101,6 +101,10 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "behind target",
         NextAction::array(0, new NextAction("sinister strike", ACTION_NORMAL), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "not facing target",
+        NextAction::array(0, new NextAction("set facing", ACTION_NORMAL + 7), NULL)));
 }
 
 class DpsDaggerRogueStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
@@ -229,4 +233,8 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "behind target",
         NextAction::array(0, new NextAction("backstab", ACTION_NORMAL), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "not facing target",
+        NextAction::array(0, new NextAction("set facing", ACTION_NORMAL + 7), NULL)));
 }

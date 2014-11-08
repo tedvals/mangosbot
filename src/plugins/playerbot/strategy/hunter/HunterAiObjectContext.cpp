@@ -76,11 +76,16 @@ namespace ai
                 creators["freezing trap"] = &TriggerFactoryInternal::freezing_trap;
                 creators["aspect of the pack"] = &TriggerFactoryInternal::aspect_of_the_pack;
                 creators["rapid fire"] = &TriggerFactoryInternal::rapid_fire;
+                creators["kill command"] = &TriggerFactoryInternal::kill_command;
+                creators["aspect of the dragonhawk"] = &TriggerFactoryInternal::aspect_of_the_dragonhawk;
                 creators["aspect of the hawk"] = &TriggerFactoryInternal::aspect_of_the_hawk;
                 creators["aspect of the wild"] = &TriggerFactoryInternal::aspect_of_the_wild;
                 creators["aspect of the viper"] = &TriggerFactoryInternal::aspect_of_the_viper;
                 creators["trueshot aura"] = &TriggerFactoryInternal::trueshot_aura;
                 creators["serpent sting on attacker"] = &TriggerFactoryInternal::serpent_sting_on_attacker;
+                creators["silencing shot on enemy healer"] = &TriggerFactoryInternal::silencing_shot_on_enemy_healer;
+                creators["arcane shot on attacker"] = &TriggerFactoryInternal::arcane_shot;
+                creators["wyvern sting"] = &TriggerFactoryInternal::wyvern_sting;
             }
 
         private:
@@ -95,8 +100,13 @@ namespace ai
             static Trigger* freezing_trap(PlayerbotAI* ai) { return new FreezingTrapTrigger(ai); }
             static Trigger* aspect_of_the_pack(PlayerbotAI* ai) { return new HunterAspectOfThePackTrigger(ai); }
             static Trigger* rapid_fire(PlayerbotAI* ai) { return new RapidFireTrigger(ai); }
+            static Trigger* kill_command(PlayerbotAI* ai) { return new KillCommandTrigger(ai); }
             static Trigger* aspect_of_the_hawk(PlayerbotAI* ai) { return new HunterAspectOfTheHawkTrigger(ai); }
+            static Trigger* aspect_of_the_dragonhawk(PlayerbotAI* ai) { return new HunterAspectOfTheDragonHawkTrigger(ai); }
             static Trigger* aspect_of_the_wild(PlayerbotAI* ai) { return new HunterAspectOfTheWildTrigger(ai); }
+            static Trigger* silencing_shot_on_enemy_healer(PlayerbotAI* ai) { return new SilencingShotEnemyHealerTrigger(ai); }
+            static Trigger* arcane_shot(PlayerbotAI* ai) { return new ArcaneShotOnAttackerTrigger(ai); }
+            static Trigger* wyvern_sting(PlayerbotAI* ai) { return new WyvernStingTrigger(ai); }
         };
     };
 };
