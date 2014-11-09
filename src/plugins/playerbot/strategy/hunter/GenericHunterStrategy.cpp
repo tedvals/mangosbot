@@ -104,12 +104,20 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("freezing trap", 50), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "boost",
+        NextAction::array(0, new NextAction("rapid fire", 50), new NextAction("bestial wrath", 50), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "critical health",
         NextAction::array(0, new NextAction("deterrence", 70), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium threat",
         NextAction::array(0, new NextAction("misdirection", 52.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "have aggro",
+        NextAction::array(0, new NextAction("feign death", 70.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "hunters pet low health",

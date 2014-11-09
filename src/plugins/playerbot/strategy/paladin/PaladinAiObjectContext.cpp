@@ -6,6 +6,7 @@
 #include "GenericPaladinNonCombatStrategy.h"
 #include "TankPaladinStrategy.h"
 #include "DpsPaladinStrategy.h"
+#include "HealPaladinStrategy.h"
 #include "PaladinBuffStrategies.h"
 #include "../NamedObjectContext.h"
 
@@ -72,11 +73,13 @@ namespace ai
             {
                 creators["tank"] = &paladin::CombatStrategyFactoryInternal::tank;
                 creators["dps"] = &paladin::CombatStrategyFactoryInternal::dps;
+                creators["heal"] = &paladin::CombatStrategyFactoryInternal::heal;
             }
 
         private:
             static Strategy* tank(PlayerbotAI* ai) { return new TankPaladinStrategy(ai); }
             static Strategy* dps(PlayerbotAI* ai) { return new DpsPaladinStrategy(ai); }
+            static Strategy* heal(PlayerbotAI* ai) { return new HealPaladinStrategy(ai); }
         };
     };
 };
@@ -210,6 +213,19 @@ namespace ai
                 creators["righteous fury"] = &AiObjectContextInternal::righteous_fury;
                 creators["blessing of sanctuary"] = &AiObjectContextInternal::blessing_of_sanctuary;
                 creators["hammer of justice on enemy healer"] = &AiObjectContextInternal::hammer_of_justice_on_enemy_healer;
+                creators["holy shock"] = &AiObjectContextInternal::holy_shock;
+                creators["divine plea"] = &AiObjectContextInternal::divine_plea;
+                creators["divine favor"] = &AiObjectContextInternal::divine_favor;
+                creators["divine illumination"] = &AiObjectContextInternal::divine_illumination;
+                creators["aura mastery"] = &AiObjectContextInternal::aura_mastery;
+                creators["beacon of light on party"] = &AiObjectContextInternal::beacon_of_light_on_party;
+                creators["hand of sacrifice on party"] = &AiObjectContextInternal::hand_of_sacrifice_on_party;
+                creators["hand of salvation on party"] = &AiObjectContextInternal::hand_of_salvation_on_party;
+                creators["hand of freedom on party"] = &AiObjectContextInternal::hand_of_freedom_on_party;
+                creators["hand of protection on party"] = &AiObjectContextInternal::hand_of_protection_on_party;
+                creators["hand of freedom"] = &AiObjectContextInternal::hand_of_freedom;
+                creators["avenging wrath"] = &AiObjectContextInternal::avenging_wrath;
+                creators["sacred shield on party"] = &AiObjectContextInternal::hand_of_salvation_on_party;
             }
 
         private:
@@ -265,6 +281,19 @@ namespace ai
             static Action* frost_resistance_aura(PlayerbotAI* ai) { return new CastFrostResistanceAuraAction(ai); }
             static Action* fire_resistance_aura(PlayerbotAI* ai) { return new CastFireResistanceAuraAction(ai); }
             static Action* hammer_of_justice_on_enemy_healer(PlayerbotAI* ai) { return new CastHammerOfJusticeOnEnemyHealerAction(ai); }
+            static Action* holy_shock(PlayerbotAI* ai) { return new CastHolyShockAction(ai); }
+            static Action* divine_plea(PlayerbotAI* ai) { return new CastDivinePleaAction(ai); }
+            static Action* divine_favor(PlayerbotAI* ai) { return new CastDivineFavorAction(ai); }
+            static Action* aura_mastery(PlayerbotAI* ai) { return new CastAuraMasteryAction(ai); }
+            static Action* divine_illumination(PlayerbotAI* ai) { return new CastDivineIlluminationAction(ai); }
+            static Action* beacon_of_light_on_party(PlayerbotAI* ai) { return new CastBeaconOfLightOnPartyAction(ai); }
+            static Action* hand_of_protection_on_party(PlayerbotAI* ai) { return new CastHandOfProtectionOnPartyAction(ai); }
+            static Action* hand_of_sacrifice_on_party(PlayerbotAI* ai) { return new CastHandOfSacrificeOnPartyAction(ai); }
+            static Action* hand_of_salvation_on_party(PlayerbotAI* ai) { return new CastHandOfSalvationOnPartyAction(ai); }
+            static Action* hand_of_freedom_on_party(PlayerbotAI* ai) { return new CastHandOfFreedomOnPartyAction(ai); }
+            static Action* sacred_shield_on_party(PlayerbotAI* ai) { return new CastSacredShieldOnPartyAction(ai); }
+            static Action* hand_of_freedom(PlayerbotAI* ai) { return new CastHandOfFreedomAction(ai); }
+            static Action* avenging_wrath(PlayerbotAI* ai) { return new CastAvengingWrathAction(ai); }
         };
     };
 };

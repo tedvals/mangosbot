@@ -64,6 +64,10 @@ void ArcaneMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "arcane blast",
         NextAction::array(0, new NextAction("arcane blast", 15.0f), NULL)));
 
+     triggers.push_back(new TriggerNode(
+        "almost full health",
+        NextAction::array(0, new NextAction("mana shield", 15.0f), NULL)));
+
     triggers.push_back(new TriggerNode(
         "missile barrage",
         NextAction::array(0, new NextAction("arcane missiles", 20.0f), NULL)));
@@ -73,8 +77,8 @@ void ArcaneMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("arcane power", 40.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "slow on attacker",
-        NextAction::array(0, new NextAction("slow", 25.0f), NULL)));
+        "slow",
+        NextAction::array(0, new NextAction("slow", 30.0f), NULL)));
 }
 
 void ArcaneMageAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

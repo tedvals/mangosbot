@@ -5,27 +5,32 @@ namespace ai
 {
     BUFF_ON_PARTY_TRIGGER(ArcaneIntellectOnPartyTrigger, "arcane intellect", "arcane intellect on party")
     BUFF_TRIGGER(ArcaneIntellectTrigger, "arcane intellect", "arcane intellect")
+    //BUFF_TRIGGER(MoltenArmorTrigger, "molten armor", "molten armor")
+    BUFF_TRIGGER(SummonWaterElementalTrigger, "summon water elemental", "summon water elemental")
+    DEBUFF_TRIGGER(LivingBombTrigger, "living bomb", "living bomb")
+    DEBUFF_TRIGGER(SlowTrigger, "slow", "slow")
+    DEBUFF_TRIGGER(ImprovedScorchTrigger, "improved scorch", "improved scorch")
 
-    class MageArmorTrigger : public BuffTrigger {
+    class MoltenArmorTrigger : public BuffTrigger {
     public:
-        MageArmorTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "mage armor") {}
+        MoltenArmorTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "molten armor") {}
         virtual bool IsActive();
     };
 
-    class LivingBombTrigger : public DebuffTrigger {
-    public:
-        LivingBombTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "living bomb") {}
-	};
+ //   class LivingBombTrigger : public DebuffTrigger {
+ //   public:
+ //       LivingBombTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "living bomb") {}
+//	};
 
     //class FireballTrigger : public DebuffTrigger {
     //public:
     //    FireballTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "fireball") {}
 	//};
 
-    class PyroblastTrigger : public DebuffTrigger {
-    public:
-        PyroblastTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "pyroblast") {}
-    };
+ //   class PyroblastTrigger : public DebuffTrigger {
+ //   public:
+ //       PyroblastTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "pyroblast") {}
+ //   };
 
     class HotStreakTrigger : public HasAuraTrigger {
     public:
@@ -74,13 +79,6 @@ namespace ai
         CombustionTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "combustion") {}
     };
 
-
-    class SummonWaterElementalTrigger : public BoostTrigger
-    {
-    public:
-        SummonWaterElementalTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "summon water elemental") {}
-    };
-
     class IcyVeinsTrigger : public BoostTrigger
     {
     public:
@@ -115,11 +113,5 @@ namespace ai
     {
     public:
         CounterspellEnemyHealerTrigger(PlayerbotAI* ai) : InterruptEnemyHealerTrigger(ai, "counterspell") {}
-    };
-
-     class SlowTrigger : public DebuffOnAttackerTrigger
-    {
-    public:
-        SlowTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "slow") {}
     };
 }

@@ -13,6 +13,7 @@ public:
         creators["seal of vengeance"] = &seal_of_vengeance;
         creators["seal of command"] = &seal_of_command;
         creators["blessing of might"] = &blessing_of_might;
+        creators["blessing of kings"] = &blessing_of_kings;
         creators["crusader strike"] = &crusader_strike;
     }
 
@@ -36,6 +37,13 @@ private:
         return new ActionNode ("blessing of might",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("blessing of kings"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* blessing_of_kings(PlayerbotAI* ai)
+    {
+        return new ActionNode ("blessing of kings",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("blessing of wisdom"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* crusader_strike(PlayerbotAI* ai)
@@ -62,6 +70,14 @@ void DpsPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     GenericPaladinStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
+        "low health",
+        NextAction::array(0, new NextAction("flash of light", ACTION_MEDIUM_HEAL + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member low health",
+        NextAction::array(0, new NextAction("flash of light on party", ACTION_MEDIUM_HEAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "critical health",
         NextAction::array(0, new NextAction("divine shield", ACTION_CRITICAL_HEAL + 2), new NextAction("holy light", ACTION_CRITICAL_HEAL + 2), NULL)));
 
@@ -84,4 +100,8 @@ void DpsPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
      triggers.push_back(new TriggerNode(
         "not facing target",
         NextAction::array(0, new NextAction("set facing", ACTION_NORMAL + 7), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "medium threat",
+        NextAction::array(0, new NextAction("hand of salvation", ACTION_HIGH + 6), NULL)));
 }

@@ -19,6 +19,17 @@ namespace ai
         }
 	};
 
+    class CastAmbushAction : public CastMeleeSpellAction
+	{
+	public:
+		CastAmbushAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "ambush") {}
+
+        virtual NextAction** getPrerequisites()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
+        }
+	};
+
 	class CastCheapShotAction : public CastMeleeSpellAction
 	{
 	public:

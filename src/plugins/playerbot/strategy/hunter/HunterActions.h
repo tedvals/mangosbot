@@ -57,9 +57,6 @@ namespace ai
         virtual Value<Unit*>* GetTargetValue();
     };
 
-    BEGIN_RANGED_SPELL_ACTION(CastScatterShotAction, "scatter shot")
-    END_SPELL_ACTION()
-
     BEGIN_RANGED_SPELL_ACTION(CastViperStingAction, "viper sting")
     virtual bool isUseful();
     END_SPELL_ACTION()
@@ -203,6 +200,57 @@ namespace ai
         virtual bool isUseful()
         {
             return CastMeleeSpellAction::isUseful() && !ai->HasAura(spell, GetTarget());
+        }
+    };
+
+  class CastSnakeTrapAction : public CastMeleeSpellAction
+    {
+    public:
+        CastSnakeTrapAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "snake trap") {}
+        virtual bool isUseful()
+        {
+            return CastMeleeSpellAction::isUseful();
+        }
+    };
+
+    class CastImmolationTrapAction : public CastMeleeSpellAction
+    {
+    public:
+        CastImmolationTrapAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "immolation trap") {}
+        virtual bool isUseful()
+        {
+            return CastMeleeSpellAction::isUseful();
+        }
+    };
+
+    class CastExplosiveTrapAction : public CastMeleeSpellAction
+    {
+    public:
+        CastExplosiveTrapAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "explosive trap") {}
+        virtual bool isUseful()
+        {
+            return CastMeleeSpellAction::isUseful();
+        }
+    };
+
+    class CastCounterAttackAction : public CastMeleeSpellAction
+    {
+    public:
+        CastCounterAttackAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "counterattack") {}
+        virtual bool isUseful()
+        {
+            return CastMeleeSpellAction::isUseful();
+        }
+    };
+
+
+    class CastScatterShotAction : public CastMeleeSpellAction
+    {
+    public:
+        CastScatterShotAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "counterattack") {}
+        virtual bool isUseful()
+        {
+            return CastMeleeSpellAction::isUseful();
         }
     };
 

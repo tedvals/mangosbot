@@ -239,10 +239,10 @@ namespace ai
 	    CastLivingBombAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "living bomb") {}
 	};
 
-	class CastConeColdAction : public CastDebuffSpellAction
+	class CastConeOfColdAction : public CastSpellAction
 	{
 	public:
-	    CastConeColdAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "cone of cold") {}
+	    CastConeOfColdAction(PlayerbotAI* ai) : CastSpellAction(ai, "cone of cold") {}
 	    virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance; }
 	};
 
@@ -264,6 +264,24 @@ namespace ai
 	{
 	public:
 	    CastInvisibilityAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "invisibility") {}
+	};
+
+	class CastManaShieldAction : public CastBuffSpellAction
+	{
+	public:
+	    CastManaShieldAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "mana shield") {}
+	};
+
+    class CastFrostWardAction : public CastBuffSpellAction
+	{
+	public:
+	    CastFrostWardAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "frost ward") {}
+	};
+
+	class CastFireWardAction : public CastBuffSpellAction
+	{
+	public:
+	    CastFireWardAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "fire ward") {}
 	};
 
 	class CastBlinkAction : public CastBuffSpellAction

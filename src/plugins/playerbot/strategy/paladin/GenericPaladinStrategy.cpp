@@ -5,7 +5,6 @@
 
 using namespace ai;
 
-
 GenericPaladinStrategy::GenericPaladinStrategy(PlayerbotAI* ai) : MeleeCombatStrategy(ai)
 {
     actionNodeFactories.Add(new GenericPaladinStrategyActionNodeFactory());
@@ -16,20 +15,8 @@ void GenericPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     MeleeCombatStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
-        "medium health",
-        NextAction::array(0, new NextAction("flash of light", ACTION_MEDIUM_HEAL + 2), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "party member medium health",
-        NextAction::array(0, new NextAction("flash of light on party", ACTION_MEDIUM_HEAL + 1), NULL)));
-
-    triggers.push_back(new TriggerNode(
         "critical health",
         NextAction::array(0, new NextAction("divine protection", ACTION_CRITICAL_HEAL + 2), new NextAction("holy light", ACTION_CRITICAL_HEAL + 2), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "party member low health",
-        NextAction::array(0, new NextAction("holy light on party", ACTION_CRITICAL_HEAL + 1), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"hammer of justice interrupt",
@@ -74,4 +61,8 @@ void GenericPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"cleanse party member cure magic",
 		NextAction::array(0, new NextAction("cleanse magic on party", ACTION_DISPEL + 1), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "boost",
+        NextAction::array(0, new NextAction("avenging wrath", ACTION_HIGH + 7), NULL)));
 }

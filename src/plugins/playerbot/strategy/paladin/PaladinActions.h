@@ -93,7 +93,6 @@ namespace ai
 		CastSealOfJusticeAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "seal of justice") {}
 	};
 
-
 	class CastSealOfLightAction : public CastBuffSpellAction
 	{
 	public:
@@ -171,6 +170,19 @@ namespace ai
         virtual string getName() { return "blessing of sanctuary on party";}
 	};
 
+	class CastBeaconOfLightAction : public CastBuffSpellAction
+	{
+	public:
+		CastBeaconOfLightAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "beacon of light") {}
+	};
+
+	class CastBeaconOfLightOnPartyAction : public BuffOnPartyAction
+	{
+	public:
+		CastBeaconOfLightOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "beacon of light") {}
+        virtual string getName() { return "beacon of light on party";}
+	};
+
     class CastHolyLightAction : public CastHealingSpellAction
     {
     public:
@@ -183,6 +195,28 @@ namespace ai
         CastHolyLightOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "holy light") {}
 
         virtual string getName() { return "holy light on party"; }
+    };
+
+    class CastHolyShockAction : public CastHealingSpellAction
+    {
+    public:
+        CastHolyShockAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "holy shock") {}
+    };
+
+    class CastHolyShockOnPartyAction : public HealPartyMemberAction
+    {
+    public:
+        CastHolyShockOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "shock shock") {}
+
+        virtual string getName() { return "holy shock on party"; }
+    };
+
+    class CastSacredShieldOnPartyAction : public HealPartyMemberAction
+    {
+    public:
+        CastSacredShieldOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "sacred shield") {}
+
+        virtual string getName() { return "sacred shield on party"; }
     };
 
     class CastFlashOfLightAction : public CastHealingSpellAction
@@ -217,6 +251,36 @@ namespace ai
 	{
 	public:
 		CastDivineProtectionAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "divine protection") {}
+	};
+
+    class CastDivineFavorAction : public CastBuffSpellAction
+	{
+	public:
+		CastDivineFavorAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "divine favor") {}
+	};
+
+    class CastDivinePleaAction : public CastBuffSpellAction
+	{
+	public:
+		CastDivinePleaAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "divine plea") {}
+	};
+
+    class CastDivineIlluminationAction : public CastBuffSpellAction
+	{
+	public:
+		CastDivineIlluminationAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "divine illumination") {}
+	};
+
+    class CastAuraMasteryAction : public CastBuffSpellAction
+	{
+	public:
+		CastAuraMasteryAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "aura mastery") {}
+	};
+
+	class CastAvengingWrathAction : public CastBuffSpellAction
+	{
+	public:
+		CastAvengingWrathAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "avenging wrath") {}
 	};
 
     class CastDivineProtectionOnPartyAction : public HealPartyMemberAction
@@ -303,6 +367,52 @@ namespace ai
 	public:
 		CastHandOfReckoningAction(PlayerbotAI* ai) : CastSpellAction(ai, "hand of reckoning") {}
 	};
+
+//	class CastHandOfSalvationAction : public CastSpellAction
+//	{
+//	public:
+//		CastHandOfSalvationAction(PlayerbotAI* ai) : CastSpellAction(ai, "hand of salvation") {}
+//	};
+
+	class CastHandOfSalvationOnPartyAction : public BuffOnPartyAction
+	{
+	public:
+		CastHandOfSalvationOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "hand of salvation") {}
+        virtual string getName() { return "hand of salvation on party";}
+	};
+
+	class CastHandOfFreedomAction : public CastSpellAction
+	{
+	public:
+		CastHandOfFreedomAction(PlayerbotAI* ai) : CastSpellAction(ai, "hand of freedom") {}
+	};
+
+	class CastHandOfFreedomOnPartyAction : public BuffOnPartyAction
+	{
+	public:
+		CastHandOfFreedomOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "hand of freedom") {}
+        virtual string getName() { return "hand of freedom on party";}
+	};
+
+	class CastHandOfSacrificeOnPartyAction : public BuffOnPartyAction
+	{
+	public:
+		CastHandOfSacrificeOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "hand of sacrifice") {}
+        virtual string getName() { return "hand of sacrifice on party";}
+	};
+
+	class CastHandOfProtectionOnPartyAction : public BuffOnPartyAction
+	{
+	public:
+		CastHandOfProtectionOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "hand of protection") {}
+        virtual string getName() { return "hand of protection on party";}
+	};
+
+//	class CastHandOfSacrificeAction : public CastSpellAction
+//	{
+//	public:
+//		CastHandOfSacrificeAction(PlayerbotAI* ai) : CastSpellAction(ai, "hand of sacrifice") {}
+//	};
 
 	class CastCleansePoisonAction : public CastCureSpellAction
 	{

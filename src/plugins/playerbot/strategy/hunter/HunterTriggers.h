@@ -56,17 +56,8 @@ namespace ai
     BEGIN_TRIGGER(HuntersPetLowHealthTrigger, Trigger)
     END_TRIGGER()
 
-    class BlackArrowTrigger : public DebuffTrigger
-    {
-    public:
-        BlackArrowTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "black arrow") {}
-    };
-
-    class HuntersMarkTrigger : public DebuffTrigger
-    {
-    public:
-        HuntersMarkTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "hunter's mark") {}
-    };
+    DEBUFF_TRIGGER(BlackArrowTrigger, "black arrow", "black arrow")
+    DEBUFF_TRIGGER(HuntersMarkTrigger, "hunter's mark", "hunter's mark")
 
     class FreezingTrapTrigger : public HasCcTargetTrigger
     {
@@ -84,6 +75,12 @@ namespace ai
     {
     public:
         KillCommandTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "kill command") {}
+    };
+
+    class CounterstrikeTrigger : public BuffTrigger
+    {
+    public:
+        CounterstrikeTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "counterstrike") {}
     };
 
     class TrueshotAuraTrigger : public BuffTrigger

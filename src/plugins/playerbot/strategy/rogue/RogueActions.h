@@ -25,6 +25,18 @@ namespace ai
 		CastSprintAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "sprint") {}
 	};
 
+	class CastPremeditationAction : public CastBuffSpellAction
+	{
+	public:
+		CastPremeditationAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "premeditation") {}
+	};
+
+	class CastPreparationAction : public CastBuffSpellAction
+	{
+	public:
+		CastPreparationAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "preparation") {}
+	};
+
 	class CastKickAction : public CastSpellAction
 	{
 	public:
@@ -55,6 +67,12 @@ namespace ai
 		CastVanishAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "vanish") {}
 	};
 
+	class CastTricksOfTradeOnPartyAction : public  BuffOnPartyAction
+	{
+	public:
+		CastTricksOfTradeOnPartyAction(PlayerbotAI* ai) :  BuffOnPartyAction(ai, "tricks of trade") {}
+	};
+
 	class CastBlindAction : public CastDebuffSpellAction
 	{
 	public:
@@ -65,6 +83,18 @@ namespace ai
 	{
 	public:
 		CastShadowstepAction(PlayerbotAI* ai) : CastReachTargetSpellAction(ai, "shadowstep", 1.5f) {}
+	};
+
+    class CastColdBloodAction : public CastBuffSpellAction
+	{
+	public:
+		CastColdBloodAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "cold blood") {}
+	};
+
+    class CastHungerForBloodAction : public CastBuffSpellAction
+	{
+	public:
+		CastHungerForBloodAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "hunger for blood") {}
 	};
 
 	class CastBladeFlurryAction : public CastBuffSpellAction
@@ -83,6 +113,12 @@ namespace ai
 	{
 	public:
 		CastKillingSpreeAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "killing spree") {}
+	};
+
+    class CastShadowDanceAction : public CastBuffSpellAction
+	{
+	public:
+		CastShadowDanceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "shadow dance") {}
 	};
 
     class CastKickOnEnemyHealerAction : public CastSpellOnEnemyHealerAction

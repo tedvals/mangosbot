@@ -86,6 +86,7 @@ namespace ai
                 creators["silencing shot on enemy healer"] = &TriggerFactoryInternal::silencing_shot_on_enemy_healer;
                 creators["arcane shot on attacker"] = &TriggerFactoryInternal::arcane_shot;
                 creators["wyvern sting"] = &TriggerFactoryInternal::wyvern_sting;
+                creators["counterstrike"] = &TriggerFactoryInternal::counterstrike;
             }
 
         private:
@@ -107,6 +108,7 @@ namespace ai
             static Trigger* silencing_shot_on_enemy_healer(PlayerbotAI* ai) { return new SilencingShotEnemyHealerTrigger(ai); }
             static Trigger* arcane_shot(PlayerbotAI* ai) { return new ArcaneShotOnAttackerTrigger(ai); }
             static Trigger* wyvern_sting(PlayerbotAI* ai) { return new WyvernStingTrigger(ai); }
+            static Trigger* counterstrike(PlayerbotAI* ai) { return new CounterstrikeTrigger(ai); }
         };
     };
 };
@@ -146,15 +148,31 @@ namespace ai
                 creators["freezing trap"] = &AiObjectContextInternal::freezing_trap;
                 creators["rapid fire"] = &AiObjectContextInternal::rapid_fire;
                 creators["boost"] = &AiObjectContextInternal::rapid_fire;
-                creators["readiness"] = &AiObjectContextInternal::readiness;
+                creators["readiness"] = &AiObjectContextInternal::readiness_action;
                 creators["aspect of the hawk"] = &AiObjectContextInternal::aspect_of_the_hawk;
+                creators["aspect of the dragonhawk"] = &AiObjectContextInternal::aspect_of_the_dragonhawk;
                 creators["aspect of the wild"] = &AiObjectContextInternal::aspect_of_the_wild;
+                creators["aspect of the monkey"] = &AiObjectContextInternal::aspect_of_the_monkey;
                 creators["aspect of the viper"] = &AiObjectContextInternal::aspect_of_the_viper;
                 creators["aspect of the pack"] = &AiObjectContextInternal::aspect_of_the_pack;
                 creators["aspect of the cheetah"] = &AiObjectContextInternal::aspect_of_the_cheetah;
                 creators["trueshot aura"] = &AiObjectContextInternal::trueshot_aura;
                 creators["feign death"] = &AiObjectContextInternal::feign_death;
                 creators["wing clip"] = &AiObjectContextInternal::wing_clip;
+                creators["steady shot"] = &AiObjectContextInternal::steady_shot;
+                creators["kill command"] = &AiObjectContextInternal::kill_command;
+                creators["misdirection"] = &AiObjectContextInternal::misdirection;
+                creators["silencing shot"] = &AiObjectContextInternal::silencing_shot;
+                creators["bestial wrath"] = &AiObjectContextInternal::bestial_wrath;
+                creators["intimidation"] = &AiObjectContextInternal::intimidation;
+                creators["deterrence"] = &AiObjectContextInternal::deterrence;
+                creators["disengage"] = &AiObjectContextInternal::disengage;
+                creators["readiness"] = &AiObjectContextInternal::readiness;
+                creators["scatter shot"] = &AiObjectContextInternal::scatter_shot;
+                creators["counterattack"] = &AiObjectContextInternal::counterattack;
+                creators["snake trap"] = &AiObjectContextInternal::snake_trap;
+                creators["immolation trap"] = &AiObjectContextInternal::immolation_trap;
+                creators["explosive trap"] = &AiObjectContextInternal::explosive_trap;
             }
 
         private:
@@ -183,11 +201,27 @@ namespace ai
             static Action* rapid_fire(PlayerbotAI* ai) { return new CastRapidFireAction(ai); }
             static Action* readiness(PlayerbotAI* ai) { return new CastReadinessAction(ai); }
             static Action* aspect_of_the_hawk(PlayerbotAI* ai) { return new CastAspectOfTheHawkAction(ai); }
+            static Action* aspect_of_the_dragonhawk(PlayerbotAI* ai) { return new CastAspectOfTheDragonHawkAction(ai); }
             static Action* aspect_of_the_wild(PlayerbotAI* ai) { return new CastAspectOfTheWildAction(ai); }
             static Action* aspect_of_the_viper(PlayerbotAI* ai) { return new CastAspectOfTheViperAction(ai); }
             static Action* aspect_of_the_pack(PlayerbotAI* ai) { return new CastAspectOfThePackAction(ai); }
             static Action* aspect_of_the_cheetah(PlayerbotAI* ai) { return new CastAspectOfTheCheetahAction(ai); }
+            static Action* aspect_of_the_monkey(PlayerbotAI* ai) { return new CastAspectOfTheMonkeyAction(ai); }
             static Action* wing_clip(PlayerbotAI* ai) { return new CastWingClipAction(ai); }
+            static Action* steady_shot(PlayerbotAI* ai) { return new CastSteadyShotAction(ai); }
+            static Action* kill_command(PlayerbotAI* ai) { return new CastKillCommandAction(ai); }
+            static Action* misdirection(PlayerbotAI* ai) { return new CastMisdirectionAction(ai); }
+            static Action* silencing_shot(PlayerbotAI* ai) { return new CastSilencingShotAction(ai); }
+            static Action* bestial_wrath(PlayerbotAI* ai) { return new CastBestialWrathAction(ai); }
+            static Action* intimidation(PlayerbotAI* ai) { return new CastIntimidationAction(ai); }
+            static Action* disengage(PlayerbotAI* ai) { return new CastDisengageAction(ai); }
+            static Action* readiness_action(PlayerbotAI* ai) { return new CastReadinessAction(ai); }
+            static Action* deterrence(PlayerbotAI* ai) { return new CastDeterrenceAction(ai); }
+            static Action* scatter_shot(PlayerbotAI* ai) { return new CastScatterShotAction(ai); }
+            static Action* counterattack(PlayerbotAI* ai) { return new CastCounterAttackAction(ai); }
+            static Action* snake_trap(PlayerbotAI* ai) { return new CastSnakeTrapAction(ai); }
+            static Action* immolation_trap(PlayerbotAI* ai) { return new CastImmolationTrapAction(ai); }
+            static Action* explosive_trap(PlayerbotAI* ai) { return new CastExplosiveTrapAction(ai); }
         };
     };
 };

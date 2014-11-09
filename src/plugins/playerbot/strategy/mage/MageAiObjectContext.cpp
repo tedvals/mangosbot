@@ -83,12 +83,12 @@ namespace ai
             TriggerFactoryInternal()
             {
                // creators["fireball"] = &TriggerFactoryInternal::fireball;
-                creators["pyroblast"] = &TriggerFactoryInternal::pyroblast;
+                //creators["pyroblast"] = &TriggerFactoryInternal::pyroblast;
                 creators["combustion"] = &TriggerFactoryInternal::combustion;
                 creators["icy veins"] = &TriggerFactoryInternal::icy_veins;
                 creators["arcane intellect"] = &TriggerFactoryInternal::arcane_intellect;
                 creators["arcane intellect on party"] = &TriggerFactoryInternal::arcane_intellect_on_party;
-                creators["mage armor"] = &TriggerFactoryInternal::mage_armor;
+                creators["molten armor"] = &TriggerFactoryInternal::molten_armor;
                 creators["remove curse"] = &TriggerFactoryInternal::remove_curse;
                 creators["remove curse on party"] = &TriggerFactoryInternal::remove_curse_on_party;
                 creators["counterspell"] = &TriggerFactoryInternal::counterspell;
@@ -112,13 +112,14 @@ namespace ai
             static Trigger* fingers_frost(PlayerbotAI* ai) { return new FingersFrostTrigger(ai); }
             static Trigger* brain_freeze(PlayerbotAI* ai) { return new BrainfreezeTrigger(ai); }
             static Trigger* fiery_payback(PlayerbotAI* ai) { return new FieryPaybackTrigger(ai); }
+            static Trigger* improved_scorch(PlayerbotAI* ai) { return new ImprovedScorchTrigger(ai); }
             //static Trigger* fireball(PlayerbotAI* ai) { return new FireballTrigger(ai); }
-            static Trigger* pyroblast(PlayerbotAI* ai) { return new PyroblastTrigger(ai); }
+            //static Trigger* pyroblast(PlayerbotAI* ai) { return new PyroblastTrigger(ai); }
             static Trigger* combustion(PlayerbotAI* ai) { return new CombustionTrigger(ai); }
             static Trigger* icy_veins(PlayerbotAI* ai) { return new IcyVeinsTrigger(ai); }
             static Trigger* arcane_intellect(PlayerbotAI* ai) { return new ArcaneIntellectTrigger(ai); }
             static Trigger* arcane_intellect_on_party(PlayerbotAI* ai) { return new ArcaneIntellectOnPartyTrigger(ai); }
-            static Trigger* mage_armor(PlayerbotAI* ai) { return new MageArmorTrigger(ai); }
+            static Trigger* molten_armor(PlayerbotAI* ai) { return new MoltenArmorTrigger(ai); }
             static Trigger* remove_curse(PlayerbotAI* ai) { return new RemoveCurseTrigger(ai); }
             static Trigger* remove_curse_on_party(PlayerbotAI* ai) { return new PartyMemberRemoveCurseTrigger(ai); }
             static Trigger* counterspell(PlayerbotAI* ai) { return new CounterspellInterruptSpellTrigger(ai); }
@@ -128,6 +129,7 @@ namespace ai
             static Trigger* missile_barrage(PlayerbotAI* ai) { return new MissileBarrageTrigger(ai); }
             static Trigger* arcane_blast(PlayerbotAI* ai) { return new ArcaneBlastTrigger(ai); }
             static Trigger* counterspell_enemy_healer(PlayerbotAI* ai) { return new CounterspellEnemyHealerTrigger(ai); }
+            static Trigger* summon_water_elemental(PlayerbotAI* ai) { return new SummonWaterElementalTrigger(ai); }
             static Trigger* slow(PlayerbotAI* ai) { return new SlowTrigger(ai); }
         };
     };
@@ -178,6 +180,20 @@ namespace ai
                 creators["arcane barrage"] = &AiObjectContextInternal::arcane_barrage;
                 creators["arcane missiles"] = &AiObjectContextInternal::arcane_missiles;
                 creators["counterspell on enemy healer"] = &AiObjectContextInternal::counterspell_on_enemy_healer;
+                creators["cold snap"] = &AiObjectContextInternal::cold_snap;
+                creators["ice barrier"] = &AiObjectContextInternal::ice_barrier;
+                creators["summon water elemental"] = &AiObjectContextInternal::summon_water_elemental;
+                creators["frostfire bolt"] = &AiObjectContextInternal::frostfire_bolt;
+                creators["ice lance"] = &AiObjectContextInternal::ice_lance;
+                creators["blink"] = &AiObjectContextInternal::blink;
+                creators["cone of cold"] = &AiObjectContextInternal::cone_of_cold;
+                creators["arcane explosion"] = &AiObjectContextInternal::arcane_explosion;
+                creators["mana shield"] = &AiObjectContextInternal::mana_shield;
+                creators["presence of mind"] = &AiObjectContextInternal::presence_of_mind;
+                creators["arcane power"] = &AiObjectContextInternal::arcane_power;
+                creators["slow"] = &AiObjectContextInternal::slow;
+                creators["fire ward"] = &AiObjectContextInternal::fire_ward;
+                creators["frost ward"] = &AiObjectContextInternal::frost_ward;
             }
 
         private:
@@ -214,6 +230,20 @@ namespace ai
             static Action* invisibility(PlayerbotAI* ai) { return new CastInvisibilityAction(ai); }
             static Action* evocation(PlayerbotAI* ai) { return new CastEvocationAction(ai); }
             static Action* counterspell_on_enemy_healer(PlayerbotAI* ai) { return new CastCounterspellOnEnemyHealerAction(ai); }
+            static Action* cold_snap(PlayerbotAI* ai) { return new CastColdSnapAction(ai); }
+            static Action* ice_barrier(PlayerbotAI* ai) { return new CastIceBarrierAction(ai); }
+            static Action* summon_water_elemental(PlayerbotAI* ai) { return new CastSummonWaterElementalAction(ai); }
+            static Action* frostfire_bolt(PlayerbotAI* ai) { return new CastFrostfireBoltAction(ai); }
+            static Action* ice_lance(PlayerbotAI* ai) { return new CastIceLanceAction(ai); }
+            static Action* blink(PlayerbotAI* ai) { return new CastBlinkAction(ai); }
+            static Action* cone_of_cold(PlayerbotAI* ai) { return new CastConeOfColdAction(ai); }
+            static Action* arcane_explosion(PlayerbotAI* ai) { return new CastArcaneExplosionAction(ai); }
+            static Action* mana_shield(PlayerbotAI* ai) { return new CastManaShieldAction(ai); }
+            static Action* presence_of_mind(PlayerbotAI* ai) { return new CastPresenceMindAction(ai); }
+            static Action* arcane_power(PlayerbotAI* ai) { return new CastArcanePowerAction(ai); }
+            static Action* slow(PlayerbotAI* ai) { return new CastSlowAction(ai); }
+            static Action* fire_ward(PlayerbotAI* ai) { return new CastFireWardAction(ai); }
+            static Action* frost_ward(PlayerbotAI* ai) { return new CastFrostWardAction(ai); }
         };
     };
 };

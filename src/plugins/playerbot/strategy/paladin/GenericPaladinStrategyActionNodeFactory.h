@@ -14,7 +14,7 @@ namespace ai
             creators["cleanse poison on party"] = &cleanse_poison_on_party;
             creators["cleanse disease on party"] = &cleanse_disease_on_party;
             creators["seal of wisdom"] = &seal_of_wisdom;
-            creators["seal of justice"] = &seal_of_justice;
+            creators["seal of justice"] = &seal_of_righteousness;
             creators["hand of reckoning"] = &hand_of_reckoning;
             creators["judgement of wisdom"] = &judgement_of_wisdom;
             creators["divine shield"] = &divine_shield;
@@ -23,13 +23,14 @@ namespace ai
             creators["holy wrath"] = &holy_wrath;
             creators["lay on hands"] = &lay_on_hands;
             creators["lay on hands on party"] = &lay_on_hands_on_party;
+            creators["hand of protection on party"] = &hand_of_protection_on_party;
         }
     private:
         static ActionNode* lay_on_hands(PlayerbotAI* ai)
         {
             return new ActionNode ("lay on hands",
                 /*P*/ NULL,
-                /*A*/ NextAction::array(0, new NextAction("divine shield"), new NextAction("flash of light"), NULL),
+                /*A*/ NextAction::array(0, new NextAction("divine shield"), new NextAction("holy light"), NULL),
                 /*C*/ NULL);
         }
         static ActionNode* lay_on_hands_on_party(PlayerbotAI* ai)
@@ -85,14 +86,14 @@ namespace ai
         {
             return new ActionNode ("seal of wisdom",
                 /*P*/ NULL,
-                /*A*/ NextAction::array(0, new NextAction("seal of justice"), NULL),
+                /*A*/ NextAction::array(0, new NextAction("seal of righteousness"), NULL),
                 /*C*/ NULL);
         }
-        static ActionNode* seal_of_justice(PlayerbotAI* ai)
+        static ActionNode* seal_of_righteousness(PlayerbotAI* ai)
         {
-            return new ActionNode ("seal of justice",
+            return new ActionNode ("seal of righteousness",
                 /*P*/ NULL,
-                /*A*/ NextAction::array(0, new NextAction("seal of righteousness"), NULL),
+                /*A*/ NextAction::array(0, new NextAction("seal_of_justice"), NULL),
                 /*C*/ NULL);
         }
         static ActionNode* hand_of_reckoning(PlayerbotAI* ai)
@@ -135,6 +136,13 @@ namespace ai
             return new ActionNode ("holy wrath",
                 /*P*/ NULL,
                 /*A*/ NextAction::array(0, new NextAction("consecration"), NULL),
+                /*C*/ NULL);
+        }
+        static ActionNode* hand_of_protection_on_party(PlayerbotAI* ai)
+        {
+            return new ActionNode ("hand of protection",
+                /*P*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("hand of salvation on party"), NULL),
                 /*C*/ NULL);
         }
     };

@@ -18,7 +18,7 @@ namespace ai
 	class SealTrigger : public BuffTrigger
 	{
 	public:
-		SealTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "seal of justice") {}
+		SealTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "seal of command") {}
 		virtual bool IsActive();
 	};
 
@@ -44,6 +44,12 @@ namespace ai
     {
     public:
         ArtOfWarTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "the art of war") {}
+    };
+
+    class LightsGraceTrigger : public HasAuraTrigger
+    {
+    public:
+        LightsGraceTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "light's grace") {}
     };
 
     class ShadowResistanceAuraTrigger : public BuffTrigger

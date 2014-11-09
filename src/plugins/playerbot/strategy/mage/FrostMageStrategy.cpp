@@ -73,6 +73,10 @@ void FrostMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("frostfire bolt", 50.0f),NULL)));
 
     triggers.push_back(new TriggerNode(
+        "summon water elemental",
+        NextAction::array(0, new NextAction("summon water elemental", 60.0f),NULL)));
+
+    triggers.push_back(new TriggerNode(
 		"critical health",
 		NextAction::array(0, new NextAction("ice block", 80.0f), NULL)));
 }

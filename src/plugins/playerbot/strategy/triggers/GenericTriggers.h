@@ -206,6 +206,12 @@ namespace ai
         virtual bool IsActive() { return AI_VALUE2(list<Item*>, "inventory items", "drink").empty(); }
     };
 
+    class NoAoeTrigger : public AoeTrigger
+    {
+    public:
+        NoAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 1, 12.0f) {}
+    };
+
     class LightAoeTrigger : public AoeTrigger
     {
     public:

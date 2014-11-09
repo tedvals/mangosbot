@@ -54,6 +54,7 @@ namespace ai
             creators["lose aggro"] = &TriggerContext::LoseAggro;
             creators["has aggro"] = &TriggerContext::HasAggro;
 
+            creators["no aoe"] = &TriggerContext::NoAoe;
             creators["light aoe"] = &TriggerContext::LightAoe;
             creators["medium aoe"] = &TriggerContext::MediumAoe;
             creators["high aoe"] = &TriggerContext::HighAoe;
@@ -109,6 +110,7 @@ namespace ai
         static Trigger* panic(PlayerbotAI* ai) { return new PanicTrigger(ai); }
         static Trigger* no_drink(PlayerbotAI* ai) { return new NoDrinkTrigger(ai); }
         static Trigger* no_food(PlayerbotAI* ai) { return new NoFoodTrigger(ai); }
+        static Trigger* NoAoe(PlayerbotAI* ai) { return new NoAoeTrigger(ai); }
         static Trigger* LightAoe(PlayerbotAI* ai) { return new LightAoeTrigger(ai); }
         static Trigger* MediumAoe(PlayerbotAI* ai) { return new MediumAoeTrigger(ai); }
         static Trigger* HighAoe(PlayerbotAI* ai) { return new HighAoeTrigger(ai); }

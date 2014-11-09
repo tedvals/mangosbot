@@ -4,12 +4,12 @@
 namespace ai
 {
 
-    class StealthTrigger : public BuffTrigger
-    {
-    public:
-        StealthTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "stealth") {}
-        virtual bool IsActive() { return !ai->HasAura("stealth", bot); }
-    };
+    BUFF_TRIGGER(StealthTrigger, "stealth","stealth");
+    BUFF_TRIGGER(RiposteTrigger, "riposte","riposte");
+    DEBUFF_TRIGGER(GarroteTrigger, "garrote","garrote");
+    DEBUFF_TRIGGER(SliceAndDiceTrigger, "slice and dice","slice and dice");
+    DEBUFF_TRIGGER(RuptureTrigger, "rupture","rupture");
+    DEBUFF_TRIGGER(HungerForBloodTrigger, "hunger for blood","hunger for blood");
 
     class KickInterruptSpellTrigger : public InterruptSpellTrigger
     {
@@ -17,16 +17,10 @@ namespace ai
         KickInterruptSpellTrigger(PlayerbotAI* ai) : InterruptSpellTrigger(ai, "kick") {}
     };
 
-    class SliceAndDiceTrigger : public BuffTrigger
+    class GougeInterruptSpellTrigger : public InterruptSpellTrigger
     {
     public:
-        SliceAndDiceTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "slice and dice") {}
-    };
-
-    class RuptureTrigger : public DebuffTrigger
-    {
-    public:
-        RuptureTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "rupture") {}
+        GougeInterruptSpellTrigger(PlayerbotAI* ai) : InterruptSpellTrigger(ai, "gauge") {}
     };
 
     class ExposeArmorTrigger : public DebuffTrigger

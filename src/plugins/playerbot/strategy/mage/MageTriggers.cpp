@@ -5,7 +5,7 @@
 
 using namespace ai;
 
-bool MageArmorTrigger::IsActive()
+bool MoltenArmorTrigger::IsActive()
 {
     Unit* target = GetTarget();
     return !ai->HasAura("ice armor", target) &&
