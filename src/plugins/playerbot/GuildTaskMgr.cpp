@@ -660,6 +660,7 @@ bool GuildTaskMgr::Reward(uint32 owner, uint32 guildId)
         if (itemId)
         {
             Item* item = Item::CreateItem(itemId, 1, leader);
+            item->SaveToDB(trans);
             draft.AddItem(item);
         }
     }
@@ -667,6 +668,7 @@ bool GuildTaskMgr::Reward(uint32 owner, uint32 guildId)
     draft.AddMoney(GetTaskValue(owner, guildId, "payment")).SendMailTo(trans, MailReceiver(player), MailSender(leader));
     CharacterDatabase.CommitTransaction(trans);
 
+    SetTaskValue(owner, guildId, "activeTask", 0, 0);
     return true;
 }
 
