@@ -109,6 +109,7 @@ namespace ai
                 creators["garrote"] = &AiObjectContextInternal::garrote;
                 creators["ambush"] = &AiObjectContextInternal::ambush;
                 creators["preparation"] = &AiObjectContextInternal::preparation;
+                creators["fan of knives"] = &AiObjectContextInternal::fan_of_knives;
                 creators["premeditation"] = &AiObjectContextInternal::premeditation;
                 creators["dismantle"] = &AiObjectContextInternal::dismantle;
                 creators["blind"] = &AiObjectContextInternal::blind;
@@ -121,6 +122,7 @@ namespace ai
             static Action* riposte(PlayerbotAI* ai) { return new CastRiposteAction(ai); }
             static Action* mutilate(PlayerbotAI* ai) { return new CastMutilateAction(ai); }
             static Action* sinister_strike(PlayerbotAI* ai) { return new CastSinisterStrikeAction(ai); }
+            static Action* fan_of_knives(PlayerbotAI* ai) { return new CastFanOfKnivesAction(ai); }
             static Action* kidney_shot(PlayerbotAI* ai) { return new CastKidneyShotAction(ai); }
             static Action* rupture(PlayerbotAI* ai) { return new CastRuptureAction(ai); }
             static Action* slice_and_dice(PlayerbotAI* ai) { return new CastSliceAndDiceAction(ai); }

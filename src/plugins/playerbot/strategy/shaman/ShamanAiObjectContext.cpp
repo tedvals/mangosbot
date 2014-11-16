@@ -109,6 +109,7 @@ namespace ai
                 creators["bloodlust"] = &TriggerFactoryInternal::bloodlust;
                 creators["maelstrom weapon"] = &TriggerFactoryInternal::maelstrom_weapon;
                 creators["wind shear on enemy healer"] = &TriggerFactoryInternal::wind_shear_on_enemy_healer;
+                creators["hex"] = &TriggerFactoryInternal::hex;
             }
 
         private:
@@ -139,6 +140,7 @@ namespace ai
             static Trigger* shock(PlayerbotAI* ai) { return new ShockTrigger(ai); }
             static Trigger* frost_shock_snare(PlayerbotAI* ai) { return new FrostShockSnareTrigger(ai); }
             static Trigger* wind_shear_on_enemy_healer(PlayerbotAI* ai) { return new WindShearInterruptEnemyHealerSpellTrigger(ai); }
+            static Trigger* hex(PlayerbotAI* ai) { return new HexTrigger(ai); }
         };
     };
 };
@@ -201,7 +203,17 @@ namespace ai
                 creators["lightning bolt"] = &AiObjectContextInternal::lightning_bolt;
                 creators["thunderstorm"] = &AiObjectContextInternal::thunderstorm;
                 creators["heroism"] = &AiObjectContextInternal::heroism;
-                creators["bloodlust"] = &AiObjectContextInternal::bloodlust;
+                creators["stoneskin totem"] = &AiObjectContextInternal::stoneskin_totem;
+                creators["earthbind totem"] = &AiObjectContextInternal::earthbind_totem;
+                creators["totem of wrath"] = &AiObjectContextInternal::totem_of_wrath;
+                creators["wrath of air totem"] = &AiObjectContextInternal::wrath_of_air_totem;
+                creators["summon earth elemental"] = &AiObjectContextInternal::summon_earth_elemental;
+                creators["summon fire elemental"] = &AiObjectContextInternal::summon_fire_elemental;
+                creators["elemental mastery"] = &AiObjectContextInternal::elemental_mastery;
+                creators["lava burst"] = &AiObjectContextInternal::lava_burst;
+                creators["feral spirit"] = &AiObjectContextInternal::feral_spirit;
+                creators["shamanistic rage"] = &AiObjectContextInternal::shamanistic_rage;
+                creators["nature's swiftness"] = &AiObjectContextInternal::natures_swiftness;
             }
 
         private:
@@ -252,6 +264,17 @@ namespace ai
             static Action* lava_lash(PlayerbotAI* ai) { return new CastLavaLashAction(ai); }
             static Action* ancestral_spirit(PlayerbotAI* ai) { return new CastAncestralSpiritAction(ai); }
             static Action* wind_shear_on_enemy_healer(PlayerbotAI* ai) { return new CastWindShearOnEnemyHealerAction(ai); }
+            static Action* stoneskin_totem(PlayerbotAI* ai) { return new CastStoneskinTotemAction(ai); }
+            static Action* earthbind_totem(PlayerbotAI* ai) { return new CastEarthbindTotemAction(ai); }
+            static Action* totem_of_wrath(PlayerbotAI* ai) { return new CastTotemOfWrathAction(ai); }
+            static Action* wrath_of_air_totem(PlayerbotAI* ai) { return new CastWrathOfAirTotemAction(ai); }
+            static Action* summon_earth_elemental(PlayerbotAI* ai) { return new CastSummonEarthElementalAction(ai); }
+            static Action* summon_fire_elemental(PlayerbotAI* ai) { return new CastSummonFireElementalAction(ai); }
+            static Action* elemental_mastery(PlayerbotAI* ai) { return new CastElementalMasteryAction(ai); }
+            static Action* lava_burst(PlayerbotAI* ai) { return new CastLavaBurstAction(ai); }
+            static Action* feral_spirit(PlayerbotAI* ai) { return new CastFeralSpiritAction(ai); }
+            static Action* shamanistic_rage(PlayerbotAI* ai) { return new CastShamanisticRageAction(ai); }
+            static Action* natures_swiftness(PlayerbotAI* ai) { return new CastNaturesSwiftnessAction(ai); }
         };
     };
 };

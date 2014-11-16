@@ -12,6 +12,7 @@ public:
     {
         creators["summon voidwalker"] = &summon_voidwalker;
         creators["summon felguard"] = &summon_felguard;
+        creators["boost"] = &demonic_empowerment;
     }
 private:
     static ActionNode* summon_voidwalker(PlayerbotAI* ai)
@@ -28,6 +29,13 @@ private:
             /*A*/ NextAction::array(0, new NextAction("summon voidwalker"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* demonic_empowerment(PlayerbotAI* ai)
+    {
+        return new ActionNode ("demonic empowerment",
+            /*P*/ NULL,
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
 };
 
 TankWarlockStrategy::TankWarlockStrategy(PlayerbotAI* ai) : GenericWarlockStrategy(ai)
@@ -37,7 +45,7 @@ TankWarlockStrategy::TankWarlockStrategy(PlayerbotAI* ai) : GenericWarlockStrate
 
 NextAction** TankWarlockStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("shoot", 10.0f), NULL);
+    return NextAction::array(0, new NextAction("shadow bolt", 10.0f), NULL);
 }
 
 void TankWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -48,4 +56,19 @@ void TankWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "no pet",
         NextAction::array(0, new NextAction("summon felguard", 50.0f), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "immolate",
+        NextAction::array(0, new NextAction("immolate", 20.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "molten core",
+        NextAction::array(0, new NextAction("incinerate", 18.0f), new NextAction("incinerate", 18.0f), new NextAction("incinerate", 18.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "decimation",
+        NextAction::array(0, new NextAction("soul fire", 18.0f), new NextAction("soul fire", 18.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "no curse",
+        NextAction::array(0, new NextAction("curse of weakness", 18.0f), NULL)));
 }

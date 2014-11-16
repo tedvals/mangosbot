@@ -30,7 +30,7 @@ namespace ai
 		CastDrainSoulAction(PlayerbotAI* ai) : CastSpellAction(ai, "drain soul") {}
 		virtual bool isUseful()
 		{
-			return AI_VALUE2(uint8, "item count", "soul shard") < 2;
+			return AI_VALUE2(uint8, "item count", "soul shard") < 10;
 		}
 	};
 
@@ -50,18 +50,61 @@ namespace ai
 	{
 	public:
 		CastCurseOfAgonyAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "curse of agony") {}
+
+        virtual bool IsActive()
+        {
+            Unit* target = GetTarget();
+            return !ai->HasAura("curse of the elements", target) &&
+            !ai->HasAura("curse of weakness", target) &&
+            !ai->HasAura("curse of exhaustion", target) &&
+            !ai->HasAura("curse of agony", target) &&
+            !ai->HasAura("curse of doom", target);
+        }
 	};
 
 	class CastCurseOfWeaknessAction : public CastDebuffSpellAction
 	{
 	public:
 		CastCurseOfWeaknessAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "curse of weakness") {}
+
+    virtual bool IsActive()
+        {
+            Unit* target = GetTarget();
+            return !ai->HasAura("curse of the elements", target) &&
+            !ai->HasAura("curse of weakness", target) &&
+            !ai->HasAura("curse of exhaustion", target) &&
+            !ai->HasAura("curse of agony", target) &&
+            !ai->HasAura("curse of doom", target);
+        }
+	};
+
+	class CastCurseOfTheElementsAction : public CastDebuffSpellAction
+	{
+	public:
+		CastCurseOfTheElementsAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "curse of the elements") {}
+
+        virtual bool IsActive()
+        {
+            Unit* target = GetTarget();
+            return !ai->HasAura("curse of the elements", target) &&
+            !ai->HasAura("curse of weakness", target) &&
+            !ai->HasAura("curse of exhaustion", target) &&
+            !ai->HasAura("curse of agony", target) &&
+            !ai->HasAura("curse of doom", target);
+        }
 	};
 
 	class CastCorruptionAction : public CastDebuffSpellAction
 	{
 	public:
 		CastCorruptionAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "corruption") {}
+
+    virtual bool IsActive()
+        {
+            Unit* target = GetTarget();
+            return !ai->HasAura("corruption", target) &&
+            !ai->HasAura("seed of corruption", target);
+        }
 	};
 
 	class CastCorruptionOnAttackerAction : public CastDebuffSpellOnAttackerAction
@@ -75,12 +118,40 @@ namespace ai
 	{
 	public:
 		CastSummonVoidwalkerAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon voidwalker") {}
+        virtual bool isUseful()
+		{
+			return AI_VALUE2(uint8, "item count", "soul shard") > 0;
+		}
+	};
+
+	class CastSummonFelhunterAction : public CastBuffSpellAction
+	{
+	public:
+		CastSummonFelhunterAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon felhunter") {}
+        virtual bool isUseful()
+		{
+			return AI_VALUE2(uint8, "item count", "soul shard") > 0;
+		}
+	};
+
+	class CastSummonSuccubusAction : public CastBuffSpellAction
+	{
+	public:
+		CastSummonSuccubusAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon succubus") {}
+        virtual bool isUseful()
+		{
+			return AI_VALUE2(uint8, "item count", "soul shard") > 0;
+		}
 	};
 
 	class CastSummonFelguardAction : public CastBuffSpellAction
 	{
 	public:
 		CastSummonFelguardAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon felguard") {}
+		virtual bool isUseful()
+		{
+			return AI_VALUE2(uint8, "item count", "soul shard") > 0;
+		}
 	};
 
 	class CastSummonImpAction : public CastBuffSpellAction
@@ -93,6 +164,52 @@ namespace ai
 	{
 	public:
 		CastCreateHealthstoneAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "create healthstone") {}
+		virtual bool isUseful()
+		{
+			return AI_VALUE2(uint8, "item count", "soul shard") > 0;
+		}
+	};
+
+    class CastDemonicEmpowermentAction : public CastBuffSpellAction
+	{
+	public:
+		CastDemonicEmpowermentAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "demonic empowerment") {}
+	};
+
+    class CastFelDominationAction : public CastBuffSpellAction
+	{
+	public:
+		CastFelDominationAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "fel domination") {}
+	};
+
+    class CastMetamorphosisAction : public CastBuffSpellAction
+	{
+	public:
+		CastMetamorphosisAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "metamorphosis") {}
+	};
+
+	class CastShadowCleaveAction : public CastSpellAction
+	{
+	public:
+		CastShadowCleaveAction(PlayerbotAI* ai) : CastSpellAction(ai, "shadow cleave") {}
+	};
+
+	class CastImmolationAuraAction : public CastBuffSpellAction
+	{
+	public:
+		CastImmolationAuraAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "immolation aura") {}
+	};
+
+	class CastChallengingHowlAction : public CastMeleeSpellAction
+	{
+	public:
+		CastChallengingHowlAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "challenging howl") {}
+	};
+
+	class CastDemonChargeAction : public CastSpellAction
+	{
+	public:
+		CastDemonChargeAction(PlayerbotAI* ai) : CastSpellAction(ai, "demon charge") {}
 	};
 
 	class CastCreateFirestoneAction : public CastBuffSpellAction
@@ -105,6 +222,12 @@ namespace ai
 	{
 	public:
 		CastCreateSpellstoneAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "create spellstone") {}
+	};
+
+    class CastSoulShatterAction : public CastBuffSpellAction
+	{
+	public:
+		CastSoulShatterAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "soul shatter") {}
 	};
 
     class CastBanishAction : public CastBuffSpellAction
@@ -131,6 +254,7 @@ namespace ai
     {
     public:
         CastShadowfuryAction(PlayerbotAI* ai) : CastSpellAction(ai, "shadowfury") {}
+        virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance; }
     };
 
     class CastImmolateAction : public CastDebuffSpellAction
@@ -145,10 +269,47 @@ namespace ai
         CastConflagrateAction(PlayerbotAI* ai) : CastSpellAction(ai, "conflagrate") {}
     };
 
-    class CastIncinirateAction : public CastSpellAction
+    class CastIncinerateAction : public CastSpellAction
     {
     public:
-        CastIncinirateAction(PlayerbotAI* ai) : CastSpellAction(ai, "incinirate") {}
+        CastIncinerateAction(PlayerbotAI* ai) : CastSpellAction(ai, "incinerate") {}
+    };
+
+    class CastSoulFireAction : public CastSpellAction
+    {
+    public:
+        CastSoulFireAction(PlayerbotAI* ai) : CastSpellAction(ai, "soul fire") {}
+    };
+
+    class CastChaosBoltAction : public CastSpellAction
+    {
+    public:
+        CastChaosBoltAction(PlayerbotAI* ai) : CastSpellAction(ai, "chaos bolt") {}
+    };
+
+    class CastHauntAction : public CastDebuffSpellAction
+    {
+    public:
+        CastHauntAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "haunt") {}
+    };
+
+    class CastHowlOfTerrorAction : public CastDebuffSpellAction
+    {
+    public:
+        CastHowlOfTerrorAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "howl of terror") {}
+        virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance; }
+    };
+
+    class CastDeathcoilAction : public CastDebuffSpellAction
+    {
+    public:
+        CastDeathcoilAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "death coil") {}
+    };
+
+    class CastUnstableAfflictionAction : public CastDebuffSpellAction
+    {
+    public:
+        CastUnstableAfflictionAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "unstable affliction") {}
     };
 
     class CastFearAction : public CastDebuffSpellAction

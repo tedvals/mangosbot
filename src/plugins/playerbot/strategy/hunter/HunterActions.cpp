@@ -7,7 +7,7 @@ using namespace ai;
 
 bool CastSerpentStingAction::isUseful()
 {
-    return AI_VALUE2(uint8, "health", "current target") > 20;
+    return AI_VALUE2(uint8, "health", "current target") > 10;
 }
 
 bool CastViperStingAction::isUseful()

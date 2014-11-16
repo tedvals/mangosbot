@@ -132,7 +132,11 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "light aoe",
-        NextAction::array(0, new NextAction("blade furry", ACTION_NORMAL + 1), NULL)));
+        NextAction::array(0, new NextAction("blade furry", ACTION_HIGH + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "high aoe",
+        NextAction::array(0, new NextAction("fan of knives", ACTION_HIGH + 1), NULL)));
 
      triggers.push_back(new TriggerNode(
         "boost",
@@ -289,7 +293,7 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "medium health",
-        NextAction::array(0, new NextAction("ghostly strike", ACTION_HIGH), NULL)));
+        NextAction::array(0, new NextAction("ghostly strike", ACTION_HIGH + 4), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"medium threat",
@@ -326,4 +330,8 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
      triggers.push_back(new TriggerNode(
         "boost",
         NextAction::array(0, new NextAction("shadow dance", ACTION_NORMAL + 5), new NextAction("garrote", ACTION_NORMAL + 5), new NextAction("ambush", ACTION_NORMAL + 5), new NextAction("ambush", ACTION_NORMAL + 5),NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "high aoe",
+        NextAction::array(0, new NextAction("fan of knives", ACTION_HIGH + 1), NULL)));
 }

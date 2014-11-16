@@ -125,6 +125,7 @@ public:
     void Reset();
     bool IsTank(Player* player);
     bool IsHeal(Player* player);
+    bool IsSpellcaster(Player* player);
     bool IsRanged(Player* player);
     Creature* GetCreature(ObjectGuid guid);
     Unit* GetUnit(ObjectGuid guid);
@@ -166,6 +167,7 @@ public:
     bool IsOpposing(Player* player);
     static bool IsOpposing(uint8 race1, uint8 race2);
     PlayerbotSecurity* GetSecurity() { return &security; }
+    Unit* GetUnitBot() {return *GetAiObjectContext()->GetValue<Unit*>("self target");}
 
 protected:
 	Player* bot;

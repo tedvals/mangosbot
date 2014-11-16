@@ -151,22 +151,16 @@ namespace ai
         CastWindfuryTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "windfury totem") {}
     };
 
-    class CastWrathTotemAction : public CastTotemAction
+    class CastTotemOfWrathAction : public CastTotemAction
     {
     public:
-        CastWrathTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "totem of wrath") {}
+        CastTotemOfWrathAction(PlayerbotAI* ai) : CastTotemAction(ai, "totem of wrath") {}
     };
 
-    class CastWrathAirTotemAction : public CastTotemAction
+    class CastWrathOfAirTotemAction : public CastTotemAction
     {
     public:
-        CastWrathAirTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "wrath of air totem") {}
-    };
-
-    class CastGraceAirTotemAction : public CastTotemAction
-    {
-    public:
-        CastGraceAirTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "grace of air totem") {}
+        CastWrathOfAirTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "wrath of air totem") {}
     };
 
     class CastSearingTotemAction : public CastTotemAction
@@ -199,7 +193,6 @@ namespace ai
 	public:
 		CastAncestralSpiritAction(PlayerbotAI* ai) : ResurrectPartyMemberAction(ai, "ancestral spirit") {}
 	};
-
 
 	class CastPurgeAction : public CastSpellAction
 	{
@@ -325,10 +318,54 @@ namespace ai
         CastWindShearOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "wind shear") {}
     };
 
+    class CastSummonEarthElementalAction : public CastBuffSpellAction
+    {
+    public:
+        CastSummonEarthElementalAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon earth elemental") {}
+    };
+
+    class CastSummonFireElementalAction : public CastBuffSpellAction
+    {
+    public:
+        CastSummonFireElementalAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon fire elemental") {}
+    };
+
     class CastElementalMasteryAction : public CastBuffSpellAction
     {
     public:
         CastElementalMasteryAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "elemental mastery") {}
+    };
+
+    class CastFeralSpiritAction : public CastBuffSpellAction
+    {
+    public:
+        CastFeralSpiritAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "feral spirit") {}
+    };
+
+    class CastShamanisticRageAction : public CastBuffSpellAction
+    {
+    public:
+        CastShamanisticRageAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "shamanistic rage") {}
+    };
+
+    class CastNaturesSwiftnessAction : public CastBuffSpellAction
+    {
+    public:
+        CastNaturesSwiftnessAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "nature's swiftness") {}
+    };
+
+    class CastHexAction : public CastSpellAction
+    {
+    public:
+        CastHexAction(PlayerbotAI* ai) : CastSpellAction(ai, "sap on cc") {}
+        virtual Value<Unit*>* GetTargetValue()
+        {
+            return context->GetValue<Unit*>("cc target", "hex");
+        }
+        virtual bool Execute(Event event)
+        {
+            return ai->CastSpell("hex", GetTarget());
+        }
     };
 
 }

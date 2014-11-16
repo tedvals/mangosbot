@@ -26,10 +26,31 @@ namespace ai
         virtual string getName() { return "aoe"; }
     };
 
+    class DpsFireWarlockStrategy : public GenericWarlockStrategy
+    {
+    public:
+        DpsFireWarlockStrategy(PlayerbotAI* ai);
+        virtual string getName() { return "fire dps"; }
+
+    public:
+        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual NextAction** getDefaultActions();
+    };
+
+    class DpsFireAoeWarlockStrategy : public CombatStrategy
+    {
+    public:
+        DpsFireAoeWarlockStrategy(PlayerbotAI* ai) : CombatStrategy(ai) {}
+
+    public:
+        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual string getName() { return "fire aoe"; }
+    };
+
     class DpsWarlockDebuffStrategy : public CombatStrategy
     {
     public:
-        DpsWarlockDebuffStrategy(PlayerbotAI* ai) : CombatStrategy(ai) {}
+        DpsWarlockDebuffStrategy(PlayerbotAI* ai);
 
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);

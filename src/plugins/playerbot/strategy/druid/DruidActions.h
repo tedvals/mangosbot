@@ -35,6 +35,11 @@ namespace ai
 
 	};
 
+    class CastNourishAction : public CastHealingSpellAction {
+	public:
+		CastNourishAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "nourish") {}
+	};
+
 	class CastWildGrowthAction : public CastHealingSpellAction {
 	public:
 		CastWildGrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "wild growth") {}
@@ -43,6 +48,11 @@ namespace ai
     class CastHealingTouchAction : public CastHealingSpellAction {
     public:
         CastHealingTouchAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "healing touch") {}
+    };
+
+    class CastLifeBloomAction : public CastHealingSpellAction {
+    public:
+        CastLifeBloomAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "lifebloom") {}
     };
 
     class CastRejuvenationOnPartyAction : public HealPartyMemberAction
@@ -55,6 +65,18 @@ namespace ai
     {
     public:
         CastRegrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "regrowth") {}
+    };
+
+    class CastNourishOnPartyAction : public HealPartyMemberAction
+    {
+    public:
+        CastNourishOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "nourish") {}
+    };
+
+    class CastLifebloomOnPartyAction : public HealPartyMemberAction
+    {
+    public:
+        CastLifebloomOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "lifebloom") {}
     };
 
     class CastSwiftmendOnPartyAction : public HealPartyMemberAction

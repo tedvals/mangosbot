@@ -12,6 +12,11 @@ public:
     {
         creators["earthliving weapon"] = &earthliving_weapon;
         creators["mana tide totem"] = &mana_tide_totem;
+        creators["chain heal"] = &chain_heal;
+        creators["riptide"] = &riptide;
+        creators["chain heal on party"] = &chain_heal_on_party;
+        creators["riptide on party"] = &riptide_on_party;
+        creators["nature's swiftness"] = &natures_swiftness;
     }
 private:
     static ActionNode* earthliving_weapon(PlayerbotAI* ai)
@@ -28,7 +33,41 @@ private:
             /*A*/ NextAction::array(0, new NextAction("mana potion"), NULL),
             /*C*/ NULL);
     }
-
+    static ActionNode* chain_heal(PlayerbotAI* ai)
+    {
+        return new ActionNode ("chain heal",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("lesser healing wave"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* riptide(PlayerbotAI* ai)
+    {
+        return new ActionNode ("riptide",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("chain heal"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* chain_heal_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("chain heal on party",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("lesser healing wave on party"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* riptide_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("riptide on party",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("chain heal on party"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* natures_swiftness(PlayerbotAI* ai)
+    {
+        return new ActionNode ("nature's swiftness",
+            /*P*/ NULL,
+            /*A*/ NULL,
+            /*C*/ NextAction::array(0, new NextAction("healing wave"), NULL));
+    }
 };
 
 HealShamanStrategy::HealShamanStrategy(PlayerbotAI* ai) : GenericShamanStrategy(ai)
@@ -39,6 +78,34 @@ HealShamanStrategy::HealShamanStrategy(PlayerbotAI* ai) : GenericShamanStrategy(
 void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericShamanStrategy::InitTriggers(triggers);
+
+	triggers.push_back(new TriggerNode(
+		"medium aoe heal",
+		NextAction::array(0, new NextAction("chain heal", 27.0f), NULL)));
+
+	triggers.push_back(new TriggerNode(
+		"medium health",
+		NextAction::array(0, new NextAction("healing wave", 26.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"low health",
+		NextAction::array(0, new NextAction("riptide", ACTION_EMERGENCY), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member low health",
+		NextAction::array(0, new NextAction("riptide on party", ACTION_EMERGENCY), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member medium health",
+		NextAction::array(0, new NextAction("healing wave on party", 25.0f), NULL)));
+
+	//triggers.push_back(new TriggerNode(
+	//	"almost full health",
+	//	NextAction::array(0, new NextAction("earth shield", 26.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"critical health",
+		NextAction::array(0, new NextAction("nature's swiftness", ACTION_EMERGENCY + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy out of spell",

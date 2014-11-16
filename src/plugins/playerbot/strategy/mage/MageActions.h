@@ -14,6 +14,7 @@ namespace ai
     {
     public:
         CastScorchAction(PlayerbotAI* ai) : CastSpellAction(ai, "scorch") {}
+        virtual bool isUseful();
     };
 
     class CastFireBlastAction : public CastSpellAction
@@ -225,6 +226,7 @@ namespace ai
     public:
         CastPolymorphAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "polymorph") {}
         virtual Value<Unit*>* GetTargetValue();
+        virtual bool Execute(Event event);
     };
 
 	class CastSpellstealAction : public CastSpellAction

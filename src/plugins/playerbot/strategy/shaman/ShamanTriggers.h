@@ -194,4 +194,11 @@ namespace ai
     public:
         WindShearInterruptEnemyHealerSpellTrigger(PlayerbotAI* ai) : InterruptEnemyHealerTrigger(ai, "wind shear") {}
     };
+
+     class HexTrigger : public HasCcTargetTrigger
+    {
+    public:
+        HexTrigger(PlayerbotAI* ai) : HasCcTargetTrigger(ai, "hex") {}
+    };
+
 }

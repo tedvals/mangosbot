@@ -12,7 +12,10 @@ class DpsWarlockStrategyActionNodeFactory : public NamedObjectFactory<ActionNode
 public:
     DpsWarlockStrategyActionNodeFactory()
     {
+        creators["summon felhunter"] = &summon_felhunter;
         creators["shadow bolt"] = &shadow_bolt;
+        creators["unstable affliction"] = &unstable_affliction;
+        creators["haunt"] = &haunt;
     }
 private:
     static ActionNode* shadow_bolt(PlayerbotAI* ai)
@@ -20,6 +23,27 @@ private:
         return new ActionNode ("shadow bolt",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("shoot"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* summon_felhunter(PlayerbotAI* ai)
+    {
+        return new ActionNode ("summon felhunter",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("summon imp"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* unstable_affliction(PlayerbotAI* ai)
+    {
+        return new ActionNode ("unstable affliction",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("corruption"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("corruption"), NULL));
+    }
+    static ActionNode* haunt(PlayerbotAI* ai)
+    {
+        return new ActionNode ("haunt",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("shadow bolt"), NULL),
             /*C*/ NULL);
     }
 };
@@ -32,12 +56,19 @@ DpsWarlockStrategy::DpsWarlockStrategy(PlayerbotAI* ai) : GenericWarlockStrategy
 
 NextAction** DpsWarlockStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("incinirate", 10.0f), new NextAction("shadow bolt", 10.0f), NULL);
+    return NextAction::array(0,new NextAction("shadow bolt", 10.0f), NULL);
 }
 
 void DpsWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericWarlockStrategy::InitTriggers(triggers);
+
+    //triggers.push_back(new TriggerNode(
+    //    "corruption",
+    //    NextAction::array(0, new NextAction("corruption", 12.0f), NULL)));
+    triggers.push_back(new TriggerNode(
+        "critical health",
+        NextAction::array(0, new NextAction("drain life", 40.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"shadow trance",
@@ -46,9 +77,172 @@ void DpsWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"backlash",
 		NextAction::array(0, new NextAction("shadow bolt", 20.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"target critical health",
+		NextAction::array(0, new NextAction("drain soul", 30.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "no curse",
+        NextAction::array(0, new NextAction("curse of agony", 18.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "no corruption",
+        NextAction::array(0, new NextAction("corruption", 20.0f),  NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "unstable affliction",
+        NextAction::array(0, new NextAction("unstable corruption", 19.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "haunt",
+        NextAction::array(0, new NextAction("haunt", 20.0f), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "no pet",
+        NextAction::array(0, new NextAction("summon felhunter", 10.0f), NULL)));
 }
 
 void DpsAoeWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+    //triggers.push_back(new TriggerNode(
+    //    "high aoe",
+    //    NextAction::array(0, new NextAction("rain of fire", 30.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "high aoe",
+        NextAction::array(0, new NextAction("seed of corruption", 31.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "medium aoe",
+        NextAction::array(0, new NextAction("shadowfury", 29.0f), NULL)));
+
+    //triggers.push_back(new TriggerNode(
+    //    "corruption on attacker",
+    //    NextAction::array(0, new NextAction("corruption on attacker", 28.0f), NULL)));
+
+}
+
+class DpsWarlockDebuffStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+{
+public:
+    DpsWarlockDebuffStrategyActionNodeFactory()
+    {
+        creators["curse of the elements"] = curse_of_the_elements;
+        creators["curse of weakness"] = curse_of_weakness;
+    }
+private:
+    static ActionNode* curse_of_the_elements(PlayerbotAI* ai)
+    {
+        return new ActionNode ("curse of the elements",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("curse of weakness"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* curse_of_weakness(PlayerbotAI* ai)
+    {
+        return new ActionNode ("curse of weakness",
+            /*P*/ NULL,
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+};
+
+DpsWarlockDebuffStrategy::DpsWarlockDebuffStrategy(PlayerbotAI* ai) : CombatStrategy(ai)
+{
+    actionNodeFactories.Add(new DpsWarlockDebuffStrategyActionNodeFactory());
+}
+
+
+void DpsWarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+    triggers.push_back(new TriggerNode(
+        "curse of the elements",
+        NextAction::array(0, new NextAction("curse of the elements", 12.0f), NULL)));
+}
+
+class DpsFireWarlockStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+{
+public:
+    DpsFireWarlockStrategyActionNodeFactory()
+    {
+        creators["shadow bolt"] = &shadow_bolt;
+        creators["chaos bolt"] = &chaos_bolt;
+        creators["summon imp"] = &summon_imp;
+        creators["incinerate"] = &incinerate;
+    }
+private:
+    static ActionNode* summon_imp(PlayerbotAI* ai)
+    {
+        return new ActionNode ("summon imp",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("life tap"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* chaos_bolt(PlayerbotAI* ai)
+    {
+        return new ActionNode ("chaos bolt",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("chaos bolt"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* incinerate(PlayerbotAI* ai)
+    {
+        return new ActionNode ("incinerate",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("shadow bolt"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* shadow_bolt(PlayerbotAI* ai)
+    {
+        return new ActionNode ("shadow bolt",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("shoot"), NULL),
+            /*C*/ NULL);
+    }
+};
+
+DpsFireWarlockStrategy::DpsFireWarlockStrategy(PlayerbotAI* ai) : GenericWarlockStrategy(ai)
+{
+    actionNodeFactories.Add(new DpsWarlockStrategyActionNodeFactory());
+}
+
+
+NextAction** DpsFireWarlockStrategy::getDefaultActions()
+{
+    return NextAction::array(0,new NextAction("conflagrate", 20.0f), new NextAction("chaos bolt", 15.0f),new NextAction("incinerate", 10.0f), NULL);
+}
+
+void DpsFireWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+    GenericWarlockStrategy::InitTriggers(triggers);
+
+	triggers.push_back(new TriggerNode(
+		"shadow trance",
+		NextAction::array(0, new NextAction("shadow bolt", 20.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"shadow mastery",
+		NextAction::array(0, new NextAction("shadow bolt", 25.0f), NULL)));
+
+	triggers.push_back(new TriggerNode(
+		"backlash",
+		NextAction::array(0, new NextAction("incinerate", 20.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "immolate",
+        NextAction::array(0, new NextAction("immolate", 19.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "molten core",
+        NextAction::array(0, new NextAction("incinerate", 18.0f), new NextAction("incinerate", 18.0f), new NextAction("incinerate", 18.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "decimation",
+        NextAction::array(0, new NextAction("soul fire", 18.0f), new NextAction("soul fire", 18.0f), NULL)));
+}
+
+void DpsFireAoeWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "high aoe",
@@ -61,16 +255,6 @@ void DpsAoeWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "light aoe",
         NextAction::array(0, new NextAction("shadowfury", 29.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "corruption on attacker",
-        NextAction::array(0, new NextAction("corruption on attacker", 28.0f), NULL)));
-
 }
 
-void DpsWarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
-{
-    triggers.push_back(new TriggerNode(
-        "corruption",
-        NextAction::array(0, new NextAction("corruption", 12.0f), NULL)));
-}
+

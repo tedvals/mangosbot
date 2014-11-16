@@ -568,6 +568,20 @@ bool PlayerbotAI::IsRanged(Player* player)
     return true;
 }
 
+bool PlayerbotAI::IsSpellcaster(Player* player)
+{
+    switch (player->getClass())
+    {
+    case CLASS_DEATH_KNIGHT:
+    case CLASS_WARRIOR:
+    case CLASS_ROGUE:
+        return false;
+    case CLASS_DRUID:
+        return HasAnyAuraOf(player, "moonkin form", "caster form", NULL);
+    }
+    return true;
+}
+
 bool PlayerbotAI::IsTank(Player* player)
 {
     PlayerbotAI* botAi = player->GetPlayerbotAI();

@@ -4,7 +4,13 @@
 namespace ai
 {
 	BUFF_TRIGGER(HolyShieldTrigger, "holy shield", "holy shield")
-    BUFF_TRIGGER(RighteousFuryTrigger, "righteous fury", "righteous fury")
+
+	class RighteousFuryTrigger : public BuffTrigger
+	{
+	public:
+		RighteousFuryTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "righteous fury") {}
+		virtual bool IsActive();
+	};
 
     BUFF_TRIGGER(RetributionAuraTrigger, "retribution aura", "retribution aura")
 

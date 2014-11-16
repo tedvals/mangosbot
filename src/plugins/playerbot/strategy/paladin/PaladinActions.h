@@ -103,20 +103,22 @@ namespace ai
 	{
 	public:
 		CastSealOfWisdomAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "seal of wisdom") {}
+		virtual bool isUseful();
 	};
 
 	class CastSealOfCommandAction : public CastBuffSpellAction
 	{
 	public:
 		CastSealOfCommandAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "seal of command") {}
+		virtual bool isUseful();
 	};
 
 	class CastSealOfVengeanceAction : public CastBuffSpellAction
 	{
 	public:
 	    CastSealOfVengeanceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "seal of vengeance") {}
+	    virtual bool isUseful();
 	};
-
 
 	class CastBlessingOfMightAction : public CastBuffSpellAction
 	{
@@ -129,6 +131,7 @@ namespace ai
 	public:
 		CastBlessingOfMightOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "blessing of might") {}
         virtual string getName() { return "blessing of might on party";}
+        virtual bool isUseful();
 	};
 
 	class CastBlessingOfWisdomAction : public CastBuffSpellAction
@@ -142,6 +145,7 @@ namespace ai
 	public:
 		CastBlessingOfWisdomOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "blessing of wisdom") {}
         virtual string getName() { return "blessing of wisdom on party";}
+        virtual bool isUseful();
 	};
 
 	class CastBlessingOfKingsAction : public CastBuffSpellAction
@@ -168,20 +172,24 @@ namespace ai
 	public:
 		CastBlessingOfSanctuaryOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "blessing of sanctuary") {}
         virtual string getName() { return "blessing of sanctuary on party";}
+        virtual bool isUseful();
 	};
 
-	class CastBeaconOfLightAction : public CastBuffSpellAction
-	{
-	public:
-		CastBeaconOfLightAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "beacon of light") {}
-	};
+	class CastBeaconOfLightActionOnCC : public CastSpellAction
+    {
+    public:
+        CastBeaconOfLightActionOnCC(PlayerbotAI* ai) : CastSpellAction(ai, "beacon of light on cc") {}
+        virtual Value<Unit*>* GetTargetValue()
+        {
+            return context->GetValue<Unit*>("cc target", "beacon of light");
+        }
 
-	class CastBeaconOfLightOnPartyAction : public BuffOnPartyAction
-	{
-	public:
-		CastBeaconOfLightOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "beacon of light") {}
-        virtual string getName() { return "beacon of light on party";}
-	};
+        virtual bool Execute(Event event)
+        {
+            return ai->CastSpell("beacon of light", GetTarget());
+        }
+    };
+
 
     class CastHolyLightAction : public CastHealingSpellAction
     {
@@ -231,6 +239,24 @@ namespace ai
         CastFlashOfLightOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "flash of light") {}
 
         virtual string getName() { return "flash of light on party"; }
+    };
+
+    class CastInstantFlashOfLightAction : public CastHealingSpellAction
+    {
+    public:
+        CastInstantFlashOfLightAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "instant flash of light") {}
+        virtual bool isPossible();
+        virtual bool Execute(Event event);
+    };
+
+    class CastInstantFlashOfLightOnPartyAction : public HealPartyMemberAction
+    {
+    public:
+        CastInstantFlashOfLightOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "instant flash of light") {}
+
+        virtual string getName() { return "instant flash of light on party"; }
+        virtual bool isPossible();
+        virtual bool Execute(Event event);
     };
 
     class CastLayOnHandsAction : public CastHealingSpellAction
@@ -313,13 +339,6 @@ namespace ai
     {
     public:
         CastHammerOfJusticeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "hammer of justice") {}
-    };
-
-    class CastRepentanceAction : public CastBuffSpellAction
-    {
-    public:
-        CastRepentanceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "repentance") {}
-        virtual Value<Unit*>* GetTargetValue();
     };
 
 	class CastHammerOfWrathAction : public CastMeleeSpellAction
@@ -478,5 +497,20 @@ namespace ai
     {
     public:
         CastHammerOfJusticeOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "hammer of justice") {}
+    };
+
+    class CastRepentanceAction : public CastSpellAction
+    {
+    public:
+        CastRepentanceAction(PlayerbotAI* ai) : CastSpellAction(ai, "repentance on cc") {}
+        virtual Value<Unit*>* GetTargetValue()
+        {
+            return context->GetValue<Unit*>("cc target", "repentance");
+        }
+
+        virtual bool Execute(Event event)
+        {
+            return ai->CastSpell("repentance", GetTarget());
+        }
     };
 }

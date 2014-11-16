@@ -43,6 +43,12 @@ namespace ai {
 		CastBerserkAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "berserk") {}
 	};
 
+	class CastSavageRoarAction : public CastBuffSpellAction
+	{
+	public:
+		CastSavageRoarAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "savage roar") {}
+	};
+
 	class CastTigersFuryAction : public CastBuffSpellAction
 	{
 	public:
@@ -63,6 +69,10 @@ namespace ai {
     class CastRipAction : public CastDebuffSpellAction {
 	public:
 		CastRipAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "rip") {}
+		virtual bool isUseful()
+	    {
+	        return AI_VALUE2(uint8, "health", "current target") > 20 && AI_VALUE2(uint8, "combo", "self target") > 4;
+	    }
 	};
 
     class CastShredAction : public CastCatComboAction {

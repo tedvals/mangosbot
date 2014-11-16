@@ -104,7 +104,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             break;
         case CLASS_MAGE:
             if (tab == 0)
-                engine->addStrategies("arcane", "threat", NULL);
+                engine->addStrategies("arcane", "arcane aoe", "threat", NULL);
             else if (tab == 1)
                 engine->addStrategies("fire", "fire aoe", "threat", NULL);
             else
@@ -127,8 +127,10 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
                 engine->addStrategies("dps", "melee aoe", "bdps", "threat", NULL);
             break;
         case CLASS_PALADIN:
-            if (tab == 1)
-                engine->addStrategies("tank", "tank aoe", "barmor", NULL);
+            if (tab == 0)
+                engine->addStrategies("heal", "barmor", NULL);
+            else if (tab == 1)
+                engine->addStrategies("tank", "tank aoe", "bdps", NULL);
             else
                 engine->addStrategies("dps", "bdps", "threat", NULL);
             break;
@@ -150,7 +152,10 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
                 engine->addStrategy("dps debuff");
             break;
         case CLASS_ROGUE:
-            engine->addStrategies("dps", "threat", NULL);
+            if (tab == 1)
+                engine->addStrategies("dps", "threat", NULL);
+            else
+                engine->addStrategies("dagger dps", "threat", NULL);
             break;
         case CLASS_WARLOCK:
             if (tab == 1)

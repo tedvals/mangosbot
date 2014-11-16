@@ -17,21 +17,48 @@ namespace ai
         virtual bool IsActive();
     };
 
-    DEBUFF_TRIGGER(CurseOfAgonyTrigger, "curse of agony", "curse of agony");
-    DEBUFF_TRIGGER(CorruptionTrigger, "corruption", "corruption");
+    BEGIN_TRIGGER(WarlockNoCurseTrigger, Trigger)
+    END_TRIGGER()
 
-    class CorruptionOnAttackerTrigger : public DebuffOnAttackerTrigger
-    {
-    public:
-        CorruptionOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "corruption") {}
-    };
+    BEGIN_TRIGGER(WarlockNoCorruptionTrigger, Trigger)
+    END_TRIGGER()
+
+    //DEBUFF_TRIGGER(CurseOfAgonyTrigger, "curse of agony", "curse of agony");
+    //DEBUFF_TRIGGER(CorruptionTrigger, "corruption", "corruption");
+
+    //class CorruptionOnAttackerTrigger : public DebuffOnAttackerTrigger
+    //{
+    //public:
+    //    CorruptionOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "corruption") {}
+    //};
+
+    //class DeathCoilOnAttackerTrigger : public DebuffOnAttackerTrigger
+    //{
+    //public:
+    //    DeathCoilOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "corruption") {}
+    //};
+
 
     DEBUFF_TRIGGER(ImmolateTrigger, "immolate", "immolate");
+    DEBUFF_TRIGGER(HauntTrigger, "haunt", "haunt");
+    DEBUFF_TRIGGER(ImprovedShadowbolt, "Shadow Mastery", "Shadow Mastery")
 
     class ShadowTranceTrigger : public HasAuraTrigger
     {
     public:
         ShadowTranceTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "shadow trance") {}
+    };
+
+    class MoltenCoreTrigger : public HasAuraTrigger
+    {
+    public:
+        MoltenCoreTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "molten core") {}
+    };
+
+    class DecimationTrigger : public HasAuraTrigger
+    {
+    public:
+        DecimationTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "decimation") {}
     };
 
     class BacklashTrigger : public HasAuraTrigger

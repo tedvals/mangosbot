@@ -49,6 +49,10 @@ void TankPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("righteous fury", ACTION_HIGH + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "no aoe",
+        NextAction::array(0, new NextAction("seal of vengeance", ACTION_HIGH + 6), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "light aoe",
         NextAction::array(0, new NextAction("hammer of the righteous", ACTION_HIGH + 6), new NextAction("avenger's shield", ACTION_HIGH + 6), NULL)));
 

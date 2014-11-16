@@ -24,6 +24,8 @@ namespace ai
             creators["lay on hands"] = &lay_on_hands;
             creators["lay on hands on party"] = &lay_on_hands_on_party;
             creators["hand of protection on party"] = &hand_of_protection_on_party;
+            creators["blessing of kings on party"] = &blessing_of_kings_on_party;
+            creators["blessing of wisdom on party"] = &blessing_of_wisdom_on_party;
         }
     private:
         static ActionNode* lay_on_hands(PlayerbotAI* ai)
@@ -115,7 +117,7 @@ namespace ai
             return new ActionNode ("divine shield",
                 /*P*/ NULL,
                 /*A*/ NextAction::array(0, new NextAction("divine protection"), NULL),
-                /*C*/ NULL);
+                /*C*/ NextAction::array(0, new NextAction("holy light"), NULL));
         }
         static ActionNode* flash_of_light(PlayerbotAI* ai)
         {
@@ -144,6 +146,20 @@ namespace ai
                 /*P*/ NULL,
                 /*A*/ NextAction::array(0, new NextAction("hand of salvation on party"), NULL),
                 /*C*/ NULL);
+        }
+        static ActionNode* blessing_of_kings_on_party(PlayerbotAI* ai)
+        {
+            return new ActionNode ("blessing of kings on party",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("blessing of wisdom on party"), NULL),
+            /*C*/ NULL);
+        }
+        static ActionNode* blessing_of_wisdom_on_party(PlayerbotAI* ai)
+        {
+            return new ActionNode ("blessing of wisdom on party",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("blessing of might on party"), NULL),
+            /*C*/ NULL);
         }
     };
 

@@ -12,7 +12,6 @@ public:
     {
         creators["seal of wisdom"] = &seal_of_wisdom;
         creators["seal of light"] = &seal_of_light;
-        creators["blessing of wisdom"] = &blessing_of_wisdom;
     }
 
 private:
@@ -30,13 +29,6 @@ private:
             /*A*/ NextAction::array(0, new NextAction("seal of righteousness"), NULL),
             /*C*/ NULL);
     }
-    static ActionNode* blessing_of_wisdom(PlayerbotAI* ai)
-    {
-        return new ActionNode ("blessing of wisdom",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("blessing of kings"), NULL),
-            /*C*/ NULL);
-    }
 };
 
 HealPaladinStrategy::HealPaladinStrategy(PlayerbotAI* ai) : GenericPaladinStrategy(ai)
@@ -52,6 +44,10 @@ NextAction** HealPaladinStrategy::getDefaultActions()
 void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericPaladinStrategy::InitTriggers(triggers);
+
+    triggers.push_back(new TriggerNode(
+        "beacon of light on party",
+        NextAction::array(0, new NextAction("beacon of light on party", 11.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member medium health",

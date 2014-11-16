@@ -22,14 +22,14 @@ private:
     {
         return new ActionNode ("seal of vengeance",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("seal of command"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("seal of righteousness"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* seal_of_command(PlayerbotAI* ai)
     {
         return new ActionNode ("seal of command",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("seal of wisdom"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("seal of righteousness"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* blessing_of_might(PlayerbotAI* ai)
@@ -71,15 +71,31 @@ void DpsPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "low health",
-        NextAction::array(0, new NextAction("flash of light", ACTION_MEDIUM_HEAL + 2), NULL)));
+        NextAction::array(0, new NextAction("instant flash of light", ACTION_MEDIUM_HEAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
+        NextAction::array(0, new NextAction("instant flash of light on party", ACTION_MEDIUM_HEAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "medium health",
+        NextAction::array(0, new NextAction("instant flash of light", ACTION_MEDIUM_HEAL + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member medium health",
+        NextAction::array(0, new NextAction("instant flash of light on party", ACTION_MEDIUM_HEAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member critical health",
         NextAction::array(0, new NextAction("flash of light on party", ACTION_MEDIUM_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "critical health",
+        "almost dead",
         NextAction::array(0, new NextAction("divine shield", ACTION_CRITICAL_HEAL + 2), new NextAction("holy light", ACTION_CRITICAL_HEAL + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "critical health",
+        NextAction::array(0, new NextAction("flash of light", ACTION_CRITICAL_HEAL + 2), new NextAction("flash of light", ACTION_CRITICAL_HEAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "judgement of wisdom",
@@ -91,7 +107,7 @@ void DpsPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
 		"medium aoe",
-		NextAction::array(0, new NextAction("divine storm", ACTION_HIGH + 1), new NextAction("consecration", ACTION_HIGH + 1), NULL)));
+		NextAction::array(0, new NextAction("seal of command", ACTION_HIGH + 1), new NextAction("divine storm", ACTION_HIGH + 1), new NextAction("consecration", ACTION_HIGH + 1), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"art of war",
@@ -104,4 +120,12 @@ void DpsPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "medium threat",
         NextAction::array(0, new NextAction("hand of salvation", ACTION_HIGH + 6), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "no aoe",
+        NextAction::array(0, new NextAction("seal of vengeance", ACTION_HIGH + 6), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "light aoe",
+        NextAction::array(0, new NextAction("seal of command", ACTION_HIGH + 6), NULL)));
 }

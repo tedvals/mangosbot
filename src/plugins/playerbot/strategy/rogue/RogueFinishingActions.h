@@ -30,6 +30,11 @@ namespace ai
 	{
 	public:
 		CastRuptureAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "rupture") {}
+
+		virtual bool isUseful()
+	    {
+	        return AI_VALUE2(uint8, "health", "current target") > 20 && AI_VALUE2(uint8, "combo", "self target") > 4;
+	    }
 	};
 
 	class CastKidneyShotAction : public CastMeleeSpellAction

@@ -187,6 +187,7 @@ namespace ai
                 creators["seal of justice"] = &AiObjectContextInternal::seal_of_justice;
                 creators["seal of righteousness"] = &AiObjectContextInternal::seal_of_righteousness;
                 creators["flash of light"] = &AiObjectContextInternal::flash_of_light;
+                creators["instant flash of light"] = &AiObjectContextInternal::instant_flash_of_light;
                 creators["hand of reckoning"] = &AiObjectContextInternal::hand_of_reckoning;
                 creators["avenger's shield"] = &AiObjectContextInternal::avengers_shield;
                 creators["exorcism"] = &AiObjectContextInternal::exorcism;
@@ -197,6 +198,7 @@ namespace ai
                 creators["divine protection on party"] =&AiObjectContextInternal::divine_protection_on_party;
                 creators["hammer of justice"] = &AiObjectContextInternal::hammer_of_justice;
                 creators["flash of light on party"] = &AiObjectContextInternal::flash_of_light_on_party;
+                creators["instant flash of light on party"] = &AiObjectContextInternal::instant_flash_of_light_on_party;
                 creators["holy light"] = &AiObjectContextInternal::holy_light;
                 creators["holy light on party"] = &AiObjectContextInternal::holy_light_on_party;
                 creators["lay on hands"] = &AiObjectContextInternal::lay_on_hands;
@@ -218,7 +220,7 @@ namespace ai
                 creators["divine favor"] = &AiObjectContextInternal::divine_favor;
                 creators["divine illumination"] = &AiObjectContextInternal::divine_illumination;
                 creators["aura mastery"] = &AiObjectContextInternal::aura_mastery;
-                creators["beacon of light on party"] = &AiObjectContextInternal::beacon_of_light_on_party;
+                creators["beacon of light on cc"] = &AiObjectContextInternal::beacon_of_light_on_cc;
                 creators["hand of sacrifice on party"] = &AiObjectContextInternal::hand_of_sacrifice_on_party;
                 creators["hand of salvation on party"] = &AiObjectContextInternal::hand_of_salvation_on_party;
                 creators["hand of freedom on party"] = &AiObjectContextInternal::hand_of_freedom_on_party;
@@ -257,6 +259,7 @@ namespace ai
             static Action* seal_of_justice(PlayerbotAI* ai) { return new CastSealOfJusticeAction(ai); }
             static Action* seal_of_righteousness(PlayerbotAI* ai) { return new CastSealOfRighteousnessAction(ai); }
             static Action* flash_of_light(PlayerbotAI* ai) { return new CastFlashOfLightAction(ai); }
+            static Action* instant_flash_of_light(PlayerbotAI* ai) { return new CastInstantFlashOfLightAction(ai); }
             static Action* hand_of_reckoning(PlayerbotAI* ai) { return new CastHandOfReckoningAction(ai); }
             static Action* avengers_shield(PlayerbotAI* ai) { return new CastAvengersShieldAction(ai); }
             static Action* exorcism(PlayerbotAI* ai) { return new CastExorcismAction(ai); }
@@ -267,6 +270,7 @@ namespace ai
             static Action* divine_protection_on_party(PlayerbotAI* ai) { return new CastDivineProtectionOnPartyAction(ai); }
             static Action* hammer_of_justice(PlayerbotAI* ai) { return new CastHammerOfJusticeAction(ai); }
             static Action* flash_of_light_on_party(PlayerbotAI* ai) { return new CastFlashOfLightOnPartyAction(ai); }
+            static Action* instant_flash_of_light_on_party(PlayerbotAI* ai) { return new CastInstantFlashOfLightOnPartyAction(ai); }
             static Action* holy_light(PlayerbotAI* ai) { return new CastHolyLightAction(ai); }
             static Action* holy_light_on_party(PlayerbotAI* ai) { return new CastHolyLightOnPartyAction(ai); }
             static Action* lay_on_hands(PlayerbotAI* ai) { return new CastLayOnHandsAction(ai); }
@@ -286,7 +290,7 @@ namespace ai
             static Action* divine_favor(PlayerbotAI* ai) { return new CastDivineFavorAction(ai); }
             static Action* aura_mastery(PlayerbotAI* ai) { return new CastAuraMasteryAction(ai); }
             static Action* divine_illumination(PlayerbotAI* ai) { return new CastDivineIlluminationAction(ai); }
-            static Action* beacon_of_light_on_party(PlayerbotAI* ai) { return new CastBeaconOfLightOnPartyAction(ai); }
+            static Action* beacon_of_light_on_cc(PlayerbotAI* ai) { return new CastBeaconOfLightActionOnCC(ai); }
             static Action* hand_of_protection_on_party(PlayerbotAI* ai) { return new CastHandOfProtectionOnPartyAction(ai); }
             static Action* hand_of_sacrifice_on_party(PlayerbotAI* ai) { return new CastHandOfSacrificeOnPartyAction(ai); }
             static Action* hand_of_salvation_on_party(PlayerbotAI* ai) { return new CastHandOfSalvationOnPartyAction(ai); }

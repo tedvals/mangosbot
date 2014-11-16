@@ -36,6 +36,13 @@ private:
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("fire nova"), NULL));
     }
+    static ActionNode* shamanistic_rage(PlayerbotAI* ai)
+    {
+        return new ActionNode ("shamanistic rage",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("mana potion"), NULL),
+            /*C*/ NULL);
+    }
 };
 
 MeleeShamanStrategy::MeleeShamanStrategy(PlayerbotAI* ai) : GenericShamanStrategy(ai)
@@ -75,6 +82,10 @@ void MeleeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "medium aoe",
         NextAction::array(0, new NextAction("strength of earth totem", ACTION_LIGHT_HEAL), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "low mana",
+        NextAction::array(0, new NextAction("shamanistic rage", ACTION_NORMAL + 5), NULL)));
 }
 
 void MeleeAoeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
