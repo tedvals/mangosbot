@@ -167,8 +167,6 @@ public:
     bool IsOpposing(Player* player);
     static bool IsOpposing(uint8 race1, uint8 race2);
     PlayerbotSecurity* GetSecurity() { return &security; }
-    Unit* GetUnitBot() {return *GetAiObjectContext()->GetValue<Unit*>("self target");}
-
 protected:
 	Player* bot;
 	Player* master;

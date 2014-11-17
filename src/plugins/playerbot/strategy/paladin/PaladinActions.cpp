@@ -7,7 +7,8 @@ using namespace ai;
 bool CastBlessingOfWisdomOnPartyAction::isUseful()
 {
     Unit* player = GetTarget();
-
+    if (player)
+    {
     switch (player->getClass())
     {
         case CLASS_DEATH_KNIGHT:
@@ -18,14 +19,17 @@ bool CastBlessingOfWisdomOnPartyAction::isUseful()
             return !ai->HasAnyAuraOf(player, "bear form", "dire bear form", "cat form", NULL);
     }
     return true;
+    }
+    return false;
 }
 
 bool CastBlessingOfMightOnPartyAction::isUseful()
 {
     Unit* player = GetTarget();
-
-    if (ai->HasAura("blessing of might", player))
-        return false;
+    if (player)
+    {
+        if (ai->HasAura("blessing of might", player))
+            return false;
 
     switch (player->getClass())
     {
@@ -36,13 +40,17 @@ bool CastBlessingOfMightOnPartyAction::isUseful()
         case CLASS_DRUID:
             return ai->HasAnyAuraOf(player, "bear form", "dire bear form", "cat form", NULL);
     }
-    return true;
+        return true;
+    }
+    else return false;
 }
 
 bool CastBlessingOfSanctuaryOnPartyAction::isUseful()
 {
     Unit* player = GetTarget();
+    if (player)
      return !ai->HasAura("blessing of kings", player);
+    else return false;
 }
 
 bool  CastSealOfCommandAction::isUseful()
@@ -52,7 +60,10 @@ bool  CastSealOfCommandAction::isUseful()
 
 bool  CastSealOfWisdomAction::isUseful()
 {
-      return ai->IsHeal(ai->GetBot());
+      Player* player = ai->GetBot();
+      if (player)
+        return ai->IsHeal(player);
+      else return false;
 }
 
 bool  CastSealOfVengeanceAction::isUseful()
@@ -63,8 +74,7 @@ bool  CastSealOfVengeanceAction::isUseful()
 
 bool CastInstantFlashOfLightAction::isPossible()
 {
-    Unit* player = ai->GetUnitBot();
-    return ai->HasAura("art of war",player);
+    return ai->HasAura("art of war",GetTarget());
 }
 
 bool CastInstantFlashOfLightAction::Execute(Event event)
@@ -74,12 +84,11 @@ bool CastInstantFlashOfLightAction::Execute(Event event)
 
 bool CastInstantFlashOfLightOnPartyAction::isPossible()
 {
-    Unit* player = ai->GetUnitBot();
-    return ai->HasAura("art of war",player);
+    Player* player = ai->GetBot();
+    return player->HasAura(53488);
 }
 
 bool CastInstantFlashOfLightOnPartyAction::Execute(Event event)
 {
-    Unit* player = ai->GetUnitBot();
-    return ai->CastSpell("flash of light", player);
+    return ai->CastSpell("flash of light", GetTarget());
 }

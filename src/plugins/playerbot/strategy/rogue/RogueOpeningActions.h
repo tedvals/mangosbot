@@ -10,7 +10,6 @@ namespace ai
         {
             return context->GetValue<Unit*>("cc target", "sap");
         }
-        virtual bool isPossible() {return ai->HasAura("stealth",ai->GetUnitBot());}
 
         virtual bool Execute(Event event)
         {
@@ -24,8 +23,6 @@ namespace ai
 	public:
 		CastGarroteAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "garrote") {}
 
-        virtual bool isPossible() {return ai->HasAura("stealth",ai->GetUnitBot());}
-
         virtual NextAction** getPrerequisites()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
@@ -37,7 +34,6 @@ namespace ai
 	public:
 		CastAmbushAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "ambush") {}
 
-        virtual bool isPossible() {return ai->HasAura("stealth",ai->GetUnitBot());}
         virtual NextAction** getPrerequisites()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
@@ -49,7 +45,6 @@ namespace ai
 	public:
 		CastCheapShotAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "cheap shot") {}
 
-        virtual bool isPossible() {return ai->HasAura("stealth",ai->GetUnitBot());}
         virtual NextAction** getPrerequisites()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
