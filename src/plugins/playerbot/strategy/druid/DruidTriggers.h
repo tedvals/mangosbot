@@ -26,12 +26,6 @@ namespace ai {
         RakeTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "rake") {}
     };
 
-    class RipTrigger : public DebuffTrigger
-    {
-    public:
-        RipTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "rip") {}
-    };
-
     class InsectSwarmTrigger : public DebuffTrigger
     {
     public:
@@ -106,45 +100,11 @@ namespace ai {
         virtual bool IsActive() { return !ai->HasAura("tree of life", bot); }
     };
 
-    class BerserkTrigger : public BuffTrigger
-    {
-    public:
-        BerserkTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "berserk") {}
-        virtual bool IsActive() { return !ai->HasAura("berserk", bot); }
-    };
-
-    class SavageRoarTrigger : public BuffTrigger
-    {
-    public:
-        SavageRoarTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "savage roar") {}
-        virtual bool IsActive() { return !ai->HasAura("savage roar", bot); }
-    };
-
     class CatFormTrigger : public BuffTrigger
     {
     public:
         CatFormTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "cat form") {}
         virtual bool IsActive() { return !ai->HasAura("cat form", bot); }
-    };
-
-    class ProwlTrigger : public BuffTrigger
-    {
-    public:
-        ProwlTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "prowl") {}
-        virtual bool IsActive() { return !ai->HasAura("prowl", bot); }
-    };
-
-    class DashTrigger : public BuffTrigger
-    {
-    public:
-        DashTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "dash") {}
-        virtual bool IsActive() { return !ai->HasAura("dash", bot); }
-    };
-
-    class PredatorySwiftnessTrigger : public HasAuraTrigger
-    {
-    public:
-        PredatorySwiftnessTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "Predatory Swiftness") {}
     };
 
     class EclipseSolarTrigger : public HasAuraTrigger
