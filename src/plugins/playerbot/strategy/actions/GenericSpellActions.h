@@ -258,6 +258,60 @@ namespace ai
         CastArcaneTorrentAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "arcane torrent") {}
     };
 
+    class CastBerserkingAction : public CastBuffSpellAction
+    {
+    public:
+        CastBerserkingAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "berserking") {}
+    };
+
+    class CastBloodFuryAction : public CastBuffSpellAction
+    {
+    public:
+        CastBloodFuryAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "blood fury") {}
+    };
+
+    class CastWillOfTheForsakenAction : public CastBuffSpellAction
+    {
+    public:
+        CastWillOfTheForsakenAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "will of the forsaken") {}
+    };
+
+    class CastEveryManForHimselfAction : public CastBuffSpellAction
+    {
+    public:
+        CastEveryManForHimselfAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "every man for himself") {}
+    };
+
+    class CastCannibalizeAction : public CastSpellAction
+    {
+    public:
+        CastCannibalizeAction(PlayerbotAI* ai) : CastSpellAction(ai, "cannibalize") {}
+    };
+
+    class CastWarStompAction : public CastSpellAction
+    {
+    public:
+        CastWarStompAction(PlayerbotAI* ai) : CastSpellAction(ai, "war stomp") {}
+    };
+
+    class CastStoneformAction : public CastSpellAction
+    {
+    public:
+        CastStoneformAction(PlayerbotAI* ai) : CastSpellAction(ai, "stoneform") {}
+    };
+
+    class CastShadowmeltAction : public CastSpellAction
+    {
+    public:
+        CastShadowmeltAction(PlayerbotAI* ai) : CastSpellAction(ai, "shadowmelt") {}
+    };
+
+    class CastEscapeArtistAction : public CastSpellAction
+    {
+    public:
+        CastEscapeArtistAction(PlayerbotAI* ai) : CastSpellAction(ai, "escape artist") {}
+    };
+
     class CastSpellOnEnemyHealerAction : public CastSpellAction
     {
     public:

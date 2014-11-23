@@ -31,6 +31,15 @@ namespace ai
             creators["shoot"] = &ActionContext::shoot;
             creators["lifeblood"] = &ActionContext::lifeblood;
             creators["arcane torrent"] = &ActionContext::arcane_torrent;
+            creators["will of the forsaken"] = &ActionContext::will_of_the_forsaken;
+            creators["blood fury"] = &ActionContext::blood_fury;
+            creators["berserking"] = &ActionContext::berserking;
+            creators["cannibalize"] = &ActionContext::cannibalize;
+            creators["war stomp"] = &ActionContext::war_stomp;
+            creators["every man for himself"] = &ActionContext::every_man_for_himself;
+            creators["shadowmelt"] = &ActionContext::shadowmelt;
+            creators["escape artist"] = &ActionContext::escape_artist;
+            creators["stoneform"] = &ActionContext::stoneform;
             creators["end pull"] = &ActionContext::end_pull;
             creators["healthstone"] = &ActionContext::healthstone;
             creators["healing potion"] = &ActionContext::healing_potion;
@@ -82,6 +91,16 @@ namespace ai
         static Action* lifeblood(PlayerbotAI* ai) { return new CastLifeBloodAction(ai); }
         static Action* arcane_torrent(PlayerbotAI* ai) { return new CastArcaneTorrentAction(ai); }
         static Action* end_pull(PlayerbotAI* ai) { return new ChangeCombatStrategyAction(ai, "-pull"); }
+
+        static Action* will_of_the_forsaken(PlayerbotAI* ai) { return new CastWillOfTheForsakenAction(ai); }
+        static Action* blood_fury(PlayerbotAI* ai) { return new CastBloodFuryAction(ai); }
+        static Action* berserking(PlayerbotAI* ai) { return new CastBerserkingAction(ai); }
+        static Action* cannibalize(PlayerbotAI* ai) { return new CastCannibalizeAction(ai); }
+        static Action* war_stomp(PlayerbotAI* ai) { return new CastWarStompAction(ai); }
+        static Action* every_man_for_himself(PlayerbotAI* ai) { return new CastEveryManForHimselfAction(ai); }
+        static Action* shadowmelt(PlayerbotAI* ai) { return new CastShadowmeltAction(ai); }
+        static Action* escape_artist(PlayerbotAI* ai) { return new CastEscapeArtistAction(ai); }
+        static Action* stoneform(PlayerbotAI* ai) { return new CastStoneformAction(ai); }
 
         static Action* emote(PlayerbotAI* ai) { return new EmoteAction(ai); }
         static Action* suggest_what_to_do(PlayerbotAI* ai) { return new SuggestWhatToDoAction(ai); }
