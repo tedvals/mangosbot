@@ -28,6 +28,12 @@ namespace ai
                 creators["aoe"] = &warlock::StrategyFactoryInternal::aoe;
                 creators["fire aoe"] = &warlock::StrategyFactoryInternal::fire_aoe;
                 creators["dps debuff"] = &warlock::StrategyFactoryInternal::dps_debuff;
+                creators["dps debuff"] = &warlock::StrategyFactoryInternal::dps_debuff;
+                creators["imp"] = &warlock::StrategyFactoryInternal::nc_imp;
+                creators["voidwalker"] = &warlock::StrategyFactoryInternal::nc_voidwalker;
+                creators["succubus"] = &warlock::StrategyFactoryInternal::nc_succubus;
+                creators["felhunter"] = &warlock::StrategyFactoryInternal::nc_felhunter;
+                creators["felguard"] = &warlock::StrategyFactoryInternal::nc_felguard;
             }
 
         private:
@@ -36,6 +42,11 @@ namespace ai
             static Strategy* fire_aoe(PlayerbotAI* ai) { return new DpsFireAoeWarlockStrategy(ai); }
             static Strategy* dps_debuff(PlayerbotAI* ai) { return new DpsWarlockDebuffStrategy(ai); }
             static Strategy* pull(PlayerbotAI* ai) { return new PullStrategy(ai, "shoot"); }
+            static Strategy* nc_imp(PlayerbotAI* ai) { return new WarlockImpStrategy(ai); }
+            static Strategy* nc_voidwalker(PlayerbotAI* ai) { return new WarlockVoidwalkerStrategy(ai); }
+            static Strategy* nc_succubus(PlayerbotAI* ai) { return new WarlockSuccubusStrategy(ai); }
+            static Strategy* nc_felhunter(PlayerbotAI* ai) { return new WarlockFelhunterStrategy(ai); }
+            static Strategy* nc_felguard(PlayerbotAI* ai) { return new WarlockFelguardStrategy(ai); }
         };
 
         class CombatStrategyFactoryInternal : public NamedObjectContext<Strategy>

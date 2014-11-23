@@ -97,10 +97,6 @@ void DpsWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "haunt",
         NextAction::array(0, new NextAction("haunt", 20.0f), NULL)));
-
-     triggers.push_back(new TriggerNode(
-        "no pet",
-        NextAction::array(0, new NextAction("summon felhunter", 10.0f), NULL)));
 }
 
 void DpsAoeWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

@@ -158,10 +158,20 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
                 engine->addStrategies("dagger dps", "threat", NULL);
             break;
         case CLASS_WARLOCK:
+            if (tab == 0)
+            {
+                engine->addStrategies("dps", "threat", NULL);
+                if (player->getLevel() > 40)
+                    engine->addStrategies("felhunter",  NULL);
+                else
+                    engine->addStrategies("imp",  NULL);
+            }
             if (tab == 1)
                 engine->addStrategies("tank", "threat", NULL);
             else
-                engine->addStrategies("dps", "threat", NULL);
+            {
+                engine->addStrategies("fire dps", "threat", "imp", NULL);
+            }
 
             if (player->getLevel() > 19)
                 engine->addStrategy("dps debuff");

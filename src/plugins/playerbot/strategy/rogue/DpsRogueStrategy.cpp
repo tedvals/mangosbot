@@ -141,6 +141,11 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
      triggers.push_back(new TriggerNode(
         "boost",
         NextAction::array(0, new NextAction("adrenaline rush", ACTION_NORMAL + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"target almost dead",
+		NextAction::array(0, new NextAction("eviscerate", ACTION_EMERGENCY), NULL)));
+
 }
 
 class DpsDaggerRogueStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
@@ -310,6 +315,10 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"critical health",
 		NextAction::array(0, new NextAction("vanish", ACTION_EMERGENCY), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"target almost dead",
+		NextAction::array(0, new NextAction("envenom", ACTION_EMERGENCY), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"kick",
