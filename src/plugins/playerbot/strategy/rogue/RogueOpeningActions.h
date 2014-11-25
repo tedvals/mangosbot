@@ -38,6 +38,8 @@ namespace ai
         {
             return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
+
+        virtual NextAction** getAlternatives();
 	};
 
 	class CastCheapShotAction : public CastMeleeSpellAction

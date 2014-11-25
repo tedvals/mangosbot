@@ -67,7 +67,39 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
 		"party member dead",
 		NextAction::array(0, new NextAction("revive", 22.0f), NULL)));
 
+}
+
+class GenericDruidStealthStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+{
+public:
+    GenericDruidStealthStrategyActionNodeFactory()
+    {
+        creators["prowl"] = &prowl;
+            }
+private:
+    static ActionNode* prowl(PlayerbotAI* ai)
+    {
+        return new ActionNode ("prowl",
+            /*P*/ NextAction::array(0, new NextAction("cat form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+};
+
+GenericDruidStealthStrategy::GenericDruidStealthStrategy(PlayerbotAI* ai) : NonCombatStrategy(ai)
+{
+    actionNodeFactories.Add(new GenericDruidStealthStrategyActionNodeFactory());
+}
+
+void GenericDruidStealthStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+    NonCombatStrategy::InitTriggers(triggers);
+
+    triggers.push_back(new TriggerNode(
+        "prowl",
+        NextAction::array(0, new NextAction("prowl", 12.0f), NULL)));
+
     triggers.push_back(new TriggerNode(
         "low mana",
-        NextAction::array(0, new NextAction("innervate", ACTION_EMERGENCY + 5), NULL)));
+        NextAction::array(0, new NextAction("drink", ACTION_EMERGENCY + 5), NULL)));
 }

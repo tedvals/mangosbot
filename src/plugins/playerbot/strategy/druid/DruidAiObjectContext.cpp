@@ -24,6 +24,7 @@ namespace ai
             StrategyFactoryInternal()
             {
                 creators["nc"] = &druid::StrategyFactoryInternal::nc;
+                creators["stealth"] = &druid::StrategyFactoryInternal::nc_stealth;
                 creators["cat aoe"] = &druid::StrategyFactoryInternal::cat_aoe;
                 creators["caster aoe"] = &druid::StrategyFactoryInternal::caster_aoe;
                 creators["caster debuff"] = &druid::StrategyFactoryInternal::caster_debuff;
@@ -32,6 +33,7 @@ namespace ai
 
         private:
             static Strategy* nc(PlayerbotAI* ai) { return new GenericDruidNonCombatStrategy(ai); }
+            static Strategy* nc_stealth(PlayerbotAI* ai) { return new GenericDruidStealthStrategy(ai); }
             static Strategy* cat_aoe(PlayerbotAI* ai) { return new CatAoeDruidStrategy(ai); }
             static Strategy* caster_aoe(PlayerbotAI* ai) { return new CasterDruidAoeStrategy(ai); }
             static Strategy* caster_debuff(PlayerbotAI* ai) { return new CasterDruidDebuffStrategy(ai); }

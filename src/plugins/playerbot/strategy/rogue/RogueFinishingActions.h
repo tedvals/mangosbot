@@ -12,12 +12,16 @@ namespace ai
 	{
 	public:
 		CastEnvenomAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "envenom") {}
+
+		virtual NextAction** getAlternatives();
 	};
 
 	class CastSliceAndDiceAction : public CastMeleeSpellAction
 	{
 	public:
 		CastSliceAndDiceAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "slice and dice") {}
+
+		virtual NextAction** getAlternatives();
 	};
 
 	class CastExposeArmorAction : public CastMeleeSpellAction
@@ -35,6 +39,8 @@ namespace ai
 	    {
 	        return AI_VALUE2(uint8, "health", "current target") > 20 && AI_VALUE2(uint8, "combo", "self target") > 4;
 	    }
+
+	    virtual NextAction** getAlternatives();
 	};
 
 	class CastKidneyShotAction : public CastMeleeSpellAction

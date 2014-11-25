@@ -7,12 +7,12 @@ namespace ai
 	public:
 	    CastComboAction(PlayerbotAI* ai, string name) : CastMeleeSpellAction(ai, name) {}
 
-	    virtual bool isUseful()
-	    {
-	        return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "combo", "self target") <= 5;
-	    }
+	 //   virtual bool isUseful()
+	 //   {
+	 //       return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "combo", "self target") <= 4;
+	 //   }
 
-	     virtual NextAction** getPrerequisites()
+        virtual NextAction** getPrerequisites()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
@@ -28,6 +28,8 @@ namespace ai
     {
     public:
         CastMutilateAction(PlayerbotAI* ai) : CastComboAction(ai, "mutilate") {}
+
+         virtual NextAction** getAlternatives();
     };
 
     class CastFanOfKnivesAction : public CastComboAction
@@ -52,12 +54,16 @@ namespace ai
     {
     public:
         CastBackstabAction(PlayerbotAI* ai) : CastComboAction(ai, "backstab") {}
+
+        virtual NextAction** getAlternatives();
     };
 
     class CastHemorrhageAction : public CastComboAction
     {
     public:
         CastHemorrhageAction(PlayerbotAI* ai) : CastComboAction(ai, "hemorrhage") {}
+
+        virtual NextAction** getAlternatives();
     };
 
     class CastGhostlyStrikeAction : public CastComboAction
