@@ -192,24 +192,39 @@ namespace ai
 	{
 	public:
 		CastShadowCleaveAction(PlayerbotAI* ai) : CastSpellAction(ai, "shadow cleave") {}
+
+		virtual bool isUseful() {
+            return ai->HasAura("metamorphosis", AI_VALUE(Unit*, "self target"));
+        }
 	};
 
 	class CastImmolationAuraAction : public CastBuffSpellAction
 	{
 	public:
 		CastImmolationAuraAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "immolation aura") {}
+
+     virtual bool isUseful() {
+            return ai->HasAura("metamorphosis", AI_VALUE(Unit*, "self target"));
+        }
 	};
 
 	class CastChallengingHowlAction : public CastMeleeSpellAction
 	{
 	public:
 		CastChallengingHowlAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "challenging howl") {}
+        virtual bool isUseful() {
+            return ai->HasAura("metamorphosis", AI_VALUE(Unit*, "self target"));
+        }
 	};
 
 	class CastDemonChargeAction : public CastSpellAction
 	{
 	public:
 		CastDemonChargeAction(PlayerbotAI* ai) : CastSpellAction(ai, "demon charge") {}
+
+		virtual bool isUseful() {
+            return ai->HasAura("metamorphosis", AI_VALUE(Unit*, "self target"));
+        }
 	};
 
 	class CastCreateFirestoneAction : public CastBuffSpellAction
@@ -261,18 +276,31 @@ namespace ai
     {
     public:
         CastImmolateAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "immolate") {}
+        //virtual bool isUseful() {
+        //    return !ai->HasAura("shadowform", AI_VALUE(Unit*, "self target"));
+        //}
     };
 
     class CastConflagrateAction : public CastSpellAction
     {
     public:
         CastConflagrateAction(PlayerbotAI* ai) : CastSpellAction(ai, "conflagrate") {}
+
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("shadow bolt"), NULL), CastSpellAction::getAlternatives());
+        }
     };
 
     class CastIncinerateAction : public CastSpellAction
     {
     public:
         CastIncinerateAction(PlayerbotAI* ai) : CastSpellAction(ai, "incinerate") {}
+
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("shadow bolt"), NULL), CastSpellAction::getAlternatives());
+        }
     };
 
     class CastSoulFireAction : public CastSpellAction
@@ -285,6 +313,11 @@ namespace ai
     {
     public:
         CastChaosBoltAction(PlayerbotAI* ai) : CastSpellAction(ai, "chaos bolt") {}
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("shadow bolt"), NULL), CastSpellAction::getAlternatives());
+        }
+
     };
 
     class CastHauntAction : public CastDebuffSpellAction

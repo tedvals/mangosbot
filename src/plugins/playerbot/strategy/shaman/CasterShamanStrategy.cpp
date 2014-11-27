@@ -53,7 +53,7 @@ CasterShamanStrategy::CasterShamanStrategy(PlayerbotAI* ai) : GenericShamanStrat
 
 NextAction** CasterShamanStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("elemental mastery", 20.0f), new NextAction("lava burst", 15.0f), new NextAction("lightning bolt", 10.0f),NULL);
+    return NextAction::array(0, new NextAction("lava burst", 15.0f), new NextAction("lightning bolt", 10.0f),NULL);
 }
 
 void CasterShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

@@ -17,20 +17,15 @@ namespace ai
         virtual bool IsActive();
     };
 
-    BEGIN_TRIGGER(WarlockNoCurseTrigger, Trigger)
-    END_TRIGGER()
+    //BEGIN_TRIGGER(WarlockNoCurseTrigger, Trigger)
+    //END_TRIGGER()
 
-    BEGIN_TRIGGER(WarlockNoCorruptionTrigger, Trigger)
-    END_TRIGGER()
+    //BEGIN_TRIGGER(WarlockNoCorruptionTrigger, Trigger)
+    //END_TRIGGER()
 
     //DEBUFF_TRIGGER(CurseOfAgonyTrigger, "curse of agony", "curse of agony");
     //DEBUFF_TRIGGER(CorruptionTrigger, "corruption", "corruption");
 
-    //class CorruptionOnAttackerTrigger : public DebuffOnAttackerTrigger
-    //{
-    //public:
-    //    CorruptionOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "corruption") {}
-    //};
 
     //class DeathCoilOnAttackerTrigger : public DebuffOnAttackerTrigger
     //{
@@ -39,9 +34,44 @@ namespace ai
     //};
 
 
+    //BEGIN_TRIGGER(ImmolateTrigger, Trigger);
+    //END_TRIGGER()
+
+    class WarlockNoCurseTrigger : public DebuffTrigger
+	{
+	public:
+		WarlockNoCurseTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "curse of agony") {}
+		virtual bool IsActive();
+	};
+
+    class WarlockNoCorruptionTrigger : public DebuffTrigger
+	{
+	public:
+		WarlockNoCorruptionTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "corruption") {}
+	//	virtual bool IsActive();
+	};
+
+    class CorruptionOnAttackerTrigger : public DebuffOnAttackerTrigger
+    {
+    public:
+        CorruptionOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "corruption on attacker") {}
+      //  virtual bool IsActive();
+    };
+
+
+    class CurseOfAgonyOnAttackerTrigger : public DebuffTrigger
+	{
+	public:
+		CurseOfAgonyOnAttackerTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "curse of agony on attacker") {}
+		virtual bool IsActive();
+	};
+
+
+    //DEBUFF_TRIGGER(WarlockNoCurseTrigger, "curse of agony", "curse of agony");
+    //DEBUFF_TRIGGER(WarlockNoCorruptionTrigger, "corruption", "corruption");
     DEBUFF_TRIGGER(ImmolateTrigger, "immolate", "immolate");
     DEBUFF_TRIGGER(HauntTrigger, "haunt", "haunt");
-    DEBUFF_TRIGGER(ImprovedShadowbolt, "Shadow Mastery", "Shadow Mastery")
+    DEBUFF_TRIGGER(ImprovedShadowbolt, "shadow Mastery", "shadow Mastery")
 
     class ShadowTranceTrigger : public HasAuraTrigger
     {

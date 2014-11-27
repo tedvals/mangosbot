@@ -14,6 +14,7 @@ public:
         creators["aimed shot"] = &aimed_shot;
         creators["chimera shot"] = &chimera_shot;
         creators["explosive shot"] = &explosive_shot;
+        creators["steady shot"] = &steady_shot;
         creators["concussive shot"] = &concussive_shot;
         creators["viper sting"] = &viper_sting;
         creators["boost"] = &bestial_wrath;
@@ -31,7 +32,7 @@ private:
     {
         return new ActionNode ("aimed shot",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("chimera shot", 10.0f), NULL),
+            /*A*/ NextAction::array(0, new NextAction("auto shot", 10.0f), NULL),
             /*C*/ NULL);
     }
     static ActionNode* chimera_shot(PlayerbotAI* ai)
@@ -45,7 +46,14 @@ private:
     {
         return new ActionNode ("explosive shot",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("aimed shot"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("chimera shot"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* steady_shot(PlayerbotAI* ai)
+    {
+        return new ActionNode ("steady shot",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("arcane shot"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* concussive_shot(PlayerbotAI* ai)
@@ -71,7 +79,7 @@ DpsHunterStrategy::DpsHunterStrategy(PlayerbotAI* ai) : GenericHunterStrategy(ai
 
 NextAction** DpsHunterStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("explosive shot", 11.0f), new NextAction("steady shot", 10.0f), NULL);
+    return NextAction::array(0, new NextAction("explosive shot", 15.0f), new NextAction("kill command", 12.0f), new NextAction("aimed shot", 15.0f), new NextAction("steady shot", 10.0f), NULL);
 }
 
 void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

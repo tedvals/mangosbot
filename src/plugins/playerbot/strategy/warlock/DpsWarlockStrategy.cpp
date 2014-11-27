@@ -36,7 +36,7 @@ private:
     {
         return new ActionNode ("unstable affliction",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("corruption"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("shadow bolt"), NULL),
             /*C*/ NextAction::array(0, new NextAction("corruption"), NULL));
     }
     static ActionNode* haunt(PlayerbotAI* ai)
@@ -56,16 +56,29 @@ DpsWarlockStrategy::DpsWarlockStrategy(PlayerbotAI* ai) : GenericWarlockStrategy
 
 NextAction** DpsWarlockStrategy::getDefaultActions()
 {
-    return NextAction::array(0,new NextAction("shadow bolt", 10.0f), NULL);
+    return NextAction::array(0,new NextAction("shadow bolt", 12.0f), NULL);
 }
 
 void DpsWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericWarlockStrategy::InitTriggers(triggers);
 
-    //triggers.push_back(new TriggerNode(
-    //    "corruption",
-    //    NextAction::array(0, new NextAction("corruption", 12.0f), NULL)));
+    triggers.push_back(new TriggerNode(
+        "corruption",
+        NextAction::array(0, new NextAction("corruption", 15.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "corruption on attacker",
+        NextAction::array(0, new NextAction("corruption on attacker", 15.0f), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "curse of agony",
+        NextAction::array(0, new NextAction("corruption", 15.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "curse of agony on attacker",
+        NextAction::array(0, new NextAction("corruption on attacker", 15.0f), NULL)));
+
     triggers.push_back(new TriggerNode(
         "critical health",
         NextAction::array(0, new NextAction("drain life", 40.0f), NULL)));

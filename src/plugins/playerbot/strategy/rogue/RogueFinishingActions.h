@@ -6,6 +6,11 @@ namespace ai
 	{
 	public:
 		CastEviscerateAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "eviscerate") {}
+
+		virtual bool isUseful()
+	    {
+	        return AI_VALUE2(uint8, "combo", "self target") > 3;
+	    }
 	};
 
     class CastEnvenomAction : public CastMeleeSpellAction
@@ -14,6 +19,11 @@ namespace ai
 		CastEnvenomAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "envenom") {}
 
 		virtual NextAction** getAlternatives();
+
+        virtual bool isUseful()
+	    {
+	        return AI_VALUE2(uint8, "combo", "self target") > 3;
+	    }
 	};
 
 	class CastSliceAndDiceAction : public CastMeleeSpellAction

@@ -23,6 +23,10 @@ namespace ai
 	public:
 		CastGarroteAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "garrote") {}
 
+		virtual bool isUseful() {
+            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
+        }
+
         virtual NextAction** getPrerequisites()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
@@ -33,6 +37,10 @@ namespace ai
 	{
 	public:
 		CastAmbushAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "ambush") {}
+
+        virtual bool isUseful() {
+            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
+        }
 
         virtual NextAction** getPrerequisites()
         {
@@ -46,6 +54,10 @@ namespace ai
 	{
 	public:
 		CastCheapShotAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "cheap shot") {}
+
+        virtual bool isUseful() {
+            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
+        }
 
         virtual NextAction** getPrerequisites()
         {

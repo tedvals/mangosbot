@@ -120,11 +120,11 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             break;
         case CLASS_SHAMAN:
             if (tab == 0)
-                engine->addStrategies("caster", "caster aoe", "bmana", "threat", "flee", NULL);
+                engine->addStrategies("caster", "caster aoe", "bmana", "totems", "threat", "flee", NULL);
             else if (tab == 2)
-                engine->addStrategies("heal", "bmana", "flee", NULL);
+                engine->addStrategies("heal", "bmana", "flee", "totems", NULL);
             else
-                engine->addStrategies("dps", "melee aoe", "bdps", "threat", NULL);
+                engine->addStrategies("dps", "melee aoe", "bdps", "threat", "totems", NULL);
             break;
         case CLASS_PALADIN:
             if (tab == 0)
@@ -153,9 +153,9 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             break;
         case CLASS_ROGUE:
             if (tab == 1)
-                engine->addStrategies("dps", "threat", NULL);
+                engine->addStrategies("dps", "sword", "threat", NULL);
             else
-                engine->addStrategies("dagger dps", "threat", NULL);
+                engine->addStrategies("dps", "dagger", "threat", NULL);
             break;
         case CLASS_WARLOCK:
             if (tab == 0)

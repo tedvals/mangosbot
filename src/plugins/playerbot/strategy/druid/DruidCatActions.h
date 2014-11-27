@@ -71,13 +71,17 @@ namespace ai {
 		CastRipAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "rip") {}
 		virtual bool isUseful()
 	    {
-	        return AI_VALUE2(uint8, "health", "current target") > 20 && AI_VALUE2(uint8, "combo", "self target") > 4;
+	        return  CastDebuffSpellAction::isUseful() &&  AI_VALUE2(uint8, "health", "current target") > 20 && (AI_VALUE2(uint8, "combo", "self target") > 4);
 	    }
 	};
 
     class CastShredAction : public CastCatComboAction {
 	public:
 		CastShredAction(PlayerbotAI* ai) : CastCatComboAction(ai, "shred") {}
+		virtual bool isUseful()
+	    {
+            return CastCatComboAction::isUseful() && AI_VALUE2(bool, "behind", "current target");
+	    }
 	};
 
 	class CastClawAction : public  CastCatComboAction {
@@ -101,7 +105,7 @@ namespace ai {
 
 		virtual bool isUseful()
 	    {
-	        return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "energy", "self target") > 50;
+	        return (CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "energy", "self target") > 30) || (AI_VALUE2(uint8, "health", "target") < 10);
 	    }
 	};
 
@@ -109,9 +113,13 @@ namespace ai {
 	public:
 		CastPounceAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "pounce") {}
 
+		virtual bool isUseful() {
+            return CastMeleeSpellAction::isUseful() && ai->HasAura("prowl", AI_VALUE(Unit*, "self target"));
+        }
+
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("stealth"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 	};
 
@@ -119,10 +127,15 @@ namespace ai {
 	public:
 		CastRavageAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "ravage") {}
 
-		virtual NextAction** getPrerequisites()
-        {
-            return NextAction::merge( NextAction::array(0, new NextAction("stealth"), NULL), CastMeleeSpellAction::getPrerequisites());
+		virtual bool isUseful() {
+            return CastMeleeSpellAction::isUseful() &&  ai->HasAura("prowl", AI_VALUE(Unit*, "self target"));
         }
+
+        virtual NextAction** getPrerequisites()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
+        }
+
 	};
 
 }

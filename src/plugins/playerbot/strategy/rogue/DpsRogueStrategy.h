@@ -16,6 +16,17 @@ namespace ai
         virtual NextAction** getDefaultActions();
     };
 
+    class DpsSwordRogueStrategy : public MeleeCombatStrategy
+    {
+    public:
+        DpsSwordRogueStrategy(PlayerbotAI* ai);
+
+    public:
+        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual string getName() { return "sword"; }
+        virtual NextAction** getDefaultActions();
+    };
+
      class DpsDaggerRogueStrategy : public MeleeCombatStrategy
     {
     public:
@@ -23,7 +34,7 @@ namespace ai
 
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
-        virtual string getName() { return "dagger dps"; }
+        virtual string getName() { return "dagger"; }
         virtual NextAction** getDefaultActions();
     };
 }

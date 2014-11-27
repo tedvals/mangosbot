@@ -11,6 +11,7 @@ public:
     RacialsStrategyActionNodeFactory()
     {
         creators["lifeblood"] = &lifeblood;
+        creators["racial boost"] = &berserking;
         creators["berserking"] = &berserking;
         creators["stoneform"] = &stoneform;
     }
@@ -53,7 +54,7 @@ void RacialsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("arcane torrent", ACTION_EMERGENCY + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "boost",
+        "racial boost",
         NextAction::array(0, new NextAction("berserking", ACTION_EMERGENCY + 6), NULL)));
 }
 

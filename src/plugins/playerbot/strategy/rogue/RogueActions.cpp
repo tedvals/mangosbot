@@ -35,7 +35,7 @@ NextAction** CastAmbushAction :: getAlternatives()
 
 NextAction** CastBackstabAction :: getAlternatives()
 {
-            return NextAction::merge( NextAction::array(0, new NextAction("hemorrhage"), NULL), CastMeleeSpellAction::getAlternatives());
+            return NextAction::merge( NextAction::array(0, new NextAction("sinister strike"), NULL), CastMeleeSpellAction::getAlternatives());
 }
 
 NextAction** CastHemorrhageAction :: getAlternatives()
