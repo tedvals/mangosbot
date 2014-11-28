@@ -57,4 +57,14 @@ namespace ai
         virtual string getName() { return "dps debuff"; }
     };
 
+    class WarlockDebuffStrategy : public CombatStrategy
+    {
+    public:
+        WarlockDebuffStrategy(PlayerbotAI* ai);
+
+    public:
+        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual string getName() { return "debuff"; }
+    };
+
 }

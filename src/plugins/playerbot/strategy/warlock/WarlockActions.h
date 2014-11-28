@@ -44,6 +44,11 @@ namespace ai
 	{
 	public:
 		CastDrainLifeAction(PlayerbotAI* ai) : CastSpellAction(ai, "drain life") {}
+
+		virtual bool isUseful()
+	    {
+	        return CastSpellAction::isUseful() && AI_VALUE2(uint8, "health", "current target") < 20;
+	    }
 	};
 
 	class CastCurseOfAgonyAction : public CastDebuffSpellAction

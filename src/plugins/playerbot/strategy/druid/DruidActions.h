@@ -40,9 +40,9 @@ namespace ai
 		CastNourishAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "nourish") {}
 	};
 
-	class CastWildGrowthAction : public CastHealingSpellAction {
+	class CastWildGrowthAction : public HealPartyMemberAction {
 	public:
-		CastWildGrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "wild growth") {}
+		CastWildGrowthAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "wild growth") {}
 	};
 
     class CastHealingTouchAction : public CastHealingSpellAction {

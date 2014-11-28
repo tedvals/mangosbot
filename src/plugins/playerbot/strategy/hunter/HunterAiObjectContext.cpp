@@ -7,6 +7,7 @@
 #include "GenericHunterNonCombatStrategy.h"
 #include "HunterBuffStrategies.h"
 #include "../NamedObjectContext.h"
+#include "../generic/PullStrategy.h"
 
 using namespace ai;
 
@@ -26,6 +27,7 @@ namespace ai
                 creators["nc"] = &hunter::StrategyFactoryInternal::nc;
                 creators["aoe"] = &hunter::StrategyFactoryInternal::aoe;
                 creators["dps debuff"] = &hunter::StrategyFactoryInternal::dps_debuff;
+                creators["pull"] = &hunter::StrategyFactoryInternal::pull;
             }
 
         private:
@@ -33,6 +35,7 @@ namespace ai
             static Strategy* dps(PlayerbotAI* ai) { return new DpsHunterStrategy(ai); }
             static Strategy* nc(PlayerbotAI* ai) { return new GenericHunterNonCombatStrategy(ai); }
             static Strategy* dps_debuff(PlayerbotAI* ai) { return new DpsHunterDebuffStrategy(ai); }
+            static Strategy* pull(PlayerbotAI* ai) { return new PullStrategy(ai, "misdirection"); }
         };
 
         class BuffStrategyFactoryInternal : public NamedObjectContext<Strategy>

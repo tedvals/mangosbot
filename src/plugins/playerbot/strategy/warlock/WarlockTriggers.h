@@ -48,14 +48,14 @@ namespace ai
 	{
 	public:
 		WarlockNoCorruptionTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "corruption") {}
-	//	virtual bool IsActive();
+		virtual bool IsActive();
 	};
 
     class CorruptionOnAttackerTrigger : public DebuffOnAttackerTrigger
     {
     public:
         CorruptionOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "corruption on attacker") {}
-      //  virtual bool IsActive();
+        virtual bool IsActive();
     };
 
 

@@ -77,12 +77,15 @@ namespace ai
                 creators["party member cure disease"] = &TriggerFactoryInternal::party_member_cure_disease;
                 creators["power word: fortitude"] = &TriggerFactoryInternal::power_word_fortitude;
                 creators["power word: fortitude on party"] = &TriggerFactoryInternal::power_word_fortitude_on_party;
+                creators["prayer of shadow protection"] = &TriggerFactoryInternal::power_word_fortitude;
+                creators["prayer of shadow protection on party"] = &TriggerFactoryInternal::prayer_of_shadow_protection_on_party;
                 creators["divine spirit"] = &TriggerFactoryInternal::divine_spirit;
                 creators["divine spirit on party"] = &TriggerFactoryInternal::divine_spirit_on_party;
                 creators["inner fire"] = &TriggerFactoryInternal::inner_fire;
                 creators["vampiric touch"] = &TriggerFactoryInternal::vampiric_touch;
                 creators["shadowform"] = &TriggerFactoryInternal::shadowform;
                 creators["vampiric embrace"] = &TriggerFactoryInternal::vampiric_embrace;
+                creators["surge of light"] = &TriggerFactoryInternal::surge_of_light;
 
             }
 
@@ -99,9 +102,12 @@ namespace ai
             static Trigger* party_member_cure_disease(PlayerbotAI* ai) { return new PartyMemberCureDiseaseTrigger(ai); }
             static Trigger* power_word_fortitude(PlayerbotAI* ai) { return new PowerWordFortitudeTrigger(ai); }
             static Trigger* power_word_fortitude_on_party(PlayerbotAI* ai) { return new PowerWordFortitudeOnPartyTrigger(ai); }
+            static Trigger* prayer_of_shadow_protection(PlayerbotAI* ai) { return new PrayerOfShadowProtectionTrigger(ai); }
+            static Trigger* prayer_of_shadow_protection_on_party(PlayerbotAI* ai) { return new PrayerOfShadowProtectionOnPartyTrigger(ai); }
             static Trigger* divine_spirit(PlayerbotAI* ai) { return new DivineSpiritTrigger(ai); }
             static Trigger* divine_spirit_on_party(PlayerbotAI* ai) { return new DivineSpiritOnPartyTrigger(ai); }
             static Trigger* inner_fire(PlayerbotAI* ai) { return new InnerFireTrigger(ai); }
+            static Trigger* surge_of_light(PlayerbotAI* ai) { return new SurgeOfLightTrigger(ai); }
         };
     };
 };
@@ -157,9 +163,31 @@ namespace ai
                 creators["resurrection"] = &AiObjectContextInternal::resurrection;
                 creators["circle of healing"] = &AiObjectContextInternal::circle_of_healing;
                 creators["psychic scream"] = &AiObjectContextInternal::psychic_scream;
+                creators["psychic horror"] = &AiObjectContextInternal::psychic_horror;
                 creators["vampiric touch"] = &AiObjectContextInternal::vampiric_touch;
                 creators["vampiric embrace"] = &AiObjectContextInternal::vampiric_embrace;
                 creators["dispersion"] = &AiObjectContextInternal::dispersion;
+                creators["prayer of healing"] = &AiObjectContextInternal::prayer_of_healing;
+                creators["prayer of mending"] = &AiObjectContextInternal::prayer_of_healing;
+                creators["prayer of mending on party"] = &AiObjectContextInternal::prayer_of_mending_on_party;
+                creators["binding heal on party"] = &AiObjectContextInternal::binding_heal_on_party;
+                creators["penance on attacker"] = &AiObjectContextInternal::penance_on_attacker;
+                creators["penance"] = &AiObjectContextInternal::penance;
+                creators["penance on party"] = &AiObjectContextInternal::penance_on_party;
+                creators["pain suppression"] = &AiObjectContextInternal::pain_suppression;
+                creators["pain suppression on party"] = &AiObjectContextInternal::pain_suppression_on_party;
+                creators["guardian spirit"] = &AiObjectContextInternal::guardian_spirit;
+                creators["guardian spirit on party"] = &AiObjectContextInternal::guardian_spirit_on_party;
+                creators["power infusion"] = &AiObjectContextInternal::power_infusion;
+                creators["power infusion on party"] = &AiObjectContextInternal::power_infusion_on_party;
+                creators["shadowfiend"] = &AiObjectContextInternal::shadowfiend;
+                creators["power word: death"] = &AiObjectContextInternal::power_word_death;
+                creators["prayer of shadow protection"] = &AiObjectContextInternal::prayer_of_shadow_protection;
+                creators["prayer of shadow protection on party"] = &AiObjectContextInternal::prayer_of_shadow_protection_on_party;
+                creators["inner focus"] = &AiObjectContextInternal::inner_focus;
+                creators["desperate prayer"] = &AiObjectContextInternal::desperate_prayer;
+                creators["divine hymn"] = &AiObjectContextInternal::divine_hymn;
+                creators["hymn of hope"] = &AiObjectContextInternal::hymn_of_hope;
             }
 
         private:
@@ -204,6 +232,28 @@ namespace ai
             static Action* abolish_disease_on_party(PlayerbotAI* ai) { return new CastAbolishDiseaseOnPartyAction(ai); }
             static Action* fade(PlayerbotAI* ai) { return new CastFadeAction(ai); }
             static Action* inner_fire(PlayerbotAI* ai) { return new CastInnerFireAction(ai); }
+            static Action* prayer_of_healing(PlayerbotAI* ai) { return new CastPrayerOfHealingAction(ai); }
+            static Action* prayer_of_mending(PlayerbotAI* ai) { return new CastPrayerOfMendingAction(ai); }
+            static Action* prayer_of_mending_on_party(PlayerbotAI* ai) { return new CastPrayerOfMendingOnPartyAction(ai); }
+            static Action* power_infusion(PlayerbotAI* ai) { return new CastPowerInfusionAction(ai); }
+            static Action* power_infusion_on_party(PlayerbotAI* ai) { return new CastPowerInfusionOnPartyAction(ai); }
+            static Action* pain_suppression(PlayerbotAI* ai) { return new CastPainSuppressionAction(ai); }
+            static Action* pain_suppression_on_party(PlayerbotAI* ai) { return new CastPainSuppressionOnPartyAction(ai); }
+            static Action* penance_on_attacker(PlayerbotAI* ai) { return new CastPenanceOnAttackerAction(ai); }
+            static Action* penance(PlayerbotAI* ai) { return new CastPenanceHealAction(ai); }
+            static Action* penance_on_party(PlayerbotAI* ai) { return new CastPenanceHealOnPartyAction(ai); }
+            static Action* guardian_spirit(PlayerbotAI* ai) { return new CastGuardianSpiritAction(ai); }
+            static Action* guardian_spirit_on_party(PlayerbotAI* ai) { return new CastGuardianSpiritOnPartyAction(ai); }
+            static Action* binding_heal_on_party(PlayerbotAI* ai) { return new CastBindingHealOnPartyAction(ai); }
+            static Action* shadowfiend(PlayerbotAI* ai) { return new CastShadowfiendAction(ai); }
+            static Action* power_word_death(PlayerbotAI* ai) { return new CastPowerWordDeathAction(ai); }
+            static Action* prayer_of_shadow_protection(PlayerbotAI* ai) { return new CastPrayerOfShadowProtectionAction(ai); }
+            static Action* prayer_of_shadow_protection_on_party(PlayerbotAI* ai) { return new CastPrayerOfShadowProtectionOnPartyAction(ai); }
+            static Action* inner_focus(PlayerbotAI* ai) { return new CastInnerFocusAction(ai); }
+            static Action* desperate_prayer(PlayerbotAI* ai) { return new CastDesperatePrayerAction(ai); }
+            static Action* divine_hymn(PlayerbotAI* ai) { return new CastDivineHymnAction(ai); }
+            static Action* hymn_of_hope(PlayerbotAI* ai) { return new CastHymnOfHopeAction(ai); }
+            static Action* psychic_horror(PlayerbotAI* ai) { return new CastPsychicHorrorAction(ai); }
         };
     };
 };

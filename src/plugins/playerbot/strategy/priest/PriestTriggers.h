@@ -9,8 +9,18 @@ namespace ai
 
     BUFF_ON_PARTY_TRIGGER(DivineSpiritOnPartyTrigger, "divine spirit", "divine spirit on party")
     BUFF_TRIGGER(DivineSpiritTrigger, "divine spirit", "divine spirit")
+
+    BUFF_ON_PARTY_TRIGGER(PrayerOfShadowProtectionOnPartyTrigger, "prayer of shadow protection", "prayer of shadow protection on party")
+    BUFF_TRIGGER(PrayerOfShadowProtectionTrigger, "prayer of shadow protection", "prayer of shadow protection")
+
     BUFF_TRIGGER(InnerFireTrigger, "inner fire", "inner fire")
     BUFF_TRIGGER(VampiricEmbraceTrigger, "vampiric embrace", "vampiric embrace")
+
+    class SurgeOfLightTrigger : public HasAuraTrigger
+    {
+    public:
+        SurgeOfLightTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "surge of light") {}
+    };
 
     class PowerWordPainOnAttackerTrigger : public DebuffOnAttackerTrigger
     {

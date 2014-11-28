@@ -58,6 +58,11 @@ namespace ai
     class CastExecuteAction : public CastMeleeSpellAction {
     public:
         CastExecuteAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "execute") {}
+
+        virtual bool isUseful()
+	    {
+	        return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "health", "current target") < 20;
+	    }
     };
 
     // battle

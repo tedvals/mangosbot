@@ -43,6 +43,25 @@ namespace ai
         virtual string getName() { return "flash heal on party"; }
     };
 
+    class CastPenanceHealAction : public CastHealingSpellAction {
+    public:
+        CastPenanceHealAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "penance") {}
+    };
+
+    class CastPenanceOnAttackerAction : public CastSpellAction
+	{
+    public:
+	    CastPenanceOnAttackerAction(PlayerbotAI* ai) : CastSpellAction(ai, "shadow word: pain") {}
+	};
+
+    class CastPenanceHealOnPartyAction : public HealPartyMemberAction
+    {
+    public:
+        CastPenanceHealOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "penance") {}
+
+        virtual string getName() { return "penance on party"; }
+    };
+
     class CastHealAction : public CastHealingSpellAction {
     public:
         CastHealAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "heal") {}
@@ -61,6 +80,11 @@ namespace ai
         CastRenewAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "renew") {}
     };
 
+    class CastDesperatePrayerAction : public CastHealingSpellAction {
+    public:
+        CastDesperatePrayerAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "desperate prayer") {}
+    };
+
     class CastRenewOnPartyAction : public HealPartyMemberAction
     {
     public:
@@ -69,15 +93,62 @@ namespace ai
         virtual string getName() { return "renew on party"; }
     };
 
+    class CastPrayerOfHealingAction : public CastAoeHealSpellAction {
+    public:
+        CastPrayerOfHealingAction(PlayerbotAI* ai) : CastAoeHealSpellAction(ai, "prayer of healing") {}
+    };
+
+    class CastDivineHymnAction : public CastAoeHealSpellAction {
+    public:
+        CastDivineHymnAction(PlayerbotAI* ai) : CastAoeHealSpellAction(ai, "divine hymn") {}
+    };
+
+    class CastHymnOfHopeAction : public CastBuffSpellAction {
+    public:
+        CastHymnOfHopeAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "hymn of hope") {}
+    };
+
+    class CastInnerFocusAction : public CastBuffSpellAction {
+    public:
+        CastInnerFocusAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "inner focus") {}
+    };
+
     class CastFadeAction : public CastBuffSpellAction {
     public:
         CastFadeAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "fade") {}
+    };
+
+    class CastPrayerOfMendingAction : public CastHealingSpellAction {
+    public:
+        CastPrayerOfMendingAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "prayer of mending") {}
+    };
+
+    class CastPrayerOfMendingOnPartyAction : public HealPartyMemberAction
+    {
+    public:
+        CastPrayerOfMendingOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "prayer of mending") {}
+
+        virtual string getName() { return "prayer of mending on party"; }
+    };
+
+    class CastBindingHealOnPartyAction : public HealPartyMemberAction
+    {
+    public:
+        CastBindingHealOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "binding heal") {}
+
+        virtual string getName() { return "binding heal on party"; }
     };
 
     class CastShadowformAction : public CastBuffSpellAction {
     public:
         CastShadowformAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "shadowform") {}
     };
+
+    class CastShadowfiendAction : public CastBuffSpellAction {
+    public:
+        CastShadowfiendAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "shadowfiend") {}
+    };
+
 
     class CastRemoveShadowformAction : public Action {
     public:
@@ -108,9 +179,53 @@ namespace ai
         virtual string getName() { return "power word: shield on party"; }
     };
 
+    class CastPainSuppressionAction : public CastBuffSpellAction {
+	public:
+		CastPainSuppressionAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "pain suppression") {}
+	};
+
+    class CastPainSuppressionOnPartyAction : public HealPartyMemberAction
+    {
+    public:
+        CastPainSuppressionOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "pain suppression") {}
+
+        virtual string getName() { return "pain suppression on party"; }
+    };
+
+    class CastGuardianSpiritAction : public CastBuffSpellAction {
+	public:
+		CastGuardianSpiritAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "guardian spirit") {}
+	};
+
+    class CastGuardianSpiritOnPartyAction : public HealPartyMemberAction
+    {
+    public:
+        CastGuardianSpiritOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "guardian spirit") {}
+
+        virtual string getName() { return "guardian spirit on party"; }
+    };
+
+    class CastPowerInfusionAction : public CastBuffSpellAction {
+	public:
+		CastPowerInfusionAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "power infusion") {}
+	};
+
+    class CastPowerInfusionOnPartyAction : public BuffOnPartyAction
+    {
+    public:
+        CastPowerInfusionOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "power infusion") {}
+
+        virtual string getName() { return "power infusion on party"; }
+    };
+
 	class CastPowerWordFortitudeAction : public CastBuffSpellAction {
 	public:
 		CastPowerWordFortitudeAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "power word: fortitude") {}
+	};
+
+	class CastPrayerOfShadowProtectionAction : public CastBuffSpellAction {
+	public:
+		CastPrayerOfShadowProtectionAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "prayer of shadow protection") {}
 	};
 
 	class CastDivineSpiritAction : public CastBuffSpellAction {
@@ -125,7 +240,7 @@ namespace ai
 
     BEGIN_SPELL_ACTION(CastHolyNovaAction, "holy nova")
     virtual bool isUseful() {
-        return !ai->HasAura("shadowform", AI_VALUE(Unit*, "self target"));
+        return !ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance;;
     }
     END_SPELL_ACTION()
 
@@ -144,6 +259,11 @@ namespace ai
 	class CastPowerWordFortitudeOnPartyAction : public BuffOnPartyAction {
 	public:
 		CastPowerWordFortitudeOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "power word: fortitude") {}
+	};
+
+	class CastPrayerOfShadowProtectionOnPartyAction : public BuffOnPartyAction {
+	public:
+		CastPrayerOfShadowProtectionOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "prayer of shadow protection") {}
 	};
 
 	class CastDivineSpiritOnPartyAction : public BuffOnPartyAction {
@@ -173,6 +293,9 @@ namespace ai
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastMindFlayAction, "mind flay")
+    END_SPELL_ACTION()
+
+    BEGIN_RANGED_SPELL_ACTION(CastPowerWordDeathAction, "power word: death")
     END_SPELL_ACTION()
 
 	class CastCureDiseaseAction : public CastCureSpellAction {
@@ -234,6 +357,12 @@ namespace ai
 	{
 	public:
 	    CastPsychicScreamAction(PlayerbotAI* ai) : CastSpellAction(ai, "psychic scream") {}
+	};
+
+	class CastPsychicHorrorAction : public CastSpellAction
+	{
+	public:
+	    CastPsychicHorrorAction(PlayerbotAI* ai) : CastSpellAction(ai, "psychic horror") {}
 	};
 
 	class CastDispersionAction : public CastSpellAction

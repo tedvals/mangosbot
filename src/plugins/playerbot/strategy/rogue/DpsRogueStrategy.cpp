@@ -261,7 +261,6 @@ public:
         creators["melee"] = &melee;
         creators["shadowstep"] = &shadowstep;
         creators["mutilate"] = &mutilate;
-        creators["hemorrhage"] = &hemorrhage;
         creators["vanish"] = &vanish;
         creators["rupture"] = &rupture;
         creators["backstab"] = &backstab;
@@ -310,13 +309,6 @@ private:
             /*A*/ NextAction::array(0, new NextAction("backstab"), NULL),
             /*C*/ NULL);
     }
-    static ActionNode* hemorrhage(PlayerbotAI* ai)
-    {
-        return new ActionNode ("hemorrhage",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("sinister strike"), NULL),
-            /*C*/ NULL);
-    }
     static ActionNode* vanish(PlayerbotAI* ai)
     {
         return new ActionNode ("vanish",
@@ -363,7 +355,7 @@ DpsDaggerRogueStrategy::DpsDaggerRogueStrategy(PlayerbotAI* ai) : MeleeCombatStr
 
 NextAction** DpsDaggerRogueStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("mutilate", ACTION_NORMAL), new NextAction("backstab", ACTION_NORMAL+2), NULL);
+    return NextAction::array(0, new NextAction("mutilate", ACTION_NORMAL+5), new NextAction("backstab", ACTION_NORMAL), NULL);
 }
 
 void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
