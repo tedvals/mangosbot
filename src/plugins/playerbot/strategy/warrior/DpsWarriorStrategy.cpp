@@ -18,7 +18,8 @@ public:
         creators["rend"] = &rend;
         creators["mocking blow"] = &mocking_blow;
         creators["boost"] = &death_wish;
-        creators["death wish"] = &death_wish;
+        //creators["death wish"] = &death_wish;
+        creators["boost"] = &death_wish;
         creators["execute"] = &execute;
         creators["slam"] = &slam;
         creators["mortal strike"]= &mortal_strike;
@@ -164,6 +165,14 @@ void DpsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "death wish",
         NextAction::array(0, new NextAction("death wish", ACTION_HIGH + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "boost",
+        NextAction::array(0, new NextAction("death wish", ACTION_HIGH + 2), NULL)));
+
+   //   triggers.push_back(new TriggerNode(
+   //     "target fleeing",
+   //     NextAction::array(0, new NextAction("hamstring", ACTION_HIGH + 2), NULL)));
 }
 
 

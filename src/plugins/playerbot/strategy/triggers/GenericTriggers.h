@@ -539,6 +539,96 @@ namespace ai
         virtual string getName() { return spell + " on enemy healer"; }
     };
 
+    class SnaredTrigger : public Trigger {
+    public:
+        SnaredTrigger(PlayerbotAI* ai) : Trigger(ai, "snared", 10) {}
+        virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive();
+    };
+
+    class RootedTrigger : public Trigger {
+    public:
+        RootedTrigger(PlayerbotAI* ai) : Trigger(ai, "rooted", 5) {}
+        virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive();
+    };
+
+    class FrozenTrigger : public Trigger {
+    public:
+        FrozenTrigger(PlayerbotAI* ai) : Trigger(ai, "frozen", 5) {}
+        virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive();
+    };
+
+    class StunnedTrigger : public Trigger {
+    public:
+        StunnedTrigger(PlayerbotAI* ai) : Trigger(ai, "stunned", 5) {}
+        virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetSnaredTrigger : public Trigger {
+    public:
+        TargetSnaredTrigger(PlayerbotAI* ai) : Trigger(ai, "target snared", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetRootedTrigger : public Trigger {
+    public:
+        TargetRootedTrigger(PlayerbotAI* ai) : Trigger(ai, "target rooted", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetFrozenTrigger : public Trigger {
+    public:
+        TargetFrozenTrigger(PlayerbotAI* ai) : Trigger(ai, "target frozen", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetFleeingTrigger : public Trigger {
+    public:
+        TargetFleeingTrigger(PlayerbotAI* ai) : Trigger(ai, "target fleeing", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetStunnedTrigger : public Trigger {
+    public:
+        TargetStunnedTrigger(PlayerbotAI* ai) : Trigger(ai, "target stunned", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetNotSnaredTrigger : public Trigger {
+    public:
+        TargetNotSnaredTrigger(PlayerbotAI* ai) : Trigger(ai, "target not snared", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetNotRootedTrigger : public Trigger {
+    public:
+        TargetNotRootedTrigger(PlayerbotAI* ai) : Trigger(ai, "target not rooted", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetNotFrozenTrigger : public Trigger {
+    public:
+        TargetNotFrozenTrigger(PlayerbotAI* ai) : Trigger(ai, "target not frozen", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetNotStunnedTrigger : public Trigger {
+    public:
+        TargetNotStunnedTrigger(PlayerbotAI* ai) : Trigger(ai, "target not frozen", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
 }
 
 #include "RangeTriggers.h"

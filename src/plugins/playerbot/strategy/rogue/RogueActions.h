@@ -107,6 +107,14 @@ namespace ai
 	{
 	public:
 		CastAdrenalineRushAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "adrenaline rush") {}
+		virtual NextAction** getAlternatives();
+	};
+
+	class CastBurstAction : public CastBuffSpellAction
+	{
+	public:
+		CastBurstAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "killing spree") {}
+		virtual NextAction** getAlternatives();
 	};
 
 	class CastKillingSpreeAction : public CastBuffSpellAction
@@ -119,6 +127,7 @@ namespace ai
 	{
 	public:
 		CastShadowDanceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "shadow dance") {}
+		virtual NextAction** getAlternatives();
 	};
 
     class CastKickOnEnemyHealerAction : public CastSpellOnEnemyHealerAction

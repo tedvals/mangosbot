@@ -246,6 +246,27 @@ namespace ai
         virtual NextAction** getAlternatives();
     };
 
+    class CastBerserkAction : public CastBuffSpellAction
+	{
+	public:
+		CastBerserkAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "berserk") {}
+	};
+
+
+    class CastBoostAction : public CastBuffSpellAction
+	{
+	public:
+		CastBoostAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "berserk") {}
+
+		virtual NextAction** getAlternatives();
+	};
+
+	class CastBurstAction : public CastBuffSpellAction
+	{
+	public:
+		CastBurstAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "tiger's fury") {}
+	};
+
     class CastBarskinAction : public CastBuffSpellAction
     {
     public:

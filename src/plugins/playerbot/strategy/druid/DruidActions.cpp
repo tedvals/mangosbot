@@ -15,6 +15,11 @@ NextAction** CastAbolishPoisonAction::getAlternatives()
     return NextAction::merge( NextAction::array(0, new NextAction("cure poison"), NULL), CastSpellAction::getPrerequisites());
 }
 
+NextAction** CastBoostAction::getAlternatives()
+{
+    return NextAction::merge( NextAction::array(0, new NextAction("force of nature"), NULL), CastSpellAction::getPrerequisites());
+}
+
 NextAction** CastAbolishPoisonOnPartyAction::getAlternatives()
 {
     return NextAction::merge( NextAction::array(0, new NextAction("cure poison on party"), NULL), CastSpellAction::getPrerequisites());
@@ -27,5 +32,5 @@ Value<Unit*>* CastEntanglingRootsCcAction::GetTargetValue()
 
 bool CastEntanglingRootsCcAction::Execute(Event event)
 {
-    return ai->CastSpell("entangling roots", GetTarget()); 
+    return ai->CastSpell("entangling roots", GetTarget());
 }

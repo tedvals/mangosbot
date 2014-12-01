@@ -152,6 +152,10 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     RangedCombatStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
+        "has aggro",
+        NextAction::array(0, new NextAction("frost nova",49.0f), new NextAction("blink",49.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "remove curse",
         NextAction::array(0, new NextAction("remove curse", 41.0f), NULL)));
 
@@ -161,7 +165,7 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy too close for spell",
-        NextAction::array(0, new NextAction("frost nova", 50.0f), NULL)));
+        NextAction::array(0, new NextAction("flee", 50.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "counterspell",
@@ -186,6 +190,14 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"spellsteal",
 		NextAction::array(0, new NextAction("spellsteal", 40.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"stunned",
+		NextAction::array(0, new NextAction("blink", 40.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"rooted",
+		NextAction::array(0, new NextAction("blink", 40.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium threat",

@@ -194,6 +194,7 @@ namespace ai
                 creators["slow"] = &AiObjectContextInternal::slow;
                 creators["fire ward"] = &AiObjectContextInternal::fire_ward;
                 creators["frost ward"] = &AiObjectContextInternal::frost_ward;
+                creators["boost"] = &AiObjectContextInternal::mage_boost;
             }
 
         private:
@@ -244,6 +245,7 @@ namespace ai
             static Action* slow(PlayerbotAI* ai) { return new CastSlowAction(ai); }
             static Action* fire_ward(PlayerbotAI* ai) { return new CastFireWardAction(ai); }
             static Action* frost_ward(PlayerbotAI* ai) { return new CastFrostWardAction(ai); }
+            static Action* mage_boost(PlayerbotAI* ai) { return new CastIcyVeinsAction(ai); }
         };
     };
 };

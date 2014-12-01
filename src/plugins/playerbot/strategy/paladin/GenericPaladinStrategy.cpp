@@ -30,6 +30,10 @@ void GenericPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"almost dead",
 		NextAction::array(0, new NextAction("divine shield", ACTION_EMERGENCY), NULL)));
 
+    triggers.push_back(new TriggerNode(
+		"stunned",
+		NextAction::array(0, new NextAction("blessing of freedom", ACTION_EMERGENCY), NULL)));
+
 	triggers.push_back(new TriggerNode(
 		"party member almost dead",
 		NextAction::array(0, new NextAction("lay on hands on party", ACTION_EMERGENCY), NULL)));

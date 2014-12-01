@@ -165,6 +165,10 @@ void BearTankDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "bear form",
         NextAction::array(0, new NextAction("dire bear form", ACTION_HIGH + 8), NULL)));
 
+     triggers.push_back(new TriggerNode(
+        "rooted",
+        NextAction::array(0, new NextAction("dire bear form", ACTION_HIGH + 8), NULL)));
+
     triggers.push_back(new TriggerNode(
         "faerie fire (feral)",
         NextAction::array(0, new NextAction("faerie fire (feral)", ACTION_HIGH + 7), NULL)));

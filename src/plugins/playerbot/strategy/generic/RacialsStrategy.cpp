@@ -13,6 +13,7 @@ public:
         creators["lifeblood"] = &lifeblood;
         creators["racial boost"] = &berserking;
         creators["berserking"] = &berserking;
+        creators["blood fury"] = &blood_fury;
         creators["stoneform"] = &stoneform;
     }
 private:
@@ -35,6 +36,13 @@ private:
         return new ActionNode ("berserking",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("blood fury"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* blood_fury(PlayerbotAI* ai)
+    {
+        return new ActionNode ("blood fury",
+            /*P*/ NULL,
+            /*A*/ NULL,
             /*C*/ NULL);
     }
 };

@@ -16,6 +16,7 @@ public:
         creators["lesser healing wave"] = &lesser_healing_wave;
         creators["lesser healing wave on party"] = &lesser_healing_wave_on_party;
         creators["earth shock"] = &earth_shock;
+        creators["frost shock"] = &frost_shock;
         creators["strength of earth totem"] = &strength_earth_totem;
         creators["stoneskin totem"] = &stoneskin_totem;
         creators["totem of wrath totem"] = &wrath_totem;
@@ -25,7 +26,9 @@ public:
         creators["grace of air totem"] = &grace_air_totem;
         creators["boost"] = &bloodlust;
         creators["bloodlust"] = &bloodlust;
+        creators["heroism"] = &bloodlust;
         creators["stoneclaw totem"] = &stoneclaw_totem;
+        creators["earth elemental totem"] = &earth_elemental_totem;
     }
 private:
 
@@ -34,6 +37,13 @@ private:
         return new ActionNode ("earth shock",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("flame shock"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* frost_shock(PlayerbotAI* ai)
+    {
+        return new ActionNode ("frost shock",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("earthbind totem"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* flametongue_weapon(PlayerbotAI* ai)
@@ -127,11 +137,25 @@ private:
             /*A*/ NextAction::array(0, new NextAction("heroism"), NULL),
             /*C*/ NextAction::array(0, new NextAction("fire elemental"), NULL));
     }
+    static ActionNode* heroism(PlayerbotAI* ai)
+    {
+        return new ActionNode ("heroism",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("bloodlust"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("fire elemental"), NULL));
+    }
     static ActionNode* stoneclaw_totem(PlayerbotAI* ai)
     {
         return new ActionNode ("stoneclaw totem",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("earth elemental"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* earth_elemental_totem(PlayerbotAI* ai)
+    {
+        return new ActionNode ("earth elemental totem",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("stoneclaw totem"), NULL),
             /*C*/ NULL);
     }
 };
@@ -148,6 +172,10 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "wind shear",
         NextAction::array(0, new NextAction("wind shear", 23.0f), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "target fleeing",
+        NextAction::array(0, new NextAction("frost shock", 30.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "wind shear on enemy healer",
@@ -166,8 +194,8 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("hex", 30.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "medium threat",
-        NextAction::array(0, new NextAction("stoneclaw totem", 60.0f), NULL)));
+        "has aggro",
+        NextAction::array(0, new NextAction("earth elemental totem", 60.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
         "party member low health",

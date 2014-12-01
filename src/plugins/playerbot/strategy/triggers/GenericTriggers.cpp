@@ -93,7 +93,7 @@ bool AoeTrigger::IsActive()
 
 bool DebuffTrigger::IsActive()
 {
-	return BuffTrigger::IsActive() && AI_VALUE2(uint8, "health", "current target") > 20;
+	return BuffTrigger::IsActive() && AI_VALUE2(uint8, "health", "current target") > 10;
 }
 
 bool SpellTrigger::IsActive()
@@ -239,4 +239,69 @@ bool TargetChangedTrigger::IsActive()
 Value<Unit*>* InterruptEnemyHealerTrigger::GetTargetValue()
 {
     return context->GetValue<Unit*>("enemy healer target", spell);
+}
+
+bool SnaredTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "snared", GetTargetName());
+}
+
+bool FrozenTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "frozen", GetTargetName());
+}
+
+bool RootedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "rooted", GetTargetName());
+}
+
+bool StunnedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "stunned", GetTargetName());
+}
+
+bool TargetSnaredTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "snared", GetTargetName());
+}
+
+bool TargetFrozenTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "frozen", GetTargetName());
+}
+
+bool TargetRootedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "rooted", GetTargetName());
+}
+
+bool TargetFleeingTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "fleeing", GetTargetName());
+}
+
+bool TargetStunnedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "stunned", GetTargetName());
+}
+
+bool TargetNotSnaredTrigger::IsActive()
+{
+    return !AI_VALUE2(bool, "snared", GetTargetName());
+}
+
+bool TargetNotFrozenTrigger::IsActive()
+{
+    return !AI_VALUE2(bool, "frozen", GetTargetName());
+}
+
+bool TargetNotRootedTrigger::IsActive()
+{
+    return !AI_VALUE2(bool, "rooted", GetTargetName());
+}
+
+bool TargetNotStunnedTrigger::IsActive()
+{
+    return !AI_VALUE2(bool, "stunned", GetTargetName());
 }

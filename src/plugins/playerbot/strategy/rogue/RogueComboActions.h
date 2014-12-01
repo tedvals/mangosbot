@@ -62,8 +62,6 @@ namespace ai
     {
     public:
         CastHemorrhageAction(PlayerbotAI* ai) : CastComboAction(ai, "hemorrhage") {}
-
-        virtual NextAction** getAlternatives();
     };
 
     class CastGhostlyStrikeAction : public CastComboAction

@@ -20,6 +20,61 @@ bool IsDeadValue::Calculate()
     return target->getDeathState() != ALIVE;
 }
 
+bool IsFrozenValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    return target->isFrozen();
+}
+
+bool IsFearedValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    return target->isFeared();
+}
+
+bool IsRootedValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    return target->isInRoots();
+}
+
+bool IsCharmedValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    return target->IsCharmed();
+}
+
+bool IsStunnedValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    return target->isStunned();
+}
+
+bool IsSnaredValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    return target->isSnared();
+}
+
+bool IsFleeingValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    return target->IsFleeing();
+}
 
 uint8 RageValue::Calculate()
 {
@@ -35,6 +90,21 @@ uint8 EnergyValue::Calculate()
     if (!target)
         return 0;
     return (static_cast<float> (target->GetPower(POWER_ENERGY)));
+}
+
+uint8 RuneValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return 0;
+    return (static_cast<float> (target->GetPower(POWER_RUNE)));
+}
+uint8 RunicPowerValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return 0;
+    return (static_cast<float> (target->GetPower(POWER_RUNIC_POWER)));
 }
 
 uint8 ManaValue::Calculate()

@@ -105,8 +105,8 @@ namespace ai
                 creators["party member cleanse spirit disease"] = &TriggerFactoryInternal::party_member_cleanse_disease;
                 creators["shock"] = &TriggerFactoryInternal::shock;
                 creators["frost shock snare"] = &TriggerFactoryInternal::frost_shock_snare;
-                creators["heroism"] = &TriggerFactoryInternal::heroism;
-                creators["bloodlust"] = &TriggerFactoryInternal::bloodlust;
+                //creators["heroism"] = &TriggerFactoryInternal::heroism;
+                //creators["bloodlust"] = &TriggerFactoryInternal::bloodlust;
                 creators["maelstrom weapon"] = &TriggerFactoryInternal::maelstrom_weapon;
                 creators["wind shear on enemy healer"] = &TriggerFactoryInternal::wind_shear_on_enemy_healer;
                 creators["hex"] = &TriggerFactoryInternal::hex;
@@ -114,8 +114,8 @@ namespace ai
 
         private:
             static Trigger* maelstrom_weapon(PlayerbotAI* ai) { return new MaelstromWeaponTrigger(ai); }
-            static Trigger* heroism(PlayerbotAI* ai) { return new HeroismTrigger(ai); }
-            static Trigger* bloodlust(PlayerbotAI* ai) { return new BloodlustTrigger(ai); }
+            //static Trigger* heroism(PlayerbotAI* ai) { return new HeroismTrigger(ai); }
+            //static Trigger* bloodlust(PlayerbotAI* ai) { return new BloodlustTrigger(ai); }
             static Trigger* party_member_cleanse_disease(PlayerbotAI* ai) { return new PartyMemberCleanseSpiritDiseaseTrigger(ai); }
             static Trigger* party_member_cleanse_curse(PlayerbotAI* ai) { return new PartyMemberCleanseSpiritCurseTrigger(ai); }
             static Trigger* party_member_cleanse_poison(PlayerbotAI* ai) { return new PartyMemberCleanseSpiritPoisonTrigger(ai); }
@@ -214,6 +214,9 @@ namespace ai
                 creators["feral spirit"] = &AiObjectContextInternal::feral_spirit;
                 creators["shamanistic rage"] = &AiObjectContextInternal::shamanistic_rage;
                 creators["nature's swiftness"] = &AiObjectContextInternal::natures_swiftness;
+                creators["burst"] =& AiObjectContextInternal::burst_shaman;
+                creators["boost"] =& AiObjectContextInternal::boost_shaman;
+                creators["boost"] =& AiObjectContextInternal::party_boost;
             }
 
         private:
@@ -275,6 +278,9 @@ namespace ai
             static Action* feral_spirit(PlayerbotAI* ai) { return new CastFeralSpiritAction(ai); }
             static Action* shamanistic_rage(PlayerbotAI* ai) { return new CastShamanisticRageAction(ai); }
             static Action* natures_swiftness(PlayerbotAI* ai) { return new CastNaturesSwiftnessAction(ai); }
+            static Action* burst_shaman(PlayerbotAI* ai) { return new CastElementalMasteryAction(ai); }
+            static Action* boost_shaman(PlayerbotAI* ai) { return new CastFeralSpiritAction(ai); }
+            static Action* party_boost(PlayerbotAI* ai) { return new CastBloodlustAction(ai); }
         };
     };
 };

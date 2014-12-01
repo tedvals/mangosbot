@@ -69,11 +69,11 @@ namespace ai
         HamstringTrigger(PlayerbotAI* ai) : SnareTargetTrigger(ai, "hamstring") {}
     };
 
-    class DeathWishTrigger : public BoostTrigger
-    {
-    public:
-        DeathWishTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "death wish") {}
-    };
+    //class DeathWishTrigger : public BoostTrigger
+    //{
+    //public:
+    //    DeathWishTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "death wish") {}
+    //};
 
     class ShieldBashInterruptEnemyHealerSpellTrigger : public InterruptEnemyHealerTrigger
     {

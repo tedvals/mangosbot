@@ -1546,6 +1546,8 @@ class Unit : public WorldObject
         bool HasInvisibilityAura() const { return HasAuraType(SPELL_AURA_MOD_INVISIBILITY); }
         bool isFeared()  const { return HasAuraType(SPELL_AURA_MOD_FEAR); }
         bool isInRoots() const { return HasAuraType(SPELL_AURA_MOD_ROOT); }
+        bool isStunned() const { return HasAuraType(SPELL_AURA_MOD_STUN); }
+        bool isSnared() const { return HasAuraType(SPELL_AURA_MOD_DECREASE_SPEED); }
         bool IsPolymorphed() const;
 
         bool isFrozen() const;
@@ -2039,6 +2041,7 @@ class Unit : public WorldObject
         const MotionMaster* GetMotionMaster() const { return i_motionMaster; }
 
         bool IsStopped() const { return !(HasUnitState(UNIT_STATE_MOVING)); }
+        bool IsFleeing() const { return (HasUnitState(UNIT_STATE_FLEEING)||HasUnitState(UNIT_STATE_FLEEING_MOVE)); }
         void StopMoving();
 
         void AddUnitMovementFlag(uint32 f) { m_movementInfo.flags |= f; }

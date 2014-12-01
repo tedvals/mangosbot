@@ -68,6 +68,10 @@ void MeleeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("searing totem", 22.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "rooted",
+        NextAction::array(0, new NextAction("earthbind totem", 30.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "shock",
         NextAction::array(0, new NextAction("earth shock", 20.0f), NULL)));
 
@@ -81,11 +85,15 @@ void MeleeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "medium aoe",
-        NextAction::array(0, new NextAction("strength of earth totem", ACTION_LIGHT_HEAL), NULL)));
+        NextAction::array(0, new NextAction("fire nova", 25.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low mana",
         NextAction::array(0, new NextAction("shamanistic rage", ACTION_NORMAL + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "maelstrom weapon",
+        NextAction::array(0, new NextAction("lightning bolt", 30.0f), NULL)));
 }
 
 void MeleeAoeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -101,4 +109,8 @@ void MeleeAoeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "medium aoe",
         NextAction::array(0, new NextAction("fire nova", 25.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "maelstrom weapon",
+        NextAction::array(0, new NextAction("chain lightning", 30.0f), NULL)));
 }

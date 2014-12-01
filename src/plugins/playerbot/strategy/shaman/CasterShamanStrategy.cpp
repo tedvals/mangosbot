@@ -12,7 +12,7 @@ public:
     {
         creators["magma totem"] = &magma_totem;
         creators["flame shock"] = &flame_shock;
-        creators["boost"] = &elemental_mastery;
+        creators["burst"] = &elemental_mastery;
         creators["lava burst"] = &lava_burst;
     }
 private:

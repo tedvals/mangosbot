@@ -13,6 +13,7 @@ public:
         creators["ice veins"] = &ice_veins;
         creators["summon water elemental"] = &summon_water_elemental;
         creators["deep freeze"] = &deep_freeze;
+        creators["frostfire bolt"] = &frostfire_bolt;
         creators["boost"] = &ice_veins;
     }
 private:
@@ -44,6 +45,14 @@ private:
             /*A*/ NextAction::array(0, new NextAction("frostbolt"), NULL),
             /*C*/ NextAction::array(0, new NextAction("ice lance"), NULL));
     }
+
+    static ActionNode* frostfire_bolt(PlayerbotAI* ai)
+    {
+        return new ActionNode ("frostfire bolt",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("fireball"), NULL),
+            /*C*/ NULL);
+    }
 };
 
 FrostMageStrategy::FrostMageStrategy(PlayerbotAI* ai) : GenericMageStrategy(ai)
@@ -73,12 +82,20 @@ void FrostMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("frostfire bolt", 50.0f),NULL)));
 
     triggers.push_back(new TriggerNode(
+        "target frozen",
+        NextAction::array(0, new NextAction("frostbolt", 60.0f), new NextAction("ice lance", 50.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "summon water elemental",
         NextAction::array(0, new NextAction("summon water elemental", 60.0f),NULL)));
 
     triggers.push_back(new TriggerNode(
 		"critical health",
 		NextAction::array(0, new NextAction("ice block", 80.0f), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "enemy too close for spell",
+        NextAction::array(0, new NextAction("ice barrier", 70.0f), new NextAction("cone of cold", 70.0f), new NextAction("flee", 70.0f), NULL)));
 }
 
 void FrostMageAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

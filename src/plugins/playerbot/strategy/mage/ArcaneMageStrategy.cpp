@@ -79,6 +79,10 @@ void ArcaneMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "slow",
         NextAction::array(0, new NextAction("slow", 30.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "enemy too close for spell",
+        NextAction::array(0, new NextAction("mana shield", 60.0f), new NextAction("flee", 60.0f), NULL)));
 }
 
 void ArcaneMageAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

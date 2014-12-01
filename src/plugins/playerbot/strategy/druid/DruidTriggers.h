@@ -106,18 +106,11 @@ namespace ai {
         virtual bool IsActive() { return !ai->HasAura("tree of life", bot); }
     };
 
-    class BerserkTrigger : public BuffTrigger
-    {
-    public:
-        BerserkTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "berserk") {}
-        virtual bool IsActive() { return !ai->HasAura("berserk", bot); }
-    };
-
     class SavageRoarTrigger : public BuffTrigger
     {
     public:
         SavageRoarTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "savage roar") {}
-        virtual bool IsActive() { return !ai->HasAura("savage roar", bot); }
+        virtual bool IsActive() { return !ai->HasAura("savage roar", bot) && !ai->HasAura("cat form", bot); }
     };
 
     class CatFormTrigger : public BuffTrigger

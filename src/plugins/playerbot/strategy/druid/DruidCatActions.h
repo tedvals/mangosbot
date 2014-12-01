@@ -37,12 +37,6 @@ namespace ai {
 		CastProwlAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "prowl") {}
 	};
 
-	class CastBerserkAction : public CastBuffSpellAction
-	{
-	public:
-		CastBerserkAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "berserk") {}
-	};
-
 	class CastSavageRoarAction : public CastBuffSpellAction
 	{
 	public:

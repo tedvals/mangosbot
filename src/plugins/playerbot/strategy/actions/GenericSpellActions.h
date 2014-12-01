@@ -262,6 +262,10 @@ namespace ai
     {
     public:
         CastBerserkingAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "berserking") {}
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("blood fury"), NULL), CastBuffSpellAction::getAlternatives());
+        }
     };
 
     class CastBloodFuryAction : public CastBuffSpellAction

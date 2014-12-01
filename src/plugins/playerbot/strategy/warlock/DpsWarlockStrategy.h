@@ -30,7 +30,7 @@ namespace ai
     {
     public:
         DpsFireWarlockStrategy(PlayerbotAI* ai);
-        virtual string getName() { return "fire dps"; }
+        virtual string getName() { return "fire"; }
 
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);

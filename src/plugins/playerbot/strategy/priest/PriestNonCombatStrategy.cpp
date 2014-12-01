@@ -23,6 +23,13 @@ void PriestNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "power word: fortitude on party",
         NextAction::array(0, new NextAction("power word: fortitude on party", 11.0f), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "prayer of shadow protection",
+        NextAction::array(0, new NextAction("prayer of shadow protection", 12.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "prayer of shadow protection on party",
+        NextAction::array(0, new NextAction("prayer of shadow protection on party", 11.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "divine spirit",
@@ -32,27 +39,25 @@ void PriestNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "divine spirit on party",
         NextAction::array(0, new NextAction("divine spirit on party", 13.0f), NULL)));
 
-
     triggers.push_back(new TriggerNode(
         "inner fire",
         NextAction::array(0, new NextAction("inner fire", 10.0f), NULL)));
 
-
     triggers.push_back(new TriggerNode(
         "critical health",
-        NextAction::array(0, new NextAction("power word: shield", 70.0f), new NextAction("greater heal", 70.0f), NULL)));
+        NextAction::array(0, new NextAction("greater heal", 70.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member critical health",
-        NextAction::array(0, new NextAction("power word: shield on party", 60.0f), new NextAction("greater heal on party", 60.0f), NULL)));
+        NextAction::array(0, new NextAction("greater heal on party", 60.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low health",
-        NextAction::array(0, new NextAction("flash heal", 21.0f), NULL)));
+        NextAction::array(0, new NextAction("heal", 21.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
-        NextAction::array(0, new NextAction("flash heal on party", 20.0f), NULL)));
+        NextAction::array(0, new NextAction("heal on party", 20.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium aoe heal",
@@ -70,7 +75,6 @@ void PriestNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "dispel magic on party",
         NextAction::array(0, new NextAction("dispel magic on party", 40.0f), NULL)));
-
 
     triggers.push_back(new TriggerNode(
         "cure disease",

@@ -35,10 +35,20 @@ NextAction** CastAmbushAction :: getAlternatives()
 
 NextAction** CastBackstabAction :: getAlternatives()
 {
-            return NextAction::merge( NextAction::array(0, new NextAction("sinister strike"), NULL), CastMeleeSpellAction::getAlternatives());
+            return NextAction::merge( NextAction::array(0, new NextAction("hemorrhage"), NULL), CastMeleeSpellAction::getAlternatives());
 }
 
-NextAction** CastHemorrhageAction :: getAlternatives()
+NextAction** CastAdrenalineRushAction :: getAlternatives()
 {
-            return NextAction::merge( NextAction::array(0, new NextAction("sinister strike"), NULL), CastMeleeSpellAction::getAlternatives());
+            return NextAction::merge( NextAction::array(0, new NextAction("blade flurry"), NULL), CastBuffSpellAction::getAlternatives());
+}
+
+NextAction** CastBurstAction :: getAlternatives()
+{
+            return NextAction::merge( NextAction::array(0, new NextAction("shadow dance"), NULL), CastBuffSpellAction::getAlternatives());
+}
+
+NextAction** CastShadowDanceAction :: getAlternatives()
+{
+            return NextAction::merge( NextAction::array(0, new NextAction("cold blood"), NULL), CastBuffSpellAction::getAlternatives());
 }

@@ -304,12 +304,20 @@ namespace ai
     {
     public:
         CastHeroismAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "heroism") {}
+        NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("bloodlust"), NULL), CastBuffSpellAction::getPrerequisites());
+        }
     };
 
     class CastBloodlustAction : public CastBuffSpellAction
     {
     public:
         CastBloodlustAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "bloodlust") {}
+        NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("heroism"), NULL), CastBuffSpellAction::getPrerequisites());
+        }
     };
 
     class CastWindShearOnEnemyHealerAction : public CastSpellOnEnemyHealerAction
@@ -321,13 +329,13 @@ namespace ai
     class CastSummonEarthElementalAction : public CastBuffSpellAction
     {
     public:
-        CastSummonEarthElementalAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon earth elemental") {}
+        CastSummonEarthElementalAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "earth elemental totem") {}
     };
 
     class CastSummonFireElementalAction : public CastBuffSpellAction
     {
     public:
-        CastSummonFireElementalAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon fire elemental") {}
+        CastSummonFireElementalAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "fire elemental totem") {}
     };
 
     class CastElementalMasteryAction : public CastBuffSpellAction

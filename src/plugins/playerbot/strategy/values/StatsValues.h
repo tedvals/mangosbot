@@ -31,6 +31,100 @@ namespace ai
         virtual bool Calculate();
     };
 
+    class IsFrozenValue : public BoolCalculatedValue, public Qualified
+    {
+    public:
+        IsFrozenValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
+     class IsCharmedValue : public BoolCalculatedValue, public Qualified
+    {
+    public:
+        IsCharmedValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
+    class IsFearedValue : public BoolCalculatedValue, public Qualified
+    {
+    public:
+        IsFearedValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
+    class IsRootedValue : public BoolCalculatedValue, public Qualified
+    {
+    public:
+        IsRootedValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
+    class IsStunnedValue : public BoolCalculatedValue, public Qualified
+    {
+    public:
+        IsStunnedValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
+    class IsSnaredValue : public BoolCalculatedValue, public Qualified
+    {
+
+    public:
+        IsSnaredValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
+    class IsFleeingValue : public BoolCalculatedValue, public Qualified
+    {
+
+    public:
+        IsFleeingValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
+
     class RageValue : public Uint8CalculatedValue, public Qualified
     {
     public:
@@ -61,6 +155,32 @@ namespace ai
     {
     public:
         ManaValue(PlayerbotAI* ai) : Uint8CalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual uint8 Calculate();
+    };
+
+    class RuneValue : public Uint8CalculatedValue, public Qualified
+    {
+    public:
+        RuneValue(PlayerbotAI* ai) : Uint8CalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual uint8 Calculate();
+    };
+
+    class RunicPowerValue : public Uint8CalculatedValue, public Qualified
+    {
+    public:
+        RunicPowerValue(PlayerbotAI* ai) : Uint8CalculatedValue(ai) {}
 
         Unit* GetTarget()
         {

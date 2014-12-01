@@ -104,11 +104,11 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             break;
         case CLASS_MAGE:
             if (tab == 0)
-                engine->addStrategies("arcane", "arcane aoe", "threat", NULL);
+                engine->addStrategies("arcane", "arcane aoe", "threat", "bmana", NULL);
             else if (tab == 1)
-                engine->addStrategies("fire", "fire aoe", "threat", NULL);
+                engine->addStrategies("fire", "fire aoe", "threat", "bdps", NULL);
             else
-                engine->addStrategies("frost", "frost aoe", "threat", NULL);
+                engine->addStrategies("frost", "frost aoe", "threat", "bdps", NULL);
 
             engine->addStrategy("flee");
             break;
@@ -170,7 +170,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
                 engine->addStrategies("tank", "threat", NULL);
             else
             {
-                engine->addStrategies("fire dps", "threat", "imp", NULL);
+                engine->addStrategies("fire", "threat", "imp", NULL);
             }
 
             if (player->getLevel() > 19)

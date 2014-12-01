@@ -120,6 +120,8 @@ namespace ai
                 creators["sap"] = &AiObjectContextInternal::sap;
                 creators["expose armor"] = &AiObjectContextInternal::expose_armor;
                 creators["kick on enemy healer"] = &AiObjectContextInternal::kick_on_enemy_healer;
+                creators["boost"] = &AiObjectContextInternal::adrenaline_rush;
+                creators["burst"] = &AiObjectContextInternal::killing_spree;
             }
 
         private:

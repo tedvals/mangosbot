@@ -95,6 +95,12 @@ namespace ai
             creators["mana"] = &ValueContext::mana;
             creators["combo"] = &ValueContext::combo;
             creators["dead"] = &ValueContext::dead;
+            creators["frozen"] = &ValueContext::frozen;
+            creators["feared"] = &ValueContext::feared;
+            creators["rooted"] = &ValueContext::rooted;
+            creators["stunned"] = &ValueContext::stunned;
+            creators["snared"] = &ValueContext::snared;
+            creators["fleeing"] = &ValueContext::fleeing;
             creators["has mana"] = &ValueContext::has_mana;
             creators["attacker count"] = &ValueContext::attacker_count;
             creators["my attacker count"] = &ValueContext::my_attacker_count;
@@ -188,6 +194,12 @@ namespace ai
         static UntypedValue* mana(PlayerbotAI* ai) { return new ManaValue(ai); }
         static UntypedValue* combo(PlayerbotAI* ai) { return new ComboPointsValue(ai); }
         static UntypedValue* dead(PlayerbotAI* ai) { return new IsDeadValue(ai); }
+        static UntypedValue* frozen(PlayerbotAI* ai) { return new IsFrozenValue(ai); }
+        static UntypedValue* feared(PlayerbotAI* ai) { return new IsFearedValue(ai); }
+        static UntypedValue* rooted(PlayerbotAI* ai) { return new IsRootedValue(ai); }
+        static UntypedValue* stunned(PlayerbotAI* ai) { return new IsStunnedValue(ai); }
+        static UntypedValue* snared(PlayerbotAI* ai) { return new IsSnaredValue(ai); }
+        static UntypedValue* fleeing(PlayerbotAI* ai) { return new IsFleeingValue(ai); }
         static UntypedValue* has_mana(PlayerbotAI* ai) { return new HasManaValue(ai); }
         static UntypedValue* nearest_game_objects(PlayerbotAI* ai) { return new NearestGameObjects(ai); }
         static UntypedValue* log_level(PlayerbotAI* ai) { return new LogLevelValue(ai); }

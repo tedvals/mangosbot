@@ -63,7 +63,7 @@ namespace ai
             {
                 creators["hamstring"] = &TriggerFactoryInternal::hamstring;
                 creators["victory rush"] = &TriggerFactoryInternal::victory_rush;
-                creators["death wish"] = &TriggerFactoryInternal::death_wish;
+              //  creators["death wish"] = &TriggerFactoryInternal::death_wish;
                 creators["battle shout"] = &TriggerFactoryInternal::battle_shout;
                 creators["rend"] = &TriggerFactoryInternal::rend;
                 creators["rend on attacker"] = &TriggerFactoryInternal::rend_on_attacker;
@@ -79,7 +79,7 @@ namespace ai
         private:
             static Trigger* hamstring(PlayerbotAI* ai) { return new HamstringTrigger(ai); }
             static Trigger* victory_rush(PlayerbotAI* ai) { return new VictoryRushTrigger(ai); }
-            static Trigger* death_wish(PlayerbotAI* ai) { return new DeathWishTrigger(ai); }
+    //        static Trigger* death_wish(PlayerbotAI* ai) { return new DeathWishTrigger(ai); }
             static Trigger* battle_shout(PlayerbotAI* ai) { return new BattleShoutTrigger(ai); }
             static Trigger* rend(PlayerbotAI* ai) { return new RendDebuffTrigger(ai); }
             static Trigger* rend_on_attacker(PlayerbotAI* ai) { return new RendDebuffOnAttackerTrigger(ai); }
@@ -108,11 +108,12 @@ namespace ai
                 creators["devastate"] = &AiObjectContextInternal::devastate;
                 creators["overpower"] = &AiObjectContextInternal::overpower;
                 creators["charge"] = &AiObjectContextInternal::charge;
+                creators["boost"] = &AiObjectContextInternal::boost_warrior;
                 creators["bloodthirst"] = &AiObjectContextInternal::bloodthirst;
                 creators["rend"] = &AiObjectContextInternal::rend;
                 creators["rend on attacker"] = &AiObjectContextInternal::rend_on_attacker;
                 creators["mocking blow"] = &AiObjectContextInternal::mocking_blow;
-                creators["death wish"] = &AiObjectContextInternal::death_wish;
+      //          creators["death wish"] = &AiObjectContextInternal::death_wish;
                 creators["berserker rage"] = &AiObjectContextInternal::berserker_rage;
                 creators["victory rush"] = &AiObjectContextInternal::victory_rush;
                 creators["execute"] = &AiObjectContextInternal::execute;
@@ -149,6 +150,7 @@ namespace ai
             static Action* cleave(PlayerbotAI* ai) { return new CastCleaveAction(ai); }
             static Action* concussion_blow(PlayerbotAI* ai) { return new CastConcussionBlowAction(ai); }
             static Action* taunt(PlayerbotAI* ai) { return new CastTauntAction(ai); }
+            static Action* boost_warrior(PlayerbotAI* ai) { return new CastDeathWishAction(ai); }
             static Action* revenge(PlayerbotAI* ai) { return new CastRevengeAction(ai); }
             static Action* slam(PlayerbotAI* ai) { return new CastSlamAction(ai); }
             static Action* shield_slam(PlayerbotAI* ai) { return new CastShieldSlamAction(ai); }

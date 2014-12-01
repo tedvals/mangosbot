@@ -171,17 +171,17 @@ namespace ai
         FrostShockSnareTrigger(PlayerbotAI* ai) : SnareTargetTrigger(ai, "frost shock") {}
     };
 
-    class HeroismTrigger : public BoostTrigger
-    {
-    public:
-        HeroismTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "heroism") {}
-    };
+    //class HeroismTrigger : public BoostTrigger
+    //{
+    //public:
+    //    HeroismTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "heroism") {}
+    //};
 
-    class BloodlustTrigger : public BoostTrigger
-    {
-    public:
-        BloodlustTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "bloodlust") {}
-    };
+    //class BloodlustTrigger : public BoostTrigger
+    //{
+    //public:
+    //    BloodlustTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "bloodlust") {}
+    //};
 
     class MaelstromWeaponTrigger : public HasAuraTrigger
     {

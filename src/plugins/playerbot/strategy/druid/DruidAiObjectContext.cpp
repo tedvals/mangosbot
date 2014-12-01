@@ -96,7 +96,6 @@ namespace ai
                 creators["savage roar"] = &TriggerFactoryInternal::savage_roar;
                 creators["rip"] = &TriggerFactoryInternal::rip;
                 creators["predatory swiftness"] = &TriggerFactoryInternal::predatory_swiftness;
-                creators["berserk"] = &TriggerFactoryInternal::berserk;
                 creators["dash"] = &TriggerFactoryInternal::dash;
             }
 
@@ -125,7 +124,6 @@ namespace ai
             static Trigger* savage_roar(PlayerbotAI* ai) { return new SavageRoarTrigger(ai); }
             static Trigger* rip(PlayerbotAI* ai) { return new RipTrigger(ai); }
             static Trigger* predatory_swiftness(PlayerbotAI* ai) { return new PredatorySwiftnessTrigger(ai); }
-            static Trigger* berserk(PlayerbotAI* ai) { return new BerserkTrigger(ai); }
             static Trigger* dash(PlayerbotAI* ai) { return new DashTrigger(ai); }
         };
     };
@@ -183,6 +181,7 @@ namespace ai
                 creators["shred"] = &AiObjectContextInternal::shred;
                 creators["dash"] = &AiObjectContextInternal::dash;
                 creators["berserk"] = &AiObjectContextInternal::berserk;
+                creators["boost"] = &AiObjectContextInternal::boost_action;
                 creators["savage roar"] = &AiObjectContextInternal::savage_roar;
                 creators["survival instincts"] = &AiObjectContextInternal::survival_instincts;
                 creators["thorns"] = &AiObjectContextInternal::thorns;
@@ -263,6 +262,7 @@ namespace ai
             static Action* savage_roar(PlayerbotAI* ai) { return new CastSavageRoarAction(ai); }
             static Action* dash(PlayerbotAI* ai) { return new CastDashAction(ai); }
             static Action* berserk_action(PlayerbotAI* ai) { return new CastBerserkAction(ai); }
+            static Action* boost_action(PlayerbotAI* ai) { return new CastBoostAction(ai); }
             static Action* survival_instincts(PlayerbotAI* ai) { return new CastSurvivalInstinctsAction(ai); }
             static Action* thorns(PlayerbotAI* ai) { return new CastThornsAction(ai); }
             static Action* cure_poison(PlayerbotAI* ai) { return new CastCurePoisonAction(ai); }

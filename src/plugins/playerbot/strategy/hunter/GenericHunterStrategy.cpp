@@ -63,11 +63,18 @@ private:
             /*A*/ NextAction::array(0, new NextAction("scatter shot"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* disengage(PlayerbotAI* ai)
+    {
+        return new ActionNode ("disengage",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("wing clip"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
+    }
     static ActionNode* wing_clip(PlayerbotAI* ai)
     {
         return new ActionNode ("wing clip",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("intimidation"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("flee"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* scatter_shot(PlayerbotAI* ai)
@@ -97,7 +104,11 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy too close for spell",
-        NextAction::array(0, new NextAction("wing clip", 50.0f), new NextAction("flee",49.0f), new NextAction("concussive shot", 48.0f), NULL)));
+        NextAction::array(0, new NextAction("disengage", 50.0f), new NextAction("flee",49.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "has aggro",
+        NextAction::array(0, new NextAction("intimidation", 50.0f), new NextAction("flee",49.0f), new NextAction("feign death", 48.0f), NULL)));
 
      triggers.push_back(new TriggerNode(
         "almost full health",
@@ -126,6 +137,10 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "rapid fire",
         NextAction::array(0, new NextAction("rapid fire", 55.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "target fleeing",
+        NextAction::array(0, new NextAction("concussive shot", 55.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "silencing shot on enemy healer",

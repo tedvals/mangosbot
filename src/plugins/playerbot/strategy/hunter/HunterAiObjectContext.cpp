@@ -35,7 +35,7 @@ namespace ai
             static Strategy* dps(PlayerbotAI* ai) { return new DpsHunterStrategy(ai); }
             static Strategy* nc(PlayerbotAI* ai) { return new GenericHunterNonCombatStrategy(ai); }
             static Strategy* dps_debuff(PlayerbotAI* ai) { return new DpsHunterDebuffStrategy(ai); }
-            static Strategy* pull(PlayerbotAI* ai) { return new PullStrategy(ai, "misdirection"); }
+            static Strategy* pull(PlayerbotAI* ai) { return new PullStrategy(ai, "auto shoot"); }
         };
 
         class BuffStrategyFactoryInternal : public NamedObjectContext<Strategy>
