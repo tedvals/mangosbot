@@ -101,6 +101,9 @@ namespace ai
             creators["stunned"] = &ValueContext::stunned;
             creators["snared"] = &ValueContext::snared;
             creators["fleeing"] = &ValueContext::fleeing;
+            creators["bleeding"] = &ValueContext::bleeding;
+            creators["takes periodic damage"] = &ValueContext::takes_damage;
+            creators["polymorphed"] = &ValueContext::polymorphed;
             creators["has mana"] = &ValueContext::has_mana;
             creators["attacker count"] = &ValueContext::attacker_count;
             creators["my attacker count"] = &ValueContext::my_attacker_count;
@@ -200,6 +203,9 @@ namespace ai
         static UntypedValue* stunned(PlayerbotAI* ai) { return new IsStunnedValue(ai); }
         static UntypedValue* snared(PlayerbotAI* ai) { return new IsSnaredValue(ai); }
         static UntypedValue* fleeing(PlayerbotAI* ai) { return new IsFleeingValue(ai); }
+        static UntypedValue* bleeding(PlayerbotAI* ai) { return new IsBleedingValue(ai); }
+        static UntypedValue* polymorphed(PlayerbotAI* ai) { return new IsPolymorphedValue(ai); }
+        static UntypedValue* takes_damage(PlayerbotAI* ai) { return new TakesPeriodicDamageValue(ai); }
         static UntypedValue* has_mana(PlayerbotAI* ai) { return new HasManaValue(ai); }
         static UntypedValue* nearest_game_objects(PlayerbotAI* ai) { return new NearestGameObjects(ai); }
         static UntypedValue* log_level(PlayerbotAI* ai) { return new LogLevelValue(ai); }

@@ -77,6 +77,12 @@ namespace ai
         KillCommandTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "kill command") {}
     };
 
+    class KillShotTrigger : public BoostTrigger
+    {
+    public:
+        KillShotTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "kill shot") {}
+    };
+
     class CounterstrikeTrigger : public BuffTrigger
     {
     public:

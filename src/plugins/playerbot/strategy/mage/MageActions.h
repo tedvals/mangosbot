@@ -114,6 +114,7 @@ namespace ai
     {
 	public:
 		CastFocusMagicOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "focus magic") {}
+		virtual bool isUseful();
 	};
 
 	class CastRemoveCurseAction : public CastCureSpellAction

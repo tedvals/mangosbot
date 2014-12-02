@@ -116,6 +116,7 @@ namespace ai
                 creators["fan of knives"] = &AiObjectContextInternal::fan_of_knives;
                 creators["premeditation"] = &AiObjectContextInternal::premeditation;
                 creators["dismantle"] = &AiObjectContextInternal::dismantle;
+                creators["deadly throw"] = &AiObjectContextInternal::deadly_throw;
                 creators["blind"] = &AiObjectContextInternal::blind;
                 creators["sap"] = &AiObjectContextInternal::sap;
                 creators["expose armor"] = &AiObjectContextInternal::expose_armor;
@@ -143,6 +144,7 @@ namespace ai
             static Action* killing_spree(PlayerbotAI* ai) { return new CastKillingSpreeAction(ai); }
             static Action* shadow_dance(PlayerbotAI* ai) { return new CastShadowDanceAction(ai); }
             static Action* hunger_for_blood(PlayerbotAI* ai) { return new CastHungerForBloodAction(ai); }
+            static Action* deadly_throw(PlayerbotAI* ai) { return new CastDeadlyThrowAction(ai); }
             static Action* hemorrhage(PlayerbotAI* ai) { return new CastHemorrhageAction(ai); }
             static Action* shadowstep(PlayerbotAI* ai) { return new CastShadowDanceAction(ai); }
             static Action* stealth(PlayerbotAI* ai) { return new CastStealthAction(ai); }

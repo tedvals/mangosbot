@@ -126,6 +126,6 @@ void DpsPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("seal of vengeance", ACTION_HIGH + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "light aoe",
+        "has nearest adds",
         NextAction::array(0, new NextAction("seal of command", ACTION_HIGH + 6), NULL)));
 }

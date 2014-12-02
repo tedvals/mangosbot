@@ -34,7 +34,7 @@ namespace ai
     class CastHeroicStrikeAction : public CastMeleeSpellAction {
     public:
         CastHeroicStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "heroic strike") {}
-        virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "rage", "self target") > 50; }
+        virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "rage", "self target") > 40; }
     };
 
     // all
@@ -52,6 +52,8 @@ namespace ai
     class CastBloodthirstAction : public CastMeleeSpellAction {
     public:
         CastBloodthirstAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "bloodthirst") {}
+
+        virtual NextAction** getAlternatives();
     };
 
     // battle, berserker
@@ -80,6 +82,8 @@ namespace ai
     class CastMortalStrikeAction : public CastMeleeSpellAction {
     public:
         CastMortalStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "mortal strike") {}
+
+        virtual NextAction** getAlternatives();
     };
     // berserker
     class CastWhirlwindAction : public CastBerserkerMeleeSpellAction {
@@ -127,10 +131,26 @@ namespace ai
         CastBloodrageAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "bloodrage") {}
     };
 
+    class CastRecklessnessAction : public CastBuffSpellAction {
+    public:
+        CastRecklessnessAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "recklessness") {}
+    };
+
+    class CastRetaliationAction : public CastBuffSpellAction {
+    public:
+        CastRetaliationAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "retaliation") {}
+    };
+
+
     // defensive
     class CastDevastateAction : public CastDefensiveMeleeSpellAction {
     public:
         CastDevastateAction(PlayerbotAI* ai) : CastDefensiveMeleeSpellAction(ai, "devastate") {}
+    };
+
+    class CastSpellReflectAction : public CastDefensiveMeleeSpellAction {
+    public:
+        CastSpellReflectAction(PlayerbotAI* ai) : CastDefensiveMeleeSpellAction(ai, "spell reflect") {}
     };
 
     // all
@@ -193,6 +213,23 @@ namespace ai
 	class CastBattleShoutAction : public CastBuffSpellAction {
 	public:
 		CastBattleShoutAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "battle shout") {}
+
+        virtual NextAction** getAlternatives();
+        virtual bool isUseful()
+	    {
+	        return !ai->HasAura("blessing of might", AI_VALUE(Unit*, "self target"));
+	    }
+	};
+
+	class CastCommandingShoutAction : public CastBuffSpellAction {
+	public:
+		CastCommandingShoutAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "commanding shout") {}
+
+        virtual NextAction** getAlternatives();
+        virtual bool isUseful()
+	    {
+	        return !ai->HasAura("blood pact", AI_VALUE(Unit*, "self target"));
+	    }
 	};
 
     class CastSweepingStrikesAction : public CastBuffSpellAction {
@@ -218,6 +255,12 @@ namespace ai
     BEGIN_RANGED_SPELL_ACTION(CastChargeAction, "charge")
     END_SPELL_ACTION()
 
+    BEGIN_RANGED_SPELL_ACTION(CastShatteringThrowAction, "shattering throw")
+    END_SPELL_ACTION()
+
+    BEGIN_RANGED_SPELL_ACTION(CastHeroicThrowAction, "heroic throw")
+    END_SPELL_ACTION()
+
 	class CastDeathWishAction : public CastBuffSpellAction {
 	public:
 		CastDeathWishAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "death wish") {}
@@ -226,6 +269,11 @@ namespace ai
 	class CastBerserkerRageAction : public CastBuffSpellAction {
 	public:
 		CastBerserkerRageAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "berserker rage") {}
+	};
+
+	class CastHeroicFuryAction : public CastBuffSpellAction {
+	public:
+		CastHeroicFuryAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "heroic fury") {}
 	};
 
 	class CastLastStandAction : public CastBuffSpellAction {
@@ -253,4 +301,14 @@ namespace ai
     public:
         CastShieldBashOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "shield bash") {}
     };
+
+    class CastInterveneOnPartyAction : public BuffOnPartyAction {
+	public:
+		CastInterveneOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "intervene") {}
+	};
+
+	class CastVigilanceOnPartyAction : public BuffOnPartyAction {
+	public:
+		CastVigilanceOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "vigilance") {}
+	};
 }

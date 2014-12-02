@@ -1548,6 +1548,11 @@ class Unit : public WorldObject
         bool isInRoots() const { return HasAuraType(SPELL_AURA_MOD_ROOT); }
         bool isStunned() const { return HasAuraType(SPELL_AURA_MOD_STUN); }
         bool isSnared() const { return HasAuraType(SPELL_AURA_MOD_DECREASE_SPEED); }
+        bool isBleeding() const;
+        bool TakesPeriodicDamage() const { return HasAuraType(SPELL_AURA_PERIODIC_DAMAGE); }
+        bool hasCriticalHealth() const;
+        bool hasLowHealth() const;
+        bool hasHighHealth() const;
         bool IsPolymorphed() const;
 
         bool isFrozen() const;

@@ -34,6 +34,7 @@ namespace ai
             creators["will of the forsaken"] = &ActionContext::will_of_the_forsaken;
             creators["blood fury"] = &ActionContext::blood_fury;
             creators["berserking"] = &ActionContext::berserking;
+            creators["racial boost"] = &ActionContext::berserking;
             creators["cannibalize"] = &ActionContext::cannibalize;
             creators["war stomp"] = &ActionContext::war_stomp;
             creators["every man for himself"] = &ActionContext::every_man_for_himself;

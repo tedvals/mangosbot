@@ -20,6 +20,30 @@ bool IsDeadValue::Calculate()
     return target->getDeathState() != ALIVE;
 }
 
+bool IsBleedingValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    return target->isBleeding();
+}
+
+bool IsPolymorphedValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    return target->IsPolymorphed();
+}
+
+bool TakesPeriodicDamageValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    return target->TakesPeriodicDamage();
+}
+
 bool IsFrozenValue::Calculate()
 {
     Unit* target = GetTarget();

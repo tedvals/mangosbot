@@ -539,9 +539,30 @@ namespace ai
         virtual string getName() { return spell + " on enemy healer"; }
     };
 
+    class BleedingTrigger : public Trigger {
+    public:
+        BleedingTrigger(PlayerbotAI* ai) : Trigger(ai, "bleeding", 5) {}
+        virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive();
+    };
+
+    class PolymorphedTrigger : public Trigger {
+    public:
+        PolymorphedTrigger(PlayerbotAI* ai) : Trigger(ai, "polymorphed", 5) {}
+        virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive();
+    };
+
+    class TakesPeriodicDamageTrigger : public Trigger {
+    public:
+        TakesPeriodicDamageTrigger(PlayerbotAI* ai) : Trigger(ai, "takes periodic damage", 5) {}
+        virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive();
+    };
+
     class SnaredTrigger : public Trigger {
     public:
-        SnaredTrigger(PlayerbotAI* ai) : Trigger(ai, "snared", 10) {}
+        SnaredTrigger(PlayerbotAI* ai) : Trigger(ai, "snared", 5) {}
         virtual string GetTargetName() { return "self target"; }
         virtual bool IsActive();
     };
@@ -577,6 +598,20 @@ namespace ai
     class TargetRootedTrigger : public Trigger {
     public:
         TargetRootedTrigger(PlayerbotAI* ai) : Trigger(ai, "target rooted", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetBleedingTrigger : public Trigger {
+    public:
+        TargetBleedingTrigger(PlayerbotAI* ai) : Trigger(ai, "target bleeding", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetPolymorphedTrigger : public Trigger {
+    public:
+        TargetPolymorphedTrigger(PlayerbotAI* ai) : Trigger(ai, "target polymorphed", 5) {}
         virtual string GetTargetName() { return "current target"; }
         virtual bool IsActive();
     };

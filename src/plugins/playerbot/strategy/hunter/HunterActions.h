@@ -180,6 +180,12 @@ namespace ai
 		CastKillCommandAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "kill command") {}
 	};
 
+	class CastKillShotAction : public CastBuffSpellAction
+	{
+	public:
+		CastKillShotAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "kill shot") {}
+	};
+
 	class CastBlackArrow : public CastDebuffSpellAction
 	{
 	public:

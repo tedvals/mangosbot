@@ -55,7 +55,7 @@ void RacialsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
 		"almost dead",
-		NextAction::array(0, new NextAction("shadowmelt", ACTION_EMERGENCY + 6), NULL)));
+		NextAction::array(0, new NextAction("shadowmeld", ACTION_EMERGENCY + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low mana",
@@ -64,6 +64,18 @@ void RacialsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "racial boost",
         NextAction::array(0, new NextAction("berserking", ACTION_EMERGENCY + 6), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "bleeding",
+        NextAction::array(0, new NextAction("stoneform", ACTION_EMERGENCY + 6), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "feared",
+        NextAction::array(0, new NextAction("will of the forsaken", ACTION_EMERGENCY + 6), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "rooted",
+        NextAction::array(0, new NextAction("escape artist", ACTION_EMERGENCY + 6), NULL)));
 }
 
 RacialsStrategy::RacialsStrategy(PlayerbotAI* ai) : Strategy(ai)

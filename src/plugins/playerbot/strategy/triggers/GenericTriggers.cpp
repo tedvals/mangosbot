@@ -241,6 +241,21 @@ Value<Unit*>* InterruptEnemyHealerTrigger::GetTargetValue()
     return context->GetValue<Unit*>("enemy healer target", spell);
 }
 
+bool BleedingTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "bleeding", GetTargetName());
+}
+
+bool TakesPeriodicDamageTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "takes periodic damage", GetTargetName());
+}
+
+bool PolymorphedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "polymorphed", GetTargetName());
+}
+
 bool SnaredTrigger::IsActive()
 {
     return AI_VALUE2(bool, "snared", GetTargetName());
@@ -259,6 +274,16 @@ bool RootedTrigger::IsActive()
 bool StunnedTrigger::IsActive()
 {
     return AI_VALUE2(bool, "stunned", GetTargetName());
+}
+
+bool TargetBleedingTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "bleeding", GetTargetName());
+}
+
+bool TargetPolymorphedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "polymorphed", GetTargetName());
 }
 
 bool TargetSnaredTrigger::IsActive()

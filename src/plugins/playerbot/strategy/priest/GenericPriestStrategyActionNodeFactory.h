@@ -252,14 +252,14 @@ namespace ai
         {
             return new ActionNode ("psychic scream",
                 /*P*/ NULL,
-                /*A*/ NextAction::array(0, new NextAction("fade"), NULL),
+                /*A*/ NextAction::array(0, new NextAction("flee"), NULL),
                 /*C*/ NULL);
         }
         static ActionNode* fade(PlayerbotAI* ai)
         {
             return new ActionNode ("fade",
                 /*P*/ NULL,
-                /*A*/ NextAction::array(0, new NextAction("flee"), NULL),
+                /*A*/ NextAction::array(0, new NextAction("power word: shield"), NULL),
                 /*C*/ NULL);
         }
         static ActionNode* power_infusion(PlayerbotAI* ai)

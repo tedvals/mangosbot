@@ -17,3 +17,8 @@ bool CastScorchAction::isUseful()
 {
     return !ai->HasAnyAuraOf(GetTarget(), "shadow mastery", "improved scorch", NULL);
 }
+
+bool CastFocusMagicOnPartyAction::isUseful()
+{
+    return !ai->HasAura("focus magic", AI_VALUE(Unit*, "self target"));
+}

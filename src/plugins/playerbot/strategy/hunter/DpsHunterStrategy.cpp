@@ -32,7 +32,7 @@ private:
     {
         return new ActionNode ("aimed shot",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("auto shot", 10.0f), NULL),
+            /*A*/ NULL,
             /*C*/ NULL);
     }
     static ActionNode* chimera_shot(PlayerbotAI* ai)
@@ -61,7 +61,7 @@ private:
         return new ActionNode ("concussive shot",
             /*P*/ NULL,
             /*A*/ NULL,
-            /*C*/ NextAction::array(0, new NextAction("wyvern sting", 11.0f), NULL));
+            /*C*/ NULL);
     }
     static ActionNode* bestial_wrath(PlayerbotAI* ai)
     {
@@ -79,7 +79,7 @@ DpsHunterStrategy::DpsHunterStrategy(PlayerbotAI* ai) : GenericHunterStrategy(ai
 
 NextAction** DpsHunterStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("explosive shot", 15.0f), new NextAction("kill command", 12.0f), new NextAction("aimed shot", 15.0f), new NextAction("steady shot", 10.0f), NULL);
+    return NextAction::array(0, new NextAction("explosive shot", 15.0f), new NextAction("kill command", 12.0f), new NextAction("aimed shot", 12.0f), new NextAction("steady shot", 12.0f), new NextAction("auto shot", 10.0f), NULL);
 }
 
 void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -112,11 +112,15 @@ void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "kill command",
-        NextAction::array(0, new NextAction("kill command", 50.0f), NULL)));
+        NextAction::array(0, new NextAction("kill command", 30.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium threat",
         NextAction::array(0, new NextAction("intimidation", 50.0f), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "target critical health",
+        NextAction::array(0, new NextAction("kill shot", 40), NULL)));
 }
 
 void DpsAoeHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

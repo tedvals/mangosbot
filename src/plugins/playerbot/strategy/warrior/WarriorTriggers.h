@@ -6,6 +6,7 @@ namespace ai
     BUFF_TRIGGER(BattleShoutTrigger, "battle shout", "battle shout")
 
     DEBUFF_TRIGGER(RendDebuffTrigger, "rend", "rend")
+    DEBUFF_TRIGGER(DemoralizingShoutDebuffTrigger, "demoralizing shout", "demoralizing shout")
     DEBUFF_TRIGGER(DisarmDebuffTrigger, "disarm", "disarm")
     DEBUFF_TRIGGER(SunderArmorDebuffTrigger, "sunder armor", "sunder armor")
 
@@ -43,6 +44,18 @@ namespace ai
     {
     public:
         BloodsurgeTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "bloodsurge") {}
+    };
+
+    class TasteForBloodTrigger : public HasAuraTrigger
+    {
+    public:
+        TasteForBloodTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "taste for blood") {}
+    };
+
+    class SuddenDeathTrigger : public HasAuraTrigger
+    {
+    public:
+        SuddenDeathTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "sudden death") {}
     };
 
     class VictoryRushTrigger : public HasAuraTrigger

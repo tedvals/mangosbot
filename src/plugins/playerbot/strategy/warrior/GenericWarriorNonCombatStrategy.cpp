@@ -5,3 +5,11 @@
 
 using namespace ai;
 
+void GenericWarriorNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+    NonCombatStrategy::InitTriggers(triggers);
+
+    triggers.push_back(new TriggerNode(
+        "battle stance",
+        NextAction::array(0, new NextAction("battle stance", 11.0f), NULL)));
+}

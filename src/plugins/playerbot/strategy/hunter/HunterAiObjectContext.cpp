@@ -80,6 +80,7 @@ namespace ai
                 creators["aspect of the pack"] = &TriggerFactoryInternal::aspect_of_the_pack;
                 creators["rapid fire"] = &TriggerFactoryInternal::rapid_fire;
                 creators["kill command"] = &TriggerFactoryInternal::kill_command;
+                creators["kill shot"] = &TriggerFactoryInternal::kill_shot;
                 creators["aspect of the dragonhawk"] = &TriggerFactoryInternal::aspect_of_the_dragonhawk;
                 creators["aspect of the hawk"] = &TriggerFactoryInternal::aspect_of_the_hawk;
                 creators["aspect of the wild"] = &TriggerFactoryInternal::aspect_of_the_wild;
@@ -105,6 +106,7 @@ namespace ai
             static Trigger* aspect_of_the_pack(PlayerbotAI* ai) { return new HunterAspectOfThePackTrigger(ai); }
             static Trigger* rapid_fire(PlayerbotAI* ai) { return new RapidFireTrigger(ai); }
             static Trigger* kill_command(PlayerbotAI* ai) { return new KillCommandTrigger(ai); }
+            static Trigger* kill_shot(PlayerbotAI* ai) { return new KillShotTrigger(ai); }
             static Trigger* aspect_of_the_hawk(PlayerbotAI* ai) { return new HunterAspectOfTheHawkTrigger(ai); }
             static Trigger* aspect_of_the_dragonhawk(PlayerbotAI* ai) { return new HunterAspectOfTheDragonHawkTrigger(ai); }
             static Trigger* aspect_of_the_wild(PlayerbotAI* ai) { return new HunterAspectOfTheWildTrigger(ai); }
@@ -164,6 +166,7 @@ namespace ai
                 creators["wing clip"] = &AiObjectContextInternal::wing_clip;
                 creators["steady shot"] = &AiObjectContextInternal::steady_shot;
                 creators["kill command"] = &AiObjectContextInternal::kill_command;
+                creators["kill shot"] = &AiObjectContextInternal::kill_shot;
                 creators["misdirection"] = &AiObjectContextInternal::misdirection;
                 creators["silencing shot"] = &AiObjectContextInternal::silencing_shot;
                 creators["bestial wrath"] = &AiObjectContextInternal::bestial_wrath;
@@ -213,6 +216,7 @@ namespace ai
             static Action* wing_clip(PlayerbotAI* ai) { return new CastWingClipAction(ai); }
             static Action* steady_shot(PlayerbotAI* ai) { return new CastSteadyShotAction(ai); }
             static Action* kill_command(PlayerbotAI* ai) { return new CastKillCommandAction(ai); }
+            static Action* kill_shot(PlayerbotAI* ai) { return new CastKillShotAction(ai); }
             static Action* misdirection(PlayerbotAI* ai) { return new CastMisdirectionAction(ai); }
             static Action* silencing_shot(PlayerbotAI* ai) { return new CastSilencingShotAction(ai); }
             static Action* bestial_wrath(PlayerbotAI* ai) { return new CastBestialWrathAction(ai); }

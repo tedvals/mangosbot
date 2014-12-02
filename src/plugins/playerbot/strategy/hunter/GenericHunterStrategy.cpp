@@ -17,8 +17,8 @@ public:
         creators["feign death"] = &feign_death;
         creators["silencing shot"] = &silencing_shot;
         creators["intimidation"] = &intimidation;
-        creators["wing clip"] = &wing_clip;
-        creators["misdirection"] = &wing_clip;
+        creators["misdirection"] = &misdirection;
+        creators["deterrence"] = &deterrence;
     }
 private:
     static ActionNode* rapid_fire(PlayerbotAI* ai)
@@ -46,7 +46,7 @@ private:
     {
         return new ActionNode ("feign death",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("flee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("intimidation"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* silencing_shot(PlayerbotAI* ai)
@@ -67,26 +67,26 @@ private:
     {
         return new ActionNode ("disengage",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("wing clip"), NULL),
-            /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
-    }
-    static ActionNode* wing_clip(PlayerbotAI* ai)
-    {
-        return new ActionNode ("wing clip",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("flee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("shatter shot"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* scatter_shot(PlayerbotAI* ai)
     {
         return new ActionNode ("shatter shot",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("disengage"), NULL),
+            /*A*/ NULL,
             /*C*/ NULL);
     }
     static ActionNode* misdirection(PlayerbotAI* ai)
     {
         return new ActionNode ("misdirection",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("feign death"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("multi-shot"), NULL));
+    }
+    static ActionNode* deterrence(PlayerbotAI* ai)
+    {
+        return new ActionNode ("deterrence",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("feign death"), NULL),
             /*C*/ NULL);
@@ -104,15 +104,11 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy too close for spell",
-        NextAction::array(0, new NextAction("disengage", 50.0f), new NextAction("flee",49.0f), NULL)));
+        NextAction::array(0, new NextAction("wing clip", 50.0f), new NextAction("disengage", 50.0f), new NextAction("flee", 50.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "has aggro",
-        NextAction::array(0, new NextAction("intimidation", 50.0f), new NextAction("flee",49.0f), new NextAction("feign death", 48.0f), NULL)));
-
-     triggers.push_back(new TriggerNode(
-        "almost full health",
-        NextAction::array(0, new NextAction("freezing trap", 50), NULL)));
+        NextAction::array(0, new NextAction("intimidation", 60.0f), new NextAction("deterrence",59.0f),NULL)));
 
     triggers.push_back(new TriggerNode(
         "boost",
@@ -127,8 +123,8 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("misdirection", 52.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "have aggro",
-        NextAction::array(0, new NextAction("feign death", 70.0f), NULL)));
+        "has nearest adds",
+        NextAction::array(0, new NextAction("freezing trap", 70.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "hunters pet low health",

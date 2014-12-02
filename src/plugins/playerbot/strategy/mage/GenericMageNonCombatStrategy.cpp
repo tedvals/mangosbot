@@ -55,9 +55,9 @@ void GenericMageNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigger
         "arcane intellect on party",
         NextAction::array(0, new NextAction("arcane intellect on party", 20.0f), NULL)));
 
-    //triggers.push_back(new TriggerNode(
-    //    "focus magic on party",
-    //    NextAction::array(0, new NextAction("focus magic on party", 20.0f), NULL)));
+    triggers.push_back(new TriggerNode(
+        "focus magic on party",
+        NextAction::array(0, new NextAction("focus magic on party", 20.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"no drink",

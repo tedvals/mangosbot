@@ -110,6 +110,48 @@ namespace ai
         virtual bool Calculate();
     };
 
+    class IsBleedingValue : public BoolCalculatedValue, public Qualified
+    {
+
+    public:
+        IsBleedingValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
+    class IsPolymorphedValue : public BoolCalculatedValue, public Qualified
+    {
+
+    public:
+        IsPolymorphedValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
+    class TakesPeriodicDamageValue : public BoolCalculatedValue, public Qualified
+    {
+
+    public:
+        TakesPeriodicDamageValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
     class IsFleeingValue : public BoolCalculatedValue, public Qualified
     {
 

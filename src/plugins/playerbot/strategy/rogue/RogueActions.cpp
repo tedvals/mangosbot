@@ -8,17 +8,7 @@
 using namespace ai;
 
 
-NextAction** CastSliceAndDiceAction :: getAlternatives()
-{
-            return NextAction::merge( NextAction::array(0, new NextAction("eviscerate"), NULL), CastMeleeSpellAction::getAlternatives());
-}
-
 NextAction** CastEnvenomAction :: getAlternatives()
-{
-            return NextAction::merge( NextAction::array(0, new NextAction("eviscerate"), NULL), CastMeleeSpellAction::getAlternatives());
-}
-
-NextAction** CastRuptureAction :: getAlternatives()
 {
             return NextAction::merge( NextAction::array(0, new NextAction("eviscerate"), NULL), CastMeleeSpellAction::getAlternatives());
 }
