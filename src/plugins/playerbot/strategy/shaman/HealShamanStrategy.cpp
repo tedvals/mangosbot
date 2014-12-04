@@ -16,6 +16,7 @@ public:
         creators["riptide"] = &riptide;
         creators["chain heal on party"] = &chain_heal_on_party;
         creators["riptide on party"] = &riptide_on_party;
+        creators["tidal force"] = &tidal_force;
         creators["nature's swiftness"] = &natures_swiftness;
     }
 private:
@@ -61,6 +62,13 @@ private:
             /*A*/ NextAction::array(0, new NextAction("chain heal on party"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* tidal_force(PlayerbotAI* ai)
+    {
+        return new ActionNode ("tidal force",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("nature's swiftness"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("lesser healing wave"), NULL));
+    }
     static ActionNode* natures_swiftness(PlayerbotAI* ai)
     {
         return new ActionNode ("nature's swiftness",
@@ -84,19 +92,19 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("chain heal", 27.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"medium health",
+		"low health",
 		NextAction::array(0, new NextAction("healing wave", 26.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-		"low health",
+		"medium health",
 		NextAction::array(0, new NextAction("riptide", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "party member low health",
+        "party member medium health",
 		NextAction::array(0, new NextAction("riptide on party", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "party member medium health",
+        "party member low health",
 		NextAction::array(0, new NextAction("healing wave on party", 25.0f), NULL)));
 
 	//triggers.push_back(new TriggerNode(
@@ -104,8 +112,20 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	//	NextAction::array(0, new NextAction("earth shield", 26.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
+		"almost dead",
+		NextAction::array(0, new NextAction("nature's swiftness", ACTION_EMERGENCY + 10), new NextAction("healing wave", ACTION_EMERGENCY + 10), NULL)));
+
+    triggers.push_back(new TriggerNode(
 		"critical health",
-		NextAction::array(0, new NextAction("nature's swiftness", ACTION_EMERGENCY + 8), NULL)));
+		NextAction::array(0, new NextAction("tidal force", ACTION_EMERGENCY + 8), new NextAction("low healing wave", ACTION_EMERGENCY + 8),NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"party member almost dead",
+		NextAction::array(0, new NextAction("nature's swiftness", ACTION_EMERGENCY + 9), new NextAction("healing wave", ACTION_EMERGENCY + 9),NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"party member critical health",
+		NextAction::array(0, new NextAction("tidal force", ACTION_EMERGENCY + 7), new NextAction("lesser healing wave", ACTION_EMERGENCY + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy out of spell",

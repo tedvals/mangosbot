@@ -97,6 +97,8 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
                 if (player->getLevel() > 19)
                     engine->addStrategy("dps debuff");
             }
+            else if (tab == 1)
+                engine->addStrategy("holy");
             else
                 engine->addStrategy("heal");
 
@@ -164,19 +166,16 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             {
                 engine->addStrategies("dps", "threat", NULL);
                 if (player->getLevel() > 40)
-                    engine->addStrategies("felhunter",  NULL);
+                    engine->addStrategies("felhunter",  "dps debuff", NULL);
                 else
-                    engine->addStrategies("imp",  NULL);
+                    engine->addStrategies("imp",  "dps debuff", NULL);
             }
             if (tab == 1)
-                engine->addStrategies("tank", "threat", NULL);
+                engine->addStrategies("tank", "threat", "dps debuff", NULL);
             else
             {
-                engine->addStrategies("fire", "threat", "imp", NULL);
+                engine->addStrategies("fire", "threat", "imp", "debuff", NULL);
             }
-
-            if (player->getLevel() > 19)
-                engine->addStrategy("dps debuff");
 
             engine->addStrategy("flee");
             break;

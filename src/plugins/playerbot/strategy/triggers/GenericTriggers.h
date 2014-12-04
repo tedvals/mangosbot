@@ -94,6 +94,13 @@ namespace ai
 		virtual bool IsActive();
 	};
 
+	class ComboPointAvailableTrigger : public StatAvailable
+	{
+	public:
+	    ComboPointAvailableTrigger(PlayerbotAI* ai, int amount = 1) : StatAvailable(ai, amount, "combo point available") {}
+		virtual bool IsActive();
+	};
+
 	class LoseAggroTrigger : public Trigger {
 	public:
 		LoseAggroTrigger(PlayerbotAI* ai) : Trigger(ai, "lose aggro") {}

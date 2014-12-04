@@ -58,14 +58,14 @@ namespace ai
     {
     public:
         CastFrostNovaAction(PlayerbotAI* ai) : CastSpellAction(ai, "frost nova") {}
-        virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance; }
+        virtual bool isUseful() { return AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance; }
     };
 
     class CastArcaneExplosionAction : public CastSpellAction
     {
     public:
         CastArcaneExplosionAction(PlayerbotAI* ai) : CastSpellAction(ai, "arcane explosion") {}
-        virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance; }
+        virtual bool isUseful() { return AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance; }
     };
 
 	class CastFrostboltAction : public CastSpellAction
@@ -78,6 +78,8 @@ namespace ai
 	{
 	public:
 		CastIceLanceAction(PlayerbotAI* ai) : CastSpellAction(ai, "ice lance") {}
+
+		virtual bool isUseful() {return AI_VALUE2(bool, "moving", "self target") || AI_VALUE2(bool, "frozen", "current target");}
 	};
 
 	class CastFrostfireBoltAction : public CastSpellAction
@@ -202,24 +204,40 @@ namespace ai
     {
     public:
         CastMoltenArmorAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "molten armor") {}
+        virtual string GetTargetName() { return "self target"; }
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("mage armor"), NULL), CastBuffSpellAction::getAlternatives());
+        }
     };
 
     class CastMageArmorAction : public CastBuffSpellAction
     {
     public:
         CastMageArmorAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "mage armor") {}
+        virtual string GetTargetName() { return "self target"; }
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("ice armor"), NULL), CastBuffSpellAction::getAlternatives());
+        }
     };
 
     class CastIceArmorAction : public CastBuffSpellAction
     {
     public:
         CastIceArmorAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "ice armor") {}
+        virtual string GetTargetName() { return "self target"; }
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("frost armor"), NULL), CastBuffSpellAction::getAlternatives());
+        }
     };
 
     class CastFrostArmorAction : public CastBuffSpellAction
     {
     public:
         CastFrostArmorAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "frost armor") {}
+        virtual string GetTargetName() { return "self target"; }
     };
 
     class CastPolymorphAction : public CastBuffSpellAction
@@ -246,21 +264,21 @@ namespace ai
 	{
 	public:
 	    CastConeOfColdAction(PlayerbotAI* ai) : CastSpellAction(ai, "cone of cold") {}
-	    virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance; }
+	    virtual bool isUseful() { return AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance; }
 	};
 
 	class CastDragonsBreathAction : public CastSpellAction
 	{
 	public:
 	    CastDragonsBreathAction(PlayerbotAI* ai) : CastSpellAction(ai, "dragon's breath") {}
-	    virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance; }
+	    virtual bool isUseful() { return AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance; }
 	};
 
 	class CastBlastWaveAction : public CastSpellAction
 	{
 	public:
 	    CastBlastWaveAction(PlayerbotAI* ai) : CastSpellAction(ai, "blast wave") {}
-	    virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance; }
+	    virtual bool isUseful() { return AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance; }
 	};
 
 	class CastInvisibilityAction : public CastBuffSpellAction

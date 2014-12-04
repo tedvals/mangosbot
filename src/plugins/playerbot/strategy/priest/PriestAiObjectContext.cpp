@@ -132,6 +132,7 @@ namespace ai
                 creators["holy fire"] = &AiObjectContextInternal::holy_fire;
                 creators["smite"] = &AiObjectContextInternal::smite;
                 creators["mind blast"] = &AiObjectContextInternal::mind_blast;
+                creators["mind shear"] = &AiObjectContextInternal::mind_shear;
                 creators["shadowform"] = &AiObjectContextInternal::shadowform;
                 creators["remove shadowform"] = &AiObjectContextInternal::remove_shadowform;
                 creators["holy nova"] = &AiObjectContextInternal::holy_nova;
@@ -204,6 +205,7 @@ namespace ai
             static Action* holy_fire(PlayerbotAI* ai) { return new CastHolyFireAction(ai); }
             static Action* smite(PlayerbotAI* ai) { return new CastSmiteAction(ai); }
             static Action* mind_blast(PlayerbotAI* ai) { return new CastMindBlastAction(ai); }
+            static Action* mind_shear(PlayerbotAI* ai) { return new CastMindShearAction(ai); }
             static Action* shadowform(PlayerbotAI* ai) { return new CastShadowformAction(ai); }
             static Action* remove_shadowform(PlayerbotAI* ai) { return new CastRemoveShadowformAction(ai); }
             static Action* holy_nova(PlayerbotAI* ai) { return new CastHolyNovaAction(ai); }

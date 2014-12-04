@@ -7,10 +7,10 @@ namespace ai
 	public:
 	    CastComboAction(PlayerbotAI* ai, string name) : CastMeleeSpellAction(ai, name) {}
 
-	 //   virtual bool isUseful()
-	 //   {
-	 //       return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "combo", "self target") <= 4;
-	 //   }
+	    virtual bool isUseful()
+	    {
+	        return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "combo", "self target") <= 4;
+	    }
 
         virtual NextAction** getPrerequisites()
         {

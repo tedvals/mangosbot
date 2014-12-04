@@ -7,10 +7,10 @@ namespace ai
 	public:
 		CastEviscerateAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "eviscerate") {}
 
-		virtual bool isUseful()
-	    {
-	        return AI_VALUE2(uint8, "combo", "self target") > 2;
-	    }
+		//virtual bool isUseful()
+	    //{
+	    //    return AI_VALUE2(uint8, "combo", "self target") > 2;
+	    //}
 	};
 
     class CastEnvenomAction : public CastMeleeSpellAction
@@ -26,10 +26,14 @@ namespace ai
 	   // }
 	};
 
-	class CastSliceAndDiceAction : public CastMeleeSpellAction
+	class CastSliceAndDiceAction : public CastBuffSpellAction
 	{
 	public:
-		CastSliceAndDiceAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "slice and dice") {}
+		CastSliceAndDiceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "slice and dice") {}
+		//virtual bool isUseful()
+	    //{
+	    //    return AI_VALUE2(uint8, "combo", "self target") > 1;
+	    //}
 	};
 
 	class CastExposeArmorAction : public CastMeleeSpellAction
@@ -44,10 +48,10 @@ namespace ai
 		CastDeadlyThrowAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "deadly throw") {}
 	};
 
-	class CastRuptureAction : public CastMeleeSpellAction
+	class CastRuptureAction : public CastDebuffSpellAction
 	{
 	public:
-		CastRuptureAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "rupture") {}
+		CastRuptureAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "rupture") {}
 
 		virtual bool isUseful()
 	    {

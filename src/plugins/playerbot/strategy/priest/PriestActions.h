@@ -372,4 +372,10 @@ namespace ai
 	    virtual string GetTargetName() { return "self target"; }
 	};
 
+	class CastMindShearAction : public CastSpellAction
+	{
+	public:
+		CastMindShearAction(PlayerbotAI* ai) : CastSpellAction(ai, "mind shear") {}
+	};
+
 }

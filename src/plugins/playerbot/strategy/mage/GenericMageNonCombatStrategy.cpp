@@ -83,13 +83,13 @@ void GenericMageNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigger
 void MageBuffManaStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
-        "mage armor",
+        "molten armor",
         NextAction::array(0, new NextAction("mage armor", 19.0f), NULL)));
 }
 
 void MageBuffDpsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
-        "mage armor",
+        "molten armor",
         NextAction::array(0, new NextAction("molten armor", 19.0f), NULL)));
 }

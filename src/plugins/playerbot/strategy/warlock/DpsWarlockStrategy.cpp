@@ -68,12 +68,12 @@ void DpsWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("corruption on attacker", 25.0f), NULL)));
 
      triggers.push_back(new TriggerNode(
-        "curse of agony",
+        "corruption",
         NextAction::array(0, new NextAction("corruption", 15.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "curse of agony on attacker",
-        NextAction::array(0, new NextAction("corruption on attacker", 15.0f), NULL)));
+  //  triggers.push_back(new TriggerNode(
+  //      "curse of agony on attacker",
+  //      NextAction::array(0, new NextAction("corruption on attacker", 15.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "critical health",
@@ -163,6 +163,10 @@ void WarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "curse of the elements",
         NextAction::array(0, new NextAction("curse of the elements", 25.0f), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "no curse",
+        NextAction::array(0, new NextAction("curse of the elements", 25.0f), NULL)));
 }
 
 
@@ -191,6 +195,10 @@ DpsWarlockDebuffStrategy::DpsWarlockDebuffStrategy(PlayerbotAI* ai) : CombatStra
 
 void DpsWarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
+    triggers.push_back(new TriggerNode(
+        "no curse",
+        NextAction::array(0, new NextAction("curse of the elements", 25.0f), NULL)));
+
     triggers.push_back(new TriggerNode(
         "curse of the agony",
         NextAction::array(0, new NextAction("curse of agony", 20.0f), NULL)));

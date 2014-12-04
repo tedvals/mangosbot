@@ -74,7 +74,7 @@ private:
     {
         return new ActionNode ("blink",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("flee",70), NULL),
+            /*A*/ NULL,
             /*C*/ NULL);
     }
     static ActionNode* icy_veins(PlayerbotAI* ai)
@@ -152,8 +152,12 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     RangedCombatStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
+        "enemy out of spell",
+        NextAction::array(0, new NextAction("reach spell", ACTION_NORMAL + 9), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "has aggro",
-        NextAction::array(0, new NextAction("frost nova",49.0f), new NextAction("blink",49.0f), NULL)));
+        NextAction::array(0, new NextAction("frost nova",49.0f), new NextAction("blink",49.0f), new NextAction("flee", 70.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "remove curse",
@@ -162,10 +166,6 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "remove curse on party",
         NextAction::array(0, new NextAction("remove curse on party", 40.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "enemy too close for spell",
-        NextAction::array(0, new NextAction("flee", 50.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "counterspell",

@@ -187,6 +187,7 @@ namespace ai
                 creators["stormstrike"] = &AiObjectContextInternal::stormstrike;
                 creators["lava lash"] = &AiObjectContextInternal::lava_lash;
                 creators["fire nova"] = &AiObjectContextInternal::fire_nova;
+                creators["tidal force"] = &AiObjectContextInternal::tidal_force;
                 creators["ancestral spirit"] = &AiObjectContextInternal::ancestral_spirit;
                 creators["water walking"] = &AiObjectContextInternal::water_walking;
                 creators["water breathing"] = &AiObjectContextInternal::water_breathing;
@@ -261,6 +262,7 @@ namespace ai
             static Action* earth_shield(PlayerbotAI* ai) { return new CastEarthShieldAction(ai); }
             static Action* earth_shield_on_party(PlayerbotAI* ai) { return new CastEarthShieldOnPartyAction(ai); }
             static Action* chain_heal(PlayerbotAI* ai) { return new CastChainHealAction(ai); }
+            static Action* tidal_force(PlayerbotAI* ai) { return new CastTidalForceAction(ai); }
             static Action* riptide(PlayerbotAI* ai) { return new CastRiptideAction(ai); }
             static Action* riptide_on_party(PlayerbotAI* ai) { return new CastRiptideOnPartyAction(ai); }
             static Action* stormstrike(PlayerbotAI* ai) { return new CastStormstrikeAction(ai); }

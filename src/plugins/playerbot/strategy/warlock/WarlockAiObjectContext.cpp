@@ -56,7 +56,7 @@ namespace ai
             CombatStrategyFactoryInternal() : NamedObjectContext<Strategy>(false, true)
             {
                 creators["dps"] = &warlock::CombatStrategyFactoryInternal::dps;
-                creators["fire dps"] = &warlock::CombatStrategyFactoryInternal::fire_dps;
+                creators["fire"] = &warlock::CombatStrategyFactoryInternal::fire_dps;
                 creators["tank"] = &warlock::CombatStrategyFactoryInternal::tank;
             }
 
@@ -147,6 +147,10 @@ namespace ai
                 creators["corruption"] = &AiObjectContextInternal::corruption;
                 //creators["death coil on attacker"] = &AiObjectContextInternal::death_coil_on_attacker;
                 creators["curse of agony"] = &AiObjectContextInternal::curse_of_agony;
+                creators["curse of exhaustion"] = &AiObjectContextInternal::curse_of_exhaustion;
+                creators["curse of the elements"] = &AiObjectContextInternal::curse_of_the_elements;
+                creators["curse of doom"] = &AiObjectContextInternal::curse_of_doom;
+                creators["curse of weakness"] = &AiObjectContextInternal::curse_of_weakness;
                 creators["shadow bolt"] = &AiObjectContextInternal::shadow_bolt;
                 creators["drain soul"] = &AiObjectContextInternal::drain_soul;
                 creators["drain mana"] = &AiObjectContextInternal::drain_mana;
@@ -197,6 +201,10 @@ namespace ai
             static Action* corruption(PlayerbotAI* ai) { return new CastCorruptionAction(ai); }
             //static Action* death_coil_on_attacker(PlayerbotAI* ai) { return new CastDeathCoilOnAttackerAction(ai); }
             static Action* curse_of_agony(PlayerbotAI* ai) { return new CastCurseOfAgonyAction(ai); }
+            static Action* curse_of_exhaustion(PlayerbotAI* ai) { return new CastCurseOfExhaustionAction(ai); }
+            static Action* curse_of_doom(PlayerbotAI* ai) { return new CastCurseOfDoomAction(ai); }
+            static Action* curse_of_the_elements(PlayerbotAI* ai) { return new CastCurseOfTheElementsAction(ai); }
+            static Action* curse_of_weakness(PlayerbotAI* ai) { return new CastCurseOfWeaknessAction(ai); }
             static Action* shadow_bolt(PlayerbotAI* ai) { return new CastShadowBoltAction(ai); }
             static Action* haunt(PlayerbotAI* ai) { return new CastHauntAction(ai); }
             static Action* howl_of_terror(PlayerbotAI* ai) { return new CastHowlOfTerrorAction(ai); }

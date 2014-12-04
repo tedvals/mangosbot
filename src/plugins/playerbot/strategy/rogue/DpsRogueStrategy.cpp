@@ -82,6 +82,10 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("eviscerate", ACTION_HIGH + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "combo point available",
+        NextAction::array(0, new NextAction("slice and dice", ACTION_HIGH + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "riposte",
         NextAction::array(0, new NextAction("riposte", ACTION_HIGH + 3), NULL)));
 
@@ -210,6 +214,10 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "rupture",
         NextAction::array(0, new NextAction("rupture", ACTION_HIGH + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "garrote",
+        NextAction::array(0, new NextAction("garrote", ACTION_HIGH + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
         "behind target",
@@ -373,8 +381,8 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("rupture", ACTION_HIGH + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "slice and dice",
-        NextAction::array(0, new NextAction("slice and dice", ACTION_HIGH + 5), NULL)));
+        "garrote",
+        NextAction::array(0, new NextAction("garrote", ACTION_HIGH + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium health",

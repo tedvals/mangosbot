@@ -32,6 +32,11 @@ bool ComboPointsAvailableTrigger::IsActive()
     return AI_VALUE2(uint8, "combo", "current target") >= amount;
 }
 
+bool ComboPointAvailableTrigger::IsActive()
+{
+    return AI_VALUE2(uint8, "combo", "current target") >= amount;
+}
+
 bool LoseAggroTrigger::IsActive()
 {
     return !AI_VALUE2(bool, "has aggro", "current target");

@@ -40,7 +40,7 @@ namespace ai
     class WarlockNoCurseTrigger : public DebuffTrigger
 	{
 	public:
-		WarlockNoCurseTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "curse of agony") {}
+		WarlockNoCurseTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "curse of the elements") {}
 		virtual bool IsActive();
 	};
 

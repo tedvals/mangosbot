@@ -7,12 +7,22 @@ namespace ai
     class CastLesserHealingWaveAction : public CastHealingSpellAction {
     public:
         CastLesserHealingWaveAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "lesser healing wave") {}
+
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("healing wave"), NULL), CastHealingSpellAction::getAlternatives());
+        }
     };
 
     class CastLesserHealingWaveOnPartyAction : public HealPartyMemberAction
     {
     public:
         CastLesserHealingWaveOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "lesser healing wave") {}
+
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("healing wave on party"), NULL), HealPartyMemberAction::getAlternatives());
+        }
     };
 
     class CastHealingWaveAction : public CastHealingSpellAction {
@@ -348,6 +358,12 @@ namespace ai
     {
     public:
         CastFeralSpiritAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "feral spirit") {}
+    };
+
+    class CastTidalForceAction : public CastBuffSpellAction
+    {
+    public:
+        CastTidalForceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "tidal force") {}
     };
 
     class CastShamanisticRageAction : public CastBuffSpellAction
