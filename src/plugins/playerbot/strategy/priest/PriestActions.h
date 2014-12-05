@@ -378,4 +378,9 @@ namespace ai
 		CastMindShearAction(PlayerbotAI* ai) : CastSpellAction(ai, "mind shear") {}
 	};
 
+    class CastSilenceAction : public CastSpellAction {
+    public:
+        CastSilenceAction(PlayerbotAI* ai) : CastSpellAction(ai, "silence") {}
+    };
+
 }

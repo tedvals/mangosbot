@@ -107,6 +107,12 @@ namespace ai
         ArcaneShotOnAttackerTrigger(PlayerbotAI* ai) : TargetAuraDispelTrigger(ai, "arcane shot", DISPEL_MAGIC) {}
     };
 
+    class SilencingShotInterruptSpellTrigger : public InterruptSpellTrigger
+    {
+    public:
+        SilencingShotInterruptSpellTrigger(PlayerbotAI* ai) : InterruptSpellTrigger(ai, "silencing shot") {}
+    };
+
     class SilencingShotEnemyHealerTrigger : public InterruptEnemyHealerTrigger
     {
     public:

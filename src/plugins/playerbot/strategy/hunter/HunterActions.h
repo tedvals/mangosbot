@@ -205,7 +205,8 @@ namespace ai
         CastWingClipAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "wing clip") {}
         virtual bool isUseful()
         {
-            return CastMeleeSpellAction::isUseful() && !ai->HasAura(spell, GetTarget());
+           // return CastMeleeSpellAction::isUseful() && !ai->HasAura("wing clip"), GetTarget());
+           return CastMeleeSpellAction::isUseful() && !ai->HasAnyAuraOf(GetTarget(), "slow", "wing clip", "frost shock", "crippling poison", "hamstring", NULL);
         }
 
    //     NextAction** getContinuers()

@@ -86,7 +86,7 @@ void WarlockImpStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
         triggers.push_back(new TriggerNode(
         "no pet",
-        NextAction::array(0, new NextAction("summon imp", 10.0f), NULL)));
+        NextAction::array(0, new NextAction("summon imp", 60.0f), NULL)));
 }
 
 class WarlockVoidwalkerActionNodeFactory : public NamedObjectFactory<ActionNode>
@@ -116,7 +116,7 @@ void WarlockVoidwalkerStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
         triggers.push_back(new TriggerNode(
         "no pet",
-        NextAction::array(0, new NextAction("summon voidwalker", 10.0f), NULL)));
+        NextAction::array(0, new NextAction("summon voidwalker", 60.0f), NULL)));
 }
 
 class WarlockSuccubusActionNodeFactory : public NamedObjectFactory<ActionNode>
@@ -146,7 +146,7 @@ void WarlockSuccubusStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
         triggers.push_back(new TriggerNode(
         "no pet",
-        NextAction::array(0, new NextAction("summon succubus", 10.0f), NULL)));
+        NextAction::array(0, new NextAction("summon succubus", 60.0f), NULL)));
 }
 
 class WarlockFelhunterActionNodeFactory : public NamedObjectFactory<ActionNode>
@@ -175,7 +175,7 @@ void WarlockFelhunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
         triggers.push_back(new TriggerNode(
         "no pet",
-        NextAction::array(0, new NextAction("summon felhunter", 10.0f), NULL)));
+        NextAction::array(0, new NextAction("summon felhunter", 60.0f), NULL)));
 }
 
 class WarlockFelguardStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
@@ -213,5 +213,5 @@ void WarlockFelguardStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
         triggers.push_back(new TriggerNode(
         "no pet",
-        NextAction::array(0, new NextAction("summon felguard", 10.0f), NULL)));
+        NextAction::array(0, new NextAction("summon felguard", 60.0f), NULL)));
 }

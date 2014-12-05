@@ -61,4 +61,10 @@ namespace ai
         ShadowformTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "shadowform") {}
         virtual bool IsActive() { return !ai->HasAura("shadowform", bot); }
     };
+
+    class SilenceEnemyHealerTrigger : public InterruptEnemyHealerTrigger
+    {
+    public:
+        SilenceEnemyHealerTrigger(PlayerbotAI* ai) : InterruptEnemyHealerTrigger(ai, "silence") {}
+    };
 }

@@ -42,3 +42,9 @@ NextAction** CastShadowDanceAction :: getAlternatives()
 {
             return NextAction::merge( NextAction::array(0, new NextAction("cold blood"), NULL), CastBuffSpellAction::getAlternatives());
 }
+
+NextAction** CastRuptureAction :: getAlternatives()
+{
+            return NextAction::merge( NextAction::array(0, new NextAction("eviscerate"), NULL), CastDebuffSpellAction::getAlternatives());
+}
+

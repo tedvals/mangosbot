@@ -16,7 +16,7 @@ namespace ai
         virtual NextAction** getDefaultActions();
     };
 
-    class DpsSwordRogueStrategy : public MeleeCombatStrategy
+    class DpsSwordRogueStrategy : public DpsRogueStrategy
     {
     public:
         DpsSwordRogueStrategy(PlayerbotAI* ai);
@@ -27,7 +27,7 @@ namespace ai
         virtual NextAction** getDefaultActions();
     };
 
-     class DpsDaggerRogueStrategy : public MeleeCombatStrategy
+     class DpsDaggerRogueStrategy : public DpsRogueStrategy
     {
     public:
         DpsDaggerRogueStrategy(PlayerbotAI* ai);

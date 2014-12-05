@@ -189,8 +189,9 @@ private:
     }
 };
 
-DpsSwordRogueStrategy::DpsSwordRogueStrategy(PlayerbotAI* ai) : MeleeCombatStrategy(ai)
+DpsSwordRogueStrategy::DpsSwordRogueStrategy(PlayerbotAI* ai) : DpsRogueStrategy(ai)
 {
+    actionNodeFactories.Add(new DpsRogueStrategyActionNodeFactory());
     actionNodeFactories.Add(new DpsSwordRogueStrategyActionNodeFactory());
 }
 
@@ -201,7 +202,7 @@ NextAction** DpsSwordRogueStrategy::getDefaultActions()
 
 void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    MeleeCombatStrategy::InitTriggers(triggers);
+    DpsRogueStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
         "combo points available",
@@ -354,8 +355,9 @@ private:
     }
 };
 
-DpsDaggerRogueStrategy::DpsDaggerRogueStrategy(PlayerbotAI* ai) : MeleeCombatStrategy(ai)
+DpsDaggerRogueStrategy::DpsDaggerRogueStrategy(PlayerbotAI* ai) : DpsRogueStrategy(ai)
 {
+    actionNodeFactories.Add(new DpsRogueStrategyActionNodeFactory());
     actionNodeFactories.Add(new DpsDaggerRogueStrategyActionNodeFactory());
 }
 
@@ -366,7 +368,7 @@ NextAction** DpsDaggerRogueStrategy::getDefaultActions()
 
 void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    MeleeCombatStrategy::InitTriggers(triggers);
+    DpsRogueStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
         "combo points available",

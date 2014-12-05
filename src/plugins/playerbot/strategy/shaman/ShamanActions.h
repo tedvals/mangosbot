@@ -284,6 +284,11 @@ namespace ai
     {
     public:
         CastFrostShockAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "frost shock") {}
+
+         virtual bool isUseful()
+        {
+           return CastDebuffSpellAction::isUseful() && !ai->HasAnyAuraOf(GetTarget(), "slow", "wing clip", "frost shock", "crippling poison", "hamstring", NULL);
+        }
     };
 
     class CastChainLightningAction : public CastSpellAction

@@ -87,6 +87,7 @@ namespace ai
                 creators["aspect of the viper"] = &TriggerFactoryInternal::aspect_of_the_viper;
                 creators["trueshot aura"] = &TriggerFactoryInternal::trueshot_aura;
                 creators["serpent sting on attacker"] = &TriggerFactoryInternal::serpent_sting_on_attacker;
+                creators["silencing shot"] = &TriggerFactoryInternal::silencing_shot_interrupt;
                 creators["silencing shot on enemy healer"] = &TriggerFactoryInternal::silencing_shot_on_enemy_healer;
                 creators["arcane shot on attacker"] = &TriggerFactoryInternal::arcane_shot;
                 creators["wyvern sting"] = &TriggerFactoryInternal::wyvern_sting;
@@ -110,6 +111,7 @@ namespace ai
             static Trigger* aspect_of_the_hawk(PlayerbotAI* ai) { return new HunterAspectOfTheHawkTrigger(ai); }
             static Trigger* aspect_of_the_dragonhawk(PlayerbotAI* ai) { return new HunterAspectOfTheDragonHawkTrigger(ai); }
             static Trigger* aspect_of_the_wild(PlayerbotAI* ai) { return new HunterAspectOfTheWildTrigger(ai); }
+            static Trigger* silencing_shot_interrupt(PlayerbotAI* ai) { return new SilencingShotInterruptSpellTrigger(ai); }
             static Trigger* silencing_shot_on_enemy_healer(PlayerbotAI* ai) { return new SilencingShotEnemyHealerTrigger(ai); }
             static Trigger* arcane_shot(PlayerbotAI* ai) { return new ArcaneShotOnAttackerTrigger(ai); }
             static Trigger* wyvern_sting(PlayerbotAI* ai) { return new WyvernStingTrigger(ai); }
