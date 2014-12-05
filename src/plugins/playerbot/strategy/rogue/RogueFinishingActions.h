@@ -26,14 +26,14 @@ namespace ai
 	   // }
 	};
 
-	class CastSliceAndDiceAction : public CastBuffSpellAction
+	class CastSliceAndDiceAction : public CastMeleeSpellAction
 	{
 	public:
-		CastSliceAndDiceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "slice and dice") {}
-		//virtual bool isUseful()
-	    //{
-	    //    return AI_VALUE2(uint8, "combo", "self target") > 1;
-	    //}
+		CastSliceAndDiceAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "slice and dice") {}
+		virtual bool isUseful()
+	    {
+	        return !ai->HasAura(spell, AI_VALUE(Unit*, "self target"));
+	    }
 	};
 
 	class CastExposeArmorAction : public CastMeleeSpellAction

@@ -207,6 +207,11 @@ namespace ai
         {
             return CastMeleeSpellAction::isUseful() && !ai->HasAura(spell, GetTarget());
         }
+
+   //     NextAction** getContinuers()
+   //     {
+    //        return NextAction::merge( NextAction::array(0, new NextAction("flee"), NULL), CastMeleeSpellAction::getContinuers());
+    //    }
     };
 
   class CastSnakeTrapAction : public CastMeleeSpellAction
