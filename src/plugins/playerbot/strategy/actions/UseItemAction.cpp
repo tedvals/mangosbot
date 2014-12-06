@@ -23,16 +23,22 @@ bool UseItemAction::Execute(Event event)
             return UseItemOnItem(item, itemTarget);
         }
         else if (!items.empty())
+        {
+            //if (actionTarget && (actionTarget->GetTemplate()->Class == ITEM_CLASS_WEAPON))
+            //{
+            //    return UseItemOnItem(*items.begin(), actionTarget);
+            //}
+            //else
             return UseItemAuto(*items.begin());
-    }
+        }
     else
     {
         if (items.empty())
             return UseGameObject(*gos.begin());
         else
             return UseItemOnGameObject(*items.begin(), *gos.begin());
+        }
     }
-
     ai->TellMaster("No items (or game objects) available");
     return false;
 }
@@ -290,6 +296,23 @@ bool UseItemAction::SocketItem(Item* item, Item* gem, bool replace)
     return fits;
 }
 
+bool UseItemAction::setTargetMainhand()
+{
+     actionTarget= bot->GetItemByPos(EQUIPMENT_SLOT_MAINHAND);
+
+     if (actionTarget)
+        return true;
+     else return false;
+}
+
+bool UseItemAction::setTargetOffhand()
+{
+     actionTarget= bot->GetItemByPos(EQUIPMENT_SLOT_OFFHAND);
+
+     if (actionTarget)
+        return true;
+     else return false;
+}
 
 bool UseItemAction::isPossible()
 {

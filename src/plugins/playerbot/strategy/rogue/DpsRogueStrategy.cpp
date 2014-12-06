@@ -79,7 +79,7 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "combo points available",
-        NextAction::array(0, new NextAction("eviscerate", ACTION_HIGH + 2), NULL)));
+        NextAction::array(0, new NextAction("rupture", ACTION_HIGH + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
         "combo point available",
@@ -421,10 +421,6 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "behind target",
         NextAction::array(0, new NextAction("backstab", ACTION_NORMAL), NULL)));
-
-     triggers.push_back(new TriggerNode(
-        "not facing target",
-        NextAction::array(0, new NextAction("set facing", ACTION_NORMAL + 7), NULL)));
 
      triggers.push_back(new TriggerNode(
         "boost",
