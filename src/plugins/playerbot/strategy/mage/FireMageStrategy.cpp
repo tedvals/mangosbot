@@ -10,7 +10,6 @@ class FireMageStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
 public:
     FireMageStrategyActionNodeFactory()
     {
-        creators["pyroblast"] = &pyroblast;
         creators["fire blast"] = &fire_blast;
         creators["scorch"] = &scorch;
         creators["combustion"] = &combustion;
@@ -19,13 +18,6 @@ public:
         creators["blast wave"] = blast_wave;
     }
 private:
-    static ActionNode* pyroblast(PlayerbotAI* ai)
-    {
-        return new ActionNode ("pyroblast",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("fireball"), NULL),
-            /*C*/ NULL);
-    }
     static ActionNode* fire_blast(PlayerbotAI* ai)
     {
         return new ActionNode ("fire blast",
@@ -103,7 +95,7 @@ void FireMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy too close for spell",
-        NextAction::array(0, new NextAction("dragon's breath", 70.0f), new NextAction("flee", 70.0f), NULL)));
+        NextAction::array(0, new NextAction("dragon's breath", 70.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "living bomb on attacker",

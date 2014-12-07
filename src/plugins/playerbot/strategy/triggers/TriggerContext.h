@@ -20,15 +20,18 @@ namespace ai
             creators["often"] = &TriggerContext::often;
 
             creators["target critical health"] = &TriggerContext::TargetCriticalHealth;
+            creators["target almost dead"] = &TriggerContext::TargetAlmostDead;
 
             creators["critical health"] = &TriggerContext::CriticalHealth;
             creators["low health"] = &TriggerContext::LowHealth;
             creators["medium health"] = &TriggerContext::MediumHealth;
             creators["almost full health"] = &TriggerContext::AlmostFullHealth;
+            creators["almost dead"] = &TriggerContext::AlmostDead;
 
             creators["low mana"] = &TriggerContext::LowMana;
             creators["medium mana"] = &TriggerContext::MediumMana;
 
+            creators["party member almost dead"] = &TriggerContext::PartyMemberAlmostDead;
             creators["party member critical health"] = &TriggerContext::PartyMemberCriticalHealth;
             creators["party member low health"] = &TriggerContext::PartyMemberLowHealth;
             creators["party member medium health"] = &TriggerContext::PartyMemberMediumHealth;
@@ -65,10 +68,19 @@ namespace ai
             creators["enemy too close for melee"] = &TriggerContext::enemy_too_close_for_melee;
 
             creators["combo points available"] = &TriggerContext::ComboPointsAvailable;
+            creators["combo point available"] = &TriggerContext::ComboPointAvailable;
 
             creators["medium threat"] = &TriggerContext::MediumThreat;
 
             creators["dead"] = &TriggerContext::Dead;
+            creators["rooted"] = &TriggerContext::Rooted;
+            creators["frozen"] = &TriggerContext::Frozen;
+            creators["snared"] = &TriggerContext::Snared;
+            creators["bleeding"] = &TriggerContext::Bleeding;
+            creators["stunned"] = &TriggerContext::Stunned;
+            creators["polymorphed"] = &TriggerContext::Polymorphed;
+            creators["takes periodic damage"] = &TriggerContext::TakesPeriodicDamage;
+
             creators["party member dead"] = &TriggerContext::PartyMemberDead;
             creators["no pet"] = &TriggerContext::no_pet;
             creators["has attackers"] = &TriggerContext::has_attackers;
@@ -85,6 +97,25 @@ namespace ai
             creators["can loot"] = &TriggerContext::can_loot;
             creators["swimming"] = &TriggerContext::swimming;
             creators["target changed"] = &TriggerContext::target_changed;
+
+            creators["target rooted"] = &TriggerContext::Target_Rooted;
+            creators["target frozen"] = &TriggerContext::Target_Frozen;
+            creators["target snared"] = &TriggerContext::Target_Snared;
+            creators["target bleeding"] = &TriggerContext::Target_Bleeding;
+            creators["target stunned"] = &TriggerContext::Target_Stunned;
+            creators["target polymorphed"] = &TriggerContext::Target_Polymorphed;
+
+            creators["party member rooted"] = &TriggerContext::Party_Member_Rooted;
+            creators["party member frozen"] = &TriggerContext::Party_Member_Frozen;
+            creators["party member snared"] = &TriggerContext::Party_Member_Snared;
+            creators["party member polymorphed"] = &TriggerContext::Party_Member_Polymorphed;
+
+
+            creators["target not rooted"] = &TriggerContext::Target_NotRooted;
+            creators["target not frozen"] = &TriggerContext::Target_NotFrozen;
+            creators["target not snared"] = &TriggerContext::Target_NotSnared;
+            creators["target not bleeding"] = &TriggerContext::Target_NotBleeding;
+            creators["target not stunned"] = &TriggerContext::Target_NotStunned;
 
             creators["critical aoe heal"] = &TriggerContext::critical_aoe_heal;
             creators["low aoe heal"] = &TriggerContext::low_aoe_heal;
@@ -119,8 +150,10 @@ namespace ai
         static Trigger* LowHealth(PlayerbotAI* ai) { return new LowHealthTrigger(ai); }
         static Trigger* MediumHealth(PlayerbotAI* ai) { return new MediumHealthTrigger(ai); }
         static Trigger* AlmostFullHealth(PlayerbotAI* ai) { return new AlmostFullHealthTrigger(ai); }
+        static Trigger* AlmostDead(PlayerbotAI* ai) { return new AlmostDeadTrigger(ai); }
         static Trigger* CriticalHealth(PlayerbotAI* ai) { return new CriticalHealthTrigger(ai); }
         static Trigger* TargetCriticalHealth(PlayerbotAI* ai) { return new TargetCriticalHealthTrigger(ai); }
+        static Trigger* TargetAlmostDead(PlayerbotAI* ai) { return new TargetAlmostDeadTrigger(ai); }
         static Trigger* LowMana(PlayerbotAI* ai) { return new LowManaTrigger(ai); }
         static Trigger* MediumMana(PlayerbotAI* ai) { return new MediumManaTrigger(ai); }
         static Trigger* LightRageAvailable(PlayerbotAI* ai) { return new LightRageAvailableTrigger(ai); }
@@ -146,9 +179,33 @@ namespace ai
         static Trigger* enemy_too_close_for_spell(PlayerbotAI* ai) { return new EnemyTooCloseForSpellTrigger(ai); }
         static Trigger* enemy_too_close_for_melee(PlayerbotAI* ai) { return new EnemyTooCloseForMeleeTrigger(ai); }
         static Trigger* ComboPointsAvailable(PlayerbotAI* ai) { return new ComboPointsAvailableTrigger(ai); }
+        static Trigger* ComboPointAvailable(PlayerbotAI* ai) { return new ComboPointAvailableTrigger(ai); }
         static Trigger* MediumThreat(PlayerbotAI* ai) { return new MediumThreatTrigger(ai); }
         static Trigger* Dead(PlayerbotAI* ai) { return new DeadTrigger(ai); }
+        static Trigger* Rooted(PlayerbotAI* ai) { return new RootedTrigger(ai); }
+        static Trigger* Frozen(PlayerbotAI* ai) { return new FrozenTrigger(ai); }
+        static Trigger* Snared(PlayerbotAI* ai) { return new SnaredTrigger(ai); }
+        static Trigger* Bleeding(PlayerbotAI* ai) { return new BleedingTrigger(ai); }
+        static Trigger* Stunned(PlayerbotAI* ai) { return new StunnedTrigger(ai); }
+        static Trigger* Polymorphed(PlayerbotAI* ai) { return new PolymorphedTrigger(ai); }
+        static Trigger* Target_Rooted(PlayerbotAI* ai) { return new TargetRootedTrigger(ai); }
+        static Trigger* Target_Frozen(PlayerbotAI* ai) { return new TargetFrozenTrigger(ai); }
+        static Trigger* Target_Snared(PlayerbotAI* ai) { return new TargetSnaredTrigger(ai); }
+        static Trigger* Target_Bleeding(PlayerbotAI* ai) { return new TargetBleedingTrigger(ai); }
+        static Trigger* Target_Stunned(PlayerbotAI* ai) { return new TargetStunnedTrigger(ai); }
+        static Trigger* Target_Polymorphed(PlayerbotAI* ai) { return new TargetPolymorphedTrigger(ai); }
+        static Trigger* Party_Member_Rooted(PlayerbotAI* ai) { return new PartyMemberRootedTrigger(ai); }
+        static Trigger* Party_Member_Frozen(PlayerbotAI* ai) { return new PartyMemberFrozenTrigger(ai); }
+        static Trigger* Party_Member_Snared(PlayerbotAI* ai) { return new PartyMemberSnaredTrigger(ai); }
+        static Trigger* Party_Member_Polymorphed(PlayerbotAI* ai) { return new PartyMemberPolymorphedTrigger(ai); }
+        static Trigger* Target_NotRooted(PlayerbotAI* ai) { return new TargetNotRootedTrigger(ai); }
+        static Trigger* Target_NotFrozen(PlayerbotAI* ai) { return new TargetNotFrozenTrigger(ai); }
+        static Trigger* Target_NotSnared(PlayerbotAI* ai) { return new TargetNotSnaredTrigger(ai); }
+        static Trigger* Target_NotBleeding(PlayerbotAI* ai) { return new TargetNotBleedingTrigger(ai); }
+        static Trigger* Target_NotStunned(PlayerbotAI* ai) { return new TargetNotStunnedTrigger(ai); }
+        static Trigger* TakesPeriodicDamage(PlayerbotAI* ai) { return new TakesPeriodicDamageTrigger(ai); }
         static Trigger* PartyMemberDead(PlayerbotAI* ai) { return new PartyMemberDeadTrigger(ai); }
+        static Trigger* PartyMemberAlmostDead(PlayerbotAI* ai) { return new PartyMemberAlmostDeadTrigger(ai); }
         static Trigger* PartyMemberLowHealth(PlayerbotAI* ai) { return new PartyMemberLowHealthTrigger(ai); }
         static Trigger* PartyMemberMediumHealth(PlayerbotAI* ai) { return new PartyMemberMediumHealthTrigger(ai); }
         static Trigger* PartyMemberAlmostFullHealth(PlayerbotAI* ai) { return new PartyMemberAlmostFullHealthTrigger(ai); }

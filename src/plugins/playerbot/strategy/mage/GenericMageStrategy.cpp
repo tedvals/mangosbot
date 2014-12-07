@@ -15,7 +15,6 @@ public:
         creators["pyroblast"] = &pyroblast;
         creators["frost nova"] = &frost_nova;
         creators["blink"] = &blink;
-        creators["icy veins"] = &icy_veins;
         creators["evocation"] = &evocation;
         creators["frostfire bolt"] = &frostfire_bolt;
         creators["ice block"] = &ice_block;
@@ -54,21 +53,14 @@ private:
     {
         return new ActionNode ("cone of cold",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("blink",50), NULL),
+            /*A*/ NextAction::array(0, new NextAction("flee",50), NULL),
             /*C*/ NULL);
     }
     static ActionNode* blink(PlayerbotAI* ai)
     {
         return new ActionNode ("blink",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("blink",50), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* icy_veins(PlayerbotAI* ai)
-    {
-        return new ActionNode ("icy veins",
-            /*P*/ NULL,
-            /*A*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("flee",50), NULL),
             /*C*/ NULL);
     }
     static ActionNode* evocation(PlayerbotAI* ai)

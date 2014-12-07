@@ -326,6 +326,16 @@ bool TargetNotFrozenTrigger::IsActive()
     return !AI_VALUE2(bool, "frozen", GetTargetName());
 }
 
+bool TargetNotBleedingTrigger::IsActive()
+{
+    return !AI_VALUE2(bool, "bleeding", GetTargetName());
+}
+
+bool TargetNotPolymorphedTrigger::IsActive()
+{
+    return !AI_VALUE2(bool, "polymorphed", GetTargetName());
+}
+
 bool TargetNotRootedTrigger::IsActive()
 {
     return !AI_VALUE2(bool, "rooted", GetTargetName());
@@ -334,4 +344,24 @@ bool TargetNotRootedTrigger::IsActive()
 bool TargetNotStunnedTrigger::IsActive()
 {
     return !AI_VALUE2(bool, "stunned", GetTargetName());
+}
+
+bool PartyMemberRootedTrigger::IsActive()
+{
+	return GetTarget();
+}
+
+bool PartyMemberSnaredTrigger::IsActive()
+{
+	return GetTarget();
+}
+
+bool PartyMemberPolymorphedTrigger::IsActive()
+{
+	return GetTarget();
+}
+
+bool PartyMemberFrozenTrigger::IsActive()
+{
+	return GetTarget();
 }

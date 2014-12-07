@@ -667,10 +667,52 @@ namespace ai
 
     class TargetNotStunnedTrigger : public Trigger {
     public:
-        TargetNotStunnedTrigger(PlayerbotAI* ai) : Trigger(ai, "target not frozen", 5) {}
+        TargetNotStunnedTrigger(PlayerbotAI* ai) : Trigger(ai, "target not stunned", 5) {}
         virtual string GetTargetName() { return "current target"; }
         virtual bool IsActive();
     };
+
+    class TargetNotBleedingTrigger : public Trigger {
+    public:
+        TargetNotBleedingTrigger(PlayerbotAI* ai) : Trigger(ai, "target not bleeding", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetNotPolymorphedTrigger : public Trigger {
+    public:
+        TargetNotPolymorphedTrigger(PlayerbotAI* ai) : Trigger(ai, "target not polymorphed", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class PartyMemberRootedTrigger : public Trigger {
+	public:
+		PartyMemberRootedTrigger(PlayerbotAI* ai) : Trigger(ai, "rooted", 5) {}
+        virtual string GetTargetName() { return "party member rooted"; }
+		virtual bool IsActive();
+	};
+
+	class PartyMemberSnaredTrigger : public Trigger {
+	public:
+		PartyMemberSnaredTrigger(PlayerbotAI* ai) : Trigger(ai, "snared", 5) {}
+        virtual string GetTargetName() { return "party member snared"; }
+		virtual bool IsActive();
+	};
+
+	class PartyMemberPolymorphedTrigger : public Trigger {
+	public:
+		PartyMemberPolymorphedTrigger(PlayerbotAI* ai) : Trigger(ai, "polymorphed", 5) {}
+        virtual string GetTargetName() { return "party member polymorphed"; }
+		virtual bool IsActive();
+	};
+
+	class PartyMemberFrozenTrigger : public Trigger {
+	public:
+		PartyMemberFrozenTrigger(PlayerbotAI* ai) : Trigger(ai, "frozen", 5) {}
+        virtual string GetTargetName() { return "party member frozen"; }
+		virtual bool IsActive();
+	};
 }
 
 #include "RangeTriggers.h"
