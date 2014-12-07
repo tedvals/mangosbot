@@ -15,6 +15,8 @@ public:
         creators["deep freeze"] = &deep_freeze;
         creators["frostfire bolt"] = &frostfire_bolt;
         creators["boost"] = &ice_veins;
+        creators["ice barrier"] = &ice_barrier;
+        creators["cold snap"] = &cold_snap;
     }
 private:
     static ActionNode* ice_veins(PlayerbotAI* ai)
@@ -51,6 +53,20 @@ private:
         return new ActionNode ("frostfire bolt",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("fireball"), NULL),
+            /*C*/ NULL);
+    }
+     static ActionNode* ice_barrier(PlayerbotAI* ai)
+    {
+        return new ActionNode ("ice barrier",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("mana shield"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* cold_snap(PlayerbotAI* ai)
+    {
+        return new ActionNode ("cold snap",
+            /*P*/ NULL,
+            /*A*/ NULL,
             /*C*/ NULL);
     }
 };
@@ -95,7 +111,11 @@ void FrostMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "enemy too close for spell",
-        NextAction::array(0, new NextAction("ice barrier", 70.0f), new NextAction("cone of cold", 70.0f), new NextAction("flee", 70.0f), NULL)));
+        NextAction::array(0, new NextAction("cone of cold", 70.0f), new NextAction("flee", 70.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"medium health",
+		NextAction::array(0, new NextAction("ice barrier", 71.0f), NULL)));
 }
 
 void FrostMageAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

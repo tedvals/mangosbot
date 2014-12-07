@@ -97,19 +97,27 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
 		"medium health",
-		NextAction::array(0, new NextAction("riptide", ACTION_EMERGENCY), NULL)));
+		NextAction::array(0, new NextAction("chain heal", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member medium health",
+		NextAction::array(0, new NextAction("chain heal", ACTION_EMERGENCY), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"almost full health",
+		NextAction::array(0, new NextAction("riptide", ACTION_EMERGENCY), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member almost full health",
 		NextAction::array(0, new NextAction("riptide on party", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
 		NextAction::array(0, new NextAction("healing wave on party", 25.0f), NULL)));
 
-	//triggers.push_back(new TriggerNode(
-	//	"almost full health",
-	//	NextAction::array(0, new NextAction("earth shield", 26.0f), NULL)));
+	triggers.push_back(new TriggerNode(
+		"loose aggro",
+		NextAction::array(0, new NextAction("earth shield", 26.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"almost dead",

@@ -9,7 +9,7 @@ namespace ai
 
 		virtual bool isUseful()
 	    {
-	        return AI_VALUE2(uint8, "combo", "self target") > 2;
+	        return AI_VALUE2(uint8, "combo", "self target") > 2 || AI_VALUE2(uint8, "health", "current target") < 10;
 	    }
 	};
 

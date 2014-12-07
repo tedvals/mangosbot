@@ -74,7 +74,7 @@ void ArcaneMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "boost",
-        NextAction::array(0, new NextAction("arcane power", 40.0f), NULL)));
+        NextAction::array(0, new NextAction("arcane power", 40.0f), new NextAction("icy veins", 40.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "burst",

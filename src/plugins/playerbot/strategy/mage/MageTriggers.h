@@ -4,6 +4,7 @@
 namespace ai
 {
     BUFF_ON_PARTY_TRIGGER(ArcaneIntellectOnPartyTrigger, "arcane intellect", "arcane intellect on party")
+    BUFF_ON_PARTY_TRIGGER(FocusMagicOnPartyTrigger, "focus magic", "focus magic on party")
     BUFF_TRIGGER(ArcaneIntellectTrigger, "arcane intellect", "arcane intellect")
     //BUFF_TRIGGER(MoltenArmorTrigger, "molten armor", "molten armor")
     BUFF_TRIGGER(SummonWaterElementalTrigger, "summon water elemental", "summon water elemental")

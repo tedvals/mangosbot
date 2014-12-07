@@ -191,7 +191,6 @@ private:
 
 DpsSwordRogueStrategy::DpsSwordRogueStrategy(PlayerbotAI* ai) : DpsRogueStrategy(ai)
 {
-    actionNodeFactories.Add(new DpsRogueStrategyActionNodeFactory());
     actionNodeFactories.Add(new DpsSwordRogueStrategyActionNodeFactory());
 }
 
@@ -273,6 +272,7 @@ public:
         creators["cold blood"] = &cold_blood;
         creators["envenom"] = &envenom;
         creators["boost"] = &shadow_dance;
+        creators["hemorrhage"] = &hemorrhage;
     }
 private:
     static ActionNode* stealth(PlayerbotAI* ai)
@@ -331,6 +331,13 @@ private:
             /*A*/ NextAction::array(0, new NextAction("hemorrhage"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* hemorrhage(PlayerbotAI* ai)
+    {
+        return new ActionNode ("hemorrhage",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
+            /*C*/ NULL);
+    }
     static ActionNode* envenom(PlayerbotAI* ai)
     {
         return new ActionNode ("envenom",
@@ -357,7 +364,6 @@ private:
 
 DpsDaggerRogueStrategy::DpsDaggerRogueStrategy(PlayerbotAI* ai) : DpsRogueStrategy(ai)
 {
-    actionNodeFactories.Add(new DpsRogueStrategyActionNodeFactory());
     actionNodeFactories.Add(new DpsDaggerRogueStrategyActionNodeFactory());
 }
 
