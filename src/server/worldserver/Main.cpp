@@ -47,6 +47,9 @@
 #include "SystemConfig.h"
 #include "WorldSocket.h"
 #include "WorldSocketMgr.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 
 using namespace boost::program_options;
 
@@ -258,6 +261,10 @@ extern int main(int argc, char** argv)
     sObjectAccessor->UnloadAll();             // unload 'i_player2corpse' storage and remove from world
     sScriptMgr->Unload();
     sOutdoorPvPMgr->Die();
+
+#ifdef ELUNA
+    Eluna::Uninitialize();
+#endif
 
     // set server offline
     LoginDatabase.DirectPExecute("UPDATE realmlist SET flag = flag | %u WHERE id = '%d'", REALM_FLAG_OFFLINE, realmID);

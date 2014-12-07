@@ -64,6 +64,9 @@
 #include "WaypointMovementGenerator.h"
 #include "WeatherMgr.h"
 #include "WorldSession.h"
+#ifdef ELUNA
+#include "LuaEngine.h"
+#endif
 
 // playerbot mod
 #include "../../plugins/ahbot/AhBot.h"
@@ -1319,6 +1322,12 @@ void World::SetInitialWorldSettings()
         exit(1);
     }
 
+#ifdef ELUNA
+    ///- Initialize Lua Engine
+    TC_LOG_INFO("server.loading", "Initialize Eluna Lua Engine...");
+    Eluna::Initialize();
+#endif
+
     ///- Initialize pool manager
     sPoolMgr->Initialize();
 
@@ -1837,6 +1846,13 @@ void World::SetInitialWorldSettings()
     InitGuildResetTime();
 
     LoadCharacterNameData();
+
+#ifdef ELUNA
+    ///- Run eluna scripts.
+    // in multithread foreach: run scripts
+    sEluna->RunScripts();
+    sEluna->OnConfigLoad(false); // Must be done after Eluna is initialized and scripts have run.
+#endif
 
     uint32 startupDuration = GetMSTimeDiffToNow(startupBegin);
 

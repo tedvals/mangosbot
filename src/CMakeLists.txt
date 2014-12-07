@@ -19,4 +19,7 @@ endif(TOOLS)
 if(TESTS)
   add_subdirectory(test)
 endif(TESTS)
+if ( ELUNA )
+  add_subdirectory(LuaEngine)
+endif(ELUNA)
 
