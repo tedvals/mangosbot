@@ -139,6 +139,7 @@ public:
         creators["riposte"] = &riposte;
         creators["sinister strike"] = &sinister_strike;
         creators["kick"] = &kick;
+        creators["rupture"] = &rupture;
         creators["kidney shot"] = &kidney_shot;
         creators["adrenaline rush"] = &adrenaline_rush;
         creators["boost"] = &adrenaline_rush;
@@ -185,6 +186,13 @@ private:
         return new ActionNode ("adrenaline rush",
             /*P*/ NULL,
             /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* rupture(PlayerbotAI* ai)
+    {
+        return new ActionNode ("rupture",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("eviscerate"), NULL),
             /*C*/ NULL);
     }
 };
@@ -268,6 +276,7 @@ public:
         creators["shadowstep"] = &shadowstep;
         creators["mutilate"] = &mutilate;
         creators["vanish"] = &vanish;
+        creators["rupture"] = &rupture;
         creators["backstab"] = &backstab;
         creators["cold blood"] = &cold_blood;
         creators["envenom"] = &envenom;
@@ -287,6 +296,13 @@ private:
         return new ActionNode ("garrote",
             /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
             /*A*/ NextAction::array(0, new NextAction("ambush"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* rupture(PlayerbotAI* ai)
+    {
+        return new ActionNode ("rupture",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("envenom"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* ambush(PlayerbotAI* ai)

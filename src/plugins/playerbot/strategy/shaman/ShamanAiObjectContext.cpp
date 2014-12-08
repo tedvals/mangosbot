@@ -205,6 +205,7 @@ namespace ai
                 creators["thunderstorm"] = &AiObjectContextInternal::thunderstorm;
                 creators["heroism"] = &AiObjectContextInternal::heroism;
                 creators["stoneskin totem"] = &AiObjectContextInternal::stoneskin_totem;
+                creators["tremor totem"] = &AiObjectContextInternal::tremor_totem;
                 creators["earthbind totem"] = &AiObjectContextInternal::earthbind_totem;
                 creators["totem of wrath"] = &AiObjectContextInternal::totem_of_wrath;
                 creators["wrath of air totem"] = &AiObjectContextInternal::wrath_of_air_totem;
@@ -217,7 +218,7 @@ namespace ai
                 creators["nature's swiftness"] = &AiObjectContextInternal::natures_swiftness;
                 creators["burst"] =& AiObjectContextInternal::burst_shaman;
                 creators["boost"] =& AiObjectContextInternal::boost_shaman;
-                creators["boost"] =& AiObjectContextInternal::party_boost;
+                creators["party boost"] =& AiObjectContextInternal::party_boost;
             }
 
         private:
@@ -271,6 +272,7 @@ namespace ai
             static Action* wind_shear_on_enemy_healer(PlayerbotAI* ai) { return new CastWindShearOnEnemyHealerAction(ai); }
             static Action* stoneskin_totem(PlayerbotAI* ai) { return new CastStoneskinTotemAction(ai); }
             static Action* earthbind_totem(PlayerbotAI* ai) { return new CastEarthbindTotemAction(ai); }
+            static Action* tremor_totem(PlayerbotAI* ai) { return new CastTremorTotemAction(ai); }
             static Action* totem_of_wrath(PlayerbotAI* ai) { return new CastTotemOfWrathAction(ai); }
             static Action* wrath_of_air_totem(PlayerbotAI* ai) { return new CastWrathOfAirTotemAction(ai); }
             static Action* summon_earth_elemental(PlayerbotAI* ai) { return new CastSummonEarthElementalAction(ai); }

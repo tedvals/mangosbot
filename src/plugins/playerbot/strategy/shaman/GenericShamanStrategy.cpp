@@ -189,6 +189,18 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"critical health",
 		NextAction::array(0, new NextAction("stoneclaw totem", 80.0f), NULL)));
 
+   // triggers.push_back(new TriggerNode(
+   //     "party member charmed",
+   //     NextAction::array(0, new NextAction("tremor totem", 60.0f), NULL)));
+
+  //  triggers.push_back(new TriggerNode(
+  //      "party member feared",
+  //      NextAction::array(0, new NextAction("tremor totem", 60.0f), NULL)));
+
+  //  triggers.push_back(new TriggerNode(
+  //      "party member possessed",
+  //      NextAction::array(0, new NextAction("tremor totem", 60.0f), NULL)));
+
     triggers.push_back(new TriggerNode(
         "hex",
         NextAction::array(0, new NextAction("hex", 30.0f), NULL)));

@@ -38,6 +38,18 @@ void GenericPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"party member almost dead",
 		NextAction::array(0, new NextAction("lay on hands on party", ACTION_EMERGENCY), NULL)));
 
+ //   triggers.push_back(new TriggerNode(
+ //       "party member polymorphed",
+ //       NextAction::array(0, new NextAction("cleanse magic on party", ACTION_EMERGENCY), NULL)));
+
+ //   triggers.push_back(new TriggerNode(
+ //       "party member rooted",
+ //       NextAction::array(0, new NextAction("blessing of freedom on party", ACTION_EMERGENCY), NULL)));
+
+ //   triggers.push_back(new TriggerNode(
+ //       "party member snared",
+ //       NextAction::array(0, new NextAction("blessing of freedom on party", ACTION_EMERGENCY), NULL)));
+
 	triggers.push_back(new TriggerNode(
 		"target critical health",
 		NextAction::array(0, new NextAction("hammer of wrath", ACTION_HIGH + 1), NULL)));

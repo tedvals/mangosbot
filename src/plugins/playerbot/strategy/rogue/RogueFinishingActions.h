@@ -9,7 +9,7 @@ namespace ai
 
 		virtual bool isUseful()
 	    {
-	        return AI_VALUE2(uint8, "combo", "self target") > 2 || AI_VALUE2(uint8, "health", "current target") < 10;
+	         return AI_VALUE2(uint8, "combo", "self target") > 4 || AI_VALUE2(uint8, "health", "current target") < 10;
 	    }
 	};
 
@@ -22,7 +22,7 @@ namespace ai
 
         virtual bool isUseful()
 	    {
-	        return AI_VALUE2(uint8, "combo", "self target") > 2;
+	         return AI_VALUE2(uint8, "combo", "self target") > 4 || AI_VALUE2(uint8, "health", "current target") < 10;
 	    }
 	};
 
@@ -34,6 +34,8 @@ namespace ai
 	    {
 	        return !ai->HasAura(spell, AI_VALUE(Unit*, "self target"));
 	    }
+
+	    virtual NextAction** getAlternatives();
 	};
 
 	class CastExposeArmorAction : public CastMeleeSpellAction

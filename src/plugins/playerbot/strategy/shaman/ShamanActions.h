@@ -118,6 +118,12 @@ namespace ai
         CastEarthbindTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "earthbind totem") {}
     };
 
+    class CastTremorTotemAction : public CastTotemAction
+    {
+    public:
+        CastTremorTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "tremor totem") {}
+    };
+
     class CastStrengthOfEarthTotemAction : public CastTotemAction
     {
     public:
