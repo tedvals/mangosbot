@@ -31,16 +31,8 @@ void GenericPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("divine shield", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
-		"party member polymorphed",
-		NextAction::array(0, new NextAction("cleanse magic on party", ACTION_EMERGENCY), NULL)));
-
-    triggers.push_back(new TriggerNode(
-		"party member rooted",
-		NextAction::array(0, new NextAction("blessing of freedom on party", ACTION_EMERGENCY), NULL)));
-
-    triggers.push_back(new TriggerNode(
-		"party member snared",
-		NextAction::array(0, new NextAction("blessing of freedom on party", ACTION_EMERGENCY), NULL)));
+		"stunned",
+		NextAction::array(0, new NextAction("blessing of freedom", ACTION_EMERGENCY), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"party member almost dead",

@@ -1699,10 +1699,11 @@ class Unit : public WorldObject
 
         bool IsCharmed() const { return !GetCharmerGUID().IsEmpty(); }
         bool isPossessed() const { return HasUnitState(UNIT_STATE_POSSESSED); }
-        bool isDisoriented()  { return HasUnitState(UNIT_STATE_CONFUSED); }
         bool isPossessedByPlayer() const;
         bool isPossessing() const;
         bool isPossessing(Unit* u) const;
+
+        bool isDisoriented() { return HasUnitState(UNIT_STATE_CONFUSED); }
 
         CharmInfo* GetCharmInfo() { return m_charmInfo; }
         CharmInfo* InitCharmInfo();

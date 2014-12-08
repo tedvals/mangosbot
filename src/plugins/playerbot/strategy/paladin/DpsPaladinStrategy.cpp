@@ -128,12 +128,4 @@ void DpsPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "has nearest adds",
         NextAction::array(0, new NextAction("seal of command", ACTION_HIGH + 6), NULL)));
-
-     triggers.push_back(new TriggerNode(
-		"rooted",
-		NextAction::array(0, new NextAction("blessing of freedom", ACTION_EMERGENCY), NULL)));
-
-    triggers.push_back(new TriggerNode(
-		"snared",
-		NextAction::array(0, new NextAction("blessing of freedom", ACTION_EMERGENCY), NULL)));
 }

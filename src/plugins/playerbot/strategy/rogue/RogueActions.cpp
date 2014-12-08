@@ -13,11 +13,6 @@ NextAction** CastEnvenomAction :: getAlternatives()
             return NextAction::merge( NextAction::array(0, new NextAction("eviscerate"), NULL), CastMeleeSpellAction::getAlternatives());
 }
 
-NextAction** CastSliceAndDiceAction :: getAlternatives()
-{
-            return NextAction::merge( NextAction::array(0, new NextAction("eviscerate"), NULL), CastMeleeSpellAction::getAlternatives());
-}
-
 NextAction** CastMutilateAction :: getAlternatives()
 {
             return NextAction::merge( NextAction::array(0, new NextAction("backstab"), NULL), CastMeleeSpellAction::getAlternatives());

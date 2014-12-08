@@ -197,18 +197,6 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "has aggro",
         NextAction::array(0, new NextAction("earth elemental totem", 60.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "party member charmed",
-        NextAction::array(0, new NextAction("tremor totem", 60.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "party member feared",
-        NextAction::array(0, new NextAction("tremor totem", 60.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "party member possessed",
-        NextAction::array(0, new NextAction("tremor totem", 60.0f), NULL)));
-
 	triggers.push_back(new TriggerNode(
         "party member low health",
 		NextAction::array(0, new NextAction("lesser healing wave on party", 25.0f), NULL)));
