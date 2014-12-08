@@ -553,6 +553,13 @@ namespace ai
         virtual bool IsActive();
     };
 
+    class FearedTrigger : public Trigger {
+    public:
+        FearedTrigger(PlayerbotAI* ai) : Trigger(ai, "feared", 5) {}
+        virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive();
+    };
+
     class PolymorphedTrigger : public Trigger {
     public:
         PolymorphedTrigger(PlayerbotAI* ai) : Trigger(ai, "polymorphed", 5) {}
@@ -563,6 +570,27 @@ namespace ai
     class TakesPeriodicDamageTrigger : public Trigger {
     public:
         TakesPeriodicDamageTrigger(PlayerbotAI* ai) : Trigger(ai, "takes periodic damage", 5) {}
+        virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive();
+    };
+
+    class PossessedTrigger : public Trigger {
+    public:
+        PossessedTrigger(PlayerbotAI* ai) : Trigger(ai, "possessed", 5) {}
+        virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive();
+    };
+
+    class CharmedTrigger : public Trigger {
+    public:
+        CharmedTrigger(PlayerbotAI* ai) : Trigger(ai, "charmed", 5) {}
+        virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive();
+    };
+
+    class DisorientedTrigger : public Trigger {
+    public:
+        DisorientedTrigger(PlayerbotAI* ai) : Trigger(ai, "disoriented", 5) {}
         virtual string GetTargetName() { return "self target"; }
         virtual bool IsActive();
     };
@@ -592,6 +620,27 @@ namespace ai
     public:
         StunnedTrigger(PlayerbotAI* ai) : Trigger(ai, "stunned", 5) {}
         virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetPossessedTrigger : public Trigger {
+    public:
+        TargetPossessedTrigger(PlayerbotAI* ai) : Trigger(ai, "possessed", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetCharmedTrigger : public Trigger {
+    public:
+        TargetCharmedTrigger(PlayerbotAI* ai) : Trigger(ai, "charmed", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetDisorientedTrigger : public Trigger {
+    public:
+        TargetDisorientedTrigger(PlayerbotAI* ai) : Trigger(ai, "target disoriented", 5) {}
+        virtual string GetTargetName() { return "current target"; }
         virtual bool IsActive();
     };
 
@@ -626,6 +675,13 @@ namespace ai
     class TargetFrozenTrigger : public Trigger {
     public:
         TargetFrozenTrigger(PlayerbotAI* ai) : Trigger(ai, "target frozen", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetFearedTrigger : public Trigger {
+    public:
+        TargetFearedTrigger(PlayerbotAI* ai) : Trigger(ai, "target feared", 5) {}
         virtual string GetTargetName() { return "current target"; }
         virtual bool IsActive();
     };
@@ -711,6 +767,27 @@ namespace ai
 	public:
 		PartyMemberFrozenTrigger(PlayerbotAI* ai) : Trigger(ai, "frozen", 5) {}
         virtual string GetTargetName() { return "party member frozen"; }
+		virtual bool IsActive();
+	};
+
+	class PartyMemberPossessedTrigger : public Trigger {
+	public:
+		PartyMemberPossessedTrigger(PlayerbotAI* ai) : Trigger(ai, "possessed", 5) {}
+        virtual string GetTargetName() { return "party member possessed"; }
+		virtual bool IsActive();
+	};
+
+	class PartyMemberCharmedTrigger : public Trigger {
+	public:
+		PartyMemberCharmedTrigger(PlayerbotAI* ai) : Trigger(ai, "charmed", 5) {}
+        virtual string GetTargetName() { return "party member charmed"; }
+		virtual bool IsActive();
+	};
+
+    class PartyMemberFearedTrigger : public Trigger {
+	public:
+		PartyMemberFearedTrigger(PlayerbotAI* ai) : Trigger(ai, "feared", 5) {}
+        virtual string GetTargetName() { return "party member feared"; }
 		virtual bool IsActive();
 	};
 }

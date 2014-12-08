@@ -95,6 +95,9 @@ namespace ai
             creators["mana"] = &ValueContext::mana;
             creators["combo"] = &ValueContext::combo;
             creators["dead"] = &ValueContext::dead;
+            creators["charmed"] = &ValueContext::charmed;
+            creators["possessed"] = &ValueContext::possessed;
+            creators["disoriented"] = &ValueContext::disoriented;
             creators["frozen"] = &ValueContext::frozen;
             creators["feared"] = &ValueContext::feared;
             creators["rooted"] = &ValueContext::rooted;
@@ -197,6 +200,9 @@ namespace ai
         static UntypedValue* mana(PlayerbotAI* ai) { return new ManaValue(ai); }
         static UntypedValue* combo(PlayerbotAI* ai) { return new ComboPointsValue(ai); }
         static UntypedValue* dead(PlayerbotAI* ai) { return new IsDeadValue(ai); }
+        static UntypedValue* charmed(PlayerbotAI* ai) { return new IsCharmedValue(ai); }
+        static UntypedValue* possessed(PlayerbotAI* ai) { return new IsPossessedValue(ai); }
+        static UntypedValue* disoriented(PlayerbotAI* ai) { return new IsDisorientedValue(ai); }
         static UntypedValue* frozen(PlayerbotAI* ai) { return new IsFrozenValue(ai); }
         static UntypedValue* feared(PlayerbotAI* ai) { return new IsFearedValue(ai); }
         static UntypedValue* rooted(PlayerbotAI* ai) { return new IsRootedValue(ai); }

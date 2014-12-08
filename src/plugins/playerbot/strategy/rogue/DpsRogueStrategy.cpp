@@ -136,6 +136,7 @@ public:
     DpsSwordRogueStrategyActionNodeFactory()
     {
         creators["garrote"] = &garrote;
+        creators["rupture"] = &rupture;
         creators["riposte"] = &riposte;
         creators["sinister strike"] = &sinister_strike;
         creators["kick"] = &kick;
@@ -158,7 +159,13 @@ private:
             /*A*/ NextAction::array(0, new NextAction("sinister strike"), NULL),
             /*C*/ NULL);
     }
-
+    static ActionNode* rupture(PlayerbotAI* ai)
+    {
+        return new ActionNode ("rupture",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("eviscerate"), NULL),
+            /*C*/ NULL);
+    }
     static ActionNode* sinister_strike(PlayerbotAI* ai)
     {
         return new ActionNode ("sinister strike",
@@ -264,6 +271,7 @@ public:
         creators["stealth"] = &stealth;
         creators["garrote"] = &garrote;
         creators["ambush"] = &ambush;
+        creators["rupture"] = &rupture;
         creators["melee"] = &melee;
         creators["shadowstep"] = &shadowstep;
         creators["mutilate"] = &mutilate;
@@ -336,6 +344,13 @@ private:
         return new ActionNode ("hemorrhage",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* rupture(PlayerbotAI* ai)
+    {
+        return new ActionNode ("rupture",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("envenom"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* envenom(PlayerbotAI* ai)

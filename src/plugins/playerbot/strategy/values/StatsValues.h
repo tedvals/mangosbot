@@ -44,10 +44,36 @@ namespace ai
         virtual bool Calculate();
     };
 
-     class IsCharmedValue : public BoolCalculatedValue, public Qualified
+    class IsCharmedValue : public BoolCalculatedValue, public Qualified
     {
     public:
         IsCharmedValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
+    class IsPossessedValue : public BoolCalculatedValue, public Qualified
+    {
+    public:
+        IsPossessedValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
+    class IsDisorientedValue : public BoolCalculatedValue, public Qualified
+    {
+    public:
+        IsDisorientedValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
 
         Unit* GetTarget()
         {

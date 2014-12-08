@@ -246,9 +246,29 @@ Value<Unit*>* InterruptEnemyHealerTrigger::GetTargetValue()
     return context->GetValue<Unit*>("enemy healer target", spell);
 }
 
+bool CharmedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "charmed", GetTargetName());
+}
+
+bool FearedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "feared", GetTargetName());
+}
+
 bool BleedingTrigger::IsActive()
 {
     return AI_VALUE2(bool, "bleeding", GetTargetName());
+}
+
+bool PossessedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "possessed", GetTargetName());
+}
+
+bool DisorientedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "disoriented", GetTargetName());
 }
 
 bool TakesPeriodicDamageTrigger::IsActive()
@@ -281,6 +301,21 @@ bool StunnedTrigger::IsActive()
     return AI_VALUE2(bool, "stunned", GetTargetName());
 }
 
+bool TargetPossessedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "possessed", GetTargetName());
+}
+
+bool TargetCharmedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "charmed", GetTargetName());
+}
+
+bool TargetDisorientedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "disoriented", GetTargetName());
+}
+
 bool TargetBleedingTrigger::IsActive()
 {
     return AI_VALUE2(bool, "bleeding", GetTargetName());
@@ -299,6 +334,11 @@ bool TargetSnaredTrigger::IsActive()
 bool TargetFrozenTrigger::IsActive()
 {
     return AI_VALUE2(bool, "frozen", GetTargetName());
+}
+
+bool TargetFearedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "feared", GetTargetName());
 }
 
 bool TargetRootedTrigger::IsActive()
@@ -344,6 +384,21 @@ bool TargetNotRootedTrigger::IsActive()
 bool TargetNotStunnedTrigger::IsActive()
 {
     return !AI_VALUE2(bool, "stunned", GetTargetName());
+}
+
+bool PartyMemberPossessedTrigger::IsActive()
+{
+	return GetTarget();
+}
+
+bool PartyMemberCharmedTrigger::IsActive()
+{
+	return GetTarget();
+}
+
+bool PartyMemberFearedTrigger::IsActive()
+{
+	return GetTarget();
 }
 
 bool PartyMemberRootedTrigger::IsActive()

@@ -76,6 +76,22 @@ bool IsCharmedValue::Calculate()
     return target->IsCharmed();
 }
 
+bool IsPossessedValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    return target->isPossessed();
+}
+
+bool IsDisorientedValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    return target->isDisoriented();
+}
+
 bool IsStunnedValue::Calculate()
 {
     Unit* target = GetTarget();
