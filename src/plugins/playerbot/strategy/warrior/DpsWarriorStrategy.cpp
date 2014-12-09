@@ -406,7 +406,7 @@ void DpsFuryWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("death wish", ACTION_HIGH + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "low rage available",
+        "light rage available",
         NextAction::array(0, new NextAction("berserker rage", ACTION_HIGH + 1), NULL)));
 
 

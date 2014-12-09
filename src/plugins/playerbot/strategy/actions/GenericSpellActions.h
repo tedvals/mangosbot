@@ -219,6 +219,82 @@ namespace ai
         uint32 dispelType;
     };
 
+    class DispelFrozenPartyMemberAction : public CastSpellAction, public PartyMemberActionNameSupport
+    {
+    public:
+        DispelFrozenPartyMemberAction(PlayerbotAI* ai, string spell) :
+			CastSpellAction(ai, spell), PartyMemberActionNameSupport(spell)
+        { }
+
+		virtual Value<Unit*>* GetTargetValue();
+		virtual string getName() { return PartyMemberActionNameSupport::getName(); }
+    };
+
+    class DispelRootPartyMemberAction : public CastSpellAction, public PartyMemberActionNameSupport
+    {
+    public:
+        DispelRootPartyMemberAction(PlayerbotAI* ai, string spell) :
+			CastSpellAction(ai, spell), PartyMemberActionNameSupport(spell)
+        { }
+
+		virtual Value<Unit*>* GetTargetValue();
+		virtual string getName() { return PartyMemberActionNameSupport::getName(); }
+    };
+
+    class DispelSnarePartyMemberAction : public CastSpellAction, public PartyMemberActionNameSupport
+    {
+    public:
+        DispelSnarePartyMemberAction(PlayerbotAI* ai, string spell) :
+			CastSpellAction(ai, spell), PartyMemberActionNameSupport(spell)
+        { }
+
+		virtual Value<Unit*>* GetTargetValue();
+		virtual string getName() { return PartyMemberActionNameSupport::getName(); }
+    };
+
+    class DispelCharmPartyMemberAction : public CastSpellAction, public PartyMemberActionNameSupport
+    {
+    public:
+        DispelCharmPartyMemberAction(PlayerbotAI* ai, string spell) :
+			CastSpellAction(ai, spell), PartyMemberActionNameSupport(spell)
+        { }
+
+		virtual Value<Unit*>* GetTargetValue();
+		virtual string getName() { return PartyMemberActionNameSupport::getName(); }
+    };
+
+    class DispelPolymorphPartyMemberAction : public CastSpellAction, public PartyMemberActionNameSupport
+    {
+    public:
+        DispelPolymorphPartyMemberAction(PlayerbotAI* ai, string spell) :
+			CastSpellAction(ai, spell), PartyMemberActionNameSupport(spell)
+        { }
+
+		virtual Value<Unit*>* GetTargetValue();
+		virtual string getName() { return PartyMemberActionNameSupport::getName(); }
+    };
+
+    class DispelPossessPartyMemberAction : public CastSpellAction, public PartyMemberActionNameSupport
+    {
+    public:
+        DispelPossessPartyMemberAction(PlayerbotAI* ai, string spell) :
+			CastSpellAction(ai, spell), PartyMemberActionNameSupport(spell)
+        { }
+
+		virtual Value<Unit*>* GetTargetValue();
+		virtual string getName() { return PartyMemberActionNameSupport::getName(); }
+    };
+
+    class DispelFearPartyMemberAction : public CastSpellAction, public PartyMemberActionNameSupport
+    {
+    public:
+        DispelFearPartyMemberAction(PlayerbotAI* ai, string spell) :
+			CastSpellAction(ai, spell), PartyMemberActionNameSupport(spell)
+        { }
+
+		virtual Value<Unit*>* GetTargetValue();
+		virtual string getName() { return PartyMemberActionNameSupport::getName(); }
+    };
     //---------------------------------------------------------------------------------------------------------------------
 
     class BuffOnPartyAction : public CastBuffSpellAction, public PartyMemberActionNameSupport

@@ -569,7 +569,7 @@ namespace ai
 
     class TakesPeriodicDamageTrigger : public Trigger {
     public:
-        TakesPeriodicDamageTrigger(PlayerbotAI* ai) : Trigger(ai, "takes periodic damage", 5) {}
+        TakesPeriodicDamageTrigger(PlayerbotAI* ai) : Trigger(ai, "periodic damage", 5) {}
         virtual string GetTargetName() { return "self target"; }
         virtual bool IsActive();
     };
@@ -625,14 +625,14 @@ namespace ai
 
     class TargetPossessedTrigger : public Trigger {
     public:
-        TargetPossessedTrigger(PlayerbotAI* ai) : Trigger(ai, "possessed", 5) {}
+        TargetPossessedTrigger(PlayerbotAI* ai) : Trigger(ai, "target possessed", 5) {}
         virtual string GetTargetName() { return "current target"; }
         virtual bool IsActive();
     };
 
     class TargetCharmedTrigger : public Trigger {
     public:
-        TargetCharmedTrigger(PlayerbotAI* ai) : Trigger(ai, "charmed", 5) {}
+        TargetCharmedTrigger(PlayerbotAI* ai) : Trigger(ai, "target charmed", 5) {}
         virtual string GetTargetName() { return "current target"; }
         virtual bool IsActive();
     };
@@ -744,50 +744,50 @@ namespace ai
 
     class PartyMemberRootedTrigger : public Trigger {
 	public:
-		PartyMemberRootedTrigger(PlayerbotAI* ai) : Trigger(ai, "rooted", 5) {}
-        virtual string GetTargetName() { return "party member rooted"; }
+		PartyMemberRootedTrigger(PlayerbotAI* ai) : Trigger(ai, "party member rooted", 5) {}
+        virtual Value<Unit*>* GetTargetValue();
 		virtual bool IsActive();
 	};
 
 	class PartyMemberSnaredTrigger : public Trigger {
 	public:
-		PartyMemberSnaredTrigger(PlayerbotAI* ai) : Trigger(ai, "snared", 5) {}
-        virtual string GetTargetName() { return "party member snared"; }
+		PartyMemberSnaredTrigger(PlayerbotAI* ai) : Trigger(ai, "party member snared", 5) {}
+        virtual Value<Unit*>* GetTargetValue();
 		virtual bool IsActive();
 	};
 
 	class PartyMemberPolymorphedTrigger : public Trigger {
 	public:
-		PartyMemberPolymorphedTrigger(PlayerbotAI* ai) : Trigger(ai, "polymorphed", 5) {}
-        virtual string GetTargetName() { return "party member polymorphed"; }
+		PartyMemberPolymorphedTrigger(PlayerbotAI* ai) : Trigger(ai, "party member polymorphed", 5) {}
+        virtual Value<Unit*>* GetTargetValue();
 		virtual bool IsActive();
 	};
 
 	class PartyMemberFrozenTrigger : public Trigger {
 	public:
-		PartyMemberFrozenTrigger(PlayerbotAI* ai) : Trigger(ai, "frozen", 5) {}
-        virtual string GetTargetName() { return "party member frozen"; }
+		PartyMemberFrozenTrigger(PlayerbotAI* ai) : Trigger(ai, "party member frozen", 5) {}
+        virtual Value<Unit*>* GetTargetValue();
 		virtual bool IsActive();
 	};
 
 	class PartyMemberPossessedTrigger : public Trigger {
 	public:
-		PartyMemberPossessedTrigger(PlayerbotAI* ai) : Trigger(ai, "possessed", 5) {}
-        virtual string GetTargetName() { return "party member possessed"; }
+		PartyMemberPossessedTrigger(PlayerbotAI* ai) : Trigger(ai, "party member possessed", 5) {}
+        virtual Value<Unit*>* GetTargetValue();
 		virtual bool IsActive();
 	};
 
 	class PartyMemberCharmedTrigger : public Trigger {
 	public:
-		PartyMemberCharmedTrigger(PlayerbotAI* ai) : Trigger(ai, "charmed", 5) {}
-        virtual string GetTargetName() { return "party member charmed"; }
+		PartyMemberCharmedTrigger(PlayerbotAI* ai) : Trigger(ai, "party member charmed", 5) {}
+        virtual Value<Unit*>* GetTargetValue();
 		virtual bool IsActive();
 	};
 
     class PartyMemberFearedTrigger : public Trigger {
 	public:
-		PartyMemberFearedTrigger(PlayerbotAI* ai) : Trigger(ai, "feared", 5) {}
-        virtual string GetTargetName() { return "party member feared"; }
+		PartyMemberFearedTrigger(PlayerbotAI* ai) : Trigger(ai, "party member feared", 5) {}
+        virtual Value<Unit*>* GetTargetValue();
 		virtual bool IsActive();
 	};
 }

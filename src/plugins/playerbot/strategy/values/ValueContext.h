@@ -7,6 +7,7 @@
 #include "NearestAdsValue.h"
 #include "NearestCorpsesValue.h"
 #include "PartyMemberWithoutAuraValue.h"
+#include "PartyMemberAfflicted.h"
 #include "PartyMemberToHeal.h"
 #include "PartyMemberToResurrect.h"
 #include "CurrentTargetValue.h"
@@ -89,6 +90,13 @@ namespace ai
             creators["rti target"] = &ValueContext::rti_target;
             creators["duel target"] = &ValueContext::duel_target;
             creators["party member to dispel"] = &ValueContext::party_member_to_dispel;
+            creators["party member dispel root"] = &ValueContext::party_member_dispel_root;
+            creators["party member dispel frozen"] = &ValueContext::party_member_dispel_frozen;
+            creators["party member dispel snare"] = &ValueContext::party_member_dispel_snare;
+            creators["party member dispel charm"] = &ValueContext::party_member_dispel_charm;
+            creators["party member dispel possess"] = &ValueContext::party_member_dispel_possess;
+            creators["party member dispel fear"] = &ValueContext::party_member_dispel_fear;
+            creators["party member dispel polymorph"] = &ValueContext::party_member_dispel_polymorph;
             creators["health"] = &ValueContext::health;
             creators["rage"] = &ValueContext::rage;
             creators["energy"] = &ValueContext::energy;
@@ -105,7 +113,7 @@ namespace ai
             creators["snared"] = &ValueContext::snared;
             creators["fleeing"] = &ValueContext::fleeing;
             creators["bleeding"] = &ValueContext::bleeding;
-            creators["takes periodic damage"] = &ValueContext::takes_damage;
+            creators["periodic damage"] = &ValueContext::takes_damage;
             creators["polymorphed"] = &ValueContext::polymorphed;
             creators["has mana"] = &ValueContext::has_mana;
             creators["attacker count"] = &ValueContext::attacker_count;
@@ -224,6 +232,13 @@ namespace ai
         static UntypedValue* party_member_to_heal(PlayerbotAI* ai) { return new PartyMemberToHeal(ai); }
         static UntypedValue* party_member_to_resurrect(PlayerbotAI* ai) { return new PartyMemberToResurrect(ai); }
         static UntypedValue* party_member_to_dispel(PlayerbotAI* ai) { return new PartyMemberToDispel(ai); }
+        static UntypedValue* party_member_dispel_fear(PlayerbotAI* ai) { return new PartyMemberFeared(ai); }
+        static UntypedValue* party_member_dispel_root(PlayerbotAI* ai) { return new PartyMemberRooted(ai); }
+        static UntypedValue* party_member_dispel_snare(PlayerbotAI* ai) { return new PartyMemberSnared(ai); }
+        static UntypedValue* party_member_dispel_charm(PlayerbotAI* ai) { return new PartyMemberCharmed(ai); }
+        static UntypedValue* party_member_dispel_possess(PlayerbotAI* ai) { return new PartyMemberPossessed(ai); }
+        static UntypedValue* party_member_dispel_polymorph(PlayerbotAI* ai) { return new PartyMemberPolymorphed(ai); }
+        static UntypedValue* party_member_dispel_frozen(PlayerbotAI* ai) { return new PartyMemberFrozen(ai); }
         static UntypedValue* current_target(PlayerbotAI* ai) { return new CurrentTargetValue(ai); }
         static UntypedValue* old_target(PlayerbotAI* ai) { return new CurrentTargetValue(ai); }
         static UntypedValue* self_target(PlayerbotAI* ai) { return new SelfTargetValue(ai); }

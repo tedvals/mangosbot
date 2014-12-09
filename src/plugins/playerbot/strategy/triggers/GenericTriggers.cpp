@@ -273,7 +273,7 @@ bool DisorientedTrigger::IsActive()
 
 bool TakesPeriodicDamageTrigger::IsActive()
 {
-    return AI_VALUE2(bool, "takes periodic damage", GetTargetName());
+    return AI_VALUE2(bool, "periodic damage", GetTargetName());
 }
 
 bool PolymorphedTrigger::IsActive()
@@ -386,37 +386,72 @@ bool TargetNotStunnedTrigger::IsActive()
     return !AI_VALUE2(bool, "stunned", GetTargetName());
 }
 
+Value<Unit*>*  PartyMemberPossessedTrigger::GetTargetValue()
+{
+	return context->GetValue<Unit*>("party member dispel possess");
+}
+
 bool PartyMemberPossessedTrigger::IsActive()
 {
-	return GetTarget();
+	return !AI_VALUE2(bool, "possessed", GetTargetName());
+}
+
+Value<Unit*>*  PartyMemberCharmedTrigger::GetTargetValue()
+{
+	return context->GetValue<Unit*>("party member dispel charm");
 }
 
 bool PartyMemberCharmedTrigger::IsActive()
 {
-	return GetTarget();
+	return !AI_VALUE2(bool, "charmed", GetTargetName());
+}
+
+Value<Unit*>*  PartyMemberFearedTrigger::GetTargetValue()
+{
+	return context->GetValue<Unit*>("party member dispel fear");
 }
 
 bool PartyMemberFearedTrigger::IsActive()
 {
-	return GetTarget();
+	return !AI_VALUE2(bool, "feared", GetTargetName());
+}
+
+Value<Unit*>*  PartyMemberRootedTrigger::GetTargetValue()
+{
+	return context->GetValue<Unit*>("party member dispel root");
 }
 
 bool PartyMemberRootedTrigger::IsActive()
 {
-	return GetTarget();
+	return !AI_VALUE2(bool, "rooted", GetTargetName());
+}
+
+Value<Unit*>*  PartyMemberSnaredTrigger::GetTargetValue()
+{
+	return context->GetValue<Unit*>("party member dispel snare");
 }
 
 bool PartyMemberSnaredTrigger::IsActive()
 {
-	return GetTarget();
+	return !AI_VALUE2(bool, "snared", GetTargetName());
+}
+
+Value<Unit*>*  PartyMemberPolymorphedTrigger::GetTargetValue()
+{
+	return context->GetValue<Unit*>("party member dispel polymorph");
 }
 
 bool PartyMemberPolymorphedTrigger::IsActive()
 {
-	return GetTarget();
+	return !AI_VALUE2(bool, "polymorphed", GetTargetName());
+}
+
+Value<Unit*>*  PartyMemberFrozenTrigger::GetTargetValue()
+{
+	return context->GetValue<Unit*>("party member dispel frozen");
 }
 
 bool PartyMemberFrozenTrigger::IsActive()
 {
-	return GetTarget();
+	return !AI_VALUE2(bool, "frozen", GetTargetName());
 }

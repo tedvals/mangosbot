@@ -73,16 +73,16 @@ namespace ai
             creators["medium threat"] = &TriggerContext::MediumThreat;
 
             creators["dead"] = &TriggerContext::Dead;
-            creators["rooted"] = &TriggerContext::Rooted;
-            creators["frozen"] = &TriggerContext::Frozen;
-            creators["snared"] = &TriggerContext::Snared;
-            creators["bleeding"] = &TriggerContext::Bleeding;
-            creators["stunned"] = &TriggerContext::Stunned;
-            creators["disoriented"] = &TriggerContext::Disoriented;
-            creators["possessed"] = &TriggerContext::Possessed;
-            creators["charmed"] = &TriggerContext::Charmed;
+            creators["is rooted"] = &TriggerContext::Rooted;
+            creators["is frozen"] = &TriggerContext::Frozen;
+            creators["is snared"] = &TriggerContext::Snared;
+            creators["is bleeding"] = &TriggerContext::Bleeding;
+            creators["is stunned"] = &TriggerContext::Stunned;
+            creators["is disoriented"] = &TriggerContext::Disoriented;
+            creators["is possessed"] = &TriggerContext::Possessed;
+            creators["is charmed"] = &TriggerContext::Charmed;
 
-            creators["polymorphed"] = &TriggerContext::Polymorphed;
+            creators["is polymorphed"] = &TriggerContext::Polymorphed;
             creators["takes periodic damage"] = &TriggerContext::TakesPeriodicDamage;
 
             creators["party member dead"] = &TriggerContext::PartyMemberDead;
@@ -102,15 +102,15 @@ namespace ai
             creators["swimming"] = &TriggerContext::swimming;
             creators["target changed"] = &TriggerContext::target_changed;
 
-            creators["target rooted"] = &TriggerContext::Target_Rooted;
-            creators["target frozen"] = &TriggerContext::Target_Frozen;
-            creators["target snared"] = &TriggerContext::Target_Snared;
-            creators["target bleeding"] = &TriggerContext::Target_Bleeding;
-            creators["target stunned"] = &TriggerContext::Target_Stunned;
-            creators["target polymorphed"] = &TriggerContext::Target_Polymorphed;
-            creators["target disoriented"] = &TriggerContext::Target_Disoriented;
-            creators["target possessed"] = &TriggerContext::Target_Possessed;
-            creators["target charmed"] = &TriggerContext::Target_Charmed;
+            creators["enemy rooted"] = &TriggerContext::Target_Rooted;
+            creators["enemy frozen"] = &TriggerContext::Target_Frozen;
+            creators["enemy snared"] = &TriggerContext::Target_Snared;
+            creators["enemy bleeding"] = &TriggerContext::Target_Bleeding;
+            creators["enemy stunned"] = &TriggerContext::Target_Stunned;
+            creators["enemy polymorphed"] = &TriggerContext::Target_Polymorphed;
+            creators["enemy disoriented"] = &TriggerContext::Target_Disoriented;
+            creators["enemy possessed"] = &TriggerContext::Target_Possessed;
+            creators["enemy charmed"] = &TriggerContext::Target_Charmed;
 
             creators["party member rooted"] = &TriggerContext::Party_Member_Rooted;
             creators["party member frozen"] = &TriggerContext::Party_Member_Frozen;
