@@ -240,7 +240,7 @@ namespace ai
 
     BEGIN_SPELL_ACTION(CastHolyNovaAction, "holy nova")
     virtual bool isUseful() {
-        return !ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance;;
+        return !ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance;
     }
     END_SPELL_ACTION()
 
@@ -252,7 +252,7 @@ namespace ai
 
     BEGIN_RANGED_SPELL_ACTION(CastSmiteAction, "smite")
         virtual bool isUseful() {
-			return !ai->HasAura("shadowform", AI_VALUE(Unit*, "self target"));
+			return !ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(uint8, "mana", "self target") > 50;
         }
     END_SPELL_ACTION()
 
