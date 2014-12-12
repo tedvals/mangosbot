@@ -82,7 +82,14 @@ namespace ai
             creators["dps target"] = &ValueContext::dps_target;
             creators["least hp target"] = &ValueContext::least_hp_target;
             creators["enemy player target"] = &ValueContext::enemy_player_target;
+
             creators["cc target"] = &ValueContext::cc_target;
+            creators["cc target2"] = &ValueContext::cc_target2;
+            creators["cc target3"] = &ValueContext::cc_target3;
+            creators["cc target4"] = &ValueContext::cc_target4;
+            creators["cc target5"] = &ValueContext::cc_target5;
+            creators["cc target6"] = &ValueContext::cc_target6;
+
             creators["current cc target"] = &ValueContext::current_cc_target;
             creators["pet target"] = &ValueContext::pet_target;
             creators["old target"] = &ValueContext::old_target;
@@ -255,6 +262,11 @@ namespace ai
         static UntypedValue* least_hp_target(PlayerbotAI* ai) { return new LeastHpTargetValue(ai); }
         static UntypedValue* enemy_player_target(PlayerbotAI* ai) { return new EnemyPlayerValue(ai); }
         static UntypedValue* cc_target(PlayerbotAI* ai) { return new CcTargetValue(ai); }
+        static UntypedValue* cc_target2(PlayerbotAI* ai) { return new CcTarget2Value(ai); }
+        static UntypedValue* cc_target3(PlayerbotAI* ai) { return new CcTarget3Value(ai); }
+        static UntypedValue* cc_target4(PlayerbotAI* ai) { return new CcTarget4Value(ai); }
+        static UntypedValue* cc_target5(PlayerbotAI* ai) { return new CcTarget5Value(ai); }
+        static UntypedValue* cc_target6(PlayerbotAI* ai) { return new CcTarget6Value(ai); }
         static UntypedValue* current_cc_target(PlayerbotAI* ai) { return new CurrentCcTargetValue(ai); }
         static UntypedValue* pet_target(PlayerbotAI* ai) { return new PetTargetValue(ai); }
         static UntypedValue* grind_target(PlayerbotAI* ai) { return new GrindTargetValue(ai); }

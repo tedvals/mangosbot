@@ -27,10 +27,20 @@ NextAction** CastAbolishPoisonOnPartyAction::getAlternatives()
 
 Value<Unit*>* CastEntanglingRootsCcAction::GetTargetValue()
 {
-    return context->GetValue<Unit*>("cc target", "entangling roots");
+    return context->GetValue<Unit*>("cc target2", "entangling roots");
 }
 
 bool CastEntanglingRootsCcAction::Execute(Event event)
 {
     return ai->CastSpell("entangling roots", GetTarget());
+}
+
+Value<Unit*>* CastHibernateCcAction::GetTargetValue()
+{
+    return context->GetValue<Unit*>("cc target3", "hibernate");
+}
+
+bool CastHibernateCcAction::Execute(Event event)
+{
+    return ai->CastSpell("hibernate", GetTarget());
 }

@@ -32,6 +32,12 @@ namespace ai
     DEBUFF_TRIGGER(DevouringPlagueTrigger, "devouring plague", "devouring plague")
     DEBUFF_TRIGGER(VampiricTouchTrigger, "vampiric touch", "vampiric touch")
 
+    class ShackleUndeadTrigger : public HasCcTarget5Trigger
+    {
+    public:
+        ShackleUndeadTrigger(PlayerbotAI* ai) : HasCcTarget5Trigger(ai, "shackle undead") {}
+    };
+
     class DispelMagicTrigger : public NeedCureTrigger
     {
     public:

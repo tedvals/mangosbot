@@ -87,6 +87,7 @@ namespace ai
                 creators["vampiric embrace"] = &TriggerFactoryInternal::vampiric_embrace;
                 creators["surge of light"] = &TriggerFactoryInternal::surge_of_light;
                 creators["silence on enemy healer"] = &TriggerFactoryInternal::silence_enemy_healer;
+                creators["shackle undead"] = &TriggerFactoryInternal::shackle_undead;
             }
 
         private:
@@ -108,6 +109,7 @@ namespace ai
             static Trigger* divine_spirit_on_party(PlayerbotAI* ai) { return new DivineSpiritOnPartyTrigger(ai); }
             static Trigger* inner_fire(PlayerbotAI* ai) { return new InnerFireTrigger(ai); }
             static Trigger* surge_of_light(PlayerbotAI* ai) { return new SurgeOfLightTrigger(ai); }
+            static Trigger* shackle_undead(PlayerbotAI* ai) { return new ShackleUndeadTrigger(ai); }
             static Trigger* silence_enemy_healer(PlayerbotAI* ai) { return new SilenceEnemyHealerTrigger(ai); }
         };
     };

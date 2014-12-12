@@ -186,7 +186,37 @@ bool IsNotFacingTargetTrigger::IsActive()
 
 bool HasCcTargetTrigger::IsActive()
 {
-    return AI_VALUE(uint8, "attacker count") > 2 && AI_VALUE2(Unit*, "cc target", getName()) &&
+    return AI_VALUE(uint8, "attacker count") > 1 && AI_VALUE2(Unit*, "cc target", getName()) &&
+        !AI_VALUE2(Unit*, "current cc target", getName());
+}
+
+bool HasCcTarget2Trigger::IsActive()
+{
+    return AI_VALUE(uint8, "attacker count") > 1 && AI_VALUE2(Unit*, "cc target2", getName()) &&
+        !AI_VALUE2(Unit*, "current cc target", getName());
+}
+
+bool HasCcTarget3Trigger::IsActive()
+{
+    return AI_VALUE(uint8, "attacker count") > 1 && AI_VALUE2(Unit*, "cc target3", getName()) &&
+        !AI_VALUE2(Unit*, "current cc target", getName());
+}
+
+bool HasCcTarget4Trigger::IsActive()
+{
+    return AI_VALUE(uint8, "attacker count") > 1 && AI_VALUE2(Unit*, "cc target4", getName()) &&
+        !AI_VALUE2(Unit*, "current cc target", getName());
+}
+
+bool HasCcTarget5Trigger::IsActive()
+{
+    return AI_VALUE(uint8, "attacker count") > 1 && AI_VALUE2(Unit*, "cc target5", getName()) &&
+        !AI_VALUE2(Unit*, "current cc target", getName());
+}
+
+bool HasCcTarget6Trigger::IsActive()
+{
+    return AI_VALUE(uint8, "attacker count") > 1 && AI_VALUE2(Unit*, "cc target6", getName()) &&
         !AI_VALUE2(Unit*, "current cc target", getName());
 }
 

@@ -74,10 +74,16 @@ namespace ai {
         NaturesGraspTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "nature's grasp") {}
     };
 
-    class EntanglingRootsTrigger : public HasCcTargetTrigger
+    class EntanglingRootsTrigger : public HasCcTarget2Trigger
     {
     public:
-        EntanglingRootsTrigger(PlayerbotAI* ai) : HasCcTargetTrigger(ai, "entangling roots") {}
+        EntanglingRootsTrigger(PlayerbotAI* ai) : HasCcTarget2Trigger(ai, "entangling roots") {}
+    };
+
+    class HibernateTrigger : public HasCcTarget3Trigger
+    {
+    public:
+        HibernateTrigger(PlayerbotAI* ai) : HasCcTarget3Trigger(ai, "hibernate") {}
     };
 
     class CurePoisonTrigger : public NeedCureTrigger

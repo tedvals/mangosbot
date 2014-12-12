@@ -57,6 +57,7 @@ namespace ai
                 creators["stealth"] = &TriggerFactoryInternal::stealth;
                 creators["garrote"] = &TriggerFactoryInternal::garrote;
                 creators["rupture"] = &TriggerFactoryInternal::rupture;
+                creators["sap"] = &TriggerFactoryInternal::sap;
                 creators["hunger for blood"] = &TriggerFactoryInternal::hunger_for_blood;
                 creators["slice and dice"] = &TriggerFactoryInternal::slice_and_dice;
                 creators["expose armor"] = &TriggerFactoryInternal::expose_armor;
@@ -70,6 +71,7 @@ namespace ai
             static Trigger* stealth(PlayerbotAI* ai) { return new StealthTrigger(ai); }
             static Trigger* garrote(PlayerbotAI* ai) { return new GarroteTrigger(ai); }
             static Trigger* rupture(PlayerbotAI* ai) { return new RuptureTrigger(ai); }
+            static Trigger* sap(PlayerbotAI* ai) { return new SapTrigger(ai); }
             static Trigger* hunger_for_blood(PlayerbotAI* ai) { return new HungerForBloodTrigger(ai); }
             static Trigger* slice_and_dice(PlayerbotAI* ai) { return new SliceAndDiceTrigger(ai); }
             static Trigger* expose_armor(PlayerbotAI* ai) { return new ExposeArmorTrigger(ai); }
@@ -119,6 +121,7 @@ namespace ai
                 creators["deadly throw"] = &AiObjectContextInternal::deadly_throw;
                 creators["blind"] = &AiObjectContextInternal::blind;
                 creators["sap"] = &AiObjectContextInternal::sap;
+                creators["sap on cc"] = &AiObjectContextInternal::sap_on_cc;
                 creators["expose armor"] = &AiObjectContextInternal::expose_armor;
                 creators["kick on enemy healer"] = &AiObjectContextInternal::kick_on_enemy_healer;
                 creators["boost"] = &AiObjectContextInternal::adrenaline_rush;
@@ -155,6 +158,7 @@ namespace ai
             static Action* dismantle(PlayerbotAI* ai) { return new CastDismantleAction(ai); }
             static Action* blind(PlayerbotAI* ai) { return new CastBlindAction(ai); }
             static Action* sap(PlayerbotAI* ai) { return new CastSapAction(ai); }
+            static Action* sap_on_cc(PlayerbotAI* ai) { return new CastSapCcAction(ai); }
             static Action* expose_armor(PlayerbotAI* ai) { return new CastExposeArmorAction(ai); }
             static Action* kick_on_enemy_healer(PlayerbotAI* ai) { return new CastKickOnEnemyHealerAction(ai); }
         };

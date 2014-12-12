@@ -2,13 +2,33 @@
 
 namespace ai
 {
-	class CastSapAction : public CastMeleeSpellAction
+    class CastSapAction : public CastMeleeSpellAction
+	{
+	public:
+		CastSapAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "sap") {}
+
+		virtual bool isUseful() {
+            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
+        }
+
+        virtual NextAction** getPrerequisites()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
+        }
+	};
+
+	class CastSapCcAction : public CastMeleeSpellAction
     {
     public:
-        CastSapAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "sap on cc") {}
+        CastSapCcAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "sap on cc") {}
+
+        virtual bool isUseful() {
+            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
+        }
+
         virtual Value<Unit*>* GetTargetValue()
         {
-            return context->GetValue<Unit*>("cc target", "sap");
+            return context->GetValue<Unit*>("cc target4", "sap");
         }
 
         virtual bool Execute(Event event)

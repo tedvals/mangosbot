@@ -124,9 +124,9 @@ namespace ai
         SilencingShotEnemyHealerTrigger(PlayerbotAI* ai) : InterruptEnemyHealerTrigger(ai, "silencing shot") {}
     };
 
-    class WyvernStingTrigger : public HasCcTargetTrigger
+    class WyvernStingTrigger : public HasCcTarget4Trigger
     {
     public:
-        WyvernStingTrigger(PlayerbotAI* ai) : HasCcTargetTrigger(ai, "wyvern sting") {}
+        WyvernStingTrigger(PlayerbotAI* ai) : HasCcTarget4Trigger(ai, "wyvern sting") {}
     };
 }

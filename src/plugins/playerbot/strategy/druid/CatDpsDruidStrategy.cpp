@@ -41,6 +41,20 @@ private:
             /*A*/ NextAction::array(0, new NextAction("feral charge - cat"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* hibernate(PlayerbotAI* ai)
+    {
+        return new ActionNode ("hibernate",
+            /*P*/ NextAction::array(0, new NextAction("moonkin form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* hibernate_on_cc(PlayerbotAI* ai)
+    {
+        return new ActionNode ("hibernate on cc",
+            /*P*/ NextAction::array(0, new NextAction("moonkin form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
     static ActionNode* feral_charge_cat(PlayerbotAI* ai)
     {
         return new ActionNode ("feral charge - cat",

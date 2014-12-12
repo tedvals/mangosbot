@@ -47,13 +47,13 @@ namespace ai
     virtual bool isUseful();
     END_SPELL_ACTION()
 
-    //BEGIN_RANGED_SPELL_ACTION(CastWyvernStingAction, "wyvern sting")
-    //END_SPELL_ACTION()
+    BEGIN_RANGED_SPELL_ACTION(CastWyvernStingAction, "wyvern sting")
+    END_SPELL_ACTION()
 
-    class CastWyvernStingAction : public CastBuffSpellAction
+    class CastWyvernStingCcAction : public CastBuffSpellAction
     {
     public:
-        CastWyvernStingAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "wyvern sting") {}
+        CastWyvernStingCcAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "wyvern sting on cc") {}
         virtual Value<Unit*>* GetTargetValue();
     };
 

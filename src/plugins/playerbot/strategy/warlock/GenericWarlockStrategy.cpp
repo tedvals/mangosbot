@@ -11,6 +11,7 @@ public:
     GenericWarlockStrategyActionNodeFactory()
     {
         creators["banish"] = &banish;
+        creators["soul shatter"] = &soul_shatter;
         creators["death coil"] = &death_coil;
         creators["healthstone"] = &healthstone;
     }
@@ -27,6 +28,13 @@ private:
         return new ActionNode ("healthstone",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("healing potion"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* soul_shatter(PlayerbotAI* ai)
+    {
+        return new ActionNode ("soul shatter",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("death coil"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* death_coil(PlayerbotAI* ai)
@@ -62,7 +70,7 @@ void GenericWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "has aggro",
-        NextAction::array(0, new NextAction("death coil", 50.0f) , new NextAction("flee",49.0f), NULL)));
+        NextAction::array(0, new NextAction("soul shatter", 50.0f) , new NextAction("flee",49.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "almost dead",

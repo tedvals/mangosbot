@@ -219,6 +219,8 @@ namespace ai
                 creators["burst"] =& AiObjectContextInternal::burst_shaman;
                 creators["boost"] =& AiObjectContextInternal::boost_shaman;
                 creators["party boost"] =& AiObjectContextInternal::party_boost;
+                creators["hex"] =& AiObjectContextInternal::hex;
+                creators["hex on cc"] =& AiObjectContextInternal::hex_on_cc;
             }
 
         private:
@@ -285,6 +287,8 @@ namespace ai
             static Action* burst_shaman(PlayerbotAI* ai) { return new CastElementalMasteryAction(ai); }
             static Action* boost_shaman(PlayerbotAI* ai) { return new CastFeralSpiritAction(ai); }
             static Action* party_boost(PlayerbotAI* ai) { return new CastBloodlustAction(ai); }
+            static Action* hex(PlayerbotAI* ai) { return new CastHexAction(ai); }
+            static Action* hex_on_cc(PlayerbotAI* ai) { return new CastHexCcAction(ai); }
         };
     };
 };

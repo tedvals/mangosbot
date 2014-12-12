@@ -147,6 +147,7 @@ namespace ai
                 creators["serpent sting"] = &AiObjectContextInternal::serpent_sting;
                 creators["serpent sting on attacker"] = &AiObjectContextInternal::serpent_sting_on_attacker;
                 creators["wyvern sting"] = &AiObjectContextInternal::wyvern_sting;
+                creators["wyvern sting on cc"] = &AiObjectContextInternal::wyvern_sting_on_cc;
                 creators["viper sting"] = &AiObjectContextInternal::viper_sting;
                 creators["scorpid sting"] = &AiObjectContextInternal::scorpid_sting;
                 creators["hunter's mark"] = &AiObjectContextInternal::hunters_mark;
@@ -200,6 +201,7 @@ namespace ai
             static Action* serpent_sting(PlayerbotAI* ai) { return new CastSerpentStingAction(ai); }
             static Action* serpent_sting_on_attacker(PlayerbotAI* ai) { return new CastSerpentStingOnAttackerAction(ai); }
             static Action* wyvern_sting(PlayerbotAI* ai) { return new CastWyvernStingAction(ai); }
+            static Action* wyvern_sting_on_cc(PlayerbotAI* ai) { return new CastWyvernStingCcAction(ai); }
             static Action* viper_sting(PlayerbotAI* ai) { return new CastViperStingAction(ai); }
             static Action* scorpid_sting(PlayerbotAI* ai) { return new CastScorpidStingAction(ai); }
             static Action* hunters_mark(PlayerbotAI* ai) { return new CastHuntersMarkAction(ai); }

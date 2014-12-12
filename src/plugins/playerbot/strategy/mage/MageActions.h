@@ -240,10 +240,16 @@ namespace ai
         virtual string GetTargetName() { return "self target"; }
     };
 
-    class CastPolymorphAction : public CastBuffSpellAction
+    class CastPolymorphAction : public CastDebuffSpellAction
     {
     public:
-        CastPolymorphAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "polymorph") {}
+        CastPolymorphAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "polymorph") {}
+    };
+
+    class CastPolymorphCcAction : public CastBuffSpellAction
+    {
+    public:
+        CastPolymorphCcAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "polymorph on cc") {}
         virtual Value<Unit*>* GetTargetValue();
         virtual bool Execute(Event event);
     };

@@ -170,6 +170,7 @@ namespace ai
                 creators["combustion"] = &AiObjectContextInternal::combustion;
                 creators["ice block"] = &AiObjectContextInternal::ice_block;
                 creators["polymorph"] = &AiObjectContextInternal::polymorph;
+                creators["polymorph on cc"] = &AiObjectContextInternal::polymorph_on_cc;
                 creators["spellsteal"] = &AiObjectContextInternal::spellsteal;
                 creators["living bomb"] = &AiObjectContextInternal::living_bomb;
                 creators["dragon's breath"] = &AiObjectContextInternal::dragons_breath;
@@ -224,6 +225,7 @@ namespace ai
             static Action* combustion(PlayerbotAI* ai) { return new CastCombustionAction(ai); }
             static Action* ice_block(PlayerbotAI* ai) { return new CastIceBlockAction(ai); }
             static Action* polymorph(PlayerbotAI* ai) { return new CastPolymorphAction(ai); }
+            static Action* polymorph_on_cc(PlayerbotAI* ai) { return new CastPolymorphCcAction(ai); }
             static Action* spellsteal(PlayerbotAI* ai) { return new CastSpellstealAction(ai); }
             static Action* living_bomb(PlayerbotAI* ai) { return new CastLivingBombAction(ai); }
             static Action* dragons_breath(PlayerbotAI* ai) { return new CastDragonsBreathAction(ai); }

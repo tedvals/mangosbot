@@ -18,6 +18,8 @@ public:
         creators["abolish poison on party"] = &abolish_poison_on_party;
         creators["rebirth"] = &rebirth;
         creators["entangling roots on cc"] = &entangling_roots_on_cc;
+        creators["hibernate"] = &hibernate;
+        creators["hibernate on cc"] = &hibernate_on_cc;
         creators["innervate"] = &innervate;
         creators["dash"] = &dash;
     }
@@ -75,6 +77,20 @@ private:
     static ActionNode* entangling_roots_on_cc(PlayerbotAI* ai)
     {
         return new ActionNode ("entangling roots on cc",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* hibernate(PlayerbotAI* ai)
+    {
+        return new ActionNode ("hibernate",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* hibernate_on_cc(PlayerbotAI* ai)
+    {
+        return new ActionNode ("hibernate on cc",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NULL,
             /*C*/ NULL);
@@ -139,6 +155,10 @@ void GenericDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "critical aoe heal",
         NextAction::array(0, new NextAction("barkskin", ACTION_EMERGENCY + 10), new NextAction("tranquility", ACTION_EMERGENCY + 10), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "hibernate",
+        NextAction::array(0, new NextAction("hibernate on cc", ACTION_HIGH + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "runaway",

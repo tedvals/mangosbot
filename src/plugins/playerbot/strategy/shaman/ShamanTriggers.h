@@ -195,10 +195,10 @@ namespace ai
         WindShearInterruptEnemyHealerSpellTrigger(PlayerbotAI* ai) : InterruptEnemyHealerTrigger(ai, "wind shear") {}
     };
 
-     class HexTrigger : public HasCcTargetTrigger
+    class HexTrigger : public HasCcTarget6Trigger
     {
     public:
-        HexTrigger(PlayerbotAI* ai) : HasCcTargetTrigger(ai, "hex") {}
+        HexTrigger(PlayerbotAI* ai) : HasCcTarget6Trigger(ai, "hex") {}
     };
 
 }

@@ -4,7 +4,7 @@
 namespace ai
 {
     BUFF_ON_PARTY_TRIGGER(ArcaneIntellectOnPartyTrigger, "arcane intellect", "arcane intellect on party")
-   // BUFF_ON_PARTY_TRIGGER(FocusMagicOnPartyTrigger, "focus magic", "focus magic on party")
+    BUFF_ON_PARTY_TRIGGER(FocusMagicOnPartyTrigger, "focus magic", "focus magic on party")
     BUFF_TRIGGER(ArcaneIntellectTrigger, "arcane intellect", "arcane intellect")
     //BUFF_TRIGGER(MoltenArmorTrigger, "molten armor", "molten armor")
     BUFF_TRIGGER(SummonWaterElementalTrigger, "summon water elemental", "summon water elemental")
@@ -86,10 +86,10 @@ namespace ai
         IcyVeinsTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "icy veins") {}
     };
 
-    class PolymorphTrigger : public HasCcTargetTrigger
+    class PolymorphTrigger : public HasCcTarget5Trigger
     {
     public:
-        PolymorphTrigger(PlayerbotAI* ai) : HasCcTargetTrigger(ai, "polymorph") {}
+        PolymorphTrigger(PlayerbotAI* ai) : HasCcTarget5Trigger(ai, "polymorph") {}
     };
 
     class RemoveCurseTrigger : public NeedCureTrigger

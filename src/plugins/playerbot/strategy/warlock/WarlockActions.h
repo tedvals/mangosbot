@@ -283,11 +283,17 @@ namespace ai
 		CastSoulShatterAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "soul shatter") {}
 	};
 
-    class CastBanishAction : public CastBuffSpellAction
+    class CastBanishAction : public CastDebuffSpellAction
+	{
+	public:
+		CastBanishAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "banish") {}
+	};
+
+    class CastBanishCcAction : public CastDebuffSpellAction
     {
     public:
-        CastBanishAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "banish on cc") {}
-        virtual Value<Unit*>* GetTargetValue() { return context->GetValue<Unit*>("cc target", "banish"); }
+        CastBanishCcAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "banish on cc") {}
+        virtual Value<Unit*>* GetTargetValue() { return context->GetValue<Unit*>("cc target3", "banish"); }
         virtual bool Execute(Event event) { return ai->CastSpell("banish", GetTarget()); }
     };
 

@@ -25,7 +25,7 @@ Value<Unit*>* CastFreezingTrap::GetTargetValue()
     return context->GetValue<Unit*>("cc target", "freezing trap");
 }
 
-Value<Unit*>* CastWyvernStingAction::GetTargetValue()
+Value<Unit*>* CastWyvernStingCcAction::GetTargetValue()
 {
-    return context->GetValue<Unit*>("cc target", getName());
+    return context->GetValue<Unit*>("cc target4", getName());
 }

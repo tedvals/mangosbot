@@ -383,4 +383,18 @@ namespace ai
         CastSilenceAction(PlayerbotAI* ai) : CastSpellAction(ai, "silence") {}
     };
 
+    class CastShackleUndeadAction : public CastSpellAction
+	{
+	public:
+		CastShackleUndeadAction(PlayerbotAI* ai) : CastSpellAction(ai, "shackle undead") {}
+	};
+
+    class CastShackleUndeadCcAction : public CastDebuffSpellAction
+    {
+    public:
+        CastShackleUndeadCcAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "shackle undead on cc") {}
+        virtual Value<Unit*>* GetTargetValue();
+        virtual bool Execute(Event event);
+    };
+
 }

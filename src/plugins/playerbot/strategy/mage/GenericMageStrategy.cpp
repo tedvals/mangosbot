@@ -125,7 +125,11 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "polymorph",
-        NextAction::array(0, new NextAction("polymorph", 30.0f), NULL)));
+        NextAction::array(0, new NextAction("polymorph", 50.0f), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "polymorph on cc",
+        NextAction::array(0, new NextAction("polymorph", 50.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"spellsteal",

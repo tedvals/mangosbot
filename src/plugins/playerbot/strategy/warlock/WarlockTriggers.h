@@ -97,10 +97,10 @@ namespace ai
         BacklashTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "backlash") {}
     };
 
-    class BanishTrigger : public HasCcTargetTrigger
+    class BanishTrigger : public HasCcTarget3Trigger
     {
     public:
-        BanishTrigger(PlayerbotAI* ai) : HasCcTargetTrigger(ai, "banish") {}
+        BanishTrigger(PlayerbotAI* ai) : HasCcTarget3Trigger(ai, "banish") {}
     };
 
     class WarlockConjuredItemTrigger : public ItemCountTrigger

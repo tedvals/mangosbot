@@ -464,6 +464,51 @@ namespace ai
         virtual bool IsActive();
     };
 
+    class HasCcTarget2Trigger : public Trigger
+    {
+    public:
+        HasCcTarget2Trigger(PlayerbotAI* ai, string name) : Trigger(ai, name) {}
+
+    public:
+        virtual bool IsActive();
+    };
+
+    class HasCcTarget3Trigger : public Trigger
+    {
+    public:
+        HasCcTarget3Trigger(PlayerbotAI* ai, string name) : Trigger(ai, name) {}
+
+    public:
+        virtual bool IsActive();
+    };
+
+    class HasCcTarget4Trigger : public Trigger
+    {
+    public:
+        HasCcTarget4Trigger(PlayerbotAI* ai, string name) : Trigger(ai, name) {}
+
+    public:
+        virtual bool IsActive();
+    };
+
+    class HasCcTarget5Trigger : public Trigger
+    {
+    public:
+        HasCcTarget5Trigger(PlayerbotAI* ai, string name) : Trigger(ai, name) {}
+
+    public:
+        virtual bool IsActive();
+    };
+
+    class HasCcTarget6Trigger : public Trigger
+    {
+    public:
+        HasCcTarget6Trigger(PlayerbotAI* ai, string name) : Trigger(ai, name) {}
+
+    public:
+        virtual bool IsActive();
+    };
+
 	class NoMovementTrigger : public Trigger
 	{
 	public:

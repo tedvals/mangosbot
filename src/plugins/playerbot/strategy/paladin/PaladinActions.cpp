@@ -40,7 +40,7 @@ bool CastBlessingOfMightOnPartyAction::isUseful()
         case CLASS_DRUID:
             return ai->HasAnyAuraOf(player, "bear form", "dire bear form", "cat form", NULL);
         }
-        return true;
+        return false;
     }
     else return false;
 }
@@ -54,6 +54,7 @@ bool CastBeaconOfLightActionOnParty::isUseful()
         switch (player->getClass())
         {
             case CLASS_DEATH_KNIGHT:
+                return ai->HasAura("frost presence", player);
             case CLASS_WARRIOR:
                 return ai->HasAura("defensive stance", player);
             case CLASS_PALADIN:
@@ -61,7 +62,7 @@ bool CastBeaconOfLightActionOnParty::isUseful()
             case CLASS_DRUID:
                 return ai->HasAnyAuraOf(player, "bear form", "dire bear form",  NULL);
         }
-            return true;
+            return false;
     }
     else return false;
 }

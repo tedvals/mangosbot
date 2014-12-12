@@ -10,6 +10,7 @@ class DpsRogueStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
 public:
     DpsRogueStrategyActionNodeFactory()
     {
+        creators["sap"] = &sap;
         creators["backstab"] = &backstab;
         creators["kick"] = &kick;
         creators["kidney shot"] = &kidney_shot;
@@ -19,6 +20,13 @@ public:
     }
 private:
 
+    static ActionNode* sap(PlayerbotAI* ai)
+    {
+        return new ActionNode ("sap",
+            /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
+            /*C*/ NULL);
+    }
     static ActionNode* backstab(PlayerbotAI* ai)
     {
         return new ActionNode ("backstab",
@@ -80,7 +88,15 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "stealth",
-        NextAction::array(0, new NextAction("stealth", 21.0f), NULL)));
+        NextAction::array(0, new NextAction("stealth", ACTION_HIGH + 10), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "sap on cc",
+        NextAction::array(0, new NextAction("sap", ACTION_HIGH + 10), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "sap",
+        NextAction::array(0, new NextAction("sap", ACTION_HIGH + 10), NULL)));
 
     triggers.push_back(new TriggerNode(
         "combo points available",

@@ -389,10 +389,16 @@ namespace ai
         CastNaturesSwiftnessAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "nature's swiftness") {}
     };
 
-    class CastHexAction : public CastSpellAction
+    class CastHexAction : public CastDebuffSpellAction
     {
     public:
-        CastHexAction(PlayerbotAI* ai) : CastSpellAction(ai, "sap on cc") {}
+        CastHexAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "hex") {}
+    };
+
+    class CastHexCcAction : public CastSpellAction
+    {
+    public:
+        CastHexCcAction(PlayerbotAI* ai) : CastSpellAction(ai, "hex on cc") {}
         virtual Value<Unit*>* GetTargetValue()
         {
             return context->GetValue<Unit*>("cc target", "hex");
