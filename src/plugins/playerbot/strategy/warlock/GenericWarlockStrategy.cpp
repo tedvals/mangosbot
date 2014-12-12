@@ -12,6 +12,7 @@ public:
     {
         creators["banish"] = &banish;
         creators["death coil"] = &death_coil;
+        creators["healthstone"] = &healthstone;
     }
 private:
     static ActionNode* banish(PlayerbotAI* ai)
@@ -19,6 +20,13 @@ private:
         return new ActionNode ("banish",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("fear"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* healthstone(PlayerbotAI* ai)
+    {
+        return new ActionNode ("healthstone",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("healing potion"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* death_coil(PlayerbotAI* ai)
@@ -53,16 +61,16 @@ void GenericWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("reach spell", ACTION_NORMAL + 9), NULL)));
 
      triggers.push_back(new TriggerNode(
-        "enemy too close for spell",
-        NextAction::array(0, new NextAction("flee",49.0f), NULL)));
+        "has aggro",
+        NextAction::array(0, new NextAction("death coil", 50.0f) , new NextAction("flee",49.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "almost dead",
-        NextAction::array(0, new NextAction("death coil", 40.0f), NULL)));
+        NextAction::array(0, new NextAction("healthstone", 40.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium mana",
-        NextAction::array(0, new NextAction("life tap", ACTION_EMERGENCY + 5), NULL)));
+        NextAction::array(0, new NextAction("life tap", ACTION_NORMAL + 2), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"target almost dead",

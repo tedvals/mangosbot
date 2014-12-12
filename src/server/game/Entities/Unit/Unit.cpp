@@ -13099,6 +13099,16 @@ uint32 Unit::GetCreatureType() const
         return ToCreature()->GetCreatureTemplate()->type;
 }
 
+uint32 Unit::GetCreatureRank() const
+{
+    if (GetTypeId() == TYPEID_PLAYER)
+    {
+        return CREATURE_UNKNOWN;
+    }
+    else
+        return ToCreature()->GetCreatureTemplate()-> rank;
+}
+
 uint32 Unit::GetCreatureTypeMask() const
 {
     uint32 creatureType = GetCreatureType();

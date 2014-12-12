@@ -175,19 +175,12 @@ namespace ai
         virtual bool isUseful();
 	};
 
-	class CastBeaconOfLightActionOnCC : public CastSpellAction
+	class CastBeaconOfLightActionOnParty : public CastSpellAction
     {
     public:
-        CastBeaconOfLightActionOnCC(PlayerbotAI* ai) : CastSpellAction(ai, "beacon of light on cc") {}
-        virtual Value<Unit*>* GetTargetValue()
-        {
-            return context->GetValue<Unit*>("cc target", "beacon of light");
-        }
-
-        virtual bool Execute(Event event)
-        {
-            return ai->CastSpell("beacon of light", GetTarget());
-        }
+        CastBeaconOfLightActionOnParty(PlayerbotAI* ai) : CastSpellAction(ai, "beacon of light") {}
+        virtual string getName() { return "beacon of light on party";}
+        virtual bool isUseful();
     };
 
 
@@ -406,10 +399,10 @@ namespace ai
 		CastHandOfFreedomAction(PlayerbotAI* ai) : CastSpellAction(ai, "hand of freedom") {}
 	};
 
-	class CastHandOfFreedomOnPartyAction : public BuffOnPartyAction
+	class CastHandOfFreedomOnPartyAction : public DispelSnarePartyMemberAction
 	{
 	public:
-		CastHandOfFreedomOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "hand of freedom") {}
+		CastHandOfFreedomOnPartyAction(PlayerbotAI* ai) : DispelSnarePartyMemberAction(ai, "hand of freedom") {}
         virtual string getName() { return "hand of freedom on party";}
 	};
 

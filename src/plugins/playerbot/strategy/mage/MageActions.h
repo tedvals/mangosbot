@@ -248,11 +248,11 @@ namespace ai
         virtual bool Execute(Event event);
     };
 
-	class CastSpellstealAction : public CastSpellAction
-	{
-	public:
-		CastSpellstealAction(PlayerbotAI* ai) : CastSpellAction(ai, "spellsteal") {}
-	};
+	class CastSpellstealAction : public CastDebuffSpellAction
+    {
+    public:
+        CastSpellstealAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "spellsteal") {}
+    };
 
 	class CastLivingBombAction : public CastDebuffSpellAction
 	{

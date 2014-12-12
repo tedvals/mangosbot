@@ -59,6 +59,11 @@ namespace ai
     DEBUFF_TRIGGER(BlackArrowTrigger, "black arrow", "black arrow")
     DEBUFF_TRIGGER(HuntersMarkTrigger, "hunter's mark", "hunter's mark")
 
+    class ConcussiveShotSnareTrigger : public SnareTargetTrigger {
+    public:
+        ConcussiveShotSnareTrigger(PlayerbotAI* ai) : SnareTargetTrigger(ai, "concussive shot") {}
+    };
+
     class FreezingTrapTrigger : public HasCcTargetTrigger
     {
     public:

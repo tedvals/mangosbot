@@ -100,10 +100,6 @@ void FrostMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"critical health",
 		NextAction::array(0, new NextAction("ice block", 80.0f), NULL)));
 
-     triggers.push_back(new TriggerNode(
-        "enemy too close for spell",
-        NextAction::array(0, new NextAction("cone of cold", 70.0f), NULL)));
-
     triggers.push_back(new TriggerNode(
 		"medium health",
 		NextAction::array(0, new NextAction("ice barrier", 71.0f), NULL)));
@@ -118,4 +114,9 @@ void FrostMageAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		triggers.push_back(new TriggerNode(
 		"medium aoe",
 		NextAction::array(0, new NextAction("cone of cold", 40.0f), NULL)));
+
+		triggers.push_back(new TriggerNode(
+        "enemy too close for spell",
+        NextAction::array(0, new NextAction("cone of cold", 70.0f), NULL)));
+
 }

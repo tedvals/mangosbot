@@ -62,7 +62,7 @@ FireMageStrategy::FireMageStrategy(PlayerbotAI* ai) : GenericMageStrategy(ai)
 
 NextAction** FireMageStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("fireball", 6.0f), new NextAction("fire blast", 5.0f), NULL);
+    return NextAction::array(0, new NextAction("fireball", 6.0f), NULL);
 }
 
 void FireMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -76,6 +76,14 @@ void FireMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "improved scorch",
         NextAction::array(0, new NextAction("scorch", 30.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "target stunned",
+        NextAction::array(0, new NextAction("fire blast", 30.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "target almost dead",
+        NextAction::array(0, new NextAction("fire blast", 30.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "hot streak",
@@ -94,10 +102,6 @@ void FireMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("combustion", 40.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "enemy too close for spell",
-        NextAction::array(0, new NextAction("dragon's breath", 70.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
         "living bomb on attacker",
         NextAction::array(0, new NextAction("living bomb", 25.0f), NULL)));
 
@@ -109,11 +113,15 @@ void FireMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 void FireMageAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
+        "enemy too close for spell",
+        NextAction::array(0, new NextAction("dragon's breath", 70.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "living bomb",
         NextAction::array(0, new NextAction("living bomb", 25.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "medium aoe",
+        "high aoe",
         NextAction::array(0, new NextAction("flamestrike", 20.0f), NULL)));
 }
 

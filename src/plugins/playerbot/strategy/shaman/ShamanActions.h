@@ -118,10 +118,10 @@ namespace ai
         CastEarthbindTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "earthbind totem") {}
     };
 
-    class CastTremorTotemAction : public CastTotemAction
+    class CastTremorTotemAction : public DispelCharmPartyMemberAction
     {
     public:
-        CastTremorTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "tremor totem") {}
+        CastTremorTotemAction(PlayerbotAI* ai) : DispelCharmPartyMemberAction(ai, "tremor totem") {}
     };
 
     class CastStrengthOfEarthTotemAction : public CastTotemAction

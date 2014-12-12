@@ -4,6 +4,34 @@
 
 using namespace ai;
 
+bool IsPlayerValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    else
+        return target->IsPlayer();
+}
+
+bool IsBossValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    else
+        return (target->GetCreatureRank() == CREATURE_ELITE_WORLDBOSS);
+}
+
+bool IsEliteValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    else
+        return (target->GetCreatureRank() == CREATURE_ELITE_WORLDBOSS) || (target->GetCreatureRank() == CREATURE_ELITE_ELITE) || ((target->GetCreatureRank() == CREATURE_ELITE_RAREELITE));
+}
+
+
 uint8 HealthValue::Calculate()
 {
     Unit* target = GetTarget();

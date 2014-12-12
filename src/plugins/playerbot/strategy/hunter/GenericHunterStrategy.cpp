@@ -161,4 +161,8 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
      triggers.push_back(new TriggerNode(
         "wyvern sting",
         NextAction::array(0, new NextAction("wyvern sting", 30.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "concussive shot snare",
+        NextAction::array(0, new NextAction("concussive shot", 21.0f), NULL)));
 }

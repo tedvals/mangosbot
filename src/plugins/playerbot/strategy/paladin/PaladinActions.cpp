@@ -31,16 +31,37 @@ bool CastBlessingOfMightOnPartyAction::isUseful()
         if (ai->HasAura("blessing of might", player))
             return false;
 
-    switch (player->getClass())
-    {
+        switch (player->getClass())
+        {
         case CLASS_DEATH_KNIGHT:
         case CLASS_WARRIOR:
         case CLASS_ROGUE:
             return true;
         case CLASS_DRUID:
             return ai->HasAnyAuraOf(player, "bear form", "dire bear form", "cat form", NULL);
-    }
+        }
         return true;
+    }
+    else return false;
+}
+
+bool CastBeaconOfLightActionOnParty::isUseful()
+{
+    Unit* player = GetTarget();
+
+    if (player)
+    {
+        switch (player->getClass())
+        {
+            case CLASS_DEATH_KNIGHT:
+            case CLASS_WARRIOR:
+                return ai->HasAura("defensive stance", player);
+            case CLASS_PALADIN:
+                return ai->HasAura("blessing of sanctuary", player);
+            case CLASS_DRUID:
+                return ai->HasAnyAuraOf(player, "bear form", "dire bear form",  NULL);
+        }
+            return true;
     }
     else return false;
 }

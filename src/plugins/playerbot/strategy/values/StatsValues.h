@@ -5,6 +5,45 @@ class Unit;
 
 namespace ai
 {
+    class IsPlayerValue : public BoolCalculatedValue, public Qualified
+    {
+    public:
+        IsPlayerValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
+    class IsBossValue : public BoolCalculatedValue, public Qualified
+    {
+    public:
+        IsBossValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
+    class IsEliteValue : public BoolCalculatedValue, public Qualified
+    {
+    public:
+        IsEliteValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
     class HealthValue : public Uint8CalculatedValue, public Qualified
     {
     public:

@@ -9,7 +9,7 @@ namespace ai
 
 		virtual bool isUseful()
 	    {
-	         return AI_VALUE2(uint8, "combo", "self target") > 4 || AI_VALUE2(uint8, "health", "current target") < 10;
+	         return AI_VALUE2(uint8, "combo", "self target") > 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.criticalHealth/2;
 	    }
 	};
 
@@ -22,7 +22,7 @@ namespace ai
 
         virtual bool isUseful()
 	    {
-	         return AI_VALUE2(uint8, "combo", "self target") > 4 || AI_VALUE2(uint8, "health", "current target") < 10;
+	         return AI_VALUE2(uint8, "combo", "self target") > 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.criticalHealth/2;
 	    }
 	};
 

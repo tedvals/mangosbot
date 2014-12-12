@@ -220,7 +220,7 @@ namespace ai
                 creators["divine favor"] = &AiObjectContextInternal::divine_favor;
                 creators["divine illumination"] = &AiObjectContextInternal::divine_illumination;
                 creators["aura mastery"] = &AiObjectContextInternal::aura_mastery;
-                creators["beacon of light on cc"] = &AiObjectContextInternal::beacon_of_light_on_cc;
+                creators["beacon of light on party"] = &AiObjectContextInternal::beacon_of_light_on_party;
                 creators["hand of sacrifice on party"] = &AiObjectContextInternal::hand_of_sacrifice_on_party;
                 creators["hand of salvation on party"] = &AiObjectContextInternal::hand_of_salvation_on_party;
                 creators["hand of freedom on party"] = &AiObjectContextInternal::hand_of_freedom_on_party;
@@ -290,7 +290,7 @@ namespace ai
             static Action* divine_favor(PlayerbotAI* ai) { return new CastDivineFavorAction(ai); }
             static Action* aura_mastery(PlayerbotAI* ai) { return new CastAuraMasteryAction(ai); }
             static Action* divine_illumination(PlayerbotAI* ai) { return new CastDivineIlluminationAction(ai); }
-            static Action* beacon_of_light_on_cc(PlayerbotAI* ai) { return new CastBeaconOfLightActionOnCC(ai); }
+            static Action* beacon_of_light_on_party(PlayerbotAI* ai) { return new CastBeaconOfLightActionOnParty(ai); }
             static Action* hand_of_protection_on_party(PlayerbotAI* ai) { return new CastHandOfProtectionOnPartyAction(ai); }
             static Action* hand_of_sacrifice_on_party(PlayerbotAI* ai) { return new CastHandOfSacrificeOnPartyAction(ai); }
             static Action* hand_of_salvation_on_party(PlayerbotAI* ai) { return new CastHandOfSalvationOnPartyAction(ai); }

@@ -89,6 +89,7 @@ namespace ai
                 creators["serpent sting on attacker"] = &TriggerFactoryInternal::serpent_sting_on_attacker;
                 creators["silencing shot"] = &TriggerFactoryInternal::silencing_shot_interrupt;
                 creators["silencing shot on enemy healer"] = &TriggerFactoryInternal::silencing_shot_on_enemy_healer;
+                creators["concussive shot snare"] = &TriggerFactoryInternal::concussive_shot_snare;
                 creators["arcane shot on attacker"] = &TriggerFactoryInternal::arcane_shot;
                 creators["wyvern sting"] = &TriggerFactoryInternal::wyvern_sting;
                 creators["counterstrike"] = &TriggerFactoryInternal::counterstrike;
@@ -112,6 +113,7 @@ namespace ai
             static Trigger* aspect_of_the_dragonhawk(PlayerbotAI* ai) { return new HunterAspectOfTheDragonHawkTrigger(ai); }
             static Trigger* aspect_of_the_wild(PlayerbotAI* ai) { return new HunterAspectOfTheWildTrigger(ai); }
             static Trigger* silencing_shot_interrupt(PlayerbotAI* ai) { return new SilencingShotInterruptSpellTrigger(ai); }
+            static Trigger* concussive_shot_snare(PlayerbotAI* ai) { return new ConcussiveShotSnareTrigger(ai); }
             static Trigger* silencing_shot_on_enemy_healer(PlayerbotAI* ai) { return new SilencingShotEnemyHealerTrigger(ai); }
             static Trigger* arcane_shot(PlayerbotAI* ai) { return new ArcaneShotOnAttackerTrigger(ai); }
             static Trigger* wyvern_sting(PlayerbotAI* ai) { return new WyvernStingTrigger(ai); }
