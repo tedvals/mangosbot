@@ -66,7 +66,11 @@ void GenericWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "enemy out of spell",
-        NextAction::array(0, new NextAction("reach spell", ACTION_NORMAL + 9), NULL)));
+        NextAction::array(0, new NextAction("reach spell", ACTION_EMERGENCY + 5), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "not facing target",
+        NextAction::array(0, new NextAction("set facing", ACTION_EMERGENCY), NULL)));
 
      triggers.push_back(new TriggerNode(
         "has aggro",

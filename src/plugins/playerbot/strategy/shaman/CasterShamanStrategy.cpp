@@ -12,6 +12,7 @@ public:
     {
         creators["magma totem"] = &magma_totem;
         creators["flame shock"] = &flame_shock;
+        creators["earth shock"] = &earth_shock;
         creators["burst"] = &elemental_mastery;
         creators["lava burst"] = &lava_burst;
     }
@@ -28,6 +29,13 @@ private:
         return new ActionNode ("flame shock",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("earth shock"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* earth_shock(PlayerbotAI* ai)
+    {
+        return new ActionNode ("earth shock",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("reach spell"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* elemental_mastery(PlayerbotAI* ai)
@@ -59,10 +67,6 @@ NextAction** CasterShamanStrategy::getDefaultActions()
 void CasterShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericShamanStrategy::InitTriggers(triggers);
-
-    triggers.push_back(new TriggerNode(
-        "enemy out of spell",
-        NextAction::array(0, new NextAction("reach spell", ACTION_NORMAL + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "shaman weapon",

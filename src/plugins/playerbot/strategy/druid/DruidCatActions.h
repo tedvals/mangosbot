@@ -9,7 +9,7 @@ namespace ai {
 
 	    virtual bool isUseful()
 	    {
-	        return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "combo", "self target") <= 5;
+	        return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "combo", "current target") <= 5;
 	    }
 	};
 
@@ -65,7 +65,7 @@ namespace ai {
 		CastRipAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "rip") {}
 		virtual bool isUseful()
 	    {
-	        return  CastDebuffSpellAction::isUseful() &&  AI_VALUE2(uint8, "health", "current target") > 20 && (AI_VALUE2(uint8, "combo", "self target") > 4);
+	        return  CastDebuffSpellAction::isUseful() &&  AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.criticalHealth/2 && (AI_VALUE2(uint8, "combo", "current target") >= 4);
 	    }
 	};
 
@@ -99,7 +99,7 @@ namespace ai {
 
 		virtual bool isUseful()
 	    {
-	        return (CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "energy", "self target") > 30) || (AI_VALUE2(uint8, "health", "target") < 10);
+	        return (CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "energy", "self target") > 30) || (AI_VALUE2(uint8, "health", "target") < sPlayerbotAIConfig.criticalHealth/2);
 	    }
 	};
 

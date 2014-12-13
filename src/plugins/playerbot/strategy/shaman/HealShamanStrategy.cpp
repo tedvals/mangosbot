@@ -10,6 +10,8 @@ class HealShamanStrategyActionNodeFactory : public NamedObjectFactory<ActionNode
 public:
     HealShamanStrategyActionNodeFactory()
     {
+        creators["flame shock"] = &flame_shock;
+        creators["earth shock"] = &earth_shock;
         creators["earthliving weapon"] = &earthliving_weapon;
         creators["mana tide totem"] = &mana_tide_totem;
         creators["chain heal"] = &chain_heal;
@@ -18,8 +20,24 @@ public:
         creators["riptide on party"] = &riptide_on_party;
         creators["tidal force"] = &tidal_force;
         creators["nature's swiftness"] = &natures_swiftness;
+        creators["lesser healing wave"] = &lesser_healing_wave;
+        creators["lesser healing wave on party"] = &lesser_healing_wave_on_party;
     }
 private:
+     static ActionNode* flame_shock(PlayerbotAI* ai)
+    {
+        return new ActionNode ("flame shock",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("earth shock"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* earth_shock(PlayerbotAI* ai)
+    {
+        return new ActionNode ("earth shock",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("reach spell"), NULL),
+            /*C*/ NULL);
+    }
     static ActionNode* earthliving_weapon(PlayerbotAI* ai)
     {
         return new ActionNode ("earthliving weapon",
@@ -55,6 +73,20 @@ private:
             /*A*/ NextAction::array(0, new NextAction("lesser healing wave on party"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* lesser_healing_wave(PlayerbotAI* ai)
+    {
+        return new ActionNode ("lesser healing wave",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("healing wave"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* lesser_healing_wave_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("lesser healing wave on party",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("healing wave on party"), NULL),
+            /*C*/ NULL);
+    }
     static ActionNode* riptide_on_party(PlayerbotAI* ai)
     {
         return new ActionNode ("riptide on party",
@@ -86,6 +118,18 @@ HealShamanStrategy::HealShamanStrategy(PlayerbotAI* ai) : GenericShamanStrategy(
 void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericShamanStrategy::InitTriggers(triggers);
+
+      triggers.push_back(new TriggerNode(
+        "shaman weapon",
+        NextAction::array(0, new NextAction("earthliving weapon", 23.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "totem of wrath",
+        NextAction::array(0, new NextAction("totem of wrath", 19.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "shock",
+        NextAction::array(0, new NextAction("flame shock", 20.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"medium aoe heal",
@@ -134,14 +178,6 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
 		"party member critical health",
 		NextAction::array(0, new NextAction("tidal force", ACTION_EMERGENCY + 7), new NextAction("lesser healing wave", ACTION_EMERGENCY + 7), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "enemy out of spell",
-        NextAction::array(0, new NextAction("reach spell", ACTION_NORMAL + 9), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "shaman weapon",
-        NextAction::array(0, new NextAction("earthliving weapon", 22.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low mana",

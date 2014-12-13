@@ -10,13 +10,13 @@ class GenericShamanStrategyActionNodeFactory : public NamedObjectFactory<ActionN
 public:
     GenericShamanStrategyActionNodeFactory()
     {
+        creators["flame shock"] = &flame_shock;
+        creators["earth shock"] = &earth_shock;
         creators["flametongue weapon"] = &flametongue_weapon;
         creators["frostbrand weapon"] = &frostbrand_weapon;
         creators["windfury weapon"] = &windfury_weapon;
         creators["lesser healing wave"] = &lesser_healing_wave;
         creators["lesser healing wave on party"] = &lesser_healing_wave_on_party;
-        creators["earth shock"] = &earth_shock;
-        creators["frost shock"] = &frost_shock;
         creators["strength of earth totem"] = &strength_earth_totem;
         creators["stoneskin totem"] = &stoneskin_totem;
         creators["totem of wrath totem"] = &wrath_totem;
@@ -32,11 +32,18 @@ public:
     }
 private:
 
+    static ActionNode* flame_shock(PlayerbotAI* ai)
+    {
+        return new ActionNode ("flame shock",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("earth shock"), NULL),
+            /*C*/ NULL);
+    }
     static ActionNode* earth_shock(PlayerbotAI* ai)
     {
         return new ActionNode ("earth shock",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("flame shock"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("reach spell"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* frost_shock(PlayerbotAI* ai)
@@ -170,6 +177,14 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     CombatStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
+        "enemy out of spell",
+        NextAction::array(0, new NextAction("reach spell", ACTION_EMERGENCY + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "not facing target",
+        NextAction::array(0, new NextAction("set facing", ACTION_EMERGENCY), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "wind shear",
         NextAction::array(0, new NextAction("wind shear", 23.0f), NULL)));
 
@@ -221,9 +236,6 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"bloodlust",
 		NextAction::array(0, new NextAction("bloodlust", 30.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "not facing target",
-        NextAction::array(0, new NextAction("set facing", ACTION_NORMAL + 7), NULL)));
 }
 
 void ShamanBuffDpsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

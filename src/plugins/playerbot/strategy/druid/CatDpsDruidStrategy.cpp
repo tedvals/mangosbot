@@ -10,6 +10,7 @@ class CatDpsDruidStrategyActionNodeFactory : public NamedObjectFactory<ActionNod
 public:
     CatDpsDruidStrategyActionNodeFactory()
     {
+        creators["dire bear form"] = &dire_bear_form;
         creators["melee"] = &melee;
         creators["feral charge - cat"] = &feral_charge_cat;
         creators["pounce"] = &pounce;
@@ -27,6 +28,13 @@ public:
         creators["berserk"] = &berserk;
     }
 private:
+    static ActionNode* dire_bear_form(PlayerbotAI* ai)
+    {
+        return new ActionNode ("dire bear form",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("bear form"), NULL),
+            /*C*/ NULL);
+    }
     static ActionNode* pounce(PlayerbotAI* ai)
     {
         return new ActionNode ("pounce",
@@ -158,7 +166,7 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "not facing target",
-        NextAction::array(0, new NextAction("set facing", ACTION_NORMAL + 7), NULL)));
+        NextAction::array(0, new NextAction("set facing",  ACTION_EMERGENCY + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "cat form",
@@ -170,11 +178,11 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "prowl",
-        NextAction::array(0, new NextAction("prowl", ACTION_MOVE + 2), NULL)));
+        NextAction::array(0, new NextAction("prowl", ACTION_EMERGENCY + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "pounce",
-        NextAction::array(0, new NextAction("pounce", ACTION_NORMAL + 8), NULL)));
+        NextAction::array(0, new NextAction("pounce",  ACTION_EMERGENCY + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "mangle(cat)",
@@ -185,7 +193,7 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("rake", ACTION_NORMAL + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "combo points available",
+        "combo point available",
         NextAction::array(0, new NextAction("savage roar", ACTION_NORMAL + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
@@ -195,6 +203,10 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "medium threat",
         NextAction::array(0, new NextAction("cower", ACTION_EMERGENCY + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "has aggro",
+        NextAction::array(0, new NextAction("dire bear form", ACTION_EMERGENCY + 1), new NextAction("barkskin", ACTION_EMERGENCY + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "faerie fire (feral)",

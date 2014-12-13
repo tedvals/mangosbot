@@ -96,6 +96,7 @@ namespace ai
                 creators["prowl"] = &TriggerFactoryInternal::prowl;
                 creators["savage roar"] = &TriggerFactoryInternal::savage_roar;
                 creators["rip"] = &TriggerFactoryInternal::rip;
+                creators["pounce"] = &TriggerFactoryInternal::pounce;
                 creators["predatory swiftness"] = &TriggerFactoryInternal::predatory_swiftness;
                 creators["dash"] = &TriggerFactoryInternal::dash;
             }
@@ -125,6 +126,7 @@ namespace ai
             static Trigger* prowl(PlayerbotAI* ai) { return new ProwlTrigger(ai); }
             static Trigger* savage_roar(PlayerbotAI* ai) { return new SavageRoarTrigger(ai); }
             static Trigger* rip(PlayerbotAI* ai) { return new RipTrigger(ai); }
+            static Trigger* pounce(PlayerbotAI* ai) { return new PounceTrigger(ai); }
             static Trigger* predatory_swiftness(PlayerbotAI* ai) { return new PredatorySwiftnessTrigger(ai); }
             static Trigger* dash(PlayerbotAI* ai) { return new DashTrigger(ai); }
         };
@@ -213,7 +215,7 @@ namespace ai
                 creators["swiftmend on party"] = &AiObjectContextInternal::swiftmend_on_party;
                 creators["rebirth"] = &AiObjectContextInternal::rebirth;
                 creators["revive"] = &AiObjectContextInternal::revive;
-                creators["barskin"] = &AiObjectContextInternal::barskin;
+                creators["barkskin"] = &AiObjectContextInternal::barkskin;
                 creators["lacerate"] = &AiObjectContextInternal::lacerate;
                 creators["hurricane"] = &AiObjectContextInternal::hurricane;
                 creators["innervate"] = &AiObjectContextInternal::innervate;
@@ -294,7 +296,7 @@ namespace ai
             static Action* healing_touch_on_party(PlayerbotAI* ai) { return new CastHealingTouchOnPartyAction(ai); }
             static Action* rebirth(PlayerbotAI* ai) { return new CastRebirthAction(ai); }
             static Action* revive(PlayerbotAI* ai) { return new CastReviveAction(ai); }
-            static Action* barskin(PlayerbotAI* ai) { return new CastBarskinAction(ai); }
+            static Action* barkskin(PlayerbotAI* ai) { return new CastBarkskinAction(ai); }
             static Action* lacerate(PlayerbotAI* ai) { return new CastLacerateAction(ai); }
             static Action* hurricane(PlayerbotAI* ai) { return new CastHurricaneAction(ai); }
             static Action* innervate(PlayerbotAI* ai) { return new CastInnervateAction(ai); }

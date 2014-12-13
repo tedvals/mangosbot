@@ -118,5 +118,4 @@ void FrostMageAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		triggers.push_back(new TriggerNode(
         "enemy too close for spell",
         NextAction::array(0, new NextAction("cone of cold", 70.0f), NULL)));
-
 }

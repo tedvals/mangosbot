@@ -9,7 +9,7 @@ namespace ai
 
 		virtual bool isUseful()
 	    {
-	         return AI_VALUE2(uint8, "combo", "self target") > 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.criticalHealth/2;
+	         return AI_VALUE2(uint8, "combo", "current target") >= 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.criticalHealth/2;
 	    }
 	};
 
@@ -22,7 +22,7 @@ namespace ai
 
         virtual bool isUseful()
 	    {
-	         return AI_VALUE2(uint8, "combo", "self target") > 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.criticalHealth/2;
+	         return AI_VALUE2(uint8, "combo", "current target") >= 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.criticalHealth/2;
 	    }
 	};
 
@@ -42,6 +42,11 @@ namespace ai
 	{
 	public:
 		CastExposeArmorAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "expose armor") {}
+
+		virtual bool isUseful()
+	    {
+	        return AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.criticalHealth/2 && (AI_VALUE2(bool, "target elite", "current target") || AI_VALUE2(bool, "target player", "current target"));
+	    }
 	};
 
 	class CastDeadlyThrowAction : public CastMeleeSpellAction
@@ -57,7 +62,7 @@ namespace ai
 
 		virtual bool isUseful()
 	    {
-	        return AI_VALUE2(uint8, "health", "current target") > 10;
+	        return AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.criticalHealth/2 && (AI_VALUE2(bool, "target elite", "current target") || AI_VALUE2(bool, "target player", "current target"));
 	    }
 
 	     virtual NextAction** getAlternatives();

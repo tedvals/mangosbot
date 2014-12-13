@@ -32,6 +32,12 @@ namespace ai {
         RipTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "rip") {}
     };
 
+    class PounceTrigger : public DebuffTrigger
+    {
+    public:
+        PounceTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "pounce") {}
+    };
+
     class InsectSwarmTrigger : public DebuffTrigger
     {
     public:

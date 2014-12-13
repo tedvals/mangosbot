@@ -23,10 +23,13 @@ public:
             return;
 
         uint8 health = creature->GetHealthPct();
-        if (health < sPlayerbotAIConfig.mediumHealth)
+        if (health < sPlayerbotAIConfig.almostFullHealth)
             return;
 
         if (!ai->CanCastSpell(spell, creature))
+            return;
+
+        if (creature->IsPolymorphed() || creature->IsCharmed() || creature->isPossessed() || creature->isFrozen())
             return;
 
         if (*ai->GetAiObjectContext()->GetValue<Unit*>("rti target") == creature)
@@ -104,10 +107,13 @@ public:
             return;
 
         uint8 health = creature->GetHealthPct();
-        if (health < sPlayerbotAIConfig.mediumHealth)
+         if (health < sPlayerbotAIConfig.almostFullHealth)
             return;
 
         if (!ai->CanCastSpell(spell, creature))
+            return;
+
+        if (creature->IsPolymorphed() || creature->IsCharmed() || creature->isPossessed() || creature->isFrozen())
             return;
 
         if (*ai->GetAiObjectContext()->GetValue<Unit*>("rti target") == creature)
@@ -185,10 +191,13 @@ public:
             return;
 
         uint8 health = creature->GetHealthPct();
-        if (health < sPlayerbotAIConfig.mediumHealth)
+         if (health < sPlayerbotAIConfig.almostFullHealth)
             return;
 
         if (!ai->CanCastSpell(spell, creature))
+            return;
+
+        if (creature->IsPolymorphed() || creature->IsCharmed() || creature->isPossessed() || creature->isFrozen())
             return;
 
         if (*ai->GetAiObjectContext()->GetValue<Unit*>("rti target") == creature)
@@ -266,10 +275,13 @@ public:
             return;
 
         uint8 health = creature->GetHealthPct();
-        if (health < sPlayerbotAIConfig.mediumHealth)
+        if (health < sPlayerbotAIConfig.almostFullHealth)
             return;
 
         if (!ai->CanCastSpell(spell, creature))
+            return;
+
+        if (creature->IsPolymorphed() || creature->IsCharmed() || creature->isPossessed() || creature->isFrozen())
             return;
 
         if (*ai->GetAiObjectContext()->GetValue<Unit*>("rti target") == creature)
@@ -347,10 +359,13 @@ public:
             return;
 
         uint8 health = creature->GetHealthPct();
-        if (health < sPlayerbotAIConfig.mediumHealth)
+         if (health < sPlayerbotAIConfig.almostFullHealth)
             return;
 
         if (!ai->CanCastSpell(spell, creature))
+            return;
+
+        if (creature->IsPolymorphed() || creature->IsCharmed() || creature->isPossessed() || creature->isFrozen())
             return;
 
         if (*ai->GetAiObjectContext()->GetValue<Unit*>("rti target") == creature)
@@ -428,10 +443,13 @@ public:
             return;
 
         uint8 health = creature->GetHealthPct();
-        if (health < sPlayerbotAIConfig.mediumHealth)
+         if (health < sPlayerbotAIConfig.almostFullHealth)
             return;
 
         if (!ai->CanCastSpell(spell, creature))
+            return;
+
+        if (creature->IsPolymorphed() || creature->IsCharmed() || creature->isPossessed() || creature->isFrozen())
             return;
 
         if (*ai->GetAiObjectContext()->GetValue<Unit*>("rti target") == creature)

@@ -67,6 +67,12 @@ namespace ai
 		CastVanishAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "vanish") {}
 	};
 
+	class CastCloakOfShadowsAction : public CastBuffSpellAction
+	{
+	public:
+		CastCloakOfShadowsAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "cloak of shadows") {}
+	};
+
 	class CastTricksOfTradeOnPartyAction : public  BuffOnPartyAction
 	{
 	public:
@@ -135,4 +141,30 @@ namespace ai
     public:
         CastKickOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "kick") {}
     };
+
+    class CastInstantPoisonAction : public CastEnchantItemAction {
+    public:
+        CastInstantPoisonAction(PlayerbotAI* ai) : CastEnchantItemAction(ai, "instant poison") {}
+    };
+
+    class CastWoundPoisonAction : public CastEnchantItemAction {
+    public:
+        CastWoundPoisonAction(PlayerbotAI* ai) : CastEnchantItemAction(ai, "wound poison") {}
+    };
+
+    class CastMindNumbingPoisonAction : public CastEnchantItemAction {
+    public:
+        CastMindNumbingPoisonAction(PlayerbotAI* ai) : CastEnchantItemAction(ai, "mind-numbing poison") {}
+    };
+
+    class CastCripplingPoisonAction : public CastEnchantItemAction {
+    public:
+        CastCripplingPoisonAction(PlayerbotAI* ai) : CastEnchantItemAction(ai, "crippling poison") {}
+    };
+
+    class CastDeadlyPoisonAction : public CastEnchantItemAction {
+    public:
+        CastDeadlyPoisonAction(PlayerbotAI* ai) : CastEnchantItemAction(ai, "deadly poison") {}
+    };
+
 }
