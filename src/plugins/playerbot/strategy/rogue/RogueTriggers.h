@@ -8,6 +8,7 @@ namespace ai
     BUFF_TRIGGER(RiposteTrigger, "riposte","riposte");
     BUFF_TRIGGER(SliceAndDiceTrigger, "slice and dice","slice and dice");
     DEBUFF_TRIGGER(RuptureTrigger, "rupture","rupture");
+    DEBUFF_TRIGGER(PremeditationTrigger, "premeditation","premeditation");
     DEBUFF_TRIGGER(HungerForBloodTrigger, "hunger for blood","hunger for blood");
 
     class PoisonWeaponTrigger : public BuffTrigger {

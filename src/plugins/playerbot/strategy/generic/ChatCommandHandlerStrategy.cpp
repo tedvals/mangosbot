@@ -89,6 +89,10 @@ void ChatCommandHandlerStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("follow chat shortcut", relevance), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "get behind",
+        NextAction::array(0, new NextAction("get behind chat shortcut", relevance), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "stay",
         NextAction::array(0, new NextAction("stay chat shortcut", relevance), NULL)));
 

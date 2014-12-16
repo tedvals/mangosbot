@@ -64,6 +64,7 @@ namespace ai
             creators["rti"] = &ChatTriggerContext::rti;
             creators["revive"] = &ChatTriggerContext::revive;
             creators["runaway"] = &ChatTriggerContext::runaway;
+            creators["get behind"] = &ChatTriggerContext::get_behind;
             creators["warning"] = &ChatTriggerContext::warning;
             creators["position"] = &ChatTriggerContext::position;
             creators["summon"] = &ChatTriggerContext::summon;
@@ -94,6 +95,7 @@ namespace ai
         static Trigger* tank_attack(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "tank attack"); }
         static Trigger* stay(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "stay"); }
         static Trigger* follow(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "follow"); }
+        static Trigger* get_behind(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "get behind"); }
         static Trigger* gb(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "gb"); }
         static Trigger* bank(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "bank"); }
         static Trigger* help(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "help"); }

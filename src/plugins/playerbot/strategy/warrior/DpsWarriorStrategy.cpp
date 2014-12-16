@@ -370,6 +370,10 @@ void DpsFuryWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("victory rush", ACTION_HIGH + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "enemy out of melee",
+        NextAction::array(0, new NextAction("intercept", ACTION_NORMAL + 9), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "target fleeing",
         NextAction::array(0, new NextAction("hamstring", ACTION_HIGH + 2), NULL)));
 

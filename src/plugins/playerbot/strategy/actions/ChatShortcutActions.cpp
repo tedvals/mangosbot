@@ -23,6 +23,21 @@ bool FollowChatShortcutAction::Execute(Event event)
     return true;
 }
 
+bool GetBehindChatShortcutAction::Execute(Event event)
+{
+    Player* master = GetMaster();
+    if (!master)
+        return false;
+
+    if (bot->GetMapId() != master->GetMapId() || bot->GetDistance(master) > sPlayerbotAIConfig.sightDistance)
+    {
+        ai->TellMaster("can not get behind target - too far away");
+        return true;
+    }
+    ai->TellMaster("Moving behind target");
+    return true;
+}
+
 bool StayChatShortcutAction::Execute(Event event)
 {
     Player* master = GetMaster();

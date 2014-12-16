@@ -63,6 +63,7 @@ namespace ai
                 creators["expose armor"] = &TriggerFactoryInternal::expose_armor;
                 creators["kick on enemy healer"] = &TriggerFactoryInternal::kick_on_enemy_healer;
                 creators["no poison"] = &TriggerFactoryInternal::no_poison;
+                creators["premeditation"] = &TriggerFactoryInternal::premeditation;
 
             }
 
@@ -77,6 +78,7 @@ namespace ai
             static Trigger* slice_and_dice(PlayerbotAI* ai) { return new SliceAndDiceTrigger(ai); }
             static Trigger* expose_armor(PlayerbotAI* ai) { return new ExposeArmorTrigger(ai); }
             static Trigger* no_poison(PlayerbotAI* ai) { return new PoisonWeaponTrigger(ai); }
+            static Trigger* premeditation(PlayerbotAI* ai) { return new PremeditationTrigger(ai); }
             static Trigger* kick_on_enemy_healer(PlayerbotAI* ai) { return new KickInterruptEnemyHealerSpellTrigger(ai); }
         };
     };

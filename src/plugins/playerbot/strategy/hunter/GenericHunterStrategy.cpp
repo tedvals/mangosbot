@@ -21,6 +21,7 @@ public:
         creators["intimidation"] = &intimidation;
         creators["misdirection"] = &misdirection;
         creators["deterrence"] = &deterrence;
+        creators["wing clip"] = &wing_clip;
     }
 private:
     static ActionNode* rapid_fire(PlayerbotAI* ai)
@@ -84,13 +85,13 @@ private:
         return new ActionNode ("wing clip",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("shatter shot"), NULL),
-            /*C*/ NULL);
+            /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
     }
     static ActionNode* scatter_shot(PlayerbotAI* ai)
     {
         return new ActionNode ("shatter shot",
             /*P*/ NULL,
-            /*A*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("flee"), NULL),
             /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
     }
     static ActionNode* misdirection(PlayerbotAI* ai)
@@ -164,5 +165,5 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "concussive shot snare",
-        NextAction::array(0, new NextAction("concussive shot", 21.0f), NULL)));
+        NextAction::array(0, new NextAction("concussive shot", 25.0f), new NextAction("flee", 25.0f), NULL)));
 }

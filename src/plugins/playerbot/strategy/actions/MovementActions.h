@@ -19,7 +19,9 @@ namespace ai
         bool MoveNear(WorldObject* target, float distance = sPlayerbotAIConfig.followDistance);
         float GetFollowAngle();
         bool Follow(Unit* target, float distance = sPlayerbotAIConfig.followDistance);
+        bool GetBehind(Unit* target, float distance = sPlayerbotAIConfig.meleeDistance);
         bool Follow(Unit* target, float distance, float angle);
+        bool GetBehind(Unit* target, float distance, float angle);
         void WaitForReach(float distance);
         bool IsMovingAllowed(Unit* target);
         bool IsMovingAllowed(uint32 mapId, float x, float y, float z);

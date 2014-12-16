@@ -69,7 +69,7 @@ private:
         return new ActionNode ("concussive shot",
             /*P*/ NULL,
             /*A*/ NULL,
-            /*C*/ NULL);
+            /*C*/ NextAction::array(0, new NextAction("flee", 40.0f), NULL));
     }
     static ActionNode* bestial_wrath(PlayerbotAI* ai)
     {

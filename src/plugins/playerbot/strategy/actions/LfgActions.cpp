@@ -96,6 +96,20 @@ bool LfgJoinAction::JoinProposal()
     bool random = urand(0, 100) < 25;
     bool raid = !heroic && (urand(0, 100) < 50 && visitor.count[ITEM_QUALITY_EPIC] >= 5 && (bot->getLevel() == 60 || bot->getLevel() == 70 || bot->getLevel() == 80));
 
+    Group* group = bot->GetGroup();
+    if (group)
+    {
+        Player* master = GetMaster();
+        Player* inviter = sObjectMgr->GetPlayerByLowGUID(group->GetLeaderGUID());
+
+        if (inviter && master==inviter)
+        {
+            heroic = true;
+            random = true;
+            raid = true;
+        }
+    }
+
     LfgDungeonSet list;
     vector<uint32> idx;
     for (uint32 i = 0; i < sLFGDungeonStore.GetNumRows(); ++i)
@@ -183,6 +197,22 @@ bool LfgAcceptAction::Execute(Event event)
         {
             sLFGMgr->LeaveLfg(bot->GetGUID());
             return false;
+        }
+
+        Group* group = bot->GetGroup();
+        if (group)
+        {
+            Player* master = GetMaster();
+            Player* inviter = sObjectMgr->GetPlayerByLowGUID(group->GetLeaderGUID());
+
+            if (inviter && master==inviter)
+            {
+
+                ai->GetAiObjectContext()->GetValue<uint32>("lfg proposal")->Set(0);
+                bot->ClearUnitState(UNIT_STATE_ALL_STATE_SUPPORTED);
+                sLFGMgr->UpdateProposal(id, bot->GetGUID(), true);
+                return true;
+            }
         }
 
         ai->ChangeStrategy("-grind", BOT_STATE_NON_COMBAT);

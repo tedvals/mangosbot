@@ -168,6 +168,11 @@ bool MovementAction::Follow(Unit* target, float distance)
     return Follow(target, distance, GetFollowAngle());
 }
 
+bool MovementAction::GetBehind(Unit* target, float distance)
+{
+    return GetBehind(target, distance, GetFollowAngle());
+}
+
 bool MovementAction::Follow(Unit* target, float distance, float angle)
 {
     MotionMaster &mm = *bot->GetMotionMaster();
@@ -199,6 +204,48 @@ bool MovementAction::Follow(Unit* target, float distance, float angle)
         distance += angle;
 
     if (bot->GetDistance(target) <= sPlayerbotAIConfig.followDistance)
+        return false;
+
+    if (bot->IsSitState())
+        bot->SetStandState(UNIT_STAND_STATE_STAND);
+
+    if (bot->IsNonMeleeSpellCast(true))
+    {
+        bot->CastStop();
+        ai->InterruptSpell();
+    }
+
+    mm.MoveFollow(target, distance, angle);
+
+    AI_VALUE(LastMovement&, "last movement").Set(target);
+    return true;
+}
+
+bool MovementAction::GetBehind(Unit* target, float distance, float angle)
+{
+    MotionMaster &mm = *bot->GetMotionMaster();
+
+    if (!target)
+        return false;
+
+    if (bot->GetDistance2d(target->GetPositionX(), target->GetPositionY()) <= sPlayerbotAIConfig.sightDistance &&
+            abs(bot->GetPositionZ() - target->GetPositionZ()) >= sPlayerbotAIConfig.spellDistance)
+    {
+        mm.Clear();
+        float x = bot->GetPositionX(), y = bot->GetPositionY(), z = target->GetPositionZ();
+        if (target->GetMapId() && bot->GetMapId() != target->GetMapId())
+        {
+           return false;
+        }
+        else
+        {
+            bot->Relocate(x, y, z, bot->GetOrientation());
+        }
+        AI_VALUE(LastMovement&, "last movement").Set(target);
+        return true;
+    }
+
+    if (!IsMovingAllowed(target))
         return false;
 
     if (bot->IsSitState())

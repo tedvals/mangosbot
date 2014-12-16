@@ -12,6 +12,13 @@ namespace ai
         virtual bool Execute(Event event);
     };
 
+    class GetBehindChatShortcutAction : public Action
+    {
+    public:
+        GetBehindChatShortcutAction(PlayerbotAI* ai) : Action(ai, "get behind chat shortcut") {}
+        virtual bool Execute(Event event);
+    };
+
     class StayChatShortcutAction : public Action
     {
     public:
