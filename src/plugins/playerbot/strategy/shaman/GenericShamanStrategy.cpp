@@ -177,6 +177,10 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     CombatStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
+        "takes periodic damage",
+        NextAction::array(0, new NextAction("flee", ACTION_EMERGENCY), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "enemy out of spell",
         NextAction::array(0, new NextAction("reach spell", ACTION_EMERGENCY + 5), NULL)));
 

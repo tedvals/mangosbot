@@ -15,6 +15,10 @@ void GenericPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     CombatStrategy::InitTriggers(triggers);
 
+        triggers.push_back(new TriggerNode(
+        "takes periodic damage",
+        NextAction::array(0, new NextAction("flee", ACTION_EMERGENCY), NULL)));
+
     triggers.push_back(new TriggerNode(
         "shadow word: pain on attacker",
         NextAction::array(0, new NextAction("shadow word: pain on attacker", 11.0f), NULL)));

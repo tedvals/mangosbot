@@ -96,6 +96,10 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     RangedCombatStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
+        "takes periodic damage",
+        NextAction::array(0, new NextAction("blink", ACTION_EMERGENCY), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "enemy too close for spell",
         NextAction::array(0, new NextAction("frost nova", 70.0f), NULL)));
 

@@ -9,7 +9,7 @@ namespace ai
 
 	    virtual bool isUseful()
 	    {
-	        return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "combo", "current target") <= 5;
+	        return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "combo", "current target") < 5;
 	    }
 
         virtual NextAction** getPrerequisites()
@@ -29,7 +29,6 @@ namespace ai
     public:
         CastMutilateAction(PlayerbotAI* ai) : CastComboAction(ai, "mutilate") {}
 
-         virtual NextAction** getAlternatives();
     };
 
     class CastFanOfKnivesAction : public CastComboAction
@@ -54,8 +53,6 @@ namespace ai
     {
     public:
         CastBackstabAction(PlayerbotAI* ai) : CastComboAction(ai, "backstab") {}
-
-        virtual NextAction** getAlternatives();
     };
 
     class CastHemorrhageAction : public CastComboAction

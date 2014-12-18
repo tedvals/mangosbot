@@ -130,6 +130,7 @@ namespace ai
             creators["my attacker count"] = &ValueContext::my_attacker_count;
             creators["has aggro"] = &ValueContext::has_aggro;
             creators["mounted"] = &ValueContext::mounted;
+            creators["under cc"] = &ValueContext::under_cc;
 
             creators["can loot"] = &ValueContext::can_loot;
             creators["loot target"] = &ValueContext::loot_target;
@@ -222,6 +223,7 @@ namespace ai
         static UntypedValue* target_boss(PlayerbotAI* ai) { return new IsBossValue(ai); }
         static UntypedValue* target_player(PlayerbotAI* ai) { return new IsPlayerValue(ai); }
         static UntypedValue* charmed(PlayerbotAI* ai) { return new IsCharmedValue(ai); }
+        static UntypedValue* under_cc(PlayerbotAI* ai) { return new IsCcValue(ai); }
         static UntypedValue* possessed(PlayerbotAI* ai) { return new IsPossessedValue(ai); }
         static UntypedValue* disoriented(PlayerbotAI* ai) { return new IsDisorientedValue(ai); }
         static UntypedValue* frozen(PlayerbotAI* ai) { return new IsFrozenValue(ai); }

@@ -23,7 +23,7 @@ namespace ai
         CastSapCcAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "sap on cc") {}
 
         virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && !AI_VALUE2(bool, "combat", "current target") && ai->HasAura("stealth", AI_VALUE(Unit*, "self target")) ;
+            return CastMeleeSpellAction::isUseful() && !AI_VALUE2(bool, "combat", "current target") ;
         }
 
         virtual Value<Unit*>* GetTargetValue()
@@ -40,6 +40,8 @@ namespace ai
         {
             return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
+
+        virtual NextAction** getAlternatives();
     };
 
 
@@ -47,10 +49,6 @@ namespace ai
 	{
 	public:
 		CastGarroteAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "garrote") {}
-
-		virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
-        }
 
         virtual NextAction** getPrerequisites()
         {
@@ -63,16 +61,11 @@ namespace ai
 	public:
 		CastAmbushAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "ambush") {}
 
-        virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
-        }
-
         virtual NextAction** getPrerequisites()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 
-        virtual NextAction** getAlternatives();
 	};
 
 	class CastCheapShotAction : public CastMeleeSpellAction
@@ -81,7 +74,7 @@ namespace ai
 		CastCheapShotAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "cheap shot") {}
 
         virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && !AI_VALUE2(bool, "target elite", "current target") && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
+            return CastMeleeSpellAction::isUseful() && !AI_VALUE2(bool, "target elite", "current target");
         }
 
         virtual NextAction** getPrerequisites()

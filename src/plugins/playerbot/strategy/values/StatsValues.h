@@ -96,6 +96,19 @@ namespace ai
         virtual bool Calculate();
     };
 
+    class IsCcValue : public BoolCalculatedValue, public Qualified
+    {
+    public:
+        IsCcValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
     class IsPossessedValue : public BoolCalculatedValue, public Qualified
     {
     public:

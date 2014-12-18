@@ -41,11 +41,6 @@ namespace ai
     {
     public:
         GarroteTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "garrote") {}
-        virtual bool IsActive()
-        {
-            return DebuffTrigger::IsActive() &&
-                ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
-        }
     };
 
     class KickInterruptEnemyHealerSpellTrigger : public InterruptEnemyHealerTrigger
@@ -54,9 +49,9 @@ namespace ai
         KickInterruptEnemyHealerSpellTrigger(PlayerbotAI* ai) : InterruptEnemyHealerTrigger(ai, "kick") {}
     };
 
-    class SapTrigger : public HasCcTarget4Trigger
-    {
-    public:
-        SapTrigger(PlayerbotAI* ai) : HasCcTarget4Trigger(ai, "sap") {}
-    };
+  //  class SapTrigger : public HasCcTarget4Trigger
+  //  {
+  //  public:
+  //      SapTrigger(PlayerbotAI* ai) : HasCcTarget4Trigger(ai, "sap") {}
+//};
 }

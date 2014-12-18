@@ -57,7 +57,7 @@ namespace ai
                 creators["stealth"] = &TriggerFactoryInternal::stealth;
                 creators["garrote"] = &TriggerFactoryInternal::garrote;
                 creators["rupture"] = &TriggerFactoryInternal::rupture;
-                creators["sap"] = &TriggerFactoryInternal::sap;
+      //          creators["sap"] = &TriggerFactoryInternal::sap;
                 creators["hunger for blood"] = &TriggerFactoryInternal::hunger_for_blood;
                 creators["slice and dice"] = &TriggerFactoryInternal::slice_and_dice;
                 creators["expose armor"] = &TriggerFactoryInternal::expose_armor;
@@ -73,7 +73,7 @@ namespace ai
             static Trigger* stealth(PlayerbotAI* ai) { return new StealthTrigger(ai); }
             static Trigger* garrote(PlayerbotAI* ai) { return new GarroteTrigger(ai); }
             static Trigger* rupture(PlayerbotAI* ai) { return new RuptureTrigger(ai); }
-            static Trigger* sap(PlayerbotAI* ai) { return new SapTrigger(ai); }
+   //         static Trigger* sap(PlayerbotAI* ai) { return new SapTrigger(ai); }
             static Trigger* hunger_for_blood(PlayerbotAI* ai) { return new HungerForBloodTrigger(ai); }
             static Trigger* slice_and_dice(PlayerbotAI* ai) { return new SliceAndDiceTrigger(ai); }
             static Trigger* expose_armor(PlayerbotAI* ai) { return new ExposeArmorTrigger(ai); }

@@ -7,10 +7,10 @@ namespace ai
 	public:
 		CastEviscerateAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "eviscerate") {}
 
-		virtual bool isUseful()
-	    {
-	         return AI_VALUE2(uint8, "combo", "current target") >= 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.criticalHealth/2;
-	    }
+		//virtual bool isUseful()
+	    //{
+	    //     return AI_VALUE2(uint8, "combo", "current target") >= 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.criticalHealth/2;
+	    //}
 	};
 
     class CastEnvenomAction : public CastMeleeSpellAction
@@ -18,12 +18,10 @@ namespace ai
 	public:
 		CastEnvenomAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "envenom") {}
 
-		virtual NextAction** getAlternatives();
-
-        virtual bool isUseful()
-	    {
-	         return AI_VALUE2(uint8, "combo", "current target") >= 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.criticalHealth/2;
-	    }
+       // virtual bool isUseful()
+	   // {
+	   //      return AI_VALUE2(uint8, "combo", "current target") >= 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.criticalHealth/2;
+	   // }
 	};
 
 	class CastSliceAndDiceAction : public CastMeleeSpellAction
@@ -35,7 +33,6 @@ namespace ai
 	        return !ai->HasAura(spell, AI_VALUE(Unit*, "self target"));
 	    }
 
-	    virtual NextAction** getAlternatives();
 	};
 
 	class CastExposeArmorAction : public CastMeleeSpellAction
@@ -64,8 +61,6 @@ namespace ai
 	    {
 	        return AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.criticalHealth/2 && (AI_VALUE2(bool, "target elite", "current target") || AI_VALUE2(bool, "target player", "current target"));
 	    }
-
-	     virtual NextAction** getAlternatives();
 	};
 
 	class CastKidneyShotAction : public CastMeleeSpellAction

@@ -48,6 +48,14 @@ bool IsDeadValue::Calculate()
     return target->getDeathState() != ALIVE;
 }
 
+bool IsCcValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    return target->UnderCc();
+}
+
 bool IsBleedingValue::Calculate()
 {
     Unit* target = GetTarget();
