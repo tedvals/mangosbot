@@ -18,6 +18,7 @@ namespace ai
 	public:
 		CastEnvenomAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "envenom") {}
 
+    virtual NextAction** getAlternatives();
        // virtual bool isUseful()
 	   // {
 	   //      return AI_VALUE2(uint8, "combo", "current target") >= 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.criticalHealth/2;
@@ -28,6 +29,8 @@ namespace ai
 	{
 	public:
 		CastSliceAndDiceAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "slice and dice") {}
+		virtual NextAction** getAlternatives();
+
 		virtual bool isUseful()
 	    {
 	        return !ai->HasAura(spell, AI_VALUE(Unit*, "self target"));
@@ -57,9 +60,11 @@ namespace ai
 	public:
 		CastRuptureAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "rupture") {}
 
+		virtual NextAction** getAlternatives();
+
 		virtual bool isUseful()
 	    {
-	        return AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.criticalHealth/2 && (AI_VALUE2(bool, "target elite", "current target") || AI_VALUE2(bool, "target player", "current target"));
+	        return AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.criticalHealth && (AI_VALUE2(bool, "target elite", "current target") || AI_VALUE2(bool, "target player", "current target"));
 	    }
 	};
 

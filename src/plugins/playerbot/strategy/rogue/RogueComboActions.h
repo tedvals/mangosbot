@@ -29,6 +29,7 @@ namespace ai
     public:
         CastMutilateAction(PlayerbotAI* ai) : CastComboAction(ai, "mutilate") {}
 
+        virtual NextAction** getAlternatives();
     };
 
     class CastFanOfKnivesAction : public CastComboAction
@@ -53,6 +54,8 @@ namespace ai
     {
     public:
         CastBackstabAction(PlayerbotAI* ai) : CastComboAction(ai, "backstab") {}
+
+        virtual NextAction** getAlternatives();
     };
 
     class CastHemorrhageAction : public CastComboAction

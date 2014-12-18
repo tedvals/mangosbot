@@ -7,6 +7,25 @@
 
 using namespace ai;
 
+NextAction** CastEnvenomAction :: getAlternatives()
+{
+ return NextAction::merge( NextAction::array(0, new NextAction("eviscerate"), NULL), CastMeleeSpellAction::getAlternatives());
+}
+
+NextAction** CastSliceAndDiceAction :: getAlternatives()
+{
+ return NextAction::merge( NextAction::array(0, new NextAction("eviscerate"), NULL), CastMeleeSpellAction::getAlternatives());
+}
+
+NextAction** CastMutilateAction :: getAlternatives()
+{
+ return NextAction::merge( NextAction::array(0, new NextAction("backstab"), NULL), CastMeleeSpellAction::getAlternatives());
+}
+
+NextAction** CastBackstabAction :: getAlternatives()
+{
+ return NextAction::merge( NextAction::array(0, new NextAction("get behind"), NULL), CastMeleeSpellAction::getAlternatives());
+}
 
 NextAction** CastSapCcAction :: getAlternatives()
 {
@@ -26,6 +45,11 @@ NextAction** CastBurstAction :: getAlternatives()
 NextAction** CastShadowDanceAction :: getAlternatives()
 {
             return NextAction::merge( NextAction::array(0, new NextAction("cold blood"), NULL), CastBuffSpellAction::getAlternatives());
+}
+
+NextAction** CastRuptureAction :: getAlternatives()
+{
+ return NextAction::merge( NextAction::array(0, new NextAction("eviscerate"), NULL), CastDebuffSpellAction::getAlternatives());
 }
 
 
