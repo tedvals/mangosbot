@@ -9,7 +9,7 @@ namespace ai
 
 	    virtual bool isUseful()
 	    {
-	        return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "combo", "current target") < 5;
+	        return CastMeleeSpellAction::isUseful() && !ai->HasAura("stealth", AI_VALUE(Unit*, "self target")) && AI_VALUE2(uint8, "combo", "current target") < 5;
 	    }
 
         virtual NextAction** getPrerequisites()

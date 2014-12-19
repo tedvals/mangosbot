@@ -298,7 +298,7 @@ bool UseItemAction::SocketItem(Item* item, Item* gem, bool replace)
 
 bool UseItemAction::setTargetMainhand()
 {
-     actionTarget= bot->GetItemByPos(EQUIPMENT_SLOT_MAINHAND);
+     actionTarget= bot->GetItemByPos(INVENTORY_SLOT_BAG_0,EQUIPMENT_SLOT_MAINHAND);
 
      if (actionTarget)
         return true;
@@ -307,7 +307,7 @@ bool UseItemAction::setTargetMainhand()
 
 bool UseItemAction::setTargetOffhand()
 {
-     actionTarget= bot->GetItemByPos(EQUIPMENT_SLOT_OFFHAND);
+     actionTarget= bot->GetItemByPos(INVENTORY_SLOT_BAG_0,EQUIPMENT_SLOT_OFFHAND);
 
      if (actionTarget)
         return true;

@@ -89,8 +89,8 @@ void ChatCommandHandlerStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("follow chat shortcut", relevance), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "get behind",
-        NextAction::array(0, new NextAction("get behind chat shortcut", relevance), NULL)));
+        "move behind",
+        NextAction::array(0, new NextAction("move behind chat shortcut", relevance), NULL)));
 
     triggers.push_back(new TriggerNode(
         "stay",
@@ -166,7 +166,9 @@ ChatCommandHandlerStrategy::ChatCommandHandlerStrategy(PlayerbotAI* ai) : PassTr
     supported.push_back("destroy");
     supported.push_back("reset ai");
     supported.push_back("emote");
+    supported.push_back("inventory");
     supported.push_back("buff");
+    supported.push_back("enhance");
     supported.push_back("help");
     supported.push_back("gb");
     supported.push_back("bank");

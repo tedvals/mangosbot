@@ -46,6 +46,7 @@
 #include "PositionAction.h"
 #include "TellTargetAction.h"
 #include "UseMeetingStoneAction.h"
+#include "UseConsumableAction.h"
 #include "WhoAction.h"
 #include "SaveManaAction.h"
 #include "../values/Formations.h"
@@ -92,12 +93,15 @@ namespace ai
             creators["destroy"] = &ChatActionContext::destroy;
             creators["reset ai"] = &ChatActionContext::reset_ai;
             creators["buff"] = &ChatActionContext::buff;
+            creators["enhance"] = &ChatActionContext::enhance;
+            creators["inventory"] = &ChatActionContext::inventory;
             creators["help"] = &ChatActionContext::help;
             creators["gb"] = &ChatActionContext::gb;
             creators["bank"] = &ChatActionContext::bank;
             creators["follow chat shortcut"] = &ChatActionContext::follow_chat_shortcut;
             creators["stay chat shortcut"] = &ChatActionContext::stay_chat_shortcut;
             creators["flee chat shortcut"] = &ChatActionContext::flee_chat_shortcut;
+            creators["move behind chat shortcut"] = &ChatActionContext::move_behind_chat_shortcut;
             creators["runaway chat shortcut"] = &ChatActionContext::runaway_chat_shortcut;
             creators["grind chat shortcut"] = &ChatActionContext::grind_chat_shortcut;
             creators["tank attack chat shortcut"] = &ChatActionContext::tank_attack_chat_shortcut;
@@ -134,13 +138,16 @@ namespace ai
         static Action* tank_attack_chat_shortcut(PlayerbotAI* ai) { return new TankAttackChatShortcutAction(ai); }
         static Action* grind_chat_shortcut(PlayerbotAI* ai) { return new GrindChatShortcutAction(ai); }
         static Action* flee_chat_shortcut(PlayerbotAI* ai) { return new FleeChatShortcutAction(ai); }
+        static Action* move_behind_chat_shortcut(PlayerbotAI* ai) { return new MoveBehindChatShortcutAction(ai); }
         static Action* runaway_chat_shortcut(PlayerbotAI* ai) { return new GoawayChatShortcutAction(ai); }
         static Action* stay_chat_shortcut(PlayerbotAI* ai) { return new StayChatShortcutAction(ai); }
         static Action* follow_chat_shortcut(PlayerbotAI* ai) { return new FollowChatShortcutAction(ai); }
         static Action* gb(PlayerbotAI* ai) { return new GuildBankAction(ai); }
         static Action* bank(PlayerbotAI* ai) { return new BankAction(ai); }
         static Action* help(PlayerbotAI* ai) { return new HelpAction(ai); }
-        static Action* buff(PlayerbotAI* ai) { return new BuffAction(ai); }
+        static Action* inventory(PlayerbotAI* ai) { return new BuffAction(ai); }
+        static Action* buff(PlayerbotAI* ai) { return new UseConsumableAction(ai); }
+        static Action* enhance(PlayerbotAI* ai) { return new UseEnhancementAction(ai); }
         static Action* destroy(PlayerbotAI* ai) { return new DestroyItemAction(ai); }
         static Action* home(PlayerbotAI* ai) { return new SetHomeAction(ai); }
         static Action* chat(PlayerbotAI* ai) { return new ChangeChatAction(ai); }

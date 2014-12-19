@@ -208,6 +208,16 @@ namespace ai
 		}
 	};
 
+	class CastCreateSoulstoneAction : public CastBuffSpellAction
+	{
+	public:
+		CastCreateSoulstoneAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "create soulstone") {}
+		virtual bool isUseful()
+		{
+			return AI_VALUE2(uint8, "item count", "soul shard") > 0;
+		}
+	};
+
     class CastDemonicEmpowermentAction : public CastBuffSpellAction
 	{
 	public:
@@ -265,17 +275,26 @@ namespace ai
         }
 	};
 
+    class CastCreateSpellstoneAction : public CastBuffSpellAction
+	{
+	public:
+		CastCreateSpellstoneAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "create spellstone") {}
+		virtual bool isUseful()
+		{
+			return AI_VALUE2(uint8, "item count", "soul shard") > 0;
+		}
+	};
+
 	class CastCreateFirestoneAction : public CastBuffSpellAction
 	{
 	public:
 		CastCreateFirestoneAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "create firestone") {}
+		virtual bool isUseful()
+		{
+			return AI_VALUE2(uint8, "item count", "soul shard") > 0;
+		}
 	};
 
-	class CastCreateSpellstoneAction : public CastBuffSpellAction
-	{
-	public:
-		CastCreateSpellstoneAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "create spellstone") {}
-	};
 
     class CastSoulShatterAction : public CastBuffSpellAction
 	{

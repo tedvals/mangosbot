@@ -11,14 +11,6 @@ namespace ai
     DEBUFF_TRIGGER(PremeditationTrigger, "premeditation","premeditation");
     DEBUFF_TRIGGER(HungerForBloodTrigger, "hunger for blood","hunger for blood");
 
-    class PoisonWeaponTrigger : public BuffTrigger {
-    public:
-        PoisonWeaponTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "instant poison") {}
-        virtual bool IsActive();
-    private:
-        static list<string> spells;
-    };
-
     class KickInterruptSpellTrigger : public InterruptSpellTrigger
     {
     public:

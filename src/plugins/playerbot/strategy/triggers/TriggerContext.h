@@ -93,6 +93,9 @@ namespace ai
             creators["no drink"] = &TriggerContext::no_drink;
             creators["no food"] = &TriggerContext::no_food;
 
+            creators["mainhand not enhanced"] = &TriggerContext::Mainhand_not_enhanced;
+            creators["offhand not enhanced"] = &TriggerContext::Offhand_not_enhanced;
+
             creators["panic"] = &TriggerContext::panic;
             creators["behind target"] = &TriggerContext::behind_target;
             creators["not facing target"] = &TriggerContext::not_facing_target;
@@ -190,6 +193,8 @@ namespace ai
         static Trigger* ComboPointAvailable(PlayerbotAI* ai) { return new ComboPointAvailableTrigger(ai); }
         static Trigger* MediumThreat(PlayerbotAI* ai) { return new MediumThreatTrigger(ai); }
         static Trigger* Dead(PlayerbotAI* ai) { return new DeadTrigger(ai); }
+        static Trigger* Mainhand_not_enhanced(PlayerbotAI* ai) { return new MainhandEnhanceTrigger(ai); }
+        static Trigger* Offhand_not_enhanced(PlayerbotAI* ai) { return new OffhandEnhanceTrigger(ai); }
         static Trigger* Rooted(PlayerbotAI* ai) { return new RootedTrigger(ai); }
         static Trigger* Frozen(PlayerbotAI* ai) { return new FrozenTrigger(ai); }
         static Trigger* Snared(PlayerbotAI* ai) { return new SnaredTrigger(ai); }

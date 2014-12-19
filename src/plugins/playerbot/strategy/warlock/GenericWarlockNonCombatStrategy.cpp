@@ -56,6 +56,10 @@ void GenericWarlockNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trig
 		NextAction::array(0, new NextAction("create spellstone", 13.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
+		"no soulstone",
+		NextAction::array(0, new NextAction("create soulstone", 13.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "spellstone",
         NextAction::array(0, new NextAction("spellstone", 13.0f), NULL)));
 }

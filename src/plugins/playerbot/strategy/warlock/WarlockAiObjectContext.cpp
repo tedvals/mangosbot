@@ -84,6 +84,7 @@ namespace ai
                 creators["no healthstone"] = &TriggerFactoryInternal::HasHealthstone;
                 creators["no firestone"] = &TriggerFactoryInternal::HasFirestone;
                 creators["no spellstone"] = &TriggerFactoryInternal::HasSpellstone;
+                creators["no soulstone"] = &TriggerFactoryInternal::HasSoulstone;
                 creators["no corruption"] = &TriggerFactoryInternal::corruption;
                 creators["corruption on attacker"] = &TriggerFactoryInternal::corruption_on_attacker;
                 creators["curse of agony on attacker"] = &TriggerFactoryInternal::curse_of_agony_on_attacker;
@@ -106,6 +107,7 @@ namespace ai
             static Trigger* HasHealthstone(PlayerbotAI* ai) { return new HasHealthstoneTrigger(ai); }
             static Trigger* HasFirestone(PlayerbotAI* ai) { return new HasFirestoneTrigger(ai); }
             static Trigger* HasSpellstone(PlayerbotAI* ai) { return new HasSpellstoneTrigger(ai); }
+            static Trigger* HasSoulstone(PlayerbotAI* ai) { return new HasSoulstoneTrigger(ai); }
             static Trigger* corruption(PlayerbotAI* ai) { return new WarlockNoCorruptionTrigger(ai); }
             static Trigger* corruption_on_attacker(PlayerbotAI* ai) { return new CorruptionOnAttackerTrigger(ai); }
             static Trigger* curse_of_agony_on_attacker(PlayerbotAI* ai) { return new CurseOfAgonyOnAttackerTrigger(ai); }
@@ -138,6 +140,7 @@ namespace ai
                 creators["create healthstone"] = &AiObjectContextInternal::create_healthstone;
                 creators["create firestone"] = &AiObjectContextInternal::create_firestone;
                 creators["create spellstone"] = &AiObjectContextInternal::create_spellstone;
+                creators["create soulstone"] = &AiObjectContextInternal::create_soulstone;
                 creators["spellstone"] = &AiObjectContextInternal::spellstone;
                 creators["summon voidwalker"] = &AiObjectContextInternal::summon_voidwalker;
                 creators["summon felguard"] = &AiObjectContextInternal::summon_felguard;
@@ -194,6 +197,7 @@ namespace ai
             static Action* create_healthstone(PlayerbotAI* ai) { return new CastCreateHealthstoneAction(ai); }
             static Action* create_firestone(PlayerbotAI* ai) { return new CastCreateFirestoneAction(ai); }
             static Action* create_spellstone(PlayerbotAI* ai) { return new CastCreateSpellstoneAction(ai); }
+            static Action* create_soulstone(PlayerbotAI* ai) { return new CastCreateSoulstoneAction(ai); }
             static Action* spellstone(PlayerbotAI* ai) { return new UseSpellItemAction(ai, "spellstone", true); }
             static Action* summon_voidwalker(PlayerbotAI* ai) { return new CastSummonVoidwalkerAction(ai); }
             static Action* summon_succubus(PlayerbotAI* ai) { return new CastSummonSuccubusAction(ai); }

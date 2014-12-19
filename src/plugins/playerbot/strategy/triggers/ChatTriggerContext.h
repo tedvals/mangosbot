@@ -49,6 +49,8 @@ namespace ai
             creators["destroy"] = &ChatTriggerContext::destroy;
             creators["emote"] = &ChatTriggerContext::emote;
             creators["buff"] = &ChatTriggerContext::buff;
+            creators["enhance"] = &ChatTriggerContext::enhance;
+            creators["inventory"] = &ChatTriggerContext::inventory;
             creators["help"] = &ChatTriggerContext::help;
             creators["gb"] = &ChatTriggerContext::gb;
             creators["bank"] = &ChatTriggerContext::bank;
@@ -64,7 +66,7 @@ namespace ai
             creators["rti"] = &ChatTriggerContext::rti;
             creators["revive"] = &ChatTriggerContext::revive;
             creators["runaway"] = &ChatTriggerContext::runaway;
-            creators["get behind"] = &ChatTriggerContext::get_behind;
+            creators["move behind"] = &ChatTriggerContext::move_behind;
             creators["warning"] = &ChatTriggerContext::warning;
             creators["position"] = &ChatTriggerContext::position;
             creators["summon"] = &ChatTriggerContext::summon;
@@ -95,11 +97,13 @@ namespace ai
         static Trigger* tank_attack(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "tank attack"); }
         static Trigger* stay(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "stay"); }
         static Trigger* follow(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "follow"); }
-        static Trigger* get_behind(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "get behind"); }
+        static Trigger* move_behind(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "move behind"); }
         static Trigger* gb(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "gb"); }
         static Trigger* bank(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "bank"); }
         static Trigger* help(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "help"); }
         static Trigger* buff(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "buff"); }
+        static Trigger* enhance(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "enhance"); }
+        static Trigger* inventory(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "inventory"); }
         static Trigger* emote(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "emote"); }
         static Trigger* destroy(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "destroy"); }
         static Trigger* home(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "home"); }

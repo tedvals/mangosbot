@@ -17,6 +17,13 @@ namespace ai
         virtual bool IsActive();
     };
 
+    class SoulstoneTrigger : public BuffTrigger
+    {
+    public:
+        SoulstoneTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "spellstone") {}
+        virtual bool IsActive();
+    };
+
     //BEGIN_TRIGGER(WarlockNoCurseTrigger, Trigger)
     //END_TRIGGER()
 
@@ -127,6 +134,12 @@ namespace ai
     {
     public:
         HasHealthstoneTrigger(PlayerbotAI* ai) : WarlockConjuredItemTrigger(ai, "healthstone") {}
+    };
+
+    class HasSoulstoneTrigger : public WarlockConjuredItemTrigger
+    {
+    public:
+        HasSoulstoneTrigger(PlayerbotAI* ai) : WarlockConjuredItemTrigger(ai, "soulstone") {}
     };
 
     class FearTrigger : public HasCcTargetTrigger

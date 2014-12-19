@@ -573,6 +573,24 @@ namespace ai
         virtual bool IsActive();
     };
 
+    class MainhandEnhanceTrigger : public Trigger
+    {
+    public:
+        MainhandEnhanceTrigger(PlayerbotAI* ai) : Trigger(ai, "mainhand not enhanced") {}
+
+    public:
+        virtual bool IsActive();
+    };
+
+    class OffhandEnhanceTrigger : public Trigger
+    {
+    public:
+        OffhandEnhanceTrigger(PlayerbotAI* ai) : Trigger(ai, "offhand not enhanced") {}
+
+    public:
+        virtual bool IsActive();
+    };
+
     class TargetChangedTrigger : public Trigger
     {
     public:

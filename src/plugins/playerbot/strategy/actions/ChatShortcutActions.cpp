@@ -23,7 +23,7 @@ bool FollowChatShortcutAction::Execute(Event event)
     return true;
 }
 
-bool GetBehindChatShortcutAction::Execute(Event event)
+bool MoveBehindChatShortcutAction::Execute(Event event)
 {
     Player* master = GetMaster();
     if (!master)

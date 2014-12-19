@@ -34,6 +34,7 @@
 #include "IsMovingValue.h"
 #include "IsBehindValue.h"
 #include "IsFacingValue.h"
+#include "IsWeaponEnhancedValue.h"
 #include "ItemCountValue.h"
 #include "SpellIdValue.h"
 #include "ItemForSpellValue.h"
@@ -145,6 +146,9 @@ namespace ai
             creators["behind"] = &ValueContext::behind;
             creators["facing"] = &ValueContext::facing;
 
+            creators["mainhand enhanced"] = &ValueContext::mainhand_enhanced;
+            creators["offhand enhanced"] = &ValueContext::offhand_enhanced;
+
             creators["item count"] = &ValueContext::item_count;
             creators["inventory items"] = &ValueContext::inventory_item;
 
@@ -198,6 +202,8 @@ namespace ai
         static UntypedValue* behind(PlayerbotAI* ai) { return new IsBehindValue(ai); }
         static UntypedValue* facing(PlayerbotAI* ai) { return new IsFacingValue(ai); }
         static UntypedValue* moving(PlayerbotAI* ai) { return new IsMovingValue(ai); }
+        static UntypedValue* mainhand_enhanced(PlayerbotAI* ai) { return new IsMainhandEnhancedValue(ai); }
+        static UntypedValue* offhand_enhanced(PlayerbotAI* ai) { return new IsOffhandEnhancedValue(ai); }
         static UntypedValue* swimming(PlayerbotAI* ai) { return new IsSwimmingValue(ai); }
         static UntypedValue* distance(PlayerbotAI* ai) { return new DistanceValue(ai); }
         static UntypedValue* last_movement(PlayerbotAI* ai) { return new LastMovementValue(ai); }

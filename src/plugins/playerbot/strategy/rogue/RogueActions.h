@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../actions/GenericActions.h"
+#include "../actions/UseItemAction.h"
 #include "RogueComboActions.h"
 #include "RogueOpeningActions.h"
 #include "RogueFinishingActions.h"
@@ -142,29 +143,64 @@ namespace ai
         CastKickOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "kick") {}
     };
 
-    class CastInstantPoisonAction : public CastEnchantItemAction {
+    class UseInstantPoisonMainhandAction : public UseItemAction
+    {
     public:
-        CastInstantPoisonAction(PlayerbotAI* ai) : CastEnchantItemAction(ai, "instant poison") {}
+        UseInstantPoisonMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "instant poison mainhand") {setTargetMainhand();}
     };
 
-    class CastWoundPoisonAction : public CastEnchantItemAction {
+    class UseInstantPoisonOffhandAction : public UseItemAction
+    {
     public:
-        CastWoundPoisonAction(PlayerbotAI* ai) : CastEnchantItemAction(ai, "wound poison") {}
+        UseInstantPoisonOffhandAction(PlayerbotAI* ai) : UseItemAction(ai, "instant poison offhand") {setTargetOffhand();}
     };
 
-    class CastMindNumbingPoisonAction : public CastEnchantItemAction {
+    class UseDeadlyPoisonMainhandAction : public UseItemAction
+    {
     public:
-        CastMindNumbingPoisonAction(PlayerbotAI* ai) : CastEnchantItemAction(ai, "mind-numbing poison") {}
+        UseDeadlyPoisonMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "deadly poison mainhand") {setTargetMainhand();}
     };
 
-    class CastCripplingPoisonAction : public CastEnchantItemAction {
+    class UseDeadlyPoisonOffhandAction : public UseItemAction
+    {
     public:
-        CastCripplingPoisonAction(PlayerbotAI* ai) : CastEnchantItemAction(ai, "crippling poison") {}
+        UseDeadlyPoisonOffhandAction(PlayerbotAI* ai) : UseItemAction(ai, "deadly poison offhand") {setTargetOffhand();}
     };
 
-    class CastDeadlyPoisonAction : public CastEnchantItemAction {
+    class UseWoundPoisonMainhandAction : public UseItemAction
+    {
     public:
-        CastDeadlyPoisonAction(PlayerbotAI* ai) : CastEnchantItemAction(ai, "deadly poison") {}
+        UseWoundPoisonMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "wound poison mainhand") {setTargetMainhand();}
+    };
+
+    class UseWoundPoisonOffhandAction : public UseItemAction
+    {
+    public:
+        UseWoundPoisonOffhandAction(PlayerbotAI* ai) : UseItemAction(ai, "wound poison offhand") {setTargetOffhand();}
+    };
+
+    class UseCripplingPoisonMainhandAction : public UseItemAction
+    {
+    public:
+        UseCripplingPoisonMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "crippling poison mainhand") {setTargetMainhand();}
+    };
+
+    class UseCripplingPoisonOffhandAction : public UseItemAction
+    {
+    public:
+        UseCripplingPoisonOffhandAction(PlayerbotAI* ai) : UseItemAction(ai, "crippling poison offhand") {setTargetOffhand();}
+    };
+
+    class UseMindNumbingPoisonMainhandAction : public UseItemAction
+    {
+    public:
+        UseMindNumbingPoisonMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "mind-numbing poison mainhand") {setTargetMainhand();}
+    };
+
+    class UseMindNumbingPoisonOffhandAction : public UseItemAction
+    {
+    public:
+        UseMindNumbingPoisonOffhandAction(PlayerbotAI* ai) : UseItemAction(ai, "mind-numbing poison offhand") {setTargetOffhand();}
     };
 
 }

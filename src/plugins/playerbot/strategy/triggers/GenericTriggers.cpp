@@ -256,6 +256,16 @@ bool HasNearestAddsTrigger::IsActive()
     return targets.size();
 }
 
+bool MainhandEnhanceTrigger::IsActive()
+{
+    return !AI_VALUE2(bool, "mainhand enhanced", "self target");
+}
+
+bool OffhandEnhanceTrigger::IsActive()
+{
+    return !AI_VALUE2(bool, "offhand enhanced", "self target");
+}
+
 bool HasItemForSpellTrigger::IsActive()
 {
 	string spell = getName();
