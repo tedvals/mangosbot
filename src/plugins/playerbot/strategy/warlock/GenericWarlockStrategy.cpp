@@ -108,4 +108,8 @@ void GenericWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "fear",
         NextAction::array(0, new NextAction("fear on cc", 20.0f), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "lose aggro",
+        NextAction::array(0, new NextAction("bandage", ACTION_EMERGENCY), NULL)));
+
 }

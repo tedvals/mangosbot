@@ -38,7 +38,7 @@ private:
     {
         return new ActionNode ("melee",
             /*P*/ NextAction::array(0, new NextAction("charge"), NULL),
-            /*A*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* charge(PlayerbotAI* ai)
@@ -85,7 +85,7 @@ DpsWarriorStrategy::DpsWarriorStrategy(PlayerbotAI* ai) : GenericWarriorStrategy
 
 NextAction** DpsWarriorStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("heroic strike", ACTION_NORMAL + 1), NULL);
+    return NextAction::array(0, new NextAction("overpower", ACTION_NORMAL + 5), new NextAction("heroic strike", ACTION_NORMAL + 1), NULL);
 }
 
 void DpsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -116,10 +116,13 @@ void DpsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "rooted",
         NextAction::array(0, new NextAction("heroic throw", ACTION_MOVE + 10), NULL)));
 
-
     triggers.push_back(new TriggerNode(
         "target fleeing",
         NextAction::array(0, new NextAction("hamstring", ACTION_HIGH + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "target critical health",
+        NextAction::array(0, new NextAction("execute", ACTION_HIGH + 4), NULL)));
 }
 
 
@@ -138,7 +141,6 @@ public:
         creators["charge"] = &charge;
         creators["rend"] = &rend;
         creators["mocking blow"] = &mocking_blow;
-        creators["execute"] = &execute;
         creators["slam"] = &slam;
 
     }
@@ -146,14 +148,14 @@ private:
     static ActionNode* overpower(PlayerbotAI* ai)
     {
         return new ActionNode ("overpower",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
+            /*P*/ NextAction::array(0, new NextAction("battle stance"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("heroic strike"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* mortal_strike(PlayerbotAI* ai)
     {
         return new ActionNode ("mortal strike",
-            /*P*/ NextAction::array(0, new NextAction("battle stance"), NULL),
+            /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("slam"), NULL),
             /*C*/ NULL);
     }
@@ -206,13 +208,6 @@ private:
             /*A*/ NextAction::array(0, NULL),
             /*C*/ NULL);
     }
-    static ActionNode* execute(PlayerbotAI* ai)
-    {
-        return new ActionNode ("execute",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("heroic strike"), NULL),
-            /*C*/ NULL);
-    }
 
 };
 
@@ -223,7 +218,7 @@ DpsArmsWarriorStrategy::DpsArmsWarriorStrategy(PlayerbotAI* ai) : GenericWarrior
 
 NextAction** DpsArmsWarriorStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("overpower", ACTION_NORMAL + 5), new NextAction("mortal strike", ACTION_NORMAL + 4), new NextAction("slam", ACTION_NORMAL), NULL);
+    return NextAction::array(0, new NextAction("overpower", ACTION_NORMAL + 5), new NextAction("mortal strike", ACTION_NORMAL + 2), NULL);
 }
 
 void DpsArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -235,8 +230,12 @@ void DpsArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("rend", ACTION_NORMAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "rend on attacker",
-        NextAction::array(0, new NextAction("rend on attacker", ACTION_HIGH + 1), NULL)));
+        "rend",
+        NextAction::array(0, new NextAction("rend", ACTION_NORMAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "overpower",
+        NextAction::array(0, new NextAction("overpower", ACTION_HIGH + 5), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"hamstring",
@@ -261,10 +260,6 @@ void DpsArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
         NextAction::array(0, new NextAction("charge", ACTION_NORMAL + 9), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "target critical health",
-        NextAction::array(0, new NextAction("execute", ACTION_HIGH + 4), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"victory rush",
@@ -355,7 +350,6 @@ NextAction** DpsFuryWarriorStrategy::getDefaultActions()
 void DpsFuryWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericWarriorStrategy::InitTriggers(triggers);
-
 
     triggers.push_back(new TriggerNode(
         "target critical health",

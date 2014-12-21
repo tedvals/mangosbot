@@ -43,6 +43,7 @@ namespace ai
             creators["stoneform"] = &ActionContext::stoneform;
             creators["end pull"] = &ActionContext::end_pull;
             creators["healthstone"] = &ActionContext::healthstone;
+            creators["bandage"] = &ActionContext::bandage;
             creators["healing potion"] = &ActionContext::healing_potion;
             creators["mana potion"] = &ActionContext::mana_potion;
             creators["food"] = &ActionContext::food;
@@ -120,6 +121,7 @@ namespace ai
         static Action* tank_assist(PlayerbotAI* ai) { return new TankAssistAction(ai); }
         static Action* drink(PlayerbotAI* ai) { return new DrinkAction(ai); }
         static Action* food(PlayerbotAI* ai) { return new EatAction(ai); }
+        static Action* bandage(PlayerbotAI* ai) { return new BandageAction(ai); }
         static Action* mana_potion(PlayerbotAI* ai) { return new UseManaPotion(ai); }
         static Action* healing_potion(PlayerbotAI* ai) { return new UseHealingPotion(ai); }
         static Action* healthstone(PlayerbotAI* ai) { return new UseItemAction(ai, "healthstone"); }

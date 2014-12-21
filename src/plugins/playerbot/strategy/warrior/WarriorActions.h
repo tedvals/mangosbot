@@ -313,6 +313,14 @@ namespace ai
 		CastInterveneOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "intervene") {}
 	};
 
+    class CastVigilanceOnMasterAction : public BuffOnPartyAction
+    {
+    public:
+        CastVigilanceOnMasterAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "vigilance") {}
+        virtual string getName() { return "vigilance on master";}
+        virtual string GetTargetName() { return "master target";}
+    };
+
 	class CastVigilanceOnPartyAction : public BuffOnPartyAction {
 	public:
 		CastVigilanceOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "vigilance") {}

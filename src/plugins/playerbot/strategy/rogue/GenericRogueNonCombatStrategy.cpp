@@ -14,6 +14,7 @@ public:
     GenericRogueNonCombatStrategyActionNodeFactory()
     {
         creators["sprint"] = &sprint;
+        creators["deadly poison offhand"] = &deadly_poison;
     }
 private:
     static ActionNode* sprint(PlayerbotAI* ai)
@@ -21,6 +22,13 @@ private:
         return new ActionNode ("sprint",
             /*P*/ NULL,
             /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* deadly_poison(PlayerbotAI* ai)
+    {
+        return new ActionNode ("deadly poison offhand",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("instant poison offhand"), NULL),
             /*C*/ NULL);
     }
 };
@@ -34,7 +42,15 @@ void GenericRogueNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
 {
     NonCombatStrategy::InitTriggers(triggers);
 
-        triggers.push_back(new TriggerNode(
+    triggers.push_back(new TriggerNode(
+        "mainhand not enhanced",
+        NextAction::array(0, new NextAction("instant poison mainhand", 21.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "offhand not enhanced",
+        NextAction::array(0, new NextAction("deadly poison offhand", 21.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "runaway",
         NextAction::array(0, new NextAction("sprint", 60.0f), NULL)));
 }
@@ -45,7 +61,7 @@ public:
     GenericRogueNonCombatStealthStrategyActionNodeFactory()
     {
         creators["stealth"] = &stealth;
-        creators["deadly poison"] = &deadly_poison;
+        creators["wound poison offhand"] = &wound_poison;
     }
 private:
     static ActionNode* stealth(PlayerbotAI* ai)
@@ -55,11 +71,18 @@ private:
             /*A*/ NULL,
             /*C*/ NULL);
     }
-    static ActionNode* deadly_poison(PlayerbotAI* ai)
+    static ActionNode* sprint(PlayerbotAI* ai)
     {
-        return new ActionNode ("deadly poison",
+        return new ActionNode ("sprint",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("instant poison"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* wound_poison(PlayerbotAI* ai)
+    {
+        return new ActionNode ("wound poison offhand",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("instant poison offhand"), NULL),
             /*C*/ NULL);
     }
 };
@@ -79,10 +102,10 @@ void GenericRogueNonCombatStealthStrategy::InitTriggers(std::list<TriggerNode*> 
 
     triggers.push_back(new TriggerNode(
         "mainhand not enhanced",
-        NextAction::array(0, new NextAction("instant poison", 21.0f), NULL)));
+        NextAction::array(0, new NextAction("crippling poison mainhand", 21.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "offhand not enhanced",
-        NextAction::array(0, new NextAction("deadly poison", 21.0f), NULL)));
+        NextAction::array(0, new NextAction("wound poison offhand", 21.0f), NULL)));
 }
 

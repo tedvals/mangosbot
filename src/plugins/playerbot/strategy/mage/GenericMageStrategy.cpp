@@ -162,4 +162,8 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
      triggers.push_back(new TriggerNode(
         "boost",
         NextAction::array(0, new NextAction("icy veins", 50.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "lose aggro",
+        NextAction::array(0, new NextAction("bandage", ACTION_EMERGENCY), NULL)));
 }

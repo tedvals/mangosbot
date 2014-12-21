@@ -20,6 +20,7 @@ public:
         creators["move to loot"] = &move_to_loot;
         creators["food"] = &food;
         creators["drink"] = &drink;
+        creators["bandage"] = &bandage;
         creators["mana potion"] = &mana_potion;
         creators["healing potion"] = &healing_potion;
         creators["flee"] = &flee;
@@ -78,6 +79,13 @@ private:
     static ActionNode* drink(PlayerbotAI* ai)
     {
         return new ActionNode ("drink",
+            /*P*/ NULL,
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* bandage(PlayerbotAI* ai)
+    {
+        return new ActionNode ("bandage",
             /*P*/ NULL,
             /*A*/ NULL,
             /*C*/ NULL);

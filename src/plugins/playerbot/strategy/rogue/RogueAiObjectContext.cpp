@@ -101,6 +101,7 @@ namespace ai
                 creators["rupture"] = &AiObjectContextInternal::rupture;
                 creators["slice and dice"] = &AiObjectContextInternal::slice_and_dice;
                 creators["eviscerate"] = &AiObjectContextInternal::eviscerate;
+                creators["envenom"] = &AiObjectContextInternal::envenom;
                 creators["vanish"] = &AiObjectContextInternal::vanish;
                 creators["evasion"] = &AiObjectContextInternal::evasion;
                 creators["kick"] = &AiObjectContextInternal::kick;
@@ -150,6 +151,7 @@ namespace ai
             static Action* rupture(PlayerbotAI* ai) { return new CastRuptureAction(ai); }
             static Action* slice_and_dice(PlayerbotAI* ai) { return new CastSliceAndDiceAction(ai); }
             static Action* eviscerate(PlayerbotAI* ai) { return new CastEviscerateAction(ai); }
+            static Action* envenom(PlayerbotAI* ai) { return new CastEnvenomAction(ai); }
             static Action* vanish(PlayerbotAI* ai) { return new CastVanishAction(ai); }
             static Action* evasion(PlayerbotAI* ai) { return new CastEvasionAction(ai); }
             static Action* kick(PlayerbotAI* ai) { return new CastKickAction(ai); }

@@ -72,6 +72,7 @@ namespace ai
                 creators["rend"] = &TriggerFactoryInternal::rend;
                 creators["demoralizing shout"] = &TriggerFactoryInternal::demoralizing_shout;
                 creators["rend on attacker"] = &TriggerFactoryInternal::rend_on_attacker;
+                creators["vigilance on master"] = &TriggerFactoryInternal::vigilance_on_master;
                 creators["bloodrage"] = &TriggerFactoryInternal::bloodrage;
                 creators["shield bash"] = &TriggerFactoryInternal::shield_bash;
                 creators["disarm"] = &TriggerFactoryInternal::disarm;
@@ -91,6 +92,7 @@ namespace ai
             static Trigger* demoralizing_shout(PlayerbotAI* ai) { return new DemoralizingShoutDebuffTrigger(ai); }
             static Trigger* rend(PlayerbotAI* ai) { return new RendDebuffTrigger(ai); }
             static Trigger* rend_on_attacker(PlayerbotAI* ai) { return new RendDebuffOnAttackerTrigger(ai); }
+            static Trigger* vigilance_on_master(PlayerbotAI* ai) { return new VigilanceOnMasterTrigger(ai); }
             static Trigger* bloodrage(PlayerbotAI* ai) { return new BloodrageDebuffTrigger(ai); }
             static Trigger* shield_bash(PlayerbotAI* ai) { return new ShieldBashInterruptSpellTrigger(ai); }
             static Trigger* disarm(PlayerbotAI* ai) { return new DisarmDebuffTrigger(ai); }
@@ -151,6 +153,7 @@ namespace ai
                 creators["shockwave"] = &AiObjectContextInternal::shockwave;
                 creators["cleave"] = &AiObjectContextInternal::cleave;
                 creators["intervene on party"] = &AiObjectContextInternal::intervene_on_party;
+                creators["vigilance on master"] = &AiObjectContextInternal::vigilance_on_master;
                 creators["vigilance on party"] = &AiObjectContextInternal::vigilance_on_party;
                 creators["heroic fury"] = &AiObjectContextInternal::heroic_fury;
                 creators["whirlwind"] = &AiObjectContextInternal::whirlwind;
@@ -204,6 +207,7 @@ namespace ai
             static Action* shield_wall(PlayerbotAI* ai) { return new CastShieldWallAction(ai); }
             static Action* battle_shout(PlayerbotAI* ai) { return new CastBattleShoutAction(ai); }
             static Action* thunder_clap(PlayerbotAI* ai) { return new CastThunderClapAction(ai); }
+            static Action* vigilance_on_master(PlayerbotAI* ai) { return new CastVigilanceOnMasterAction(ai); }
             static Action* intervene_on_party(PlayerbotAI* ai) { return new CastInterveneOnPartyAction(ai); }
             static Action* vigilance_on_party(PlayerbotAI* ai) { return new CastVigilanceOnPartyAction(ai); }
             static Action* heroic_fury(PlayerbotAI* ai) { return new CastHeroicFuryAction(ai); }

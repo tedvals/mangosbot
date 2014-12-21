@@ -146,61 +146,61 @@ namespace ai
     class UseInstantPoisonMainhandAction : public UseItemAction
     {
     public:
-        UseInstantPoisonMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "instant poison mainhand") {setTargetMainhand();}
+        UseInstantPoisonMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "instant poison") {setTargetMainhand();}
     };
 
     class UseInstantPoisonOffhandAction : public UseItemAction
     {
     public:
-        UseInstantPoisonOffhandAction(PlayerbotAI* ai) : UseItemAction(ai, "instant poison offhand") {setTargetOffhand();}
+        UseInstantPoisonOffhandAction(PlayerbotAI* ai) : UseItemAction(ai, "instant poison") {setTargetOffhand();}
     };
 
     class UseDeadlyPoisonMainhandAction : public UseItemAction
     {
     public:
-        UseDeadlyPoisonMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "deadly poison mainhand") {setTargetMainhand();}
+        UseDeadlyPoisonMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "deadly poison") {setTargetMainhand();}
     };
 
     class UseDeadlyPoisonOffhandAction : public UseItemAction
     {
     public:
-        UseDeadlyPoisonOffhandAction(PlayerbotAI* ai) : UseItemAction(ai, "deadly poison offhand") {setTargetOffhand();}
+        UseDeadlyPoisonOffhandAction(PlayerbotAI* ai) : UseItemAction(ai, "deadly poison") {setTargetOffhand();}
     };
 
     class UseWoundPoisonMainhandAction : public UseItemAction
     {
     public:
-        UseWoundPoisonMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "wound poison mainhand") {setTargetMainhand();}
+        UseWoundPoisonMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "wound poison") {setTargetMainhand();}
     };
 
     class UseWoundPoisonOffhandAction : public UseItemAction
     {
     public:
-        UseWoundPoisonOffhandAction(PlayerbotAI* ai) : UseItemAction(ai, "wound poison offhand") {setTargetOffhand();}
+        UseWoundPoisonOffhandAction(PlayerbotAI* ai) : UseItemAction(ai, "wound poison") {setTargetOffhand();}
     };
 
     class UseCripplingPoisonMainhandAction : public UseItemAction
     {
     public:
-        UseCripplingPoisonMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "crippling poison mainhand") {setTargetMainhand();}
+        UseCripplingPoisonMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "crippling poison") {setTargetMainhand();}
     };
 
     class UseCripplingPoisonOffhandAction : public UseItemAction
     {
     public:
-        UseCripplingPoisonOffhandAction(PlayerbotAI* ai) : UseItemAction(ai, "crippling poison offhand") {setTargetOffhand();}
+        UseCripplingPoisonOffhandAction(PlayerbotAI* ai) : UseItemAction(ai, "crippling poison") {setTargetOffhand();}
     };
 
     class UseMindNumbingPoisonMainhandAction : public UseItemAction
     {
     public:
-        UseMindNumbingPoisonMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "mind-numbing poison mainhand") {setTargetMainhand();}
+        UseMindNumbingPoisonMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "mind-numbing poison") {setTargetMainhand();}
     };
 
     class UseMindNumbingPoisonOffhandAction : public UseItemAction
     {
     public:
-        UseMindNumbingPoisonOffhandAction(PlayerbotAI* ai) : UseItemAction(ai, "mind-numbing poison offhand") {setTargetOffhand();}
+        UseMindNumbingPoisonOffhandAction(PlayerbotAI* ai) : UseItemAction(ai, "mind-numbing poison") {setTargetOffhand();}
     };
 
 }

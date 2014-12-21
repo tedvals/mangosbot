@@ -38,6 +38,7 @@ private:
     uint32 effectId;
 };
 
+
 class FindFoodVisitor : public FindUsableItemVisitor
 {
 public:
@@ -56,6 +57,20 @@ public:
 private:
     uint32 spellCategory;
 };
+
+
+class FindBandageVisitor : public FindUsableItemVisitor
+{
+public:
+    FindBandageVisitor(Player* bot) : FindUsableItemVisitor(bot){}
+
+    virtual bool Accept(const ItemTemplate* proto)
+    {
+        return proto->Class == ITEM_CLASS_CONSUMABLE &&
+            proto->SubClass == ITEM_SUBCLASS_BANDAGE;
+    }
+};
+
 
 void InventoryAction::IterateItems(IterateItemsVisitor* visitor, IterateItemsMask mask)
 {
@@ -231,6 +246,13 @@ list<Item*> InventoryAction::parseItems(string text)
     if (text == "mana potion")
     {
         FindPotionVisitor visitor(bot, SPELL_EFFECT_ENERGIZE);
+        IterateItems(&visitor, ITERATE_ITEMS_IN_BAGS);
+        found.insert(visitor.GetResult().begin(), visitor.GetResult().end());
+    }
+
+    if (text == "bandage")
+    {
+        FindBandageVisitor visitor(bot);
         IterateItems(&visitor, ITERATE_ITEMS_IN_BAGS);
         found.insert(visitor.GetResult().begin(), visitor.GetResult().end());
     }

@@ -77,6 +77,11 @@ namespace ai
     class CastEarthlivingWeaponAction : public CastEnchantItemAction {
     public:
         CastEarthlivingWeaponAction(PlayerbotAI* ai) : CastEnchantItemAction(ai, "earthliving weapon") {}
+
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("flametongue weapon"), NULL), CastEnchantItemAction::getAlternatives());
+        }
     };
 
     class CastRockbiterWeaponAction : public CastEnchantItemAction {
@@ -97,6 +102,11 @@ namespace ai
     class CastWindfuryWeaponAction : public CastEnchantItemAction {
     public:
         CastWindfuryWeaponAction(PlayerbotAI* ai) : CastEnchantItemAction(ai, "windfury weapon") {}
+
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("flametongue weapon"), NULL), CastEnchantItemAction::getAlternatives());
+        }
     };
 
     class CastTotemAction : public CastBuffSpellAction

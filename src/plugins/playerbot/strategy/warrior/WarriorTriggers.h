@@ -4,6 +4,7 @@
 namespace ai
 {
     BUFF_TRIGGER(BattleShoutTrigger, "battle shout", "battle shout")
+    BUFF_TRIGGER(VigilanceOnMasterTrigger, "vigilance", "vigilance on master")
 
     DEBUFF_TRIGGER(RendDebuffTrigger, "rend", "rend")
     DEBUFF_TRIGGER(DemoralizingShoutDebuffTrigger, "demoralizing shout", "demoralizing shout")

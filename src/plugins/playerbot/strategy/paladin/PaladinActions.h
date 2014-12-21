@@ -175,10 +175,18 @@ namespace ai
         virtual bool isUseful();
 	};
 
-	class CastBeaconOfLightActionOnParty : public CastSpellAction
+    class CastBeaconOfLightActionOnMaster : public BuffOnPartyAction
     {
     public:
-        CastBeaconOfLightActionOnParty(PlayerbotAI* ai) : CastSpellAction(ai, "beacon of light") {}
+        CastBeaconOfLightActionOnMaster(PlayerbotAI* ai) : BuffOnPartyAction(ai, "beacon of light") {}
+        virtual string getName() { return "beacon of light on master";}
+        virtual string GetTargetName() { return "master target";}
+    };
+
+	class CastBeaconOfLightActionOnParty : public BuffOnPartyAction
+    {
+    public:
+        CastBeaconOfLightActionOnParty(PlayerbotAI* ai) : BuffOnPartyAction(ai, "beacon of light") {}
         virtual string getName() { return "beacon of light on party";}
         virtual bool isUseful();
     };
