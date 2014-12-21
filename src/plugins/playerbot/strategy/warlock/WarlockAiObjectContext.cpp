@@ -91,6 +91,7 @@ namespace ai
                 creators["no curse"] = &TriggerFactoryInternal::curse_of_agony;
                 creators["banish"] = &TriggerFactoryInternal::banish;
                 creators["spellstone"] = &TriggerFactoryInternal::spellstone;
+                creators["soulstone on master"] = &TriggerFactoryInternal::soulstone_on_master;
                 creators["backlash"] = &TriggerFactoryInternal::backlash;
                 creators["molten core"] = &TriggerFactoryInternal::molten_core;
                 creators["decimation"] = &TriggerFactoryInternal::decimation;
@@ -108,6 +109,7 @@ namespace ai
             static Trigger* HasFirestone(PlayerbotAI* ai) { return new HasFirestoneTrigger(ai); }
             static Trigger* HasSpellstone(PlayerbotAI* ai) { return new HasSpellstoneTrigger(ai); }
             static Trigger* HasSoulstone(PlayerbotAI* ai) { return new HasSoulstoneTrigger(ai); }
+            static Trigger* soulstone_on_master(PlayerbotAI* ai) { return new SoulstoneOnMasterTrigger(ai); }
             static Trigger* corruption(PlayerbotAI* ai) { return new WarlockNoCorruptionTrigger(ai); }
             static Trigger* corruption_on_attacker(PlayerbotAI* ai) { return new CorruptionOnAttackerTrigger(ai); }
             static Trigger* curse_of_agony_on_attacker(PlayerbotAI* ai) { return new CurseOfAgonyOnAttackerTrigger(ai); }
@@ -142,6 +144,7 @@ namespace ai
                 creators["create spellstone"] = &AiObjectContextInternal::create_spellstone;
                 creators["create soulstone"] = &AiObjectContextInternal::create_soulstone;
                 creators["spellstone"] = &AiObjectContextInternal::spellstone;
+                creators["soulstone on master"] = &AiObjectContextInternal::soulstone_on_master;
                 creators["summon voidwalker"] = &AiObjectContextInternal::summon_voidwalker;
                 creators["summon felguard"] = &AiObjectContextInternal::summon_felguard;
                 creators["summon succubus"] = &AiObjectContextInternal::summon_succubus;
@@ -199,6 +202,7 @@ namespace ai
             static Action* create_spellstone(PlayerbotAI* ai) { return new CastCreateSpellstoneAction(ai); }
             static Action* create_soulstone(PlayerbotAI* ai) { return new CastCreateSoulstoneAction(ai); }
             static Action* spellstone(PlayerbotAI* ai) { return new UseSpellItemAction(ai, "spellstone", true); }
+            static Action* soulstone_on_master(PlayerbotAI* ai) { return new UseSoulstoneOnMasterAction(ai); }
             static Action* summon_voidwalker(PlayerbotAI* ai) { return new CastSummonVoidwalkerAction(ai); }
             static Action* summon_succubus(PlayerbotAI* ai) { return new CastSummonSuccubusAction(ai); }
             static Action* summon_felguard(PlayerbotAI* ai) { return new CastSummonFelguardAction(ai); }

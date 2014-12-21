@@ -244,6 +244,7 @@ namespace ai
     {
     public:
         CastPolymorphAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "polymorph") {}
+        virtual bool isUseful();
     };
 
     class CastPolymorphCcAction : public CastBuffSpellAction
@@ -252,6 +253,7 @@ namespace ai
         CastPolymorphCcAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "polymorph on cc") {}
         virtual Value<Unit*>* GetTargetValue();
         virtual bool Execute(Event event);
+        virtual bool isUseful();
     };
 
 	class CastSpellstealAction : public CastDebuffSpellAction

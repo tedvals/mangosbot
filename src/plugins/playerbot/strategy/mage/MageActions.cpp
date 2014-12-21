@@ -13,6 +13,16 @@ bool CastPolymorphCcAction::Execute(Event event)
     return ai->CastSpell("polymorph", GetTarget());
 }
 
+bool CastPolymorphAction::isUseful()
+{
+    return (AI_VALUE2(uint8, "health", GetTargetName()) == 100);
+}
+
+bool CastPolymorphCcAction::isUseful()
+{
+    return (AI_VALUE2(uint8, "health", GetTargetName()) == 100);
+}
+
 bool CastScorchAction::isUseful()
 {
     return !ai->HasAnyAuraOf(GetTarget(), "shadow mastery", "improved scorch", NULL);

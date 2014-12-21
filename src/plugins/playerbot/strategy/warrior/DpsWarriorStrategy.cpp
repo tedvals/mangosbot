@@ -38,21 +38,21 @@ private:
     {
         return new ActionNode ("melee",
             /*P*/ NextAction::array(0, new NextAction("charge"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* charge(PlayerbotAI* ai)
     {
         return new ActionNode ("charge",
             /*P*/ NextAction::array(0, new NextAction("battle stance"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* intercept(PlayerbotAI* ai)
     {
         return new ActionNode ("intercept",
             /*P*/ NextAction::array(0, new NextAction("berserker stance"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* rend(PlayerbotAI* ai)
@@ -277,6 +277,9 @@ void DpsArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "boost",
         NextAction::array(0, new NextAction("recklessness", ACTION_HIGH + 2), new NextAction("bladestorm", ACTION_HIGH + 2), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "almost dead",
+        NextAction::array(0, new NextAction("bandage", ACTION_EMERGENCY), NULL)));
 }
 
 class DpsFuryWarriorStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>

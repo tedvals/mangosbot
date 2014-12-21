@@ -225,7 +225,7 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("hex", 30.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "has aggro",
+        "have aggro",
         NextAction::array(0, new NextAction("earth elemental totem", 60.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(

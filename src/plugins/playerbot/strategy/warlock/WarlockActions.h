@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../actions/GenericActions.h"
+#include "../actions/UseItemAction.h"
 
 namespace ai
 {
@@ -283,6 +284,18 @@ namespace ai
 		{
 			return AI_VALUE2(uint8, "item count", "soul shard") > 0;
 		}
+	};
+
+	class UseSoulstoneOnMasterAction : public UseItemAction
+	{
+	public:
+		UseSoulstoneOnMasterAction(PlayerbotAI* ai) : UseItemAction(ai, "soulstone",false) {}
+		virtual bool isUseful()
+	    {
+	        return !ai->HasAura("soulstone", AI_VALUE(Unit*, "master target"));
+	    }
+	    virtual string getName() { return "soulstone on master";}
+        virtual string GetTargetName() { return "master target";}
 	};
 
 	class CastCreateFirestoneAction : public CastBuffSpellAction

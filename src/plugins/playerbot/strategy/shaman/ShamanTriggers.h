@@ -110,7 +110,7 @@ namespace ai
 
         virtual bool IsActive()
         {
-            return BuffOnPartyTrigger::IsActive() && AI_VALUE2(bool, "swimming", "self target");
+            return BuffOnPartyTrigger::IsActive() && AI_VALUE2(bool, "swimming", "current target");
         }
     };
 
@@ -120,8 +120,18 @@ namespace ai
 
         virtual bool IsActive()
         {
-            return BuffOnPartyTrigger::IsActive() && AI_VALUE2(bool, "swimming", "self target");
+            return BuffOnPartyTrigger::IsActive() && AI_VALUE2(bool, "swimming", "current target");
         }
+    };
+
+    class EarthShieldOnPartyTrigger : public BuffOnPartyTrigger {
+    public:
+        EarthShieldOnPartyTrigger(PlayerbotAI* ai) : BuffOnPartyTrigger(ai, "earth shield on party") {}
+    };
+
+    class EarthShieldOnMasterTrigger : public BuffOnPartyTrigger {
+    public:
+        EarthShieldOnMasterTrigger(PlayerbotAI* ai) : BuffOnPartyTrigger(ai, "earth shield on master") {}
     };
 
     class CleanseSpiritPoisonTrigger : public NeedCureTrigger

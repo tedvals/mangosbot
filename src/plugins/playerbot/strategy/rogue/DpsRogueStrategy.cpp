@@ -50,7 +50,7 @@ private:
         return new ActionNode ("backstab",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("hemorrhage"), NULL),
-            /*C*/ NULL);
+            /*C*/ NextAction::array(0, new NextAction("move behind"), NULL));
     }
     static ActionNode* kick(PlayerbotAI* ai)
     {
@@ -193,11 +193,11 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("set facing", ACTION_NORMAL + 7), NULL)));
 
      triggers.push_back(new TriggerNode(
-        "has aggro",
+        "have aggro",
         NextAction::array(0, new NextAction("evasion", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "lose aggro",
+        "almost dead",
         NextAction::array(0, new NextAction("bandage", ACTION_EMERGENCY), NULL)));
 }
 
@@ -389,7 +389,7 @@ private:
     {
         return new ActionNode ("shadowstep",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* mutilate(PlayerbotAI* ai)
@@ -411,7 +411,7 @@ private:
         return new ActionNode ("backstab",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("hemorrhage"), NULL),
-            /*C*/ NULL);
+            /*C*/ NextAction::array(0, new NextAction("move behind"), NULL));
     }
     static ActionNode* ghostly_strike(PlayerbotAI* ai)
     {
@@ -486,7 +486,7 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("premeditation", ACTION_HIGH + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "has aggro",
+        "have aggro",
         NextAction::array(0, new NextAction("ghostly strike", ACTION_HIGH + 4), NULL)));
 
 	triggers.push_back(new TriggerNode(

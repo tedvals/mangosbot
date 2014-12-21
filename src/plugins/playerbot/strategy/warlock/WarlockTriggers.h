@@ -17,12 +17,8 @@ namespace ai
         virtual bool IsActive();
     };
 
-    class SoulstoneTrigger : public BuffTrigger
-    {
-    public:
-        SoulstoneTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "spellstone") {}
-        virtual bool IsActive();
-    };
+    BUFF_ON_PARTY_TRIGGER(SoulstoneOnMasterTrigger, "soulstone", "soulstone on master")
+
 
     //BEGIN_TRIGGER(WarlockNoCurseTrigger, Trigger)
     //END_TRIGGER()

@@ -7,6 +7,8 @@ namespace ai
     BEGIN_TRIGGER(HunterNoStingsActiveTrigger, Trigger)
     END_TRIGGER()
 
+    BUFF_ON_PARTY_TRIGGER(MisdirectionOnPartyTrigger, "misdirection", "misdirection on party")
+
     class HunterAspectOfTheHawkTrigger : public BuffTrigger
     {
     public:

@@ -47,7 +47,7 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("power word: shield on party", 50.0f), new NextAction("renew", 50.0f), new NextAction("greater heal on party", 50.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "has aggro",
+        "have aggro",
         NextAction::array(0, new NextAction("fade", 50.0f), new NextAction("psychic scream", 49.0f), NULL)));
 
     triggers.push_back(new TriggerNode(

@@ -131,6 +131,10 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "shock",
         NextAction::array(0, new NextAction("flame shock", 20.0f), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "earth shield on master",
+        NextAction::array(0, new NextAction("earth shield on master", 40.0f), NULL)));
+
 	triggers.push_back(new TriggerNode(
 		"medium aoe heal",
 		NextAction::array(0, new NextAction("chain heal", 27.0f), NULL)));
@@ -160,7 +164,7 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("healing wave on party", 25.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"loose aggro",
+		"have aggro",
 		NextAction::array(0, new NextAction("earth shield", 26.0f), NULL)));
 
     triggers.push_back(new TriggerNode(

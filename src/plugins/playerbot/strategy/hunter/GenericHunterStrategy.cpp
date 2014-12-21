@@ -19,7 +19,8 @@ public:
         creators["concussive shot"] = &concussive_shot;
         creators["disengage"] = &disengage;
         creators["intimidation"] = &intimidation;
-        creators["misdirection"] = &misdirection;
+        creators["counterstrike"] = &counterstrike;
+        creators["misdirection on party"] = &misdirection_on_party;
         creators["deterrence"] = &deterrence;
         creators["wing clip"] = &wing_clip;
     }
@@ -73,6 +74,13 @@ private:
             /*A*/ NextAction::array(0, new NextAction("scatter shot"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* counterstrike(PlayerbotAI* ai)
+    {
+        return new ActionNode ("counterstrike",
+            /*P*/ NULL,
+            /*A*/ NULL,
+            /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
+    }
     static ActionNode* disengage(PlayerbotAI* ai)
     {
         return new ActionNode ("disengage",
@@ -94,11 +102,11 @@ private:
             /*A*/ NextAction::array(0, new NextAction("flee"), NULL),
             /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
     }
-    static ActionNode* misdirection(PlayerbotAI* ai)
+    static ActionNode* misdirection_on_party(PlayerbotAI* ai)
     {
-        return new ActionNode ("misdirection",
+        return new ActionNode ("misdirection on party",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("feign death"), NULL),
+            /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("multi-shot"), NULL));
     }
     static ActionNode* deterrence(PlayerbotAI* ai)
@@ -128,20 +136,24 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("disengage", 50.0f), new NextAction("flee",49.0f), new NextAction("concussive shot", 48.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "has aggro",
+        "have aggro",
         NextAction::array(0, new NextAction("intimidation", 60.0f), new NextAction("deterrence",59.0f),NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "misdirection on party",
+        NextAction::array(0, new NextAction("misdirection on party", 60.0f), new NextAction("multi-shot",59.0f),NULL)));
 
     triggers.push_back(new TriggerNode(
         "boost",
         NextAction::array(0, new NextAction("rapid fire", 50), new NextAction("bestial wrath", 50), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "critical health",
-        NextAction::array(0, new NextAction("deterrence", 70), NULL)));
+        "counterstrike",
+        NextAction::array(0, new NextAction("counterstrike", 55), new NextAction("flee", 50), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "medium threat",
-        NextAction::array(0, new NextAction("misdirection", 52.0f), NULL)));
+        "critical health",
+        NextAction::array(0, new NextAction("deterrence", 70), NULL)));
 
     triggers.push_back(new TriggerNode(
         "has nearest adds",
@@ -172,6 +184,6 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("concussive shot", 25.0f), new NextAction("flee", 25.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "lose aggro",
+        "almost dead",
         NextAction::array(0, new NextAction("bandage", ACTION_EMERGENCY), NULL)));
 }

@@ -47,7 +47,7 @@ void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "beacon of light on master",
-        NextAction::array(0, new NextAction("beacon of light on master", 11.0f), NULL)));
+        NextAction::array(0, new NextAction("beacon of light on master",  ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member medium health",

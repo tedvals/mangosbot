@@ -91,6 +91,7 @@ namespace ai
                 creators["silencing shot on enemy healer"] = &TriggerFactoryInternal::silencing_shot_on_enemy_healer;
                 creators["concussive shot snare"] = &TriggerFactoryInternal::concussive_shot_snare;
                 creators["arcane shot on attacker"] = &TriggerFactoryInternal::arcane_shot;
+                creators["misdirection on party"] = &TriggerFactoryInternal::misdirection_on_party;
                 creators["wyvern sting"] = &TriggerFactoryInternal::wyvern_sting;
                 creators["counterstrike"] = &TriggerFactoryInternal::counterstrike;
             }
@@ -116,6 +117,7 @@ namespace ai
             static Trigger* concussive_shot_snare(PlayerbotAI* ai) { return new ConcussiveShotSnareTrigger(ai); }
             static Trigger* silencing_shot_on_enemy_healer(PlayerbotAI* ai) { return new SilencingShotEnemyHealerTrigger(ai); }
             static Trigger* arcane_shot(PlayerbotAI* ai) { return new ArcaneShotOnAttackerTrigger(ai); }
+            static Trigger* misdirection_on_party(PlayerbotAI* ai) { return new MisdirectionOnPartyTrigger(ai); }
             static Trigger* wyvern_sting(PlayerbotAI* ai) { return new WyvernStingTrigger(ai); }
             static Trigger* counterstrike(PlayerbotAI* ai) { return new CounterstrikeTrigger(ai); }
         };
@@ -146,6 +148,7 @@ namespace ai
                 creators["volley"] = &AiObjectContextInternal::volley;
                 creators["serpent sting"] = &AiObjectContextInternal::serpent_sting;
                 creators["serpent sting on attacker"] = &AiObjectContextInternal::serpent_sting_on_attacker;
+                creators["misdirection on party"] = &AiObjectContextInternal::misdirection_on_party;
                 creators["wyvern sting"] = &AiObjectContextInternal::wyvern_sting;
                 creators["wyvern sting on cc"] = &AiObjectContextInternal::wyvern_sting_on_cc;
                 creators["viper sting"] = &AiObjectContextInternal::viper_sting;
@@ -200,6 +203,7 @@ namespace ai
             static Action* volley(PlayerbotAI* ai) { return new CastVolleyAction(ai); }
             static Action* serpent_sting(PlayerbotAI* ai) { return new CastSerpentStingAction(ai); }
             static Action* serpent_sting_on_attacker(PlayerbotAI* ai) { return new CastSerpentStingOnAttackerAction(ai); }
+            static Action* misdirection_on_party(PlayerbotAI* ai) { return new CastMisdirectionOnPartyAction(ai); }
             static Action* wyvern_sting(PlayerbotAI* ai) { return new CastWyvernStingAction(ai); }
             static Action* wyvern_sting_on_cc(PlayerbotAI* ai) { return new CastWyvernStingCcAction(ai); }
             static Action* viper_sting(PlayerbotAI* ai) { return new CastViperStingAction(ai); }

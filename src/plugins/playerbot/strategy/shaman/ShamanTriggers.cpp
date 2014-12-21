@@ -9,6 +9,7 @@ list<string> ShamanWeaponTrigger::spells;
 
 bool ShamanWeaponTrigger::IsActive()
 {
+
     if (spells.empty())
     {
         spells.push_back("frostbrand weapon");
@@ -25,10 +26,16 @@ bool ShamanWeaponTrigger::IsActive()
             continue;
 
         if (AI_VALUE2(Item*, "item for spell", spellId))
-            return true;
+        {
+            if (AI_VALUE2(bool, "mainhand enhanced", "self target") &&  AI_VALUE2(bool, "offhand enhanced", "self target"))
+                return true;
+        }
     }
 
     return false;
+
+   // return SpellTrigger::IsActive()
+   //         && !ai->HasAnyAuraOf(GetTarget(), "frostbrand weapon", "rockbiter weapon", "flametongue weapon", "earthliving weapon", "windfury weapon", NULL);
 }
 
 bool ShockTrigger::IsActive()

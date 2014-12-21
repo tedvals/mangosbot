@@ -39,7 +39,7 @@ private:
     {
         return new ActionNode ("fireball",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("shoot"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("frostbolt"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* frost_nova(PlayerbotAI* ai)
@@ -53,8 +53,8 @@ private:
     {
         return new ActionNode ("cone of cold",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("flee",50), NULL),
-            /*C*/ NULL);
+            /*A*/ NextAction::array(0, new NextAction("blink",50), NULL),
+            /*C*/ NextAction::array(0, new NextAction("blink",60), NULL));
     }
     static ActionNode* blink(PlayerbotAI* ai)
     {
@@ -108,7 +108,7 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("reach spell", ACTION_NORMAL + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "has aggro",
+        "have aggro",
         NextAction::array(0, new NextAction("frost nova",49.0f), new NextAction("blink",49.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
@@ -164,6 +164,6 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("icy veins", 50.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "lose aggro",
+        "almost dead",
         NextAction::array(0, new NextAction("bandage", ACTION_EMERGENCY), NULL)));
 }

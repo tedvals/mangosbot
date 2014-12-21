@@ -37,6 +37,21 @@ namespace ai
     BEGIN_RANGED_SPELL_ACTION(CastMisdirectionAction, "misdirection")
     END_SPELL_ACTION()
 
+    class CastMisdirectionOnPartyAction : public BuffOnPartyAction
+    {
+    public:
+        CastMisdirectionOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "misdirection") {}
+        virtual bool isUseful();
+    };
+
+    class CasttMisdirectionOnMasterAction : public BuffOnPartyAction
+    {
+    public:
+        CasttMisdirectionOnMasterAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "misdirection") {}
+        virtual string getName() { return "misdirection on master";}
+        virtual string GetTargetName() { return "master target";}
+    };
+
     BEGIN_RANGED_SPELL_ACTION(CastMultiShotAction, "multi-shot")
     END_SPELL_ACTION()
 

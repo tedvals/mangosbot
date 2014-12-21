@@ -55,7 +55,7 @@ namespace ai
 
             creators["tank aoe"] = &TriggerContext::TankAoe;
             creators["lose aggro"] = &TriggerContext::LoseAggro;
-            creators["has aggro"] = &TriggerContext::HasAggro;
+            creators["have aggro"] = &TriggerContext::HasAggro;
 
             creators["no aoe"] = &TriggerContext::NoAoe;
             creators["light aoe"] = &TriggerContext::LightAoe;

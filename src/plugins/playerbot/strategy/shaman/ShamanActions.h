@@ -62,6 +62,15 @@ namespace ai
     {
     public:
         CastEarthShieldOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "earth shield") {}
+        virtual bool isUseful();
+    };
+
+    class CastEarthShieldOnMasterAction : public BuffOnPartyAction
+    {
+    public:
+        CastEarthShieldOnMasterAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "earth shield") {}
+        virtual string getName() { return "earth shield on master";}
+        virtual string GetTargetName() { return "master target";}
     };
 
     class CastWaterShieldAction : public CastBuffSpellAction {

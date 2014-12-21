@@ -41,8 +41,8 @@ void ShadowPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("vampiric embrace", 16.0f), NULL)));
 
      triggers.push_back(new TriggerNode(
-        "has aggro",
-        NextAction::array(0, new NextAction("fade", 50.0f), new NextAction("psychic scream", 49.0f), NULL)));
+        "have aggro",
+        NextAction::array(0, new NextAction("psychic scream", 49.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy too close for spell",

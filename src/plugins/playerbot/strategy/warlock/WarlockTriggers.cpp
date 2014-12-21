@@ -18,12 +18,6 @@ bool SpellstoneTrigger::IsActive()
     return BuffTrigger::IsActive() && AI_VALUE2(uint8, "item count", getName()) > 0;
 }
 
-bool SoulstoneTrigger::IsActive()
-{
-    return BuffTrigger::IsActive() && AI_VALUE2(uint8, "item count", getName()) > 0;
-}
-
-
 bool WarlockNoCurseTrigger::IsActive()
 {
 	Unit* target = AI_VALUE(Unit*, "current target");

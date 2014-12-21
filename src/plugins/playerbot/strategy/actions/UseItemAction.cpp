@@ -222,6 +222,16 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
         break;
     }
 
+    if (item->GetTemplate()->Flags & ITEM_PROTO_FLAG_OPENABLE)
+    {
+        // Open quest item in inventory, containing related items (e.g Gnarlpine necklace, containing Tallonkai's Jewel)
+        WorldPacket* const packet = new WorldPacket(CMSG_OPEN_ITEM, 2);
+        *packet << item->GetBagSlot();
+        *packet << item->GetSlot();
+        bot->GetSession()->QueuePacket(packet);           // queue the packet to get around race condition
+        return true;
+    }
+
     if (!targetSelected)
         return false;
 
@@ -232,6 +242,14 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
 
         ai->InterruptSpell();
         ai->SetNextCheckDelay(30000);
+    }
+    else
+    {
+        if (bot->IsInCombat())
+            return false;
+
+        ai->InterruptSpell();
+        ai->SetNextCheckDelay(3000);
     }
 
     ai->TellMasterNoFacing(out.str());

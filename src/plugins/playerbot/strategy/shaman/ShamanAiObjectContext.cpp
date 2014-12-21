@@ -136,6 +136,7 @@ namespace ai
             static Trigger* purge(PlayerbotAI* ai) { return new PurgeTrigger(ai); }
             static Trigger* shaman_weapon(PlayerbotAI* ai) { return new ShamanWeaponTrigger(ai); }
             static Trigger* water_shield(PlayerbotAI* ai) { return new WaterShieldTrigger(ai); }
+            static Trigger* earth_shield_on_master(PlayerbotAI* ai) { return new EarthShieldOnMasterTrigger(ai); }
             static Trigger* lightning_shield(PlayerbotAI* ai) { return new LightningShieldTrigger(ai); }
             static Trigger* shock(PlayerbotAI* ai) { return new ShockTrigger(ai); }
             static Trigger* frost_shock_snare(PlayerbotAI* ai) { return new FrostShockSnareTrigger(ai); }
@@ -181,6 +182,7 @@ namespace ai
                 creators["lesser healing wave on party"] = &AiObjectContextInternal::lesser_healing_wave_on_party;
                 creators["earth shield"] = &AiObjectContextInternal::earth_shield;
                 creators["earth shield on party"] = &AiObjectContextInternal::earth_shield_on_party;
+                creators["earth shield on master"] = &AiObjectContextInternal::earth_shield_on_master;
                 creators["chain heal"] = &AiObjectContextInternal::chain_heal;
                 creators["riptide"] = &AiObjectContextInternal::riptide;
                 creators["riptide on party"] = &AiObjectContextInternal::riptide_on_party;
@@ -264,6 +266,7 @@ namespace ai
             static Action* lesser_healing_wave_on_party(PlayerbotAI* ai) { return new CastLesserHealingWaveOnPartyAction(ai); }
             static Action* earth_shield(PlayerbotAI* ai) { return new CastEarthShieldAction(ai); }
             static Action* earth_shield_on_party(PlayerbotAI* ai) { return new CastEarthShieldOnPartyAction(ai); }
+            static Action* earth_shield_on_master(PlayerbotAI* ai) { return new CastEarthShieldOnMasterAction(ai); }
             static Action* chain_heal(PlayerbotAI* ai) { return new CastChainHealAction(ai); }
             static Action* tidal_force(PlayerbotAI* ai) { return new CastTidalForceAction(ai); }
             static Action* riptide(PlayerbotAI* ai) { return new CastRiptideAction(ai); }

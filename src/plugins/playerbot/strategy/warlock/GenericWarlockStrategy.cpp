@@ -81,11 +81,11 @@ void GenericWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("set facing", ACTION_EMERGENCY), NULL)));
 
      triggers.push_back(new TriggerNode(
-        "has aggro",
+        "medium threat",
         NextAction::array(0, new NextAction("soul shatter", 50.0f) , new NextAction("flee",49.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "almost dead",
+        "critical health",
         NextAction::array(0, new NextAction("healthstone", 40.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
@@ -109,7 +109,7 @@ void GenericWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("fear on cc", 20.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "lose aggro",
+        "almost dead",
         NextAction::array(0, new NextAction("bandage", ACTION_EMERGENCY), NULL)));
 
 }
