@@ -28,7 +28,7 @@ private:
     {
         return new ActionNode ("stealth",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
             /*C*/ NextAction::array(0, new NextAction("garrote"), NULL));
     }
     static ActionNode* garrote(PlayerbotAI* ai)
@@ -105,7 +105,7 @@ private:
     {
         return new ActionNode ("ambush",
             /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
             /*C*/ NULL);
     }
 };
@@ -123,6 +123,10 @@ NextAction** DpsRogueStrategy::getDefaultActions()
 void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     MeleeCombatStrategy::InitTriggers(triggers);
+
+    triggers.push_back(new TriggerNode(
+        "enemy out of melee",
+        NextAction::array(0, new NextAction("move behind", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
         "stealth",
@@ -282,10 +286,6 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     DpsRogueStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
-        "enemy out of melee",
-        NextAction::array(0, new NextAction("reach melee", ACTION_EMERGENCY), NULL)));
-
-    triggers.push_back(new TriggerNode(
         "garrote",
         NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY), NULL)));
 
@@ -389,7 +389,7 @@ private:
     {
         return new ActionNode ("shadowstep",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* mutilate(PlayerbotAI* ai)
@@ -447,7 +447,7 @@ private:
         return new ActionNode ("cold blood",
             /*P*/ NULL,
             /*A*/ NULL,
-            /*C*/ NextAction::array(0, new NextAction("vanish"), new NextAction("ambush"),NULL));
+            /*C*/ NextAction::array(0, new NextAction("ambush"), NULL));
     }
 };
 

@@ -60,6 +60,10 @@ void MeleeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     GenericShamanStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
+        "enemy out of melee",
+        NextAction::array(0, new NextAction("move behind", ACTION_EMERGENCY), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "shaman weapon",
         NextAction::array(0, new NextAction("windfury weapon", 22.0f), NULL)));
 
@@ -77,7 +81,7 @@ void MeleeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "not facing target",
-        NextAction::array(0, new NextAction("set facing", ACTION_NORMAL + 7), NULL)));
+        NextAction::array(0, new NextAction("set facing", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy too close for melee",
@@ -93,14 +97,14 @@ void MeleeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "maelstrom weapon",
-        NextAction::array(0, new NextAction("lightning bolt", 30.0f), NULL)));
+        NextAction::array(0, new NextAction("lightning bolt", 31.0f), NULL)));
 }
 
 void MeleeAoeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("reach melee", ACTION_NORMAL + 8), NULL)));
+        NextAction::array(0, new NextAction("move behind", ACTION_EMERGENCY + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "magma totem",

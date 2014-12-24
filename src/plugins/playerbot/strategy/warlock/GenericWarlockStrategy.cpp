@@ -64,9 +64,9 @@ void GenericWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     //    "curse of agony",
     //    NextAction::array(0, new NextAction("curse of agony", 11.0f), NULL)));
 
-  //   triggers.push_back(new TriggerNode(
-  //      "enemy too close for spell",
-  //      NextAction::array(0, new NextAction("flee", 30.0f), NULL)));
+     triggers.push_back(new TriggerNode(
+        "enemy too close for spell",
+        NextAction::array(0, new NextAction("flee", 30.0f), NULL)));
 
       triggers.push_back(new TriggerNode(
         "takes periodic damage",
