@@ -28,7 +28,7 @@ private:
     {
         return new ActionNode ("stealth",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
             /*C*/ NextAction::array(0, new NextAction("garrote"), NULL));
     }
     static ActionNode* garrote(PlayerbotAI* ai)
@@ -105,7 +105,7 @@ private:
     {
         return new ActionNode ("ambush",
             /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
             /*C*/ NULL);
     }
 };
@@ -389,7 +389,7 @@ private:
     {
         return new ActionNode ("shadowstep",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* mutilate(PlayerbotAI* ai)
@@ -447,7 +447,7 @@ private:
         return new ActionNode ("cold blood",
             /*P*/ NULL,
             /*A*/ NULL,
-            /*C*/ NextAction::array(0, new NextAction("vanish"), new NextAction("ambush"),NULL));
+            /*C*/ NextAction::array(0, new NextAction("mutilate"),NULL));
     }
 };
 

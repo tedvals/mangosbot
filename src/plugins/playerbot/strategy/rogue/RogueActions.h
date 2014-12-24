@@ -66,6 +66,11 @@ namespace ai
 	{
 	public:
 		CastVanishAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "vanish") {}
+
+		virtual bool isUseful()
+        {
+            return (AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.criticalHealth/2 || AI_VALUE2(bool, "rooted", "self target"));
+            }
 	};
 
 	class CastCloakOfShadowsAction : public CastBuffSpellAction
