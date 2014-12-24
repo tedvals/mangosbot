@@ -163,7 +163,6 @@ namespace ai
             creators["aoe heal"] = &ValueContext::aoe_heal;
 
             creators["rti"] = &ValueContext::rti;
-            creators["rti"] = &ValueContext::rti;
             creators["position"] = &ValueContext::position;
             creators["threat"] = &ValueContext::threat;
 
