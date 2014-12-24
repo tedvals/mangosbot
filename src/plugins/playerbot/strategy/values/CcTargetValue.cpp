@@ -43,7 +43,7 @@ public:
         if (!group)
             return;
 
-        if (group->GetTargetIcon(3) == creature->GetGUID())
+        if (group->GetTargetIcon(4) == creature->GetGUID())
         {
             result = creature;
             return;
@@ -127,7 +127,7 @@ public:
         if (!group)
             return;
 
-        if (group->GetTargetIcon(1) == creature->GetGUID())
+        if (group->GetTargetIcon(2) == creature->GetGUID())
         {
             result = creature;
             return;
@@ -211,7 +211,7 @@ public:
         if (!group)
             return;
 
-        if (group->GetTargetIcon(2) == creature->GetGUID())
+        if (group->GetTargetIcon(3) == creature->GetGUID())
         {
             result = creature;
             return;
@@ -295,7 +295,7 @@ public:
         if (!group)
             return;
 
-        if (group->GetTargetIcon(0) == creature->GetGUID())
+        if (group->GetTargetIcon(1) == creature->GetGUID())
         {
             result = creature;
             return;
@@ -379,7 +379,7 @@ public:
         if (!group)
             return;
 
-        if (group->GetTargetIcon(4) == creature->GetGUID())
+        if (group->GetTargetIcon(5) == creature->GetGUID())
         {
             result = creature;
             return;
@@ -463,7 +463,7 @@ public:
         if (!group)
             return;
 
-        if (group->GetTargetIcon(5) == creature->GetGUID())
+        if (group->GetTargetIcon(6) == creature->GetGUID())
         {
             result = creature;
             return;

@@ -45,7 +45,7 @@ namespace ai
 
 		virtual bool isUseful()
 	    {
-	        return AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.criticalHealth/2 && (AI_VALUE2(bool, "target elite", "current target"));
+	        return AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.criticalHealth/2 && (AI_VALUE2(bool, "target elite", "current target") || AI_VALUE2(bool, "target player", "current target"));
 	    }
 	};
 
@@ -64,7 +64,7 @@ namespace ai
 
 		virtual bool isUseful()
 	    {
-	        return AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.criticalHealth && (AI_VALUE2(bool, "target elite", "current target"));
+	        return AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.criticalHealth && (AI_VALUE2(bool, "target elite", "current target") || AI_VALUE2(bool, "target player", "current target"));
 	    }
 	};
 
