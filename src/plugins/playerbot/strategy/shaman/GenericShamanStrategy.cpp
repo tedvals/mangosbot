@@ -176,6 +176,10 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     CombatStrategy::InitTriggers(triggers);
 
+     triggers.push_back(new TriggerNode(
+        "shock",
+        NextAction::array(0, new NextAction("flame shock", 20.0f), NULL)));
+
     triggers.push_back(new TriggerNode(
         "takes periodic damage",
         NextAction::array(0, new NextAction("flee", ACTION_EMERGENCY), NULL)));
@@ -239,6 +243,14 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"bloodlust",
 		NextAction::array(0, new NextAction("bloodlust", 30.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"execute",
+		NextAction::array(0, new NextAction("earth shock", ACTION_HIGH + 9), NULL)));
+
+      triggers.push_back(new TriggerNode(
+		"target almost dead",
+		NextAction::array(0, new NextAction("earth shock", ACTION_HIGH + 8), NULL)));
 
 }
 
