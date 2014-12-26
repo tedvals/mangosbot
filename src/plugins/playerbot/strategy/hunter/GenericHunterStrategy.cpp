@@ -172,6 +172,10 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("concussive shot", 55.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "concussive shot snare",
+        NextAction::array(0, new NextAction("concussive shot", 55.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "silencing shot on enemy healer",
         NextAction::array(0, new NextAction("silencing shot on enemy healer", 40.0f), NULL)));
 

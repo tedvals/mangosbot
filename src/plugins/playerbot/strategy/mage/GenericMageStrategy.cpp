@@ -47,7 +47,7 @@ private:
         return new ActionNode ("frost nova",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("cone of cold",70), NULL),
-            /*C*/ NextAction::array(0, new NextAction("blink",70), NULL));
+            /*C*/ NULL);
     }
     static ActionNode* cone_of_cold(PlayerbotAI* ai)
     {

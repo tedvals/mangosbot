@@ -212,7 +212,6 @@ public:
         creators["kidney shot"] = &kidney_shot;
         creators["adrenaline rush"] = &adrenaline_rush;
         creators["boost"] = &adrenaline_rush;
-        creators["slice and dice"] = &slice_and_dice;
         creators["melee"] = &melee;
     }
 private:
@@ -221,13 +220,6 @@ private:
         return new ActionNode ("riposte",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("sinister strike"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* slice_and_dice(PlayerbotAI* ai)
-    {
-        return new ActionNode ("slice and dice",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("eviscerate"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* sinister_strike(PlayerbotAI* ai)
@@ -354,7 +346,6 @@ public:
         creators["envenom"] = &envenom;
         creators["boost"] = &shadow_dance;
         creators["hemorrhage"] = &hemorrhage;
-        creators["slice and dice"] = &slice_and_dice;
     }
 private:
     static ActionNode* premeditation(PlayerbotAI* ai)
@@ -367,13 +358,6 @@ private:
     static ActionNode* rupture(PlayerbotAI* ai)
     {
         return new ActionNode ("rupture",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("envenom"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* slice_and_dice(PlayerbotAI* ai)
-    {
-        return new ActionNode ("slice and dice",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("envenom"), NULL),
             /*C*/ NULL);

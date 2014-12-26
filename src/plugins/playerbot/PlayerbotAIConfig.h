@@ -24,10 +24,10 @@ public:
     bool enabled;
     bool allowGuildBots;
     uint32 globalCoolDown, reactDelay, maxWaitForMove;
-    float sightDistance, spellDistance, reactDistance, grindDistance, lootDistance,
+    float sightDistance, spellDistance, reactDistance, aggroDistance, grindDistance, lootDistance,
         fleeDistance, tooCloseDistance, meleeDistance, followDistance, whisperDistance, contactDistance;
     uint32 criticalHealth, lowHealth, mediumHealth, almostFullHealth;
-    uint32 lowMana, mediumMana;
+    uint32 lowMana, mediumMana, almostFullMana;
 
     bool randomBotAutologin;
     std::string randomBotMapsAsString;

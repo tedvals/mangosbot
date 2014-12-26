@@ -80,6 +80,9 @@ bool MovementAction::MoveTo(Unit* target, float distance)
     if (!IsMovingAllowed(target))
         return false;
 
+    bot->GetMotionMaster()->Clear();
+    bot->GetMotionMaster()->MoveChase(target);
+/*
     float bx = bot->GetPositionX();
     float by = bot->GetPositionY();
     float bz = bot->GetPositionZ();
@@ -102,6 +105,7 @@ bool MovementAction::MoveTo(Unit* target, float distance)
     float dy = sin(angle) * needToGo + by;
 
     return MoveTo(target->GetMapId(), dx, dy, tz);
+    */
 }
 
 float MovementAction::GetFollowAngle()
@@ -346,7 +350,7 @@ bool MoveRandomAction::Execute(Event event)
         }
     }
 
-    float distance = sPlayerbotAIConfig.tooCloseDistance + sPlayerbotAIConfig.grindDistance * urand(3, 10) / 10.0f;
+    float distance = sPlayerbotAIConfig.tooCloseDistance + sPlayerbotAIConfig.grindDistance * urand(5, 10) / 10.0f;
 
     Map* map = bot->GetMap();
     if (target)

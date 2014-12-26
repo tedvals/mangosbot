@@ -39,6 +39,7 @@ namespace ai
 
     public:
         bool isReasonable();
+        bool isBetterByDistance(FleePoint* other);
         bool isBetterByCreatures(FleePoint* other);
         bool isBetterByAll(FleePoint* other);
 
@@ -47,6 +48,7 @@ namespace ai
 		float y;
 		float z;
 
+        RangePair toDestination;
 		RangePair toCreatures;
 		RangePair toAllPlayers;
 		RangePair toMeleePlayers;
@@ -69,6 +71,7 @@ namespace ai
 		void calculatePossibleDestinations(list<FleePoint*> &points);
 		void calculateDistanceToPlayers(FleePoint *point);
 		void calculateDistanceToCreatures(FleePoint *point);
+		void calculateDistanceToDestination(FleePoint *point);
 		void cleanup(list<FleePoint*> &points);
 		FleePoint* selectOptimalDestination(list<FleePoint*> &points);
 		bool isReasonable(FleePoint* point);

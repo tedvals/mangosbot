@@ -56,6 +56,14 @@ void FleeManager::calculateDistanceToCreatures(FleePoint *point)
 	}
 }
 
+void FleeManager::calculateDistanceToDestination(FleePoint *point)
+{
+    RangePair &distance = point->toDestination;
+
+	float d = bot->GetDistance(point->x, point->y, point->z);
+    distance.probe(d);
+}
+
 void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 {
 	float botPosX = bot->GetPositionX();
@@ -66,6 +74,12 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 	{
         for (float angle = -M_PI + followAngle; angle < M_PI + followAngle; angle += M_PI / 16)
         {
+            //May not needed
+            if (angle < 0)
+                angle += 2*M_PI;
+            else if (angle > 2*M_PI)
+                angle -= 2*M_PI;
+
             float x = botPosX + cos(angle) * distance;
             float y = botPosY + sin(angle) * distance;
 
@@ -75,6 +89,7 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
             FleePoint *point = new FleePoint(x, y, botPosZ);
             calculateDistanceToPlayers(point);
             calculateDistanceToCreatures(point);
+            calculateDistanceToDestination(point);
             points.push_back(point);
         }
 	}
@@ -99,6 +114,12 @@ bool FleePoint::isBetterByCreatures(FleePoint* other)
 {
     return toCreatures.min > 0 && other->toCreatures.min > 0 &&
             (toCreatures.min - other->toCreatures.min) >= 0;
+}
+
+bool FleePoint::isBetterByDistance(FleePoint* other)
+{
+    return toDestination.max > 0 && other->toDestination.max > 0 &&
+            (toDestination.max - other->toDestination.max) >= 0;
 }
 
 bool FleePoint::isBetterByAll(FleePoint* other)
@@ -130,13 +151,25 @@ FleePoint* FleeManager::selectOptimalDestination(list<FleePoint*> &points)
 		    byAll = point;
 	}
 
+	FleePoint* byDistance = NULL;
+
+	for (list<FleePoint*>::iterator i = points.begin(); i != points.end(); i++)
+    {
+		FleePoint* point = *i;
+		if (point->isReasonable() && (!byDistance || point->isBetterByDistance(byDistance)))
+		    byDistance = point;
+	}
+
 	if (byAll && byCreatures)
 	{
 	    if (byAll->isBetterByCreatures(byCreatures))
 	        return byAll;
 	}
 
-	return byCreatures;
+    if (byCreatures)
+        return byCreatures;
+    else
+        return byDistance;
 }
 
 bool FleeManager::CalculateDestination(float* rx, float* ry, float* rz)

@@ -51,6 +51,32 @@ bool StayChatShortcutAction::Execute(Event event)
     return true;
 }
 
+bool StopAttackChatShortcutAction::Execute(Event event)
+{
+    Player* master = GetMaster();
+    if (!master)
+        return false;
+
+    ai->Reset();
+    ai->ChangeStrategy("+passive", BOT_STATE_NON_COMBAT);
+    ai->ChangeStrategy("+passive", BOT_STATE_COMBAT);
+    ai->TellMaster("Stop attack");
+    return true;
+}
+
+bool ResumeAttackChatShortcutAction::Execute(Event event)
+{
+    Player* master = GetMaster();
+    if (!master)
+        return false;
+
+    ai->Reset();
+    ai->ChangeStrategy("-passive", BOT_STATE_NON_COMBAT);
+    ai->ChangeStrategy("-passive", BOT_STATE_COMBAT);
+    ai->TellMaster("Resume attack");
+    return true;
+}
+
 bool FleeChatShortcutAction::Execute(Event event)
 {
     Player* master = GetMaster();

@@ -63,7 +63,7 @@ namespace ai
 
     class ConcussiveShotSnareTrigger : public SnareTargetTrigger {
     public:
-        ConcussiveShotSnareTrigger(PlayerbotAI* ai) : SnareTargetTrigger(ai, "concussive shot") {}
+        ConcussiveShotSnareTrigger(PlayerbotAI* ai) : SnareTargetTrigger(ai, "concussive shot snare") {}
     };
 
     class FreezingTrapTrigger : public HasCcTargetTrigger

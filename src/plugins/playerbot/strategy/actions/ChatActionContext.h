@@ -100,6 +100,8 @@ namespace ai
             creators["bank"] = &ChatActionContext::bank;
             creators["follow chat shortcut"] = &ChatActionContext::follow_chat_shortcut;
             creators["stay chat shortcut"] = &ChatActionContext::stay_chat_shortcut;
+            creators["resume attack chat shortcut"] = &ChatActionContext::resume_attack_chat_shortcut;
+            creators["stop attack chat shortcut"] = &ChatActionContext::stop_attack_chat_shortcut;
             creators["flee chat shortcut"] = &ChatActionContext::flee_chat_shortcut;
             creators["move behind chat shortcut"] = &ChatActionContext::move_behind_chat_shortcut;
             creators["runaway chat shortcut"] = &ChatActionContext::runaway_chat_shortcut;
@@ -138,6 +140,8 @@ namespace ai
         static Action* tank_attack_chat_shortcut(PlayerbotAI* ai) { return new TankAttackChatShortcutAction(ai); }
         static Action* grind_chat_shortcut(PlayerbotAI* ai) { return new GrindChatShortcutAction(ai); }
         static Action* flee_chat_shortcut(PlayerbotAI* ai) { return new FleeChatShortcutAction(ai); }
+        static Action* resume_attack_chat_shortcut(PlayerbotAI* ai) { return new ResumeAttackChatShortcutAction(ai); }
+        static Action* stop_attack_chat_shortcut(PlayerbotAI* ai) { return new StopAttackChatShortcutAction(ai); }
         static Action* move_behind_chat_shortcut(PlayerbotAI* ai) { return new MoveBehindChatShortcutAction(ai); }
         static Action* runaway_chat_shortcut(PlayerbotAI* ai) { return new GoawayChatShortcutAction(ai); }
         static Action* stay_chat_shortcut(PlayerbotAI* ai) { return new StayChatShortcutAction(ai); }
