@@ -88,6 +88,14 @@ bool IsFrozenValue::Calculate()
     return target->isFrozen();
 }
 
+bool IsSilencedValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    return target->isFrozen();
+}
+
 bool IsFearedValue::Calculate()
 {
     Unit* target = GetTarget();
@@ -109,7 +117,7 @@ bool IsCharmedValue::Calculate()
     Unit* target = GetTarget();
     if (!target)
         return false;
-    return target->IsCharmed();
+    return target->IsCharmed() || target->isAsleed();
 }
 
 bool IsPossessedValue::Calculate()

@@ -1545,18 +1545,20 @@ class Unit : public WorldObject
 
         bool HasStealthAura()      const { return HasAuraType(SPELL_AURA_MOD_STEALTH); }
         bool HasInvisibilityAura() const { return HasAuraType(SPELL_AURA_MOD_INVISIBILITY); }
+        bool isAsleed() const { return HasAuraWithMechanic(MECHANIC_SLEEP); }
         bool isFeared()  const { return HasAuraType(SPELL_AURA_MOD_FEAR); }
+        bool isSilenced()  const { return HasAuraWithMechanic(MECHANIC_SILENCE); }
         bool isInRoots() const { return HasAuraType(SPELL_AURA_MOD_ROOT); }
         bool isStunned() const { return HasAuraType(SPELL_AURA_MOD_STUN); }
         bool isSnared() const { return HasAuraType(SPELL_AURA_MOD_DECREASE_SPEED); }
-        bool isBleeding() const;
+        bool isBleeding() const { return HasAuraWithMechanic(MECHANIC_BLEED); }
         bool TakesPeriodicDamage() const { return HasAuraType(SPELL_AURA_PERIODIC_DAMAGE); }
         bool hasCriticalHealth() const;
         bool hasLowHealth() const;
         bool hasHighHealth() const;
         bool IsPolymorphed() const;
 
-        bool isFrozen() const;
+        bool isFrozen() const { return HasAuraWithMechanic(MECHANIC_FREEZE); }
 
         bool isTargetableForAttack(bool checkFakeDeath = true) const;
 

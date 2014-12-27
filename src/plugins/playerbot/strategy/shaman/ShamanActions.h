@@ -129,18 +129,31 @@ namespace ai
     {
     public:
         CastStoneskinTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "stoneskin totem") {}
+        virtual bool isUseful() { return !ai->HasAnyAuraOf(GetTarget(), "devotion aura", NULL);}
     };
 
-    class CastEarthbindTotemAction : public CastTotemAction
+    class CastEarthbindTotemAction : public CastBuffSpellAction
     {
     public:
-        CastEarthbindTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "earthbind totem") {}
+        CastEarthbindTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "earthbind totem") {}
     };
 
-    class CastTremorTotemAction : public DispelCharmPartyMemberAction
+    class CastTremorTotemAction : public CastBuffSpellAction
     {
     public:
-        CastTremorTotemAction(PlayerbotAI* ai) : DispelCharmPartyMemberAction(ai, "tremor totem") {}
+        CastTremorTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "tremor totem") {}
+    };
+
+    class CastStoneclawTotemAction : public CastBuffSpellAction
+    {
+    public:
+        CastStoneclawTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "stoneclaw totem") {}
+    };
+
+    class CastTremorTotemOnPartyAction : public DispelCharmPartyMemberAction
+    {
+    public:
+        CastTremorTotemOnPartyAction(PlayerbotAI* ai) : DispelCharmPartyMemberAction(ai, "tremor totem on party") {}
     };
 
     class CastStrengthOfEarthTotemAction : public CastTotemAction
@@ -168,10 +181,10 @@ namespace ai
 		CastHealingStreamTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "healing stream totem") {}
 	};
 
-    class CastCleansingTotemAction : public CastTotemAction
+    class CastCleansingTotemAction : public CastBuffSpellAction
     {
     public:
-        CastCleansingTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "cleansing totem") {}
+        CastCleansingTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "cleansing totem") {}
     };
 
     class CastFlametongueTotemAction : public CastTotemAction

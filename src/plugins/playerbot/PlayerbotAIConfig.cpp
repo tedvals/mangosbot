@@ -64,6 +64,7 @@ bool PlayerbotAIConfig::Initialize()
     lowHealth = config.GetIntDefault("AiPlayerbot.LowHealth", 50);
     mediumHealth = config.GetIntDefault("AiPlayerbot.MediumHealth", 70);
     almostFullHealth = config.GetIntDefault("AiPlayerbot.AlmostFullHealth", 85);
+    almostDead = config.GetIntDefault("AiPlayerbot.AlmostDead", 15);
     lowMana = config.GetIntDefault("AiPlayerbot.LowMana", 15);
     mediumMana = config.GetIntDefault("AiPlayerbot.MediumMana", 40);
     almostFullMana = config.GetIntDefault("AiPlayerbot.AlmostFullMana", 85);

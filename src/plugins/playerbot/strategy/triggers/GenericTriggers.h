@@ -679,6 +679,13 @@ namespace ai
         virtual bool IsActive();
     };
 
+    class SilencedTrigger : public Trigger {
+    public:
+        SilencedTrigger(PlayerbotAI* ai) : Trigger(ai, "silenced", 5) {}
+        virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive();
+    };
+
     class StunnedTrigger : public Trigger {
     public:
         StunnedTrigger(PlayerbotAI* ai) : Trigger(ai, "stunned", 5) {}
@@ -731,6 +738,13 @@ namespace ai
     class TargetPolymorphedTrigger : public Trigger {
     public:
         TargetPolymorphedTrigger(PlayerbotAI* ai) : Trigger(ai, "target polymorphed", 5) {}
+        virtual string GetTargetName() { return "current target"; }
+        virtual bool IsActive();
+    };
+
+    class TargetSilencedTrigger : public Trigger {
+    public:
+        TargetSilencedTrigger(PlayerbotAI* ai) : Trigger(ai, "target silenced", 5) {}
         virtual string GetTargetName() { return "current target"; }
         virtual bool IsActive();
     };

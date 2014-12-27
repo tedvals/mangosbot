@@ -14,6 +14,9 @@ namespace ai
     BUFF_TRIGGER(PrayerOfShadowProtectionTrigger, "prayer of shadow protection", "prayer of shadow protection")
 
     BUFF_TRIGGER(InnerFireTrigger, "inner fire", "inner fire")
+    BUFF_TRIGGER(FearWardTrigger, "fear ward", "fear ward")
+    BUFF_ON_PARTY_TRIGGER(FearWardOnMasterTrigger, "fear ward", "fear ward on master")
+
     BUFF_TRIGGER(VampiricEmbraceTrigger, "vampiric embrace", "vampiric embrace")
 
     class SurgeOfLightTrigger : public HasAuraTrigger

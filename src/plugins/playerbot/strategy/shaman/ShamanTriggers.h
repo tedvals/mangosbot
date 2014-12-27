@@ -5,7 +5,7 @@ namespace ai
 {
     class ShamanWeaponTrigger : public BuffTrigger {
     public:
-        ShamanWeaponTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "rockbiter weapon") {}
+        ShamanWeaponTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "flametongue weapon") {}
         virtual bool IsActive();
     private:
         static list<string> spells;
@@ -209,6 +209,18 @@ namespace ai
     {
     public:
         HexTrigger(PlayerbotAI* ai) : HasCcTarget6Trigger(ai, "hex") {}
+    };
+
+    class TremorTotemOnPartyTrigger : public PartyMemberFearedTrigger
+    {
+    public:
+        TremorTotemOnPartyTrigger(PlayerbotAI* ai) : PartyMemberFearedTrigger(ai) {}
+    };
+
+    class TremorTotemOnParty2Trigger : public PartyMemberCharmedTrigger
+    {
+    public:
+        TremorTotemOnParty2Trigger(PlayerbotAI* ai) : PartyMemberCharmedTrigger(ai) {}
     };
 
 }

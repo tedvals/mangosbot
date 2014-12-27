@@ -82,6 +82,8 @@ namespace ai
                 creators["divine spirit"] = &TriggerFactoryInternal::divine_spirit;
                 creators["divine spirit on party"] = &TriggerFactoryInternal::divine_spirit_on_party;
                 creators["inner fire"] = &TriggerFactoryInternal::inner_fire;
+                creators["fear ward"] = &TriggerFactoryInternal::fear_ward;
+                creators["fear ward on master"] = &TriggerFactoryInternal::fear_ward_on_master;
                 creators["vampiric touch"] = &TriggerFactoryInternal::vampiric_touch;
                 creators["shadowform"] = &TriggerFactoryInternal::shadowform;
                 creators["vampiric embrace"] = &TriggerFactoryInternal::vampiric_embrace;
@@ -108,6 +110,8 @@ namespace ai
             static Trigger* divine_spirit(PlayerbotAI* ai) { return new DivineSpiritTrigger(ai); }
             static Trigger* divine_spirit_on_party(PlayerbotAI* ai) { return new DivineSpiritOnPartyTrigger(ai); }
             static Trigger* inner_fire(PlayerbotAI* ai) { return new InnerFireTrigger(ai); }
+            static Trigger* fear_ward(PlayerbotAI* ai) { return new FearWardTrigger(ai); }
+            static Trigger* fear_ward_on_master(PlayerbotAI* ai) { return new FearWardOnMasterTrigger(ai); }
             static Trigger* surge_of_light(PlayerbotAI* ai) { return new SurgeOfLightTrigger(ai); }
             static Trigger* shackle_undead(PlayerbotAI* ai) { return new ShackleUndeadTrigger(ai); }
             static Trigger* silence_enemy_healer(PlayerbotAI* ai) { return new SilenceEnemyHealerTrigger(ai); }
@@ -189,6 +193,9 @@ namespace ai
                 creators["prayer of shadow protection"] = &AiObjectContextInternal::prayer_of_shadow_protection;
                 creators["prayer of shadow protection on party"] = &AiObjectContextInternal::prayer_of_shadow_protection_on_party;
                 creators["inner focus"] = &AiObjectContextInternal::inner_focus;
+                creators["fear ward"] = &AiObjectContextInternal::fear_ward;
+                creators["fear ward on party"] = &AiObjectContextInternal::fear_ward_on_party;
+                creators["fear ward on master"] = &AiObjectContextInternal::fear_ward_on_master;
                 creators["desperate prayer"] = &AiObjectContextInternal::desperate_prayer;
                 creators["divine hymn"] = &AiObjectContextInternal::divine_hymn;
                 creators["hymn of hope"] = &AiObjectContextInternal::hymn_of_hope;
@@ -255,6 +262,9 @@ namespace ai
             static Action* prayer_of_shadow_protection(PlayerbotAI* ai) { return new CastPrayerOfShadowProtectionAction(ai); }
             static Action* prayer_of_shadow_protection_on_party(PlayerbotAI* ai) { return new CastPrayerOfShadowProtectionOnPartyAction(ai); }
             static Action* inner_focus(PlayerbotAI* ai) { return new CastInnerFocusAction(ai); }
+            static Action* fear_ward(PlayerbotAI* ai) { return new CastFearWardAction(ai); }
+            static Action* fear_ward_on_party(PlayerbotAI* ai) { return new CastFearWardOnPartyAction(ai); }
+            static Action* fear_ward_on_master(PlayerbotAI* ai) { return new CastFearWardOnMasterAction(ai); }
             static Action* desperate_prayer(PlayerbotAI* ai) { return new CastDesperatePrayerAction(ai); }
             static Action* divine_hymn(PlayerbotAI* ai) { return new CastDivineHymnAction(ai); }
             static Action* hymn_of_hope(PlayerbotAI* ai) { return new CastHymnOfHopeAction(ai); }

@@ -110,6 +110,8 @@ namespace ai
                 creators["maelstrom weapon"] = &TriggerFactoryInternal::maelstrom_weapon;
                 creators["wind shear on enemy healer"] = &TriggerFactoryInternal::wind_shear_on_enemy_healer;
                 creators["hex"] = &TriggerFactoryInternal::hex;
+                creators["tremor totem feared"] = &TriggerFactoryInternal::tremor_totem_on_party;
+                creators["tremor totem charmed"] = &TriggerFactoryInternal::tremor_totem_on_party2;
             }
 
         private:
@@ -142,6 +144,8 @@ namespace ai
             static Trigger* frost_shock_snare(PlayerbotAI* ai) { return new FrostShockSnareTrigger(ai); }
             static Trigger* wind_shear_on_enemy_healer(PlayerbotAI* ai) { return new WindShearInterruptEnemyHealerSpellTrigger(ai); }
             static Trigger* hex(PlayerbotAI* ai) { return new HexTrigger(ai); }
+            static Trigger* tremor_totem_on_party(PlayerbotAI* ai) { return new TremorTotemOnPartyTrigger(ai); }
+            static Trigger* tremor_totem_on_party2(PlayerbotAI* ai) { return new TremorTotemOnParty2Trigger(ai); }
         };
     };
 };
@@ -163,6 +167,7 @@ namespace ai
                 creators["strength of earth totem"] = &AiObjectContextInternal::strength_of_earth_totem;
                 creators["flametongue totem"] = &AiObjectContextInternal::flametongue_totem;
                 creators["searing totem"] = &AiObjectContextInternal::searing_totem;
+                creators["stoneclaw totem"] = &AiObjectContextInternal::stoneclaw_totem;
                 creators["magma totem"] = &AiObjectContextInternal::magma_totem;
                 creators["windfury totem"] = &AiObjectContextInternal::windfury_totem;
                 creators["mana spring totem"] = &AiObjectContextInternal::mana_spring_totem;
@@ -208,6 +213,7 @@ namespace ai
                 creators["heroism"] = &AiObjectContextInternal::heroism;
                 creators["stoneskin totem"] = &AiObjectContextInternal::stoneskin_totem;
                 creators["tremor totem"] = &AiObjectContextInternal::tremor_totem;
+                creators["tremor totem on party"] = &AiObjectContextInternal::tremor_totem_on_party;
                 creators["earthbind totem"] = &AiObjectContextInternal::earthbind_totem;
                 creators["totem of wrath"] = &AiObjectContextInternal::totem_of_wrath;
                 creators["wrath of air totem"] = &AiObjectContextInternal::wrath_of_air_totem;
@@ -218,11 +224,11 @@ namespace ai
                 creators["feral spirit"] = &AiObjectContextInternal::feral_spirit;
                 creators["shamanistic rage"] = &AiObjectContextInternal::shamanistic_rage;
                 creators["nature's swiftness"] = &AiObjectContextInternal::natures_swiftness;
-                creators["burst"] =& AiObjectContextInternal::burst_shaman;
-                creators["boost"] =& AiObjectContextInternal::boost_shaman;
-                creators["party boost"] =& AiObjectContextInternal::party_boost;
-                creators["hex"] =& AiObjectContextInternal::hex;
-                creators["hex on cc"] =& AiObjectContextInternal::hex_on_cc;
+                creators["burst"] =&AiObjectContextInternal::burst_shaman;
+                creators["boost"] =&AiObjectContextInternal::boost_shaman;
+                creators["party boost"] =&AiObjectContextInternal::party_boost;
+                creators["hex"] =&AiObjectContextInternal::hex;
+                creators["hex on cc"] =&AiObjectContextInternal::hex_on_cc;
             }
 
         private:
@@ -247,6 +253,7 @@ namespace ai
             static Action* strength_of_earth_totem(PlayerbotAI* ai) { return new CastStrengthOfEarthTotemAction(ai); }
             static Action* flametongue_totem(PlayerbotAI* ai) { return new CastFlametongueTotemAction(ai); }
             static Action* magma_totem(PlayerbotAI* ai) { return new CastMagmaTotemAction(ai); }
+            static Action* stoneclaw_totem(PlayerbotAI* ai) { return new CastStoneclawTotemAction(ai); }
             static Action* searing_totem(PlayerbotAI* ai) { return new CastSearingTotemAction(ai); }
             static Action* fire_nova(PlayerbotAI* ai) { return new CastFireNovaAction(ai); }
             static Action* windfury_totem(PlayerbotAI* ai) { return new CastWindfuryTotemAction(ai); }
@@ -278,6 +285,7 @@ namespace ai
             static Action* stoneskin_totem(PlayerbotAI* ai) { return new CastStoneskinTotemAction(ai); }
             static Action* earthbind_totem(PlayerbotAI* ai) { return new CastEarthbindTotemAction(ai); }
             static Action* tremor_totem(PlayerbotAI* ai) { return new CastTremorTotemAction(ai); }
+            static Action* tremor_totem_on_party(PlayerbotAI* ai) { return new CastTremorTotemOnPartyAction(ai); }
             static Action* totem_of_wrath(PlayerbotAI* ai) { return new CastTotemOfWrathAction(ai); }
             static Action* wrath_of_air_totem(PlayerbotAI* ai) { return new CastWrathOfAirTotemAction(ai); }
             static Action* summon_earth_elemental(PlayerbotAI* ai) { return new CastSummonEarthElementalAction(ai); }

@@ -228,6 +228,23 @@ namespace ai
 		CastPrayerOfShadowProtectionAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "prayer of shadow protection") {}
 	};
 
+	class CastFearWardAction : public CastBuffSpellAction {
+	public:
+		CastFearWardAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "fear ward") {}
+	};
+
+	class CastFearWardOnPartyAction : public BuffOnPartyAction {
+	public:
+		CastFearWardOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "fear ward on party") {}
+	};
+
+    class CastFearWardOnMasterAction : public BuffOnPartyAction {
+	public:
+		CastFearWardOnMasterAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "fear ward") {}
+		virtual string getName() { return "fear ward on master";}
+        virtual string GetTargetName() { return "master target";}
+	};
+
 	class CastDivineSpiritAction : public CastBuffSpellAction {
 	public:
 		CastDivineSpiritAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "divine spirit") {}

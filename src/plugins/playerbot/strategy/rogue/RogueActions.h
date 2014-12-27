@@ -69,7 +69,7 @@ namespace ai
 
 		virtual bool isUseful()
         {
-            return (AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.criticalHealth/2 || AI_VALUE2(bool, "rooted", "self target"));
+            return (AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.almostDead || AI_VALUE2(bool, "rooted", "self target"));
             }
 	};
 

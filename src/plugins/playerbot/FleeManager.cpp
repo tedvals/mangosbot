@@ -49,7 +49,7 @@ void FleeManager::calculateDistanceToCreatures(FleePoint *point)
 		    continue;
 
 		float d = unit->GetDistance(point->x, point->y, point->z);
-		if (d <= sPlayerbotAIConfig.tooCloseDistance)
+		if (d <= sPlayerbotAIConfig.aggroDistance)
 		    continue;
 
 		distance.probe(d);
@@ -74,11 +74,6 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 	{
         for (float angle = -M_PI + followAngle; angle < M_PI + followAngle; angle += M_PI / 16)
         {
-            //May not needed
-            if (angle < 0)
-                angle += 2*M_PI;
-            else if (angle > 2*M_PI)
-                angle -= 2*M_PI;
 
             float x = botPosX + cos(angle) * distance;
             float y = botPosY + sin(angle) * distance;
@@ -107,7 +102,7 @@ void FleeManager::cleanup(list<FleePoint*> &points)
 
 bool FleePoint::isReasonable()
 {
-	return toAllPlayers.max <= sPlayerbotAIConfig.sightDistance && toCreatures.min >= sPlayerbotAIConfig.tooCloseDistance;
+	return toAllPlayers.max <= sPlayerbotAIConfig.sightDistance && toCreatures.min >= sPlayerbotAIConfig.aggroDistance;
 }
 
 bool FleePoint::isBetterByCreatures(FleePoint* other)
@@ -162,7 +157,7 @@ FleePoint* FleeManager::selectOptimalDestination(list<FleePoint*> &points)
 
 	if (byAll && byCreatures)
 	{
-	    if (byAll->isBetterByCreatures(byCreatures))
+	    if (byAll->isBetterByDistance(byCreatures))
 	        return byAll;
 	}
 

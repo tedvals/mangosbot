@@ -122,6 +122,19 @@ namespace ai
         virtual bool Calculate();
     };
 
+    class IsSilencedValue : public BoolCalculatedValue, public Qualified
+    {
+    public:
+        IsSilencedValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
     class IsDisorientedValue : public BoolCalculatedValue, public Qualified
     {
     public:

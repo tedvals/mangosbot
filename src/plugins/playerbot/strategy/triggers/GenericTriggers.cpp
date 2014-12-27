@@ -291,6 +291,11 @@ bool CharmedTrigger::IsActive()
     return AI_VALUE2(bool, "charmed", GetTargetName());
 }
 
+bool SilencedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "silenced", GetTargetName());
+}
+
 bool FearedTrigger::IsActive()
 {
     return AI_VALUE2(bool, "feared", GetTargetName());
@@ -374,6 +379,11 @@ bool TargetSnaredTrigger::IsActive()
 bool TargetFrozenTrigger::IsActive()
 {
     return AI_VALUE2(bool, "frozen", GetTargetName());
+}
+
+bool TargetSilencedTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "silenced", GetTargetName());
 }
 
 bool TargetFearedTrigger::IsActive()

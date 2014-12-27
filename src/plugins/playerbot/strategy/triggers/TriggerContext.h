@@ -81,6 +81,7 @@ namespace ai
             creators["is disoriented"] = &TriggerContext::Disoriented;
             creators["is possessed"] = &TriggerContext::Possessed;
             creators["is charmed"] = &TriggerContext::Charmed;
+            creators["is silenced"] = &TriggerContext::Silenced;
 
             creators["is polymorphed"] = &TriggerContext::Polymorphed;
             creators["takes periodic damage"] = &TriggerContext::TakesPeriodicDamage;
@@ -114,6 +115,7 @@ namespace ai
             creators["enemy disoriented"] = &TriggerContext::Target_Disoriented;
             creators["enemy possessed"] = &TriggerContext::Target_Possessed;
             creators["enemy charmed"] = &TriggerContext::Target_Charmed;
+            creators["enemy silenced"] = &TriggerContext::Target_Silenced;
 
             creators["party member rooted"] = &TriggerContext::Party_Member_Rooted;
             creators["party member frozen"] = &TriggerContext::Party_Member_Frozen;
@@ -203,6 +205,7 @@ namespace ai
         static Trigger* Polymorphed(PlayerbotAI* ai) { return new PolymorphedTrigger(ai); }
         static Trigger* Possessed(PlayerbotAI* ai) { return new PossessedTrigger(ai); }
         static Trigger* Feared(PlayerbotAI* ai) { return new FearedTrigger(ai); }
+        static Trigger* Silenced(PlayerbotAI* ai) { return new SilencedTrigger(ai); }
         static Trigger* Disoriented(PlayerbotAI* ai) { return new DisorientedTrigger(ai); }
         static Trigger* Charmed(PlayerbotAI* ai) { return new CharmedTrigger(ai); }
         static Trigger* Target_Rooted(PlayerbotAI* ai) { return new TargetRootedTrigger(ai); }
@@ -214,6 +217,7 @@ namespace ai
         static Trigger* Target_Bleeding(PlayerbotAI* ai) { return new TargetBleedingTrigger(ai); }
         static Trigger* Target_Stunned(PlayerbotAI* ai) { return new TargetStunnedTrigger(ai); }
         static Trigger* Target_Feared(PlayerbotAI* ai) { return new TargetFearedTrigger(ai); }
+        static Trigger* Target_Silenced(PlayerbotAI* ai) { return new TargetSilencedTrigger(ai); }
         static Trigger* Target_Polymorphed(PlayerbotAI* ai) { return new TargetPolymorphedTrigger(ai); }
         static Trigger* Party_Member_Rooted(PlayerbotAI* ai) { return new PartyMemberRootedTrigger(ai); }
         static Trigger* Party_Member_Frozen(PlayerbotAI* ai) { return new PartyMemberFrozenTrigger(ai); }

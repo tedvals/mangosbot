@@ -13903,16 +13903,6 @@ void CharmInfo::SetSpellAutocast(SpellInfo const* spellInfo, bool state)
     }
 }
 
-bool Unit::isFrozen() const
-{
-    return HasAuraState(AURA_STATE_FROZEN);
-}
-
-bool Unit::isBleeding() const
-{
-    return HasAuraState(AURA_STATE_BLEEDING);
-}
-
 bool Unit::hasCriticalHealth() const { return HasAuraState(AURA_STATE_HEALTHLESS_20_PERCENT); }
 bool Unit::hasLowHealth() const { return HasAuraState(AURA_STATE_HEALTHLESS_35_PERCENT); }
 bool Unit::hasHighHealth() const { return HasAuraState(AURA_STATE_HEALTH_ABOVE_75_PERCENT); }

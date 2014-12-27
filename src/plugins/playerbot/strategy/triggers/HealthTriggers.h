@@ -57,7 +57,7 @@ namespace ai
     {
     public:
         AlmostDeadTrigger(PlayerbotAI* ai) :
-            LowHealthTrigger(ai, "almost dead", (sPlayerbotAIConfig.criticalHealth/2), 0) {}
+            LowHealthTrigger(ai, "almost dead", sPlayerbotAIConfig.almostDead, 0) {}
     };
 
     class MediumHealthTrigger : public LowHealthTrigger
@@ -94,7 +94,7 @@ namespace ai
     {
     public:
         PartyMemberAlmostDeadTrigger(PlayerbotAI* ai) :
-            PartyMemberLowHealthTrigger(ai, "party member almost dead", sPlayerbotAIConfig.criticalHealth/2, 0) {}
+            PartyMemberLowHealthTrigger(ai, "party member almost dead", sPlayerbotAIConfig.almostDead, 0) {}
     };
 
     class PartyMemberMediumHealthTrigger : public PartyMemberLowHealthTrigger
@@ -134,7 +134,7 @@ namespace ai
     class TargetAlmostDeadTrigger : public TargetVeryLowHealthTrigger
     {
     public:
-        TargetAlmostDeadTrigger(PlayerbotAI* ai) : TargetVeryLowHealthTrigger(ai, 5) {}
+        TargetAlmostDeadTrigger(PlayerbotAI* ai) : TargetVeryLowHealthTrigger(ai, 10) {}
     };
 
 	class PartyMemberDeadTrigger : public Trigger {

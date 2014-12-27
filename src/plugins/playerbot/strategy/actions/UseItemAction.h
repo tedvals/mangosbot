@@ -37,21 +37,21 @@ namespace ai
     class UseHealingPotion : public UseItemAction {
     public:
         UseHealingPotion(PlayerbotAI* ai) : UseItemAction(ai, "healing potion") {}
-        virtual bool isUseful() { return AI_VALUE2(bool, "combat", "self target") && AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.criticalHealth; }
+        virtual bool isUseful() { return AI_VALUE2(bool, "combat", "self target") && AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.criticalHealth; }
     };
 
     class UseManaPotion : public UseItemAction
     {
     public:
         UseManaPotion(PlayerbotAI* ai) : UseItemAction(ai, "mana potion") {}
-        virtual bool isUseful() { return AI_VALUE2(bool, "combat", "self target") && AI_VALUE2(uint8, "mana", "current target") < sPlayerbotAIConfig.lowMana; }
+        virtual bool isUseful() { return AI_VALUE2(bool, "combat", "self target") && AI_VALUE2(uint8, "mana", "self target") < sPlayerbotAIConfig.lowMana; }
     };
 
     class BandageAction : public UseItemAction
     {
     public:
         BandageAction(PlayerbotAI* ai) : UseItemAction(ai, "bandage") {}
-        virtual bool isUseful() { return !ai->HasAura("recently bandaged", AI_VALUE(Unit*, "self target")) && AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.criticalHealth; }
+        virtual bool isUseful() { return !AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.criticalHealth; }
     };
 
 }
