@@ -40,12 +40,8 @@ void GenericPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("shackle undead",46.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "critical health",
-        NextAction::array(0, new NextAction("power word: shield", 50.0f), new NextAction("renew", 50.0f), new NextAction("flash heal", 50.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "party member critical health",
-        NextAction::array(0, new NextAction("power word: shield on party", 50.0f),  new NextAction("renew on party", 50.0f), new NextAction("flash heal on party", 50.0f), NULL)));
+        "party member almost dead",
+        NextAction::array(0, new NextAction("power word: shield on party", 50.0f),  new NextAction("flash heal on party", 50.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low health",

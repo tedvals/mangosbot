@@ -115,10 +115,6 @@ void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("hunter's mark", 52.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "freezing trap",
-        NextAction::array(0, new NextAction("freezing trap", 83.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
         "kill command",
         NextAction::array(0, new NextAction("kill command", 30.0f), NULL)));
 
@@ -131,6 +127,28 @@ void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("kill shot", 40), NULL)));
 }
 
+class DpsAoeHunterStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+{
+public:
+    DpsAoeHunterStrategyActionNodeFactory()
+    {
+        creators["explosive trap"] = &explosive_trap;
+    }
+private:
+    static ActionNode* explosive_trap(PlayerbotAI* ai)
+    {
+        return new ActionNode ("explosive trap",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("volley", 20.0f), NULL),
+            /*C*/ NULL);
+    }
+};
+
+DpsAoeHunterStrategy::DpsAoeHunterStrategy(PlayerbotAI* ai) : CombatStrategy(ai)
+{
+    actionNodeFactories.Add(new DpsAoeHunterStrategyActionNodeFactory());
+}
+
 void DpsAoeHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
@@ -139,7 +157,7 @@ void DpsAoeHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
 		"high aoe",
-		NextAction::array(0, new NextAction("volley", 20.0f), NULL)));
+		NextAction::array(0, new NextAction("explosive trap", 20.0f), new NextAction("volley", 20.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"serpent sting on attacker",

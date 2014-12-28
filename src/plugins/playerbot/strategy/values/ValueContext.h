@@ -129,6 +129,7 @@ namespace ai
             creators["polymorphed"] = &ValueContext::polymorphed;
             creators["has mana"] = &ValueContext::has_mana;
             creators["attacker count"] = &ValueContext::attacker_count;
+            creators["aoe attacker count"] = &ValueContext::aoe_attacker_count;
             creators["my attacker count"] = &ValueContext::my_attacker_count;
             creators["has aggro"] = &ValueContext::has_aggro;
             creators["mounted"] = &ValueContext::mounted;
@@ -217,6 +218,7 @@ namespace ai
         static UntypedValue* loot_strategy(PlayerbotAI* ai) { return new LootStrategyValue(ai); }
 
         static UntypedValue* attacker_count(PlayerbotAI* ai) { return new AttackerCountValue(ai); }
+        static UntypedValue* aoe_attacker_count(PlayerbotAI* ai) { return new AoeAttackerCountValue(ai); }
         static UntypedValue* my_attacker_count(PlayerbotAI* ai) { return new MyAttackerCountValue(ai); }
         static UntypedValue* has_aggro(PlayerbotAI* ai) { return new HasAggroValue(ai); }
         static UntypedValue* mounted(PlayerbotAI* ai) { return new IsMountedValue(ai); }

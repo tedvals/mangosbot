@@ -210,7 +210,15 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
 		"critical health",
-		NextAction::array(0, new NextAction("stoneclaw totem", 80.0f), NULL)));
+		NextAction::array(0, new NextAction("stoneclaw totem", ACTION_EMERGENCY + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"low health",
+		NextAction::array(0, new NextAction("lesser healing wave", ACTION_CRITICAL_HEAL + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member low health",
+		NextAction::array(0, new NextAction("lesser healing wave on party", ACTION_CRITICAL_HEAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member charmed",
@@ -241,10 +249,6 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("earth elemental totem", 60.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
-        "party member low health",
-		NextAction::array(0, new NextAction("lesser healing wave on party", 25.0f), NULL)));
-
-	triggers.push_back(new TriggerNode(
 		"heroism",
 		NextAction::array(0, new NextAction("heroism", 31.0f), NULL)));
 
@@ -253,13 +257,12 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("bloodlust", 30.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-		"execute",
+		"finish target",
 		NextAction::array(0, new NextAction("earth shock", ACTION_HIGH + 9), NULL)));
 
       triggers.push_back(new TriggerNode(
 		"target almost dead",
 		NextAction::array(0, new NextAction("earth shock", ACTION_HIGH + 8), NULL)));
-
 }
 
 void ShamanBuffDpsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

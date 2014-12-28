@@ -326,7 +326,7 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("eviscerate", ACTION_HIGH + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
-		"execute",
+		"finish target",
 		NextAction::array(0, new NextAction("eviscerate", ACTION_HIGH + 9), NULL)));
 }
 
@@ -506,6 +506,6 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("envenom", ACTION_HIGH + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
-		"execute",
+		"finish target",
 		NextAction::array(0, new NextAction("envenom", ACTION_HIGH + 9), NULL)));
 }

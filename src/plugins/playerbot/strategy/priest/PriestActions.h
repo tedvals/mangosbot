@@ -83,6 +83,8 @@ namespace ai
     class CastDesperatePrayerAction : public CastHealingSpellAction {
     public:
         CastDesperatePrayerAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "desperate prayer") {}
+
+        virtual NextAction** getAlternatives();
     };
 
     class CastRenewOnPartyAction : public HealPartyMemberAction
@@ -178,6 +180,13 @@ namespace ai
 
         virtual string getName() { return "power word: shield on party"; }
     };
+
+    class CastPowerWordShieldOnMasterAction : public BuffOnPartyAction {
+	public:
+		CastPowerWordShieldOnMasterAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "power word: shield") {}
+		virtual string getName() { return "power word: shield on master";}
+        virtual string GetTargetName() { return "master target";}
+	};
 
     class CastPainSuppressionAction : public CastBuffSpellAction {
 	public:

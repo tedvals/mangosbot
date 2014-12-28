@@ -20,7 +20,7 @@ bool CastAspectOfTheCheetahAction::isUseful()
     return !ai->HasAnyAuraOf(GetTarget(), "aspect of the cheetah", "aspect of the pack", NULL);
 }
 
-Value<Unit*>* CastFreezingTrap::GetTargetValue()
+Value<Unit*>* CastFreezingTrapCcAction::GetTargetValue()
 {
     return context->GetValue<Unit*>("cc target", "freezing trap");
 }

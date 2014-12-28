@@ -60,7 +60,8 @@ namespace ai
             creators["grind"] = &ChatTriggerContext::grind;
             creators["stop attack"] = &ChatTriggerContext::stop_attack;
             creators["resume attack"] = &ChatTriggerContext::resume_attack;
-            creators["execute"] = &ChatTriggerContext::execute;
+            creators["finish target"] = &ChatTriggerContext::execute;
+            creators["prepare attack"] = &ChatTriggerContext::prepare_attack;
             creators["tank attack"] = &ChatTriggerContext::tank_attack;
             creators["talk"] = &ChatTriggerContext::talk;
             creators["cast"] = &ChatTriggerContext::talk;
@@ -102,7 +103,8 @@ namespace ai
         static Trigger* follow(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "follow"); }
         static Trigger* stop_attack(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "stop attack"); }
         static Trigger* resume_attack(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "resume attack"); }
-        static Trigger* execute(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "execute"); }
+        static Trigger* execute(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "finish target"); }
+        static Trigger* prepare_attack(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "prepare attack"); }
         static Trigger* move_behind(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "move behind"); }
         static Trigger* gb(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "gb"); }
         static Trigger* bank(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "bank"); }

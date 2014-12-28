@@ -140,6 +140,14 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("intimidation", 60.0f), new NextAction("deterrence",59.0f),NULL)));
 
     triggers.push_back(new TriggerNode(
+        "freezing trap",
+        NextAction::array(0, new NextAction("freezing trap", 83.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "freezing trap on cc",
+        NextAction::array(0, new NextAction("freezing trap", 83.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "misdirection on party",
         NextAction::array(0, new NextAction("misdirection on party", 60.0f), new NextAction("multi-shot",59.0f),NULL)));
 

@@ -165,6 +165,26 @@ namespace ai
         float distance;
     };
 
+    class AoeAttackerCountTrigger : public Trigger
+    {
+    public:
+        AoeAttackerCountTrigger(PlayerbotAI* ai, int amount, float distance = sPlayerbotAIConfig.sightDistance) : Trigger(ai)
+        {
+            this->amount = amount;
+            this->distance = distance;
+        }
+    public:
+        virtual bool IsActive()
+		{
+            return AI_VALUE(uint8, "aoe attacker count");
+        }
+        virtual string getName() { return "aoe attacker count"; }
+
+    protected:
+        int amount;
+        float distance;
+    };
+
     class HasAttackersTrigger : public AttackerCountTrigger
     {
     public:
@@ -186,10 +206,10 @@ namespace ai
         MediumThreatTrigger(PlayerbotAI* ai) : MyAttackerCountTrigger(ai, 2) {}
     };
 
-    class AoeTrigger : public AttackerCountTrigger
+    class AoeTrigger : public AoeAttackerCountTrigger
     {
     public:
-        AoeTrigger(PlayerbotAI* ai, int amount = 3, float range = 15.0f) : AttackerCountTrigger(ai, amount)
+        AoeTrigger(PlayerbotAI* ai, int amount = 3, float range = 15.0f) : AoeAttackerCountTrigger(ai, amount)
         {
             this->range = range;
         }

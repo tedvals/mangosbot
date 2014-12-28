@@ -18,6 +18,10 @@ void GenericPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "critical health",
         NextAction::array(0, new NextAction("flash of light", ACTION_CRITICAL_HEAL + 2), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "party member low health",
+		NextAction::array(0, new NextAction("flash of light on party", ACTION_HIGH + 3), NULL)));
+
 	triggers.push_back(new TriggerNode(
 		"hammer of justice interrupt",
 		NextAction::array(0, new NextAction("hammer of justice", ACTION_INTERRUPT), NULL)));

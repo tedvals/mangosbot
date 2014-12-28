@@ -80,9 +80,6 @@ bool MovementAction::MoveTo(Unit* target, float distance)
     if (!IsMovingAllowed(target))
         return false;
 
-    bot->GetMotionMaster()->Clear();
-    bot->GetMotionMaster()->MoveChase(target);
-/*
     float bx = bot->GetPositionX();
     float by = bot->GetPositionY();
     float bz = bot->GetPositionZ();
@@ -105,7 +102,15 @@ bool MovementAction::MoveTo(Unit* target, float distance)
     float dy = sin(angle) * needToGo + by;
 
     return MoveTo(target->GetMapId(), dx, dy, tz);
-    */
+}
+
+bool MovementAction::MoveToUnit(Unit* target)
+{
+    if (!IsMovingAllowed(target))
+        return false;
+
+    bot->GetMotionMaster()->Clear();
+    bot->GetMotionMaster()->MoveChase(target);
 }
 
 float MovementAction::GetFollowAngle()

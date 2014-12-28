@@ -17,6 +17,19 @@ namespace ai
         virtual uint8 Calculate();
     };
 
+    class AoeAttackerCountValue : public Uint8CalculatedValue, public Qualified
+    {
+    public:
+        AoeAttackerCountValue(PlayerbotAI* ai) : Uint8CalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual uint8 Calculate();
+    };
+
     class MyAttackerCountValue : public Uint8CalculatedValue, public Qualified
     {
     public:

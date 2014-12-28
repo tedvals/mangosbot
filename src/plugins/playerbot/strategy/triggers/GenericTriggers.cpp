@@ -93,12 +93,12 @@ bool MyAttackerCountTrigger::IsActive()
 
 bool AoeTrigger::IsActive()
 {
-    return AI_VALUE(uint8, "attacker count") >= amount;
+    return (AI_VALUE(uint8, "aoe attacker count")) >= amount;
 }
 
 bool DebuffTrigger::IsActive()
 {
-	return BuffTrigger::IsActive() && AI_VALUE2(uint8, "health", "current target") > 10;
+	return BuffTrigger::IsActive() && AI_VALUE2(uint8, "health", "current target") > 5;
 }
 
 bool SpellTrigger::IsActive()

@@ -158,7 +158,9 @@ namespace ai
                 creators["revive pet"] = &AiObjectContextInternal::revive_pet;
                 creators["call pet"] = &AiObjectContextInternal::call_pet;
                 creators["black arrow"] = &AiObjectContextInternal::black_arrow;
+                creators["frost trap"] = &AiObjectContextInternal::frost_trap;
                 creators["freezing trap"] = &AiObjectContextInternal::freezing_trap;
+                creators["freezing trap on cc"] = &AiObjectContextInternal::freezing_trap_on_cc;
                 creators["rapid fire"] = &AiObjectContextInternal::rapid_fire;
                 creators["boost"] = &AiObjectContextInternal::rapid_fire;
                 creators["readiness"] = &AiObjectContextInternal::readiness_action;
@@ -213,7 +215,9 @@ namespace ai
             static Action* revive_pet(PlayerbotAI* ai) { return new CastRevivePetAction(ai); }
             static Action* call_pet(PlayerbotAI* ai) { return new CastCallPetAction(ai); }
             static Action* black_arrow(PlayerbotAI* ai) { return new CastBlackArrow(ai); }
-            static Action* freezing_trap(PlayerbotAI* ai) { return new CastFreezingTrap(ai); }
+            static Action* frost_trap(PlayerbotAI* ai) { return new CastFrostTrapAction(ai); }
+            static Action* freezing_trap(PlayerbotAI* ai) { return new CastFreezingTrapAction(ai); }
+            static Action* freezing_trap_on_cc(PlayerbotAI* ai) { return new CastFreezingTrapCcAction(ai); }
             static Action* rapid_fire(PlayerbotAI* ai) { return new CastRapidFireAction(ai); }
             static Action* readiness(PlayerbotAI* ai) { return new CastReadinessAction(ai); }
             static Action* aspect_of_the_hawk(PlayerbotAI* ai) { return new CastAspectOfTheHawkAction(ai); }

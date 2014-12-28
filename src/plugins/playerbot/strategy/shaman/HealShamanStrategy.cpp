@@ -133,23 +133,19 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "earth shield on master",
-        NextAction::array(0, new NextAction("earth shield on master", 40.0f), NULL)));
+        NextAction::array(0, new NextAction("earth shield on master", ACTION_CRITICAL_HEAL + 7), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"medium aoe heal",
 		NextAction::array(0, new NextAction("chain heal", ACTION_NORMAL + 7), NULL)));
 
-	triggers.push_back(new TriggerNode(
-		"low health",
-		NextAction::array(0, new NextAction("healing wave", ACTION_NORMAL + 8), NULL)));
-
     triggers.push_back(new TriggerNode(
 		"medium health",
-		NextAction::array(0, new NextAction("chain heal", ACTION_NORMAL + 5), NULL)));
+		NextAction::array(0, new NextAction("healing wave", ACTION_CRITICAL_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member medium health",
-		NextAction::array(0, new NextAction("chain heal", ACTION_NORMAL + 6), NULL)));
+		NextAction::array(0, new NextAction("healing wave", ACTION_CRITICAL_HEAL), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"almost full health",
@@ -158,10 +154,6 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "party member almost full health",
 		NextAction::array(0, new NextAction("riptide on party", ACTION_NORMAL), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "party member low health",
-		NextAction::array(0, new NextAction("healing wave on party", ACTION_HIGH + 3), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"have aggro",

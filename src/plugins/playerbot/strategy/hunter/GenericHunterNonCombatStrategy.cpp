@@ -10,18 +10,9 @@ class GenericHunterNonCombatStrategyActionNodeFactory : public NamedObjectFactor
 public:
     GenericHunterNonCombatStrategyActionNodeFactory()
     {
-        creators["rapid fire"] = &rapid_fire;
-        creators["boost"] = &rapid_fire;
         creators["aspect of the pack"] = &aspect_of_the_pack;
     }
 private:
-    static ActionNode* rapid_fire(PlayerbotAI* ai)
-    {
-        return new ActionNode ("rapid fire",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("readiness"), NULL),
-            /*C*/ NULL);
-    }
     static ActionNode* aspect_of_the_pack(PlayerbotAI* ai)
     {
         return new ActionNode ("aspect of the pack",
@@ -55,4 +46,8 @@ void GenericHunterNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigg
     triggers.push_back(new TriggerNode(
         "hunters pet low health",
         NextAction::array(0, new NextAction("mend pet", 60.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "prepare attack",
+        NextAction::array(0, new NextAction("hunter's mark", 52.0f), NULL)));
 }

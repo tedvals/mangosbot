@@ -24,11 +24,11 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "almost full health",
-        NextAction::array(0, new NextAction("prayer of mending", 20.0f), new NextAction("power word: shield", 15.0f), NULL)));
+        NextAction::array(0, new NextAction("prayer of mending", 21.0f), new NextAction("power word: shield", 15.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member almost full health",
-        NextAction::array(0, new NextAction("prayer of mending on party", 20.0f), new NextAction("power word: shield on party", 10.0f), NULL)));
+        NextAction::array(0, new NextAction("prayer of mending on party", 20.0f), new NextAction("power word: shield on party", 14.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium health",
@@ -40,11 +40,11 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "low health",
-        NextAction::array(0, new NextAction("power word: shield", 60.0f), new NextAction("renew", 60.0f), new NextAction("greater heal", 60.0f), NULL)));
+        NextAction::array(0, new NextAction("renew", 60.0f), new NextAction("greater heal", 60.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
-        NextAction::array(0, new NextAction("power word: shield on party", 50.0f), new NextAction("renew", 50.0f), new NextAction("greater heal on party", 50.0f), NULL)));
+        NextAction::array(0, new NextAction("renew", 50.0f), new NextAction("greater heal on party", 50.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "have aggro",

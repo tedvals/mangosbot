@@ -10,7 +10,8 @@ Event Trigger::Check()
 	if (IsActive())
 	{
 	    Player* master = GetMaster();
-        if (!master)
+	    //Debug only
+        if (master)
             ai->TellMaster(getName());
 
 		Event event(getName());

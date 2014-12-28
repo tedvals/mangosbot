@@ -207,11 +207,23 @@ namespace ai
 		CastBlackArrow(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "black arrow") {}
 	};
 
-    class CastFreezingTrap : public CastDebuffSpellAction
+    class CastFreezingTrapCcAction : public CastDebuffSpellAction
     {
     public:
-        CastFreezingTrap(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "freezing trap") {}
+        CastFreezingTrapCcAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "freezing trap on cc") {}
         virtual Value<Unit*>* GetTargetValue();
+    };
+
+    class CastFreezingTrapAction : public CastDebuffSpellAction
+    {
+    public:
+        CastFreezingTrapAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "freezing trap") {}
+    };
+
+    class CastFrostTrapAction : public CastDebuffSpellAction
+    {
+    public:
+        CastFrostTrapAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "frost trap") {}
     };
 
     class CastWingClipAction : public CastMeleeSpellAction

@@ -15,7 +15,10 @@ namespace ai
         }
         virtual bool Execute(Event event)
 		{
-			return MoveTo(AI_VALUE(Unit*, "current target"), distance);
+		    if (distance <= sPlayerbotAIConfig.meleeDistance)
+                return MoveToUnit(AI_VALUE(Unit*, "current target"));
+            else
+                return MoveTo(AI_VALUE(Unit*, "current target"), distance);
         }
         virtual bool isUseful()
 		{

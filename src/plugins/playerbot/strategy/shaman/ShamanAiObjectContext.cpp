@@ -229,6 +229,9 @@ namespace ai
                 creators["party boost"] =&AiObjectContextInternal::party_boost;
                 creators["hex"] =&AiObjectContextInternal::hex;
                 creators["hex on cc"] =&AiObjectContextInternal::hex_on_cc;
+                creators["call of the elements"] =&AiObjectContextInternal::call_of_the_elements;
+                creators["call of the spirits"] =&AiObjectContextInternal::call_of_the_spirits;
+                creators["call of the ancestors"] =&AiObjectContextInternal::call_of_the_ancestors;
             }
 
         private:
@@ -300,6 +303,9 @@ namespace ai
             static Action* party_boost(PlayerbotAI* ai) { return new CastBloodlustAction(ai); }
             static Action* hex(PlayerbotAI* ai) { return new CastHexAction(ai); }
             static Action* hex_on_cc(PlayerbotAI* ai) { return new CastHexCcAction(ai); }
+            static Action* call_of_the_ancestors(PlayerbotAI* ai) { return new CastCallOfTheAncestorsTotemAction(ai); }
+            static Action* call_of_the_elements(PlayerbotAI* ai) { return new CastCallOfTheElementsTotemAction(ai); }
+            static Action* call_of_the_spirits(PlayerbotAI* ai) { return new CastCallOfTheSpiritsTotemAction(ai); }
         };
     };
 };

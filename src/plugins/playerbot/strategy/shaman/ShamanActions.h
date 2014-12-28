@@ -187,6 +187,24 @@ namespace ai
         CastCleansingTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "cleansing totem") {}
     };
 
+    class CastCallOfTheElementsTotemAction : public CastBuffSpellAction
+    {
+    public:
+        CastCallOfTheElementsTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "call of the elements") {}
+    };
+
+    class CastCallOfTheAncestorsTotemAction : public CastBuffSpellAction
+    {
+    public:
+        CastCallOfTheAncestorsTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "call of the ancestors") {}
+    };
+
+    class CastCallOfTheSpiritsTotemAction : public CastBuffSpellAction
+    {
+    public:
+        CastCallOfTheSpiritsTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "call of the spirits") {}
+    };
+
     class CastFlametongueTotemAction : public CastTotemAction
     {
     public:

@@ -67,6 +67,9 @@ void PriestNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"party member dead",
 		NextAction::array(0, new NextAction("resurrection", 30.0f), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "prepare attack",
+        NextAction::array(0, new NextAction("power word: shield on master", 52.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "dispel magic",

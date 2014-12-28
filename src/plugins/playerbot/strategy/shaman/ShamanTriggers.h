@@ -52,7 +52,7 @@ namespace ai
 
     class MagmaTotemTrigger : public TotemTrigger {
     public:
-        MagmaTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "magma totem", 3) {}
+        MagmaTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "magma totem", 4) {}
     };
 
     class SearingTotemTrigger : public TotemTrigger {
@@ -172,7 +172,7 @@ namespace ai
 
     class ShockTrigger : public DebuffTrigger {
     public:
-        ShockTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "earth shock") {}
+        ShockTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "flame shock") {}
         virtual bool IsActive();
     };
 
