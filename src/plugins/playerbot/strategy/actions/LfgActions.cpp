@@ -13,17 +13,30 @@ using namespace lfg;
 
 bool LfgJoinAction::Execute(Event event)
 {
-    if (!sPlayerbotAIConfig.randomBotJoinLfg)
-        return false;
+    Player* master = GetMaster();
+    if (master)
+        ai->TellMaster("Considering proposal");
+
+    Group* group = bot->GetGroup();
+    if (group)
+    {
+        Player* inviter = sObjectMgr->GetPlayerByLowGUID(group->GetLeaderGUID());
+
+        if (!inviter || master!=inviter)
+        {
+            if (!sPlayerbotAIConfig.randomBotJoinLfg)
+                return false;
+
+            if (!sRandomPlayerbotMgr.IsRandomBot(bot))
+                return false;
+
+            if (sLFGMgr->GetState(bot->GetGUID()) != LFG_STATE_NONE)
+                return false;
+        }
+    }
 
     if (bot->isDead())
-        return false;
-
-    if (!sRandomPlayerbotMgr.IsRandomBot(bot))
-        return false;
-
-    if (sLFGMgr->GetState(bot->GetGUID()) != LFG_STATE_NONE)
-        return false;
+            return false;
 
     if (bot->IsBeingTeleported())
         return false;
@@ -31,6 +44,9 @@ bool LfgJoinAction::Execute(Event event)
     Map* map = bot->GetMap();
     if (map && map->Instanceable())
         return false;
+
+    if (master)
+        ai->TellMaster("Accepted proposal");
 
     return JoinProposal();
 }

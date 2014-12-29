@@ -37,6 +37,8 @@ namespace ai
         void Update() {}
         virtual void Reset() {}
         virtual Unit* GetTarget();
+        virtual string GetLastEvent() { return lastEvent; }
+        virtual void SetLastEvent(string name) {lastEvent = name;}
         virtual Value<Unit*>* GetTargetValue();
         virtual string GetTargetName() { return "self target"; }
 
@@ -49,6 +51,7 @@ namespace ai
 		}
 
     protected:
+        string lastEvent; //debug only
 		int checkInterval;
 		int ticksElapsed;
 	};

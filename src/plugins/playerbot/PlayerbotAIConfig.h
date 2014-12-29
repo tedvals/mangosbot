@@ -54,6 +54,7 @@ public:
     std::string randomBotCombatStrategies, randomBotNonCombatStrategies;
     uint32 randomBotMinLevel, randomBotMaxLevel;
     float randomChangeMultiplier;
+    bool outputTriggers;
     uint32 specProbability[MAX_CLASSES][3];
     std::string commandPrefix;
     std::string randomBotAccountPrefix;

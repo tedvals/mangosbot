@@ -2,6 +2,7 @@
 #include "../playerbot.h"
 #include "Trigger.h"
 #include "Action.h"
+#include "../PlayerbotAIConfig.h"
 
 using namespace ai;
 
@@ -9,11 +10,17 @@ Event Trigger::Check()
 {
 	if (IsActive())
 	{
-	    Player* master = GetMaster();
 	    //Debug only
+	    Player* master = GetMaster();
         if (master)
-            ai->TellMaster(getName());
-
+        {
+            if (sPlayerbotAIConfig.outputTriggers && (GetLastEvent() != getName()) && (getName() != "timer" && getName() != "no possible targets"))
+            {
+                SetLastEvent(getName());
+                ai->TellMaster(getName());
+                }
+        }
+        //Stop debug
 		Event event(getName());
 		return event;
 	}

@@ -29,7 +29,7 @@ public:
         if (!ai->CanCastSpell(spell, creature))
             return;
 
-        if (creature->UnderCc() || creature->IsPolymorphed() || creature->IsCharmed() || creature->isPossessed() || creature->isFrozen())
+        if (creature->UnderCc())
             return;
 
         if (*ai->GetAiObjectContext()->GetValue<Unit*>("rti target") == creature)
@@ -113,7 +113,7 @@ public:
         if (!ai->CanCastSpell(spell, creature))
             return;
 
-        if (creature->UnderCc() || creature->IsPolymorphed() || creature->IsCharmed() || creature->isPossessed() || creature->isFrozen())
+        if (creature->UnderCc())
             return;
 
         if (*ai->GetAiObjectContext()->GetValue<Unit*>("rti target") == creature)
@@ -197,7 +197,7 @@ public:
         if (!ai->CanCastSpell(spell, creature))
             return;
 
-        if (creature->UnderCc() || creature->IsPolymorphed() || creature->IsCharmed() || creature->isPossessed() || creature->isFrozen())
+        if (creature->UnderCc())
             return;
 
         if (*ai->GetAiObjectContext()->GetValue<Unit*>("rti target") == creature)
@@ -281,7 +281,7 @@ public:
         if (!ai->CanCastSpell(spell, creature))
             return;
 
-        if (creature->UnderCc() || creature->IsPolymorphed() || creature->IsCharmed() || creature->isPossessed() || creature->isFrozen())
+        if (creature->UnderCc())
             return;
 
         if (*ai->GetAiObjectContext()->GetValue<Unit*>("rti target") == creature)
@@ -365,7 +365,7 @@ public:
         if (!ai->CanCastSpell(spell, creature))
             return;
 
-        if (creature->UnderCc() || creature->IsPolymorphed() || creature->IsCharmed() || creature->isPossessed() || creature->isFrozen())
+        if (creature->UnderCc())
             return;
 
         if (*ai->GetAiObjectContext()->GetValue<Unit*>("rti target") == creature)
@@ -449,7 +449,7 @@ public:
         if (!ai->CanCastSpell(spell, creature))
             return;
 
-        if (creature->UnderCc() || creature->IsPolymorphed() || creature->IsCharmed() || creature->isPossessed() || creature->isFrozen())
+        if (creature->UnderCc())
             return;
 
         if (*ai->GetAiObjectContext()->GetValue<Unit*>("rti target") == creature)

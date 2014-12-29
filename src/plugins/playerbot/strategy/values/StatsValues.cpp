@@ -117,7 +117,7 @@ bool IsCharmedValue::Calculate()
     Unit* target = GetTarget();
     if (!target)
         return false;
-    return target->IsCharmed() || target->isAsleed();
+    return target->isAsleed();
 }
 
 bool IsPossessedValue::Calculate()
