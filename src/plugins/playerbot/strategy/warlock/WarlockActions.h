@@ -289,7 +289,7 @@ namespace ai
 	class UseSoulstoneOnMasterAction : public UseItemAction
 	{
 	public:
-		UseSoulstoneOnMasterAction(PlayerbotAI* ai) : UseItemAction(ai, "soulstone",false) {setTargetUnit(AI_VALUE(Unit*, "master target"));}
+		UseSoulstoneOnMasterAction(PlayerbotAI* ai) : UseItemAction(ai, "soulstone",true) {setTargetUnit(AI_VALUE(Unit*, "master target"));}
 		virtual bool isUseful()
 	    {
 	        return !ai->HasAura("soulstone", AI_VALUE(Unit*, "master target"));

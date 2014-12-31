@@ -138,20 +138,6 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
         }
     }
 
-    Player* master = GetMaster();
-    if (!targetSelected && item->GetTemplate()->Class != ITEM_CLASS_CONSUMABLE && master)
-    {
-        Unit* masterSelection = master->GetSelectedUnit();
-        if (masterSelection)
-        {
-            uint32 targetFlag = TARGET_FLAG_UNIT;
-            *packet << targetFlag;
-            packet->appendPackGUID(masterSelection->GetGUID());
-            out << " on " << masterSelection->GetName();
-            targetSelected = true;
-        }
-    }
-
     if(uint32 questid = item->GetTemplate()->StartQuest)
     {
         Quest const* qInfo = sObjectMgr->GetQuestTemplate(questid);
@@ -165,6 +151,20 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
             ostringstream out; out << "Got quest " << chat->formatQuest(qInfo);
             ai->TellMasterNoFacing(out.str());
             return true;
+        }
+    }
+
+    Player* master = GetMaster();
+    if (!targetSelected && item->GetTemplate()->Class != ITEM_CLASS_CONSUMABLE && master)
+    {
+        Unit* masterSelection = master->GetSelectedUnit();
+        if (masterSelection)
+        {
+            uint32 targetFlag = TARGET_FLAG_UNIT;
+            *packet << targetFlag;
+            packet->appendPackGUID(masterSelection->GetGUID());
+            out << " on " << masterSelection->GetName();
+            targetSelected = true;
         }
     }
 
@@ -268,16 +268,18 @@ bool UseItemAction::UseItemOnUnit(Item* item, Unit* unitTarget)
     if (bot->IsNonMeleeSpellCast(true))
         return false;
 
+    if (!unitTarget)
+        return false;
+
+    if (bot->IsInCombat())
+            return false;
+
     uint8 bagIndex = item->GetBagSlot();
     uint8 slot = item->GetSlot();
     uint8 cast_count = 1;
     uint64 item_guid = item->GetGUID();
     uint32 glyphIndex = 0;
     uint8 unk_flags = 0;
-
-    WorldPacket* const packet = new WorldPacket(CMSG_USE_ITEM, 1 + 1 + 1 + 4 + 8 + 4 + 1 + 8 + 1);
-    *packet << bagIndex << slot << cast_count << uint32(0) << item_guid
-        << glyphIndex << unk_flags;
 
     ostringstream out; out << "Using " << chat->formatItem(item->GetTemplate());
     if (item->GetTemplate()->Stackable)
@@ -289,11 +291,6 @@ bool UseItemAction::UseItemOnUnit(Item* item, Unit* unitTarget)
             out << " (the last one!)";
     }
 
-    uint32 targetFlag = TARGET_FLAG_UNIT;
-    *packet << targetFlag;
-    packet->appendPackGUID(unitTarget->GetGUID());
-    out << " on " << unitTarget->GetName();
-
     MotionMaster &mm = *bot->GetMotionMaster();
     mm.Clear();
     bot->ClearUnitState( UNIT_STATE_CHASE );
@@ -301,6 +298,8 @@ bool UseItemAction::UseItemOnUnit(Item* item, Unit* unitTarget)
 
     if (bot->isMoving())
         return false;
+
+    uint32 spellId;
 
     for (int i=0; i<MAX_ITEM_PROTO_SPELLS; i++)
     {
@@ -312,14 +311,27 @@ bool UseItemAction::UseItemOnUnit(Item* item, Unit* unitTarget)
             continue;
     }
 
-    if (bot->IsInCombat())
-            return false;
+    if (!spellId)
+        return false;
 
-    ai->InterruptSpell();
-    ai->SetNextCheckDelay(3000);
+    uint32 targetFlag = TARGET_FLAG_UNIT;
+
+    WorldPacket *packet = new WorldPacket(CMSG_USE_ITEM, 28);
+        *packet << bagIndex << slot << cast_count << spellId << item_guid
+        << glyphIndex << unk_flags << targetFlag;
+
+    packet->appendPackGUID(unitTarget->GetGUID());
+    out << " on " << unitTarget->GetName();
 
     ai->TellMasterNoFacing(out.str());
     bot->GetSession()->QueuePacket(packet);
+
+    const SpellInfo* const pSpellInfo = sSpellMgr->GetSpellInfo(spellId);
+
+    Spell *spell = new Spell(bot, pSpellInfo, TRIGGERED_NONE, ObjectGuid::Empty, true);
+    ai->WaitForSpellCast(spell);
+    delete spell;
+
     return true;
 }
 
