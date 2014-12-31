@@ -18,6 +18,14 @@ namespace ai {
     {
     public:
         ThornsTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "thorns") {}
+        virtual bool IsActive() { return !ai->HasAnyAuraOf(bot, "bear form", "dire bear form", "moonkin form", NULL); }
+    };
+
+    class ThornsOnPartyTrigger : public BuffOnPartyTrigger
+    {
+    public:
+        ThornsOnPartyTrigger(PlayerbotAI* ai) : BuffOnPartyTrigger(ai, "thorns") {}
+        virtual bool IsActive();
     };
 
     class RakeTrigger : public DebuffTrigger

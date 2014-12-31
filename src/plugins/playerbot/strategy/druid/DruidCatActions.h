@@ -65,7 +65,7 @@ namespace ai {
 		CastRipAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "rip") {}
 		virtual bool isUseful()
 	    {
-	        return  CastDebuffSpellAction::isUseful() &&  AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.criticalHealth/2 && (AI_VALUE2(uint8, "combo", "current target") >= 4);
+	        return  CastDebuffSpellAction::isUseful() &&  (AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.criticalHealth) && (AI_VALUE2(uint8, "combo", "current target") >= 2);
 	    }
 	};
 
@@ -96,11 +96,6 @@ namespace ai {
 	class CastFerociousBiteAction : public CastMeleeSpellAction {
 	public:
 		CastFerociousBiteAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "ferocious bite") {}
-
-		virtual bool isUseful()
-	    {
-	        return (CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "energy", "self target") > 30) || (AI_VALUE2(uint8, "health", "target") < sPlayerbotAIConfig.criticalHealth/2);
-	    }
 	};
 
 	class CastPounceAction : public CastMeleeSpellAction {

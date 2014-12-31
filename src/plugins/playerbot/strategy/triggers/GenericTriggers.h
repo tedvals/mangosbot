@@ -97,7 +97,7 @@ namespace ai
 	class ComboPointAvailableTrigger : public StatAvailable
 	{
 	public:
-	    ComboPointAvailableTrigger(PlayerbotAI* ai, int amount = 1) : StatAvailable(ai, amount, "combo point available") {}
+	    ComboPointAvailableTrigger(PlayerbotAI* ai, int amount = 2) : StatAvailable(ai, amount, "combo point available") {}
 		virtual bool IsActive();
 	};
 

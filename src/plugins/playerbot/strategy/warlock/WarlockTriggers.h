@@ -9,7 +9,7 @@ namespace ai
 		DemonArmorTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "demon armor") {}
 		virtual bool IsActive();
 	};
-
+/*
     class SpellstoneTrigger : public BuffTrigger
     {
     public:
@@ -17,6 +17,13 @@ namespace ai
         virtual bool IsActive();
     };
 
+    class FirestoneTrigger : public BuffTrigger
+    {
+    public:
+        FirestoneTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "firestone") {}
+        virtual bool IsActive();
+    };
+*/
     BUFF_ON_PARTY_TRIGGER(SoulstoneOnMasterTrigger, "soulstone", "soulstone on master")
 
 

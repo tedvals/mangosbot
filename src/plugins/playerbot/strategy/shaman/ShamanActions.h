@@ -41,6 +41,12 @@ namespace ai
         CastChainHealAction(PlayerbotAI* ai) : CastAoeHealSpellAction(ai, "chain heal") {}
     };
 
+    class CastChainHealOnPartyAction : public HealPartyMemberAction {
+    public:
+        CastChainHealOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "chain heal") {}
+        virtual bool isUseful() {return HealPartyMemberAction::isUseful() && AI_VALUE2(uint8, "aoe heal", "medium") > 0;}
+    };
+
     class CastRiptideAction : public CastHealingSpellAction {
     public:
         CastRiptideAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "riptide") {}
@@ -129,25 +135,25 @@ namespace ai
     {
     public:
         CastStoneskinTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "stoneskin totem") {}
-        virtual bool isUseful() { return !ai->HasAnyAuraOf(GetTarget(), "devotion aura", NULL);}
+        virtual bool isUseful() { return CastTotemAction::isUseful() && !ai->HasAnyAuraOf(GetTarget(), "devotion aura", NULL);}
     };
 
-    class CastEarthbindTotemAction : public CastBuffSpellAction
+    class CastEarthbindTotemAction : public CastTotemAction
     {
     public:
-        CastEarthbindTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "earthbind totem") {}
+        CastEarthbindTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "earthbind totem") {}
     };
 
-    class CastTremorTotemAction : public CastBuffSpellAction
+    class CastTremorTotemAction : public CastTotemAction
     {
     public:
-        CastTremorTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "tremor totem") {}
+        CastTremorTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "tremor totem") {}
     };
 
-    class CastStoneclawTotemAction : public CastBuffSpellAction
+    class CastStoneclawTotemAction : public CastTotemAction
     {
     public:
-        CastStoneclawTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "stoneclaw totem") {}
+        CastStoneclawTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "stoneclaw totem") {}
     };
 
     class CastTremorTotemOnPartyAction : public DispelCharmPartyMemberAction
@@ -181,10 +187,10 @@ namespace ai
 		CastHealingStreamTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "healing stream totem") {}
 	};
 
-    class CastCleansingTotemAction : public CastBuffSpellAction
+    class CastCleansingTotemAction : public CastTotemAction
     {
     public:
-        CastCleansingTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "cleansing totem") {}
+        CastCleansingTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "cleansing totem") {}
     };
 
     class CastCallOfTheElementsTotemAction : public CastBuffSpellAction

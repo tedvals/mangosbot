@@ -40,10 +40,6 @@ void ShamanNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "medium aoe heal",
         NextAction::array(0, new NextAction("chain heal", 27.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
-		"prepare attack",
-		NextAction::array(0, new NextAction("call of the elements", ACTION_HIGH + 9), NULL)));
 }
 
 void ShamanNonCombatStrategy::InitMultipliers(std::list<Multiplier*> &multipliers)

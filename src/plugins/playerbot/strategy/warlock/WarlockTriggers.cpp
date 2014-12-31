@@ -13,10 +13,21 @@ bool DemonArmorTrigger::IsActive()
 		!ai->HasAura("fel armor", target);
 }
 
+/*
 bool SpellstoneTrigger::IsActive()
 {
-    return BuffTrigger::IsActive() && AI_VALUE2(uint8, "item count", getName()) > 0;
+    Unit* target = GetTarget();
+    return (!ai->HasAura("spellstone", target) &&
+		!ai->HasAura("firestone", target) && AI_VALUE2(uint8, "item count", getName()) > 0);
 }
+
+bool FirestoneTrigger::IsActive()
+{
+    Unit* target = GetTarget();
+    return (!ai->HasAura("spellstone", target) &&
+		!ai->HasAura("firestone", target) && AI_VALUE2(uint8, "item count", getName()) > 0);
+}
+*/
 
 bool WarlockNoCurseTrigger::IsActive()
 {

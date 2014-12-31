@@ -110,8 +110,6 @@ namespace ai
                 creators["maelstrom weapon"] = &TriggerFactoryInternal::maelstrom_weapon;
                 creators["wind shear on enemy healer"] = &TriggerFactoryInternal::wind_shear_on_enemy_healer;
                 creators["hex"] = &TriggerFactoryInternal::hex;
-                creators["tremor totem feared"] = &TriggerFactoryInternal::tremor_totem_on_party;
-                creators["tremor totem charmed"] = &TriggerFactoryInternal::tremor_totem_on_party2;
             }
 
         private:
@@ -144,8 +142,6 @@ namespace ai
             static Trigger* frost_shock_snare(PlayerbotAI* ai) { return new FrostShockSnareTrigger(ai); }
             static Trigger* wind_shear_on_enemy_healer(PlayerbotAI* ai) { return new WindShearInterruptEnemyHealerSpellTrigger(ai); }
             static Trigger* hex(PlayerbotAI* ai) { return new HexTrigger(ai); }
-            static Trigger* tremor_totem_on_party(PlayerbotAI* ai) { return new TremorTotemOnPartyTrigger(ai); }
-            static Trigger* tremor_totem_on_party2(PlayerbotAI* ai) { return new TremorTotemOnParty2Trigger(ai); }
         };
     };
 };
@@ -189,6 +185,7 @@ namespace ai
                 creators["earth shield on party"] = &AiObjectContextInternal::earth_shield_on_party;
                 creators["earth shield on master"] = &AiObjectContextInternal::earth_shield_on_master;
                 creators["chain heal"] = &AiObjectContextInternal::chain_heal;
+                creators["chain heal on party"] = &AiObjectContextInternal::chain_heal_on_party;
                 creators["riptide"] = &AiObjectContextInternal::riptide;
                 creators["riptide on party"] = &AiObjectContextInternal::riptide_on_party;
                 creators["stormstrike"] = &AiObjectContextInternal::stormstrike;
@@ -226,9 +223,11 @@ namespace ai
                 creators["nature's swiftness"] = &AiObjectContextInternal::natures_swiftness;
                 creators["burst"] =&AiObjectContextInternal::burst_shaman;
                 creators["boost"] =&AiObjectContextInternal::boost_shaman;
+                creators["finish target"] =&AiObjectContextInternal::earth_shock;
                 creators["party boost"] =&AiObjectContextInternal::party_boost;
                 creators["hex"] =&AiObjectContextInternal::hex;
                 creators["hex on cc"] =&AiObjectContextInternal::hex_on_cc;
+                creators["prepare attack"] =&AiObjectContextInternal::call_of_the_elements;
                 creators["call of the elements"] =&AiObjectContextInternal::call_of_the_elements;
                 creators["call of the spirits"] =&AiObjectContextInternal::call_of_the_spirits;
                 creators["call of the ancestors"] =&AiObjectContextInternal::call_of_the_ancestors;
@@ -278,6 +277,7 @@ namespace ai
             static Action* earth_shield_on_party(PlayerbotAI* ai) { return new CastEarthShieldOnPartyAction(ai); }
             static Action* earth_shield_on_master(PlayerbotAI* ai) { return new CastEarthShieldOnMasterAction(ai); }
             static Action* chain_heal(PlayerbotAI* ai) { return new CastChainHealAction(ai); }
+            static Action* chain_heal_on_party(PlayerbotAI* ai) { return new CastChainHealOnPartyAction(ai); }
             static Action* tidal_force(PlayerbotAI* ai) { return new CastTidalForceAction(ai); }
             static Action* riptide(PlayerbotAI* ai) { return new CastRiptideAction(ai); }
             static Action* riptide_on_party(PlayerbotAI* ai) { return new CastRiptideOnPartyAction(ai); }

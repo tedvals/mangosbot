@@ -135,6 +135,20 @@ namespace ai
 	class CastThornsAction : public CastBuffSpellAction {
 	public:
 		CastThornsAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "thorns") {}
+		virtual bool isUseful() {return ai->HasAnyAuraOf(bot, "bear form", "dire bear form", "moonkin form", NULL);}
+	};
+
+	class CastThornsOnMasterAction : public BuffOnPartyAction {
+	public:
+		CastThornsOnMasterAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "thorns") {}
+		virtual string getName() { return "thorns on master";}
+        virtual string GetTargetName() { return "master target";}
+	};
+
+	class CastThornsOnPartyAction : public BuffOnPartyAction {
+	public:
+		CastThornsOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "thorns") {}
+		virtual bool isUseful();
 	};
 
 	class CastWrathAction : public CastSpellAction

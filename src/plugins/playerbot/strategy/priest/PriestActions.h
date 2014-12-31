@@ -278,7 +278,7 @@ namespace ai
 
     BEGIN_RANGED_SPELL_ACTION(CastSmiteAction, "smite")
         virtual bool isUseful() {
-			return !ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(uint8, "mana", "self target") > 50;
+			return !ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(uint8, "mana", "self target") > 75;
         }
     END_SPELL_ACTION()
 

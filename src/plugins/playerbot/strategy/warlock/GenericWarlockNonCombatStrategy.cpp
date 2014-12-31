@@ -58,10 +58,6 @@ void GenericWarlockNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trig
     triggers.push_back(new TriggerNode(
 		"no soulstone",
 		NextAction::array(0, new NextAction("create soulstone", 13.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "spellstone",
-        NextAction::array(0, new NextAction("spellstone", 13.0f), NULL)));
 }
 
 class WarlockImpStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
@@ -91,6 +87,10 @@ void WarlockImpStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         triggers.push_back(new TriggerNode(
         "no pet",
         NextAction::array(0, new NextAction("summon imp", 60.0f), NULL)));
+
+        triggers.push_back(new TriggerNode(
+        "mainhand not enhanced",
+        NextAction::array(0, new NextAction("firestone", 50.0f), NULL)));
 }
 
 class WarlockVoidwalkerActionNodeFactory : public NamedObjectFactory<ActionNode>
@@ -121,6 +121,10 @@ void WarlockVoidwalkerStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         triggers.push_back(new TriggerNode(
         "no pet",
         NextAction::array(0, new NextAction("summon voidwalker", 60.0f), NULL)));
+
+        triggers.push_back(new TriggerNode(
+        "mainhand not enhanced",
+        NextAction::array(0, new NextAction("spellstone", 50.0f), NULL)));
 }
 
 class WarlockSuccubusActionNodeFactory : public NamedObjectFactory<ActionNode>
@@ -151,6 +155,10 @@ void WarlockSuccubusStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         triggers.push_back(new TriggerNode(
         "no pet",
         NextAction::array(0, new NextAction("summon succubus", 60.0f), NULL)));
+
+        triggers.push_back(new TriggerNode(
+        "mainhand not enhanced",
+        NextAction::array(0, new NextAction("spellstone", 50.0f), NULL)));
 }
 
 class WarlockFelhunterActionNodeFactory : public NamedObjectFactory<ActionNode>
@@ -180,6 +188,10 @@ void WarlockFelhunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         triggers.push_back(new TriggerNode(
         "no pet",
         NextAction::array(0, new NextAction("summon felhunter", 60.0f), NULL)));
+
+        triggers.push_back(new TriggerNode(
+        "mainhand not enhanced",
+        NextAction::array(0, new NextAction("spellstone", 50.0f), NULL)));
 }
 
 class WarlockFelguardStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
@@ -218,4 +230,8 @@ void WarlockFelguardStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         triggers.push_back(new TriggerNode(
         "no pet",
         NextAction::array(0, new NextAction("summon felguard", 60.0f), NULL)));
+
+        triggers.push_back(new TriggerNode(
+        "mainhand not enhanced",
+        NextAction::array(0, new NextAction("firestone", 50.0f), NULL)));
 }

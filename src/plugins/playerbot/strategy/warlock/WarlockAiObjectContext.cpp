@@ -90,7 +90,8 @@ namespace ai
                 creators["curse of agony on attacker"] = &TriggerFactoryInternal::curse_of_agony_on_attacker;
                 creators["no curse"] = &TriggerFactoryInternal::curse_of_agony;
                 creators["banish"] = &TriggerFactoryInternal::banish;
-                creators["spellstone"] = &TriggerFactoryInternal::spellstone;
+             //   creators["spellstone"] = &TriggerFactoryInternal::spellstone;
+             //   creators["firestone"] = &TriggerFactoryInternal::firestone;
                 creators["soulstone on master"] = &TriggerFactoryInternal::soulstone_on_master;
                 creators["backlash"] = &TriggerFactoryInternal::backlash;
                 creators["molten core"] = &TriggerFactoryInternal::molten_core;
@@ -115,7 +116,8 @@ namespace ai
             static Trigger* curse_of_agony_on_attacker(PlayerbotAI* ai) { return new CurseOfAgonyOnAttackerTrigger(ai); }
             static Trigger* curse_of_agony(PlayerbotAI* ai) { return new WarlockNoCurseTrigger(ai); }
             static Trigger* banish(PlayerbotAI* ai) { return new BanishTrigger(ai); }
-            static Trigger* spellstone(PlayerbotAI* ai) { return new SpellstoneTrigger(ai); }
+       //     static Trigger* spellstone(PlayerbotAI* ai) { return new SpellstoneTrigger(ai); }
+       //     static Trigger* firestone(PlayerbotAI* ai) { return new FirestoneTrigger(ai); }
             static Trigger* backlash(PlayerbotAI* ai) { return new BacklashTrigger(ai); }
             static Trigger* fear(PlayerbotAI* ai) { return new FearTrigger(ai); }
             static Trigger* immolate(PlayerbotAI* ai) { return new ImmolateTrigger(ai); }
@@ -144,6 +146,7 @@ namespace ai
                 creators["create spellstone"] = &AiObjectContextInternal::create_spellstone;
                 creators["create soulstone"] = &AiObjectContextInternal::create_soulstone;
                 creators["spellstone"] = &AiObjectContextInternal::spellstone;
+                creators["firestone"] = &AiObjectContextInternal::firestone;
                 creators["soulstone on master"] = &AiObjectContextInternal::soulstone_on_master;
                 creators["summon voidwalker"] = &AiObjectContextInternal::summon_voidwalker;
                 creators["summon felguard"] = &AiObjectContextInternal::summon_felguard;
@@ -201,7 +204,8 @@ namespace ai
             static Action* create_firestone(PlayerbotAI* ai) { return new CastCreateFirestoneAction(ai); }
             static Action* create_spellstone(PlayerbotAI* ai) { return new CastCreateSpellstoneAction(ai); }
             static Action* create_soulstone(PlayerbotAI* ai) { return new CastCreateSoulstoneAction(ai); }
-            static Action* spellstone(PlayerbotAI* ai) { return new UseSpellItemAction(ai, "spellstone", true); }
+            static Action* spellstone(PlayerbotAI* ai) { return new UseSpellstoneMainhandAction(ai); }
+            static Action* firestone(PlayerbotAI* ai) { return new UseFirestoneMainhandAction(ai); }
             static Action* soulstone_on_master(PlayerbotAI* ai) { return new UseSoulstoneOnMasterAction(ai); }
             static Action* summon_voidwalker(PlayerbotAI* ai) { return new CastSummonVoidwalkerAction(ai); }
             static Action* summon_succubus(PlayerbotAI* ai) { return new CastSummonSuccubusAction(ai); }

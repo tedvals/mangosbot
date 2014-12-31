@@ -289,7 +289,7 @@ namespace ai
 	class UseSoulstoneOnMasterAction : public UseItemAction
 	{
 	public:
-		UseSoulstoneOnMasterAction(PlayerbotAI* ai) : UseItemAction(ai, "soulstone",false) {}
+		UseSoulstoneOnMasterAction(PlayerbotAI* ai) : UseItemAction(ai, "soulstone",false) {setTargetUnit(AI_VALUE(Unit*, "master target"));}
 		virtual bool isUseful()
 	    {
 	        return !ai->HasAura("soulstone", AI_VALUE(Unit*, "master target"));
@@ -308,6 +308,17 @@ namespace ai
 		}
 	};
 
+    class UseFirestoneMainhandAction : public UseItemAction
+    {
+    public:
+        UseFirestoneMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "firestone") {setTargetMainhand();}
+    };
+
+    class UseSpellstoneMainhandAction : public UseItemAction
+    {
+    public:
+        UseSpellstoneMainhandAction(PlayerbotAI* ai) : UseItemAction(ai, "spellstone") {setTargetMainhand();}
+    };
 
     class CastSoulShatterAction : public CastBuffSpellAction
 	{

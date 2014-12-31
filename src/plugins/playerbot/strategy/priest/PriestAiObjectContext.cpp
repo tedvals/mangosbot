@@ -150,6 +150,7 @@ namespace ai
                 creators["power word: shield"] = &AiObjectContextInternal::power_word_shield;
                 creators["power word: shield on party"] = &AiObjectContextInternal::power_word_shield_on_party;
                 creators["power word: shield on master"] = &AiObjectContextInternal::power_word_shield_on_master;
+                creators["prepare attack"] = &AiObjectContextInternal::power_word_shield_on_master;
                 creators["renew"] = &AiObjectContextInternal::renew;
                 creators["renew on party"] = &AiObjectContextInternal::renew_on_party;
                 creators["greater heal"] = &AiObjectContextInternal::greater_heal;
@@ -191,6 +192,7 @@ namespace ai
                 creators["power infusion on party"] = &AiObjectContextInternal::power_infusion_on_party;
                 creators["shadowfiend"] = &AiObjectContextInternal::shadowfiend;
                 creators["power word: death"] = &AiObjectContextInternal::power_word_death;
+                creators["finish target"] = &AiObjectContextInternal::power_word_death;
                 creators["prayer of shadow protection"] = &AiObjectContextInternal::prayer_of_shadow_protection;
                 creators["prayer of shadow protection on party"] = &AiObjectContextInternal::prayer_of_shadow_protection_on_party;
                 creators["inner focus"] = &AiObjectContextInternal::inner_focus;

@@ -101,6 +101,7 @@ namespace ai
                 creators["rupture"] = &AiObjectContextInternal::rupture;
                 creators["slice and dice"] = &AiObjectContextInternal::slice_and_dice;
                 creators["eviscerate"] = &AiObjectContextInternal::eviscerate;
+                creators["finish target"] = &AiObjectContextInternal::eviscerate;
                 creators["envenom"] = &AiObjectContextInternal::envenom;
                 creators["vanish"] = &AiObjectContextInternal::vanish;
                 creators["evasion"] = &AiObjectContextInternal::evasion;
@@ -115,6 +116,7 @@ namespace ai
                 creators["hemorrhage"] = &AiObjectContextInternal::hemorrhage;
                 creators["shadowstep"] = &AiObjectContextInternal::shadowstep;
                 creators["stealth"] = &AiObjectContextInternal::stealth;
+                creators["prepare attack"] = &AiObjectContextInternal::stealth;
                 creators["garrote"] = &AiObjectContextInternal::garrote;
                 creators["ambush"] = &AiObjectContextInternal::ambush;
                 creators["preparation"] = &AiObjectContextInternal::preparation;

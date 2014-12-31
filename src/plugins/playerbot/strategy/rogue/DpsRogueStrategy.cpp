@@ -275,7 +275,7 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("reach melee", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("move behind", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
         "garrote",
@@ -323,10 +323,6 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
 		"target almost dead",
-		NextAction::array(0, new NextAction("eviscerate", ACTION_HIGH + 9), NULL)));
-
-    triggers.push_back(new TriggerNode(
-		"finish target",
 		NextAction::array(0, new NextAction("eviscerate", ACTION_HIGH + 9), NULL)));
 }
 
@@ -503,9 +499,5 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
 		"target almost dead",
-		NextAction::array(0, new NextAction("envenom", ACTION_HIGH + 9), NULL)));
-
-    triggers.push_back(new TriggerNode(
-		"finish target",
 		NextAction::array(0, new NextAction("envenom", ACTION_HIGH + 9), NULL)));
 }

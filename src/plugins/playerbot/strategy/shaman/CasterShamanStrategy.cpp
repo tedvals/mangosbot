@@ -73,6 +73,14 @@ void CasterShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("flametongue weapon", 23.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "mainhand not enhanced",
+        NextAction::array(0, new NextAction("flametongue weapon", 23.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "seldom",
+        NextAction::array(0, new NextAction("flametongue weapon", 23.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "totem of wrath",
         NextAction::array(0, new NextAction("totem of wrath", 19.0f), NULL)));
 

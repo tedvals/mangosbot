@@ -29,7 +29,10 @@ bool UseItemAction::Execute(Event event)
             //    return UseItemOnItem(*items.begin(), actionTarget);
             //}
             //else
-            return UseItemAuto(*items.begin());
+            if (actionUnit)
+                return UseItemOnUnit(*items.begin(),actionUnit);
+            else
+                return UseItemAuto(*items.begin());
         }
     else
     {
@@ -251,6 +254,69 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
         ai->InterruptSpell();
         ai->SetNextCheckDelay(3000);
     }
+
+    ai->TellMasterNoFacing(out.str());
+    bot->GetSession()->QueuePacket(packet);
+    return true;
+}
+
+bool UseItemAction::UseItemOnUnit(Item* item, Unit* unitTarget)
+{
+    if (bot->CanUseItem(item) != EQUIP_ERR_OK)
+        return false;
+
+    if (bot->IsNonMeleeSpellCast(true))
+        return false;
+
+    uint8 bagIndex = item->GetBagSlot();
+    uint8 slot = item->GetSlot();
+    uint8 cast_count = 1;
+    uint64 item_guid = item->GetGUID();
+    uint32 glyphIndex = 0;
+    uint8 unk_flags = 0;
+
+    WorldPacket* const packet = new WorldPacket(CMSG_USE_ITEM, 1 + 1 + 1 + 4 + 8 + 4 + 1 + 8 + 1);
+    *packet << bagIndex << slot << cast_count << uint32(0) << item_guid
+        << glyphIndex << unk_flags;
+
+    ostringstream out; out << "Using " << chat->formatItem(item->GetTemplate());
+    if (item->GetTemplate()->Stackable)
+    {
+        uint32 count = item->GetCount();
+        if (count > 1)
+            out << " (" << count << " available) ";
+        else
+            out << " (the last one!)";
+    }
+
+    uint32 targetFlag = TARGET_FLAG_UNIT;
+    *packet << targetFlag;
+    packet->appendPackGUID(unitTarget->GetGUID());
+    out << " on " << unitTarget->GetName();
+
+    MotionMaster &mm = *bot->GetMotionMaster();
+    mm.Clear();
+    bot->ClearUnitState( UNIT_STATE_CHASE );
+    bot->ClearUnitState( UNIT_STATE_FOLLOW );
+
+    if (bot->isMoving())
+        return false;
+
+    for (int i=0; i<MAX_ITEM_PROTO_SPELLS; i++)
+    {
+        uint32 spellId = item->GetTemplate()->Spells[i].SpellId;
+        if (!spellId)
+            continue;
+
+        if (!ai->CanCastSpell(spellId, bot, false))
+            continue;
+    }
+
+    if (bot->IsInCombat())
+            return false;
+
+    ai->InterruptSpell();
+    ai->SetNextCheckDelay(3000);
 
     ai->TellMasterNoFacing(out.str());
     bot->GetSession()->QueuePacket(packet);

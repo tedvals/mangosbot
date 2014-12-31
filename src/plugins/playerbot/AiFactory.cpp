@@ -132,9 +132,9 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             break;
         case CLASS_PALADIN:
             if (tab == 0)
-                engine->addStrategies("heal", "barmor", NULL);
+                engine->addStrategies("heal", "bmana", "threat", NULL);
             else if (tab == 1)
-                engine->addStrategies("tank", "tank aoe", "bdps", NULL);
+                engine->addStrategies("tank", "tank aoe", "barmor", NULL);
             else
                 engine->addStrategies("dps", "bdps", "threat", NULL);
             break;
@@ -166,15 +166,15 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             {
                 engine->addStrategies("dps", "threat", NULL);
                 if (player->getLevel() > 40)
-                    engine->addStrategies("felhunter",  "dps debuff", NULL);
+                    engine->addStrategies("dps debuff", NULL);
                 else
-                    engine->addStrategies("imp",  "dps debuff", NULL);
+                    engine->addStrategies("dps debuff", NULL);
             }
-            if (tab == 1)
+            else if (tab == 1)
                 engine->addStrategies("tank", "threat", "dps debuff", NULL);
             else
             {
-                engine->addStrategies("fire", "threat", "imp", "debuff", NULL);
+                engine->addStrategies("fire", "threat", "debuff", NULL);
             }
 
             engine->addStrategy("flee");
@@ -205,19 +205,42 @@ void AiFactory::AddDefaultNonCombatStrategies(Player* player, PlayerbotAI* const
         case CLASS_SHAMAN:
             nonCombatEngine->addStrategy("bmana");
             break;
+        case CLASS_ROGUE:
+            nonCombatEngine->addStrategy("stealth");
+            break;
         case CLASS_MAGE:
-            if (tab == 1)
+            if (tab > 1)
                 nonCombatEngine->addStrategy("bdps");
             else
                 nonCombatEngine->addStrategy("bmana");
             break;
+        case CLASS_WARLOCK:
+            if (tab == 0)
+            {
+                if (player->getLevel() > 30)
+                    nonCombatEngine->addStrategies("felhunter", NULL);
+                else
+                    nonCombatEngine->addStrategies("imp", NULL);
+            }
+            if (tab == 1)
+            {
+             if (player->getLevel() >= 50)
+                    nonCombatEngine->addStrategies("felguard", NULL);
+                else nonCombatEngine->addStrategies("voidwalker", NULL);
+            }
+            else
+            {
+                nonCombatEngine->addStrategies("imp", NULL);
+            }
     }
     nonCombatEngine->addStrategies("nc", "attack weak", "food", "stay", "chat",
             "default", "quest", "loot", "gather", "duel", "emote", "lfg", NULL);
 
     if (sRandomPlayerbotMgr.IsRandomBot(player) && !player->GetGroup())
     {
-        nonCombatEngine->ChangeStrategy(sPlayerbotAIConfig.randomBotNonCombatStrategies);
+        //nonCombatEngine->ChangeStrategy(sPlayerbotAIConfig.randomBotNonCombatStrategies);
+        //debug only
+        nonCombatEngine->addStrategies("move random", "grind", NULL);
     }
 
 }

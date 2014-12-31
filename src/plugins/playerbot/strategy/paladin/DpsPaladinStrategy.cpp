@@ -70,6 +70,10 @@ void DpsPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     GenericPaladinStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
+        "enemy out of melee",
+        NextAction::array(0, new NextAction("move behind", ACTION_EMERGENCY), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "low health",
         NextAction::array(0, new NextAction("instant flash of light", ACTION_MEDIUM_HEAL + 2), NULL)));
 

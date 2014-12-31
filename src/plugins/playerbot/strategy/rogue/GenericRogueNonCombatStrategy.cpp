@@ -108,8 +108,5 @@ void GenericRogueNonCombatStealthStrategy::InitTriggers(std::list<TriggerNode*> 
         "offhand not enhanced",
         NextAction::array(0, new NextAction("wound poison offhand", 21.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "prepare attack",
-        NextAction::array(0, new NextAction("stealth", ACTION_EMERGENCY), NULL)));
 }
 

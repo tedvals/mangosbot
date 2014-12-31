@@ -73,6 +73,7 @@ namespace ai
             {
                 creators["tank"] = &paladin::CombatStrategyFactoryInternal::tank;
                 creators["dps"] = &paladin::CombatStrategyFactoryInternal::dps;
+                creators["melee heal"] = &paladin::CombatStrategyFactoryInternal::melee_heal;
                 creators["heal"] = &paladin::CombatStrategyFactoryInternal::heal;
             }
 
@@ -80,6 +81,7 @@ namespace ai
             static Strategy* tank(PlayerbotAI* ai) { return new TankPaladinStrategy(ai); }
             static Strategy* dps(PlayerbotAI* ai) { return new DpsPaladinStrategy(ai); }
             static Strategy* heal(PlayerbotAI* ai) { return new HealPaladinStrategy(ai); }
+            static Strategy* melee_heal(PlayerbotAI* ai) { return new MeleeHealPaladinStrategy(ai);}
         };
     };
 };
@@ -166,8 +168,10 @@ namespace ai
                 creators["seal of command"] = &AiObjectContextInternal::seal_of_command;
                 creators["seal of vengeance"] = &AiObjectContextInternal::seal_of_vengeance;
                 creators["blessing of might"] = &AiObjectContextInternal::blessing_of_might;
+                creators["blessing of wisdom"] = &AiObjectContextInternal::blessing_of_wisdom;
                 creators["divine storm"] = &AiObjectContextInternal::divine_storm;
                 creators["blessing of kings on party"] = &AiObjectContextInternal::blessing_of_kings_on_party;
+                creators["blessing of wisdom on party"] = &AiObjectContextInternal::blessing_of_wisdom_on_party;
                 creators["redemption"] = &AiObjectContextInternal::redemption;
                 creators["crusader strike"] = &AiObjectContextInternal::crusader_strike;
                 creators["crusader aura"] = &AiObjectContextInternal::crusader_aura;
@@ -195,6 +199,8 @@ namespace ai
                 creators["exorcism"] = &AiObjectContextInternal::exorcism;
                 creators["judgement of light"] = &AiObjectContextInternal::judgement_of_light;
                 creators["judgement of wisdom"] = &AiObjectContextInternal::judgement_of_wisdom;
+                creators["ranged judgement of light"] = &AiObjectContextInternal::ranged_judgement_of_light;
+                creators["ranged judgement of wisdom"] = &AiObjectContextInternal::ranged_judgement_of_wisdom;
                 creators["divine shield"] = &AiObjectContextInternal::divine_shield;
                 creators["divine protection"] = &AiObjectContextInternal::divine_protection;
                 creators["divine protection on party"] =&AiObjectContextInternal::divine_protection_on_party;
@@ -238,8 +244,10 @@ namespace ai
             static Action* seal_of_command(PlayerbotAI* ai) { return new CastSealOfCommandAction(ai); }
             static Action* seal_of_vengeance(PlayerbotAI* ai) { return new CastSealOfVengeanceAction(ai); }
             static Action* blessing_of_might(PlayerbotAI* ai) { return new CastBlessingOfMightAction(ai); }
+            static Action* blessing_of_wisdom(PlayerbotAI* ai) { return new CastBlessingOfWisdomAction(ai); }
             static Action* divine_storm(PlayerbotAI* ai) { return new CastDivineStormAction(ai); }
             static Action* blessing_of_kings_on_party(PlayerbotAI* ai) { return new CastBlessingOfKingsOnPartyAction(ai); }
+            static Action* blessing_of_wisdom_on_party(PlayerbotAI* ai) { return new CastBlessingOfWisdomOnPartyAction(ai); }
             static Action* redemption(PlayerbotAI* ai) { return new CastRedemptionAction(ai); }
             static Action* crusader_strike(PlayerbotAI* ai) { return new CastCrusaderStrikeAction(ai); }
             static Action* crusader_aura(PlayerbotAI* ai) { return new CastCrusaderAuraAction(ai); }
@@ -267,6 +275,8 @@ namespace ai
             static Action* exorcism(PlayerbotAI* ai) { return new CastExorcismAction(ai); }
             static Action* judgement_of_light(PlayerbotAI* ai) { return new CastJudgementOfLightAction(ai); }
             static Action* judgement_of_wisdom(PlayerbotAI* ai) { return new CastJudgementOfWisdomAction(ai); }
+            static Action* ranged_judgement_of_light(PlayerbotAI* ai) { return new CastRangedJudgementOfLightAction(ai); }
+            static Action* ranged_judgement_of_wisdom(PlayerbotAI* ai) { return new CastRangedJudgementOfWisdomAction(ai); }
             static Action* divine_shield(PlayerbotAI* ai) { return new CastDivineShieldAction(ai); }
             static Action* divine_protection(PlayerbotAI* ai) { return new CastDivineProtectionAction(ai); }
             static Action* divine_protection_on_party(PlayerbotAI* ai) { return new CastDivineProtectionOnPartyAction(ai); }

@@ -56,6 +56,10 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
         NextAction::array(0, new NextAction("mark of the wild on party", 11.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "thorns on party",
+        NextAction::array(0, new NextAction("thorns on party", 13.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "cure poison",
         NextAction::array(0, new NextAction("abolish poison", 21.0f), NULL)));
 

@@ -14,9 +14,6 @@ using namespace lfg;
 bool LfgJoinAction::Execute(Event event)
 {
     Player* master = GetMaster();
-    if (master)
-        ai->TellMaster("Considering proposal");
-
     Group* group = bot->GetGroup();
     if (group)
     {
@@ -44,9 +41,6 @@ bool LfgJoinAction::Execute(Event event)
     Map* map = bot->GetMap();
     if (map && map->Instanceable())
         return false;
-
-    if (master)
-        ai->TellMaster("Accepted proposal");
 
     return JoinProposal();
 }
@@ -187,6 +181,11 @@ bool LfgJoinAction::JoinProposal()
 	{
 		sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "Bot %s joined to LFG_TYPE_DUNGEON as %d", bot->GetName().c_str(), (uint32)roles);
 	}
+
+    Player* master = GetMaster();
+
+    if (master)
+        ai->TellMaster("Bot " + bot->GetName() + " joined lfg");
 
     sLFGMgr->JoinLfg(bot, roles, list, "bot");
     return true;

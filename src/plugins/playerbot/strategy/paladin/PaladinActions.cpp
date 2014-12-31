@@ -58,7 +58,7 @@ bool CastBeaconOfLightActionOnParty::isUseful()
             case CLASS_WARRIOR:
                 return ai->HasAura("defensive stance", player);
             case CLASS_PALADIN:
-                return ai->HasAura("blessing of sanctuary", player);
+                return ai->HasAnyAuraOf(player, "blessing of sanctuary", "devotion aura", NULL);
             case CLASS_DRUID:
                 return ai->HasAnyAuraOf(player, "bear form", "dire bear form",  NULL);
         }
@@ -77,7 +77,7 @@ bool CastBlessingOfSanctuaryOnPartyAction::isUseful()
 
 bool  CastSealOfCommandAction::isUseful()
 {
-     return (AI_VALUE(uint8, "attacker count") > 2);
+     return (AI_VALUE(uint8, "attacker count") > 1);
 }
 
 bool  CastSealOfWisdomAction::isUseful()

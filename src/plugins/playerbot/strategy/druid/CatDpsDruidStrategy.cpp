@@ -52,14 +52,14 @@ private:
     static ActionNode* hibernate(PlayerbotAI* ai)
     {
         return new ActionNode ("hibernate",
-            /*P*/ NextAction::array(0, new NextAction("moonkin form"), NULL),
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NULL,
             /*C*/ NULL);
     }
     static ActionNode* hibernate_on_cc(PlayerbotAI* ai)
     {
         return new ActionNode ("hibernate on cc",
-            /*P*/ NextAction::array(0, new NextAction("moonkin form"), NULL),
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NULL,
             /*C*/ NULL);
     }
@@ -67,7 +67,7 @@ private:
     {
         return new ActionNode ("feral charge - cat",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* faerie_fire_feral(PlayerbotAI* ai)
@@ -82,13 +82,13 @@ private:
         return new ActionNode ("cat form",
             /*P*/ NULL,
             /*A*/ NULL,
-            /*C*/ NextAction::array(0, new NextAction("prowl"), NULL));
+            /*C*/ NULL);
     }
     static ActionNode* shred(PlayerbotAI* ai)
     {
         return new ActionNode ("shred",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("mangle (cat)"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* mangle_cat(PlayerbotAI* ai)
@@ -206,11 +206,7 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "have aggro",
-        NextAction::array(0, new NextAction("dire bear form", ACTION_EMERGENCY + 1), new NextAction("barkskin", ACTION_EMERGENCY + 1), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "lose aggro",
-        NextAction::array(0, new NextAction("cat form", ACTION_EMERGENCY + 1), NULL)));
+        NextAction::array(0, new NextAction("barkskin", ACTION_EMERGENCY + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "faerie fire (feral)",
@@ -222,7 +218,11 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
 		"tiger's fury",
-		NextAction::array(0, new NextAction("tiger's fury", ACTION_EMERGENCY + 1), NULL)));
+		NextAction::array(0, new NextAction("tiger's fury", ACTION_HIGH + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"target almost dead",
+		NextAction::array(0, new NextAction("ferocious bite", ACTION_EMERGENCY + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "entangling roots",

@@ -14,9 +14,9 @@ Event Trigger::Check()
 	    Player* master = GetMaster();
         if (master)
         {
-            if (sPlayerbotAIConfig.outputTriggers && (GetLastEvent() != getName()) && (getName() != "timer" && getName() != "no possible targets"))
+            if (getName() != "often" && getName() != "timer" && getName() != "no possible targets")
+            //if (sPlayerbotAIConfig.outputTriggers && (GetLastEvent() != getName()) && (getName() != "timer" && getName() != "no possible targets"))
             {
-                SetLastEvent(getName());
                 ai->TellMaster(getName());
                 }
         }

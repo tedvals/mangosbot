@@ -211,16 +211,4 @@ namespace ai
         HexTrigger(PlayerbotAI* ai) : HasCcTarget6Trigger(ai, "hex") {}
     };
 
-    class TremorTotemOnPartyTrigger : public PartyMemberFearedTrigger
-    {
-    public:
-        TremorTotemOnPartyTrigger(PlayerbotAI* ai) : PartyMemberFearedTrigger(ai) {}
-    };
-
-    class TremorTotemOnParty2Trigger : public PartyMemberCharmedTrigger
-    {
-    public:
-        TremorTotemOnParty2Trigger(PlayerbotAI* ai) : PartyMemberCharmedTrigger(ai) {}
-    };
-
 }

@@ -10,6 +10,10 @@ void PaladinBuffManaStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "seal",
         NextAction::array(0, new NextAction("seal of wisdom", 90.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"devotion aura",
+		NextAction::array(0, new NextAction("devotion aura", 90.0f), NULL)));
 }
 
 void PaladinBuffHealthStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -17,6 +21,10 @@ void PaladinBuffHealthStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "seal",
         NextAction::array(0, new NextAction("seal of light", 90.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"devotion aura",
+		NextAction::array(0, new NextAction("devotion aura", 90.0f), NULL)));
 }
 
 void PaladinBuffSpeedStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

@@ -59,10 +59,6 @@ void ShadowPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
 		"target almost dead",
 		NextAction::array(0, new NextAction("power word: death", ACTION_HIGH + 8), NULL)));
-
-    triggers.push_back(new TriggerNode(
-		"finish target",
-		NextAction::array(0, new NextAction("power word: death", ACTION_HIGH + 9), NULL)));
 }
 
 void ShadowPriestAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

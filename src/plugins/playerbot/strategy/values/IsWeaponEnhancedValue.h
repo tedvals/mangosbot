@@ -11,9 +11,9 @@ namespace ai
         virtual bool Calculate()
         {
             Item* weapon = bot->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_MAINHAND);
-            if (!weapon)
+            if (weapon && weapon->GetEnchantmentId(TEMP_ENCHANTMENT_SLOT))
                 return true;
-            else return (weapon->GetEnchantmentId(TEMP_ENCHANTMENT_SLOT) == 0);
+            else return false;
         }
     };
 
@@ -25,9 +25,9 @@ namespace ai
         virtual bool Calculate()
         {
             Item* weapon = bot->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_OFFHAND);
-            if (!weapon)
+            if (weapon && weapon->GetEnchantmentId(TEMP_ENCHANTMENT_SLOT))
                 return true;
-            else return (weapon->GetEnchantmentId(TEMP_ENCHANTMENT_SLOT) == 0);
+            else return false;
         }
     };
 }
