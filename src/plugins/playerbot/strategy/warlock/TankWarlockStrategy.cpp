@@ -57,6 +57,22 @@ void TankWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("summon felguard", 50.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "demon dead",
+        NextAction::array(0, new NextAction("fel domination", 50.0f),  new NextAction("summon felguard", 50.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "medium threat",
+        NextAction::array(0, new NextAction("demonic empowerment", 20.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "corruption on attacker",
+        NextAction::array(0, new NextAction("corruption on attacker", 25.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "corruption",
+        NextAction::array(0, new NextAction("corruption", 15.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "immolate",
         NextAction::array(0, new NextAction("immolate", 20.0f), NULL)));
 

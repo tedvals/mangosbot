@@ -99,6 +99,8 @@ namespace ai
                 creators["fear"] = &TriggerFactoryInternal::fear;
                 creators["immolate"] = &TriggerFactoryInternal::immolate;
                 creators["haunt"] = &TriggerFactoryInternal::haunt;
+                creators["demon dead"] = &TriggerFactoryInternal::demon_dead;
+                creators["demon low health"] = &TriggerFactoryInternal::demon_low_health;
             }
 
         private:
@@ -122,6 +124,8 @@ namespace ai
             static Trigger* fear(PlayerbotAI* ai) { return new FearTrigger(ai); }
             static Trigger* immolate(PlayerbotAI* ai) { return new ImmolateTrigger(ai); }
             static Trigger* haunt(PlayerbotAI* ai) { return new HauntTrigger(ai); }
+            static Trigger* demon_dead(PlayerbotAI* ai) { return new DemonDeadTrigger(ai); }
+            static Trigger* demon_low_health(PlayerbotAI* ai) { return new DemonLowHealthTrigger(ai); }
         };
     };
 };

@@ -133,9 +133,9 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
         case CLASS_PALADIN:
             if (tab == 0)
                 if (player->getLevel() > 59)
-                    engine->addStrategies("melee heal", "bmana", "threat", NULL);
-                else
                     engine->addStrategies("heal", "bmana", "threat", NULL);
+                else
+                    engine->addStrategies("melee heal", "bmana", "threat", NULL);
             else if (tab == 1)
                 engine->addStrategies("tank", "tank aoe", "barmor", NULL);
             else

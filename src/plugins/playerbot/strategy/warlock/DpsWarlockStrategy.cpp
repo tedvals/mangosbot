@@ -196,12 +196,12 @@ DpsWarlockDebuffStrategy::DpsWarlockDebuffStrategy(PlayerbotAI* ai) : CombatStra
 void DpsWarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
-        "no curse",
-        NextAction::array(0, new NextAction("curse of the elements", 25.0f), NULL)));
+        "curse of agony on attacker",
+        NextAction::array(0, new NextAction("curse of the agony on attacker", 24.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "curse of the agony",
-        NextAction::array(0, new NextAction("curse of agony", 20.0f), NULL)));
+        "no curse",
+        NextAction::array(0, new NextAction("curse of the agony", 25.0f), NULL)));
 }
 
 

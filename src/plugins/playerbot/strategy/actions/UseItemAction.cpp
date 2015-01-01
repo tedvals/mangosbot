@@ -320,9 +320,6 @@ bool UseItemAction::UseItemOnUnit(Item* item, Unit* unitTarget)
         *packet << bagIndex << slot << cast_count << spellId << item_guid
         << glyphIndex << unk_flags << targetFlag;
 
-    packet->appendPackGUID(unitTarget->GetGUID());
-    out << " on " << unitTarget->GetName();
-
     ai->TellMasterNoFacing(out.str());
     bot->GetSession()->QueuePacket(packet);
 
@@ -331,6 +328,9 @@ bool UseItemAction::UseItemOnUnit(Item* item, Unit* unitTarget)
     Spell *spell = new Spell(bot, pSpellInfo, TRIGGERED_NONE, ObjectGuid::Empty, true);
     ai->WaitForSpellCast(spell);
     delete spell;
+
+    packet->appendPackGUID(unitTarget->GetGUID());
+    out << " on " << unitTarget->GetName();
 
     return true;
 }

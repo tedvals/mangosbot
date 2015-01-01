@@ -9,6 +9,13 @@ namespace ai
 		DemonArmorTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "demon armor") {}
 		virtual bool IsActive();
 	};
+
+	BEGIN_TRIGGER(DemonDeadTrigger, Trigger)
+    END_TRIGGER()
+
+    BEGIN_TRIGGER(DemonLowHealthTrigger, Trigger)
+    END_TRIGGER()
+
 /*
     class SpellstoneTrigger : public BuffTrigger
     {
@@ -26,12 +33,6 @@ namespace ai
 */
     BUFF_ON_PARTY_TRIGGER(SoulstoneOnMasterTrigger, "soulstone", "soulstone on master")
 
-
-    //BEGIN_TRIGGER(WarlockNoCurseTrigger, Trigger)
-    //END_TRIGGER()
-
-    //BEGIN_TRIGGER(WarlockNoCorruptionTrigger, Trigger)
-    //END_TRIGGER()
 
     //DEBUFF_TRIGGER(CurseOfAgonyTrigger, "curse of agony", "curse of agony");
     //DEBUFF_TRIGGER(CorruptionTrigger, "corruption", "corruption");
