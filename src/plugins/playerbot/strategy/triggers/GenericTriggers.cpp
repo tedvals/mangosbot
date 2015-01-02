@@ -39,12 +39,12 @@ bool ComboPointAvailableTrigger::IsActive()
 
 bool LoseAggroTrigger::IsActive()
 {
-    return !AI_VALUE2(bool, "has aggro", "current target");
+    return !AI_VALUE2(bool, "has aggro", "current target") && AI_VALUE2(bool, "combat", "self target");
 }
 
 bool HasAggroTrigger::IsActive()
 {
-    return AI_VALUE2(bool, "has aggro", "current target");
+    return AI_VALUE2(bool, "has aggro", "current target") && AI_VALUE2(bool, "combat", "self target");
 }
 
 bool PanicTrigger::IsActive()
@@ -64,6 +64,11 @@ bool BuffTrigger::IsActive()
 Value<Unit*>* BuffOnPartyTrigger::GetTargetValue()
 {
 	return context->GetValue<Unit*>("party member without aura", spell);
+}
+
+Value<Unit*>* BuffOnMasterTrigger::GetTargetValue()
+{
+	return context->GetValue<Unit*>("master without aura", spell);
 }
 
 Value<Unit*>* DebuffOnAttackerTrigger::GetTargetValue()

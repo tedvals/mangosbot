@@ -25,7 +25,7 @@ namespace ai
         bool SocketItem(Item* item, Item* gem, bool replace = false);
     private:
         bool selfOnly;
-        Item* actionTarget;
+        uint8 targetSlot;
         Unit* actionUnit;
     };
 

@@ -317,6 +317,11 @@ namespace ai
 	{
 	public:
 	    CastBlinkAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "blink") {}
+
+	    virtual bool isUseful()
+        {
+            return (AI_VALUE2(bool, "combat", "self target"));
+            }
 	};
 
 	class CastEvocationAction : public CastSpellAction

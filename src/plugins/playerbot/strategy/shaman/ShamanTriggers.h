@@ -27,6 +27,11 @@ namespace ai
     class WindfuryTotemTrigger : public TotemTrigger {
     public:
         WindfuryTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "windfury totem") {}
+
+        virtual bool IsActive()
+		{
+            return TotemTrigger::IsActive() && !AI_VALUE2(bool, "has own totem", "grounding totem");
+        }
     };
 
     class ManaSpringTotemTrigger : public TotemTrigger {
@@ -43,21 +48,42 @@ namespace ai
     class FlametongueTotemTrigger : public TotemTrigger {
     public:
         FlametongueTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "flametongue totem") {}
+
+        virtual bool IsActive()
+		{
+            return TotemTrigger::IsActive() && !AI_VALUE2(bool, "has own totem", "fire elemental totem");
+        }
     };
 
     class StrengthOfEarthTotemTrigger : public TotemTrigger {
     public:
         StrengthOfEarthTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "strength of earth totem") {}
+
+        virtual bool IsActive()
+		{
+            return TotemTrigger::IsActive() && !AI_VALUE2(bool, "has own totem", "tremor totem") && !AI_VALUE2(bool, "has own totem", "stoneclaw totem") &&
+                    !AI_VALUE2(bool, "has own totem", "earth elemental totem");
+        }
     };
 
     class MagmaTotemTrigger : public TotemTrigger {
     public:
         MagmaTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "magma totem", 4) {}
+
+        virtual bool IsActive()
+		{
+            return TotemTrigger::IsActive() && !AI_VALUE2(bool, "has own totem", "fire elemental totem");
+        }
     };
 
     class SearingTotemTrigger : public TotemTrigger {
     public:
         SearingTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "searing totem", 1) {}
+
+        virtual bool IsActive()
+		{
+            return TotemTrigger::IsActive() && !AI_VALUE2(bool, "has own totem", "fire elemental totem");
+        }
     };
 
     class WindShearInterruptSpellTrigger : public InterruptSpellTrigger
@@ -106,7 +132,7 @@ namespace ai
 
     class WaterWalkingOnPartyTrigger : public BuffOnPartyTrigger {
     public:
-        WaterWalkingOnPartyTrigger(PlayerbotAI* ai) : BuffOnPartyTrigger(ai, "water walking on party") {}
+        WaterWalkingOnPartyTrigger(PlayerbotAI* ai) : BuffOnPartyTrigger(ai, "water walking") {}
 
         virtual bool IsActive()
         {
@@ -116,7 +142,7 @@ namespace ai
 
     class WaterBreathingOnPartyTrigger : public BuffOnPartyTrigger {
     public:
-        WaterBreathingOnPartyTrigger(PlayerbotAI* ai) : BuffOnPartyTrigger(ai, "water breathing on party") {}
+        WaterBreathingOnPartyTrigger(PlayerbotAI* ai) : BuffOnPartyTrigger(ai, "water breathing") {}
 
         virtual bool IsActive()
         {
@@ -126,12 +152,12 @@ namespace ai
 
     class EarthShieldOnPartyTrigger : public BuffOnPartyTrigger {
     public:
-        EarthShieldOnPartyTrigger(PlayerbotAI* ai) : BuffOnPartyTrigger(ai, "earth shield on party") {}
+        EarthShieldOnPartyTrigger(PlayerbotAI* ai) : BuffOnPartyTrigger(ai, "earth shield") {}
     };
 
-    class EarthShieldOnMasterTrigger : public BuffOnPartyTrigger {
+    class EarthShieldOnMasterTrigger : public BuffOnMasterTrigger {
     public:
-        EarthShieldOnMasterTrigger(PlayerbotAI* ai) : BuffOnPartyTrigger(ai, "earth shield on master") {}
+        EarthShieldOnMasterTrigger(PlayerbotAI* ai) : BuffOnMasterTrigger(ai, "earth shield") {}
     };
 
     class CleanseSpiritPoisonTrigger : public NeedCureTrigger

@@ -10,34 +10,13 @@ class HealShamanStrategyActionNodeFactory : public NamedObjectFactory<ActionNode
 public:
     HealShamanStrategyActionNodeFactory()
     {
-        creators["flame shock"] = &flame_shock;
-        creators["earth shock"] = &earth_shock;
         creators["earthliving weapon"] = &earthliving_weapon;
         creators["mana tide totem"] = &mana_tide_totem;
-        creators["chain heal"] = &chain_heal;
         creators["riptide"] = &riptide;
-        creators["chain heal on party"] = &chain_heal_on_party;
         creators["riptide on party"] = &riptide_on_party;
         creators["tidal force"] = &tidal_force;
-        creators["nature's swiftness"] = &natures_swiftness;
-        creators["lesser healing wave"] = &lesser_healing_wave;
-        creators["lesser healing wave on party"] = &lesser_healing_wave_on_party;
     }
 private:
-     static ActionNode* flame_shock(PlayerbotAI* ai)
-    {
-        return new ActionNode ("flame shock",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("earth shock"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* earth_shock(PlayerbotAI* ai)
-    {
-        return new ActionNode ("earth shock",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("reach spell"), NULL),
-            /*C*/ NULL);
-    }
     static ActionNode* earthliving_weapon(PlayerbotAI* ai)
     {
         return new ActionNode ("earthliving weapon",
@@ -52,39 +31,11 @@ private:
             /*A*/ NextAction::array(0, new NextAction("mana potion"), NULL),
             /*C*/ NULL);
     }
-    static ActionNode* chain_heal(PlayerbotAI* ai)
-    {
-        return new ActionNode ("chain heal",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("lesser healing wave"), NULL),
-            /*C*/ NULL);
-    }
     static ActionNode* riptide(PlayerbotAI* ai)
     {
         return new ActionNode ("riptide",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("chain heal"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* chain_heal_on_party(PlayerbotAI* ai)
-    {
-        return new ActionNode ("chain heal on party",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("lesser healing wave on party"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* lesser_healing_wave(PlayerbotAI* ai)
-    {
-        return new ActionNode ("lesser healing wave",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("healing wave"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* lesser_healing_wave_on_party(PlayerbotAI* ai)
-    {
-        return new ActionNode ("lesser healing wave on party",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("healing wave on party"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* riptide_on_party(PlayerbotAI* ai)
@@ -99,14 +50,7 @@ private:
         return new ActionNode ("tidal force",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("nature's swiftness"), NULL),
-            /*C*/ NextAction::array(0, new NextAction("lesser healing wave"), NULL));
-    }
-    static ActionNode* natures_swiftness(PlayerbotAI* ai)
-    {
-        return new ActionNode ("nature's swiftness",
-            /*P*/ NULL,
-            /*A*/ NULL,
-            /*C*/ NextAction::array(0, new NextAction("healing wave"), NULL));
+            /*C*/ NULL);
     }
 };
 
@@ -118,6 +62,10 @@ HealShamanStrategy::HealShamanStrategy(PlayerbotAI* ai) : GenericShamanStrategy(
 void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericShamanStrategy::InitTriggers(triggers);
+
+    triggers.push_back(new TriggerNode(
+        "enemy out of spell",
+        NextAction::array(0, new NextAction("reach spell", ACTION_NORMAL + 9), NULL)));
 
       triggers.push_back(new TriggerNode(
         "shaman weapon",
@@ -141,15 +89,15 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
 		"medium aoe heal",
-		NextAction::array(0, new NextAction("chain heal", ACTION_NORMAL + 7), NULL)));
+		NextAction::array(0, new NextAction("chain heal", ACTION_MEDIUM_HEAL + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"medium health",
-		NextAction::array(0, new NextAction("healing wave", ACTION_CRITICAL_HEAL + 1), NULL)));
+		NextAction::array(0, new NextAction("healing wave", ACTION_MEDIUM_HEAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member medium health",
-		NextAction::array(0, new NextAction("healing wave", ACTION_CRITICAL_HEAL), NULL)));
+		NextAction::array(0, new NextAction("healing wave", ACTION_MEDIUM_HEAL + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"almost full health",
@@ -169,15 +117,15 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
 		"critical health",
-		NextAction::array(0, new NextAction("tidal force", ACTION_EMERGENCY + 8), new NextAction("low healing wave", ACTION_EMERGENCY + 8),NULL)));
+		NextAction::array(0, new NextAction("tidal force", ACTION_CRITICAL_HEAL + 8), new NextAction("low healing wave", ACTION_CRITICAL_HEAL + 8),NULL)));
 
     triggers.push_back(new TriggerNode(
 		"party member almost dead",
-		NextAction::array(0, new NextAction("nature's swiftness", ACTION_EMERGENCY + 9), new NextAction("healing wave", ACTION_EMERGENCY + 9),NULL)));
+		NextAction::array(0, new NextAction("nature's swiftness", ACTION_CRITICAL_HEAL + 9), new NextAction("healing wave on party", ACTION_CRITICAL_HEAL + 9),NULL)));
 
     triggers.push_back(new TriggerNode(
 		"party member critical health",
-		NextAction::array(0, new NextAction("tidal force", ACTION_EMERGENCY + 7), new NextAction("lesser healing wave", ACTION_EMERGENCY + 7), NULL)));
+		NextAction::array(0, new NextAction("tidal force", ACTION_CRITICAL_HEAL + 4), new NextAction("lesser healing wave on party", ACTION_CRITICAL_HEAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low mana",
@@ -208,6 +156,7 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("cleanse spirit disease on party", 23.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "medium aoe",
-        NextAction::array(0, new NextAction("healing stream totem", ACTION_LIGHT_HEAL), NULL)));
+        "medium aoe heal",
+        NextAction::array(0, new NextAction("chain heal", 27.0f), NULL)));
+
 }

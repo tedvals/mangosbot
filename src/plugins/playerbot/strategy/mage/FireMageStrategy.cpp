@@ -29,7 +29,7 @@ private:
     {
         return new ActionNode ("scorch",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("shoot"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("fireball"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* combustion(PlayerbotAI* ai)
@@ -62,7 +62,7 @@ FireMageStrategy::FireMageStrategy(PlayerbotAI* ai) : GenericMageStrategy(ai)
 
 NextAction** FireMageStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("fireball", 6.0f), NULL);
+    return NextAction::array(0, new NextAction("fireball", ACTION_NORMAL), NULL);
 }
 
 void FireMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

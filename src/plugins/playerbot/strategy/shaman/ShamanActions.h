@@ -8,21 +8,12 @@ namespace ai
     public:
         CastLesserHealingWaveAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "lesser healing wave") {}
 
-        virtual NextAction** getAlternatives()
-        {
-            return NextAction::merge( NextAction::array(0, new NextAction("healing wave"), NULL), CastHealingSpellAction::getAlternatives());
-        }
     };
 
     class CastLesserHealingWaveOnPartyAction : public HealPartyMemberAction
     {
     public:
         CastLesserHealingWaveOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "lesser healing wave") {}
-
-        virtual NextAction** getAlternatives()
-        {
-            return NextAction::merge( NextAction::array(0, new NextAction("healing wave on party"), NULL), HealPartyMemberAction::getAlternatives());
-        }
     };
 
     class CastHealingWaveAction : public CastHealingSpellAction {
@@ -131,6 +122,13 @@ namespace ai
         virtual bool isUseful() { return CastBuffSpellAction::isUseful() && !AI_VALUE2(bool, "has totem", name); }
     };
 
+    class CastOwnTotemAction : public CastBuffSpellAction
+    {
+    public:
+        CastOwnTotemAction(PlayerbotAI* ai, string spell) : CastBuffSpellAction(ai, spell) {}
+        virtual bool isUseful() { return CastBuffSpellAction::isUseful() && !AI_VALUE2(bool, "has own totem", name); }
+    };
+
     class CastStoneskinTotemAction : public CastTotemAction
     {
     public:
@@ -150,10 +148,10 @@ namespace ai
         CastTremorTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "tremor totem") {}
     };
 
-    class CastStoneclawTotemAction : public CastTotemAction
+    class CastStoneclawTotemAction : public CastOwnTotemAction
     {
     public:
-        CastStoneclawTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "stoneclaw totem") {}
+        CastStoneclawTotemAction(PlayerbotAI* ai) : CastOwnTotemAction(ai, "stoneclaw totem") {}
     };
 
     class CastTremorTotemOnPartyAction : public DispelCharmPartyMemberAction
@@ -181,10 +179,10 @@ namespace ai
 		virtual string GetTargetName() { return "self target"; }
 	};
 
-	class CastHealingStreamTotemAction : public CastTotemAction
+	class CastHealingStreamTotemAction : public CastOwnTotemAction
 	{
 	public:
-		CastHealingStreamTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "healing stream totem") {}
+		CastHealingStreamTotemAction(PlayerbotAI* ai) : CastOwnTotemAction(ai, "healing stream totem") {}
 	};
 
     class CastCleansingTotemAction : public CastTotemAction

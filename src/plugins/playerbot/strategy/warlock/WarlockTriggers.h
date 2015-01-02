@@ -31,8 +31,13 @@ namespace ai
         virtual bool IsActive();
     };
 */
-    BUFF_ON_PARTY_TRIGGER(SoulstoneOnMasterTrigger, "soulstone", "soulstone on master")
 
+     class SoulstoneOnMasterTrigger : public BuffOnMasterTrigger
+    {
+    public:
+        SoulstoneOnMasterTrigger(PlayerbotAI* ai) : BuffOnMasterTrigger(ai, "soulstone") {}
+        virtual bool IsActive();
+    };
 
     //DEBUFF_TRIGGER(CurseOfAgonyTrigger, "curse of agony", "curse of agony");
     //DEBUFF_TRIGGER(CorruptionTrigger, "corruption", "corruption");

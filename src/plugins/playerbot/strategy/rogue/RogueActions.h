@@ -18,6 +18,11 @@ namespace ai
 	{
 	public:
 		CastEvasionAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "evasion") {}
+
+		virtual bool isUseful()
+        {
+            return (AI_VALUE2(bool, "combat", "self target"));
+            }
 	};
 
 	class CastSprintAction : public CastBuffSpellAction
@@ -71,6 +76,7 @@ namespace ai
         {
             return (AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.almostDead || AI_VALUE2(bool, "rooted", "self target"));
             }
+
 	};
 
 	class CastCloakOfShadowsAction : public CastBuffSpellAction

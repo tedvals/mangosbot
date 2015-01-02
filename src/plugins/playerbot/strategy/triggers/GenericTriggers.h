@@ -274,6 +274,14 @@ namespace ai
 		virtual Value<Unit*>* GetTargetValue();
     };
 
+    class BuffOnMasterTrigger : public BuffTrigger
+    {
+    public:
+        BuffOnMasterTrigger(PlayerbotAI* ai, string spell) : BuffTrigger(ai, spell) {}
+    public:
+		virtual Value<Unit*>* GetTargetValue();
+    };
+
     BEGIN_TRIGGER(NoAttackersTrigger, Trigger)
     END_TRIGGER()
 

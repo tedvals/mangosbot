@@ -158,11 +158,11 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("feral charge - cat", ACTION_NORMAL + 9), NULL)));
+        NextAction::array(0, new NextAction("feral charge - cat", ACTION_MOVE + 9), NULL)));
 
      triggers.push_back(new TriggerNode(
         "enemy too close for melee",
-        NextAction::array(0, new NextAction("move out of enemy contact", ACTION_NORMAL + 8), NULL)));
+        NextAction::array(0, new NextAction("move out of enemy contact", ACTION_MOVE + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "not facing target",

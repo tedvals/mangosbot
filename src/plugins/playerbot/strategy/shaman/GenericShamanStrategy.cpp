@@ -17,6 +17,8 @@ public:
         creators["windfury weapon"] = &windfury_weapon;
         creators["lesser healing wave"] = &lesser_healing_wave;
         creators["lesser healing wave on party"] = &lesser_healing_wave_on_party;
+        creators["chain heal"] = &chain_heal;
+        creators["chain heal on party"] = &chain_heal_on_party;
         creators["strength of earth totem"] = &strength_earth_totem;
         creators["stoneskin totem"] = &stoneskin_totem;
         creators["totem of wrath totem"] = &wrath_totem;
@@ -27,7 +29,6 @@ public:
         creators["boost"] = &bloodlust;
         creators["bloodlust"] = &bloodlust;
         creators["heroism"] = &bloodlust;
-        creators["stoneclaw totem"] = &stoneclaw_totem;
         creators["earth elemental totem"] = &earth_elemental_totem;
     }
 private:
@@ -72,20 +73,6 @@ private:
         return new ActionNode ("windfury weapon",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("rockbiter weapon"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* lesser_healing_wave(PlayerbotAI* ai)
-    {
-        return new ActionNode ("lesser healing wave",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("healing wave"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* lesser_healing_wave_on_party(PlayerbotAI* ai)
-    {
-        return new ActionNode ("lesser healing wave on party",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("healing wave on party"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* strength_earth_totem(PlayerbotAI* ai)
@@ -151,18 +138,39 @@ private:
             /*A*/ NextAction::array(0, new NextAction("bloodlust"), NULL),
             /*C*/ NextAction::array(0, new NextAction("fire elemental"), NULL));
     }
-    static ActionNode* stoneclaw_totem(PlayerbotAI* ai)
-    {
-        return new ActionNode ("stoneclaw totem",
-            /*P*/ NULL,
-            /*A*/ NULL,
-            /*C*/ NULL);
-    }
     static ActionNode* earth_elemental_totem(PlayerbotAI* ai)
     {
         return new ActionNode ("earth elemental totem",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("stoneclaw totem"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* chain_heal(PlayerbotAI* ai)
+    {
+        return new ActionNode ("chain heal",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("lesser healing wave"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* chain_heal_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("chain heal on party",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("lesser healing wave on party"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* lesser_healing_wave(PlayerbotAI* ai)
+    {
+        return new ActionNode ("lesser healing wave",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("healing wave"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* lesser_healing_wave_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("lesser healing wave on party",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("healing wave on party"), NULL),
             /*C*/ NULL);
     }
 };
@@ -182,19 +190,19 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "takes periodic damage",
-        NextAction::array(0, new NextAction("flee", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("flee", ACTION_MOVE + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy out of spell",
-        NextAction::array(0, new NextAction("reach spell", ACTION_EMERGENCY + 5), NULL)));
+        NextAction::array(0, new NextAction("reach spell", ACTION_MOVE + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "not facing target",
-        NextAction::array(0, new NextAction("set facing", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("set facing", ACTION_MOVE + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
         "wind shear",
-        NextAction::array(0, new NextAction("wind shear", 23.0f), NULL)));
+        NextAction::array(0, new NextAction("wind shear", ACTION_INTERRUPT), NULL)));
 
      triggers.push_back(new TriggerNode(
         "target fleeing",
@@ -202,15 +210,19 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "wind shear on enemy healer",
-        NextAction::array(0, new NextAction("wind shear on enemy healer", 23.0f), NULL)));
+        NextAction::array(0, new NextAction("wind shear on enemy healer", ACTION_INTERRUPT + 3), NULL)));
 
 	triggers.push_back(new TriggerNode(
         "purge",
 		NextAction::array(0, new NextAction("purge", 10.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-		"critical health",
+		"almost dead",
 		NextAction::array(0, new NextAction("stoneclaw totem", ACTION_EMERGENCY + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"party member critical health",
+		NextAction::array(0, new NextAction("lesser healing wave on party", ACTION_CRITICAL_HEAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"low health",
@@ -222,7 +234,7 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "party member charmed",
-        NextAction::array(0, new NextAction("tremor totem", 60.0f), NULL)));
+        NextAction::array(0, new NextAction("tremor totem ", 60.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member feared",
@@ -248,9 +260,13 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"finish target",
 		NextAction::array(0, new NextAction("earth shock", ACTION_HIGH + 9), NULL)));
 
-      triggers.push_back(new TriggerNode(
+    triggers.push_back(new TriggerNode(
 		"target almost dead",
 		NextAction::array(0, new NextAction("earth shock", ACTION_HIGH + 8), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "medium aoe",
+        NextAction::array(0, new NextAction("healing stream totem", ACTION_LIGHT_HEAL), NULL)));
 }
 
 void ShamanBuffDpsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

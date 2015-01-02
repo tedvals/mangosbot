@@ -72,6 +72,7 @@ namespace ai
             creators["nearest corpses"] = &ValueContext::nearest_corpses;
             creators["log level"] = &ValueContext::log_level;
             creators["party member without aura"] = &ValueContext::party_member_without_aura;
+            creators["master without aura"] = &ValueContext::master_without_aura;
             creators["attacker without aura"] = &ValueContext::attacker_without_aura;
             creators["party member to heal"] = &ValueContext::party_member_to_heal;
             creators["party member to resurrect"] = &ValueContext::party_member_to_resurrect;
@@ -161,6 +162,7 @@ namespace ai
             creators["last spell cast time"] = &ValueContext::last_spell_cast_time;
             creators["chat"] = &ValueContext::chat;
             creators["has totem"] = &ValueContext::has_totem;
+            creators["has own totem"] = &ValueContext::has_own_totem;
 
             creators["aoe heal"] = &ValueContext::aoe_heal;
 
@@ -253,6 +255,7 @@ namespace ai
         static UntypedValue* possible_targets(PlayerbotAI* ai) { return new PossibleTargetsValue(ai); }
         static UntypedValue* nearest_adds(PlayerbotAI* ai) { return new NearestAdsValue(ai); }
         static UntypedValue* party_member_without_aura(PlayerbotAI* ai) { return new PartyMemberWithoutAuraValue(ai); }
+        static UntypedValue* master_without_aura(PlayerbotAI* ai) { return new MasterWithoutAuraValue(ai); }
         static UntypedValue* attacker_without_aura(PlayerbotAI* ai) { return new AttackerWithoutAuraTargetValue(ai); }
         static UntypedValue* party_member_to_heal(PlayerbotAI* ai) { return new PartyMemberToHeal(ai); }
         static UntypedValue* party_member_to_resurrect(PlayerbotAI* ai) { return new PartyMemberToResurrect(ai); }
@@ -285,6 +288,7 @@ namespace ai
         static UntypedValue* rti_target(PlayerbotAI* ai) { return new RtiTargetValue(ai); }
         static UntypedValue* duel_target(PlayerbotAI* ai) { return new DuelTargetValue(ai); }
         static UntypedValue* has_totem(PlayerbotAI* ai) { return new HasTotemValue(ai); }
+        static UntypedValue* has_own_totem(PlayerbotAI* ai) { return new HasOwnTotemValue(ai); }
         static UntypedValue* threat(PlayerbotAI* ai) { return new ThreatValue(ai); }
         static UntypedValue* combat(PlayerbotAI* ai) { return new IsInCombatValue(ai); }
         static UntypedValue* lfg_proposal(PlayerbotAI* ai) { return new LfgProposalValue(ai); }

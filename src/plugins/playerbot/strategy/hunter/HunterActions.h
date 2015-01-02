@@ -153,10 +153,10 @@ namespace ai
         CastFeignDeathAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "feign death") {}
     };
 
-    class CastDisengageAction : public CastBuffSpellAction
+    class CastDisengageAction : public CastSpellAction
     {
     public:
-        CastDisengageAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "disengage") {}
+        CastDisengageAction(PlayerbotAI* ai) : CastSpellAction(ai, "disengage") {}
     };
 
     class CastDeterrenceAction : public CastBuffSpellAction

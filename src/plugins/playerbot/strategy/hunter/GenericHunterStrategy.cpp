@@ -133,7 +133,7 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "enemy too close for spell",
-        NextAction::array(0, new NextAction("disengage", 50.0f), new NextAction("flee",49.0f), new NextAction("concussive shot", 48.0f), NULL)));
+        NextAction::array(0, new NextAction("disengage", ACTION_MOVE + 8), new NextAction("flee",ACTION_MOVE + 6), new NextAction("concussive shot", 48.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "have aggro",

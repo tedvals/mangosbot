@@ -14,4 +14,14 @@ namespace ai
     protected:
         virtual Unit* Calculate();
 	};
+
+	class MasterWithoutAuraValue : public PartyMemberValue, public Qualified
+	{
+	public:
+        MasterWithoutAuraValue(PlayerbotAI* ai, float range = sPlayerbotAIConfig.sightDistance) :
+          PartyMemberValue(ai) {}
+
+    protected:
+        virtual Unit* Calculate();
+	};
 }

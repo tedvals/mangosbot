@@ -118,6 +118,11 @@ namespace ai
     class CastFadeAction : public CastBuffSpellAction {
     public:
         CastFadeAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "fade") {}
+
+        virtual bool isUseful()
+        {
+            return (AI_VALUE2(bool, "combat", "self target"));
+            }
     };
 
     class CastPrayerOfMendingAction : public CastHealingSpellAction {
