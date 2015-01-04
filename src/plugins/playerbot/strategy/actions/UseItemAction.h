@@ -54,7 +54,7 @@ namespace ai
     {
     public:
         BandageAction(PlayerbotAI* ai) : UseItemAction(ai, "bandage") {}
-        virtual bool isUseful() { return !AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.criticalHealth; }
+        virtual bool isUseful() { return (AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.almostDead && !AI_VALUE2(bool, "has aggro", "current target"));}
     };
 
 }

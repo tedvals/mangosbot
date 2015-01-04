@@ -64,14 +64,14 @@ private:
     {
         return new ActionNode ("concussive shot",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("shatter shot"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("wing clip"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* intimidation(PlayerbotAI* ai)
     {
         return new ActionNode ("intimidation",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("scatter shot"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("freezing trap"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* counterstrike(PlayerbotAI* ai)
@@ -85,21 +85,21 @@ private:
     {
         return new ActionNode ("disengage",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("wing clip"), NULL),
-            /*C*/ NULL);
+            /*A*/ NextAction::array(0, new NextAction("scatter shot"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
     }
     static ActionNode* wing_clip(PlayerbotAI* ai)
     {
         return new ActionNode ("wing clip",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("shatter shot"), NULL),
+            /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
     }
     static ActionNode* scatter_shot(PlayerbotAI* ai)
     {
         return new ActionNode ("shatter shot",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("flee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("wing clip"), NULL),
             /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
     }
     static ActionNode* misdirection_on_party(PlayerbotAI* ai)
@@ -133,7 +133,7 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "enemy too close for spell",
-        NextAction::array(0, new NextAction("disengage", ACTION_MOVE + 8), new NextAction("flee",ACTION_MOVE + 6), new NextAction("concussive shot", 48.0f), NULL)));
+        NextAction::array(0, new NextAction("disengage", ACTION_MOVE + 8), new NextAction("concussive shot", ACTION_MOVE + 7), new NextAction("flee",ACTION_MOVE + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
         "have aggro",

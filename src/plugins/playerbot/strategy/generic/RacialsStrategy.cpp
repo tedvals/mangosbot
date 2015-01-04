@@ -70,6 +70,14 @@ void RacialsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("stoneform", ACTION_EMERGENCY + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
+		"critical health",
+		NextAction::array(0, new NextAction("lifeblood", ACTION_EMERGENCY + 6), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"party member almost dead",
+		NextAction::array(0, new NextAction("gift of the naaru on party", ACTION_EMERGENCY + 6), NULL)));
+
+    triggers.push_back(new TriggerNode(
 		"almost dead",
 		NextAction::array(0, new NextAction("shadowmeld", ACTION_EMERGENCY + 6), NULL)));
 

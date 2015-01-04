@@ -5,10 +5,10 @@ class Unit;
 
 namespace ai
 {
-    class IsPlayerValue : public BoolCalculatedValue, public Qualified
+    class IsTargetNormalValue : public BoolCalculatedValue, public Qualified
     {
     public:
-        IsPlayerValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+        IsTargetNormalValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
 
         Unit* GetTarget()
         {
@@ -18,10 +18,10 @@ namespace ai
         virtual bool Calculate();
     };
 
-    class IsBossValue : public BoolCalculatedValue, public Qualified
+    class IsTargetPlayerValue : public BoolCalculatedValue, public Qualified
     {
     public:
-        IsBossValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+        IsTargetPlayerValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
 
         Unit* GetTarget()
         {
@@ -31,10 +31,23 @@ namespace ai
         virtual bool Calculate();
     };
 
-    class IsEliteValue : public BoolCalculatedValue, public Qualified
+    class IsTargetBossValue : public BoolCalculatedValue, public Qualified
     {
     public:
-        IsEliteValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+        IsTargetBossValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
+    class IsTargetEliteValue : public BoolCalculatedValue, public Qualified
+    {
+    public:
+        IsTargetEliteValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
 
         Unit* GetTarget()
         {

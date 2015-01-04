@@ -328,6 +328,14 @@ namespace ai
 		CastGiftOfTheNaaruAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "gift of the naaru") {}
 	};
 
+	class CastGiftOfTheNaaruOnPartyAction : public HealPartyMemberAction
+	{
+	public:
+		CastGiftOfTheNaaruOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "gift of the naaru") {}
+
+		virtual string getName() { return "gift of the naaru on party"; }
+	};
+
     class CastArcaneTorrentAction : public CastBuffSpellAction
     {
     public:

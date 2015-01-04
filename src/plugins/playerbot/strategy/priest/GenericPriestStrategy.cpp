@@ -6,14 +6,18 @@
 
 using namespace ai;
 
-GenericPriestStrategy::GenericPriestStrategy(PlayerbotAI* ai) : RangedCombatStrategy(ai)
+GenericPriestStrategy::GenericPriestStrategy(PlayerbotAI* ai) : CombatStrategy(ai)
 {
     actionNodeFactories.Add(new GenericPriestStrategyActionNodeFactory());
 }
 
 void GenericPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    RangedCombatStrategy::InitTriggers(triggers);
+    CombatStrategy::InitTriggers(triggers);
+
+    triggers.push_back(new TriggerNode(
+        "enemy too close for spell",
+        NextAction::array(0, new NextAction("flee", ACTION_MOVE + 8), NULL)));
 
         triggers.push_back(new TriggerNode(
         "takes periodic damage",

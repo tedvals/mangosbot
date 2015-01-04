@@ -100,6 +100,11 @@ namespace ai
     {
     public:
         TrueshotAuraTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "trueshot aura") {}
+
+        bool IsActive()
+        {
+            return (BuffTrigger::IsActive() && bot->getLevel() > 39);
+            };
     };
 
     class SerpentStingOnAttackerTrigger : public DebuffOnAttackerTrigger

@@ -271,19 +271,19 @@ namespace ai
 
     BEGIN_SPELL_ACTION(CastHolyNovaAction, "holy nova")
     virtual bool isUseful() {
-        return !ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance;
+        return (!ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance);
     }
     END_SPELL_ACTION()
 
-    BEGIN_RANGED_SPELL_ACTION(CastHolyFireAction, "holy fire")
+    BEGIN_SPELL_ACTION(CastHolyFireAction, "holy fire")
         virtual bool isUseful() {
-            return !ai->HasAura("shadowform", AI_VALUE(Unit*, "self target"));
+            return (!ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(uint8, "mana", "self target") > 75);
         }
     END_SPELL_ACTION()
 
-    BEGIN_RANGED_SPELL_ACTION(CastSmiteAction, "smite")
+    BEGIN_SPELL_ACTION(CastSmiteAction, "smite")
         virtual bool isUseful() {
-			return !ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(uint8, "mana", "self target") > 75;
+			return ((!ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(uint8, "mana", "self target") > 75) || ai->HasAura("surge of light", AI_VALUE(Unit*, "self target")));
         }
     END_SPELL_ACTION()
 
@@ -314,8 +314,14 @@ namespace ai
 	    CastPowerWordPainOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "shadow word: pain") {}
 	};
 
-    BEGIN_DEBUFF_ACTION(CastDevouringPlagueAction, "devouring plague")
-    END_SPELL_ACTION()
+    class CastDevouringPlagueAction : public CastDebuffSpellAction
+	{
+    public:
+	    CastDevouringPlagueAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "devouring plague") {}
+	     virtual bool isUseful() {
+			return !(AI_VALUE2(bool, "target normal", "current target"));
+	     }
+	};
 
     BEGIN_DEBUFF_ACTION(CastVampiricTouchAction, "vampiric touch")
     END_SPELL_ACTION()

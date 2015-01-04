@@ -28,6 +28,7 @@ namespace ai
             creators["reach melee"] = &ActionContext::ReachMelee;
             creators["flee"] = &ActionContext::flee;
             creators["gift of the naaru"] = &ActionContext::gift_of_the_naaru;
+            creators["gift of the naaru on party"] = &ActionContext::gift_of_the_naaru_on_party;
             creators["shoot"] = &ActionContext::shoot;
             creators["lifeblood"] = &ActionContext::lifeblood;
             creators["arcane torrent"] = &ActionContext::arcane_torrent;
@@ -90,6 +91,7 @@ namespace ai
         static Action* ReachMelee(PlayerbotAI* ai) { return new ReachMeleeAction(ai); }
         static Action* flee(PlayerbotAI* ai) { return new FleeAction(ai); }
         static Action* gift_of_the_naaru(PlayerbotAI* ai) { return new CastGiftOfTheNaaruAction(ai); }
+        static Action* gift_of_the_naaru_on_party(PlayerbotAI* ai) { return new CastGiftOfTheNaaruOnPartyAction(ai); }
         static Action* lifeblood(PlayerbotAI* ai) { return new CastLifeBloodAction(ai); }
         static Action* arcane_torrent(PlayerbotAI* ai) { return new CastArcaneTorrentAction(ai); }
         static Action* end_pull(PlayerbotAI* ai) { return new ChangeCombatStrategyAction(ai, "-pull"); }

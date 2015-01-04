@@ -13,7 +13,7 @@ namespace ai
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 	};
 
@@ -38,7 +38,7 @@ namespace ai
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 
         virtual NextAction** getAlternatives();
@@ -51,13 +51,14 @@ namespace ai
 		CastGarroteAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "garrote") {}
 
         virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target")) || AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.lowHealth;
+            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"))
+            && AI_VALUE2(bool, "behind", "current target") && (!AI_VALUE2(bool, "target normal", "current target"));
 
         }
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 	};
 
@@ -67,12 +68,12 @@ namespace ai
 		CastAmbushAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "ambush") {}
 
         virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
+            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target")) && AI_VALUE2(bool, "behind", "current target");
         }
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 
 	};

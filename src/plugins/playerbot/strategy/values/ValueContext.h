@@ -112,6 +112,7 @@ namespace ai
             creators["mana"] = &ValueContext::mana;
             creators["combo"] = &ValueContext::combo;
             creators["dead"] = &ValueContext::dead;
+            creators["target normal"] = &ValueContext::target_normal;
             creators["target elite"] = &ValueContext::target_elite;
             creators["target boss"] = &ValueContext::target_boss;
             creators["target player"] = &ValueContext::target_player;
@@ -230,9 +231,10 @@ namespace ai
         static UntypedValue* mana(PlayerbotAI* ai) { return new ManaValue(ai); }
         static UntypedValue* combo(PlayerbotAI* ai) { return new ComboPointsValue(ai); }
         static UntypedValue* dead(PlayerbotAI* ai) { return new IsDeadValue(ai); }
-        static UntypedValue* target_elite(PlayerbotAI* ai) { return new IsEliteValue(ai); }
-        static UntypedValue* target_boss(PlayerbotAI* ai) { return new IsBossValue(ai); }
-        static UntypedValue* target_player(PlayerbotAI* ai) { return new IsPlayerValue(ai); }
+        static UntypedValue* target_normal(PlayerbotAI* ai) { return new IsTargetNormalValue(ai); }
+        static UntypedValue* target_elite(PlayerbotAI* ai) { return new IsTargetEliteValue(ai); }
+        static UntypedValue* target_boss(PlayerbotAI* ai) { return new IsTargetBossValue(ai); }
+        static UntypedValue* target_player(PlayerbotAI* ai) { return new IsTargetPlayerValue(ai); }
         static UntypedValue* charmed(PlayerbotAI* ai) { return new IsCharmedValue(ai); }
         static UntypedValue* under_cc(PlayerbotAI* ai) { return new IsCcValue(ai); }
         static UntypedValue* possessed(PlayerbotAI* ai) { return new IsPossessedValue(ai); }

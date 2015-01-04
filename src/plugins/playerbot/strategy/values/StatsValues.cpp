@@ -4,7 +4,7 @@
 
 using namespace ai;
 
-bool IsPlayerValue::Calculate()
+bool IsTargetPlayerValue::Calculate()
 {
     Unit* target = GetTarget();
     if (!target)
@@ -13,7 +13,16 @@ bool IsPlayerValue::Calculate()
         return target->IsPlayer();
 }
 
-bool IsBossValue::Calculate()
+bool IsTargetNormalValue::Calculate()
+{
+    Unit* target = GetTarget();
+    if (!target)
+        return false;
+    else
+        return (target->GetCreatureRank() == CREATURE_ELITE_NORMAL);
+}
+
+bool IsTargetBossValue::Calculate()
 {
     Unit* target = GetTarget();
     if (!target)
@@ -22,7 +31,7 @@ bool IsBossValue::Calculate()
         return (target->GetCreatureRank() == CREATURE_ELITE_WORLDBOSS);
 }
 
-bool IsEliteValue::Calculate()
+bool IsTargetEliteValue::Calculate()
 {
     Unit* target = GetTarget();
     if (!target)

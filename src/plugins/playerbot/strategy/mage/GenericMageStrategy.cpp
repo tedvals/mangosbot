@@ -86,14 +86,14 @@ private:
     }
 };
 
-GenericMageStrategy::GenericMageStrategy(PlayerbotAI* ai) : RangedCombatStrategy(ai)
+GenericMageStrategy::GenericMageStrategy(PlayerbotAI* ai) : CombatStrategy(ai)
 {
     actionNodeFactories.Add(new GenericMageStrategyActionNodeFactory());
 }
 
 void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    RangedCombatStrategy::InitTriggers(triggers);
+    CombatStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
         "takes periodic damage",
@@ -101,7 +101,7 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy too close for spell",
-        NextAction::array(0, new NextAction("frost nova", ACTION_MOVE + 2), new NextAction("blink",ACTION_MOVE + 1), NULL)));
+        NextAction::array(0, new NextAction("frost nova", ACTION_MOVE + 8), new NextAction("blink",ACTION_MOVE + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy out of spell",

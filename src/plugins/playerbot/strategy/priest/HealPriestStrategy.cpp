@@ -23,6 +23,10 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("inner focus", 30.0f), new NextAction("prayer of healing", 27.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
+		"critical aoe heal",
+		NextAction::array(0, new NextAction("holy nova", ACTION_LIGHT_HEAL), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "almost full health",
         NextAction::array(0, new NextAction("prayer of mending", ACTION_LIGHT_HEAL + 1), new NextAction("power word: shield", ACTION_LIGHT_HEAL), NULL)));
 

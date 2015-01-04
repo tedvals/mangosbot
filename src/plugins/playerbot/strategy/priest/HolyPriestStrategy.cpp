@@ -11,6 +11,7 @@ namespace ai
         HolyPriestStrategyActionNodeFactory()
         {
             creators["smite"] = &smite;
+            creators["circle of healing"] = &circle_of_healing;
         }
     private:
         static ActionNode* smite(PlayerbotAI* ai)
@@ -20,24 +21,31 @@ namespace ai
                 /*A*/ NextAction::array(0, new NextAction("shoot"), NULL),
                 /*C*/ NULL);
         }
+        static ActionNode* circle_of_healing(PlayerbotAI* ai)
+        {
+            return new ActionNode ("circle of healing",
+                /*P*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("holy nova"), NULL),
+                /*C*/ NULL);
+        }
     };
 };
 
 using namespace ai;
 
-HolyPriestStrategy::HolyPriestStrategy(PlayerbotAI* ai) : HealPriestStrategy(ai)
+HolyPriestStrategy::HolyPriestStrategy(PlayerbotAI* ai) : GenericPriestStrategy(ai)
 {
     actionNodeFactories.Add(new HolyPriestStrategyActionNodeFactory());
 }
 
 NextAction** HolyPriestStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("holy fire", 10.0f), new NextAction("smite", 10.0f), NULL);
+    return NextAction::array(0, new NextAction("holy fire", 11.0f), new NextAction("smite", 10.0f), NULL);
 }
 
 void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    HealPriestStrategy::InitTriggers(triggers);
+    GenericPriestStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
         "enemy out of spell",
@@ -45,7 +53,7 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "surge of light",
-        NextAction::array(0, new NextAction("smite", ACTION_NORMAL + 7), NULL)));
+        NextAction::array(0, new NextAction("smite", ACTION_NORMAL + 10), NULL)));
 
     triggers.push_back(new TriggerNode(
         "almost full health",
@@ -54,6 +62,10 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "party member almost full health",
         NextAction::array(0, new NextAction("prayer of mending on party", ACTION_LIGHT_HEAL + 2), new NextAction("renew on party", ACTION_LIGHT_HEAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"critical aoe heal",
+		NextAction::array(0, new NextAction("holy nova", ACTION_LIGHT_HEAL), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"medium aoe heal",

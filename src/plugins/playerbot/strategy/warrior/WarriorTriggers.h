@@ -4,12 +4,22 @@
 namespace ai
 {
     BUFF_TRIGGER(BattleShoutTrigger, "battle shout", "battle shout")
-    BUFF_TRIGGER(VigilanceOnMasterTrigger, "vigilance", "vigilance on master")
 
     DEBUFF_TRIGGER(RendDebuffTrigger, "rend", "rend")
     DEBUFF_TRIGGER(DemoralizingShoutDebuffTrigger, "demoralizing shout", "demoralizing shout")
     DEBUFF_TRIGGER(DisarmDebuffTrigger, "disarm", "disarm")
     DEBUFF_TRIGGER(SunderArmorDebuffTrigger, "sunder armor", "sunder armor")
+
+    class VigilanceOnMasterTrigger : public BuffTrigger
+    {
+    public:
+        VigilanceOnMasterTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "vigilance") {}
+
+        bool IsActive()
+        {
+            return (BuffTrigger::IsActive() && bot->getLevel() > 39);
+            };
+    };
 
     class RendDebuffOnAttackerTrigger : public DebuffOnAttackerTrigger
     {

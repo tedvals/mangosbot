@@ -214,10 +214,10 @@ namespace ai
         virtual Value<Unit*>* GetTargetValue();
     };
 
-    class CastFreezingTrapAction : public CastDebuffSpellAction
+    class CastFreezingTrapAction : public CastSpellAction
     {
     public:
-        CastFreezingTrapAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "freezing trap") {}
+        CastFreezingTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "freezing trap") {}
     };
 
     class CastFrostTrapAction : public CastDebuffSpellAction
