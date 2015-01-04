@@ -47,7 +47,7 @@ bool PlayerbotAIConfig::Initialize()
     maxWaitForMove = config.GetIntDefault("AiPlayerbot.MaxWaitForMove", 3000);
     reactDelay = (uint32) config.GetIntDefault("AiPlayerbot.ReactDelay", 100);
 
-    sightDistance = config.GetFloatDefault("AiPlayerbot.SightDistance", 50.0f);
+    sightDistance = config.GetFloatDefault("AiPlayerbot.SightDistance", 60.0f);
     spellDistance = config.GetFloatDefault("AiPlayerbot.SpellDistance", 30.0f);
     reactDistance = config.GetFloatDefault("AiPlayerbot.ReactDistance", 150.0f);
     grindDistance = config.GetFloatDefault("AiPlayerbot.GrindDistance", 100.0f);
@@ -60,11 +60,12 @@ bool PlayerbotAIConfig::Initialize()
     whisperDistance = config.GetFloatDefault("AiPlayerbot.WhisperDistance", 6000.0f);
     contactDistance = config.GetFloatDefault("AiPlayerbot.ContactDistance", 0.5f);
 
-    criticalHealth = config.GetIntDefault("AiPlayerbot.CriticalHealth", 20);
-    lowHealth = config.GetIntDefault("AiPlayerbot.LowHealth", 50);
-    mediumHealth = config.GetIntDefault("AiPlayerbot.MediumHealth", 70);
-    almostFullHealth = config.GetIntDefault("AiPlayerbot.AlmostFullHealth", 85);
-    almostDead = config.GetIntDefault("AiPlayerbot.AlmostDead", 15);
+    criticalHealth = config.GetIntDefault("AiPlayerbot.CriticalHealth", 25);
+    lowHealth = config.GetIntDefault("AiPlayerbot.LowHealth", 45);
+    mediumHealth = config.GetIntDefault("AiPlayerbot.MediumHealth", 60);
+    highHealth = config.GetIntDefault("AiPlayerbot.HighHealth", 75);
+    almostFullHealth = config.GetIntDefault("AiPlayerbot.AlmostFullHealth", 90);
+    almostDead = config.GetIntDefault("AiPlayerbot.AlmostDead", 10);
     lowMana = config.GetIntDefault("AiPlayerbot.LowMana", 15);
     mediumMana = config.GetIntDefault("AiPlayerbot.MediumMana", 40);
     almostFullMana = config.GetIntDefault("AiPlayerbot.AlmostFullMana", 85);

@@ -7,7 +7,14 @@ namespace ai
     BUFF_TRIGGER(StealthTrigger, "stealth","stealth");
     BUFF_TRIGGER(RiposteTrigger, "riposte","riposte");
     BUFF_TRIGGER(SliceAndDiceTrigger, "slice and dice","slice and dice");
-    DEBUFF_TRIGGER(RuptureTrigger, "rupture","rupture");
+
+    class RuptureTrigger : public DebuffTrigger
+	{
+	public:
+		RuptureTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "rupture") {}
+		virtual bool IsActive() { return (DebuffTrigger::IsActive() && ai->HasAura("slice and dice", AI_VALUE(Unit*, "self target")));}
+	};
+
     DEBUFF_TRIGGER(PremeditationTrigger, "premeditation","premeditation");
     DEBUFF_TRIGGER(HungerForBloodTrigger, "hunger for blood","hunger for blood");
 

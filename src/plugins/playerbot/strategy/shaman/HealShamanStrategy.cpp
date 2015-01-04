@@ -96,6 +96,10 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("healing wave", ACTION_MEDIUM_HEAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "party member high health",
+        NextAction::array(0, new NextAction("chain heal on party",  ACTION_MEDIUM_HEAL + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "party member medium health",
 		NextAction::array(0, new NextAction("healing wave", ACTION_MEDIUM_HEAL + 4), NULL)));
 

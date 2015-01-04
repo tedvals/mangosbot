@@ -18,6 +18,7 @@ public:
         creators["gouge"] = &gouge;
         creators["kidney shot"] = &kidney_shot;
         creators["evasion"] = &evasion;
+        creators["evasion"] = &evasion;
         creators["vanish"] = &vanish;
         creators["ambush"] = &ambush;
         creators["cheap shot"] = &cheap_shot;
@@ -146,7 +147,7 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "combo point available",
-        NextAction::array(0, new NextAction("slice and dice", ACTION_HIGH + 5), NULL)));
+        NextAction::array(0, new NextAction("slice and dice", ACTION_HIGH + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "riposte",
@@ -158,11 +159,11 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "rupture",
-        NextAction::array(0, new NextAction("rupture", ACTION_HIGH + 2), NULL)));
+        NextAction::array(0, new NextAction("rupture", ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
         "slice and dice",
-        NextAction::array(0, new NextAction("slice and dice", ACTION_HIGH + 5), NULL)));
+        NextAction::array(0, new NextAction("slice and dice", ACTION_HIGH + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "rooted",
@@ -295,7 +296,7 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "rupture",
-        NextAction::array(0, new NextAction("rupture", ACTION_NORMAL + 5), NULL)));
+        NextAction::array(0, new NextAction("rupture", ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
         "not facing target",

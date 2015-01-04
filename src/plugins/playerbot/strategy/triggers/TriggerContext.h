@@ -25,6 +25,7 @@ namespace ai
             creators["critical health"] = &TriggerContext::CriticalHealth;
             creators["low health"] = &TriggerContext::LowHealth;
             creators["medium health"] = &TriggerContext::MediumHealth;
+            creators["high health"] = &TriggerContext::HighHealth;
             creators["almost full health"] = &TriggerContext::AlmostFullHealth;
             creators["almost dead"] = &TriggerContext::AlmostDead;
 
@@ -35,6 +36,7 @@ namespace ai
             creators["party member critical health"] = &TriggerContext::PartyMemberCriticalHealth;
             creators["party member low health"] = &TriggerContext::PartyMemberLowHealth;
             creators["party member medium health"] = &TriggerContext::PartyMemberMediumHealth;
+            creators["party member high health"] = &TriggerContext::PartyMemberHighHealth;
             creators["party member almost full health"] = &TriggerContext::PartyMemberAlmostFullHealth;
 
             creators["light rage available"] = &TriggerContext::LightRageAvailable;
@@ -133,6 +135,7 @@ namespace ai
             creators["critical aoe heal"] = &TriggerContext::critical_aoe_heal;
             creators["low aoe heal"] = &TriggerContext::low_aoe_heal;
             creators["medium aoe heal"] = &TriggerContext::medium_aoe_heal;
+            creators["almost full aoe heal"] = &TriggerContext::almost_full_aoe_heal;
             creators["invalid target"] = &TriggerContext::invalid_target;
             creators["lfg proposal active"] = &TriggerContext::lfg_proposal_active;
         }
@@ -143,6 +146,7 @@ namespace ai
         static Trigger* critical_aoe_heal(PlayerbotAI* ai) { return new AoeHealTrigger(ai, "critical aoe heal", "critical", 2); }
         static Trigger* low_aoe_heal(PlayerbotAI* ai) { return new AoeHealTrigger(ai, "low aoe heal", "low", 2); }
         static Trigger* medium_aoe_heal(PlayerbotAI* ai) { return new AoeHealTrigger(ai, "medium aoe heal", "medium", 2); }
+        static Trigger* almost_full_aoe_heal(PlayerbotAI* ai) { return new AoeHealTrigger(ai, "almost full aoe heal", "almost full", 2); }
         static Trigger* target_changed(PlayerbotAI* ai) { return new TargetChangedTrigger(ai); }
         static Trigger* swimming(PlayerbotAI* ai) { return new IsSwimmingTrigger(ai); }
         static Trigger* no_possible_targets(PlayerbotAI* ai) { return new NoPossibleTargetsTrigger(ai); }
@@ -163,6 +167,7 @@ namespace ai
         static Trigger* LowHealth(PlayerbotAI* ai) { return new LowHealthTrigger(ai); }
         static Trigger* MediumHealth(PlayerbotAI* ai) { return new MediumHealthTrigger(ai); }
         static Trigger* AlmostFullHealth(PlayerbotAI* ai) { return new AlmostFullHealthTrigger(ai); }
+        static Trigger* HighHealth(PlayerbotAI* ai) { return new HighHealthTrigger(ai); }
         static Trigger* AlmostDead(PlayerbotAI* ai) { return new AlmostDeadTrigger(ai); }
         static Trigger* CriticalHealth(PlayerbotAI* ai) { return new CriticalHealthTrigger(ai); }
         static Trigger* TargetCriticalHealth(PlayerbotAI* ai) { return new TargetCriticalHealthTrigger(ai); }
@@ -236,6 +241,7 @@ namespace ai
         static Trigger* PartyMemberAlmostDead(PlayerbotAI* ai) { return new PartyMemberAlmostDeadTrigger(ai); }
         static Trigger* PartyMemberLowHealth(PlayerbotAI* ai) { return new PartyMemberLowHealthTrigger(ai); }
         static Trigger* PartyMemberMediumHealth(PlayerbotAI* ai) { return new PartyMemberMediumHealthTrigger(ai); }
+        static Trigger* PartyMemberHighHealth(PlayerbotAI* ai) { return new PartyMemberHighHealthTrigger(ai); }
         static Trigger* PartyMemberAlmostFullHealth(PlayerbotAI* ai) { return new PartyMemberAlmostFullHealthTrigger(ai); }
         static Trigger* PartyMemberCriticalHealth(PlayerbotAI* ai) { return new PartyMemberCriticalHealthTrigger(ai); }
         static Trigger* no_pet(PlayerbotAI* ai) { return new NoPetTrigger(ai); }

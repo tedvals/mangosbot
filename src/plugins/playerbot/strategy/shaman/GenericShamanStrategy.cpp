@@ -222,11 +222,15 @@ void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
 		"party member critical health",
-		NextAction::array(0, new NextAction("lesser healing wave on party", ACTION_CRITICAL_HEAL + 3), NULL)));
+		NextAction::array(0, new NextAction("lesser healing wave on party", ACTION_CRITICAL_HEAL + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "critical aoe heal",
+        NextAction::array(0, new NextAction("chain heal", ACTION_CRITICAL_HEAL + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"low health",
-		NextAction::array(0, new NextAction("lesser healing wave", ACTION_CRITICAL_HEAL + 2), NULL)));
+		NextAction::array(0, new NextAction("lesser healing wave", ACTION_CRITICAL_HEAL + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
