@@ -32,42 +32,49 @@ namespace ai {
     {
     public:
         RakeTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "rake") {}
+        virtual bool IsActive() { return (DebuffTrigger::IsActive() && ai->HasAura("cat form", bot)) && !ai->HasAura("prowl", bot);}
     };
 
     class RipTrigger : public DebuffTrigger
     {
     public:
         RipTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "rip") {}
+        virtual bool IsActive() { return (DebuffTrigger::IsActive() && ai->HasAura("cat form", bot));}
     };
 
     class PounceTrigger : public DebuffTrigger
     {
     public:
         PounceTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "pounce") {}
+        virtual bool IsActive() { return (DebuffTrigger::IsActive() && ai->HasAura("prowl", bot));}
     };
 
     class InsectSwarmTrigger : public DebuffTrigger
     {
     public:
         InsectSwarmTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "insect swarm") {}
+        virtual bool IsActive() { return DebuffTrigger::IsActive() && !ai->HasAnyAuraOf(bot, "caster form", "moonkin form", NULL); }
     };
 
     class MoonfireTrigger : public DebuffTrigger
     {
     public:
         MoonfireTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "moonfire") {}
+        virtual bool IsActive() { return DebuffTrigger::IsActive() && !ai->HasAnyAuraOf(bot, "caster form", "moonkin form", NULL); }
     };
 
     class FaerieFireTrigger : public DebuffTrigger
     {
     public:
         FaerieFireTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "faerie fire") {}
+        virtual bool IsActive() { return DebuffTrigger::IsActive() && !ai->HasAnyAuraOf(bot, "caster form", "moonkin form", NULL); }
     };
 
     class FaerieFireFeralTrigger : public DebuffTrigger
     {
     public:
         FaerieFireFeralTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "faerie fire (feral)") {}
+        virtual bool IsActive() { return DebuffTrigger::IsActive() && !ai->HasAnyAuraOf(bot, "cat form", "bear form", "dire bear form", NULL); }
     };
 
     class BashInterruptSpellTrigger : public InterruptSpellTrigger
@@ -76,10 +83,11 @@ namespace ai {
         BashInterruptSpellTrigger(PlayerbotAI* ai) : InterruptSpellTrigger(ai, "bash") {}
     };
 
-    class TigersFuryTrigger : public BoostTrigger
+    class TigersFuryTrigger : public BuffTrigger
     {
     public:
-        TigersFuryTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "tiger's fury") {}
+        TigersFuryTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "tiger's fury") {}
+        virtual bool IsActive() { return (BuffTrigger::IsActive() && ai->HasAura("cat form", bot));}
     };
 
     class NaturesGraspTrigger : public BoostTrigger
@@ -130,7 +138,7 @@ namespace ai {
     {
     public:
         SavageRoarTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "savage roar") {}
-        virtual bool IsActive() { return !ai->HasAura("savage roar", bot) && !ai->HasAura("cat form", bot); }
+        virtual bool IsActive() { return BuffTrigger::IsActive() && ai->HasAura("cat form", bot); }
     };
 
     class CatFormTrigger : public BuffTrigger
@@ -144,20 +152,19 @@ namespace ai {
     {
     public:
         ProwlTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "prowl") {}
-        virtual bool IsActive() { return !ai->HasAura("prowl", bot); }
+        virtual bool IsActive() { return BuffTrigger::IsActive() && !AI_VALUE2(bool, "combat", "self target") && !AI_VALUE2(bool, "mounted", "self target"); }
     };
 
     class DashTrigger : public BuffTrigger
     {
     public:
         DashTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "dash") {}
-        virtual bool IsActive() { return !ai->HasAura("dash", bot); }
     };
 
     class PredatorySwiftnessTrigger : public HasAuraTrigger
     {
     public:
-        PredatorySwiftnessTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "Predatory Swiftness") {}
+        PredatorySwiftnessTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "predatory swiftness") {}
     };
 
     class EclipseSolarTrigger : public HasAuraTrigger

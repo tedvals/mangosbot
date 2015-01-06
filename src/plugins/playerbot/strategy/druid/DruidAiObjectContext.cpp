@@ -214,6 +214,10 @@ namespace ai
                 creators["regrowth on party"] = &AiObjectContextInternal::regrowth_on_party;
                 creators["rejuvenation on party"] = &AiObjectContextInternal::rejuvenation_on_party;
                 creators["healing touch on party"] = &AiObjectContextInternal::healing_touch_on_party;
+                creators["instant regrowth"] = &AiObjectContextInternal::instant_regrowth;
+                creators["instant healing touch"] = &AiObjectContextInternal::instant_healing_touch;
+                creators["instant regrowth on party"] = &AiObjectContextInternal::instant_regrowth_on_party;
+                creators["instant healing touch on party"] = &AiObjectContextInternal::instant_healing_touch_on_party;
                 creators["wild growth on party"] = &AiObjectContextInternal::wild_growth_on_party;
                 creators["nourish on party"] = &AiObjectContextInternal::nourish_on_party;
                 creators["lifebloom on party"] = &AiObjectContextInternal::lifebloom_on_party;
@@ -301,6 +305,10 @@ namespace ai
             static Action* wild_growth_on_party(PlayerbotAI* ai) { return new CastWildGrowthOnPartyAction(ai); }
             static Action* rejuvenation_on_party(PlayerbotAI* ai) { return new CastRejuvenationOnPartyAction(ai); }
             static Action* healing_touch_on_party(PlayerbotAI* ai) { return new CastHealingTouchOnPartyAction(ai); }
+            static Action* instant_regrowth(PlayerbotAI* ai) { return new CastInstantRegrowthAction(ai); }
+            static Action* instant_healing_touch(PlayerbotAI* ai) { return new CastInstantHealingTouchAction(ai); }
+            static Action* instant_healing_touch_on_party(PlayerbotAI* ai) { return new CastInstantHealingTouchOnPartyAction(ai); }
+            static Action* instant_regrowth_on_party(PlayerbotAI* ai) { return new CastInstantRegrowthOnPartyAction(ai); }
             static Action* rebirth(PlayerbotAI* ai) { return new CastRebirthAction(ai); }
             static Action* revive(PlayerbotAI* ai) { return new CastReviveAction(ai); }
             static Action* barkskin(PlayerbotAI* ai) { return new CastBarkskinAction(ai); }

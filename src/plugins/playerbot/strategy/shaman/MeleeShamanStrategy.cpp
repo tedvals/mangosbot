@@ -61,7 +61,7 @@ void MeleeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("move behind", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("move behind", ACTION_MOVE + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "shaman weapon",
@@ -85,7 +85,7 @@ void MeleeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "not facing target",
-        NextAction::array(0, new NextAction("set facing", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("set facing", ACTION_MOVE + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy too close for melee",

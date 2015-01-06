@@ -140,6 +140,7 @@ void PlayerbotAI::UpdateAI(uint32 elapsed)
         if (spell && !spell->GetSpellInfo()->IsPositive())
         {
             InterruptSpell();
+            TellMaster("Interrupted spell for update");
             SetNextCheckDelay(sPlayerbotAIConfig.globalCoolDown);
         }
     }
@@ -853,6 +854,17 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
     if (bot != target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance)
         return false;
 
+    if (positiveSpell)
+    {
+        Spell* castingSpell = bot->GetCurrentSpell(CURRENT_GENERIC_SPELL);
+        if (castingSpell && castingSpell->GetSpellInfo()->IsPositive())
+            return false;
+
+        Spell* channelSpell = bot->GetCurrentSpell(CURRENT_CHANNELED_SPELL);
+        if (channelSpell && channelSpell->GetSpellInfo()->IsPositive())
+            return false;
+        }
+
     Unit* oldSel = bot->GetSelectedUnit();
     bot->SetSelection(target->GetGUID());
     Spell *spell = new Spell(bot, spellInfo, TRIGGERED_NONE);
@@ -868,18 +880,62 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
     switch (result)
     {
     case SPELL_FAILED_NOT_INFRONT:
+    {
+        TellMaster("Cast failed: Not in front");
+        return true;
+        }
     case SPELL_FAILED_NOT_STANDING:
+    {
+        TellMaster("Cast failed: Not standing");
+        return true;
+    }
     case SPELL_FAILED_UNIT_NOT_INFRONT:
+    {
+        TellMaster("Cast failed: Not in front");
+        return true;
+        }
     case SPELL_FAILED_SUCCESS:
+    {
+        TellMaster("Cast failed");
+        return true;
+        }
     case SPELL_FAILED_MOVING:
+     {
+        TellMaster("Cast failed: Moving");
+        return true;
+        }
     case SPELL_FAILED_TRY_AGAIN:
+    {
+        TellMaster("Cast failed: Try again");
+        return true;
+        }
     case SPELL_FAILED_NOT_IDLE:
+    {
+        TellMaster("Cast failed: Not idle");
+        return true;
+        }
     case SPELL_FAILED_CANT_DO_THAT_RIGHT_NOW:
+    {
+        TellMaster("Cast failed: Busy");
+        return true;
+        }
     case SPELL_FAILED_SUMMON_PENDING:
+    {
+        TellMaster("Cast failed: Summon pending");
+        return true;
+        }
     case SPELL_FAILED_BAD_IMPLICIT_TARGETS:
     case SPELL_FAILED_BAD_TARGETS:
-    case SPELL_CAST_OK:
+    {
+        TellMaster("Cast failed: Bad target");
+        return true;
+        }
     case SPELL_FAILED_ITEM_NOT_FOUND:
+    {
+        TellMaster("Cast failed: Item not found");
+        return true;
+        }
+    case SPELL_CAST_OK:
         return true;
     default:
         return false;
@@ -1030,6 +1086,7 @@ void PlayerbotAI::InterruptSpell()
     if (bot->GetCurrentSpell(CURRENT_CHANNELED_SPELL))
         return;
 
+    TellMaster("Interrupting...");
     LastSpellCast& lastSpell = aiObjectContext->GetValue<LastSpellCast&>("last spell cast")->Get();
 
     for (int type = CURRENT_MELEE_SPELL; type < CURRENT_CHANNELED_SPELL; type++)

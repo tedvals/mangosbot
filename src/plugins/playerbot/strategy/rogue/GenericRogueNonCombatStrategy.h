@@ -14,7 +14,7 @@ namespace ai
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
     };
 
-     class GenericRogueNonCombatStealthStrategy : public NonCombatStrategy
+    class GenericRogueNonCombatStealthStrategy : public NonCombatStrategy
     {
     public:
         GenericRogueNonCombatStealthStrategy(PlayerbotAI* ai);

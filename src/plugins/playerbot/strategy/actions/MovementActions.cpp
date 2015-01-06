@@ -54,6 +54,7 @@ bool MovementAction::MoveTo(uint32 mapId, float x, float y, float z)
         {
             bot->CastStop();
             ai->InterruptSpell();
+            ai->TellMaster("Interrupt spell to move");
         }
 
         bool generatePath = bot->HasAuraType(SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED) &&
@@ -222,6 +223,7 @@ bool MovementAction::Follow(Unit* target, float distance, float angle)
     {
         bot->CastStop();
         ai->InterruptSpell();
+        ai->TellMaster("Interrupt spell to follow");
     }
 
     mm.MoveFollow(target, distance, angle);
@@ -264,6 +266,7 @@ bool MovementAction::GetBehind(Unit* target, float distance, float angle)
     {
         bot->CastStop();
         ai->InterruptSpell();
+        ai->TellMaster("Interrupt spell to move behind");
     }
 
     mm.MoveFollow(target, distance, angle);

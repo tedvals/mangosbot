@@ -32,7 +32,6 @@ namespace ai
 	class CastRegrowthAction : public CastHealingSpellAction {
 	public:
 		CastRegrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "regrowth") {}
-
 	};
 
     class CastNourishAction : public CastHealingSpellAction {
@@ -97,6 +96,36 @@ namespace ai
         CastHealingTouchOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "healing touch") {}
     };
 
+    class CastInstantRegrowthAction : public CastHealingSpellAction {
+	public:
+		CastInstantRegrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "regrowth") {}
+
+		bool isUseful() {CastHealingSpellAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+	};
+
+	class CastInstantRegrowthOnPartyAction : public HealPartyMemberAction
+    {
+    public:
+        CastInstantRegrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "regrowth") {}
+
+        bool isUseful() {HealPartyMemberAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+    };
+
+    class CastInstantHealingTouchAction : public CastHealingSpellAction {
+    public:
+        CastInstantHealingTouchAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "healing touch") {}
+
+        bool isUseful() {CastHealingSpellAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+    };
+
+    class CastInstantHealingTouchOnPartyAction : public HealPartyMemberAction
+    {
+    public:
+        CastInstantHealingTouchOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "healing touch") {}
+
+        bool isUseful() {HealPartyMemberAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+    };
+
 	class CastReviveAction : public ResurrectPartyMemberAction
 	{
 	public:
@@ -149,6 +178,10 @@ namespace ai
 	public:
 		CastThornsOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "thorns") {}
 		virtual bool isUseful();
+
+		virtual NextAction** getPrerequisites() {
+			return NextAction::merge( NextAction::array(0, new NextAction("caster form"), NULL), BuffOnPartyAction::getPrerequisites());
+		}
 	};
 
 	class CastWrathAction : public CastSpellAction

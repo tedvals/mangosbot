@@ -108,7 +108,7 @@ namespace ai {
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("get behind"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 	};
 
@@ -117,12 +117,12 @@ namespace ai {
 		CastRavageAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "ravage") {}
 
 		virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() &&  ai->HasAura("prowl", AI_VALUE(Unit*, "self target"));
+            return CastMeleeSpellAction::isUseful() &&  ai->HasAura("prowl", AI_VALUE(Unit*, "self target")) && AI_VALUE2(bool, "target normal", "current target");
         }
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("get behind"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 
 	};

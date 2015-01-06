@@ -122,19 +122,19 @@ void GenericDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "low health",
-        NextAction::array(0, new NextAction("regrowth", ACTION_MEDIUM_HEAL + 2), NULL)));
+        NextAction::array(0, new NextAction("regrowth", ACTION_CRITICAL_HEAL + 2),  new NextAction("rejuvenation", ACTION_CRITICAL_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
-        NextAction::array(0, new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 1), NULL)));
+        NextAction::array(0, new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 1),  new NextAction("rejuvenation", ACTION_CRITICAL_HEAL), NULL)));
 
     triggers.push_back(new TriggerNode(
         "critical health",
-        NextAction::array(0, new NextAction("regrowth", ACTION_CRITICAL_HEAL + 2), new NextAction("healing touch", ACTION_CRITICAL_HEAL + 2), NULL)));
+        NextAction::array(0, new NextAction("regrowth", ACTION_CRITICAL_HEAL + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member critical health",
-        NextAction::array(0,  new NextAction("regrowth on party", ACTION_CRITICAL_HEAL + 1), new NextAction("healing touch on party", ACTION_CRITICAL_HEAL + 1), NULL)));
+        NextAction::array(0,  new NextAction("regrowth on party", ACTION_CRITICAL_HEAL + 4), new NextAction("rejuvenation", ACTION_CRITICAL_HEAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "cure poison",
@@ -154,7 +154,7 @@ void GenericDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "critical aoe heal",
-        NextAction::array(0, new NextAction("barkskin", ACTION_EMERGENCY + 10), new NextAction("tranquility", ACTION_EMERGENCY + 10), NULL)));
+        NextAction::array(0, new NextAction("barkskin", ACTION_EMERGENCY + 5), new NextAction("tranquility", ACTION_EMERGENCY + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
         "hibernate",
@@ -162,5 +162,5 @@ void GenericDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "runaway",
-        NextAction::array(0, new NextAction("cat form", ACTION_EMERGENCY + 8), new NextAction("dash", ACTION_EMERGENCY + 8), NULL)));
+        NextAction::array(0, new NextAction("cat form", ACTION_EMERGENCY + 7), new NextAction("dash", ACTION_EMERGENCY + 8), NULL)));
 }

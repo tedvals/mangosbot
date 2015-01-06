@@ -52,7 +52,11 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "party member low health",
-        NextAction::array(0, new NextAction("power word: shield on party", ACTION_CRITICAL_HEAL + 2), new NextAction("greater heal on party", ACTION_CRITICAL_HEAL + 1), NULL)));
+        NextAction::array(0, new NextAction("greater heal on party", ACTION_CRITICAL_HEAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member critical health",
+        NextAction::array(0, new NextAction("power word: shield on party", ACTION_CRITICAL_HEAL + 5), new NextAction("flash heal", ACTION_CRITICAL_HEAL + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
         "have aggro",

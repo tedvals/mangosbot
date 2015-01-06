@@ -335,6 +335,7 @@ public:
         creators["premeditation"] = &premeditation;
         creators["melee"] = &melee;
         creators["ghostly strike"] = &ghostly_strike;
+        creators["gouge"] = &gouge;
         creators["shadowstep"] = &shadowstep;
         creators["mutilate"] = &mutilate;
         creators["vanish"] = &vanish;
@@ -391,7 +392,7 @@ private:
     {
         return new ActionNode ("backstab",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("hemorrhage"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
             /*C*/ NextAction::array(0, new NextAction("move behind"), NULL));
     }
     static ActionNode* ghostly_strike(PlayerbotAI* ai)
@@ -401,11 +402,18 @@ private:
             /*A*/ NextAction::array(0, new NextAction("dismantle"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* gouge(PlayerbotAI* ai)
+    {
+        return new ActionNode ("gouge",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("hemorrhage"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("move behind"), NULL));
+    }
     static ActionNode* hemorrhage(PlayerbotAI* ai)
     {
         return new ActionNode ("hemorrhage",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("sinister strike"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* envenom(PlayerbotAI* ai)
@@ -455,12 +463,20 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("envenom", ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "front target",
+        NextAction::array(0, new NextAction("gouge", ACTION_HIGH), NULL)));
+
+    triggers.push_back(new TriggerNode(
 		"high energy available",
 		NextAction::array(0, new NextAction("backstab", ACTION_NORMAL + 5), NULL)));
 
      triggers.push_back(new TriggerNode(
         "rupture",
-        NextAction::array(0, new NextAction("rupture", ACTION_NORMAL + 2), NULL)));
+        NextAction::array(0, new NextAction("rupture", ACTION_NORMAL + 6), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "front target",
+        NextAction::array(0, new NextAction("gouge",  ACTION_MOVE + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
         "premeditation",

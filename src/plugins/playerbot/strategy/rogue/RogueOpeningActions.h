@@ -84,7 +84,7 @@ namespace ai
 		CastCheapShotAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "cheap shot") {}
 
         virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && !AI_VALUE2(bool, "target elite", "current target") && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
+            return CastMeleeSpellAction::isUseful() && AI_VALUE2(bool, "target normal", "current target") && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
         }
 
         virtual NextAction** getPrerequisites()

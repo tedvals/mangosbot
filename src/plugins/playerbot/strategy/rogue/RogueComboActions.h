@@ -48,6 +48,10 @@ namespace ai
 	{
 	public:
 		CastGougeAction(PlayerbotAI* ai) : CastComboAction(ai, "gouge") {}
+		virtual bool isUseful()
+	    {
+	        return !AI_VALUE2(bool, "behind target", "current target") && (AI_VALUE2(bool, "target normal", "current target") || AI_VALUE2(bool, "target player", "current target"));
+	    }
 	};
 
     class CastBackstabAction : public CastComboAction
