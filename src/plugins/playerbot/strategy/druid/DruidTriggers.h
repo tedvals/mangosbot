@@ -87,7 +87,7 @@ namespace ai {
     {
     public:
         TigersFuryTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "tiger's fury") {}
-        virtual bool IsActive() { return (BuffTrigger::IsActive() && ai->HasAura("cat form", bot));}
+        virtual bool IsActive() { return (BuffTrigger::IsActive() && ai->HasAura("cat form", bot) && (AI_VALUE2(uint8, "energy", "self target") < 30) && bot->getLevel() > 55);}
     };
 
     class NaturesGraspTrigger : public BoostTrigger

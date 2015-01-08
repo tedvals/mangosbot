@@ -16,7 +16,12 @@ namespace ai {
 	class CastFeralChargeCatAction : public CastReachTargetSpellAction
 	{
 	public:
-		CastFeralChargeCatAction(PlayerbotAI* ai) : CastReachTargetSpellAction(ai, "feral charge - cat", 1.5f) {}
+		CastFeralChargeCatAction(PlayerbotAI* ai) : CastReachTargetSpellAction(ai, "feral charge - cat", 3.0f) {}
+
+		//virtual bool isUseful()
+	    //{
+	    //    return CastReachTargetSpellAction::isUseful() && AI_VALUE2(bool, "combat", "self target");
+	    //}
 	};
 
 	class CastCowerAction : public CastBuffSpellAction
@@ -56,8 +61,13 @@ namespace ai {
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastDebuffSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastDebuffSpellAction::getPrerequisites());
         }
+
+        virtual bool isUseful()
+	    {
+	        return CastDebuffSpellAction::isUseful() && !ai->HasAura("prowl", bot);
+	    }
 	};
 
     class CastRipAction : public CastDebuffSpellAction {
@@ -108,7 +118,7 @@ namespace ai {
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("get behind"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 	};
 
@@ -122,7 +132,7 @@ namespace ai {
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("get behind"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 
 	};

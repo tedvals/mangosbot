@@ -75,7 +75,7 @@ private:
     {
         return new ActionNode ("feral charge - cat",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
             /*C*/ NextAction::array(0, new NextAction("ravage"), NULL));
     }
     static ActionNode* faerie_fire_feral(PlayerbotAI* ai)
@@ -166,7 +166,7 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("feral charge - cat", ACTION_MOVE + 8), NULL)));
+        NextAction::array(0, new NextAction("feral charge - cat", ACTION_MOVE + 9), NULL)));
 
      triggers.push_back(new TriggerNode(
         "enemy too close for melee",

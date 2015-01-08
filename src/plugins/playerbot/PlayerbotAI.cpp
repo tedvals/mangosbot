@@ -853,7 +853,7 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
 
     if (bot != target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance)
         return false;
-
+/*
     if (positiveSpell)
     {
         Spell* castingSpell = bot->GetCurrentSpell(CURRENT_GENERIC_SPELL);
@@ -864,6 +864,15 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
         if (channelSpell && channelSpell->GetSpellInfo()->IsPositive())
             return false;
         }
+*/
+
+        Spell* castingSpell = bot->GetCurrentSpell(CURRENT_GENERIC_SPELL);
+        if (castingSpell)
+            return false;
+
+        Spell* channelSpell = bot->GetCurrentSpell(CURRENT_CHANNELED_SPELL);
+        if (channelSpell)
+            return false;
 
     Unit* oldSel = bot->GetSelectedUnit();
     bot->SetSelection(target->GetGUID());

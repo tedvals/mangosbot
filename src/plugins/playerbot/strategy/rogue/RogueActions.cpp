@@ -24,7 +24,7 @@ NextAction** CastMutilateAction :: getAlternatives()
 
 NextAction** CastBackstabAction :: getAlternatives()
 {
- return NextAction::merge( NextAction::array(0, new NextAction("get behind"), NULL), CastMeleeSpellAction::getAlternatives());
+ return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getAlternatives());
 }
 
 NextAction** CastSapCcAction :: getAlternatives()

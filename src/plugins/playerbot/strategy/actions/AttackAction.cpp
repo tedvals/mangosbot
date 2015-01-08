@@ -87,6 +87,9 @@ bool AttackAction::Attack(Unit* target)
 		pet->GetCharmInfo()->SetIsCommandAttack(true);
 		pet->AI()->AttackStart(target);
     }
+//needs testing to prevent melee hits from stealth
+    if (ai->HasAnyAuraOf(bot,"stealth","prowl",NULL) && name == "melee")
+        return false;
 
     bot->Attack(target, true);
     ai->ChangeEngine(BOT_STATE_COMBAT);
