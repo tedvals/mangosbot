@@ -420,7 +420,7 @@ void DpsWarriorAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "light aoe",
-        NextAction::array(0, new NextAction("thunder clap", ACTION_HIGH + 2), new NextAction("demoralizing shout", ACTION_HIGH + 2), NULL)));
+        NextAction::array(0, new NextAction("thunder clap", ACTION_HIGH + 3), new NextAction("demoralizing shout", ACTION_HIGH + 2), new NextAction("cleave", ACTION_HIGH + 1),NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium aoe",

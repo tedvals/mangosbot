@@ -39,6 +39,12 @@ namespace ai
             creators["party member high health"] = &TriggerContext::PartyMemberHighHealth;
             creators["party member almost full health"] = &TriggerContext::PartyMemberAlmostFullHealth;
 
+            creators["master almost dead"] = &TriggerContext::MasterAlmostDead;
+            creators["master critical health"] = &TriggerContext::MasterCriticalHealth;
+            creators["master low health"] = &TriggerContext::MasterLowHealth;
+            creators["master high health"] = &TriggerContext::MasterHighHealth;
+            creators["master almost full health"] = &TriggerContext::MasterAlmostFullHealth;
+
             creators["light rage available"] = &TriggerContext::LightRageAvailable;
             creators["medium rage available"] = &TriggerContext::MediumRageAvailable;
             creators["high rage available"] = &TriggerContext::HighRageAvailable;
@@ -246,6 +252,11 @@ namespace ai
         static Trigger* PartyMemberHighHealth(PlayerbotAI* ai) { return new PartyMemberHighHealthTrigger(ai); }
         static Trigger* PartyMemberAlmostFullHealth(PlayerbotAI* ai) { return new PartyMemberAlmostFullHealthTrigger(ai); }
         static Trigger* PartyMemberCriticalHealth(PlayerbotAI* ai) { return new PartyMemberCriticalHealthTrigger(ai); }
+        static Trigger* MasterAlmostDead(PlayerbotAI* ai) { return new MasterAlmostDeadTrigger(ai); }
+        static Trigger* MasterLowHealth(PlayerbotAI* ai) { return new MasterLowHealthTrigger(ai); }
+        static Trigger* MasterHighHealth(PlayerbotAI* ai) { return new MasterHighHealthTrigger(ai); }
+        static Trigger* MasterAlmostFullHealth(PlayerbotAI* ai) { return new MasterAlmostFullHealthTrigger(ai); }
+        static Trigger* MasterCriticalHealth(PlayerbotAI* ai) { return new MasterCriticalHealthTrigger(ai); }
         static Trigger* no_pet(PlayerbotAI* ai) { return new NoPetTrigger(ai); }
         static Trigger* has_attackers(PlayerbotAI* ai) { return new HasAttackersTrigger(ai); }
 

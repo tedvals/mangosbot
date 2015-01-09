@@ -180,14 +180,18 @@ namespace ai
                 creators["healing wave"] = &AiObjectContextInternal::healing_wave;
                 creators["lesser healing wave"] = &AiObjectContextInternal::lesser_healing_wave;
                 creators["healing wave on party"] = &AiObjectContextInternal::healing_wave_on_party;
+                creators["healing wave on master"] = &AiObjectContextInternal::healing_wave_on_master;
+                creators["lesser healing wave on master"] = &AiObjectContextInternal::lesser_healing_wave_on_master;
                 creators["lesser healing wave on party"] = &AiObjectContextInternal::lesser_healing_wave_on_party;
                 creators["earth shield"] = &AiObjectContextInternal::earth_shield;
                 creators["earth shield on party"] = &AiObjectContextInternal::earth_shield_on_party;
                 creators["earth shield on master"] = &AiObjectContextInternal::earth_shield_on_master;
                 creators["chain heal"] = &AiObjectContextInternal::chain_heal;
                 creators["chain heal on party"] = &AiObjectContextInternal::chain_heal_on_party;
+                creators["chain heal on master"] = &AiObjectContextInternal::chain_heal_on_master;
                 creators["riptide"] = &AiObjectContextInternal::riptide;
                 creators["riptide on party"] = &AiObjectContextInternal::riptide_on_party;
+                creators["riptide on master"] = &AiObjectContextInternal::riptide_on_master;
                 creators["stormstrike"] = &AiObjectContextInternal::stormstrike;
                 creators["lava lash"] = &AiObjectContextInternal::lava_lash;
                 creators["fire nova"] = &AiObjectContextInternal::fire_nova;
@@ -273,14 +277,18 @@ namespace ai
             static Action* lesser_healing_wave(PlayerbotAI* ai) { return new CastLesserHealingWaveAction(ai); }
             static Action* healing_wave_on_party(PlayerbotAI* ai) { return new CastHealingWaveOnPartyAction(ai); }
             static Action* lesser_healing_wave_on_party(PlayerbotAI* ai) { return new CastLesserHealingWaveOnPartyAction(ai); }
+            static Action* healing_wave_on_master(PlayerbotAI* ai) { return new CastHealingWaveOnMasterAction(ai); }
+            static Action* lesser_healing_wave_on_master(PlayerbotAI* ai) { return new CastLesserHealingWaveOnMasterAction(ai); }
             static Action* earth_shield(PlayerbotAI* ai) { return new CastEarthShieldAction(ai); }
             static Action* earth_shield_on_party(PlayerbotAI* ai) { return new CastEarthShieldOnPartyAction(ai); }
             static Action* earth_shield_on_master(PlayerbotAI* ai) { return new CastEarthShieldOnMasterAction(ai); }
             static Action* chain_heal(PlayerbotAI* ai) { return new CastChainHealAction(ai); }
             static Action* chain_heal_on_party(PlayerbotAI* ai) { return new CastChainHealOnPartyAction(ai); }
+            static Action* chain_heal_on_master(PlayerbotAI* ai) { return new CastChainHealOnMasterAction(ai); }
             static Action* tidal_force(PlayerbotAI* ai) { return new CastTidalForceAction(ai); }
             static Action* riptide(PlayerbotAI* ai) { return new CastRiptideAction(ai); }
             static Action* riptide_on_party(PlayerbotAI* ai) { return new CastRiptideOnPartyAction(ai); }
+            static Action* riptide_on_master(PlayerbotAI* ai) { return new CastRiptideOnMasterAction(ai); }
             static Action* stormstrike(PlayerbotAI* ai) { return new CastStormstrikeAction(ai); }
             static Action* lava_lash(PlayerbotAI* ai) { return new CastLavaLashAction(ai); }
             static Action* ancestral_spirit(PlayerbotAI* ai) { return new CastAncestralSpiritAction(ai); }

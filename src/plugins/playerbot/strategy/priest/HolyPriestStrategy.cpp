@@ -49,7 +49,7 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy out of spell",
-        NextAction::array(0, new NextAction("reach spell", ACTION_NORMAL + 9), NULL)));
+        NextAction::array(0, new NextAction("reach spell", ACTION_MOVE + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "surge of light",
@@ -62,6 +62,10 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "party member almost full health",
         NextAction::array(0, new NextAction("prayer of mending on party", ACTION_LIGHT_HEAL + 2), new NextAction("renew on party", ACTION_LIGHT_HEAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master almost full health",
+        NextAction::array(0, new NextAction("prayer of mending on master", ACTION_LIGHT_HEAL + 5), new NextAction("renew on master", ACTION_LIGHT_HEAL + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"critical aoe heal",
@@ -80,8 +84,16 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("binding heal on party", ACTION_MEDIUM_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "master medium health",
+        NextAction::array(0, new NextAction("binding heal on master", ACTION_MEDIUM_HEAL + 8), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "party member critical health",
         NextAction::array(0, new NextAction("flash heal on party", ACTION_CRITICAL_HEAL + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master critical health",
+        NextAction::array(0, new NextAction("flash heal on master", ACTION_CRITICAL_HEAL + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low health",
@@ -92,6 +104,10 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("renew on party", ACTION_CRITICAL_HEAL + 2), new NextAction("greater heal on party", ACTION_CRITICAL_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "master low health",
+        NextAction::array(0, new NextAction("renew on master", ACTION_CRITICAL_HEAL + 6), new NextAction("greater heal on party", ACTION_CRITICAL_HEAL + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "almost dead",
         NextAction::array(0, new NextAction("guardian spirit", ACTION_EMERGENCY + 6), NULL)));
 
@@ -99,4 +115,7 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "party member almost dead",
         NextAction::array(0, new NextAction("guardian spirit on party", ACTION_EMERGENCY + 5), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "master almost dead",
+        NextAction::array(0, new NextAction("guardian spirit on master", ACTION_EMERGENCY + 9), NULL)));
 }

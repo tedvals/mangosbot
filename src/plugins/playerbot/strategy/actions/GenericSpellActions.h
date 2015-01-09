@@ -184,6 +184,20 @@ namespace ai
 		string name;
 	};
 
+
+	class MasterActionNameSupport {
+	public:
+		MasterActionNameSupport(string spell)
+		{
+			name = string(spell) + " on master";
+		}
+
+		virtual string getName() { return name; }
+
+	private:
+		string name;
+	};
+
     class HealPartyMemberAction : public CastHealingSpellAction, public PartyMemberActionNameSupport
     {
     public:
@@ -192,6 +206,16 @@ namespace ai
 
 		virtual string GetTargetName() { return "party member to heal"; }
 		virtual string getName() { return PartyMemberActionNameSupport::getName(); }
+    };
+
+    class HealMasterAction : public CastHealingSpellAction, public MasterActionNameSupport
+    {
+    public:
+        HealMasterAction(PlayerbotAI* ai, string spell, uint8 estAmount = 15.0f) :
+			CastHealingSpellAction(ai, spell, estAmount), MasterActionNameSupport(spell) {}
+
+		virtual string GetTargetName() { return "master target"; }
+		virtual string getName() { return MasterActionNameSupport::getName(); }
     };
 
 	class ResurrectPartyMemberAction : public CastSpellAction
@@ -305,6 +329,16 @@ namespace ai
     public:
 		virtual Value<Unit*>* GetTargetValue();
 		virtual string getName() { return PartyMemberActionNameSupport::getName(); }
+    };
+
+    class BuffOnMasterAction : public CastBuffSpellAction, public MasterActionNameSupport
+    {
+    public:
+        BuffOnMasterAction(PlayerbotAI* ai, string spell) :
+			CastBuffSpellAction(ai, spell), MasterActionNameSupport(spell) {}
+    public:
+		virtual Value<Unit*>* GetTargetValue() {return context->GetValue<Unit*>("master target");};
+		virtual string getName() { return MasterActionNameSupport::getName(); }
     };
 
     //---------------------------------------------------------------------------------------------------------------------

@@ -60,6 +60,11 @@ namespace ai
         {
             return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
+
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("ambush"), NULL), CastMeleeSpellAction::getAlternatives());
+        }
 	};
 
     class CastAmbushAction : public CastMeleeSpellAction

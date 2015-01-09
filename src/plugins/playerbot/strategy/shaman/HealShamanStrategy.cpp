@@ -65,7 +65,7 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy out of spell",
-        NextAction::array(0, new NextAction("reach spell", ACTION_NORMAL + 9), NULL)));
+        NextAction::array(0, new NextAction("reach spell", ACTION_MOVE + 9), NULL)));
 
       triggers.push_back(new TriggerNode(
         "shaman weapon",
@@ -96,8 +96,20 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("healing wave", ACTION_MEDIUM_HEAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
+		"master low health",
+		NextAction::array(0, new NextAction("healing wave on master", ACTION_MEDIUM_HEAL + 9), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"master critical health",
+		NextAction::array(0, new NextAction("lesser healing wave on master", ACTION_CRITICAL_HEAL + 9), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "party member high health",
         NextAction::array(0, new NextAction("chain heal on party",  ACTION_MEDIUM_HEAL + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master member high health",
+        NextAction::array(0, new NextAction("chain heal on master",  ACTION_MEDIUM_HEAL + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member medium health",
@@ -110,6 +122,10 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "party member almost full health",
 		NextAction::array(0, new NextAction("riptide on party", ACTION_NORMAL), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master almost full health",
+		NextAction::array(0, new NextAction("riptide on master", ACTION_NORMAL + 9), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"have aggro",

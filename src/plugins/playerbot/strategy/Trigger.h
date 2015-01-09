@@ -2,6 +2,7 @@
 #include "Action.h"
 #include "Event.h"
 #include "../PlayerbotAIAware.h"
+#include "../PlayerbotAIConfig.h"
 
 #define NEXT_TRIGGERS(name, relevance) \
     virtual NextAction* getNextAction() { return new NextAction(name, relevance); }
@@ -22,7 +23,7 @@ namespace ai
     class Trigger : public AiNamedObject
 	{
 	public:
-        Trigger(PlayerbotAI* ai, string name = "trigger", int checkInterval = 1) : AiNamedObject(ai, name) {
+        Trigger(PlayerbotAI* ai, string name = "trigger", int checkInterval = sPlayerbotAIConfig.checkTriggerInterval) : AiNamedObject(ai, name) {
 			this->checkInterval = checkInterval;
 			ticksElapsed = 0;
         }

@@ -49,11 +49,15 @@ void GenericPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "low health",
-        NextAction::array(0, new NextAction("power word: shield", 60.0f) , NULL)));
+        NextAction::array(0, new NextAction("power word: shield", ACTION_CRITICAL_HEAL + 3) , NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
-        NextAction::array(0, new NextAction("power word: shield on party", 50.0f), NULL)));
+        NextAction::array(0, new NextAction("power word: shield on party", ACTION_CRITICAL_HEAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master low health",
+        NextAction::array(0, new NextAction("power word: shield on party", ACTION_CRITICAL_HEAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "dispel magic",

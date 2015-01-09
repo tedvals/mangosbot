@@ -334,6 +334,7 @@ public:
     {
         creators["premeditation"] = &premeditation;
         creators["melee"] = &melee;
+        creators["garrote"] = &garrote;
         creators["ghostly strike"] = &ghostly_strike;
         creators["gouge"] = &gouge;
         creators["shadowstep"] = &shadowstep;
@@ -437,6 +438,13 @@ private:
             /*P*/ NULL,
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("mutilate"),NULL));
+    }
+    static ActionNode* garrote(PlayerbotAI* ai)
+    {
+        return new ActionNode ("garrote",
+            /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("ambush"), NULL),
+            /*C*/ NULL);
     }
 };
 

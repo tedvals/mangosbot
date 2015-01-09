@@ -78,7 +78,45 @@ namespace ai
     {
     public:
         AlmostFullHealthTrigger(PlayerbotAI* ai) :
-            LowHealthTrigger(ai, "almost full health", sPlayerbotAIConfig.almostFullHealth, sPlayerbotAIConfig.mediumHealth) {}
+            LowHealthTrigger(ai, "almost full health", sPlayerbotAIConfig.almostFullHealth, sPlayerbotAIConfig.highHealth) {}
+    };
+
+    class MasterLowHealthTrigger : public HealthInRangeTrigger
+    {
+    public:
+        MasterLowHealthTrigger(PlayerbotAI* ai, string name = "master low health",
+            float value = sPlayerbotAIConfig.mediumHealth, float minValue = sPlayerbotAIConfig.criticalHealth) :
+            HealthInRangeTrigger(ai, name, value, minValue) {}
+
+		virtual string GetTargetName() { return "master target"; }
+    };
+
+    class MasterCriticalHealthTrigger : public MasterLowHealthTrigger
+    {
+    public:
+        MasterCriticalHealthTrigger(PlayerbotAI* ai) :
+            MasterLowHealthTrigger(ai, "master critical health", sPlayerbotAIConfig.criticalHealth, sPlayerbotAIConfig.almostDead) {}
+    };
+
+    class MasterAlmostDeadTrigger : public MasterLowHealthTrigger
+    {
+    public:
+        MasterAlmostDeadTrigger(PlayerbotAI* ai) :
+            MasterLowHealthTrigger(ai, "master almost dead", sPlayerbotAIConfig.almostDead, 0) {}
+    };
+
+    class MasterHighHealthTrigger : public MasterLowHealthTrigger
+    {
+    public:
+        MasterHighHealthTrigger(PlayerbotAI* ai) :
+            MasterLowHealthTrigger(ai, "master high health", sPlayerbotAIConfig.highHealth, sPlayerbotAIConfig.mediumHealth) {}
+    };
+
+    class MasterAlmostFullHealthTrigger : public MasterLowHealthTrigger
+    {
+    public:
+        MasterAlmostFullHealthTrigger(PlayerbotAI* ai) :
+            MasterLowHealthTrigger(ai, "master almost full health", sPlayerbotAIConfig.almostFullHealth, sPlayerbotAIConfig.highHealth) {}
     };
 
     class PartyMemberLowHealthTrigger : public HealthInRangeTrigger

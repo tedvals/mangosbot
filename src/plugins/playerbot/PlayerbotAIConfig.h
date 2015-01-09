@@ -53,6 +53,7 @@ public:
     bool fleeingEnabled;
     std::string randomBotCombatStrategies, randomBotNonCombatStrategies;
     uint32 randomBotMinLevel, randomBotMaxLevel;
+    int checkTriggerInterval;
     float randomChangeMultiplier;
     bool outputTriggers;
     uint32 specProbability[MAX_CLASSES][3];

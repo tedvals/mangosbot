@@ -17,8 +17,10 @@ public:
         creators["windfury weapon"] = &windfury_weapon;
         creators["lesser healing wave"] = &lesser_healing_wave;
         creators["lesser healing wave on party"] = &lesser_healing_wave_on_party;
+        creators["lesser healing wave on master"] = &lesser_healing_wave_on_master;
         creators["chain heal"] = &chain_heal;
         creators["chain heal on party"] = &chain_heal_on_party;
+        creators["chain heal on master"] = &chain_heal_on_master;
         creators["strength of earth totem"] = &strength_earth_totem;
         creators["stoneskin totem"] = &stoneskin_totem;
         creators["totem of wrath totem"] = &wrath_totem;
@@ -159,6 +161,13 @@ private:
             /*A*/ NextAction::array(0, new NextAction("lesser healing wave on party"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* chain_heal_on_master(PlayerbotAI* ai)
+    {
+        return new ActionNode ("chain heal on master",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("lesser healing wave on master"), NULL),
+            /*C*/ NULL);
+    }
     static ActionNode* lesser_healing_wave(PlayerbotAI* ai)
     {
         return new ActionNode ("lesser healing wave",
@@ -171,6 +180,13 @@ private:
         return new ActionNode ("lesser healing wave on party",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("healing wave on party"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* lesser_healing_wave_on_master(PlayerbotAI* ai)
+    {
+        return new ActionNode ("lesser healing wave on master",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("healing wave on master"), NULL),
             /*C*/ NULL);
     }
 };

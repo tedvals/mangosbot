@@ -31,8 +31,8 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("prayer of mending", ACTION_LIGHT_HEAL + 1), new NextAction("power word: shield", ACTION_LIGHT_HEAL), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "party member almost full health",
-        NextAction::array(0, new NextAction("prayer of mending on party", ACTION_LIGHT_HEAL + 8), new NextAction("power word: shield on party", ACTION_LIGHT_HEAL + 7), NULL)));
+        "master almost full health",
+        NextAction::array(0, new NextAction("prayer of mending on master", ACTION_LIGHT_HEAL + 3), new NextAction("power word: shield on master", ACTION_LIGHT_HEAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member high health",
@@ -43,8 +43,12 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("penance", ACTION_MEDIUM_HEAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "master medium health",
+        NextAction::array(0, new NextAction("penance on master", ACTION_MEDIUM_HEAL + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "party member medium health",
-        NextAction::array(0, new NextAction("penance on party", ACTION_LIGHT_HEAL + 1), NULL)));
+        NextAction::array(0, new NextAction("flash heal on party", ACTION_MEDIUM_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low health",
@@ -55,16 +59,20 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("greater heal on party", ACTION_CRITICAL_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "master low health",
+        NextAction::array(0, new NextAction("greater heal on master", ACTION_CRITICAL_HEAL + 6), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "party member critical health",
-        NextAction::array(0, new NextAction("power word: shield on party", ACTION_CRITICAL_HEAL + 5), new NextAction("flash heal", ACTION_CRITICAL_HEAL + 4), NULL)));
+        NextAction::array(0, new NextAction("power word: shield on party", ACTION_CRITICAL_HEAL + 5), new NextAction("flash heal on party", ACTION_CRITICAL_HEAL + 4), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master critical health",
+        NextAction::array(0, new NextAction("power word: shield on master", ACTION_CRITICAL_HEAL + 9), new NextAction("flash heal on master", ACTION_CRITICAL_HEAL + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "have aggro",
         NextAction::array(0, new NextAction("fade", 50.0f), new NextAction("psychic scream", 49.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "enemy too close for spell",
-        NextAction::array(0, new NextAction("flee", 49.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "almost dead",
@@ -73,4 +81,8 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "party member almost dead",
         NextAction::array(0, new NextAction("pain suppression on party", ACTION_EMERGENCY + 7), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master almost dead",
+        NextAction::array(0, new NextAction("pain suppression on party", ACTION_EMERGENCY + 9), NULL)));
 }

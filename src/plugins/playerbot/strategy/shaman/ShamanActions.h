@@ -7,13 +7,18 @@ namespace ai
     class CastLesserHealingWaveAction : public CastHealingSpellAction {
     public:
         CastLesserHealingWaveAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "lesser healing wave") {}
-
     };
 
     class CastLesserHealingWaveOnPartyAction : public HealPartyMemberAction
     {
     public:
         CastLesserHealingWaveOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "lesser healing wave") {}
+    };
+
+    class CastLesserHealingWaveOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastLesserHealingWaveOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "lesser healing wave") {}
     };
 
     class CastHealingWaveAction : public CastHealingSpellAction {
@@ -27,6 +32,12 @@ namespace ai
         CastHealingWaveOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "healing wave") {}
     };
 
+    class CastHealingWaveOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastHealingWaveOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "healing wave") {}
+    };
+
     class CastChainHealAction : public CastAoeHealSpellAction {
     public:
         CastChainHealAction(PlayerbotAI* ai) : CastAoeHealSpellAction(ai, "chain heal") {}
@@ -36,6 +47,12 @@ namespace ai
     public:
         CastChainHealOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "chain heal") {}
         virtual bool isUseful() {return HealPartyMemberAction::isUseful() && AI_VALUE2(uint8, "aoe heal", "medium") > 0;}
+    };
+
+    class CastChainHealOnMasterAction : public HealMasterAction {
+    public:
+        CastChainHealOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "chain heal") {}
+        virtual bool isUseful() {return HealMasterAction::isUseful() && AI_VALUE2(uint8, "aoe heal", "medium") > 0;}
     };
 
     class CastRiptideAction : public CastHealingSpellAction {
@@ -49,6 +66,11 @@ namespace ai
         CastRiptideOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "riptide") {}
     };
 
+    class CastRiptideOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastRiptideOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "riptide") {}
+    };
 
     class CastEarthShieldAction : public CastBuffSpellAction {
     public:
@@ -62,12 +84,10 @@ namespace ai
         virtual bool isUseful();
     };
 
-    class CastEarthShieldOnMasterAction : public BuffOnPartyAction
+    class CastEarthShieldOnMasterAction : public BuffOnMasterAction
     {
     public:
-        CastEarthShieldOnMasterAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "earth shield") {}
-        virtual string getName() { return "earth shield on master";}
-        virtual string GetTargetName() { return "master target";}
+        CastEarthShieldOnMasterAction(PlayerbotAI* ai) : BuffOnMasterAction(ai, "earth shield") {}
     };
 
     class CastWaterShieldAction : public CastBuffSpellAction {

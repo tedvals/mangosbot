@@ -21,7 +21,7 @@ namespace ai
 
 		virtual bool isUseful()
         {
-            return (AI_VALUE2(bool, "combat", "self target"));
+            return (AI_VALUE2(bool, "combat", "self target") && AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.lowHealth);
             }
 	};
 

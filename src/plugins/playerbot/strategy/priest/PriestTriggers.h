@@ -42,7 +42,12 @@ namespace ai
 
     BUFF_TRIGGER(InnerFireTrigger, "inner fire", "inner fire")
     BUFF_TRIGGER(FearWardTrigger, "fear ward", "fear ward")
-    BUFF_ON_PARTY_TRIGGER(FearWardOnMasterTrigger, "fear ward", "fear ward on master")
+
+    class FearWardOnMasterTrigger : public BuffOnMasterTrigger {
+    public:
+        FearWardOnMasterTrigger(PlayerbotAI* ai) : BuffOnMasterTrigger(ai, "fear ward") {}
+    };
+
 
     BUFF_TRIGGER(VampiricEmbraceTrigger, "vampiric embrace", "vampiric embrace")
 

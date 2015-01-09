@@ -153,14 +153,19 @@ namespace ai
                 creators["prepare attack"] = &AiObjectContextInternal::power_word_shield_on_master;
                 creators["renew"] = &AiObjectContextInternal::renew;
                 creators["renew on party"] = &AiObjectContextInternal::renew_on_party;
+                creators["renew on master"] = &AiObjectContextInternal::renew_on_master;
                 creators["greater heal"] = &AiObjectContextInternal::greater_heal;
                 creators["greater heal on party"] = &AiObjectContextInternal::greater_heal_on_party;
+                creators["greater heal on master"] = &AiObjectContextInternal::greater_heal_on_master;
                 creators["heal"] = &AiObjectContextInternal::heal;
                 creators["heal on party"] = &AiObjectContextInternal::heal_on_party;
+                creators["heal on master"] = &AiObjectContextInternal::heal_on_master;
                 creators["lesser heal"] = &AiObjectContextInternal::lesser_heal;
                 creators["lesser heal on party"] = &AiObjectContextInternal::lesser_heal_on_party;
+                creators["lesser heal on master"] = &AiObjectContextInternal::lesser_heal_on_master;
                 creators["flash heal"] = &AiObjectContextInternal::flash_heal;
                 creators["flash heal on party"] = &AiObjectContextInternal::flash_heal_on_party;
+                creators["flash heal on master"] = &AiObjectContextInternal::flash_heal_on_master;
                 creators["dispel magic"] = &AiObjectContextInternal::dispel_magic;
                 creators["dispel magic on party"] = &AiObjectContextInternal::dispel_magic_on_party;
                 creators["dispel magic on target"] = &AiObjectContextInternal::dispel_magic_on_target;
@@ -180,14 +185,18 @@ namespace ai
                 creators["prayer of healing"] = &AiObjectContextInternal::prayer_of_healing;
                 creators["prayer of mending"] = &AiObjectContextInternal::prayer_of_healing;
                 creators["prayer of mending on party"] = &AiObjectContextInternal::prayer_of_mending_on_party;
+                creators["prayer of mending on master"] = &AiObjectContextInternal::prayer_of_mending_on_master;
                 creators["binding heal on party"] = &AiObjectContextInternal::binding_heal_on_party;
                 creators["penance on attacker"] = &AiObjectContextInternal::penance_on_attacker;
                 creators["penance"] = &AiObjectContextInternal::penance;
                 creators["penance on party"] = &AiObjectContextInternal::penance_on_party;
+                creators["penance on master"] = &AiObjectContextInternal::penance_on_master;
                 creators["pain suppression"] = &AiObjectContextInternal::pain_suppression;
                 creators["pain suppression on party"] = &AiObjectContextInternal::pain_suppression_on_party;
+                creators["pain suppression on master"] = &AiObjectContextInternal::pain_suppression_on_master;
                 creators["guardian spirit"] = &AiObjectContextInternal::guardian_spirit;
                 creators["guardian spirit on party"] = &AiObjectContextInternal::guardian_spirit_on_party;
+                creators["guardian spirit on master"] = &AiObjectContextInternal::guardian_spirit_on_master;
                 creators["power infusion"] = &AiObjectContextInternal::power_infusion;
                 creators["power infusion on party"] = &AiObjectContextInternal::power_infusion_on_party;
                 creators["shadowfiend"] = &AiObjectContextInternal::shadowfiend;
@@ -231,14 +240,19 @@ namespace ai
             static Action* power_word_shield_on_master(PlayerbotAI* ai) { return new CastPowerWordShieldOnMasterAction(ai); }
             static Action* renew(PlayerbotAI* ai) { return new CastRenewAction(ai); }
             static Action* renew_on_party(PlayerbotAI* ai) { return new CastRenewOnPartyAction(ai); }
+            static Action* renew_on_master(PlayerbotAI* ai) { return new CastRenewOnMasterAction(ai); }
             static Action* greater_heal(PlayerbotAI* ai) { return new CastGreaterHealAction(ai); }
             static Action* greater_heal_on_party(PlayerbotAI* ai) { return new CastGreaterHealOnPartyAction(ai); }
+            static Action* greater_heal_on_master(PlayerbotAI* ai) { return new CastGreaterHealOnMasterAction(ai); }
             static Action* heal(PlayerbotAI* ai) { return new CastHealAction(ai); }
             static Action* heal_on_party(PlayerbotAI* ai) { return new CastHealOnPartyAction(ai); }
+            static Action* heal_on_master(PlayerbotAI* ai) { return new CastHealOnMasterAction(ai); }
             static Action* lesser_heal(PlayerbotAI* ai) { return new CastLesserHealAction(ai); }
             static Action* lesser_heal_on_party(PlayerbotAI* ai) { return new CastLesserHealOnPartyAction(ai); }
+            static Action* lesser_heal_on_master(PlayerbotAI* ai) { return new CastLesserHealOnMasterAction(ai); }
             static Action* flash_heal(PlayerbotAI* ai) { return new CastFlashHealAction(ai); }
             static Action* flash_heal_on_party(PlayerbotAI* ai) { return new CastFlashHealOnPartyAction(ai); }
+            static Action* flash_heal_on_master(PlayerbotAI* ai) { return new CastFlashHealOnMasterAction(ai); }
             static Action* dispel_magic(PlayerbotAI* ai) { return new CastDispelMagicAction(ai); }
             static Action* dispel_magic_on_party(PlayerbotAI* ai) { return new CastDispelMagicOnPartyAction(ai); }
             static Action* dispel_magic_on_target(PlayerbotAI* ai) { return new CastDispelMagicOnTargetAction(ai); }
@@ -251,16 +265,21 @@ namespace ai
             static Action* prayer_of_healing(PlayerbotAI* ai) { return new CastPrayerOfHealingAction(ai); }
             static Action* prayer_of_mending(PlayerbotAI* ai) { return new CastPrayerOfMendingAction(ai); }
             static Action* prayer_of_mending_on_party(PlayerbotAI* ai) { return new CastPrayerOfMendingOnPartyAction(ai); }
+            static Action* prayer_of_mending_on_master(PlayerbotAI* ai) { return new CastPrayerOfMendingOnMasterAction(ai); }
             static Action* power_infusion(PlayerbotAI* ai) { return new CastPowerInfusionAction(ai); }
             static Action* power_infusion_on_party(PlayerbotAI* ai) { return new CastPowerInfusionOnPartyAction(ai); }
             static Action* pain_suppression(PlayerbotAI* ai) { return new CastPainSuppressionAction(ai); }
             static Action* pain_suppression_on_party(PlayerbotAI* ai) { return new CastPainSuppressionOnPartyAction(ai); }
+            static Action* pain_suppression_on_master(PlayerbotAI* ai) { return new CastPainSuppressionOnMasterAction(ai); }
             static Action* penance_on_attacker(PlayerbotAI* ai) { return new CastPenanceOnAttackerAction(ai); }
             static Action* penance(PlayerbotAI* ai) { return new CastPenanceHealAction(ai); }
             static Action* penance_on_party(PlayerbotAI* ai) { return new CastPenanceHealOnPartyAction(ai); }
+            static Action* penance_on_master(PlayerbotAI* ai) { return new CastPenanceHealOnMasterAction(ai); }
             static Action* guardian_spirit(PlayerbotAI* ai) { return new CastGuardianSpiritAction(ai); }
             static Action* guardian_spirit_on_party(PlayerbotAI* ai) { return new CastGuardianSpiritOnPartyAction(ai); }
+            static Action* guardian_spirit_on_master(PlayerbotAI* ai) { return new CastGuardianSpiritOnMasterAction(ai); }
             static Action* binding_heal_on_party(PlayerbotAI* ai) { return new CastBindingHealOnPartyAction(ai); }
+            static Action* binding_heal_on_master(PlayerbotAI* ai) { return new CastBindingHealOnMasterAction(ai); }
             static Action* shadowfiend(PlayerbotAI* ai) { return new CastShadowfiendAction(ai); }
             static Action* power_word_death(PlayerbotAI* ai) { return new CastPowerWordDeathAction(ai); }
             static Action* prayer_of_shadow_protection(PlayerbotAI* ai) { return new CastPrayerOfShadowProtectionAction(ai); }

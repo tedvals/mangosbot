@@ -133,7 +133,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
         case CLASS_PALADIN:
             if (tab == 0)
                 if (player->getLevel() > 59)
-                    engine->addStrategies("heal", "bmana", "threat", NULL);
+                    engine->addStrategies("heal", "bmana", "threat", "flee", NULL);
                 else
                     engine->addStrategies("melee heal", "bmana", "threat", NULL);
             else if (tab == 1)
@@ -154,7 +154,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
                 engine->addStrategies("bear", "tank aoe", "threat", "flee", NULL);
             break;
         case CLASS_HUNTER:
-            engine->addStrategies("dps", "bdps", "threat", NULL);
+            engine->addStrategies("dps", "bdps", "threat", "flee", NULL);
             if (player->getLevel() > 19)
                 engine->addStrategy("dps debuff");
             break;
@@ -243,7 +243,7 @@ void AiFactory::AddDefaultNonCombatStrategies(Player* player, PlayerbotAI* const
     {
         //nonCombatEngine->ChangeStrategy(sPlayerbotAIConfig.randomBotNonCombatStrategies);
         //debug only
-        nonCombatEngine->addStrategies("move random", "grind", NULL);
+        nonCombatEngine->addStrategies("move random", "grind", "food", NULL);
     }
 
 }
