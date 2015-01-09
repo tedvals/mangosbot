@@ -16,6 +16,9 @@ public:
         creators["cure poison on party"] = &cure_poison_on_party;
         creators["abolish poison"] = &abolish_poison;
         creators["abolish poison on party"] = &abolish_poison_on_party;
+        creators["instant regrowth"] = &instant_regrowth;
+        creators["instant regrowth on party"] = &instant_regrowth_on_party;
+        creators["instant regrowth on master"] = &instant_regrowth_on_master;
         creators["rebirth"] = &rebirth;
         creators["entangling roots on cc"] = &entangling_roots_on_cc;
         creators["hibernate"] = &hibernate;
@@ -67,10 +70,31 @@ private:
             /*A*/ NULL,
             /*C*/ NULL);
     }
+    static ActionNode* instant_regrowth(PlayerbotAI* ai)
+    {
+        return new ActionNode ("instant regrowth",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("rejuvenation"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* instant_regrowth_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("instant regrowth on party",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("rejuvenation on party"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* instant_regrowth_on_master(PlayerbotAI* ai)
+    {
+        return new ActionNode ("instant regrowth on master",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("rejuvenation on master"), NULL),
+            /*C*/ NULL);
+    }
     static ActionNode* rebirth(PlayerbotAI* ai)
     {
         return new ActionNode ("rebirth",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NULL,
             /*C*/ NULL);
     }
@@ -122,19 +146,27 @@ void GenericDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "low health",
-        NextAction::array(0, new NextAction("regrowth", ACTION_CRITICAL_HEAL + 2),  new NextAction("rejuvenation", ACTION_CRITICAL_HEAL + 1), NULL)));
+        NextAction::array(0, new NextAction("instant regrowth", ACTION_MEDIUM_HEAL + 2),  new NextAction("rejuvenation", ACTION_MEDIUM_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
-        NextAction::array(0, new NextAction("regrowth on party", ACTION_MEDIUM_HEAL + 1),  new NextAction("rejuvenation", ACTION_CRITICAL_HEAL), NULL)));
+        NextAction::array(0, new NextAction("instant regrowth on party", ACTION_MEDIUM_HEAL + 1),  new NextAction("rejuvenation on party", ACTION_MEDIUM_HEAL), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master low health",
+        NextAction::array(0, new NextAction("instant regrowth on master", ACTION_MEDIUM_HEAL + 7),  new NextAction("rejuvenation on master", ACTION_CRITICAL_HEAL +6), NULL)));
 
     triggers.push_back(new TriggerNode(
         "critical health",
-        NextAction::array(0, new NextAction("regrowth", ACTION_CRITICAL_HEAL + 5), NULL)));
+        NextAction::array(0, new NextAction("regrowth", ACTION_CRITICAL_HEAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member critical health",
-        NextAction::array(0,  new NextAction("regrowth on party", ACTION_CRITICAL_HEAL + 4), new NextAction("rejuvenation", ACTION_CRITICAL_HEAL + 3), NULL)));
+        NextAction::array(0,  new NextAction("regrowth on party", ACTION_CRITICAL_HEAL + 4), new NextAction("rejuvenation on party", ACTION_CRITICAL_HEAL + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master critical health",
+        NextAction::array(0,  new NextAction("regrowth on master", ACTION_CRITICAL_HEAL + 4), new NextAction("rejuvenation on master", ACTION_CRITICAL_HEAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "cure poison",

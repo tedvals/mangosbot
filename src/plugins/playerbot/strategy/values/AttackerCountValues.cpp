@@ -35,7 +35,7 @@ bool HasAggroValue::Calculate()
 uint8 AoeAttackerCountValue::Calculate()
 {
     int count = 0;
-    float range = sPlayerbotAIConfig.sightDistance;
+    float range = sPlayerbotAIConfig.spellDistance;
 
     list<ObjectGuid> attackers = context->GetValue<list<ObjectGuid> >("attackers")->Get();
     for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); i++)
@@ -58,10 +58,33 @@ uint8 AoeAttackerCountValue::Calculate()
     return count;
 }
 
+uint8 MeleeAttackerCountValue::Calculate()
+{
+    int count = 0;
+    float range = (sPlayerbotAIConfig.tooCloseDistance + sPlayerbotAIConfig.meleeDistance)/2;
+
+    list<ObjectGuid> attackers = context->GetValue<list<ObjectGuid> >("attackers")->Get();
+    for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); i++)
+    {
+        Unit* unit = ai->GetUnit(*i);
+        if (!unit || !unit->IsAlive())
+            continue;
+
+        if (unit->UnderCc())
+            continue;
+
+        float distance = bot->GetDistance(unit);
+        if (distance <= range)
+            count++;
+    }
+
+    return count;
+}
+
 uint8 AttackerCountValue::Calculate()
 {
     int count = 0;
-    float range = sPlayerbotAIConfig.sightDistance;
+    float range = sPlayerbotAIConfig.spellDistance;
 
     list<ObjectGuid> attackers = context->GetValue<list<ObjectGuid> >("attackers")->Get();
     for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); i++)

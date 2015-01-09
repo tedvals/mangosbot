@@ -257,6 +257,30 @@ namespace ai
         HighAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 4, 20.0f) {}
     };
 
+    class MeleeNoAoeTrigger : public AoeTrigger
+    {
+    public:
+        MeleeNoAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 1, 5.0f) {}
+    };
+
+    class MeleeLightAoeTrigger : public AoeTrigger
+    {
+    public:
+        MeleeLightAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 2, 5.0f) {}
+    };
+
+    class MeleeMediumAoeTrigger : public AoeTrigger
+    {
+    public:
+        MeleeMediumAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 3, 5.0f) {}
+    };
+
+    class MeleeHighAoeTrigger : public AoeTrigger
+    {
+    public:
+        MeleeHighAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 4, 5.0f) {}
+    };
+
     class BuffTrigger : public SpellTrigger
     {
     public:
@@ -403,6 +427,14 @@ namespace ai
 	{
 	public:
 		MediumManaTrigger(PlayerbotAI* ai) : Trigger(ai, "medium mana") {}
+
+		virtual bool IsActive();
+	};
+
+	class DrinkManaTrigger : public Trigger
+	{
+	public:
+		DrinkManaTrigger(PlayerbotAI* ai) : Trigger(ai, "drink mana") {}
 
 		virtual bool IsActive();
 	};

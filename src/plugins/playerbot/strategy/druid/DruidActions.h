@@ -21,84 +21,84 @@ namespace ai
 
 	class CastRejuvenationAction : public CastHealingSpellAction {
 	public:
-		CastRejuvenationAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "rejuvenation") {}
+		CastRejuvenationAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "rejuvenation",5) {}
 	};
 
 	class CastSwiftmendAction : public CastHealingSpellAction {
 	public:
-		CastSwiftmendAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "swiftmend") {}
+		CastSwiftmendAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "swiftmend",15) {}
 	};
 
 	class CastRegrowthAction : public CastHealingSpellAction {
 	public:
-		CastRegrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "regrowth") {}
+		CastRegrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "regrowth",15) {}
 	};
 
     class CastNourishAction : public CastHealingSpellAction {
 	public:
-		CastNourishAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "nourish") {}
+		CastNourishAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "nourish",10) {}
 	};
 
 	class CastWildGrowthAction : public HealPartyMemberAction {
 	public:
-		CastWildGrowthAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "wild growth") {}
+		CastWildGrowthAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "wild growth",5) {}
 	};
 
     class CastHealingTouchAction : public CastHealingSpellAction {
     public:
-        CastHealingTouchAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "healing touch") {}
+        CastHealingTouchAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "healing touch",25) {}
     };
 
     class CastLifeBloomAction : public CastHealingSpellAction {
     public:
-        CastLifeBloomAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "lifebloom") {}
+        CastLifeBloomAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "lifebloom",5) {}
     };
 
     class CastRejuvenationOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastRejuvenationOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "rejuvenation") {}
+        CastRejuvenationOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "rejuvenation",5) {}
     };
 
     class CastRegrowthOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastRegrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "regrowth") {}
+        CastRegrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "regrowth",15) {}
     };
 
     class CastNourishOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastNourishOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "nourish") {}
+        CastNourishOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "nourish",10) {}
     };
 
     class CastLifebloomOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastLifebloomOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "lifebloom") {}
+        CastLifebloomOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "lifebloom",5) {}
     };
 
     class CastSwiftmendOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastSwiftmendOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "swiftmend") {}
+        CastSwiftmendOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "swiftmend",15) {}
     };
 
     class CastWildGrowthOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastWildGrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "wild growth") {}
+        CastWildGrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "wild growth",5) {}
     };
 
     class CastHealingTouchOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastHealingTouchOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "healing touch") {}
+        CastHealingTouchOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "healing touch",25) {}
     };
 
     class CastInstantRegrowthAction : public CastHealingSpellAction {
 	public:
-		CastInstantRegrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "regrowth") {}
+		CastInstantRegrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "regrowth",15) {}
 
 		bool isUseful() {CastHealingSpellAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
 	};
@@ -106,14 +106,14 @@ namespace ai
 	class CastInstantRegrowthOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastInstantRegrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "regrowth") {}
+        CastInstantRegrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "regrowth",15) {}
 
         bool isUseful() {HealPartyMemberAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
     };
 
     class CastInstantHealingTouchAction : public CastHealingSpellAction {
     public:
-        CastInstantHealingTouchAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "healing touch") {}
+        CastInstantHealingTouchAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "healing touch",15) {}
 
         bool isUseful() {CastHealingSpellAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
     };
@@ -121,7 +121,7 @@ namespace ai
     class CastInstantHealingTouchOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastInstantHealingTouchOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "healing touch") {}
+        CastInstantHealingTouchOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "healing touch",15) {}
 
         bool isUseful() {HealPartyMemberAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
     };
@@ -136,6 +136,48 @@ namespace ai
 		}
 	};
 
+    class CastRejuvenationOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastRejuvenationOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "rejuvenation",10) {}
+    };
+
+    class CastRegrowthOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastRegrowthOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "regrowth",20) {}
+    };
+
+    class CastNourishOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastNourishOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "nourish",15) {}
+    };
+
+    class CastLifebloomOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastLifebloomOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "lifebloom",5) {}
+    };
+
+    class CastSwiftmendOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastSwiftmendOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "swiftmend",15) {}
+    };
+
+    class CastWildGrowthOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastWildGrowthOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "wild growth",5) {}
+    };
+
+    class CastHealingTouchOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastHealingTouchOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "healing touch",25) {}
+    };
+
 	class CastRebirthAction : public ResurrectPartyMemberAction
 	{
 	public:
@@ -145,6 +187,23 @@ namespace ai
 			return NextAction::merge( NextAction::array(0, new NextAction("caster form"), NULL), ResurrectPartyMemberAction::getPrerequisites());
 		}
 	};
+
+	class CastInstantRegrowthOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastInstantRegrowthOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "regrowth",15) {}
+
+        bool isUseful() {HealMasterAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+    };
+
+    class CastInstantHealingTouchOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastInstantHealingTouchOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "healing touch",15) {}
+
+        bool isUseful() {HealMasterAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+    };
+
 
 	class CastMarkOfTheWildAction : public CastBuffSpellAction {
 	public:
@@ -167,11 +226,13 @@ namespace ai
 		virtual bool isUseful() {return ai->HasAnyAuraOf(bot, "bear form", "dire bear form", "moonkin form", NULL);}
 	};
 
-	class CastThornsOnMasterAction : public BuffOnPartyAction {
+	class CastThornsOnMasterAction : public BuffOnMasterAction {
 	public:
-		CastThornsOnMasterAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "thorns") {}
-		virtual string getName() { return "thorns on master";}
-        virtual string GetTargetName() { return "master target";}
+		CastThornsOnMasterAction(PlayerbotAI* ai) : BuffOnMasterAction(ai, "thorns") {}
+
+		virtual NextAction** getPrerequisites() {
+			return NextAction::merge( NextAction::array(0, new NextAction("caster form"), NULL), BuffOnMasterAction::getPrerequisites());
+		}
 	};
 
 	class CastThornsOnPartyAction : public BuffOnPartyAction {

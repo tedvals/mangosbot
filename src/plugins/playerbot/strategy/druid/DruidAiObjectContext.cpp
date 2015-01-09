@@ -222,6 +222,15 @@ namespace ai
                 creators["nourish on party"] = &AiObjectContextInternal::nourish_on_party;
                 creators["lifebloom on party"] = &AiObjectContextInternal::lifebloom_on_party;
                 creators["swiftmend on party"] = &AiObjectContextInternal::swiftmend_on_party;
+                creators["regrowth on master"] = &AiObjectContextInternal::regrowth_on_master;
+                creators["rejuvenation on master"] = &AiObjectContextInternal::rejuvenation_on_master;
+                creators["healing touch on master"] = &AiObjectContextInternal::healing_touch_on_master;
+                creators["instant regrowth on master"] = &AiObjectContextInternal::instant_regrowth_on_master;
+                creators["instant healing touch on master"] = &AiObjectContextInternal::instant_healing_touch_on_master;
+                creators["wild growth on master"] = &AiObjectContextInternal::wild_growth_on_master;
+                creators["nourish on master"] = &AiObjectContextInternal::nourish_on_master;
+                creators["lifebloom on master"] = &AiObjectContextInternal::lifebloom_on_master;
+                creators["swiftmend on master"] = &AiObjectContextInternal::swiftmend_on_master;
                 creators["rebirth"] = &AiObjectContextInternal::rebirth;
                 creators["revive"] = &AiObjectContextInternal::revive;
                 creators["barkskin"] = &AiObjectContextInternal::barkskin;
@@ -309,6 +318,15 @@ namespace ai
             static Action* instant_healing_touch(PlayerbotAI* ai) { return new CastInstantHealingTouchAction(ai); }
             static Action* instant_healing_touch_on_party(PlayerbotAI* ai) { return new CastInstantHealingTouchOnPartyAction(ai); }
             static Action* instant_regrowth_on_party(PlayerbotAI* ai) { return new CastInstantRegrowthOnPartyAction(ai); }
+            static Action* regrowth_on_master(PlayerbotAI* ai) { return new CastRegrowthOnMasterAction(ai); }
+            static Action* nourish_on_master(PlayerbotAI* ai) { return new CastNourishOnMasterAction(ai); }
+            static Action* lifebloom_on_master(PlayerbotAI* ai) { return new CastLifebloomOnMasterAction(ai); }
+            static Action* swiftmend_on_master(PlayerbotAI* ai) { return new CastSwiftmendOnMasterAction(ai); }
+            static Action* wild_growth_on_master(PlayerbotAI* ai) { return new CastWildGrowthOnMasterAction(ai); }
+            static Action* rejuvenation_on_master(PlayerbotAI* ai) { return new CastRejuvenationOnMasterAction(ai); }
+            static Action* healing_touch_on_master(PlayerbotAI* ai) { return new CastHealingTouchOnMasterAction(ai); }
+            static Action* instant_healing_touch_on_master(PlayerbotAI* ai) { return new CastInstantHealingTouchOnMasterAction(ai); }
+            static Action* instant_regrowth_on_master(PlayerbotAI* ai) { return new CastInstantRegrowthOnMasterAction(ai); }
             static Action* rebirth(PlayerbotAI* ai) { return new CastRebirthAction(ai); }
             static Action* revive(PlayerbotAI* ai) { return new CastReviveAction(ai); }
             static Action* barkskin(PlayerbotAI* ai) { return new CastBarkskinAction(ai); }

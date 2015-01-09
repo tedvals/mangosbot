@@ -85,7 +85,7 @@ DpsWarriorStrategy::DpsWarriorStrategy(PlayerbotAI* ai) : GenericWarriorStrategy
 
 NextAction** DpsWarriorStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("overpower", ACTION_NORMAL + 5), new NextAction("heroic strike", ACTION_NORMAL + 1), NULL);
+    return NextAction::array(0, new NextAction("overpower", ACTION_NORMAL + 8), new NextAction("heroic strike", ACTION_NORMAL), NULL);
 }
 
 void DpsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -163,14 +163,14 @@ private:
     {
         return new ActionNode ("sweeping strikes",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("whirlwind"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("cleave"), NULL),
             /*C*/ NULL);
     }
      static ActionNode* bladestorm(PlayerbotAI* ai)
     {
         return new ActionNode ("bladestorm",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("whirlwind"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("cleave"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* slam(PlayerbotAI* ai)
@@ -218,7 +218,7 @@ DpsArmsWarriorStrategy::DpsArmsWarriorStrategy(PlayerbotAI* ai) : GenericWarrior
 
 NextAction** DpsArmsWarriorStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("overpower", ACTION_NORMAL + 5), new NextAction("mortal strike", ACTION_NORMAL + 2), NULL);
+    return NextAction::array(0, new NextAction("overpower", ACTION_NORMAL +8), new NextAction("mortal strike", ACTION_NORMAL + 5), NULL);
 }
 
 void DpsArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -416,17 +416,26 @@ void DpsFuryWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
    //     NextAction::array(0, new NextAction("hamstring", ACTION_HIGH + 2), NULL)));
 }
 
+NextAction** DpsWarriorAoeStrategy::getDefaultActions()
+{
+    return NextAction::array(0, new NextAction("cleave", ACTION_NORMAL + 6), NULL);
+}
+
 void DpsWarriorAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "light aoe",
-        NextAction::array(0, new NextAction("thunder clap", ACTION_HIGH + 3), new NextAction("demoralizing shout", ACTION_HIGH + 2), new NextAction("cleave", ACTION_HIGH + 1),NULL)));
+        NextAction::array(0,new NextAction("demoralizing shout", ACTION_HIGH + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "medium aoe",
+        "melee light aoe",
+        NextAction::array(0, new NextAction("thunder clap", ACTION_HIGH + 3),  new NextAction("cleave", ACTION_HIGH + 1),NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "melee medium aoe",
         NextAction::array(0, new NextAction("sweeping strikes", ACTION_HIGH + 5), new NextAction("cleave", ACTION_HIGH + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "high aoe",
-        NextAction::array(0, new NextAction("bladestorm", ACTION_HIGH + 5), new NextAction("cleave", ACTION_HIGH + 3), NULL)));
+        "melee high aoe",
+        NextAction::array(0, new NextAction("bladestorm", ACTION_HIGH + 7), new NextAction("cleave", ACTION_HIGH + 3), NULL)));
 }

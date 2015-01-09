@@ -31,6 +31,7 @@ namespace ai
 
             creators["low mana"] = &TriggerContext::LowMana;
             creators["medium mana"] = &TriggerContext::MediumMana;
+            creators["drink mana"] = &TriggerContext::DrinkMana;
 
             creators["party member almost dead"] = &TriggerContext::PartyMemberAlmostDead;
             creators["party member critical health"] = &TriggerContext::PartyMemberCriticalHealth;
@@ -69,6 +70,11 @@ namespace ai
             creators["light aoe"] = &TriggerContext::LightAoe;
             creators["medium aoe"] = &TriggerContext::MediumAoe;
             creators["high aoe"] = &TriggerContext::HighAoe;
+
+            creators["no melee aoe"] = &TriggerContext::MeleeNoAoe;
+            creators["melee light aoe"] = &TriggerContext::MeleeLightAoe;
+            creators["melee medium aoe"] = &TriggerContext::MeleeMediumAoe;
+            creators["melee high aoe"] = &TriggerContext::MeleeHighAoe;
 
             creators["enemy out of melee"] = &TriggerContext::EnemyOutOfMelee;
             creators["enemy out of spell"] = &TriggerContext::EnemyOutOfSpell;
@@ -170,6 +176,10 @@ namespace ai
         static Trigger* LightAoe(PlayerbotAI* ai) { return new LightAoeTrigger(ai); }
         static Trigger* MediumAoe(PlayerbotAI* ai) { return new MediumAoeTrigger(ai); }
         static Trigger* HighAoe(PlayerbotAI* ai) { return new HighAoeTrigger(ai); }
+        static Trigger* MeleeNoAoe(PlayerbotAI* ai) { return new MeleeNoAoeTrigger(ai); }
+        static Trigger* MeleeLightAoe(PlayerbotAI* ai) { return new MeleeLightAoeTrigger(ai); }
+        static Trigger* MeleeMediumAoe(PlayerbotAI* ai) { return new MeleeMediumAoeTrigger(ai); }
+        static Trigger* MeleeHighAoe(PlayerbotAI* ai) { return new MeleeHighAoeTrigger(ai); }
         static Trigger* LoseAggro(PlayerbotAI* ai) { return new LoseAggroTrigger(ai); }
         static Trigger* HasAggro(PlayerbotAI* ai) { return new HasAggroTrigger(ai); }
         static Trigger* LowHealth(PlayerbotAI* ai) { return new LowHealthTrigger(ai); }
@@ -182,6 +192,7 @@ namespace ai
         static Trigger* TargetAlmostDead(PlayerbotAI* ai) { return new TargetAlmostDeadTrigger(ai); }
         static Trigger* LowMana(PlayerbotAI* ai) { return new LowManaTrigger(ai); }
         static Trigger* MediumMana(PlayerbotAI* ai) { return new MediumManaTrigger(ai); }
+        static Trigger* DrinkMana(PlayerbotAI* ai) { return new DrinkManaTrigger(ai); }
         static Trigger* LightRageAvailable(PlayerbotAI* ai) { return new LightRageAvailableTrigger(ai); }
         static Trigger* MediumRageAvailable(PlayerbotAI* ai) { return new MediumRageAvailableTrigger(ai); }
         static Trigger* HighRageAvailable(PlayerbotAI* ai) { return new HighRageAvailableTrigger(ai); }

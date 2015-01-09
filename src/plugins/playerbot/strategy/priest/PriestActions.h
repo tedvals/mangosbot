@@ -6,13 +6,13 @@ namespace ai
 {
     class CastGreaterHealAction : public CastHealingSpellAction {
     public:
-        CastGreaterHealAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "greater heal") {}
+        CastGreaterHealAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "greater heal",30) {}
     };
 
     class CastGreaterHealOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastGreaterHealOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "greater heal") {}
+        CastGreaterHealOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "greater heal",30) {}
 
         virtual string getName() { return "greater heal on party"; }
     };
@@ -20,18 +20,18 @@ namespace ai
     class CastGreaterHealOnMasterAction : public HealMasterAction
     {
     public:
-        CastGreaterHealOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "greater heal") {}
+        CastGreaterHealOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "greater heal",30) {}
     };
 
     class CastLesserHealAction : public CastHealingSpellAction {
     public:
-        CastLesserHealAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "lesser heal") {}
+        CastLesserHealAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "lesser heal",20) {}
     };
 
     class CastLesserHealOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastLesserHealOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "lesser heal") {}
+        CastLesserHealOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "lesser heal",20) {}
 
         virtual string getName() { return "lesser heal on party"; }
     };
@@ -39,7 +39,7 @@ namespace ai
     class CastLesserHealOnMasterAction : public HealMasterAction
     {
     public:
-        CastLesserHealOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "lesser heal") {}
+        CastLesserHealOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "lesser heal",20) {}
     };
 
     class CastFlashHealAction : public CastHealingSpellAction {
@@ -63,7 +63,7 @@ namespace ai
 
     class CastPenanceHealAction : public CastHealingSpellAction {
     public:
-        CastPenanceHealAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "penance") {}
+        CastPenanceHealAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "penance",20) {}
     };
 
     class CastPenanceOnAttackerAction : public CastSpellAction
@@ -75,7 +75,7 @@ namespace ai
     class CastPenanceHealOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastPenanceHealOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "penance") {}
+        CastPenanceHealOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "penance",20) {}
 
         virtual string getName() { return "penance on party"; }
     };
@@ -83,18 +83,18 @@ namespace ai
     class CastPenanceHealOnMasterAction : public HealMasterAction
     {
     public:
-        CastPenanceHealOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "penance") {}
+        CastPenanceHealOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "penance",20) {}
     };
 
     class CastHealAction : public CastHealingSpellAction {
     public:
-        CastHealAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "heal") {}
+        CastHealAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "heal",20) {}
     };
 
     class CastHealOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastHealOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "heal") {}
+        CastHealOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "heal",20) {}
 
         virtual string getName() { return "heal on party"; }
     };
@@ -102,12 +102,12 @@ namespace ai
     class CastHealOnMasterAction : public HealMasterAction
     {
     public:
-        CastHealOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "heal") {}
+        CastHealOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "heal",20) {}
     };
 
     class CastRenewAction : public CastHealingSpellAction {
     public:
-        CastRenewAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "renew") {}
+        CastRenewAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "renew",10) {}
     };
 
     class CastDesperatePrayerAction : public CastHealingSpellAction {
@@ -120,7 +120,7 @@ namespace ai
     class CastRenewOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastRenewOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "renew") {}
+        CastRenewOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "renew",10) {}
 
         virtual string getName() { return "renew on party"; }
     };
@@ -128,7 +128,7 @@ namespace ai
     class CastRenewOnMasterAction : public HealMasterAction
     {
     public:
-        CastRenewOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "renew") {}
+        CastRenewOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "renew",10) {}
     };
 
     class CastPrayerOfHealingAction : public CastAoeHealSpellAction {
@@ -163,13 +163,13 @@ namespace ai
 
     class CastPrayerOfMendingAction : public CastHealingSpellAction {
     public:
-        CastPrayerOfMendingAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "prayer of mending") {}
+        CastPrayerOfMendingAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "prayer of mending",5) {}
     };
 
     class CastPrayerOfMendingOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastPrayerOfMendingOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "prayer of mending") {}
+        CastPrayerOfMendingOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "prayer of mending",5) {}
 
         virtual string getName() { return "prayer of mending on party"; }
     };
@@ -177,9 +177,8 @@ namespace ai
     class CastPrayerOfMendingOnMasterAction : public HealMasterAction
     {
     public:
-        CastPrayerOfMendingOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "prayer of mending") {}
+        CastPrayerOfMendingOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "prayer of mending",5) {}
 
-        virtual string getName() { return "prayer of mending on party"; }
     };
 
     class CastBindingHealOnPartyAction : public HealPartyMemberAction
@@ -228,10 +227,10 @@ namespace ai
 		CastPowerWordShieldAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "power word: shield") {}
 	};
 
-    class CastPowerWordShieldOnPartyAction : public HealPartyMemberAction
+    class CastPowerWordShieldOnPartyAction : public BuffOnPartyAction
     {
     public:
-        CastPowerWordShieldOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "power word: shield") {}
+        CastPowerWordShieldOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "power word: shield") {}
 
         virtual string getName() { return "power word: shield on party"; }
     };
@@ -246,18 +245,18 @@ namespace ai
 		CastPainSuppressionAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "pain suppression") {}
 	};
 
-    class CastPainSuppressionOnPartyAction : public HealPartyMemberAction
+    class CastPainSuppressionOnPartyAction : public BuffOnPartyAction
     {
     public:
-        CastPainSuppressionOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "pain suppression") {}
+        CastPainSuppressionOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "pain suppression") {}
 
         virtual string getName() { return "pain suppression on party"; }
     };
 
-    class CastPainSuppressionOnMasterAction : public HealMasterAction
+    class CastPainSuppressionOnMasterAction : public BuffOnMasterAction
     {
     public:
-        CastPainSuppressionOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "pain suppression") {}
+        CastPainSuppressionOnMasterAction(PlayerbotAI* ai) : BuffOnMasterAction(ai, "pain suppression") {}
     };
 
     class CastGuardianSpiritAction : public CastBuffSpellAction {
@@ -265,18 +264,18 @@ namespace ai
 		CastGuardianSpiritAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "guardian spirit") {}
 	};
 
-    class CastGuardianSpiritOnPartyAction : public HealPartyMemberAction
+    class CastGuardianSpiritOnPartyAction : public BuffOnPartyAction
     {
     public:
-        CastGuardianSpiritOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "guardian spirit") {}
+        CastGuardianSpiritOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "guardian spirit") {}
 
         virtual string getName() { return "guardian spirit on party"; }
     };
 
-    class CastGuardianSpiritOnMasterAction : public HealMasterAction
+    class CastGuardianSpiritOnMasterAction : public BuffOnMasterAction
     {
     public:
-        CastGuardianSpiritOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "guardian spirit") {}
+        CastGuardianSpiritOnMasterAction(PlayerbotAI* ai) : BuffOnMasterAction(ai, "guardian spirit") {}
 
         virtual string getName() { return "guardian spirit on party"; }
     };

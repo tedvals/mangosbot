@@ -41,6 +41,8 @@ namespace ai
     class CastCleaveAction : public CastMeleeSpellAction {
     public:
         CastCleaveAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "cleave") {}
+
+        virtual bool isUseful() { return AI_VALUE(uint8, "melee attacker count") > 1 && AI_VALUE2(uint8, "rage", "self target") > 40; }
     };
 
     // battle, berserker
