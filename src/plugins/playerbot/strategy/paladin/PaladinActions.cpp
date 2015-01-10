@@ -77,7 +77,7 @@ bool CastBlessingOfSanctuaryOnPartyAction::isUseful()
 
 bool  CastSealOfCommandAction::isUseful()
 {
-     return (AI_VALUE(uint8, "attacker count") > 1);
+     return (AI_VALUE(uint8, "melee attacker count") >= 2);
 }
 
 bool  CastSealOfWisdomAction::isUseful()
@@ -90,13 +90,13 @@ bool  CastSealOfWisdomAction::isUseful()
 
 bool  CastSealOfVengeanceAction::isUseful()
 {
-     return (AI_VALUE(uint8, "attacker count") == 1);
+     return (AI_VALUE(uint8, "melee attacker count") < 2);
 }
 
 
-bool CastInstantFlashOfLightAction::isPossible()
+bool CastInstantFlashOfLightAction::isUseful()
 {
-    return ai->HasAura("art of war",GetTarget());
+    return ai->HasAura("art of war",bot);
 }
 
 bool CastInstantFlashOfLightAction::Execute(Event event)
@@ -104,13 +104,22 @@ bool CastInstantFlashOfLightAction::Execute(Event event)
     return ai->CastSpell("flash of light", GetTarget());
 }
 
-bool CastInstantFlashOfLightOnPartyAction::isPossible()
+bool CastInstantFlashOfLightOnPartyAction::isUseful()
 {
-    Player* player = ai->GetBot();
-    return player->HasAura(53488);
+    return ai->HasAura("art of war",bot);
 }
 
 bool CastInstantFlashOfLightOnPartyAction::Execute(Event event)
+{
+    return ai->CastSpell("flash of light", GetTarget());
+}
+
+bool CastInstantFlashOfLightOnMasterAction::isUseful()
+{
+    return ai->HasAura("art of war",bot);
+}
+
+bool CastInstantFlashOfLightOnMasterAction::Execute(Event event)
 {
     return ai->CastSpell("flash of light", GetTarget());
 }
