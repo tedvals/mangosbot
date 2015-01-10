@@ -314,7 +314,7 @@ bool UseItemAction::UseItemOnUnit(Item* item, Unit* unitTarget)
     if (bot->isMoving())
         return false;
 
-    uint32 spellId;
+	uint32 spellId = 0;
 
     for (int i=0; i<MAX_ITEM_PROTO_SPELLS; i++)
     {
