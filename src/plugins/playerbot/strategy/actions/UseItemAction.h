@@ -12,9 +12,9 @@ namespace ai
     public:
         virtual bool Execute(Event event);
         virtual bool isPossible();
-        bool setTargetMainhand();
-        bool setTargetOffhand();
-        bool setTargetUnit(Unit* target) {actionUnit = target;}
+        void setTargetMainhand();
+        void setTargetOffhand();
+        void setTargetUnit(Unit* target) {actionUnit = target;}
     private:
         bool UseItemAuto(Item* item);
         bool UseItemOnGameObject(Item* item, ObjectGuid go);
