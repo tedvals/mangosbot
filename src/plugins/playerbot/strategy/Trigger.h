@@ -23,7 +23,7 @@ namespace ai
     class Trigger : public AiNamedObject
 	{
 	public:
-        Trigger(PlayerbotAI* ai, string name = "trigger", int checkInterval = sPlayerbotAIConfig.checkTriggerInterval) : AiNamedObject(ai, name) {
+        Trigger(PlayerbotAI* ai, string name = "trigger", int checkInterval = CheckTriggerInterval) : AiNamedObject(ai, name) {
 			this->checkInterval = checkInterval;
 			ticksElapsed = 0;
         }
