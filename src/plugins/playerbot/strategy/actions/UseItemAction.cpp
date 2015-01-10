@@ -408,12 +408,12 @@ bool UseItemAction::SocketItem(Item* item, Item* gem, bool replace)
     return fits;
 }
 
-bool UseItemAction::setTargetMainhand()
+void UseItemAction::setTargetMainhand()
 {
      targetSlot= EQUIPMENT_SLOT_MAINHAND;
 }
 
-bool UseItemAction::setTargetOffhand()
+void UseItemAction::setTargetOffhand()
 {
      targetSlot= EQUIPMENT_SLOT_OFFHAND;
 }

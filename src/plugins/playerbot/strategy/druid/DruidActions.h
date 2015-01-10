@@ -100,7 +100,7 @@ namespace ai
 	public:
 		CastInstantRegrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "regrowth",15) {}
 
-		bool isUseful() {CastHealingSpellAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+		bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
 	};
 
 	class CastInstantRegrowthOnPartyAction : public HealPartyMemberAction
@@ -108,14 +108,14 @@ namespace ai
     public:
         CastInstantRegrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "regrowth",15) {}
 
-        bool isUseful() {HealPartyMemberAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+        bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
     };
 
     class CastInstantHealingTouchAction : public CastHealingSpellAction {
     public:
         CastInstantHealingTouchAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "healing touch",15) {}
 
-        bool isUseful() {CastHealingSpellAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+        bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
     };
 
     class CastInstantHealingTouchOnPartyAction : public HealPartyMemberAction
@@ -123,7 +123,7 @@ namespace ai
     public:
         CastInstantHealingTouchOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "healing touch",15) {}
 
-        bool isUseful() {HealPartyMemberAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+        bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
     };
 
 	class CastReviveAction : public ResurrectPartyMemberAction
@@ -193,7 +193,7 @@ namespace ai
     public:
         CastInstantRegrowthOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "regrowth",15) {}
 
-        bool isUseful() {HealMasterAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+        bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
     };
 
     class CastInstantHealingTouchOnMasterAction : public HealMasterAction
@@ -201,7 +201,7 @@ namespace ai
     public:
         CastInstantHealingTouchOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "healing touch",15) {}
 
-        bool isUseful() {HealMasterAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+        bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
     };
 
 
