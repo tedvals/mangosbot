@@ -239,13 +239,35 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
                 map->IsInWater(x, y, z))
             continue;
 
+        if (map->Instanceable()||map->IsBattlegroundOrArena()||map->IsDungeon()||map->IsRaidOrHeroicDungeon())
+            continue;
+
         uint32 areaId = map->GetAreaId(x, y, z);
+
         if (!areaId)
             continue;
 
         AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
         if (!area)
             continue;
+
+    //Some exceptions:
+        if (IsAlliance(bot->getRace()))
+        {
+            switch (areaId)
+            {
+                case 99999:
+                continue;
+                }
+        }
+        else //horde
+        {
+            switch (areaId)
+            {
+                case 99999:
+                continue;
+                }
+        }
 
         float ground = map->GetHeight(x, y, z + 0.5f);
         if (ground <= INVALID_HEIGHT)
