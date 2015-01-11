@@ -8,6 +8,7 @@
 #include "../../game/Maps/MapManager.h"
 #include "PlayerbotCommandServer.h"
 #include "GuildTaskMgr.h"
+#include <thread>
 
 RandomPlayerbotMgr::RandomPlayerbotMgr() : PlayerbotHolder(), processTicks(0)
 {
@@ -161,7 +162,9 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
             sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Reviving dead bot %d", bot);
             SetEventValue(bot, "dead", 0, 0);
             SetEventValue(bot, "revive", 0, 0);
-            RandomTeleport(player, player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
+            std::thread random_tele(&RandomPlayerbotMgr::RandomTeleporting,this,player,player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
+            random_tele.detach();
+            //RandomTeleport(player, player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
             return true;
         }
 
@@ -178,7 +181,9 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
     if (!randomize)
     {
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Randomizing bot %d", bot);
-        Randomize(player);
+        //Randomize(player);
+        std::thread randomize(&RandomPlayerbotMgr::Randomize,this,player);
+        randomize.detach();
         uint32 randomTime = urand(sPlayerbotAIConfig.minRandomBotRandomizeTime, sPlayerbotAIConfig.maxRandomBotRandomizeTime);
         ScheduleRandomize(bot, randomTime);
         return true;
@@ -197,7 +202,9 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
     if (!teleport)
     {
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random teleporting bot %d", bot);
-        RandomTeleportForLevel(ai->GetBot());
+        //RandomTeleportForLevel(ai->GetBot());
+        std::thread random_tele_level(&RandomPlayerbotMgr::RandomTeleportForLevel,this,ai->GetBot());
+        random_tele_level.detach();
         SetEventValue(bot, "teleport", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
         return true;
     }
@@ -301,7 +308,7 @@ void RandomPlayerbotMgr::RandomTeleportForLevel(Player* bot)
     RandomTeleport(bot, locs);
 }
 
-void RandomPlayerbotMgr::RandomTeleport(Player* bot, uint16 mapId, float teleX, float teleY, float teleZ)
+void RandomPlayerbotMgr::RandomTeleporting(Player* bot, uint16 mapId, float teleX, float teleY, float teleZ)
 {
     vector<WorldLocation> locs;
     QueryResult results = WorldDatabase.PQuery("select position_x, position_y, position_z from creature where map = '%u' and abs(position_x - '%f') < '%u' and abs(position_y - '%f') < '%u'",
@@ -380,7 +387,7 @@ void RandomPlayerbotMgr::RandomizeFirst(Player* bot)
 
         PlayerbotFactory factory(bot, level);
         factory.CleanRandomize();
-        RandomTeleport(bot, tele->mapId, tele->position_x, tele->position_y, tele->position_z);
+        RandomTeleporting(bot, tele->mapId, tele->position_x, tele->position_y, tele->position_z);
         break;
     }
 }

@@ -77,11 +77,17 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 
             float x = botPosX + cos(angle) * distance;
             float y = botPosY + sin(angle) * distance;
+            float z = botPosZ;
 
-            if (!bot->IsWithinLOS(x, y, botPosZ))
+            bot->UpdateGroundPositionZ(x, y, z);
+            //need to investigate
+            if (abs(z - botPosZ) > 10.0f)
                 continue;
 
-            FleePoint *point = new FleePoint(x, y, botPosZ);
+            if (!bot->IsWithinLOS(x, y, z))
+                continue;
+
+            FleePoint *point = new FleePoint(x, y, z);
             calculateDistanceToPlayers(point);
             calculateDistanceToCreatures(point);
             calculateDistanceToDestination(point);

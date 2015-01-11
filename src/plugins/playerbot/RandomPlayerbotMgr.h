@@ -59,7 +59,7 @@ class RandomPlayerbotMgr : public PlayerbotHolder
         uint32 AddRandomBot(bool alliance);
         bool ProcessBot(uint32 bot);
         void ScheduleRandomize(uint32 bot, uint32 time);
-        void RandomTeleport(Player* bot, uint16 mapId, float teleX, float teleY, float teleZ);
+        void RandomTeleporting(Player* bot, uint16 mapId, float teleX, float teleY, float teleZ);
         void RandomTeleport(Player* bot, vector<WorldLocation> &locs);
         uint32 GetZoneLevel(uint16 mapId, float teleX, float teleY, float teleZ);
 

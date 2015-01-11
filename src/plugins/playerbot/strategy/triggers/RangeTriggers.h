@@ -10,7 +10,19 @@ namespace ai
         virtual bool IsActive()
 		{
 			Unit* target = AI_VALUE(Unit*, "current target");
-            return target && AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance;
+
+			if (target && AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance)
+			{
+			    if (bot->getClass() == CLASS_HUNTER)
+                    return true;
+
+                if (AI_VALUE2(bool, "target normal", "current target") && !target->isSnared())
+                    return false;
+                else if (target->UnderCc())
+                    return false;
+                else return true;
+			}
+            else return false;
         }
     };
 
