@@ -258,7 +258,7 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
 void RandomPlayerbotMgr::RandomTeleportForLevel(Player* bot)
 {
     vector<WorldLocation> locs;
-    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Finding a place for %s...", bot->GetName().c_str()";
+    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Finding a place for %s...", bot->GetName().c_str());
     QueryResult results = WorldDatabase.PQuery("select map, position_x, position_y, position_z "
         "from (select map, position_x, position_y, position_z, avg(t.maxlevel), avg(t.minlevel), "
         "%u - (avg(t.maxlevel) + avg(t.minlevel)) / 2 delta "
