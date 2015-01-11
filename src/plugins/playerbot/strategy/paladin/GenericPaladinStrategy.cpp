@@ -18,6 +18,10 @@ void GenericPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "critical health",
         NextAction::array(0, new NextAction("flash of light", ACTION_CRITICAL_HEAL + 2), NULL)));
 
+	triggers.push_back(new TriggerNode(
+        "almost dead",
+        NextAction::array(0, new NextAction("divine shield", ACTION_EMERGENCY + 7), new NextAction("holy light", ACTION_EMERGENCY + 2), NULL)));
+
     triggers.push_back(new TriggerNode(
         "party member low health",
 		NextAction::array(0, new NextAction("flash of light on party", ACTION_HIGH + 3), NULL)));
@@ -29,10 +33,6 @@ void GenericPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"hammer of justice on enemy healer",
 		NextAction::array(0, new NextAction("hammer of justice on enemy healer", ACTION_INTERRUPT), NULL)));
-
-	triggers.push_back(new TriggerNode(
-		"almost dead",
-		NextAction::array(0, new NextAction("divine shield", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"stunned",

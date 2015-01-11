@@ -187,12 +187,10 @@ namespace ai
         virtual bool isUseful();
 	};
 
-    class CastBeaconOfLightActionOnMaster : public BuffOnPartyAction
+    class CastBeaconOfLightActionOnMaster : public BuffOnMasterAction
     {
     public:
-        CastBeaconOfLightActionOnMaster(PlayerbotAI* ai) : BuffOnPartyAction(ai, "beacon of light") {}
-        virtual string getName() { return "beacon of light on master";}
-        virtual string GetTargetName() { return "master target";}
+        CastBeaconOfLightActionOnMaster(PlayerbotAI* ai) : BuffOnMasterAction(ai, "beacon of light") {}
     };
 
 	class CastBeaconOfLightActionOnParty : public BuffOnPartyAction
@@ -218,6 +216,13 @@ namespace ai
         virtual string getName() { return "holy light on party"; }
     };
 
+    class CastHolyLightOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastHolyLightOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "holy light") {}
+    };
+
+
     class CastHolyShockAction : public CastHealingSpellAction
     {
     public:
@@ -232,12 +237,25 @@ namespace ai
         virtual string getName() { return "holy shock on party"; }
     };
 
+    class CastHolyShockOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastHolyShockOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "shock shock") {}
+    };
+
     class CastSacredShieldOnPartyAction : public HealPartyMemberAction
     {
     public:
         CastSacredShieldOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "sacred shield") {}
 
         virtual string getName() { return "sacred shield on party"; }
+    };
+
+    class CastSacredShieldOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastSacredShieldOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "sacred shield") {}
+
     };
 
     class CastFlashOfLightAction : public CastHealingSpellAction
@@ -254,21 +272,37 @@ namespace ai
         virtual string getName() { return "flash of light on party"; }
     };
 
+    class CastFlashOfLightOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastFlashOfLightOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "flash of light") {}
+    };
+
     class CastInstantFlashOfLightAction : public CastHealingSpellAction
     {
     public:
-        CastInstantFlashOfLightAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "instant flash of light") {}
-        virtual bool isPossible();
+        CastInstantFlashOfLightAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "flash of light") {}
+        virtual bool isUseful();
         virtual bool Execute(Event event);
     };
 
     class CastInstantFlashOfLightOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastInstantFlashOfLightOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "instant flash of light") {}
+        CastInstantFlashOfLightOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "flash of light") {}
 
         virtual string getName() { return "instant flash of light on party"; }
-        virtual bool isPossible();
+        virtual bool isUseful();
+        virtual bool Execute(Event event);
+    };
+
+   class CastInstantFlashOfLightOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastInstantFlashOfLightOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "flash of light") {}
+
+        virtual string getName() { return "instant flash of light on master"; }
+        virtual bool isUseful();
         virtual bool Execute(Event event);
     };
 
@@ -284,6 +318,12 @@ namespace ai
         CastLayOnHandsOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "lay on hands") {}
 
         virtual string getName() { return "lay on hands on party"; }
+    };
+
+    class CastLayOnHandsOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastLayOnHandsOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "lay on hands") {}
     };
 
 	class CastDivineProtectionAction : public CastBuffSpellAction
@@ -329,6 +369,13 @@ namespace ai
 
         virtual string getName() { return "divine protection on party"; }
     };
+
+    class CastDivineProtectionOnMasterAction : public HealMasterAction
+    {
+    public:
+        CastDivineProtectionOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "divine protection") {}
+    };
+
 
 	class CastDivineShieldAction: public CastBuffSpellAction
 	{
@@ -413,6 +460,12 @@ namespace ai
         virtual string getName() { return "hand of salvation on party";}
 	};
 
+	class CastHandOfSalvationOnMasterAction : public BuffOnMasterAction
+	{
+	public:
+		CastHandOfSalvationOnMasterAction(PlayerbotAI* ai) : BuffOnMasterAction(ai, "hand of salvation") {}
+	};
+
 	class CastHandOfFreedomAction : public CastSpellAction
 	{
 	public:
@@ -433,11 +486,23 @@ namespace ai
         virtual string getName() { return "hand of sacrifice on party";}
 	};
 
+	class CastHandOfSacrificeOnMasterAction : public BuffOnMasterAction
+	{
+	public:
+		CastHandOfSacrificeOnMasterAction(PlayerbotAI* ai) : BuffOnMasterAction(ai, "hand of sacrifice") {}
+	};
+
 	class CastHandOfProtectionOnPartyAction : public BuffOnPartyAction
 	{
 	public:
 		CastHandOfProtectionOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "hand of protection") {}
         virtual string getName() { return "hand of protection on party";}
+	};
+
+	class CastHandOfProtectionOnMasterAction : public BuffOnMasterAction
+	{
+	public:
+		CastHandOfProtectionOnMasterAction(PlayerbotAI* ai) : BuffOnMasterAction(ai, "hand of protection") {}
 	};
 
 //	class CastHandOfSacrificeAction : public CastSpellAction
