@@ -204,18 +204,18 @@ namespace ai
                 creators["divine shield"] = &AiObjectContextInternal::divine_shield;
                 creators["divine protection"] = &AiObjectContextInternal::divine_protection;
                 creators["divine protection on party"] =&AiObjectContextInternal::divine_protection_on_party;
-		creators["divine protection on master"] =&AiObjectContextInternal::divine_protection_on_master;
+                creators["divine protection on master"] =&AiObjectContextInternal::divine_protection_on_master;
                 creators["hammer of justice"] = &AiObjectContextInternal::hammer_of_justice;
                 creators["flash of light on party"] = &AiObjectContextInternal::flash_of_light_on_party;
-		creators["flash of light on master"] = &AiObjectContextInternal::flash_of_light_on_master;
+                creators["flash of light on master"] = &AiObjectContextInternal::flash_of_light_on_master;
                 creators["instant flash of light on party"] = &AiObjectContextInternal::instant_flash_of_light_on_party;
-		creators["instant flash of light on master"] = &AiObjectContextInternal::instant_flash_of_light_on_master;
+                creators["instant flash of light on master"] = &AiObjectContextInternal::instant_flash_of_light_on_master;
                 creators["holy light"] = &AiObjectContextInternal::holy_light;
                 creators["holy light on party"] = &AiObjectContextInternal::holy_light_on_party;
-		creators["holy light on master"] = &AiObjectContextInternal::holy_light_on_master;
+                creators["holy light on master"] = &AiObjectContextInternal::holy_light_on_master;
                 creators["lay on hands"] = &AiObjectContextInternal::lay_on_hands;
                 creators["lay on hands on party"] = &AiObjectContextInternal::lay_on_hands_on_party;
-		creators["lay on hands on master"] = &AiObjectContextInternal::lay_on_hands_on_master;
+                creators["lay on hands on master"] = &AiObjectContextInternal::lay_on_hands_on_master;
                 creators["judgement of justice"] = &AiObjectContextInternal::judgement_of_justice;
                 creators["hammer of wrath"] = &AiObjectContextInternal::hammer_of_wrath;
                 creators["holy shield"] = &AiObjectContextInternal::holy_shield;
@@ -229,8 +229,8 @@ namespace ai
                 creators["blessing of sanctuary"] = &AiObjectContextInternal::blessing_of_sanctuary;
                 creators["hammer of justice on enemy healer"] = &AiObjectContextInternal::hammer_of_justice_on_enemy_healer;
                 creators["holy shock"] = &AiObjectContextInternal::holy_shock;
-		creators["holy shock on party"] = &AiObjectContextInternal::holy_shock_on_party;
-		creators["holy shock on master"] = &AiObjectContextInternal::holy_shock_on_master;
+                creators["holy shock on party"] = &AiObjectContextInternal::holy_shock_on_party;
+                creators["holy shock on master"] = &AiObjectContextInternal::holy_shock_on_master;
                 creators["divine plea"] = &AiObjectContextInternal::divine_plea;
                 creators["divine favor"] = &AiObjectContextInternal::divine_favor;
                 creators["divine illumination"] = &AiObjectContextInternal::divine_illumination;
@@ -238,15 +238,15 @@ namespace ai
                 creators["beacon of light on party"] = &AiObjectContextInternal::beacon_of_light_on_party;
                 creators["hand of sacrifice on party"] = &AiObjectContextInternal::hand_of_sacrifice_on_party;
                 creators["hand of salvation on party"] = &AiObjectContextInternal::hand_of_salvation_on_party;
-		creators["hand of sacrifice on master"] = &AiObjectContextInternal::hand_of_sacrifice_on_master;
+                creators["hand of sacrifice on master"] = &AiObjectContextInternal::hand_of_sacrifice_on_master;
                 creators["hand of salvation on master"] = &AiObjectContextInternal::hand_of_salvation_on_master;
                 creators["hand of freedom on party"] = &AiObjectContextInternal::hand_of_freedom_on_party;
                 creators["hand of protection on party"] = &AiObjectContextInternal::hand_of_protection_on_party;
-		creators["hand of protection on master"] = &AiObjectContextInternal::hand_of_protection_on_master;
+                creators["hand of protection on master"] = &AiObjectContextInternal::hand_of_protection_on_master;
                 creators["hand of freedom"] = &AiObjectContextInternal::hand_of_freedom;
                 creators["avenging wrath"] = &AiObjectContextInternal::avenging_wrath;
                 creators["sacred shield on party"] = &AiObjectContextInternal::hand_of_salvation_on_party;
-		creators["sacred shield on master"] = &AiObjectContextInternal::hand_of_salvation_on_master;
+                creators["sacred shield on master"] = &AiObjectContextInternal::hand_of_salvation_on_master;
             }
 
         private:
@@ -291,18 +291,18 @@ namespace ai
             static Action* divine_shield(PlayerbotAI* ai) { return new CastDivineShieldAction(ai); }
             static Action* divine_protection(PlayerbotAI* ai) { return new CastDivineProtectionAction(ai); }
             static Action* divine_protection_on_party(PlayerbotAI* ai) { return new CastDivineProtectionOnPartyAction(ai); }
-	    static Action* divine_protection_on_master(PlayerbotAI* ai) { return new CastDivineProtectionOnMasterAction(ai); }
+            static Action* divine_protection_on_master(PlayerbotAI* ai) { return new CastDivineProtectionOnMasterAction(ai); }
             static Action* hammer_of_justice(PlayerbotAI* ai) { return new CastHammerOfJusticeAction(ai); }
             static Action* flash_of_light_on_party(PlayerbotAI* ai) { return new CastFlashOfLightOnPartyAction(ai); }
             static Action* instant_flash_of_light_on_party(PlayerbotAI* ai) { return new CastInstantFlashOfLightOnPartyAction(ai); }
-	    static Action* flash_of_light_on_master(PlayerbotAI* ai) { return new CastFlashOfLightOnMasterAction(ai); }
+            static Action* flash_of_light_on_master(PlayerbotAI* ai) { return new CastFlashOfLightOnMasterAction(ai); }
             static Action* instant_flash_of_light_on_master(PlayerbotAI* ai) { return new CastInstantFlashOfLightOnMasterAction(ai); }
             static Action* holy_light(PlayerbotAI* ai) { return new CastHolyLightAction(ai); }
             static Action* holy_light_on_party(PlayerbotAI* ai) { return new CastHolyLightOnPartyAction(ai); }
-	    static Action* holy_light_on_master(PlayerbotAI* ai) { return new CastHolyLightOnMasterAction(ai); }
+            static Action* holy_light_on_master(PlayerbotAI* ai) { return new CastHolyLightOnMasterAction(ai); }
             static Action* lay_on_hands(PlayerbotAI* ai) { return new CastLayOnHandsAction(ai); }
             static Action* lay_on_hands_on_party(PlayerbotAI* ai) { return new CastLayOnHandsOnPartyAction(ai); }
-	    static Action* lay_on_hands_on_master(PlayerbotAI* ai) { return new CastLayOnHandsOnMasterAction(ai); }
+            static Action* lay_on_hands_on_master(PlayerbotAI* ai) { return new CastLayOnHandsOnMasterAction(ai); }
             static Action* judgement_of_justice(PlayerbotAI* ai) { return new CastJudgementOfJusticeAction(ai); }
             static Action* hammer_of_wrath(PlayerbotAI* ai) { return new CastHammerOfWrathAction(ai); }
             static Action* holy_shield(PlayerbotAI* ai) { return new CastHolyShieldAction(ai); }
@@ -315,8 +315,8 @@ namespace ai
             static Action* hammer_of_justice_on_enemy_healer(PlayerbotAI* ai) { return new CastHammerOfJusticeOnEnemyHealerAction(ai); }
             static Action* holy_shock(PlayerbotAI* ai) { return new CastHolyShockAction(ai); }
             static Action* holy_shock_on_party(PlayerbotAI* ai) { return new CastHolyShockOnPartyAction(ai); }
-	    static Action* holy_shock_on_master(PlayerbotAI* ai) { return new CastHolyShockOnMasterAction(ai); }
-	    static Action* divine_plea(PlayerbotAI* ai) { return new CastDivinePleaAction(ai); }
+            static Action* holy_shock_on_master(PlayerbotAI* ai) { return new CastHolyShockOnMasterAction(ai); }
+            static Action* divine_plea(PlayerbotAI* ai) { return new CastDivinePleaAction(ai); }
             static Action* divine_favor(PlayerbotAI* ai) { return new CastDivineFavorAction(ai); }
             static Action* aura_mastery(PlayerbotAI* ai) { return new CastAuraMasteryAction(ai); }
             static Action* divine_illumination(PlayerbotAI* ai) { return new CastDivineIlluminationAction(ai); }
@@ -324,13 +324,14 @@ namespace ai
             static Action* hand_of_protection_on_party(PlayerbotAI* ai) { return new CastHandOfProtectionOnPartyAction(ai); }
             static Action* hand_of_sacrifice_on_party(PlayerbotAI* ai) { return new CastHandOfSacrificeOnPartyAction(ai); }
             static Action* hand_of_salvation_on_party(PlayerbotAI* ai) { return new CastHandOfSalvationOnPartyAction(ai); }
-	    static Action* beacon_of_light_on_master(PlayerbotAI* ai) { return new CastBeaconOfLightActionOnMaster(ai); }
+            static Action* beacon_of_light_on_master(PlayerbotAI* ai) { return new CastBeaconOfLightActionOnMaster(ai); }
             static Action* hand_of_protection_on_master(PlayerbotAI* ai) { return new CastHandOfProtectionOnMasterAction(ai); }
             static Action* hand_of_sacrifice_on_master(PlayerbotAI* ai) { return new CastHandOfSacrificeOnMasterAction(ai); }
             static Action* hand_of_salvation_on_master(PlayerbotAI* ai) { return new CastHandOfSalvationOnMasterAction(ai); }
             static Action* sacred_shield_on_party(PlayerbotAI* ai) { return new CastSacredShieldOnPartyAction(ai); }
-	    static Action* sacred_shield_on_master(PlayerbotAI* ai) { return new CastSacredShieldOnMasterAction(ai); }
+            static Action* sacred_shield_on_master(PlayerbotAI* ai) { return new CastSacredShieldOnMasterAction(ai); }
             static Action* hand_of_freedom(PlayerbotAI* ai) { return new CastHandOfFreedomAction(ai); }
+            static Action* hand_of_freedom_on_party(PlayerbotAI* ai) { return new CastHandOfFreedomOnPartyAction(ai); }
             static Action* avenging_wrath(PlayerbotAI* ai) { return new CastAvengingWrathAction(ai); }
         };
     };

@@ -460,6 +460,12 @@ namespace ai
         virtual string getName() { return "hand of salvation on party";}
 	};
 
+	class CastHandOfSalvationOnMasterAction : public BuffOnMasterAction
+	{
+	public:
+		CastHandOfSalvationOnMasterAction(PlayerbotAI* ai) : BuffOnMasterAction(ai, "hand of salvation") {}
+	};
+
 	class CastHandOfFreedomAction : public CastSpellAction
 	{
 	public:
@@ -479,7 +485,7 @@ namespace ai
 		CastHandOfSacrificeOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "hand of sacrifice") {}
         virtual string getName() { return "hand of sacrifice on party";}
 	};
-	
+
 	class CastHandOfSacrificeOnMasterAction : public BuffOnMasterAction
 	{
 	public:
