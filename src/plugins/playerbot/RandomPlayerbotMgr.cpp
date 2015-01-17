@@ -13,261 +13,6 @@
 RandomPlayerbotMgr::RandomPlayerbotMgr() : PlayerbotHolder(), processTicks(0)
 {
     sPlayerbotCommandServer.Start();
-
-      if (horde_areas.empty())
-    {
-        // insert line by line, so names can be added as comments
-        horde_areas.push_back(14);
-        horde_areas.push_back(85);
-		horde_areas.push_back(153);
-		horde_areas.push_back(154);
-		horde_areas.push_back(155);
-		horde_areas.push_back(156);
-		horde_areas.push_back(157);
-		horde_areas.push_back(158);
-		horde_areas.push_back(159);
-		horde_areas.push_back(160);
-		horde_areas.push_back(161);
-		horde_areas.push_back(162);
-		horde_areas.push_back(163);
-		horde_areas.push_back(164);
-		horde_areas.push_back(165);
-		horde_areas.push_back(166);
-		horde_areas.push_back(167);
-		horde_areas.push_back(168);
-		horde_areas.push_back(169);
-		horde_areas.push_back(170);
-		horde_areas.push_back(173);
-		horde_areas.push_back(215);
-		horde_areas.push_back(219);
-		horde_areas.push_back(220);
-		horde_areas.push_back(221);
-		horde_areas.push_back(222);
-		horde_areas.push_back(223);
-		horde_areas.push_back(224);
-		horde_areas.push_back(225);
-		horde_areas.push_back(226);
-		horde_areas.push_back(227);
-		horde_areas.push_back(228);
-		horde_areas.push_back(231);
-		horde_areas.push_back(232);
-		horde_areas.push_back(233);
-		horde_areas.push_back(236);
-		horde_areas.push_back(237);
-		horde_areas.push_back(238);
-		horde_areas.push_back(239);
-		horde_areas.push_back(240);
-		horde_areas.push_back(272);
-		horde_areas.push_back(231);
-		horde_areas.push_back(362);
-		horde_areas.push_back(363);
-		horde_areas.push_back(364);
-		horde_areas.push_back(365);
-		horde_areas.push_back(366);
-		horde_areas.push_back(367);
-		horde_areas.push_back(368);
-		horde_areas.push_back(369);
-		horde_areas.push_back(370);
-		horde_areas.push_back(371);
-		horde_areas.push_back(372);
-		horde_areas.push_back(373);
-		horde_areas.push_back(374);
-		horde_areas.push_back(375);
-		horde_areas.push_back(377);
-		horde_areas.push_back(378);
-		horde_areas.push_back(379);
-		horde_areas.push_back(380);
-		horde_areas.push_back(396);
-		horde_areas.push_back(397);
-		horde_areas.push_back(398);
-		horde_areas.push_back(407);
-		horde_areas.push_back(460);
-		horde_areas.push_back(470);
-		horde_areas.push_back(471);
-		horde_areas.push_back(472);
-		horde_areas.push_back(473);
-		horde_areas.push_back(474);
-		horde_areas.push_back(475);
-		horde_areas.push_back(476);
-		horde_areas.push_back(637);
-		horde_areas.push_back(638);
-		horde_areas.push_back(639);
-		horde_areas.push_back(696);
-		horde_areas.push_back(697);
-		horde_areas.push_back(698);
-		horde_areas.push_back(699);
-		horde_areas.push_back(700);
-		horde_areas.push_back(701);
-		horde_areas.push_back(702);
-		horde_areas.push_back(810);
-		horde_areas.push_back(811);
-		horde_areas.push_back(812);
-		horde_areas.push_back(813);
-		horde_areas.push_back(814);
-		horde_areas.push_back(815);
-		horde_areas.push_back(816);
-		horde_areas.push_back(817);
-		horde_areas.push_back(818);
-		horde_areas.push_back(819);
-		horde_areas.push_back(820);
-		horde_areas.push_back(821);
-		horde_areas.push_back(1099);
-		horde_areas.push_back(1497);
-		horde_areas.push_back(1637);
-		horde_areas.push_back(1617);
-		horde_areas.push_back(1638);
-		horde_areas.push_back(1639);
-		horde_areas.push_back(1640);
-		horde_areas.push_back(1641);
-		horde_areas.push_back(2118);
-		horde_areas.push_back(2119);
-		horde_areas.push_back(2197);
-		horde_areas.push_back(2237);
-		horde_areas.push_back(3460);
-		horde_areas.push_back(3461);
-		horde_areas.push_back(3462);
-		horde_areas.push_back(3463);
-		horde_areas.push_back(3464);
-		horde_areas.push_back(3465);
-		horde_areas.push_back(3466);
-		horde_areas.push_back(3467);
-		horde_areas.push_back(3468);
-		horde_areas.push_back(3469);
-		horde_areas.push_back(3470);
-		horde_areas.push_back(3471);
-		horde_areas.push_back(3472);
-		horde_areas.push_back(3473);
-		horde_areas.push_back(3474);
-		horde_areas.push_back(3475);
-		horde_areas.push_back(3476);
-		horde_areas.push_back(3479);
-		horde_areas.push_back(3480);
-		horde_areas.push_back(3481);
-		horde_areas.push_back(3482);
-		horde_areas.push_back(3483);
-		horde_areas.push_back(3484);
-		horde_areas.push_back(3485);
-		horde_areas.push_back(3486);
-		horde_areas.push_back(3487);
-		horde_areas.push_back(3488);
-		horde_areas.push_back(3489);
-		horde_areas.push_back(3531);
-		horde_areas.push_back(3532);
-		horde_areas.push_back(3533);
-		horde_areas.push_back(3434);
-		horde_areas.push_back(3436);
-		horde_areas.push_back(3489);
-    }
-
-    if (alliance_areas.empty())
-    {
-        alliance_areas.push_back(2);
-		alliance_areas.push_back(9);
-		alliance_areas.push_back(12);
-		alliance_areas.push_back(20);
-		alliance_areas.push_back(23);
-		alliance_areas.push_back(24);
-		alliance_areas.push_back(34);
-		alliance_areas.push_back(38);
-		alliance_areas.push_back(40);
-		alliance_areas.push_back(57);
-		alliance_areas.push_back(59);
-		alliance_areas.push_back(60);
-		alliance_areas.push_back(62);
-		alliance_areas.push_back(63);
-		alliance_areas.push_back(64);
-		alliance_areas.push_back(68);
-		alliance_areas.push_back(69);
-		alliance_areas.push_back(77);
-		alliance_areas.push_back(80);
-		alliance_areas.push_back(86);
-		alliance_areas.push_back(87);
-		alliance_areas.push_back(88);
-		alliance_areas.push_back(99);
-		alliance_areas.push_back(107);
-		alliance_areas.push_back(108);
-		alliance_areas.push_back(109);
-		alliance_areas.push_back(111);
-		alliance_areas.push_back(113);
-		alliance_areas.push_back(115);
-		alliance_areas.push_back(120);
-		alliance_areas.push_back(131);
-		alliance_areas.push_back(132);
-		alliance_areas.push_back(133);
-		alliance_areas.push_back(134);
-		alliance_areas.push_back(135);
-		alliance_areas.push_back(136);
-		alliance_areas.push_back(137);
-		alliance_areas.push_back(138);
-		alliance_areas.push_back(140);
-		alliance_areas.push_back(142);
-		alliance_areas.push_back(144);
-		alliance_areas.push_back(150);
-		alliance_areas.push_back(186);
-		alliance_areas.push_back(187);
-		alliance_areas.push_back(188);
-		alliance_areas.push_back(189);
-		alliance_areas.push_back(192);
-		alliance_areas.push_back(271);
-		alliance_areas.push_back(298);
-		alliance_areas.push_back(299);
-		alliance_areas.push_back(320);
-		alliance_areas.push_back(415);
-		alliance_areas.push_back(442);
-		alliance_areas.push_back(608);
-		alliance_areas.push_back(800);
-		alliance_areas.push_back(801);
-		alliance_areas.push_back(802);
-		alliance_areas.push_back(803);
-		alliance_areas.push_back(804);
-		alliance_areas.push_back(805);
-		alliance_areas.push_back(806);
-		alliance_areas.push_back(807);
-		alliance_areas.push_back(808);
-		alliance_areas.push_back(809);
-		alliance_areas.push_back(1657);
-		alliance_areas.push_back(1658);
-		alliance_areas.push_back(1659);
-		alliance_areas.push_back(1660);
-		alliance_areas.push_back(1661);
-		alliance_areas.push_back(1662);
-		alliance_areas.push_back(2101);
-		alliance_areas.push_back(2102);
-		alliance_areas.push_back(2103);
-		alliance_areas.push_back(2104);
-		alliance_areas.push_back(2257);
-		alliance_areas.push_back(3524);
-		alliance_areas.push_back(3525);
-		alliance_areas.push_back(3526);
-		alliance_areas.push_back(3527);
-		alliance_areas.push_back(3528);
-		alliance_areas.push_back(3529);
-		alliance_areas.push_back(3530);
-		alliance_areas.push_back(3531);
-		alliance_areas.push_back(3532);
-		alliance_areas.push_back(3524);
-		alliance_areas.push_back(3538);
-		alliance_areas.push_back(3557);
-		alliance_areas.push_back(3558);
-		alliance_areas.push_back(3559);
-		alliance_areas.push_back(3560);
-		alliance_areas.push_back(3564);
-		alliance_areas.push_back(3567);
-		alliance_areas.push_back(3568);
-		alliance_areas.push_back(3569);
-		alliance_areas.push_back(3570);
-		alliance_areas.push_back(3571);
-		alliance_areas.push_back(3572);
-		alliance_areas.push_back(3573);
-		alliance_areas.push_back(3574);
-		alliance_areas.push_back(3575);
-		alliance_areas.push_back(3576);
-		alliance_areas.push_back(3577);
-		alliance_areas.push_back(3578);
-		alliance_areas.push_back(3579);
-        }
-
-    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing areas...");
 }
 
 RandomPlayerbotMgr::~RandomPlayerbotMgr()
@@ -494,7 +239,7 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
                 map->IsInWater(x, y, z))
             continue;
 
-        if (map->IsBattlegroundOrArena()||map->IsDungeon()||map->IsRaidOrHeroicDungeon())
+        if (map->Instanceable()||map->IsBattlegroundOrArena()||map->IsDungeon()||map->IsRaidOrHeroicDungeon())
             continue;
 
         uint32 areaId = map->GetAreaId(x, y, z);
@@ -502,26 +247,270 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
         if (!areaId)
             continue;
 
-    //Some exceptions:
-        if (IsAlliance(bot->getRace()))
-        {
-            list<uint>::iterator i = find(horde_areas.begin(), horde_areas.end(), areaId);
-
-            if (i != horde_areas.end())
-                continue;
-        }
-        else //horde
-        {
-
-           list<uint>::iterator i1 = find(alliance_areas.begin(), alliance_areas.end(), areaId);
-
-            if (i1 != alliance_areas.end())
-                continue;
-        }
-
         AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
         if (!area)
             continue;
+
+    //Some exceptions:
+        if (IsAlliance(bot->getRace()))
+        {
+            switch (areaId)
+            {
+                case 14:
+		case 85:
+		case 153:
+		case 154:
+		case 155:
+		case 156:
+		case 157:
+		case 158:
+		case 159:
+		case 160:
+		case 161:
+		case 162:
+		case 163:
+		case 164:
+		case 165:
+		case 166:
+		case 167:
+		case 168:
+		case 169:
+		case 170:
+		case 173:
+		case 215:
+		case 219:
+		case 220:
+		case 221:
+		case 222:
+		case 223:
+		case 224:
+		case 225:
+		case 226:
+		case 227:
+		case 228:
+		case 231:
+		case 232:
+		case 233:
+		case 236:
+		case 237:
+		case 238:
+		case 239:
+		case 240:
+		case 272:
+		case 231:
+		case 362:
+		case 363:
+		case 364:
+		case 365:
+		case 366:
+		case 367:
+		case 368:
+		case 369:
+		case 370:
+		case 371:
+		case 372:
+		case 373:
+		case 374:
+		case 375:
+		case 377:
+		case 378:
+		case 379:
+		case 380:
+		case 396:
+		case 397:
+		case 398:
+		case 407:
+		case 460:
+		case 470:
+		case 471:
+		case 472:
+		case 473:
+		case 474:
+		case 475:
+		case 476:
+		case 637:
+		case 638:
+		case 639:
+		case 696:
+		case 697:
+		case 698:
+		case 699:
+		case 700:
+		case 701:
+		case 702:
+		case 810:
+		case 811:
+		case 812:
+		case 813:
+		case 814:
+		case 815:
+		case 816:
+		case 817:
+		case 818:
+		case 819:
+		case 820:
+		case 821:
+		case 1099:
+		case 1497:
+		case 1637:
+		case 1617:
+		case 1638:
+		case 1639:
+		case 1640:
+		case 1641:
+		case 2118:
+		case 2119:
+		case 2197:
+		case 2237:
+		case 3460:
+		case 3461:
+		case 3462:
+		case 3463:
+		case 3464:
+		case 3465:
+		case 3466:
+		case 3467:
+		case 3468:
+		case 3469:
+		case 3470:
+		case 3471:
+		case 3472:
+		case 3473:
+		case 3474:
+		case 3475:
+		case 3476:
+		case 3479:
+		case 3480:
+		case 3481:
+		case 3482:
+		case 3483:
+		case 3484:
+		case 3485:
+		case 3486:
+		case 3487:
+		case 3488:
+		case 3489:
+		case 3531:
+		case 3532:
+		case 3533:
+		case 3434:
+		case 3436:
+		case 3489:
+                continue;
+                }
+        }
+        else //horde
+        {
+            switch (areaId)
+            {
+                case 1:
+		case 2:
+		case 9:
+		case 12:
+		case 20:
+		case 23:
+		case 24:
+		case 34:
+		case 38:
+		case 40:
+		case 57:
+		case 59:
+		case 60:
+		case 62:
+		case 63:
+		case 64:
+		case 68:
+		case 69:
+		case 77:
+		case 80:
+		case 86:
+		case 87:
+		case 88:
+		case 99:
+		case 107:
+		case 108:
+		case 109:
+		case 111:
+		case 113:
+		case 115:
+		case 120:
+		case 131:
+		case 132:
+		case 133:
+		case 134:
+		case 135:
+		case 136:
+		case 137:
+		case 138:
+		case 140:
+		case 142:
+		case 144:
+		case 150:
+		case 186:
+		case 187:
+		case 188:
+		case 189:
+		case 192:
+		case 271:
+		case 298:
+		case 299:
+		case 320:
+		case 415:
+		case 442:
+		case 608:
+		case 800:
+		case 801:
+		case 802:
+		case 803:
+		case 804:
+		case 805:
+		case 806:
+		case 807:
+		case 808:
+		case 809:
+		case 1657:
+		case 1658:
+		case 1659:
+		case 1660:
+		case 1661:
+		case 1662:
+		case 2101:
+		case 2102:
+		case 2103:
+		case 2104:
+		case 2257:
+		case 3524:
+		case 3525:
+		case 3526:
+		case 3527:
+		case 3528:
+		case 3529:
+		case 3530:
+		case 3531:
+		case 3532:
+		case 3524:
+		case 3538:
+		case 3557:
+		case 3558:
+		case 3559:
+		case 3560:
+		case 3564:
+		case 3567:
+		case 3568:
+		case 3569:
+		case 3570:
+		case 3571:
+		case 3572:
+		case 3573:	
+		case 3574:
+		case 3575:
+		case 3576:
+		case 3577:
+		case 3578:	
+		case 3579:
+                continue;
+                }
+        }
 
         float ground = map->GetHeight(x, y, z + 0.5f);
         if (ground <= INVALID_HEIGHT)

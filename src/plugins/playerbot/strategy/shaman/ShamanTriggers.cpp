@@ -7,10 +7,9 @@ using namespace ai;
 
 list<string> ShamanWeaponTrigger::spells;
 
-
 bool ShamanWeaponTrigger::IsActive()
 {
-/*
+
     if (spells.empty())
     {
         spells.push_back("frostbrand weapon");
@@ -22,7 +21,7 @@ bool ShamanWeaponTrigger::IsActive()
 
     for (list<string>::iterator i = spells.begin(); i != spells.end(); ++i)
     {
-        uint32 spellId = AI_VALUE2(uint32, "spell id", i);
+        uint32 spellId = AI_VALUE2(uint32, "spell id", spell);
         if (!spellId)
             continue;
 
@@ -34,8 +33,9 @@ bool ShamanWeaponTrigger::IsActive()
     }
 
     return false;
-*/
-    return !(AI_VALUE2(bool, "mainhand enhanced", "self target") &&  AI_VALUE2(bool, "offhand enhanced", "self target"));
+
+   // return SpellTrigger::IsActive()
+   //         && !ai->HasAnyAuraOf(GetTarget(), "frostbrand weapon", "rockbiter weapon", "flametongue weapon", "earthliving weapon", "windfury weapon", NULL);
 }
 
 bool ShockTrigger::IsActive()
