@@ -24,8 +24,8 @@ bool LfgJoinAction::Execute(Event event)
             if (!sPlayerbotAIConfig.randomBotJoinLfg)
                 return false;
 
-            if (!sRandomPlayerbotMgr.IsRandomBot(bot))
-                return false;
+            //if (!sRandomPlayerbotMgr.IsRandomBot(bot))
+            //    return false;
 
             if (sLFGMgr->GetState(bot->GetGUID()) != LFG_STATE_NONE)
                 return false;

@@ -52,7 +52,7 @@ namespace ai
 
         virtual bool isUseful() {
             return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"))
-            && AI_VALUE2(bool, "behind", "current target") && (!AI_VALUE2(bool, "target normal", "current target"));
+             && (!AI_VALUE2(bool, "target normal", "current target"));
 
         }
 
@@ -73,7 +73,7 @@ namespace ai
 		CastAmbushAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "ambush") {}
 
         virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target")) && AI_VALUE2(bool, "behind", "current target");
+            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
         }
 
         virtual NextAction** getPrerequisites()

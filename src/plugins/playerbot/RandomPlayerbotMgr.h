@@ -66,6 +66,8 @@ class RandomPlayerbotMgr : public PlayerbotHolder
     private:
         vector<Player*> players;
         int processTicks;
+        list<uint32> horde_areas;
+        list<uint32> alliance_areas;
 };
 
 #define sRandomPlayerbotMgr RandomPlayerbotMgr::instance()

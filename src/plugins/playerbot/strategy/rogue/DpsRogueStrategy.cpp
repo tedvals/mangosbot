@@ -472,7 +472,7 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "garrote",
-        NextAction::array(0, new NextAction("ambush", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"high energy available",
