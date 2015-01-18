@@ -239,7 +239,7 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
                 map->IsInWater(x, y, z))
             continue;
 
-        if (map->Instanceable()||map->IsBattlegroundOrArena()||map->IsDungeon()||map->IsRaidOrHeroicDungeon())
+        if (map->IsBattlegroundOrArena()||map->IsDungeon()||map->IsRaidOrHeroicDungeon())
             continue;
 
         uint32 areaId = map->GetAreaId(x, y, z);
@@ -254,19 +254,17 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
     //Some exceptions:
         if (IsAlliance(bot->getRace()))
         {
-            switch (areaId)
-            {
-                case 99999:
+            vector<uint32>::iterator i = find(horde_areas.begin(), horde_areas.end(), areaId);
+
+            if (i != horde_areas.end())
                 continue;
-                }
         }
         else //horde
         {
-            switch (areaId)
-            {
-                case 99999:
+            vector<uint32>::iterator i = find(alliance_areas.begin(), alliance_areas.end(), areaId);
+
+            if (i != alliance_areas.end())
                 continue;
-                }
         }
 
         float ground = map->GetHeight(x, y, z + 0.5f);

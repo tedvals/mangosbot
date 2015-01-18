@@ -45,25 +45,23 @@ namespace ai
     };
 
 
-	class CastGarroteAction : public CastMeleeSpellAction
+	class CastGarroteAction : public CastDebuffSpellAction
 	{
 	public:
-		CastGarroteAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "garrote") {}
+		CastGarroteAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "garrote") {}
 
         virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"))
-            && AI_VALUE2(bool, "behind", "current target") && (!AI_VALUE2(bool, "target normal", "current target"));
-
+            return CastDebuffSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target")) && (AI_VALUE2(bool, "target normal", "current target"));
         }
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastDebuffSpellAction::getPrerequisites());
         }
 
         virtual NextAction** getAlternatives()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("ambush"), NULL), CastMeleeSpellAction::getAlternatives());
+            return NextAction::merge( NextAction::array(0, new NextAction("ambush"), NULL), CastDebuffSpellAction::getAlternatives());
         }
 	};
 
@@ -73,7 +71,7 @@ namespace ai
 		CastAmbushAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "ambush") {}
 
         virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target")) && AI_VALUE2(bool, "behind", "current target");
+            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
         }
 
         virtual NextAction** getPrerequisites()
