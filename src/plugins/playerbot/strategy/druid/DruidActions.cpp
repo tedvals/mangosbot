@@ -51,6 +51,11 @@ bool CastThornsOnPartyAction::isUseful()
 
     if (player)
     {
+        if (ai->IsTank(dynamic_cast<Player*>(player)))
+        {
+           return true;
+        }
+
         switch (player->getClass())
         {
             case CLASS_DEATH_KNIGHT:
@@ -58,12 +63,12 @@ bool CastThornsOnPartyAction::isUseful()
             case CLASS_WARRIOR:
                 return ai->HasAura("defensive stance", player);
             case CLASS_PALADIN:
-                return ai->HasAnyAuraOf(player, "blessing of sanctuary", "devotion aura", NULL);
+                return ai->HasAnyAuraOf(player, "blessing of sanctuary", "retribution aura", NULL);
             case CLASS_DRUID:
                 return ai->HasAnyAuraOf(player, "bear form", "dire bear form", "moonkin form", NULL);
         }
             return false;
     }
-    else return false;
+    else return true;
 }
 

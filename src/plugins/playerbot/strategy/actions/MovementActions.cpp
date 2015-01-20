@@ -340,8 +340,8 @@ bool MoveRandomAction::Execute(Event event)
         for (list<ObjectGuid>::iterator i = npcs.begin(); i != npcs.end(); i++)
         {
             target = ai->GetUnit(*i);
-
-            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.tooCloseDistance)
+//go a little further
+            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.grindDistance/3)
                 break;
         }
     }
@@ -353,7 +353,7 @@ bool MoveRandomAction::Execute(Event event)
         {
             target = ai->GetGameObject(*i);
 
-            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.tooCloseDistance)
+            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sPlayerbotAIConfig.grindDistance/3)
                 break;
         }
     }

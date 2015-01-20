@@ -12,6 +12,11 @@ namespace ai
             bot = ai->GetBot();
         }
 
+        virtual bool isUseful()
+        {
+            return !bot->IsNonMeleeSpellCast(true);
+        }
+
     protected:
         bool MoveNear(uint32 mapId, float x, float y, float z, float distance = sPlayerbotAIConfig.followDistance);
         bool MoveTo(uint32 mapId, float x, float y, float z);

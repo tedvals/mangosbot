@@ -146,15 +146,15 @@ void GenericDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "low health",
-        NextAction::array(0, new NextAction("instant regrowth", ACTION_MEDIUM_HEAL + 2),  new NextAction("rejuvenation", ACTION_MEDIUM_HEAL + 1), NULL)));
+        NextAction::array(0, new NextAction("instant regrowth", ACTION_MEDIUM_HEAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
-        NextAction::array(0, new NextAction("instant regrowth on party", ACTION_MEDIUM_HEAL + 1),  new NextAction("rejuvenation on party", ACTION_MEDIUM_HEAL), NULL)));
+        NextAction::array(0, new NextAction("instant regrowth on party", ACTION_MEDIUM_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "master low health",
-        NextAction::array(0, new NextAction("instant regrowth on master", ACTION_MEDIUM_HEAL + 7),  new NextAction("rejuvenation on master", ACTION_CRITICAL_HEAL +6), NULL)));
+        NextAction::array(0, new NextAction("instant regrowth on master", ACTION_MEDIUM_HEAL + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
         "critical health",

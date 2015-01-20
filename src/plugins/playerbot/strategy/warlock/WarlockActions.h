@@ -31,7 +31,7 @@ namespace ai
 		CastDrainSoulAction(PlayerbotAI* ai) : CastSpellAction(ai, "drain soul") {}
 		virtual bool isUseful()
 		{
-			return AI_VALUE2(uint8, "item count", "soul shard") < 10;
+			return AI_VALUE2(uint8, "item count", "soul shard") < 16;
 		}
 	};
 
@@ -48,9 +48,10 @@ namespace ai
 
 		virtual bool isUseful()
 	    {
-	        return CastSpellAction::isUseful() && AI_VALUE2(uint8, "health", "current target") < 20;
+	        return CastSpellAction::isUseful() && AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.criticalHealth;
 	    }
 	};
+
 
 	class CastCurseOfAgonyAction : public CastDebuffSpellAction
 	{
@@ -157,19 +158,38 @@ namespace ai
 	{
 	public:
 		CastSummonVoidwalkerAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon voidwalker") {}
+
         virtual bool isUseful()
 		{
-			return AI_VALUE2(uint8, "item count", "soul shard") > 0;
+		    if (AI_VALUE2(uint8, "item count", "soul shard") < 1)
+                return false;
+            else if (!AI_VALUE2(bool, "combat", "self target"))
+                return true;
+            else if (ai->HasAura("fel domination", bot))
+                return true;
+            else if (AI_VALUE2(bool,"target boss", "current target"))
+                return !AI_VALUE2(bool, "has aggro", "current target");
+            else return false;
 		}
 	};
+
 
 	class CastSummonFelhunterAction : public CastBuffSpellAction
 	{
 	public:
 		CastSummonFelhunterAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon felhunter") {}
+
         virtual bool isUseful()
 		{
-			return AI_VALUE2(uint8, "item count", "soul shard") > 0;
+		    if (AI_VALUE2(uint8, "item count", "soul shard") < 1)
+                return false;
+            else if (!AI_VALUE2(bool, "combat", "self target"))
+                return true;
+            else if (ai->HasAura("fel domination", bot))
+                return true;
+            else if (AI_VALUE2(bool,"target boss", "current target"))
+                return !AI_VALUE2(bool, "has aggro", "current target");
+            else return false;
 		}
 	};
 
@@ -177,9 +197,18 @@ namespace ai
 	{
 	public:
 		CastSummonSuccubusAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon succubus") {}
+
         virtual bool isUseful()
 		{
-			return AI_VALUE2(uint8, "item count", "soul shard") > 0;
+		    if (AI_VALUE2(uint8, "item count", "soul shard") < 1)
+                return false;
+            else if (!AI_VALUE2(bool, "combat", "self target"))
+                return true;
+            else if (ai->HasAura("fel domination", bot))
+                return true;
+            else if (AI_VALUE2(bool,"target boss", "current target"))
+                return !AI_VALUE2(bool, "has aggro", "current target");
+            else return false;
 		}
 	};
 
@@ -187,9 +216,17 @@ namespace ai
 	{
 	public:
 		CastSummonFelguardAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon felguard") {}
-		virtual bool isUseful()
+        virtual bool isUseful()
 		{
-			return AI_VALUE2(uint8, "item count", "soul shard") > 0;
+		    if (AI_VALUE2(uint8, "item count", "soul shard") < 1)
+                return false;
+            else if (!AI_VALUE2(bool, "combat", "self target"))
+                return true;
+            else if (ai->HasAura("fel domination", bot))
+                return true;
+            else if (AI_VALUE2(bool,"target boss", "current target"))
+                return !AI_VALUE2(bool, "has aggro", "current target");
+            else return false;
 		}
 	};
 
@@ -197,6 +234,17 @@ namespace ai
 	{
 	public:
 		CastSummonImpAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon imp") {}
+
+        virtual bool isUseful()
+		{
+            if (!AI_VALUE2(bool, "combat", "self target"))
+                return true;
+            else if (ai->HasAura("fel domination", bot))
+                return true;
+            else if (AI_VALUE2(bool,"target boss", "current target"))
+                return !AI_VALUE2(bool, "has aggro", "current target");
+            else return false;
+		}
 	};
 
 	class CastCreateHealthstoneAction : public CastBuffSpellAction

@@ -70,9 +70,11 @@ namespace ai
         virtual bool Execute(Event event)
         {
             context->GetValue<Unit*>("current target")->Set(NULL);
+
             bot->SetSelection(ObjectGuid());
             ai->ChangeEngine(BOT_STATE_NON_COMBAT);
             ai->InterruptSpell();
+
 			return true;
         }
     };
