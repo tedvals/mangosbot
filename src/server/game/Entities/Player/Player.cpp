@@ -6751,6 +6751,10 @@ ActionButton const* Player::GetActionButton(uint8 button)
 
 bool Player::UpdatePosition(float x, float y, float z, float orientation, bool teleport)
 {
+//playerbot mod
+    if (this->GetDistance(go_x, go_y, go_z) < 2.0f)
+	bot->ResetMovePoint();
+
     if (!Unit::UpdatePosition(x, y, z, orientation, teleport))
         return false;
 
@@ -26990,4 +26994,18 @@ void Player::SendSupercededSpell(uint32 oldSpell, uint32 newSpell)
     data << uint32(oldSpell) << uint32(newSpell);
     GetSession()->SendPacket(&data);
 }
+
+//playerbot mod
+bool Player::GetMovePoint(float& x, float& y, float& z)
+{
+     if (go_point)
+     {
+        x = go_x;
+	y = go_y;
+	z = go_z;
+	return true;
+     } 
+     else return false;
+}
+
 

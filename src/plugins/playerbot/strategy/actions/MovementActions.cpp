@@ -71,6 +71,7 @@ bool MovementAction::MoveTo(uint32 mapId, float x, float y, float z)
         else
             mm.MovePoint(mapId, x, y, z, generatePath);
     }
+	else bot->ResetMovePoint();
 
     AI_VALUE(LastMovement&, "last movement").Set(x, y, z, bot->GetOrientation());
     return true;
@@ -305,13 +306,22 @@ bool MovementAction::Flee(Unit *target)
     if (!IsMovingAllowed())
         return false;
 
-    FleeManager manager(bot, sPlayerbotAIConfig.fleeDistance, GetFollowAngle());
-
     float rx, ry, rz;
-    if (!manager.CalculateDestination(&rx, &ry, &rz))
-        return false;
+    
+    if (bot->GetMovePoint(rx,ry,rz))
+    {
+	return MoveTo(target->GetMapId(), rx, ry, rz);
+      }
+    else   
+    { 
+       FleeManager manager(bot, sPlayerbotAIConfig.fleeDistance, GetFollowAngle());
 
-    return MoveTo(target->GetMapId(), rx, ry, rz);
+       if (!manager.CalculateDestination(&rx, &ry, &rz))
+         return false;
+	
+       bot->SetMovePoint(rx, ry, rz);
+       return MoveTo(target->GetMapId(), rx, ry, rz);
+     }
 }
 
 bool FleeAction::Execute(Event event)

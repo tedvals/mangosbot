@@ -72,6 +72,7 @@ namespace ai
             context->GetValue<Unit*>("current target")->Set(NULL);
 
             bot->SetSelection(ObjectGuid());
+	    bot->ResetMovePoint();
             ai->ChangeEngine(BOT_STATE_NON_COMBAT);
             ai->InterruptSpell();
 

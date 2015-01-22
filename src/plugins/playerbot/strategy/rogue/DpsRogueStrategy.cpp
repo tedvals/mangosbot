@@ -272,11 +272,11 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("move behind", ACTION_MOVE+8), NULL)));
+        NextAction::array(0, new NextAction("move behind", ACTION_MOVE + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "garrote",
-        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("garrote", ACTION_HIGH + 9), NULL)));
 
      triggers.push_back(new TriggerNode(
 		"high energy available",
@@ -472,7 +472,7 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "garrote",
-        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("garrote", ACTION_HIGH + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"high energy available",
