@@ -36,7 +36,11 @@ bool UseItemAction::Execute(Event event)
             }
 
             if (actionUnit)
+            {
+                //string unitName = actionUnit->GetName().c_str();
+                //ai->TellMaster("on " + unitName);
                 return UseItemOnUnit(*items.begin(),actionUnit);
+            }
             else
                 return UseItemAuto(*items.begin());
         }

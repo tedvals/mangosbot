@@ -77,7 +77,7 @@ void RandomPlayerbotMgr::UpdateAIInternal(uint32 elapsed)
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "%d bots processed. %d alliance and %d horde bots added. %d bots online. Next check in %d seconds",
             botProcessed, allianceNewBots, hordeNewBots, playerBots.size(), sPlayerbotAIConfig.randomBotUpdateInterval);
 
-    if (processTicks++ == 1)
+    if ((processTicks++)%10 == 1)
         PrintStats();
 }
 
@@ -136,6 +136,8 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
     if (!player)
         return false;
 
+    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Bot %s added", player->GetName().c_str());
+
     PlayerbotAI* ai = player->GetPlayerbotAI();
     if (!ai)
         return false;
@@ -162,9 +164,9 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
             sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Reviving dead bot %d", bot);
             SetEventValue(bot, "dead", 0, 0);
             SetEventValue(bot, "revive", 0, 0);
-            std::thread random_tele(&RandomPlayerbotMgr::RandomTeleporting,this,player,player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
-            random_tele.detach();
-            //RandomTeleport(player, player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
+            //std::thread random_tele(&RandomPlayerbotMgr::RandomTeleporting,this,player,player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
+            //random_tele.detach();
+            RandomTeleporting(player, player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
             return true;
         }
 
@@ -181,9 +183,9 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
     if (!randomize)
     {
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Randomizing bot %d", bot);
-        //Randomize(player);
-        std::thread randomize(&RandomPlayerbotMgr::Randomize,this,player);
-        randomize.detach();
+        Randomize(player);
+        //std::thread randomize(&RandomPlayerbotMgr::Randomize,this,player);
+        //randomize.detach();
         uint32 randomTime = urand(sPlayerbotAIConfig.minRandomBotRandomizeTime, sPlayerbotAIConfig.maxRandomBotRandomizeTime);
         ScheduleRandomize(bot, randomTime);
         return true;
@@ -202,9 +204,9 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
     if (!teleport)
     {
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random teleporting bot %d", bot);
-        //RandomTeleportForLevel(ai->GetBot());
-        std::thread random_tele_level(&RandomPlayerbotMgr::RandomTeleportForLevel,this,ai->GetBot());
-        random_tele_level.detach();
+        RandomTeleportForLevel(ai->GetBot());
+        //std::thread random_tele_level(&RandomPlayerbotMgr::RandomTeleportForLevel,this,ai->GetBot());
+        //random_tele_level.detach();
         SetEventValue(bot, "teleport", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
         return true;
     }

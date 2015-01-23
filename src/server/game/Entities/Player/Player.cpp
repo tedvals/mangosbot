@@ -6753,7 +6753,7 @@ bool Player::UpdatePosition(float x, float y, float z, float orientation, bool t
 {
 //playerbot mod
     if (this->GetDistance(go_x, go_y, go_z) < 2.0f)
-	bot->ResetMovePoint();
+        this->ResetMovePoint();
 
     if (!Unit::UpdatePosition(x, y, z, orientation, teleport))
         return false;
@@ -27004,7 +27004,7 @@ bool Player::GetMovePoint(float& x, float& y, float& z)
 	y = go_y;
 	z = go_z;
 	return true;
-     } 
+     }
      else return false;
 }
 

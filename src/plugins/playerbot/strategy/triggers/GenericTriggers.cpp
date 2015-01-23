@@ -105,9 +105,18 @@ bool AoeTrigger::IsActive()
     return (AI_VALUE(uint8, "aoe attacker count")) >= amount;
 }
 
+bool MeleeAoeTrigger::IsActive()
+{
+    return (AI_VALUE(uint8, "melee attacker count")) >= amount;
+}
+
 bool DebuffTrigger::IsActive()
 {
-	return BuffTrigger::IsActive() && AI_VALUE2(uint8, "health", "current target") > 5;
+    if (AI_VALUE2(bool, "target normal", "current target"))
+        return BuffTrigger::IsActive() && (AI_VALUE2(uint8, "health", "current target") > 30);
+    else if (AI_VALUE2(bool, "target boss", "current target"))
+        return BuffTrigger::IsActive() && (AI_VALUE2(uint8, "health", "current target") > 5);
+    else return BuffTrigger::IsActive() && (AI_VALUE2(uint8, "health", "current target") > 20);
 }
 
 bool SpellTrigger::IsActive()

@@ -218,6 +218,16 @@ namespace ai
     {
     public:
         CastFreezingTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "freezing trap") {}
+
+        virtual bool isUseful()
+        {
+            return (AI_VALUE(uint8, "my attacker count") >= 2);
+            }
+
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("immolation trap"), NULL), CastSpellAction::getAlternatives());
+        }
     };
 
     class CastFrostTrapAction : public CastDebuffSpellAction
@@ -286,7 +296,7 @@ namespace ai
     class CastScatterShotAction : public CastMeleeSpellAction
     {
     public:
-        CastScatterShotAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "counterattack") {}
+        CastScatterShotAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "scatter shot") {}
         virtual bool isUseful()
         {
             return CastMeleeSpellAction::isUseful();

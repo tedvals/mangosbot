@@ -40,7 +40,7 @@ namespace ai
     class UseHealingPotion : public UseItemAction {
     public:
         UseHealingPotion(PlayerbotAI* ai) : UseItemAction(ai, "healing potion") {}
-        virtual bool isUseful() { return AI_VALUE2(bool, "combat", "self target") && AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.criticalHealth; }
+        virtual bool isUseful() { return AI_VALUE2(bool, "combat", "self target") && AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.almostDead; }
     };
 
     class UseManaPotion : public UseItemAction

@@ -2372,7 +2372,7 @@ class Player : public Unit, public GridObject<Player>
         void SetBotDeathTimer() { m_deathTimer = 0; }
         PlayerTalentMap& GetTalentMap(uint8 spec) { return *m_talents[spec]; }
         bool MinimalLoadFromDB( QueryResult result, uint32 guid );
-	void SetMovePoint (float x, float y, float z) {go_point= true;go_x = x; go_y = y;go_z = z}
+	void SetMovePoint (float x, float y, float z) {go_point= true;go_x = x; go_y = y;go_z = z;}
 	void ResetMovePoint() {go_point = false;}
 	bool GetMovePoint(float& x, float& y, float& z);
         //! Return collision height sent to client
@@ -2723,8 +2723,10 @@ class Player : public Unit, public GridObject<Player>
         // Playerbot mod:
         PlayerbotAI* m_playerbotAI;
         PlayerbotMgr* m_playerbotMgr;
-	float go_x, float go_y, float go_z;
-	bool go_point;
+	    float go_x;
+	    float go_y;
+        float go_z;
+        bool go_point;
 };
 
 void AddItemsSetItem(Player* player, Item* item);
