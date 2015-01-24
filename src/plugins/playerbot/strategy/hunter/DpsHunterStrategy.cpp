@@ -96,35 +96,35 @@ void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "black arrow",
-        NextAction::array(0, new NextAction("black arrow", 51.0f), NULL)));
+        NextAction::array(0, new NextAction("black arrow", ACTION_HIGH + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low mana",
-        NextAction::array(0, new NextAction("viper sting", ACTION_EMERGENCY + 5), NULL)));
+        NextAction::array(0, new NextAction("viper sting", ACTION_HIGH + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
         "no pet",
-        NextAction::array(0, new NextAction("call pet", 60.0f), NULL)));
+        NextAction::array(0, new NextAction("call pet", ACTION_HIGH + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "hunters pet low health",
-        NextAction::array(0, new NextAction("mend pet", 60.0f), NULL)));
+        NextAction::array(0, new NextAction("mend pet", ACTION_HIGH + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
         "hunter's mark",
-        NextAction::array(0, new NextAction("hunter's mark", 52.0f), NULL)));
+        NextAction::array(0, new NextAction("hunter's mark", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "kill command",
-        NextAction::array(0, new NextAction("kill command", 30.0f), NULL)));
+        NextAction::array(0, new NextAction("kill command", ACTION_NORMAL + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium threat",
-        NextAction::array(0, new NextAction("intimidation", 50.0f), NULL)));
+        NextAction::array(0, new NextAction("intimidation", ACTION_HIGH + 7), NULL)));
 
      triggers.push_back(new TriggerNode(
         "target critical health",
-        NextAction::array(0, new NextAction("kill shot", 40), NULL)));
+        NextAction::array(0, new NextAction("kill shot", ACTION_NORMAL + 8), NULL)));
 }
 
 class DpsAoeHunterStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>

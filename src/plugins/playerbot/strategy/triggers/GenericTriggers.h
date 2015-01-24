@@ -221,6 +221,21 @@ namespace ai
         float range;
     };
 
+    class MeleeAoeTrigger : public AoeAttackerCountTrigger
+    {
+    public:
+        MeleeAoeTrigger(PlayerbotAI* ai, int amount = 3, float range = 5.0f) : AoeAttackerCountTrigger(ai, amount)
+        {
+            this->range = range;
+        }
+    public:
+        virtual bool IsActive();
+        virtual string getName() { return "melee aoe"; }
+
+    private:
+        float range;
+    };
+
     class NoFoodTrigger : public Trigger {
     public:
         NoFoodTrigger(PlayerbotAI* ai) : Trigger(ai, "no food trigger") {}
@@ -257,28 +272,28 @@ namespace ai
         HighAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 4, 20.0f) {}
     };
 
-    class MeleeNoAoeTrigger : public AoeTrigger
+    class MeleeNoAoeTrigger : public MeleeAoeTrigger
     {
     public:
-        MeleeNoAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 1, 5.0f) {}
+        MeleeNoAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 1, 5.0f) {}
     };
 
-    class MeleeLightAoeTrigger : public AoeTrigger
+    class MeleeLightAoeTrigger : public MeleeAoeTrigger
     {
     public:
-        MeleeLightAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 2, 5.0f) {}
+        MeleeLightAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 2, 5.0f) {}
     };
 
-    class MeleeMediumAoeTrigger : public AoeTrigger
+    class MeleeMediumAoeTrigger : public MeleeAoeTrigger
     {
     public:
-        MeleeMediumAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 3, 5.0f) {}
+        MeleeMediumAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 3, 5.0f) {}
     };
 
-    class MeleeHighAoeTrigger : public AoeTrigger
+    class MeleeHighAoeTrigger : public MeleeAoeTrigger
     {
     public:
-        MeleeHighAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 4, 5.0f) {}
+        MeleeHighAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 4, 5.0f) {}
     };
 
     class BuffTrigger : public SpellTrigger

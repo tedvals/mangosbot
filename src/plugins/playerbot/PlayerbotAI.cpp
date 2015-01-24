@@ -132,15 +132,23 @@ void PlayerbotAI::UpdateAI(uint32 elapsed)
     if (bot->IsBeingTeleported())
         return;
 
-    if (nextAICheckDelay > sPlayerbotAIConfig.globalCoolDown &&
-            bot->IsNonMeleeSpellCast(true, true, false) &&
-            *GetAiObjectContext()->GetValue<bool>("invalid target", "current target"))
+  //  if (nextAICheckDelay > sPlayerbotAIConfig.globalCoolDown &&
+    if (bot->IsNonMeleeSpellCast(true, true, false) &&
+        *GetAiObjectContext()->GetValue<bool>("invalid target", "current target"))
     {
         Spell* spell = bot->GetCurrentSpell(CURRENT_GENERIC_SPELL);
         if (spell && !spell->GetSpellInfo()->IsPositive())
         {
             InterruptSpell();
             TellMaster("Interrupted spell for update");
+            SetNextCheckDelay(sPlayerbotAIConfig.globalCoolDown);
+        }
+
+        Spell* channel_spell = bot->GetCurrentSpell(CURRENT_CHANNELED_SPELL);
+        if (channel_spell && !channel_spell->GetSpellInfo()->IsPositive())
+        {
+            InterruptSpell();
+            TellMaster("Interrupted channel spell for update");
             SetNextCheckDelay(sPlayerbotAIConfig.globalCoolDown);
         }
     }
@@ -216,7 +224,21 @@ void PlayerbotAI::Reset()
 
     bot->GetMotionMaster()->Clear();
     bot->m_taxi.ClearTaxiDestinations();
-    InterruptSpell();
+
+    Spell* spell = bot->GetCurrentSpell(CURRENT_GENERIC_SPELL);
+        if (spell && !spell->GetSpellInfo()->IsPositive())
+        {
+            InterruptSpell();
+            TellMaster("Interrupted spell for reset");
+        }
+
+        Spell* channel_spell = bot->GetCurrentSpell(CURRENT_CHANNELED_SPELL);
+        if (channel_spell && !channel_spell->GetSpellInfo()->IsPositive())
+        {
+            InterruptSpell();
+            TellMaster("Interrupted channel spell for reset");
+        }
+    //InterruptSpell();
 
     for (int i = 0 ; i < BOT_STATE_MAX; i++)
     {

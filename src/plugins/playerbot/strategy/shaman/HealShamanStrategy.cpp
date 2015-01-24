@@ -133,7 +133,7 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
 		"almost dead",
-		NextAction::array(0, new NextAction("nature's swiftness", ACTION_EMERGENCY + 10), new NextAction("healing wave", ACTION_EMERGENCY + 10), NULL)));
+		NextAction::array(0, new NextAction("nature's swiftness", ACTION_EMERGENCY), new NextAction("healing wave", ACTION_CRITICAL_HEAL + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"critical health",

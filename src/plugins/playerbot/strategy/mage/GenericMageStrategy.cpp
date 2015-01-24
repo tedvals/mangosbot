@@ -53,14 +53,14 @@ private:
     {
         return new ActionNode ("cone of cold",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("blink",50), NULL),
-            /*C*/ NextAction::array(0, new NextAction("blink",60), NULL));
+            /*A*/ NextAction::array(0, new NextAction("blink",ACTION_MOVE + 5), NULL),
+            /*C*/ NextAction::array(0, new NextAction("blink",ACTION_MOVE + 5), NULL));
     }
     static ActionNode* blink(PlayerbotAI* ai)
     {
         return new ActionNode ("blink",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("flee",50), NULL),
+            /*A*/ NextAction::array(0, new NextAction("flee",ACTION_MOVE + 5), NULL),
             /*C*/ NULL);
     }
     static ActionNode* evocation(PlayerbotAI* ai)
@@ -97,7 +97,7 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "takes periodic damage",
-        NextAction::array(0, new NextAction("blink", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("blink", ACTION_MOVE + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy too close for spell",
@@ -165,5 +165,5 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "almost dead",
-        NextAction::array(0, new NextAction("bandage", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("bandage", ACTION_CRITICAL_HEAL), NULL)));
 }

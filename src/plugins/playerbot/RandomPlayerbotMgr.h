@@ -5,6 +5,8 @@
 #include "PlayerbotAIBase.h"
 #include "PlayerbotMgr.h"
 
+#define MAX_NUMBER_OF_AREAS      32
+
 class WorldPacket;
 class Player;
 class Unit;
@@ -59,12 +61,17 @@ class RandomPlayerbotMgr : public PlayerbotHolder
         uint32 AddRandomBot(bool alliance);
         bool ProcessBot(uint32 bot);
         void ScheduleRandomize(uint32 bot, uint32 time);
-        void RandomTeleport(Player* bot, uint16 mapId, float teleX, float teleY, float teleZ);
+        void RandomTeleporting(Player* bot, uint16 mapId, float teleX, float teleY, float teleZ);
         void RandomTeleport(Player* bot, vector<WorldLocation> &locs);
         uint32 GetZoneLevel(uint16 mapId, float teleX, float teleY, float teleZ);
 
     private:
+        vector<uint32> horde_areas = {14,85,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,173,215,219,220,221,222,223,224,225,226,227,228,231,232,233,236,237,238,239,240,272,231,362,363,364,365,366,367,368,369,370,371,372,373,374,375,377,378,379,380,396,397,398,407,460,470,471,472,473,474,475,476,637,638,639,696,697,698,699,700,701,702,810,811,812,813,814,815,816,817,818,819,820,821,1099,1497,1637,1617,1638,1639,1640,1641,2118,2119,2197,2237,3460,3461,3462,3463,3464,3465,3466,3467,3468,3469,3470,3471,3472,3473,3474,3475,3476,3479,3480,3481,3482,3483,3484,3485,3486,3487,3488,3489,3531,3532,3533,3434,3436,3489};
+        vector<uint32> alliance_areas = {2,9,12,20,23,24,34,38,40,57,59,60,62,63,64,68,69,77,80,86,87,88,99,107,108,109,111,113,115,120,131,132,133,134,135,136,137,138,140,142,144,150,186,187,188,189,192,271,298,299,320,415,442,608,800,801,802,803,804,805,806,807,808,809,1657,1658,1659,1660,1661,1662,2101,2102,2103,2104,2257,3524,3525,3526,3527,3528,3529,3530,3531,3532,3524,3538,3557,3558,3559,3560,3564,3567,3568,3569,3570,3571,3572,3573,3574,3575,3576,3577,3578,3579};
+        vector<uint32> active_areas;
+
         vector<Player*> players;
+
         int processTicks;
 };
 

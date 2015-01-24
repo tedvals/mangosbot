@@ -243,7 +243,7 @@ void DpsArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "rooted",
-        NextAction::array(0, new NextAction("heroic throw", ACTION_MOVE + 10), NULL)));
+        NextAction::array(0, new NextAction("heroic throw", ACTION_MOVE + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "target fleeing",
@@ -347,7 +347,7 @@ DpsFuryWarriorStrategy::DpsFuryWarriorStrategy(PlayerbotAI* ai) : GenericWarrior
 
 NextAction** DpsFuryWarriorStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("bloodthirst", ACTION_NORMAL + 5), new NextAction("whirlwind", ACTION_NORMAL + 2), NULL);
+    return NextAction::array(0, new NextAction("bloodthirst", ACTION_NORMAL + 5), new NextAction("whirlwind", ACTION_NORMAL + 4), NULL);
 }
 
 void DpsFuryWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -368,7 +368,7 @@ void DpsFuryWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("intercept", ACTION_NORMAL + 9), NULL)));
+        NextAction::array(0, new NextAction("intercept", ACTION_MOVE + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "target fleeing",
@@ -384,11 +384,11 @@ void DpsFuryWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "reach melee",
-        NextAction::array(0, new NextAction("intercept", ACTION_NORMAL + 9), NULL)));
+        NextAction::array(0, new NextAction("intercept", ACTION_MOVE + 9), NULL)));
 
      triggers.push_back(new TriggerNode(
         "rooted",
-        NextAction::array(0, new NextAction("heroic fury", ACTION_NORMAL + 9), NULL)));
+        NextAction::array(0, new NextAction("heroic fury", ACTION_MOVE + 8), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"bloodsurge",

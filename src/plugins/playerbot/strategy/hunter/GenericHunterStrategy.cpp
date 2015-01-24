@@ -78,7 +78,7 @@ private:
     {
         return new ActionNode ("counterstrike",
             /*P*/ NULL,
-            /*A*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("freezing trap"), NULL),
             /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
     }
     static ActionNode* disengage(PlayerbotAI* ai)
@@ -145,6 +145,10 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "freezing trap on cc",
+        NextAction::array(0, new NextAction("freezing trap on cc", 83.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "has nearest adds",
         NextAction::array(0, new NextAction("freezing trap", 83.0f), NULL)));
 
     triggers.push_back(new TriggerNode(

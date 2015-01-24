@@ -44,8 +44,8 @@ uint8 AoeAttackerCountValue::Calculate()
         if (!unit || !unit->IsAlive())
             continue;
 
-        if (unit->GetCreatureRank() == CREATURE_ELITE_NORMAL)
-            continue;
+        //if (unit->GetCreatureRank() != CREATURE_ELITE_NORMAL)
+        //    continue;
 
         if (unit->UnderCc())
             continue;

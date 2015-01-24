@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2014 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -2372,7 +2372,9 @@ class Player : public Unit, public GridObject<Player>
         void SetBotDeathTimer() { m_deathTimer = 0; }
         PlayerTalentMap& GetTalentMap(uint8 spec) { return *m_talents[spec]; }
         bool MinimalLoadFromDB( QueryResult result, uint32 guid );
-
+	void SetMovePoint (float x, float y, float z) {go_point= true;go_x = x; go_y = y;go_z = z;}
+	void ResetMovePoint() {go_point = false;}
+	bool GetMovePoint(float& x, float& y, float& z);
         //! Return collision height sent to client
         float GetCollisionHeight(bool mounted) const;
 
@@ -2721,6 +2723,10 @@ class Player : public Unit, public GridObject<Player>
         // Playerbot mod:
         PlayerbotAI* m_playerbotAI;
         PlayerbotMgr* m_playerbotMgr;
+	    float go_x;
+	    float go_y;
+        float go_z;
+        bool go_point;
 };
 
 void AddItemsSetItem(Player* player, Item* item);

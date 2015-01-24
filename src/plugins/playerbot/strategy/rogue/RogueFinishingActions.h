@@ -7,10 +7,10 @@ namespace ai
 	public:
 		CastEviscerateAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "eviscerate") {}
 
-		//virtual bool isUseful()
-	    //{
-	    //     return AI_VALUE2(uint8, "combo", "current target") >= 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.criticalHealth/2;
-	    //}
+		virtual bool isUseful()
+	    {
+	         return AI_VALUE2(uint8, "combo", "current target") >= 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.almostDead;
+	    }
 	};
 
     class CastEnvenomAction : public CastMeleeSpellAction
@@ -19,10 +19,10 @@ namespace ai
 		CastEnvenomAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "envenom") {}
 
     virtual NextAction** getAlternatives();
-       // virtual bool isUseful()
-	   // {
-	   //      return AI_VALUE2(uint8, "combo", "current target") >= 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.criticalHealth/2;
-	   // }
+        virtual bool isUseful()
+	    {
+	         return AI_VALUE2(uint8, "combo", "current target") >= 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.almostDead;
+	    }
 	};
 
 	class CastSliceAndDiceAction : public CastMeleeSpellAction

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2014 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -72,7 +72,7 @@
 #include "../../plugins/ahbot/AhBot.h"
 #include "../../plugins/playerbot/PlayerbotAIConfig.h"
 #include "../../plugins/playerbot/RandomPlayerbotMgr.h"
-
+#include <thread>
 
 std::atomic<bool> World::m_stopEvent(false);
 uint8 World::m_ExitCode = SHUTDOWN_EXIT_CODE;
@@ -2051,6 +2051,8 @@ void World::Update(uint32 diff)
     // playerbot mod
     sRandomPlayerbotMgr.UpdateAI(diff);
     sRandomPlayerbotMgr.UpdateSessions(diff);
+//    std::thread tupdatesessions(&RandomPlayerbotMgr::UpdateSessions,&sRandomPlayerbotMgr,diff);
+//    tupdatesessions.detach();
 
     /// <li> Handle AHBot operations
     // if (m_timers[WUPDATE_AHBOT].Passed())

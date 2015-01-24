@@ -49,5 +49,5 @@ void GenericHunterNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigg
 
     triggers.push_back(new TriggerNode(
         "prepare attack",
-        NextAction::array(0, new NextAction("hunter's mark", 52.0f), NULL)));
+        NextAction::array(0, new NextAction("aspect of the dragonhawk", 52.0f), NULL)));
 }

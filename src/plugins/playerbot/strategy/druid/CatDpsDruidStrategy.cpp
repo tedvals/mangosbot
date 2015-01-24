@@ -178,7 +178,7 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "cat form",
-        NextAction::array(0, new NextAction("cat form", ACTION_EMERGENCY  + 9), NULL)));
+        NextAction::array(0, new NextAction("cat form", ACTION_MOVE + 9), NULL)));
 
      triggers.push_back(new TriggerNode(
         "rooted",
@@ -218,11 +218,11 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "have aggro",
-        NextAction::array(0, new NextAction("barkskin", ACTION_EMERGENCY + 2), new NextAction("dire bear form", ACTION_EMERGENCY + 1), NULL)));
+        NextAction::array(0, new NextAction("barkskin", ACTION_EMERGENCY + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "lose aggro",
-        NextAction::array(0, new NextAction("cat form", ACTION_EMERGENCY + 1), NULL)));
+        NextAction::array(0, new NextAction("cat form", ACTION_MOVE + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
         "faerie fire (feral)",

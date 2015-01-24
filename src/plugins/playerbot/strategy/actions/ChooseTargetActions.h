@@ -70,9 +70,27 @@ namespace ai
         virtual bool Execute(Event event)
         {
             context->GetValue<Unit*>("current target")->Set(NULL);
+
             bot->SetSelection(ObjectGuid());
+            bot->ResetMovePoint();
             ai->ChangeEngine(BOT_STATE_NON_COMBAT);
-            ai->InterruptSpell();
+
+            Spell* spell = bot->GetCurrentSpell(CURRENT_GENERIC_SPELL);
+
+            if (spell && !spell->GetSpellInfo()->IsPositive())
+            {
+                ai->InterruptSpell();
+                ai->TellMaster("Interrupted spell for target switch");
+            }
+
+            Spell* channel_spell = bot->GetCurrentSpell(CURRENT_CHANNELED_SPELL);
+            if (channel_spell && !channel_spell->GetSpellInfo()->IsPositive())
+            {
+                ai->InterruptSpell();
+                ai->TellMaster("Interrupted channel spell for target switch");
+            }
+            //ai->InterruptSpell();
+
 			return true;
         }
     };

@@ -8,6 +8,7 @@
 #include "../../game/Maps/MapManager.h"
 #include "PlayerbotCommandServer.h"
 #include "GuildTaskMgr.h"
+#include <thread>
 
 RandomPlayerbotMgr::RandomPlayerbotMgr() : PlayerbotHolder(), processTicks(0)
 {
@@ -76,7 +77,7 @@ void RandomPlayerbotMgr::UpdateAIInternal(uint32 elapsed)
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "%d bots processed. %d alliance and %d horde bots added. %d bots online. Next check in %d seconds",
             botProcessed, allianceNewBots, hordeNewBots, playerBots.size(), sPlayerbotAIConfig.randomBotUpdateInterval);
 
-    if (processTicks++ == 1)
+    if ((processTicks++)%10 == 1)
         PrintStats();
 }
 
@@ -135,6 +136,8 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
     if (!player)
         return false;
 
+    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Bot %s added", player->GetName().c_str());
+
     PlayerbotAI* ai = player->GetPlayerbotAI();
     if (!ai)
         return false;
@@ -161,7 +164,9 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
             sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Reviving dead bot %d", bot);
             SetEventValue(bot, "dead", 0, 0);
             SetEventValue(bot, "revive", 0, 0);
-            RandomTeleport(player, player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
+            //std::thread random_tele(&RandomPlayerbotMgr::RandomTeleporting,this,player,player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
+            //random_tele.detach();
+            RandomTeleporting(player, player->GetMapId(), player->GetPositionX(), player->GetPositionY(), player->GetPositionZ());
             return true;
         }
 
@@ -179,6 +184,8 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
     {
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Randomizing bot %d", bot);
         Randomize(player);
+        //std::thread randomize(&RandomPlayerbotMgr::Randomize,this,player);
+        //randomize.detach();
         uint32 randomTime = urand(sPlayerbotAIConfig.minRandomBotRandomizeTime, sPlayerbotAIConfig.maxRandomBotRandomizeTime);
         ScheduleRandomize(bot, randomTime);
         return true;
@@ -198,6 +205,8 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
     {
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random teleporting bot %d", bot);
         RandomTeleportForLevel(ai->GetBot());
+        //std::thread random_tele_level(&RandomPlayerbotMgr::RandomTeleportForLevel,this,ai->GetBot());
+        //random_tele_level.detach();
         SetEventValue(bot, "teleport", 1, sPlayerbotAIConfig.maxRandomBotInWorldTime);
         return true;
     }
@@ -216,7 +225,7 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
         return;
     }
 
-    for (int attemtps = 0; attemtps < 10; ++attemtps)
+    for (int attemtps = 0; attemtps < locs.size()*2; ++attemtps)
     {
         int index = urand(0, locs.size() - 1);
         WorldLocation loc = locs[index];
@@ -232,7 +241,11 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
                 map->IsInWater(x, y, z))
             continue;
 
+        if (map->IsBattlegroundOrArena()||map->IsDungeon()||map->IsRaidOrHeroicDungeon())
+            continue;
+
         uint32 areaId = map->GetAreaId(x, y, z);
+
         if (!areaId)
             continue;
 
@@ -240,9 +253,33 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
         if (!area)
             continue;
 
+    //Some exceptions:
+        if (IsAlliance(bot->getRace()))
+        {
+            vector<uint32>::iterator i = find(horde_areas.begin(), horde_areas.end(), areaId);
+
+            if (i != horde_areas.end())
+                continue;
+        }
+        else //horde
+        {
+            vector<uint32>::iterator i = find(alliance_areas.begin(), alliance_areas.end(), areaId);
+
+            if (i != alliance_areas.end())
+                continue;
+        }
+
         float ground = map->GetHeight(x, y, z + 0.5f);
         if (ground <= INVALID_HEIGHT)
             continue;
+
+        vector<uint32>::iterator a = find(active_areas.begin(), active_areas.end(), areaId);
+        if (a == active_areas.end())
+        {
+            if (active_areas.size() < MAX_NUMBER_OF_AREAS)
+                active_areas.insert(a,areaId);
+            else continue;
+        }
 
         z = 0.05f + ground;
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random teleporting bot %s to %s %f,%f,%f", bot->GetName().c_str(), area->area_name[0], x, y, z);
@@ -258,6 +295,7 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
 void RandomPlayerbotMgr::RandomTeleportForLevel(Player* bot)
 {
     vector<WorldLocation> locs;
+    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Finding a place for %s...", bot->GetName().c_str());
     QueryResult results = WorldDatabase.PQuery("select map, position_x, position_y, position_z "
         "from (select map, position_x, position_y, position_z, avg(t.maxlevel), avg(t.minlevel), "
         "%u - (avg(t.maxlevel) + avg(t.minlevel)) / 2 delta "
@@ -296,11 +334,11 @@ void RandomPlayerbotMgr::RandomTeleportForLevel(Player* bot)
             locs.push_back(loc);
         } while (results->NextRow());
     }
-
+    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Found...");
     RandomTeleport(bot, locs);
 }
 
-void RandomPlayerbotMgr::RandomTeleport(Player* bot, uint16 mapId, float teleX, float teleY, float teleZ)
+void RandomPlayerbotMgr::RandomTeleporting(Player* bot, uint16 mapId, float teleX, float teleY, float teleZ)
 {
     vector<WorldLocation> locs;
     QueryResult results = WorldDatabase.PQuery("select position_x, position_y, position_z from creature where map = '%u' and abs(position_x - '%f') < '%u' and abs(position_y - '%f') < '%u'",
@@ -379,7 +417,7 @@ void RandomPlayerbotMgr::RandomizeFirst(Player* bot)
 
         PlayerbotFactory factory(bot, level);
         factory.CleanRandomize();
-        RandomTeleport(bot, tele->mapId, tele->position_x, tele->position_y, tele->position_z);
+        RandomTeleporting(bot, tele->mapId, tele->position_x, tele->position_y, tele->position_z);
         break;
     }
 }

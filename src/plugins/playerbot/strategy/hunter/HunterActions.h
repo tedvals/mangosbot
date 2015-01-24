@@ -218,6 +218,11 @@ namespace ai
     {
     public:
         CastFreezingTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "freezing trap") {}
+
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("immolation trap"), NULL), CastSpellAction::getAlternatives());
+        }
     };
 
     class CastFrostTrapAction : public CastDebuffSpellAction
@@ -242,34 +247,22 @@ namespace ai
     //    }
     };
 
-  class CastSnakeTrapAction : public CastMeleeSpellAction
+  class CastSnakeTrapAction : public CastSpellAction
     {
     public:
-        CastSnakeTrapAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "snake trap") {}
-        virtual bool isUseful()
-        {
-            return CastMeleeSpellAction::isUseful();
-        }
+        CastSnakeTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "snake trap") {}
     };
 
-    class CastImmolationTrapAction : public CastMeleeSpellAction
+    class CastImmolationTrapAction : public CastSpellAction
     {
     public:
-        CastImmolationTrapAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "immolation trap") {}
-        virtual bool isUseful()
-        {
-            return CastMeleeSpellAction::isUseful();
-        }
+        CastImmolationTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "immolation trap") {}
     };
 
-    class CastExplosiveTrapAction : public CastMeleeSpellAction
+    class CastExplosiveTrapAction : public CastSpellAction
     {
     public:
-        CastExplosiveTrapAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "explosive trap") {}
-        virtual bool isUseful()
-        {
-            return CastMeleeSpellAction::isUseful();
-        }
+        CastExplosiveTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "explosive trap") {}
     };
 
     class CastCounterAttackAction : public CastMeleeSpellAction
@@ -286,7 +279,7 @@ namespace ai
     class CastScatterShotAction : public CastMeleeSpellAction
     {
     public:
-        CastScatterShotAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "counterattack") {}
+        CastScatterShotAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "scatter shot") {}
         virtual bool isUseful()
         {
             return CastMeleeSpellAction::isUseful();

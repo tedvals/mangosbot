@@ -23,7 +23,7 @@ public:
             return;
 
         uint8 health = creature->GetHealthPct();
-        if (health < 100)
+        if (health < 90)
             return;
 
         if (!ai->CanCastSpell(spell, creature))
@@ -107,7 +107,7 @@ public:
             return;
 
         uint8 health = creature->GetHealthPct();
-         if (health < 100)
+         if (health < 90)
             return;
 
         if (!ai->CanCastSpell(spell, creature))
@@ -191,7 +191,8 @@ public:
             return;
 
         uint8 health = creature->GetHealthPct();
-         if (health < 100)
+
+        if (health < 90)
             return;
 
         if (!ai->CanCastSpell(spell, creature))
@@ -275,7 +276,7 @@ public:
             return;
 
         uint8 health = creature->GetHealthPct();
-        if (health < 100)
+        if (health < 90)
             return;
 
         if (!ai->CanCastSpell(spell, creature))
@@ -359,7 +360,7 @@ public:
             return;
 
         uint8 health = creature->GetHealthPct();
-         if (health < 100)
+         if (health < 90)
             return;
 
         if (!ai->CanCastSpell(spell, creature))
@@ -443,7 +444,7 @@ public:
             return;
 
         uint8 health = creature->GetHealthPct();
-         if (health < 100)
+         if (health < 90)
             return;
 
         if (!ai->CanCastSpell(spell, creature))
