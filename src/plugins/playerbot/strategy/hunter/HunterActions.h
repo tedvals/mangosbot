@@ -219,11 +219,6 @@ namespace ai
     public:
         CastFreezingTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "freezing trap") {}
 
-        virtual bool isUseful()
-        {
-            return (AI_VALUE(uint8, "my attacker count") >= 2);
-            }
-
         virtual NextAction** getAlternatives()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("immolation trap"), NULL), CastSpellAction::getAlternatives());
@@ -252,34 +247,22 @@ namespace ai
     //    }
     };
 
-  class CastSnakeTrapAction : public CastMeleeSpellAction
+  class CastSnakeTrapAction : public CastSpellAction
     {
     public:
-        CastSnakeTrapAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "snake trap") {}
-        virtual bool isUseful()
-        {
-            return CastMeleeSpellAction::isUseful();
-        }
+        CastSnakeTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "snake trap") {}
     };
 
-    class CastImmolationTrapAction : public CastMeleeSpellAction
+    class CastImmolationTrapAction : public CastSpellAction
     {
     public:
-        CastImmolationTrapAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "immolation trap") {}
-        virtual bool isUseful()
-        {
-            return CastMeleeSpellAction::isUseful();
-        }
+        CastImmolationTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "immolation trap") {}
     };
 
-    class CastExplosiveTrapAction : public CastMeleeSpellAction
+    class CastExplosiveTrapAction : public CastSpellAction
     {
     public:
-        CastExplosiveTrapAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "explosive trap") {}
-        virtual bool isUseful()
-        {
-            return CastMeleeSpellAction::isUseful();
-        }
+        CastExplosiveTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "explosive trap") {}
     };
 
     class CastCounterAttackAction : public CastMeleeSpellAction

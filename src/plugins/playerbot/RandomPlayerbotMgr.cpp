@@ -225,7 +225,7 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
         return;
     }
 
-    for (int attemtps = 0; attemtps < 10; ++attemtps)
+    for (int attemtps = 0; attemtps < locs.size()*2; ++attemtps)
     {
         int index = urand(0, locs.size() - 1);
         WorldLocation loc = locs[index];
@@ -272,6 +272,14 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
         float ground = map->GetHeight(x, y, z + 0.5f);
         if (ground <= INVALID_HEIGHT)
             continue;
+
+        vector<uint32>::iterator a = find(active_areas.begin(), active_areas.end(), areaId);
+        if (a == active_areas.end())
+        {
+            if (active_areas.size() < MAX_NUMBER_OF_AREAS)
+                active_areas.insert(a,areaId);
+            else continue;
+        }
 
         z = 0.05f + ground;
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random teleporting bot %s to %s %f,%f,%f", bot->GetName().c_str(), area->area_name[0], x, y, z);

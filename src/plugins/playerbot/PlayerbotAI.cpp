@@ -224,7 +224,21 @@ void PlayerbotAI::Reset()
 
     bot->GetMotionMaster()->Clear();
     bot->m_taxi.ClearTaxiDestinations();
-    InterruptSpell();
+
+    Spell* spell = bot->GetCurrentSpell(CURRENT_GENERIC_SPELL);
+        if (spell && !spell->GetSpellInfo()->IsPositive())
+        {
+            InterruptSpell();
+            TellMaster("Interrupted spell for reset");
+        }
+
+        Spell* channel_spell = bot->GetCurrentSpell(CURRENT_CHANNELED_SPELL);
+        if (channel_spell && !channel_spell->GetSpellInfo()->IsPositive())
+        {
+            InterruptSpell();
+            TellMaster("Interrupted channel spell for reset");
+        }
+    //InterruptSpell();
 
     for (int i = 0 ; i < BOT_STATE_MAX; i++)
     {

@@ -269,10 +269,10 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
             return false;
 
         ai->InterruptSpell();
-        ai->SetNextCheckDelay(30000);
+        ai->SetNextCheckDelay(25000);
     }
     else
-        ai->SetNextCheckDelay(3000);
+        ai->SetNextCheckDelay(5000);
 
     ai->TellMasterNoFacing(out.str());
     bot->GetSession()->QueuePacket(packet);
