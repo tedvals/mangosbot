@@ -8,7 +8,7 @@ namespace ai
 		CastSapAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "sap") {}
 
 		virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
+            return CastMeleeSpellAction::isUseful() && !AI_VALUE2(bool, "combat", "current target") && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
         }
 
         virtual NextAction** getPrerequisites()
@@ -23,7 +23,7 @@ namespace ai
         CastSapCcAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "sap on cc") {}
 
         virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && !AI_VALUE2(bool, "combat", "current target") && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
+            return CastMeleeSpellAction::isUseful() && !AI_VALUE2(bool, "combat", "cc target4") && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
         }
 
         virtual Value<Unit*>* GetTargetValue()
@@ -77,6 +77,11 @@ namespace ai
         virtual NextAction** getPrerequisites()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
+        }
+
+	virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("cheap shot"), NULL), CastMeleeSpellAction::getAlternatives());
         }
 
 	};

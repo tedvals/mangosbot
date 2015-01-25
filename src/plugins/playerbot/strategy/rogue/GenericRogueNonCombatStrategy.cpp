@@ -53,6 +53,10 @@ void GenericRogueNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
     triggers.push_back(new TriggerNode(
         "runaway",
         NextAction::array(0, new NextAction("sprint", 60.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "critical health",
+        NextAction::array(0, new NextAction("bandage", 20.0f), NULL)));
 }
 
 class GenericRogueNonCombatStealthStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
@@ -102,7 +106,7 @@ void GenericRogueNonCombatStealthStrategy::InitTriggers(std::list<TriggerNode*> 
 
     triggers.push_back(new TriggerNode(
         "mainhand not enhanced",
-        NextAction::array(0, new NextAction("crippling poison mainhand", 21.0f), NULL)));
+        NextAction::array(0, new NextAction("instant poison mainhand", 21.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "offhand not enhanced",

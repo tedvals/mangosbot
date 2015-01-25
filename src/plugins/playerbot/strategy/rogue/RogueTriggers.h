@@ -55,9 +55,9 @@ namespace ai
         KickInterruptEnemyHealerSpellTrigger(PlayerbotAI* ai) : InterruptEnemyHealerTrigger(ai, "kick") {}
     };
 
-  //  class SapTrigger : public HasCcTarget4Trigger
-  //  {
-  //  public:
-  //      SapTrigger(PlayerbotAI* ai) : HasCcTarget4Trigger(ai, "sap") {}
-//};
+    class SapTrigger : public HasCcTarget4Trigger
+    {
+    public:
+        SapTrigger(PlayerbotAI* ai) : HasCcTarget4Trigger(ai, "sap") {}
+    };
 }

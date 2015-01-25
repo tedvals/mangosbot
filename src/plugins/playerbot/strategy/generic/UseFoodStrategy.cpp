@@ -4,6 +4,28 @@
 
 using namespace ai;
 
+class UseFoodStrategyStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+{
+public:
+    UseFoodStrategyStrategyActionNodeFactory()
+    {
+        creators["food"] = &food;
+    }
+private:
+    static ActionNode* food(PlayerbotAI* ai)
+    {
+        return new ActionNode ("food",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("bandage"), NULL),
+            /*C*/ NULL);
+    }
+};
+
+UseFoodStrategy::UseFoodStrategy(PlayerbotAI* ai) : Strategy(ai)
+{
+    actionNodeFactories.Add(new GenericRogueNonCombatStrategyActionNodeFactory());
+}
+
 void UseFoodStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     Strategy::InitTriggers(triggers);
@@ -11,6 +33,10 @@ void UseFoodStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "critical health",
         NextAction::array(0, new NextAction("food", 2.0f), NULL)));
+
+   triggers.push_back(new TriggerNode(
+        "almost dead",
+        NextAction::array(0, new NextAction("bandage", 12.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "drink mana",

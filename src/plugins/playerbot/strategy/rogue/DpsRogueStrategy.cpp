@@ -18,7 +18,9 @@ public:
         creators["gouge"] = &gouge;
         creators["kidney shot"] = &kidney_shot;
         creators["evasion"] = &evasion;
-        creators["evasion"] = &evasion;
+	creators["dismantle"] = &dismantle;
+        creators["move behind"] = &move_behind;
+	creators["reach melee"] = &reach_melee;
         creators["vanish"] = &vanish;
         creators["ambush"] = &ambush;
         creators["cheap shot"] = &cheap_shot;
@@ -30,6 +32,20 @@ private:
         return new ActionNode ("stealth",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("garrote"), NULL));
+    }
+    static ActionNode* move_behind(PlayerbotAI* ai)
+    {
+        return new ActionNode ("move behind",
+            /*P*/ NULL,
+            /*A*/ NULL,
+            /*C*/ NextAction::array(0, new NextAction("garrote"), NULL));
+    }
+    static ActionNode* reach_melee(PlayerbotAI* ai)
+    {
+        return new ActionNode ("reach melee",
+            /*P*/ NULL,
+            /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("garrote"), NULL));
     }
     static ActionNode* garrote(PlayerbotAI* ai)
@@ -71,7 +87,7 @@ private:
     {
         return new ActionNode ("kidney shot",
             /*P*/ NULL,
-            /*A*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("blind"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* vanish(PlayerbotAI* ai)
@@ -92,7 +108,7 @@ private:
     {
         return new ActionNode ("dismantle",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("sinister strike"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("blind"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* ambush(PlayerbotAI* ai)
@@ -104,7 +120,7 @@ private:
     }
     static ActionNode* cheap_shot(PlayerbotAI* ai)
     {
-        return new ActionNode ("ambush",
+        return new ActionNode ("cheap shot",
             /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
             /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
             /*C*/ NULL);
@@ -135,11 +151,11 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "sap on cc",
-        NextAction::array(0, new NextAction("sap", ACTION_HIGH + 10), NULL)));
+        NextAction::array(0, new NextAction("sap", ACTION_HIGH + 9), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "sap",
-        NextAction::array(0, new NextAction("sap", ACTION_HIGH + 10), NULL)));
+    //triggers.push_back(new TriggerNode(
+    //    "sap",
+    //    NextAction::array(0, new NextAction("sap", ACTION_HIGH + 10), NULL)));
 
     triggers.push_back(new TriggerNode(
         "combo points available",
@@ -369,7 +385,7 @@ private:
         return new ActionNode ("shadowstep",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
-            /*C*/ NULL);
+            /*C*/ NextAction::array(0, new NextAction("garrote"), NULL));
     }
     static ActionNode* mutilate(PlayerbotAI* ai)
     {
@@ -383,7 +399,7 @@ private:
         return new ActionNode ("vanish",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("preparation"), NULL),
-            /*C*/  NextAction::array(0, new NextAction("vanish"), NULL));
+            /*C*/  NextAction::array(0, new NextAction("garrote"), NULL));
     }
     static ActionNode* backstab(PlayerbotAI* ai)
     {
@@ -460,11 +476,11 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("shadowstep", ACTION_MOVE+8), NULL)));
+        NextAction::array(0, new NextAction("shadowstep", ACTION_MOVE + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "combo points available",
-        NextAction::array(0, new NextAction("envenom", ACTION_HIGH), NULL)));
+        NextAction::array(0, new NextAction("envenom", ACTION_HIGH + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "front target",
@@ -475,8 +491,8 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("garrote", ACTION_HIGH + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
-		"high energy available",
-		NextAction::array(0, new NextAction("backstab", ACTION_NORMAL + 5), NULL)));
+	"high energy available",
+	NextAction::array(0, new NextAction("backstab", ACTION_NORMAL + 5), NULL)));
 
      triggers.push_back(new TriggerNode(
         "rupture",
@@ -499,7 +515,7 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("feint", ACTION_HIGH), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"critical health",
+		"almost dead",
 		NextAction::array(0, new NextAction("vanish", ACTION_EMERGENCY), NULL)));
 
 	triggers.push_back(new TriggerNode(
