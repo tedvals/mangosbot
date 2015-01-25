@@ -72,7 +72,7 @@ namespace ai
             context->GetValue<Unit*>("current target")->Set(NULL);
 
             bot->SetSelection(ObjectGuid());
-            bot->ResetMovePoint();
+            ai->ResetMovePoint();
             ai->ChangeEngine(BOT_STATE_NON_COMBAT);
 
             Spell* spell = bot->GetCurrentSpell(CURRENT_GENERIC_SPELL);

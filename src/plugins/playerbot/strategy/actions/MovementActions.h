@@ -20,6 +20,7 @@ namespace ai
     protected:
         bool MoveNear(uint32 mapId, float x, float y, float z, float distance = sPlayerbotAIConfig.followDistance);
         bool MoveTo(uint32 mapId, float x, float y, float z);
+        bool FleeTo(Unit* target, uint32 mapId, float x, float y, float z);
         bool MoveTo(Unit* target, float distance = 0.0f);
         bool MoveToUnit(Unit* target);
         bool MoveNear(WorldObject* target, float distance = sPlayerbotAIConfig.followDistance);
