@@ -24,6 +24,7 @@ public:
         creators["rake"] = &rake;
         creators["savage roar"] = &savageroar;
         creators["ferocious bite"] = &ferocious_bite;
+        creators["regrowth on party"] = &regrowth_on_party;
         creators["rip"] = &rip;
         creators["boost"] = &berserk;
         creators["berserk"] = &berserk;
@@ -55,6 +56,13 @@ private:
         return new ActionNode ("melee",
             /*P*/ NextAction::array(0, new NextAction("cat form")),
             /*A*/ NextAction::array(0, new NextAction("feral charge - cat"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* regrowth_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("regrowth on party",
+            /*P*/ NextAction::array(0, new NextAction("caster form")),
+            /*A*/ NextAction::array(0, new NextAction("regrowth"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* hibernate(PlayerbotAI* ai)
@@ -131,14 +139,14 @@ private:
     {
         return new ActionNode ("ferocious bite",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("rip"), NULL),
+            /*A*/ NULL,
             /*C*/ NULL);
     }
     static ActionNode* rip(PlayerbotAI* ai)
     {
         return new ActionNode ("rip",
             /*P*/ NULL,
-            /*A*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("ferocious bite"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* berserk(PlayerbotAI* ai)
@@ -175,6 +183,10 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "not facing target",
         NextAction::array(0, new NextAction("set facing",  ACTION_MOVE + 7), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "predatory swiftness",
+        NextAction::array(0, new NextAction("regrowth on party",  ACTION_NORMAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "cat form",

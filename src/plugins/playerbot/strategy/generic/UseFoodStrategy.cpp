@@ -4,13 +4,14 @@
 
 using namespace ai;
 
-class UseFoodStrategyStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+class UseFoodStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
 {
 public:
-    UseFoodStrategyStrategyActionNodeFactory()
+    UseFoodStrategyActionNodeFactory()
     {
         creators["food"] = &food;
     }
+
 private:
     static ActionNode* food(PlayerbotAI* ai)
     {
@@ -23,7 +24,7 @@ private:
 
 UseFoodStrategy::UseFoodStrategy(PlayerbotAI* ai) : Strategy(ai)
 {
-    actionNodeFactories.Add(new GenericRogueNonCombatStrategyActionNodeFactory());
+    actionNodeFactories.Add(new UseFoodStrategyActionNodeFactory());
 }
 
 void UseFoodStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

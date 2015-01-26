@@ -71,6 +71,18 @@ void GenericDruidNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
 		"party member dead",
 		NextAction::array(0, new NextAction("revive", 22.0f), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "low health",
+        NextAction::array(0,  new NextAction("rejuvenation", ACTION_LIGHT_HEAL + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member low health",
+        NextAction::array(0,  new NextAction("rejuvenation on party", ACTION_LIGHT_HEAL + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member low health",
+        NextAction::array(0,  new NextAction("rejuvenation", ACTION_LIGHT_HEAL + 2), NULL)));
+
 }
 
 class GenericDruidStealthStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
