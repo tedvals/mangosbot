@@ -32,6 +32,10 @@ namespace ai
 	class CastRegrowthAction : public CastHealingSpellAction {
 	public:
 		CastRegrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "regrowth",15) {}
+
+		virtual bool isPossible() {
+			return CastHealingSpellAction::isPossible() && !ai->HasAura("dire bear form", GetTarget()) && !ai->HasAura("bear form", GetTarget());
+		}
 	};
 
     class CastNourishAction : public CastHealingSpellAction {
@@ -64,6 +68,10 @@ namespace ai
     {
     public:
         CastRegrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "regrowth",15) {}
+
+         virtual bool isPossible() {
+			return HealPartyMemberAction::isPossible() && !ai->HasAura("dire bear form", GetTarget()) && !ai->HasAura("bear form", GetTarget());
+		}
     };
 
     class CastNourishOnPartyAction : public HealPartyMemberAction
@@ -98,7 +106,7 @@ namespace ai
 
     class CastInstantRegrowthAction : public CastHealingSpellAction {
 	public:
-		CastInstantRegrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "regrowth",15) {}
+		CastInstantRegrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "regrowth",5) {}
 
 		bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
 	};
@@ -106,14 +114,14 @@ namespace ai
 	class CastInstantRegrowthOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastInstantRegrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "regrowth",15) {}
+        CastInstantRegrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "regrowth",5) {}
 
         bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
     };
 
     class CastInstantHealingTouchAction : public CastHealingSpellAction {
     public:
-        CastInstantHealingTouchAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "healing touch",15) {}
+        CastInstantHealingTouchAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "healing touch",10) {}
 
         bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
     };
@@ -121,7 +129,7 @@ namespace ai
     class CastInstantHealingTouchOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastInstantHealingTouchOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "healing touch",15) {}
+        CastInstantHealingTouchOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "healing touch",10) {}
 
         bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
     };
@@ -146,6 +154,10 @@ namespace ai
     {
     public:
         CastRegrowthOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "regrowth",20) {}
+
+        virtual bool isPossible() {
+			return HealMasterAction::isPossible() && !ai->HasAura("dire bear form", GetTarget()) && !ai->HasAura("bear form", GetTarget());
+		}
     };
 
     class CastNourishOnMasterAction : public HealMasterAction
@@ -191,7 +203,7 @@ namespace ai
 	class CastInstantRegrowthOnMasterAction : public HealMasterAction
     {
     public:
-        CastInstantRegrowthOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "regrowth",15) {}
+        CastInstantRegrowthOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "regrowth",5) {}
 
         bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
     };
@@ -199,7 +211,7 @@ namespace ai
     class CastInstantHealingTouchOnMasterAction : public HealMasterAction
     {
     public:
-        CastInstantHealingTouchOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "healing touch",15) {}
+        CastInstantHealingTouchOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "healing touch",10) {}
 
         bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
     };

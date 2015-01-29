@@ -19,6 +19,9 @@ public:
         creators["instant regrowth"] = &instant_regrowth;
         creators["instant regrowth on party"] = &instant_regrowth_on_party;
         creators["instant regrowth on master"] = &instant_regrowth_on_master;
+        creators["instant healing touch"] = &instant_healing_touch;
+        creators["instant healing touch on party"] = &instant_healing_touch_on_party;
+        creators["instant healing touch on master"] = &instant_healing_touch_on_master;
         creators["rebirth"] = &rebirth;
         creators["entangling roots on cc"] = &entangling_roots_on_cc;
         creators["hibernate"] = &hibernate;
@@ -73,22 +76,43 @@ private:
     static ActionNode* instant_regrowth(PlayerbotAI* ai)
     {
         return new ActionNode ("instant regrowth",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("rejuvenation"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* instant_regrowth_on_party(PlayerbotAI* ai)
     {
         return new ActionNode ("instant regrowth on party",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("rejuvenation on party"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* instant_regrowth_on_master(PlayerbotAI* ai)
     {
         return new ActionNode ("instant regrowth on master",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("rejuvenation on master"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* instant_healing_touch(PlayerbotAI* ai)
+    {
+        return new ActionNode ("instant healing touch",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("healing touch"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* instant_healing_touch_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("instant healing touch on party",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("healing touch on party"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* instant_healing_touch_on_master(PlayerbotAI* ai)
+    {
+        return new ActionNode ("instant healing touch on master",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("healing touch on master"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* rebirth(PlayerbotAI* ai)

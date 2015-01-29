@@ -24,10 +24,15 @@ public:
         creators["rake"] = &rake;
         creators["savage roar"] = &savageroar;
         creators["ferocious bite"] = &ferocious_bite;
-        creators["regrowth on party"] = &regrowth_on_party;
         creators["rip"] = &rip;
         creators["boost"] = &berserk;
         creators["berserk"] = &berserk;
+        creators["regrowth"] = &regrowth;
+        creators["regrowth on party"] = &regrowth_on_party;
+        creators["regrowth on master"] = &regrowth_on_master;
+        creators["rejuvenation"] = &rejuvenation;
+        creators["rejuvenation on party"] = &rejuvenation_on_party;
+        creators["rejuvenation on master"] = &rejuvenation_on_master;
     }
 private:
     static ActionNode* dire_bear_form(PlayerbotAI* ai)
@@ -56,13 +61,6 @@ private:
         return new ActionNode ("melee",
             /*P*/ NextAction::array(0, new NextAction("cat form")),
             /*A*/ NextAction::array(0, new NextAction("feral charge - cat"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* regrowth_on_party(PlayerbotAI* ai)
-    {
-        return new ActionNode ("regrowth on party",
-            /*P*/ NextAction::array(0, new NextAction("caster form")),
-            /*A*/ NextAction::array(0, new NextAction("regrowth"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* hibernate(PlayerbotAI* ai)
@@ -156,6 +154,48 @@ private:
             /*A*/ NULL,
             /*C*/ NULL);
     }
+    static ActionNode* regrowth(PlayerbotAI* ai)
+    {
+        return new ActionNode ("regrowth",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("rejuvenation"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* regrowth_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("regrowth on party",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("rejuvenation on party"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* regrowth_on_master(PlayerbotAI* ai)
+    {
+        return new ActionNode ("regrowth on master",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("rejuvenation on master"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* rejuvenation(PlayerbotAI* ai)
+    {
+        return new ActionNode ("rejuvenation",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* rejuvenation_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("rejuvenation on party",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* rejuvenation_on_master(PlayerbotAI* ai)
+    {
+        return new ActionNode ("rejuvenation on master",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
 };
 
 CatDpsDruidStrategy::CatDpsDruidStrategy(PlayerbotAI* ai) : FeralDruidStrategy(ai)
@@ -185,8 +225,8 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("set facing",  ACTION_MOVE + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "predatory swiftness",
-        NextAction::array(0, new NextAction("regrowth on party",  ACTION_NORMAL + 2), NULL)));
+        "predator's swiftness",
+        NextAction::array(0, new NextAction("instant regrowth on party",  ACTION_NORMAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "cat form",

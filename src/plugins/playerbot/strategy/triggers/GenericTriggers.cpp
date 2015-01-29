@@ -175,6 +175,11 @@ bool HasAuraTrigger::IsActive()
 	return ai->HasAura(getName(), GetTarget());
 }
 
+bool HasAuraIdTrigger::IsActive()
+{
+	return ai->HasAura(spellId, GetTarget());
+}
+
 bool TankAoeTrigger::IsActive()
 {
     if (!AI_VALUE(uint8, "attacker count"))

@@ -851,6 +851,7 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
         return false;
 
     if (!target)
+
         target = bot;
 
     if (checkHasSpell && !bot->HasSpell(spellid))
@@ -871,6 +872,9 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
         return false;
 
     if (target->IsImmunedToSpell(spellInfo))
+        return false;
+
+    if (target->IsImmunedToDamage(spellInfo->GetSchoolMask()))
         return false;
 
     if (bot != target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance)

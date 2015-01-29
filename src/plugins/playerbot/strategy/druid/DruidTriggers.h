@@ -164,7 +164,7 @@ namespace ai {
     class PredatorySwiftnessTrigger : public HasAuraTrigger
     {
     public:
-        PredatorySwiftnessTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "predatory swiftness") {}
+        PredatorySwiftnessTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "predator's swiftness") {}
     };
 
     class EclipseSolarTrigger : public HasAuraTrigger

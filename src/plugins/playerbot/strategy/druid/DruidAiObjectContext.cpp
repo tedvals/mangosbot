@@ -98,7 +98,7 @@ namespace ai
                 creators["savage roar"] = &TriggerFactoryInternal::savage_roar;
                 creators["rip"] = &TriggerFactoryInternal::rip;
                 creators["pounce"] = &TriggerFactoryInternal::pounce;
-                creators["predatory swiftness"] = &TriggerFactoryInternal::predatory_swiftness;
+                creators["predator's swiftness"] = &TriggerFactoryInternal::predatory_swiftness;
                 creators["dash"] = &TriggerFactoryInternal::dash;
             }
 

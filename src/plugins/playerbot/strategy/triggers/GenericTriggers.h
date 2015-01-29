@@ -484,6 +484,21 @@ namespace ai
 		int count;
 	};
 
+
+	class HasAuraIdTrigger : public Trigger {
+	public:
+		HasAuraIdTrigger(PlayerbotAI* ai, string spell, uint32 spellId) : Trigger(ai, spell, 5){
+            this->spellId = spellId;
+		}
+
+    public:
+		virtual string GetTargetName() { return "self target"; }
+		virtual bool IsActive();
+
+    protected:
+        uint32 spellId;
+	};
+
 	class HasAuraTrigger : public Trigger {
 	public:
 		HasAuraTrigger(PlayerbotAI* ai, string spell) : Trigger(ai, spell, 5) {}
