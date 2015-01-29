@@ -344,6 +344,10 @@ namespace ai
         virtual bool isUseful() {
 			return ((!ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(uint8, "mana", "self target") > 75) || ai->HasAura("surge of light", AI_VALUE(Unit*, "self target")));
         }
+	virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("shoot"), NULL), CastSpellAction::getAlternatives());
+        }
     END_SPELL_ACTION()
 
 	class CastPowerWordFortitudeOnPartyAction : public BuffOnPartyAction {

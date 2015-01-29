@@ -5,9 +5,49 @@
 
 using namespace ai;
 
+    class HealPriestStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+    {
+    public:
+        HealPriestStrategyActionNodeFactory()
+        {
+            creators["smite"] = &smite;
+	    creators["divine hymn"] = &divine_hymn;
+            creators["holy nova"] = &holy_nova;
+        }
+    private:
+        static ActionNode* smite(PlayerbotAI* ai)
+        {
+            return new ActionNode ("smite",
+                /*P*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("shoot"), NULL),
+                /*C*/ NULL);
+        }
+	static ActionNode* divine_hymn(PlayerbotAI* ai)
+        {
+            return new ActionNode ("divine hymn",
+                /*P*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("prayer of healing"), NULL),
+                /*C*/ NULL);
+        }
+
+	static ActionNode* holy_nova(PlayerbotAI* ai)
+        {
+            return new ActionNode ("holy nova",
+                /*P*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("prayer of healing"), NULL),
+                /*C*/ NULL);
+        }
+    };
+};
+
+HealPriestStrategy::HealPriestStrategy(PlayerbotAI* ai) : GenericPriestStrategy(ai)
+{
+    actionNodeFactories.Add(new HealPriestStrategyActionNodeFactory());
+}
+
 NextAction** HealPriestStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("shoot", 10.0f), NULL);
+    return NextAction::array(0, new NextAction("smite", 10.0f), new NextAction("shoot", 8.0f), NULL);
 }
 
 void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

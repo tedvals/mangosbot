@@ -210,6 +210,7 @@ namespace ai
                 creators["frost shock"] = &AiObjectContextInternal::frost_shock;
                 creators["chain lightning"] = &AiObjectContextInternal::chain_lightning;
                 creators["lightning bolt"] = &AiObjectContextInternal::lightning_bolt;
+		creators["lightning bolt2"] = &AiObjectContextInternal::lightning_bolt2;
                 creators["thunderstorm"] = &AiObjectContextInternal::thunderstorm;
                 creators["heroism"] = &AiObjectContextInternal::heroism;
                 creators["stoneskin totem"] = &AiObjectContextInternal::stoneskin_totem;
@@ -242,6 +243,7 @@ namespace ai
             static Action* bloodlust(PlayerbotAI* ai) { return new CastBloodlustAction(ai); }
             static Action* thunderstorm(PlayerbotAI* ai) { return new CastThunderstormAction(ai); }
             static Action* lightning_bolt(PlayerbotAI* ai) { return new CastLightningBoltAction(ai); }
+	    static Action* lightning_bolt2(PlayerbotAI* ai) { return new CastLightningBoltAction2(ai); }
             static Action* chain_lightning(PlayerbotAI* ai) { return new CastChainLightningAction(ai); }
             static Action* frost_shock(PlayerbotAI* ai) { return new CastFrostShockAction(ai); }
             static Action* earth_shock(PlayerbotAI* ai) { return new CastEarthShockAction(ai); }

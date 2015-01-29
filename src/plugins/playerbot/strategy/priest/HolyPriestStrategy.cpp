@@ -11,6 +11,8 @@ namespace ai
         HolyPriestStrategyActionNodeFactory()
         {
             creators["smite"] = &smite;
+	    creators["divine hymn"] = &divine_hymn;
+            creators["holy nova"] = &holy_nova;
             creators["circle of healing"] = &circle_of_healing;
         }
     private:
@@ -21,11 +23,27 @@ namespace ai
                 /*A*/ NextAction::array(0, new NextAction("shoot"), NULL),
                 /*C*/ NULL);
         }
+	static ActionNode* divine_hymn(PlayerbotAI* ai)
+        {
+            return new ActionNode ("divine hymn",
+                /*P*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("circle of healing"), NULL),
+                /*C*/ NULL);
+        }
+
         static ActionNode* circle_of_healing(PlayerbotAI* ai)
         {
             return new ActionNode ("circle of healing",
                 /*P*/ NULL,
                 /*A*/ NextAction::array(0, new NextAction("holy nova"), NULL),
+                /*C*/ NULL);
+        }
+
+	static ActionNode* holy_nova(PlayerbotAI* ai)
+        {
+            return new ActionNode ("holy nova",
+                /*P*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("prayer of healing"), NULL),
                 /*C*/ NULL);
         }
     };
@@ -40,7 +58,7 @@ HolyPriestStrategy::HolyPriestStrategy(PlayerbotAI* ai) : GenericPriestStrategy(
 
 NextAction** HolyPriestStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("holy fire", 11.0f), new NextAction("smite", 10.0f), NULL);
+    return NextAction::array(0, new NextAction("holy fire", 11.0f), new NextAction("smite", 10.0f), new NextAction("shoot", 8.0f), NULL);
 }
 
 void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -68,13 +86,13 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("prayer of mending on master", ACTION_LIGHT_HEAL + 5), new NextAction("renew on master", ACTION_LIGHT_HEAL + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
-		"critical aoe heal",
+		"light aoe heal",
 		NextAction::array(0, new NextAction("holy nova", ACTION_LIGHT_HEAL), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"medium aoe heal",
 		NextAction::array(0, new NextAction("circle of healing", ACTION_MEDIUM_HEAL + 2), NULL)));
-
+   
      triggers.push_back(new TriggerNode(
         "medium health",
         NextAction::array(0, new NextAction("greater heal", ACTION_MEDIUM_HEAL + 6), NULL)));
