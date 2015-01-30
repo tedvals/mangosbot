@@ -387,20 +387,20 @@ namespace ai
     {
     public:
         CastLightningBoltAction2(PlayerbotAI* ai) : CastSpellAction(ai, "lightning bolt") {}
-            virtual bool isUseful() {
+        virtual bool isUseful() {
             return (CastSpellAction::isUseful() && AI_VALUE2(uint8, "mana", "self target") > 75);
-	}
+        }
     };
-    
+
 
      class CastLavaBurstAction : public CastSpellAction
     {
     public:
         CastLavaBurstAction(PlayerbotAI* ai) : CastSpellAction(ai, "lava burst") {}
 
-	virtual bool isUseful()
-        {
-           return CastSpellAction::isUseful() && ai->HasAura("flame shock",GetTarget()}
+        virtual bool isUseful() {
+           return CastSpellAction::isUseful() && ai->HasAura("flame shock",GetTarget());
+            }
     };
 
     class CastThunderstormAction : public CastMeleeSpellAction

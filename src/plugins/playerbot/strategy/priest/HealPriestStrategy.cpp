@@ -5,13 +5,13 @@
 
 using namespace ai;
 
-    class HealPriestStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
-    {
+class HealPriestStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+{
     public:
         HealPriestStrategyActionNodeFactory()
         {
             creators["smite"] = &smite;
-	    creators["divine hymn"] = &divine_hymn;
+            creators["divine hymn"] = &divine_hymn;
             creators["holy nova"] = &holy_nova;
         }
     private:
@@ -37,8 +37,8 @@ using namespace ai;
                 /*A*/ NextAction::array(0, new NextAction("prayer of healing"), NULL),
                 /*C*/ NULL);
         }
-    };
 };
+
 
 HealPriestStrategy::HealPriestStrategy(PlayerbotAI* ai) : GenericPriestStrategy(ai)
 {
