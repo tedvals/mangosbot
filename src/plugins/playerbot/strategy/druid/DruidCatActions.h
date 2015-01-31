@@ -109,7 +109,7 @@ namespace ai {
 
 		virtual bool isUseful()
 	    {
-	         return AI_VALUE2(uint8, "combo", "current target") >= 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.almostDead;
+	         return AI_VALUE2(uint8, "combo", "current target") > 4 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.almostDead;
 	    }
 	};
 

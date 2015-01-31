@@ -199,21 +199,21 @@ namespace ai
 			return NextAction::merge( NextAction::array(0, new NextAction("caster form"), NULL), ResurrectPartyMemberAction::getPrerequisites());
 		}
 	};
-
+//Predator's swiftness aura
 	class CastInstantRegrowthOnMasterAction : public HealMasterAction
     {
     public:
-        CastInstantRegrowthOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "regrowth",5) {}
+        CastInstantRegrowthOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "regrowth",10) {}
 
-        bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+        bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura(69369, bot);}
     };
 
     class CastInstantHealingTouchOnMasterAction : public HealMasterAction
     {
     public:
-        CastInstantHealingTouchOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "healing touch",10) {}
+        CastInstantHealingTouchOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "healing touch",20) {}
 
-        bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+        bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura(69369, bot);}
     };
 
 

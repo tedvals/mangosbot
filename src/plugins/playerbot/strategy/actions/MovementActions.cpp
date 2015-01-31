@@ -359,9 +359,11 @@ bool MovementAction::Flee(Unit *target)
     if (!IsMovingAllowed())
         return false;
 
+    uint32 mapId = target->GetMapId();
+
     float rx, ry, rz;
 
-    if (ai->GetMovePoint(rx,ry,rz) && (bot->GetDistance(rx, ry, rz) > (sPlayerbotAIConfig.meleeDistance + sPlayerbotAIConfig.tooCloseDistance)/2 ))
+    if (ai->GetMovePoint(mapId,rx,ry,rz) && (bot->GetDistance(rx, ry, rz) > (sPlayerbotAIConfig.meleeDistance + sPlayerbotAIConfig.tooCloseDistance)/2 ))
     {
             return FleeTo(target,target->GetMapId(), rx, ry, rz);
       }
@@ -372,7 +374,7 @@ bool MovementAction::Flee(Unit *target)
        if (!manager.CalculateDestination(&rx, &ry, &rz))
          return false;
 
-       ai->SetMovePoint(rx, ry, rz);
+       ai->SetMovePoint(mapId,rx, ry, rz);
        return FleeTo(target,target->GetMapId(), rx, ry, rz);
      }
 }

@@ -167,10 +167,13 @@ public:
     bool IsOpposing(Player* player);
     static bool IsOpposing(uint8 race1, uint8 race2);
     PlayerbotSecurity* GetSecurity() { return &security; }
-    void SetMovePoint (float x, float y, float z) {go_point= true;go_x = x; go_y = y;go_z = z;}
+    void SetMovePoint (uint32 mapId, float x, float y, float z) {go_point= true; go_mapId = mapId; go_x = x; go_y = y;go_z = z;}
 	void ResetMovePoint() {go_point = false;}
-	bool GetMovePoint(float& x, float& y, float& z)
+	bool GetMovePoint( uint32 mapId, float& x, float& y, float& z)
     {
+        if (mapId != go_mapId)
+            return false;
+
         if (go_point)
         {
             x = go_x;
@@ -200,5 +203,6 @@ protected:
     float go_y;
     float go_z;
     bool go_point;
+    uint32 go_mapId;
 };
 

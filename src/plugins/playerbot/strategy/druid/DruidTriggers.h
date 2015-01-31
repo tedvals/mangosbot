@@ -161,10 +161,10 @@ namespace ai {
         DashTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "dash") {}
     };
 
-    class PredatorySwiftnessTrigger : public HasAuraTrigger
+    class PredatorySwiftnessTrigger : public HasAuraIdTrigger
     {
     public:
-        PredatorySwiftnessTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "predator's swiftness") {}
+        PredatorySwiftnessTrigger(PlayerbotAI* ai) : HasAuraIdTrigger(ai, "predator's swiftness", 69369) {}
     };
 
     class EclipseSolarTrigger : public HasAuraTrigger
