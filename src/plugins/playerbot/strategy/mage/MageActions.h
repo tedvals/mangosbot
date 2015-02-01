@@ -21,6 +21,8 @@ namespace ai
     {
     public:
         CastFireBlastAction(PlayerbotAI* ai) : CastSpellAction(ai, "fire blast") {}
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastArcaneBlastAction : public CastBuffSpellAction
@@ -59,6 +61,8 @@ namespace ai
     public:
         CastFrostNovaAction(PlayerbotAI* ai) : CastSpellAction(ai, "frost nova") {}
         virtual bool isUseful() { return AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance; }
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastArcaneExplosionAction : public CastSpellAction
@@ -66,6 +70,7 @@ namespace ai
     public:
         CastArcaneExplosionAction(PlayerbotAI* ai) : CastSpellAction(ai, "arcane explosion") {}
         virtual bool isUseful() { return AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance; }
+        virtual bool IsInstant() {return true;}
     };
 
 	class CastFrostboltAction : public CastSpellAction
@@ -79,7 +84,8 @@ namespace ai
 	public:
 		CastIceLanceAction(PlayerbotAI* ai) : CastSpellAction(ai, "ice lance") {}
 
-		virtual bool isUseful() {return AI_VALUE2(bool, "moving", "self target") || AI_VALUE2(bool, "frozen", "current target");}
+		virtual bool isUseful() {return AI_VALUE2(bool, "frozen", "current target");}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastFrostfireBoltAction : public CastSpellAction
@@ -123,6 +129,7 @@ namespace ai
     {
 	public:
 		CastRemoveCurseAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "remove curse") {}
+		virtual bool IsInstant() {return true;}
 	};
 
     class CastArcanePowerAction : public CastBuffSpellAction
@@ -141,6 +148,7 @@ namespace ai
 	{
 	public:
 	    CastSlowAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "slow") {}
+	    virtual bool IsInstant() {return true;}
 	};
 
 	class CastIcyVeinsAction : public CastBuffSpellAction
@@ -159,18 +167,21 @@ namespace ai
     {
 	public:
 		CastIceBlockAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "ice block") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastColdSnapAction : public CastBuffSpellAction
     {
 	public:
 		CastColdSnapAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "cold snap") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastIceBarrierAction : public CastBuffSpellAction
     {
 	public:
 		CastIceBarrierAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "ice barrier") {}
+        virtual bool IsInstant() {return true;}
 	};
 
     BEGIN_SPELL_ACTION(CastCounterspellAction, "counterspell")
@@ -273,6 +284,8 @@ namespace ai
 	public:
 	    CastConeOfColdAction(PlayerbotAI* ai) : CastSpellAction(ai, "cone of cold") {}
 	    virtual bool isUseful() { return AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance; }
+
+	    virtual bool IsInstant() {return true;}
 	};
 
 	class CastDragonsBreathAction : public CastSpellAction
@@ -280,6 +293,7 @@ namespace ai
 	public:
 	    CastDragonsBreathAction(PlayerbotAI* ai) : CastSpellAction(ai, "dragon's breath") {}
 	    virtual bool isUseful() { return AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance; }
+	    virtual bool IsInstant() {return true;}
 	};
 
 	class CastBlastWaveAction : public CastSpellAction
@@ -287,30 +301,35 @@ namespace ai
 	public:
 	    CastBlastWaveAction(PlayerbotAI* ai) : CastSpellAction(ai, "blast wave") {}
 	    virtual bool isUseful() { return AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance; }
+	    virtual bool IsInstant() {return true;}
 	};
 
 	class CastInvisibilityAction : public CastBuffSpellAction
 	{
 	public:
 	    CastInvisibilityAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "invisibility") {}
+	    virtual bool IsInstant() {return true;}
 	};
 
 	class CastManaShieldAction : public CastBuffSpellAction
 	{
 	public:
 	    CastManaShieldAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "mana shield") {}
+	    virtual bool IsInstant() {return true;}
 	};
 
     class CastFrostWardAction : public CastBuffSpellAction
 	{
 	public:
 	    CastFrostWardAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "frost ward") {}
+	    virtual bool IsInstant() {return true;}
 	};
 
 	class CastFireWardAction : public CastBuffSpellAction
 	{
 	public:
 	    CastFireWardAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "fire ward") {}
+	    virtual bool IsInstant() {return true;}
 	};
 
 	class CastBlinkAction : public CastBuffSpellAction
@@ -322,6 +341,8 @@ namespace ai
         {
             return (AI_VALUE2(bool, "combat", "self target"));
             }
+
+        virtual bool IsInstant() {return true;}
 	};
 
 	class CastEvocationAction : public CastSpellAction
@@ -335,5 +356,6 @@ namespace ai
     {
     public:
 	    CastCounterspellOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "counterspell") {}
+	    virtual bool IsInstant() {return true;}
     };
 }

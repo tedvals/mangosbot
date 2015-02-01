@@ -341,6 +341,7 @@ void MovementAction::WaitForReach(float distance)
     if ((player || target) && delay > sPlayerbotAIConfig.globalCoolDown)
         delay = sPlayerbotAIConfig.globalCoolDown;
 
+    ai->DoNextAction(1,true);
     ai->SetNextCheckDelay((uint32)delay);
 }
 

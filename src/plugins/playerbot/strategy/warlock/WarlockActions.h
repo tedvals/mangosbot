@@ -57,6 +57,7 @@ namespace ai
 	{
 	public:
 		CastCurseOfAgonyAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "curse of agony") {}
+		virtual bool IsInstant() {return true;}
 
         //    virtual bool IsActive()
     //    {
@@ -73,6 +74,7 @@ namespace ai
 	{
 	public:
 		CastCurseOfExhaustionAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "curse of exhaustion") {}
+		virtual bool IsInstant() {return true;}
 
         //    virtual bool IsActive()
     //    {
@@ -89,6 +91,7 @@ namespace ai
 	{
 	public:
 		CastCurseOfDoomAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "curse of doom") {}
+		virtual bool IsInstant() {return true;}
 
     //    virtual bool IsActive()
     //    {
@@ -106,6 +109,7 @@ namespace ai
 	{
 	public:
 		CastCurseOfWeaknessAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "curse of weakness") {}
+		virtual bool IsInstant() {return true;}
 
     //    virtual bool IsActive()
     //    {
@@ -122,6 +126,7 @@ namespace ai
 	{
 	public:
 		CastCurseOfTheElementsAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "curse of the elements") {}
+		virtual bool IsInstant() {return true;}
 
         //    virtual bool IsActive()
     //    {
@@ -138,6 +143,7 @@ namespace ai
 	{
 	public:
 		CastCorruptionAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "corruption") {}
+		virtual bool IsInstant() {return true;}
 
    // virtual bool IsActive()
    //     {
@@ -151,6 +157,7 @@ namespace ai
 	{
 	public:
 	    CastCorruptionOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "corruption") {}
+	    virtual bool IsInstant() {return true;}
 	};
 
 
@@ -425,6 +432,7 @@ namespace ai
         {
             return NextAction::merge( NextAction::array(0, new NextAction("shadow bolt"), NULL), CastSpellAction::getAlternatives());
         }
+        virtual bool IsInstant() {return true;}
     };
 
     class CastIncinerateAction : public CastSpellAction
@@ -478,6 +486,7 @@ namespace ai
     {
     public:
         CastUnstableAfflictionAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "unstable affliction") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastFearAction : public CastDebuffSpellAction

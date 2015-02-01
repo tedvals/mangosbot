@@ -114,7 +114,7 @@ void Engine::Init()
 }
 
 
-bool Engine::DoNextAction(Unit* unit, int depth)
+bool Engine::DoNextAction(Unit* unit, int depth, bool instantonly)
 {
     LogAction("--- AI Tick ---");
     if (sPlayerbotAIConfig.logValuesPerTick)
@@ -161,6 +161,15 @@ bool Engine::DoNextAction(Unit* unit, int depth)
 
                 if (action->isPossible() && relevance)
                 {
+                    if (instantonly)
+                    {
+                        if (!action->isInstant())
+                        {
+                            MultiplyAndPush(actionNode->getAlternatives(), relevance + 0.03, false, event);
+                            continue;
+                        }
+                    }
+
                     if ((!skipPrerequisites || lastRelevance-relevance > 0.04) &&
                             MultiplyAndPush(actionNode->getPrerequisites(), relevance + 0.02, false, event))
                     {
@@ -205,7 +214,7 @@ bool Engine::DoNextAction(Unit* unit, int depth)
         lastRelevance = 0.0f;
         PushDefaultActions();
         if (queue.Peek() && depth < 2)
-            return DoNextAction(unit, depth + 1);
+            return DoNextAction(unit, depth + 1,instantonly);
     }
 
     if (time(0) - currentTime > 1) {

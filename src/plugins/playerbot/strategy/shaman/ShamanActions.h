@@ -58,23 +58,27 @@ namespace ai
     class CastRiptideAction : public CastHealingSpellAction {
     public:
         CastRiptideAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "riptide",10) {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastRiptideOnPartyAction : public HealPartyMemberAction
     {
     public:
         CastRiptideOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "riptide",10) {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastRiptideOnMasterAction : public HealMasterAction
     {
     public:
         CastRiptideOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "riptide",10) {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastEarthShieldAction : public CastBuffSpellAction {
     public:
         CastEarthShieldAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "earth shield") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastEarthShieldOnPartyAction : public BuffOnPartyAction
@@ -82,22 +86,26 @@ namespace ai
     public:
         CastEarthShieldOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "earth shield") {}
         virtual bool isUseful();
+        virtual bool IsInstant() {return true;}
     };
 
     class CastEarthShieldOnMasterAction : public BuffOnMasterAction
     {
     public:
         CastEarthShieldOnMasterAction(PlayerbotAI* ai) : BuffOnMasterAction(ai, "earth shield") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastWaterShieldAction : public CastBuffSpellAction {
     public:
         CastWaterShieldAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "water shield") {}
+        virtual bool IsInstant() {return true;}
     };
 
 	class CastLightningShieldAction : public CastBuffSpellAction {
 	public:
 		CastLightningShieldAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "lightning shield") {}
+		virtual bool IsInstant() {return true;}
 	};
 
     class CastEarthlivingWeaponAction : public CastEnchantItemAction {
@@ -140,6 +148,7 @@ namespace ai
     public:
         CastTotemAction(PlayerbotAI* ai, string spell) : CastBuffSpellAction(ai, spell) {}
         virtual bool isUseful() { return CastBuffSpellAction::isUseful() && !AI_VALUE2(bool, "has totem", name); }
+        virtual bool IsInstant() {return true;}
     };
 
     class CastOwnTotemAction : public CastBuffSpellAction
@@ -215,18 +224,21 @@ namespace ai
     {
     public:
         CastCallOfTheElementsTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "call of the elements") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastCallOfTheAncestorsTotemAction : public CastBuffSpellAction
     {
     public:
         CastCallOfTheAncestorsTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "call of the ancestors") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastCallOfTheSpiritsTotemAction : public CastBuffSpellAction
     {
     public:
         CastCallOfTheSpiritsTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "call of the spirits") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastFlametongueTotemAction : public CastTotemAction
@@ -266,6 +278,7 @@ namespace ai
         CastMagmaTotemAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "magma totem") {}
         virtual string GetTargetName() { return "self target"; }
         virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && !AI_VALUE2(bool, "has totem", name); }
+        virtual bool IsInstant() {return true;}
     };
 
     class CastFireNovaAction : public CastSpellAction {
@@ -288,16 +301,19 @@ namespace ai
 	{
 	public:
 		CastPurgeAction(PlayerbotAI* ai) : CastSpellAction(ai, "purge") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastStormstrikeAction : public CastMeleeSpellAction {
 	public:
 		CastStormstrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "stormstrike") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastLavaLashAction : public CastMeleeSpellAction {
 	public:
 		CastLavaLashAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "lava lash") {}
+		virtual bool IsInstant() {return true;}
 	};
 
     class CastWaterBreathingAction : public CastBuffSpellAction {
@@ -324,6 +340,7 @@ namespace ai
     class CastCleanseSpiritAction : public CastCureSpellAction {
     public:
         CastCleanseSpiritAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "cleanse spirit") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastCleanseSpiritPoisonOnPartyAction : public CurePartyMemberAction
@@ -332,6 +349,7 @@ namespace ai
         CastCleanseSpiritPoisonOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "cleanse spirit", DISPEL_POISON) {}
 
         virtual string getName() { return "cleanse spirit poison on party"; }
+        virtual bool IsInstant() {return true;}
     };
     class CastCleanseSpiritCurseOnPartyAction : public CurePartyMemberAction
     {
@@ -339,6 +357,7 @@ namespace ai
         CastCleanseSpiritCurseOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "cleanse spirit", DISPEL_CURSE) {}
 
         virtual string getName() { return "cleanse spirit curse on party"; }
+        virtual bool IsInstant() {return true;}
     };
     class CastCleanseSpiritDiseaseOnPartyAction : public CurePartyMemberAction
     {
@@ -346,18 +365,21 @@ namespace ai
         CastCleanseSpiritDiseaseOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "cleanse spirit", DISPEL_DISEASE) {}
 
         virtual string getName() { return "cleanse spirit disease on party"; }
+        virtual bool IsInstant() {return true;}
     };
 
     class CastFlameShockAction : public CastDebuffSpellAction
     {
     public:
         CastFlameShockAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "flame shock") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastEarthShockAction : public CastDebuffSpellAction
     {
     public:
         CastEarthShockAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "earth shock") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastFrostShockAction : public CastDebuffSpellAction
@@ -369,6 +391,8 @@ namespace ai
         {
            return CastDebuffSpellAction::isUseful() && !ai->HasAnyAuraOf(GetTarget(), "slow", "wing clip", "frost shock", "crippling poison", "hamstring", NULL);
         }
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastChainLightningAction : public CastSpellAction
@@ -407,6 +431,7 @@ namespace ai
     {
     public:
         CastThunderstormAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "thunderstorm") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastHeroismAction : public CastBuffSpellAction
@@ -433,18 +458,21 @@ namespace ai
     {
     public:
         CastWindShearOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "wind shear") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastSummonEarthElementalAction : public CastBuffSpellAction
     {
     public:
         CastSummonEarthElementalAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "earth elemental totem") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastSummonFireElementalAction : public CastBuffSpellAction
     {
     public:
         CastSummonFireElementalAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "fire elemental totem") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastElementalMasteryAction : public CastBuffSpellAction
@@ -457,6 +485,7 @@ namespace ai
     {
     public:
         CastFeralSpiritAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "feral spirit") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastTidalForceAction : public CastBuffSpellAction
@@ -469,12 +498,14 @@ namespace ai
     {
     public:
         CastShamanisticRageAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "shamanistic rage") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastNaturesSwiftnessAction : public CastBuffSpellAction
     {
     public:
         CastNaturesSwiftnessAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "nature's swiftness") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastHexAction : public CastDebuffSpellAction

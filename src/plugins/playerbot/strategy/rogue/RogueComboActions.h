@@ -12,6 +12,8 @@ namespace ai
 	        return CastMeleeSpellAction::isUseful() && !ai->HasAura("stealth", AI_VALUE(Unit*, "self target")) && AI_VALUE2(uint8, "combo", "current target") < 5;
 	    }
 
+	    virtual bool IsInstant() {return true;}
+
         virtual NextAction** getPrerequisites()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());

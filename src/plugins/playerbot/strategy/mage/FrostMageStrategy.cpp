@@ -11,6 +11,7 @@ public:
     FrostMageStrategyActionNodeFactory()
     {
         creators["ice veins"] = &ice_veins;
+        creators["frostbolt"] = &frostbolt;
         creators["summon water elemental"] = &summon_water_elemental;
         creators["deep freeze"] = &deep_freeze;
         creators["ice barrier"] = &ice_barrier;
@@ -22,6 +23,13 @@ private:
         return new ActionNode ("ice veins",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("cold snap"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* frostbolt(PlayerbotAI* ai)
+    {
+        return new ActionNode ("frostbolt",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("ice lance"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* ice_block(PlayerbotAI* ai)

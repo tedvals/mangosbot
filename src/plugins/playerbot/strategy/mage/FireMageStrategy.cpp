@@ -10,6 +10,7 @@ class FireMageStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
 public:
     FireMageStrategyActionNodeFactory()
     {
+        creators["fireball"] = &fire_blast;
         creators["fire blast"] = &fire_blast;
         creators["scorch"] = &scorch;
         creators["combustion"] = &combustion;
@@ -18,11 +19,18 @@ public:
         creators["blast wave"] = blast_wave;
     }
 private:
+    static ActionNode* fireball(PlayerbotAI* ai)
+    {
+        return new ActionNode ("fireball",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("fire blast"), NULL),
+            /*C*/ NULL);
+    }
     static ActionNode* fire_blast(PlayerbotAI* ai)
     {
         return new ActionNode ("fire blast",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("scorch"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("shoot"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* scorch(PlayerbotAI* ai)

@@ -227,6 +227,8 @@ namespace ai
     {
     public:
         CastHolyShockAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "holy shock") {}
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastHolyShockOnPartyAction : public HealPartyMemberAction
@@ -235,12 +237,14 @@ namespace ai
         CastHolyShockOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "shock shock") {}
 
         virtual string getName() { return "holy shock on party"; }
+        virtual bool IsInstant() {return true;}
     };
 
     class CastHolyShockOnMasterAction : public HealMasterAction
     {
     public:
         CastHolyShockOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "shock shock") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastSacredShieldOnPartyAction : public HealPartyMemberAction
@@ -294,6 +298,7 @@ namespace ai
         virtual string getName() { return "instant flash of light on party"; }
         virtual bool isUseful();
         virtual bool Execute(Event event);
+        virtual bool IsInstant() {return true;}
     };
 
    class CastInstantFlashOfLightOnMasterAction : public HealMasterAction
@@ -304,12 +309,14 @@ namespace ai
         virtual string getName() { return "instant flash of light on master"; }
         virtual bool isUseful();
         virtual bool Execute(Event event);
+        virtual bool IsInstant() {return true;}
     };
 
     class CastLayOnHandsAction : public CastHealingSpellAction
     {
     public:
         CastLayOnHandsAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "lay on hands") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastLayOnHandsOnPartyAction : public HealPartyMemberAction
@@ -318,18 +325,21 @@ namespace ai
         CastLayOnHandsOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "lay on hands") {}
 
         virtual string getName() { return "lay on hands on party"; }
+        virtual bool IsInstant() {return true;}
     };
 
     class CastLayOnHandsOnMasterAction : public HealMasterAction
     {
     public:
         CastLayOnHandsOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "lay on hands") {}
+        virtual bool IsInstant() {return true;}
     };
 
 	class CastDivineProtectionAction : public CastBuffSpellAction
 	{
 	public:
 		CastDivineProtectionAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "divine protection") {}
+		virtual bool IsInstant() {return true;}
 	};
 
     class CastDivineFavorAction : public CastBuffSpellAction
@@ -348,6 +358,7 @@ namespace ai
 	{
 	public:
 		CastDivineIlluminationAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "divine illumination") {}
+		virtual bool IsInstant() {return true;}
 	};
 
     class CastAuraMasteryAction : public CastBuffSpellAction
@@ -360,6 +371,7 @@ namespace ai
 	{
 	public:
 		CastAvengingWrathAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "avenging wrath") {}
+		virtual bool IsInstant() {return true;}
 	};
 
     class CastDivineProtectionOnPartyAction : public HealPartyMemberAction
@@ -368,12 +380,14 @@ namespace ai
         CastDivineProtectionOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "divine protection") {}
 
         virtual string getName() { return "divine protection on party"; }
+        virtual bool IsInstant() {return true;}
     };
 
     class CastDivineProtectionOnMasterAction : public HealMasterAction
     {
     public:
         CastDivineProtectionOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "divine protection") {}
+        virtual bool IsInstant() {return true;}
     };
 
 
@@ -381,12 +395,14 @@ namespace ai
 	{
 	public:
 		CastDivineShieldAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "divine shield") {}
+		virtual bool IsInstant() {return true;}
 	};
 
     class CastConsecrationAction : public CastMeleeSpellAction
     {
     public:
 	    CastConsecrationAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "consecration") {}
+	    virtual bool IsInstant() {return true;}
     };
 
     class CastHolyWrathAction : public CastMeleeSpellAction
@@ -399,30 +415,35 @@ namespace ai
     {
     public:
         CastHammerOfJusticeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "hammer of justice") {}
+        virtual bool IsInstant() {return true;}
     };
 
 	class CastHammerOfWrathAction : public CastMeleeSpellAction
 	{
 	public:
 		CastHammerOfWrathAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "hammer of wrath") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastHammerOfTheRighteousAction : public CastMeleeSpellAction
 	{
 	public:
 		CastHammerOfTheRighteousAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "hammer of the righteous") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastPurifyPoisonAction : public CastCureSpellAction
 	{
 	public:
 		CastPurifyPoisonAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "purify") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastPurifyDiseaseAction : public CastCureSpellAction
 	{
 	public:
 		CastPurifyDiseaseAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "purify") {}
+		virtual bool IsInstant() {return true;}
 	};
 
     class CastPurifyPoisonOnPartyAction : public CurePartyMemberAction
@@ -445,6 +466,7 @@ namespace ai
 	{
 	public:
 		CastHandOfReckoningAction(PlayerbotAI* ai) : CastSpellAction(ai, "hand of reckoning") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 //	class CastHandOfSalvationAction : public CastSpellAction
@@ -458,18 +480,21 @@ namespace ai
 	public:
 		CastHandOfSalvationOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "hand of salvation") {}
         virtual string getName() { return "hand of salvation on party";}
+        virtual bool IsInstant() {return true;}
 	};
 
 	class CastHandOfSalvationOnMasterAction : public BuffOnMasterAction
 	{
 	public:
 		CastHandOfSalvationOnMasterAction(PlayerbotAI* ai) : BuffOnMasterAction(ai, "hand of salvation") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastHandOfFreedomAction : public CastSpellAction
 	{
 	public:
 		CastHandOfFreedomAction(PlayerbotAI* ai) : CastSpellAction(ai, "hand of freedom") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastHandOfFreedomOnPartyAction : public DispelSnarePartyMemberAction
@@ -477,6 +502,7 @@ namespace ai
 	public:
 		CastHandOfFreedomOnPartyAction(PlayerbotAI* ai) : DispelSnarePartyMemberAction(ai, "hand of freedom") {}
         virtual string getName() { return "hand of freedom on party";}
+        virtual bool IsInstant() {return true;}
 	};
 
 	class CastHandOfSacrificeOnPartyAction : public BuffOnPartyAction
@@ -484,12 +510,14 @@ namespace ai
 	public:
 		CastHandOfSacrificeOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "hand of sacrifice") {}
         virtual string getName() { return "hand of sacrifice on party";}
+        virtual bool IsInstant() {return true;}
 	};
 
 	class CastHandOfSacrificeOnMasterAction : public BuffOnMasterAction
 	{
 	public:
 		CastHandOfSacrificeOnMasterAction(PlayerbotAI* ai) : BuffOnMasterAction(ai, "hand of sacrifice") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastHandOfProtectionOnPartyAction : public BuffOnPartyAction
@@ -497,12 +525,14 @@ namespace ai
 	public:
 		CastHandOfProtectionOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "hand of protection") {}
         virtual string getName() { return "hand of protection on party";}
+        virtual bool IsInstant() {return true;}
 	};
 
 	class CastHandOfProtectionOnMasterAction : public BuffOnMasterAction
 	{
 	public:
 		CastHandOfProtectionOnMasterAction(PlayerbotAI* ai) : BuffOnMasterAction(ai, "hand of protection") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 //	class CastHandOfSacrificeAction : public CastSpellAction
@@ -515,18 +545,21 @@ namespace ai
 	{
 	public:
 		CastCleansePoisonAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "cleanse") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastCleanseDiseaseAction : public CastCureSpellAction
 	{
 	public:
 		CastCleanseDiseaseAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "cleanse") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastCleanseMagicAction : public CastCureSpellAction
 	{
 	public:
 		CastCleanseMagicAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "cleanse") {}
+		virtual bool IsInstant() {return true;}
 	};
 
     class CastCleansePoisonOnPartyAction : public CurePartyMemberAction
@@ -535,6 +568,7 @@ namespace ai
         CastCleansePoisonOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "cleanse", DISPEL_POISON) {}
 
         virtual string getName() { return "cleanse poison on party"; }
+        virtual bool IsInstant() {return true;}
     };
 
 	class CastCleanseDiseaseOnPartyAction : public CurePartyMemberAction
@@ -543,6 +577,7 @@ namespace ai
 		CastCleanseDiseaseOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "cleanse", DISPEL_DISEASE) {}
 
 		virtual string getName() { return "cleanse disease on party"; }
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastCleanseMagicOnPartyAction : public CurePartyMemberAction
@@ -551,6 +586,7 @@ namespace ai
 		CastCleanseMagicOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "cleanse", DISPEL_MAGIC) {}
 
 		virtual string getName() { return "cleanse magic on party"; }
+		virtual bool IsInstant() {return true;}
 	};
 
     BEGIN_SPELL_ACTION(CastAvengersShieldAction, "avenger's shield")

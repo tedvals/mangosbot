@@ -22,11 +22,15 @@ namespace ai
 	class CastRejuvenationAction : public CastHealingSpellAction {
 	public:
 		CastRejuvenationAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "rejuvenation",5) {}
+
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastSwiftmendAction : public CastHealingSpellAction {
 	public:
 		CastSwiftmendAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "swiftmend",15) {}
+
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastRegrowthAction : public CastHealingSpellAction {
@@ -46,6 +50,8 @@ namespace ai
 	class CastWildGrowthAction : public HealPartyMemberAction {
 	public:
 		CastWildGrowthAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "wild growth",5) {}
+
+		virtual bool IsInstant() {return true;}
 	};
 
     class CastHealingTouchAction : public CastHealingSpellAction {
@@ -56,12 +62,16 @@ namespace ai
     class CastLifeBloomAction : public CastHealingSpellAction {
     public:
         CastLifeBloomAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "lifebloom",5) {}
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastRejuvenationOnPartyAction : public HealPartyMemberAction
     {
     public:
         CastRejuvenationOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "rejuvenation",5) {}
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastRegrowthOnPartyAction : public HealPartyMemberAction
@@ -84,18 +94,24 @@ namespace ai
     {
     public:
         CastLifebloomOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "lifebloom",5) {}
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastSwiftmendOnPartyAction : public HealPartyMemberAction
     {
     public:
         CastSwiftmendOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "swiftmend",15) {}
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastWildGrowthOnPartyAction : public HealPartyMemberAction
     {
     public:
         CastWildGrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "wild growth",5) {}
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastHealingTouchOnPartyAction : public HealPartyMemberAction
@@ -108,7 +124,9 @@ namespace ai
 	public:
 		CastInstantRegrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "regrowth",5) {}
 
-		bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+		virtual bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura(69369, bot);}
+
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastInstantRegrowthOnPartyAction : public HealPartyMemberAction
@@ -116,14 +134,16 @@ namespace ai
     public:
         CastInstantRegrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "regrowth",5) {}
 
-        bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+        virtual bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura(69369, bot);}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastInstantHealingTouchAction : public CastHealingSpellAction {
     public:
         CastInstantHealingTouchAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "healing touch",10) {}
 
-        bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+        virtual bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura(69369, bot);}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastInstantHealingTouchOnPartyAction : public HealPartyMemberAction
@@ -131,7 +151,8 @@ namespace ai
     public:
         CastInstantHealingTouchOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "healing touch",10) {}
 
-        bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura("predatory swiftness", bot);}
+        virtual bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura(69369, bot);}
+        virtual bool IsInstant() {return true;}
     };
 
 	class CastReviveAction : public ResurrectPartyMemberAction
@@ -148,6 +169,8 @@ namespace ai
     {
     public:
         CastRejuvenationOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "rejuvenation",10) {}
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastRegrowthOnMasterAction : public HealMasterAction
@@ -170,18 +193,22 @@ namespace ai
     {
     public:
         CastLifebloomOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "lifebloom",5) {}
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastSwiftmendOnMasterAction : public HealMasterAction
     {
     public:
         CastSwiftmendOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "swiftmend",15) {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastWildGrowthOnMasterAction : public HealMasterAction
     {
     public:
         CastWildGrowthOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "wild growth",5) {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastHealingTouchOnMasterAction : public HealMasterAction
@@ -206,6 +233,7 @@ namespace ai
         CastInstantRegrowthOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "regrowth",10) {}
 
         bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura(69369, bot);}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastInstantHealingTouchOnMasterAction : public HealMasterAction
@@ -214,6 +242,7 @@ namespace ai
         CastInstantHealingTouchOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "healing touch",20) {}
 
         bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura(69369, bot);}
+        virtual bool IsInstant() {return true;}
     };
 
 
@@ -230,6 +259,8 @@ namespace ai
 	class CastSurvivalInstinctsAction : public CastBuffSpellAction {
 	public:
 		CastSurvivalInstinctsAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "survival instincts") {}
+
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastThornsAction : public CastBuffSpellAction {
@@ -286,12 +317,16 @@ namespace ai
 	{
 	public:
 		CastMoonfireAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "moonfire") {}
+
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastInsectSwarmAction : public CastDebuffSpellAction
 	{
 	public:
 		CastInsectSwarmAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "insect swarm") {}
+
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastStarfireAction : public CastSpellAction

@@ -7,6 +7,7 @@ namespace ai
 	public:
 		CastEviscerateAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "eviscerate") {}
 
+        virtual bool IsInstant() {return true;}
 		virtual bool isUseful()
 	    {
 	         return AI_VALUE2(uint8, "combo", "current target") >= 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.almostDead;
@@ -18,7 +19,8 @@ namespace ai
 	public:
 		CastEnvenomAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "envenom") {}
 
-    virtual NextAction** getAlternatives();
+        virtual NextAction** getAlternatives();
+        virtual bool IsInstant() {return true;}
         virtual bool isUseful()
 	    {
 	         return AI_VALUE2(uint8, "combo", "current target") >= 3 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.almostDead;
@@ -31,6 +33,7 @@ namespace ai
 		CastSliceAndDiceAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "slice and dice") {}
 		virtual NextAction** getAlternatives();
 
+        virtual bool IsInstant() {return true;}
 		virtual bool isUseful()
 	    {
 	        return !ai->HasAura(spell, AI_VALUE(Unit*, "self target"));
@@ -43,6 +46,7 @@ namespace ai
 	public:
 		CastExposeArmorAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "expose armor") {}
 
+        virtual bool IsInstant() {return true;}
 		virtual bool isUseful()
 	    {
 	        return AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.almostDead && (AI_VALUE2(bool, "target elite", "current target") || AI_VALUE2(bool, "target player", "current target"));
@@ -53,6 +57,7 @@ namespace ai
 	{
 	public:
 		CastDeadlyThrowAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "deadly throw") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastRuptureAction : public CastDebuffSpellAction
@@ -62,6 +67,7 @@ namespace ai
 
 		virtual NextAction** getAlternatives();
 
+        virtual bool IsInstant() {return true;}
 		virtual bool isUseful()
 	    {
 	        return AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.almostDead && ((AI_VALUE2(bool, "target elite", "current target") || AI_VALUE2(bool, "target player", "current target")));

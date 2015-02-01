@@ -11,12 +11,14 @@ namespace ai {
 	    {
 	        return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "combo", "current target") <= 5;
 	    }
+	    virtual bool IsInstant() {return true;}
 	};
 
 	class CastFeralChargeCatAction : public CastReachTargetSpellAction
 	{
 	public:
 		CastFeralChargeCatAction(PlayerbotAI* ai) : CastReachTargetSpellAction(ai, "feral charge - cat", 3.0f) {}
+		virtual bool IsInstant() {return true;}
 
 		//virtual bool isUseful()
 	    //{
@@ -28,36 +30,42 @@ namespace ai {
 	{
 	public:
 		CastCowerAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "cower") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastDashAction : public CastBuffSpellAction
 	{
 	public:
 		CastDashAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "dash") {}
+		virtual bool IsInstant() {return true;}
 	};
 
     class CastProwlAction : public CastBuffSpellAction
 	{
 	public:
 		CastProwlAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "prowl") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastSavageRoarAction : public CastBuffSpellAction
 	{
 	public:
 		CastSavageRoarAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "savage roar") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastTigersFuryAction : public CastBuffSpellAction
 	{
 	public:
 		CastTigersFuryAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "tiger's fury") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastRakeAction : public CastDebuffSpellAction
 	{
 	public:
 		CastRakeAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "rake") {}
+		virtual bool IsInstant() {return true;}
 
         virtual NextAction** getPrerequisites()
         {
@@ -73,6 +81,7 @@ namespace ai {
     class CastRipAction : public CastDebuffSpellAction {
 	public:
 		CastRipAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "rip") {}
+		virtual bool IsInstant() {return true;}
 		virtual bool isUseful()
 	    {
 	        return  CastDebuffSpellAction::isUseful() &&  (AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.criticalHealth) && (AI_VALUE2(uint8, "combo", "current target") >= 2);
@@ -107,6 +116,7 @@ namespace ai {
 	public:
 		CastFerociousBiteAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "ferocious bite") {}
 
+        virtual bool IsInstant() {return true;}
 		virtual bool isUseful()
 	    {
 	         return AI_VALUE2(uint8, "combo", "current target") > 4 || AI_VALUE2(uint8, "health", "current target") < sPlayerbotAIConfig.almostDead;
@@ -117,6 +127,7 @@ namespace ai {
 	public:
 		CastPounceAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "pounce") {}
 
+        virtual bool IsInstant() {return true;}
 		virtual bool isUseful() {
             return CastMeleeSpellAction::isUseful() && ai->HasAura("prowl", AI_VALUE(Unit*, "self target"));
         }
@@ -131,6 +142,7 @@ namespace ai {
 	public:
 		CastRavageAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "ravage") {}
 
+		virtual bool IsInstant() {return true;}
 		virtual bool isUseful() {
             return CastMeleeSpellAction::isUseful() &&  ai->HasAura("prowl", AI_VALUE(Unit*, "self target")) && AI_VALUE2(bool, "target normal", "current target");
         }

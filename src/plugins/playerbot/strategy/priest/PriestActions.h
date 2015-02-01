@@ -115,6 +115,8 @@ namespace ai
         CastDesperatePrayerAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "desperate prayer") {}
 
         virtual NextAction** getAlternatives();
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastRenewOnPartyAction : public HealPartyMemberAction
@@ -123,12 +125,16 @@ namespace ai
         CastRenewOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "renew",10) {}
 
         virtual string getName() { return "renew on party"; }
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastRenewOnMasterAction : public HealMasterAction
     {
     public:
         CastRenewOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "renew",10) {}
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastPrayerOfHealingAction : public CastAoeHealSpellAction {
@@ -159,6 +165,8 @@ namespace ai
         {
             return (AI_VALUE2(bool, "combat", "self target"));
             }
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastPrayerOfMendingAction : public CastHealingSpellAction {
@@ -225,6 +233,8 @@ namespace ai
 	class CastPowerWordShieldAction : public CastBuffSpellAction {
 	public:
 		CastPowerWordShieldAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "power word: shield") {}
+
+        virtual bool IsInstant() {return true;}
 	};
 
     class CastPowerWordShieldOnPartyAction : public BuffOnPartyAction
@@ -233,16 +243,22 @@ namespace ai
         CastPowerWordShieldOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "power word: shield") {}
 
         virtual string getName() { return "power word: shield on party"; }
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastPowerWordShieldOnMasterAction : public BuffOnMasterAction {
 	public:
 		CastPowerWordShieldOnMasterAction(PlayerbotAI* ai) : BuffOnMasterAction(ai, "power word: shield") {}
+
+		virtual bool IsInstant() {return true;}
 	};
 
     class CastPainSuppressionAction : public CastBuffSpellAction {
 	public:
 		CastPainSuppressionAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "pain suppression") {}
+
+		virtual bool IsInstant() {return true;}
 	};
 
     class CastPainSuppressionOnPartyAction : public BuffOnPartyAction
@@ -251,17 +267,23 @@ namespace ai
         CastPainSuppressionOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "pain suppression") {}
 
         virtual string getName() { return "pain suppression on party"; }
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastPainSuppressionOnMasterAction : public BuffOnMasterAction
     {
     public:
         CastPainSuppressionOnMasterAction(PlayerbotAI* ai) : BuffOnMasterAction(ai, "pain suppression") {}
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastGuardianSpiritAction : public CastBuffSpellAction {
 	public:
 		CastGuardianSpiritAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "guardian spirit") {}
+
+		virtual bool IsInstant() {return true;}
 	};
 
     class CastGuardianSpiritOnPartyAction : public BuffOnPartyAction
@@ -270,6 +292,8 @@ namespace ai
         CastGuardianSpiritOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "guardian spirit") {}
 
         virtual string getName() { return "guardian spirit on party"; }
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastGuardianSpiritOnMasterAction : public BuffOnMasterAction
@@ -278,6 +302,8 @@ namespace ai
         CastGuardianSpiritOnMasterAction(PlayerbotAI* ai) : BuffOnMasterAction(ai, "guardian spirit") {}
 
         virtual string getName() { return "guardian spirit on party"; }
+
+        virtual bool IsInstant() {return true;}
     };
 
     class CastPowerInfusionAction : public CastBuffSpellAction {
@@ -369,12 +395,16 @@ namespace ai
 	{
     public:
 	    CastPowerWordPainAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "shadow word: pain") {}
+
+	    virtual bool IsInstant() {return true;}
 	};
 
 	class CastPowerWordPainOnAttackerAction : public CastDebuffSpellOnAttackerAction
 	{
     public:
 	    CastPowerWordPainOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "shadow word: pain") {}
+
+	    virtual bool IsInstant() {return true;}
 	};
 
     class CastDevouringPlagueAction : public CastDebuffSpellAction
@@ -384,6 +414,8 @@ namespace ai
 	     virtual bool isUseful() {
 			return !(AI_VALUE2(bool, "target normal", "current target"));
 	     }
+
+	     virtual bool IsInstant() {return true;}
 	};
 
     BEGIN_DEBUFF_ACTION(CastVampiricTouchAction, "vampiric touch")
@@ -457,12 +489,16 @@ namespace ai
 	{
 	public:
 	    CastPsychicScreamAction(PlayerbotAI* ai) : CastSpellAction(ai, "psychic scream") {}
+
+	    virtual bool IsInstant() {return true;}
 	};
 
 	class CastPsychicHorrorAction : public CastSpellAction
 	{
 	public:
 	    CastPsychicHorrorAction(PlayerbotAI* ai) : CastSpellAction(ai, "psychic horror") {}
+
+	    virtual bool IsInstant() {return true;}
 	};
 
 	class CastDispersionAction : public CastSpellAction
@@ -470,6 +506,8 @@ namespace ai
 	public:
 	    CastDispersionAction(PlayerbotAI* ai) : CastSpellAction(ai, "dispersion") {}
 	    virtual string GetTargetName() { return "self target"; }
+
+	    virtual bool IsInstant() {return true;}
 	};
 
 	class CastMindShearAction : public CastSpellAction

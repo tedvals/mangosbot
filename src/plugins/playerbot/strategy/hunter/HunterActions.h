@@ -5,36 +5,46 @@
 namespace ai
 {
     BEGIN_RANGED_SPELL_ACTION(CastHuntersMarkAction, "hunter's mark")
+    virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastAutoShotAction, "auto shot")
+    virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastArcaneShotAction, "arcane shot")
+    virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastExplosiveShotAction, "explosive shot")
+    virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastSteadyShotAction, "steady shot")
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastAimedShotAction, "aimed shot")
+    virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastChimeraShotAction, "chimera shot")
+    virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastConcussiveShotAction, "concussive shot")
+    virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastDistractingShotAction, "distracting shot")
+    virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastSilencingShotAction, "silencing shot")
+    virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastMisdirectionAction, "misdirection")
+    virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
     class CastMisdirectionOnPartyAction : public BuffOnPartyAction
@@ -59,10 +69,12 @@ namespace ai
 	END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastSerpentStingAction, "serpent sting")
+    virtual bool IsInstant() {return true;}
     virtual bool isUseful();
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastWyvernStingAction, "wyvern sting")
+    virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
     class CastWyvernStingCcAction : public CastBuffSpellAction
@@ -70,37 +82,44 @@ namespace ai
     public:
         CastWyvernStingCcAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "wyvern sting on cc") {}
         virtual Value<Unit*>* GetTargetValue();
+        virtual bool IsInstant() {return true;}
     };
 
     BEGIN_RANGED_SPELL_ACTION(CastViperStingAction, "viper sting")
+    virtual bool IsInstant() {return true;}
     virtual bool isUseful();
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastScorpidStingAction, "scorpid sting")
+    virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
 	class CastAspectOfTheHawkAction : public CastBuffSpellAction
 	{
 	public:
 		CastAspectOfTheHawkAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "aspect of the hawk") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastAspectOfTheDragonHawkAction : public CastBuffSpellAction
 	{
 	public:
 		CastAspectOfTheDragonHawkAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "aspect of the dragonhawk") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastAspectOfTheWildAction : public CastBuffSpellAction
 	{
 	public:
 		CastAspectOfTheWildAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "aspect of the wild") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastAspectOfTheCheetahAction : public CastBuffSpellAction
 	{
 	public:
 		CastAspectOfTheCheetahAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "aspect of the cheetah") {}
+		virtual bool IsInstant() {return true;}
 		virtual bool isUseful();
 	};
 
@@ -108,24 +127,28 @@ namespace ai
 	{
 	public:
 		CastAspectOfThePackAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "aspect of the pack") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastAspectOfTheViperAction : public CastBuffSpellAction
 	{
 	public:
 		CastAspectOfTheViperAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "aspect of the viper") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastAspectOfTheMonkeyAction : public CastBuffSpellAction
 	{
 	public:
 		CastAspectOfTheMonkeyAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "aspect of the monkey") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastCallPetAction : public CastBuffSpellAction
 	{
 	public:
 		CastCallPetAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "call pet") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastMendPetAction : public CastAuraSpellAction
@@ -133,6 +156,7 @@ namespace ai
 	public:
 		CastMendPetAction(PlayerbotAI* ai) : CastAuraSpellAction(ai, "mend pet") {}
 		virtual string GetTargetName() { return "pet target"; }
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastRevivePetAction : public CastBuffSpellAction
@@ -151,18 +175,21 @@ namespace ai
     {
     public:
         CastFeignDeathAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "feign death") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastDisengageAction : public CastSpellAction
     {
     public:
         CastDisengageAction(PlayerbotAI* ai) : CastSpellAction(ai, "disengage") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastDeterrenceAction : public CastBuffSpellAction
     {
     public:
         CastDeterrenceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "deterrence") {}
+        virtual bool IsInstant() {return true;}
     };
 
 	class CastRapidFireAction : public CastBuffSpellAction
@@ -175,36 +202,42 @@ namespace ai
 	{
 	public:
 		CastReadinessAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "readiness") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastBestialWrathAction : public CastBuffSpellAction
 	{
 	public:
 		CastBestialWrathAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "bestial wrath") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastIntimidationAction : public CastBuffSpellAction
 	{
 	public:
 		CastIntimidationAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "intimidation") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastKillCommandAction : public CastBuffSpellAction
 	{
 	public:
 		CastKillCommandAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "kill command") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastKillShotAction : public CastBuffSpellAction
 	{
 	public:
 		CastKillShotAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "kill shot") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastBlackArrow : public CastDebuffSpellAction
 	{
 	public:
 		CastBlackArrow(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "black arrow") {}
+		virtual bool IsInstant() {return true;}
 	};
 
     class CastFreezingTrapCcAction : public CastDebuffSpellAction
@@ -212,6 +245,7 @@ namespace ai
     public:
         CastFreezingTrapCcAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "freezing trap on cc") {}
         virtual Value<Unit*>* GetTargetValue();
+        virtual bool IsInstant() {return true;}
     };
 
     class CastFreezingTrapAction : public CastSpellAction
@@ -223,12 +257,14 @@ namespace ai
         {
             return NextAction::merge( NextAction::array(0, new NextAction("immolation trap"), NULL), CastSpellAction::getAlternatives());
         }
+        virtual bool IsInstant() {return true;}
     };
 
     class CastFrostTrapAction : public CastDebuffSpellAction
     {
     public:
         CastFrostTrapAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "frost trap") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastWingClipAction : public CastMeleeSpellAction
@@ -240,6 +276,7 @@ namespace ai
            // return CastMeleeSpellAction::isUseful() && !ai->HasAura("wing clip"), GetTarget());
            return CastMeleeSpellAction::isUseful() && !ai->HasAnyAuraOf(GetTarget(), "slow", "wing clip", "frost shock", "crippling poison", "hamstring", NULL);
         }
+        virtual bool IsInstant() {return true;}
 
    //     NextAction** getContinuers()
    //     {
@@ -251,18 +288,21 @@ namespace ai
     {
     public:
         CastSnakeTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "snake trap") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastImmolationTrapAction : public CastSpellAction
     {
     public:
         CastImmolationTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "immolation trap") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastExplosiveTrapAction : public CastSpellAction
     {
     public:
         CastExplosiveTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "explosive trap") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastCounterAttackAction : public CastMeleeSpellAction
@@ -273,6 +313,7 @@ namespace ai
         {
             return CastMeleeSpellAction::isUseful();
         }
+        virtual bool IsInstant() {return true;}
     };
 
 
@@ -290,11 +331,13 @@ namespace ai
     {
     public:
         CastSerpentStingOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "serpent sting") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastHuntersMarkActionOnAttackerAction : public CastDebuffSpellOnAttackerAction
     {
     public:
         CastHuntersMarkActionOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "hunter's mark") {}
+        virtual bool IsInstant() {return true;}
     };
 }

@@ -198,6 +198,12 @@ Engine* AiFactory::createCombatEngine(Player* player, PlayerbotAI* const facade,
     return engine;
 }
 
+Engine* AiFactory::createMobileEngine(Player* player, PlayerbotAI* const facade, AiObjectContext* AiObjectContext) {
+	Engine* engine = new Engine(facade, AiObjectContext);
+    AddDefaultMobileStrategies(player, facade, engine);
+    return engine;
+}
+
 void AiFactory::AddDefaultNonCombatStrategies(Player* player, PlayerbotAI* const facade, Engine* nonCombatEngine)
 {
     int tab = GetPlayerSpecTab(player);
@@ -263,6 +269,12 @@ void AiFactory::AddDefaultDeadStrategies(Player* player, PlayerbotAI* const faca
         deadEngine->removeStrategy("follow");
     }
 }
+
+void AiFactory::AddDefaultMobileStrategies(Player* player, PlayerbotAI* const facade, Engine* mobileEngine)
+{
+    mobileEngine->addStrategies("mobile", "stay", "chat", "default", "follow", NULL);
+}
+
 
 Engine* AiFactory::createDeadEngine(Player* player, PlayerbotAI* const facade, AiObjectContext* AiObjectContext) {
     Engine* deadEngine = new Engine(facade, AiObjectContext);
