@@ -10,7 +10,7 @@ class FireMageStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
 public:
     FireMageStrategyActionNodeFactory()
     {
-        creators["fireball"] = &fire_blast;
+        //creators["fireball"] = &fire_blast;
         creators["fire blast"] = &fire_blast;
         creators["scorch"] = &scorch;
         creators["combustion"] = &combustion;

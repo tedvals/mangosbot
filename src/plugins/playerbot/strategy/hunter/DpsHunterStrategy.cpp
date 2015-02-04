@@ -18,9 +18,7 @@ public:
         creators["steady shot"] = &steady_shot;
         creators["concussive shot"] = &concussive_shot;
         creators["viper sting"] = &viper_sting;
-        creators["boost"] = &bestial_wrath;
-        creators["bestial wrath"] = &bestial_wrath;
-    }
+            }
 private:
     static ActionNode* viper_sting(PlayerbotAI* ai)
     {
@@ -70,13 +68,6 @@ private:
             /*P*/ NULL,
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("flee", 40.0f), NULL));
-    }
-    static ActionNode* bestial_wrath(PlayerbotAI* ai)
-    {
-        return new ActionNode ("bestial wrath",
-            /*P*/ NULL,
-            /*A*/ NULL,
-            /*C*/ NULL);
     }
 };
 

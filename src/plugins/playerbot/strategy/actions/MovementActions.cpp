@@ -166,6 +166,8 @@ bool MovementAction::MoveToUnit(Unit* target)
 
     bot->GetMotionMaster()->Clear();
     bot->GetMotionMaster()->MoveChase(target);
+
+    ai->DoNextAction(1,true);
 }
 
 float MovementAction::GetFollowAngle()
@@ -245,10 +247,10 @@ bool MovementAction::Follow(Unit* target, float distance, float angle)
         return false;
 
     if (bot->GetDistance2d(target->GetPositionX(), target->GetPositionY()) <= sPlayerbotAIConfig.sightDistance &&
-            abs(bot->GetPositionZ() - target->GetPositionZ()) >= sPlayerbotAIConfig.spellDistance)
+            abs(bot->GetPositionZ() - target->GetPositionZ()) >= sPlayerbotAIConfig.tooCloseDistance)
     {
         mm.Clear();
-        float x = bot->GetPositionX(), y = bot->GetPositionY(), z = target->GetPositionZ();
+        float x = target->GetPositionX(), y = target->GetPositionY(), z = target->GetPositionZ();
         if (target->GetMapId() && bot->GetMapId() != target->GetMapId())
         {
             bot->TeleportTo(target->GetMapId(), x, y, z, bot->GetOrientation());
@@ -294,10 +296,10 @@ bool MovementAction::GetBehind(Unit* target, float distance, float angle)
         return false;
 
     if (bot->GetDistance2d(target->GetPositionX(), target->GetPositionY()) <= sPlayerbotAIConfig.sightDistance &&
-            abs(bot->GetPositionZ() - target->GetPositionZ()) >= sPlayerbotAIConfig.spellDistance)
+            abs(bot->GetPositionZ() - target->GetPositionZ()) >= sPlayerbotAIConfig.tooCloseDistance)
     {
         mm.Clear();
-        float x = bot->GetPositionX(), y = bot->GetPositionY(), z = target->GetPositionZ();
+        float x = target->GetPositionX(), y = target->GetPositionY(), z = target->GetPositionZ();
         if (target->GetMapId() && bot->GetMapId() != target->GetMapId())
         {
            return false;

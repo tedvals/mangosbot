@@ -30,7 +30,7 @@ private:
         return new ActionNode ("rapid fire",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("readiness"), NULL),
-            /*C*/ NULL);
+            /*C*/ NextAction::array(0, new NextAction("bestial wrath"), NULL));
     }
     static ActionNode* aspect_of_the_dragonhawk(PlayerbotAI* ai)
     {
