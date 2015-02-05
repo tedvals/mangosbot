@@ -168,9 +168,11 @@ namespace ai
                 creators["entangling roots"] = &AiObjectContextInternal::entangling_roots;
                 creators["entangling roots on cc"] = &AiObjectContextInternal::entangling_roots_on_cc;
                 creators["wrath"] = &AiObjectContextInternal::wrath;
+		creators["wrath heal"] = &AiObjectContextInternal::wrath2;
                 creators["starfall"] = &AiObjectContextInternal::starfall;
                 creators["insect swarm"] = &AiObjectContextInternal::insect_swarm;
                 creators["moonfire"] = &AiObjectContextInternal::moonfire;
+		creators["moonfire heal"] = &AiObjectContextInternal::moonfire2;
                 creators["starfire"] = &AiObjectContextInternal::starfire;
                 creators["nature's grasp"] = &AiObjectContextInternal::natures_grasp;
                 creators["typhoon"] = &AiObjectContextInternal::typhoon;
@@ -209,6 +211,8 @@ namespace ai
                 creators["lifebloom"] = &AiObjectContextInternal::lifebloom;
                 creators["swiftmend"] = &AiObjectContextInternal::swiftmend;
                 creators["nature's swiftness"] = &AiObjectContextInternal::natures_swiftness;
+		creators["nature's swiftness on master"] = &AiObjectContextInternal::natures_swiftness_on_master;
+		creators["nature's swiftness on party"] = &AiObjectContextInternal::natures_swiftness_on_party;
                 creators["rejuvenation"] = &AiObjectContextInternal::rejuvenation;
                 creators["healing touch"] = &AiObjectContextInternal::healing_touch;
                 creators["regrowth on party"] = &AiObjectContextInternal::regrowth_on_party;
@@ -265,11 +269,13 @@ namespace ai
             static Action* entangling_roots(PlayerbotAI* ai) { return new CastEntanglingRootsAction(ai); }
             static Action* entangling_roots_on_cc(PlayerbotAI* ai) { return new CastEntanglingRootsCcAction(ai); }
             static Action* wrath(PlayerbotAI* ai) { return new CastWrathAction(ai); }
+	    static Action* wrath2(PlayerbotAI* ai) { return new CastWrathAction2(ai); }
             static Action* starfall(PlayerbotAI* ai) { return new CastStarfallAction(ai); }
             static Action* force_of_nature(PlayerbotAI* ai) { return new CastForceofNatureAction(ai); }
             static Action* typhoon(PlayerbotAI* ai) { return new CastTyphoonAction(ai); }
             static Action* insect_swarm(PlayerbotAI* ai) { return new CastInsectSwarmAction(ai); }
             static Action* moonfire(PlayerbotAI* ai) { return new CastMoonfireAction(ai); }
+	    static Action* moonfire2(PlayerbotAI* ai) { return new CastMoonfireAction2(ai); }
             static Action* starfire(PlayerbotAI* ai) { return new CastStarfireAction(ai); }
             static Action* natures_grasp(PlayerbotAI* ai) { return new CastNaturesGraspAction(ai); }
             static Action* claw(PlayerbotAI* ai) { return new CastClawAction(ai); }
@@ -307,6 +313,8 @@ namespace ai
             static Action* swiftmend(PlayerbotAI* ai) { return new CastSwiftmendAction(ai); }
             static Action* wild_growth(PlayerbotAI* ai) { return new CastWildGrowthAction(ai); }
             static Action* natures_swiftness(PlayerbotAI* ai) { return new CastNaturesSwiftnessAction(ai); }
+	    static Action* natures_swiftness_on_party(PlayerbotAI* ai) { return new CastNaturesSwiftnessOnPartyAction(ai); }
+	    static Action* natures_swiftness_on_master(PlayerbotAI* ai) { return new CastNaturesSwiftnessOnMasterAction(ai); }
             static Action* regrowth_on_party(PlayerbotAI* ai) { return new CastRegrowthOnPartyAction(ai); }
             static Action* nourish_on_party(PlayerbotAI* ai) { return new CastNourishOnPartyAction(ai); }
             static Action* lifebloom_on_party(PlayerbotAI* ai) { return new CastLifebloomOnPartyAction(ai); }

@@ -300,11 +300,12 @@ namespace ai
 		CastStarfallAction(PlayerbotAI* ai) : CastSpellAction(ai, "starfall") {}
 	};
 
-    class CastTyphoonAction : public CastSpellAction
+       class CastTyphoonAction : public CastSpellAction
 	{
 	public:
 		CastTyphoonAction(PlayerbotAI* ai) : CastSpellAction(ai, "typhoon") {}
 		virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance;}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastHurricaneAction : public CastSpellAction
@@ -341,6 +342,24 @@ namespace ai
 		CastEntanglingRootsAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "entangling roots") {}
 	};
 
+	class CastWrathAction2 : public CastSpellAction
+    	{
+    	public:
+        	CastWrathAction2(PlayerbotAI* ai) : CastSpellAction(ai, "wrath") {}
+        	virtual bool isUseful() {
+            	return (CastSpellAction::isUseful() && AI_VALUE2(uint8, "mana", "self target") > 75);
+        	}
+    	};
+
+	class CastMoonfireAction2 : public CastSpellAction
+    	{
+    	public:
+        	CastMoonfireAction2(PlayerbotAI* ai) : CastSpellAction(ai, "moonfire") {}
+        	virtual bool isUseful() {
+            	return (CastSpellAction::isUseful() && AI_VALUE2(uint8, "mana", "self target") > 75);
+        	}
+    	};
+
     class CastEntanglingRootsCcAction : public CastDebuffSpellAction
     {
     public:
@@ -360,12 +379,37 @@ namespace ai
 	{
 	public:
 		CastForceofNatureAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "force of nature") {}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastNaturesSwiftnessAction : public CastBuffSpellAction
 	{
 	public:
 		CastNaturesSwiftnessAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "nature's swiftness") {}
+		virtual bool IsInstant() {return true;}
+	};
+
+	class CastNaturesSwiftnessAction : public CastBuffSpellAction
+	{
+	public:
+		CastNaturesSwiftnessAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "nature's swiftness") {}
+		virtual bool IsInstant() {return true;}
+	};
+
+	class CastNaturesSwiftnessOnMasterAction : public CastBuffSpellAction
+	{
+	public:
+		CastNaturesSwiftnessOnMasterAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "nature's swiftness on master") {}
+		virtual bool Execute(Event event);
+		virtual bool IsInstant() {return true;}
+	};
+
+	class CastNaturesSwiftnessOnPartyAction : public CastBuffSpellAction
+	{
+	public:
+		CastNaturesSwiftnessOnPartyAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "nature's swiftness on party") {}
+		virtual bool Execute(Event event);
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastHibernateAction : public CastSpellAction

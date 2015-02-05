@@ -66,6 +66,13 @@ private:
             /*A*/ NextAction::array(0, new NextAction("hurricane"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* typhoon(PlayerbotAI* ai)
+    {
+        return new ActionNode ("typhoon",
+            /*P*/ NextAction::array(0, new NextAction("moonkin form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("nature's grasp"),NULL,
+            /*C*/ NULL);
+    }
     static ActionNode* insect_swarm(PlayerbotAI* ai)
     {
         return new ActionNode ("insect swarm",
@@ -167,10 +174,6 @@ void CasterDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "moonfire",
         NextAction::array(0, new NextAction("moonfire", ACTION_NORMAL + 4), NULL)));
 
-	triggers.push_back(new TriggerNode(
-		"nature's grasp",
-		NextAction::array(0, new NextAction("nature's grasp", ACTION_EMERGENCY), NULL)));
-
     triggers.push_back(new TriggerNode(
 		"have aggro",
 		NextAction::array(0, new NextAction("barkskin", ACTION_EMERGENCY), NULL)));
@@ -180,8 +183,8 @@ void CasterDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("entangling roots on cc", ACTION_HIGH + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "enemy too close for spell",
-        NextAction::array(0, new NextAction("typhoon", ACTION_EMERGENCY), NULL)));
+        "enemy too close  for spell",
+        NextAction::array(0, new NextAction("typhoon", ACTION_MOVE + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "boost",

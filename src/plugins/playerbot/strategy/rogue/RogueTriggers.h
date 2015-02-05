@@ -18,7 +18,7 @@ namespace ai
 	{
 	public:
 		RuptureTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "rupture") {}
-		virtual bool IsActive() { return (DebuffTrigger::IsActive() && ai->HasAura("slice and dice", bot));}
+		virtual bool IsActive() { return DebuffTrigger::IsActive() && ai->HasAura("slice and dice", bot);}
 	};
 
     DEBUFF_TRIGGER(PremeditationTrigger, "premeditation","premeditation");
@@ -40,13 +40,14 @@ namespace ai
     {
     public:
         ExposeArmorTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "expose armor") {}
+	virtual bool IsActive() { return DebuffTrigger::IsActive() && !ai->HasAura("sunder armor", bot) && (AI_VALUE2(bool, "target boss", "current target");}
     };
 
     class GarroteTrigger : public DebuffTrigger
     {
     public:
         GarroteTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "garrote") {}
-        virtual bool IsActive() { return (DebuffTrigger::IsActive() && ai->HasAura("stealth", AI_VALUE(Unit*, "self target")));}
+        virtual bool IsActive() { return DebuffTrigger::IsActive() && ai->HasAura("stealth", bot);}
     };
 
     class KickInterruptEnemyHealerSpellTrigger : public InterruptEnemyHealerTrigger

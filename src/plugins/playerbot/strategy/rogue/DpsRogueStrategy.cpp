@@ -12,7 +12,6 @@ public:
     {
         creators["sap"] = &sap;
         creators["garrote"] = &garrote;
-        creators["stealth"] = &stealth;
         creators["backstab"] = &backstab;
         creators["kick"] = &kick;
         creators["gouge"] = &gouge;
@@ -24,16 +23,10 @@ public:
         creators["vanish"] = &vanish;
         creators["ambush"] = &ambush;
         creators["cheap shot"] = &cheap_shot;
+	creators["sunder armor"] = &sunder_armor;
     }
 private:
 
-    static ActionNode* stealth(PlayerbotAI* ai)
-    {
-        return new ActionNode ("stealth",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
-            /*C*/ NextAction::array(0, new NextAction("garrote"), NULL));
-    }
     static ActionNode* move_behind(PlayerbotAI* ai)
     {
         return new ActionNode ("move behind",
@@ -122,7 +115,7 @@ private:
     {
         return new ActionNode ("cheap shot",
             /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
+            /*A*/ NULL,
             /*C*/ NULL);
     }
 };
@@ -143,7 +136,7 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "stealth",
-        NextAction::array(0, new NextAction("stealth", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("stealth", ACTION_MOVE + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "takes periodic damage",
@@ -159,7 +152,7 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "combo points available",
-        NextAction::array(0, new NextAction("rupture", ACTION_HIGH + 4), NULL)));
+        NextAction::array(0, new NextAction("sunder armor", ACTION_HIGH + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "combo point available",
@@ -171,7 +164,7 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "rupture",
-        NextAction::array(0, new NextAction("rupture", ACTION_HIGH), NULL)));
+        NextAction::array(0, new NextAction("rupture", ACTION_NORMAL + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
         "slice and dice",
@@ -308,7 +301,7 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "rupture",
-        NextAction::array(0, new NextAction("rupture", ACTION_HIGH), NULL)));
+        NextAction::array(0, new NextAction("rupture", ACTION_NORMAL + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
         "not facing target",

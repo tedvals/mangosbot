@@ -13,8 +13,24 @@ public:
         creators["swiftmend"] = &swiftmend;
         creators["swiftmend on party"] = &swiftmend_on_party;
         creators["swiftmend on master"] = &swiftmend_on_master;
+        creators["regrowth"] = &regrowth;
+        creators["regrowth on party"] = &regrowth_on_party;
+        creators["regrowth on master"] = &regrowth_on_master;
+        creators["rejuvenation"] = &rejuvenation;
+        creators["rejuvenation on party"] = &rejuvenation_on_party;
+        creators["rejuvenation on master"] = &rejuvenation_on_master;
+        creators["nourish"] = &nourish;
+        creators["nourish on party"] = &nourish_on_party;
+        creators["nourish on master"] = &nourish_on_master;
         creators["wild growth on master"] = &wild_growth_on_master;
+        creators["swiftmend"] = &swiftmend;
+        creators["swiftmend on party"] = &swiftmend_on_party;
+        creators["swiftmend on master"] = &swiftmend_on_master;
+	creators["moonfire"] = &moonfire;
+	creators["nature's grasp"] =natures_grasp;
         creators["nature's swiftness"] = &nature_swiftness;
+	creators["nature's swiftness on party"] = &nature_swiftness_on_party;
+	creators["nature's swiftness on master"] = &nature_swiftness_on_master;
     }
 private:
     static ActionNode* swiftmend(PlayerbotAI* ai)
@@ -38,6 +54,70 @@ private:
             /*A*/ NextAction::array(0, new NextAction("nature's swiftness"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* regrowth(PlayerbotAI* ai)
+    {
+        return new ActionNode ("regrowth",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("nourish"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* regrowth_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("regrowth on party",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("nourish on party"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* regrowth_on_master(PlayerbotAI* ai)
+    {
+        return new ActionNode ("regrowth on master",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("nourish on master"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* nourish(PlayerbotAI* ai)
+    {
+        return new ActionNode ("nourish",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("healing touch"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* nourish_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("nourish on party",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("healing touch on party"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* nourish_on_master(PlayerbotAI* ai)
+    {
+        return new ActionNode ("nourish on master",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("healing touch on master"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* rejuvenation(PlayerbotAI* ai)
+    {
+        return new ActionNode ("rejuvenation",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("lifebloom"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* rejuvenation_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("rejuvenation on party",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("lifebloom on party"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* rejuvenation_on_master(PlayerbotAI* ai)
+    {
+        return new ActionNode ("rejuvenation on master",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("lifebloom on master"), NULL),
+            /*C*/ NULL);
+    }
+
     static ActionNode* wild_growth_on_master(PlayerbotAI* ai)
     {
         return new ActionNode ("wild growth on master",
@@ -52,6 +132,35 @@ private:
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("healing touch"), NULL));
     }
+    static ActionNode* nature_swiftness_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("nature's swiftness on party",
+            /*P*/ NULL,
+            /*A*/ NULL,
+            /*C*/ NextAction::array(0, new NextAction("healing touch on party"), NULL));
+    }
+    static ActionNode* nature_swiftness_on_master(PlayerbotAI* ai)
+    {
+        return new ActionNode ("nature's swiftness on master",
+            /*P*/ NULL,
+            /*A*/ NULL,
+            /*C*/ NextAction::array(0, new NextAction("healing touch on master"), NULL));
+    } 
+   static ActionNode* moonfire(PlayerbotAI* ai)
+    {
+        return new ActionNode ("moonfire",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+   static ActionNode* natures_grasp(PlayerbotAI* ai)
+    {
+        return new ActionNode ("nature's grasp",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NextAction::array(0, new NextAction("flee", 49.0f), NULL));
+    }
+
 };
 
 HealDruidStrategy::HealDruidStrategy(PlayerbotAI* ai) : GenericDruidStrategy(ai)
@@ -68,8 +177,16 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("reach spell", ACTION_MOVE + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "moonfire",
+        NextAction::array(0, new NextAction("moonfire heal", ACTION_NORMAL + 1), new NextAction("wrath heal", ACTION_NORMAL), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "tree form",
         NextAction::array(0, new NextAction("tree form", ACTION_HIGH + 1), NULL)));
+
+ 	triggers.push_back(new TriggerNode(
+        "enemy too close for spell",
+        NextAction::array(0, new NextAction("nature's grasp", ACTION_MOVE + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium health",
@@ -110,6 +227,11 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "almost full aoe heal",
         NextAction::array(0, new NextAction("wild growth on master", ACTION_MEDIUM_HEAL + 3), NULL)));
+
+	triggers.push_back(new TriggerNode(
+	"have aggro",
+	NextAction::array(0, new NextAction("barkskin", ACTION_EMERGENCY), NULL)));
+
 
     triggers.push_back(new TriggerNode(
         "entangling roots",
