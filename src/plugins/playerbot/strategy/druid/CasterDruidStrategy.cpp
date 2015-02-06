@@ -70,7 +70,7 @@ private:
     {
         return new ActionNode ("typhoon",
             /*P*/ NextAction::array(0, new NextAction("moonkin form"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("nature's grasp"),NULL,
+            /*A*/ NextAction::array(0, new NextAction("nature's grasp"),NULL),
             /*C*/ NULL);
     }
     static ActionNode* insect_swarm(PlayerbotAI* ai)

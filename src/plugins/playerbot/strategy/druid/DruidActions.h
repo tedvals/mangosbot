@@ -44,7 +44,9 @@ namespace ai
 
     class CastNourishAction : public CastHealingSpellAction {
 	public:
-		CastNourishAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "nourish",10) {}
+		CastNourishAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "nourish",15) {}
+
+		virtual bool isUseful() {return ai->HasAnyAuraOf(bot, "rejuvenation", "regrowth", "lifebloom", NULL);}
 	};
 
 	class CastWildGrowthAction : public HealPartyMemberAction {
@@ -87,13 +89,14 @@ namespace ai
     class CastNourishOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastNourishOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "nourish",10) {}
+        CastNourishOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "nourish",15) {}
+        virtual bool isUseful() {return ai->HasAnyAuraOf(GetTarget(), "rejuvenation", "regrowth", "lifebloom", NULL);}
     };
 
     class CastLifebloomOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastLifebloomOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "lifebloom",5) {}
+        CastLifebloomOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "lifebloom",10) {}
 
         virtual bool IsInstant() {return true;}
     };
@@ -187,6 +190,8 @@ namespace ai
     {
     public:
         CastNourishOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "nourish",15) {}
+
+        virtual bool isUseful() {return ai->HasAnyAuraOf(GetTarget(), "rejuvenation", "regrowth", "lifebloom", NULL);}
     };
 
     class CastLifebloomOnMasterAction : public HealMasterAction
@@ -379,13 +384,6 @@ namespace ai
 	{
 	public:
 		CastForceofNatureAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "force of nature") {}
-		virtual bool IsInstant() {return true;}
-	};
-
-	class CastNaturesSwiftnessAction : public CastBuffSpellAction
-	{
-	public:
-		CastNaturesSwiftnessAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "nature's swiftness") {}
 		virtual bool IsInstant() {return true;}
 	};
 

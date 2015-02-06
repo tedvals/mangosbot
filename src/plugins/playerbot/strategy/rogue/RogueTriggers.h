@@ -40,7 +40,7 @@ namespace ai
     {
     public:
         ExposeArmorTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "expose armor") {}
-	virtual bool IsActive() { return DebuffTrigger::IsActive() && !ai->HasAura("sunder armor", bot) && (AI_VALUE2(bool, "target boss", "current target");}
+	virtual bool IsActive() { return DebuffTrigger::IsActive() && !ai->HasAura("sunder armor", bot) && (AI_VALUE2(bool, "target boss", "current target"));}
     };
 
     class GarroteTrigger : public DebuffTrigger

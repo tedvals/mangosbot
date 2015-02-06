@@ -26,11 +26,11 @@ public:
         creators["swiftmend"] = &swiftmend;
         creators["swiftmend on party"] = &swiftmend_on_party;
         creators["swiftmend on master"] = &swiftmend_on_master;
-	creators["moonfire"] = &moonfire;
-	creators["nature's grasp"] =natures_grasp;
+        creators["moonfire"] = &moonfire;
+        creators["nature's grasp"] =natures_grasp;
         creators["nature's swiftness"] = &nature_swiftness;
-	creators["nature's swiftness on party"] = &nature_swiftness_on_party;
-	creators["nature's swiftness on master"] = &nature_swiftness_on_master;
+        creators["nature's swiftness on party"] = &nature_swiftness_on_party;
+        creators["nature's swiftness on master"] = &nature_swiftness_on_master;
     }
 private:
     static ActionNode* swiftmend(PlayerbotAI* ai)
@@ -145,7 +145,7 @@ private:
             /*P*/ NULL,
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("healing touch on master"), NULL));
-    } 
+    }
    static ActionNode* moonfire(PlayerbotAI* ai)
     {
         return new ActionNode ("moonfire",
@@ -205,7 +205,19 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("regrowth on master", ACTION_CRITICAL_HEAL), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "party member critical health",
+        "low health",
+        NextAction::array(0, new NextAction("nourish", ACTION_MEDIUM_HEAL + 9), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member low health",
+        NextAction::array(0, new NextAction("nourish on party", ACTION_MEDIUM_HEAL + 7), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master low health",
+        NextAction::array(0, new NextAction("nourish on master", ACTION_MEDIUM_HEAL + 8), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party low critical health",
         NextAction::array(0, new NextAction("swiftmend on party", ACTION_CRITICAL_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
@@ -229,9 +241,8 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("wild growth on master", ACTION_MEDIUM_HEAL + 3), NULL)));
 
 	triggers.push_back(new TriggerNode(
-	"have aggro",
-	NextAction::array(0, new NextAction("barkskin", ACTION_EMERGENCY), NULL)));
-
+        "have aggro",
+        NextAction::array(0, new NextAction("barkskin", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
         "entangling roots",

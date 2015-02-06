@@ -45,11 +45,6 @@ bool CastHibernateCcAction::Execute(Event event)
     return ai->CastSpell("hibernate", GetTarget());
 }
 
-bool CastNaturesSwiftnessAction::Execute(Event event)
-{
-    return ai->CastSpell("nature's swiftness", GetTarget());
-}
-
 bool CastNaturesSwiftnessOnMasterAction::Execute(Event event)
 {
     return ai->CastSpell("nature's swiftness", GetTarget());

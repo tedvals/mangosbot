@@ -17,13 +17,13 @@ public:
         creators["gouge"] = &gouge;
         creators["kidney shot"] = &kidney_shot;
         creators["evasion"] = &evasion;
-	creators["dismantle"] = &dismantle;
+        creators["dismantle"] = &dismantle;
         creators["move behind"] = &move_behind;
-	creators["reach melee"] = &reach_melee;
+        creators["reach melee"] = &reach_melee;
         creators["vanish"] = &vanish;
         creators["ambush"] = &ambush;
         creators["cheap shot"] = &cheap_shot;
-	creators["sunder armor"] = &sunder_armor;
+        creators["sunder armor"] = &sunder_armor;
     }
 private:
 
@@ -102,6 +102,13 @@ private:
         return new ActionNode ("dismantle",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("blind"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* sunder_armor(PlayerbotAI* ai)
+    {
+        return new ActionNode ("sunder armor",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("rupture"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* ambush(PlayerbotAI* ai)
@@ -184,6 +191,10 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
 		"critical health",
+		NextAction::array(0, new NextAction("vanish", ACTION_EMERGENCY), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"party member critical health",
 		NextAction::array(0, new NextAction("vanish", ACTION_EMERGENCY), NULL)));
 
 	triggers.push_back(new TriggerNode(
