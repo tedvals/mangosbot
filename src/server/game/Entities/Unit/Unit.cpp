@@ -10513,7 +10513,7 @@ float Unit::GetUnitSpellCriticalChance(Unit* victim, SpellInfo const* spellProto
 
                     switch ((*i)->GetMiscValue())
                     {
-                        case 911: // Shatter (Rank 1)
+                        case 849: // Shatter (Rank 1)
                             if (victim->HasAuraState(AURA_STATE_FROZEN, spellProto, this))
                                 crit_chance += 17;
                             break;
@@ -10521,7 +10521,7 @@ float Unit::GetUnitSpellCriticalChance(Unit* victim, SpellInfo const* spellProto
                              if (victim->HasAuraState(AURA_STATE_FROZEN, spellProto, this))
                                  crit_chance += 34;
                              break;
-                        case 849: // Shatter (Rank 3)
+                        case 911: // Shatter (Rank 3)
                             if (victim->HasAuraState(AURA_STATE_FROZEN, spellProto, this))
                                 crit_chance += 50;
                              break;

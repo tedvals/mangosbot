@@ -116,6 +116,13 @@ class DBCStorage
 #ifdef ELUNA
         uint32  GetNumRows() const {return loaded ? data.size() : nCount; }
 #else
+        T const* AssertEntry(uint32 id) const
+        {
+            T const* entry = LookupEntry(id);
+            ASSERT(entry);
+            return entry;
+        }
+
         uint32  GetNumRows() const { return nCount; }
 #endif
         char const* GetFormat() const { return fmt; }
