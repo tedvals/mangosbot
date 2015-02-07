@@ -101,7 +101,7 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy too close for spell",
-        NextAction::array(0, new NextAction("frost nova", ACTION_MOVE + 8), new NextAction("blink",ACTION_MOVE + 7), NULL)));
+        NextAction::array(0, new NextAction("frost nova", ACTION_MOVE + 8), new NextAction("flee",ACTION_MOVE + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy out of spell",
@@ -109,7 +109,11 @@ void GenericMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "have aggro",
-        NextAction::array(0, new NextAction("frost nova",ACTION_MOVE + 9), new NextAction("blink",ACTION_MOVE + 8), NULL)));
+        NextAction::array(0, new NextAction("frost nova",ACTION_MOVE + 9), new NextAction("flee",ACTION_MOVE + 8), NULL)));
+
+   triggers.push_back(new TriggerNode(
+        "runaway",
+        NextAction::array(0, new NextAction("frost nova", ACTION_EMERGENCY + 7), new NextAction("blink", ACTION_EMERGENCY + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
         "remove curse",

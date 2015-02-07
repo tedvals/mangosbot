@@ -275,25 +275,25 @@ namespace ai
     class MeleeNoAoeTrigger : public MeleeAoeTrigger
     {
     public:
-        MeleeNoAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 1, 5.0f) {}
+        MeleeNoAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 1, 8.0f) {}
     };
 
     class MeleeLightAoeTrigger : public MeleeAoeTrigger
     {
     public:
-        MeleeLightAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 2, 5.0f) {}
+        MeleeLightAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 2, 8.0f) {}
     };
 
     class MeleeMediumAoeTrigger : public MeleeAoeTrigger
     {
     public:
-        MeleeMediumAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 3, 5.0f) {}
+        MeleeMediumAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 3, 8.0f) {}
     };
 
     class MeleeHighAoeTrigger : public MeleeAoeTrigger
     {
     public:
-        MeleeHighAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 4, 5.0f) {}
+        MeleeHighAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 4, 8.0f) {}
     };
 
     class BuffTrigger : public SpellTrigger

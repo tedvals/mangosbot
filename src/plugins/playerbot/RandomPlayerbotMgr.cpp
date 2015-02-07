@@ -370,6 +370,9 @@ void RandomPlayerbotMgr::Randomize(Player* bot)
 
 void RandomPlayerbotMgr::IncreaseLevel(Player* bot)
 {
+    if (!IsRandomBot(bot))
+        return;
+
     uint32 maxLevel = sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL);
     uint32 level = min((uint32)(bot->getLevel() + 1), maxLevel);
     PlayerbotFactory factory(bot, level);

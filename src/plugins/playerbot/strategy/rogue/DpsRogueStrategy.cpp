@@ -10,7 +10,6 @@ class DpsRogueStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
 public:
     DpsRogueStrategyActionNodeFactory()
     {
-        creators["sap"] = &sap;
         creators["garrote"] = &garrote;
         creators["backstab"] = &backstab;
         creators["kick"] = &kick;
@@ -19,6 +18,7 @@ public:
         creators["evasion"] = &evasion;
         creators["dismantle"] = &dismantle;
         creators["move behind"] = &move_behind;
+        creators["melee"] = &melee;
         creators["reach melee"] = &reach_melee;
         creators["vanish"] = &vanish;
         creators["ambush"] = &ambush;
@@ -34,6 +34,13 @@ private:
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("garrote"), NULL));
     }
+    static ActionNode* melee(PlayerbotAI* ai)
+    {
+        return new ActionNode ("melee",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("garrote"), NULL));
+    }
     static ActionNode* reach_melee(PlayerbotAI* ai)
     {
         return new ActionNode ("reach melee",
@@ -46,13 +53,6 @@ private:
         return new ActionNode ("garrote",
             /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
             /*A*/ NextAction::array(0, new NextAction("ambush"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* sap(PlayerbotAI* ai)
-    {
-        return new ActionNode ("sap",
-            /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("garrote"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* backstab(PlayerbotAI* ai)
@@ -122,7 +122,7 @@ private:
     {
         return new ActionNode ("cheap shot",
             /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
-            /*A*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("garrote sword"), NULL),
             /*C*/ NULL);
     }
 };
@@ -183,7 +183,7 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "snared",
-        NextAction::array(0, new NextAction("sprint", ACTION_HIGH + 5), NULL)));
+        NextAction::array(0, new NextAction("sprint", ACTION_HIGH + 4), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"medium threat",
@@ -191,11 +191,11 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
 		"critical health",
-		NextAction::array(0, new NextAction("vanish", ACTION_EMERGENCY), NULL)));
+		NextAction::array(0, new NextAction("vanish", ACTION_EMERGENCY + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"party member critical health",
-		NextAction::array(0, new NextAction("vanish", ACTION_EMERGENCY), NULL)));
+		NextAction::array(0, new NextAction("dismantle", ACTION_HIGH + 7), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"kick",
@@ -211,11 +211,19 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "have aggro",
-        NextAction::array(0, new NextAction("evasion", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("evasion", ACTION_EMERGENCY + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "almost dead",
-        NextAction::array(0, new NextAction("bandage", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("bandage", ACTION_EMERGENCY + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "garrote",
+        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY + 2), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "runaway",
+        NextAction::array(0, new NextAction("blind", ACTION_EMERGENCY + 7), new NextAction("sprint", ACTION_EMERGENCY + 6), new NextAction("stealth", ACTION_EMERGENCY + 5),NULL)));
 }
 
 class DpsSwordRogueStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
@@ -291,12 +299,12 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     DpsRogueStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
-        "enemy out of melee",
-        NextAction::array(0, new NextAction("move behind", ACTION_MOVE + 8), NULL)));
+        "garrote",
+        NextAction::array(0, new NextAction("garrote sword", ACTION_EMERGENCY + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "garrote",
-        NextAction::array(0, new NextAction("garrote", ACTION_HIGH + 9), NULL)));
+        "enemy out of melee",
+        NextAction::array(0, new NextAction("move behind", ACTION_MOVE + 8), NULL)));
 
      triggers.push_back(new TriggerNode(
 		"high energy available",
@@ -324,7 +332,7 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "melee light aoe",
-        NextAction::array(0, new NextAction("blade furry", ACTION_HIGH + 1), NULL)));
+        NextAction::array(0, new NextAction("blade flurry", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "melee high aoe",
@@ -332,15 +340,15 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "boost",
-        NextAction::array(0, new NextAction("adrenaline rush", ACTION_NORMAL + 5), NULL)));
-
-     triggers.push_back(new TriggerNode(
-        "has nearest adds",
-        NextAction::array(0, new NextAction("blade flurry", ACTION_NORMAL + 2), NULL)));
+        NextAction::array(0, new NextAction("adrenaline rush", ACTION_NORMAL + 5),  new NextAction("blade flurry", ACTION_NORMAL + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"target almost dead",
 		NextAction::array(0, new NextAction("eviscerate", ACTION_HIGH + 9), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "garrote",
+        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY + 2), NULL)));
 }
 
 class DpsDaggerRogueStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
@@ -350,7 +358,6 @@ public:
     {
         creators["premeditation"] = &premeditation;
         creators["melee"] = &melee;
-        creators["garrote"] = &garrote;
         creators["ghostly strike"] = &ghostly_strike;
         creators["gouge"] = &gouge;
         creators["shadowstep"] = &shadowstep;
@@ -389,7 +396,7 @@ private:
         return new ActionNode ("shadowstep",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
-            /*C*/ NextAction::array(0, new NextAction("garrote"), NULL));
+            /*C*/ NextAction::array(0, new NextAction("premeditation"), NULL));
     }
     static ActionNode* mutilate(PlayerbotAI* ai)
     {
@@ -455,13 +462,7 @@ private:
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("mutilate"),NULL));
     }
-    static ActionNode* garrote(PlayerbotAI* ai)
-    {
-        return new ActionNode ("garrote",
-            /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("ambush"), NULL),
-            /*C*/ NULL);
-    }
+
 };
 
 DpsDaggerRogueStrategy::DpsDaggerRogueStrategy(PlayerbotAI* ai) : DpsRogueStrategy(ai)
@@ -483,16 +484,16 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("shadowstep", ACTION_MOVE + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "garrote",
+        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "combo points available",
         NextAction::array(0, new NextAction("envenom", ACTION_HIGH + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "front target",
         NextAction::array(0, new NextAction("gouge", ACTION_HIGH), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "garrote",
-        NextAction::array(0, new NextAction("garrote", ACTION_HIGH + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
 	"high energy available",

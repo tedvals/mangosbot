@@ -118,6 +118,7 @@ namespace ai
                 creators["stealth"] = &AiObjectContextInternal::stealth;
                 creators["prepare attack"] = &AiObjectContextInternal::stealth;
                 creators["garrote"] = &AiObjectContextInternal::garrote;
+                creators["garrote sword"] = &AiObjectContextInternal::garrote2;
                 creators["ambush"] = &AiObjectContextInternal::ambush;
                 creators["preparation"] = &AiObjectContextInternal::preparation;
                 creators["fan of knives"] = &AiObjectContextInternal::fan_of_knives;
@@ -169,6 +170,7 @@ namespace ai
             static Action* shadowstep(PlayerbotAI* ai) { return new CastShadowDanceAction(ai); }
             static Action* stealth(PlayerbotAI* ai) { return new CastStealthAction(ai); }
             static Action* garrote(PlayerbotAI* ai) { return new CastGarroteAction(ai); }
+            static Action* garrote2(PlayerbotAI* ai) { return new CastGarroteAction2(ai); }
             static Action* ambush(PlayerbotAI* ai) { return new CastAmbushAction(ai); }
             static Action* preparation(PlayerbotAI* ai) { return new CastPreparationAction(ai); }
             static Action* premeditation(PlayerbotAI* ai) { return new CastPremeditationAction(ai); }

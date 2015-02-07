@@ -139,6 +139,10 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "have aggro",
         NextAction::array(0, new NextAction("intimidation", 60.0f), new NextAction("deterrence",59.0f),NULL)));
 
+     triggers.push_back(new TriggerNode(
+        "runaway",
+        NextAction::array(0, new NextAction("disengage", ACTION_EMERGENCY + 7), new NextAction("frost trap", ACTION_EMERGENCY + 6), NULL)));
+
     triggers.push_back(new TriggerNode(
         "freezing trap",
         NextAction::array(0, new NextAction("freezing trap", 83.0f), NULL)));

@@ -76,4 +76,8 @@ void GenericWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"critical health",
 		NextAction::array(0, new NextAction("intimidating shout", ACTION_EMERGENCY), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "runaway",
+        NextAction::array(0, new NextAction("intimidating shout", ACTION_EMERGENCY + 7), new NextAction("bandage", ACTION_EMERGENCY + 6), NULL)));
 }

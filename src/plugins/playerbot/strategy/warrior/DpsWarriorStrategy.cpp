@@ -94,7 +94,11 @@ void DpsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "rend",
-        NextAction::array(0, new NextAction("rend", ACTION_NORMAL + 1), NULL)));
+        NextAction::array(0, new NextAction("rend", ACTION_HIGH + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "rend on attacker",
+        NextAction::array(0, new NextAction("rend", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
@@ -227,11 +231,7 @@ void DpsArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "rend",
-        NextAction::array(0, new NextAction("rend", ACTION_NORMAL + 1), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "rend",
-        NextAction::array(0, new NextAction("rend", ACTION_NORMAL + 1), NULL)));
+        NextAction::array(0, new NextAction("rend", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "overpower",

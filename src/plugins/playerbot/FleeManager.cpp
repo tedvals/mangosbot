@@ -126,12 +126,14 @@ bool FleePoint::isBetterByDistance(FleePoint* other)
 bool FleePoint::isBetterByAll(FleePoint* other)
 {
     bool isFartherFromCreatures = isBetterByCreatures(other);
+    bool isCloser = isBetterByDistance(other);
     bool isNearerToRangedPlayers = toRangedPlayers.max > 0 && other->toRangedPlayers.max > 0 &&
             (toRangedPlayers.max - other->toRangedPlayers.max) <= 0;
     bool isFartherFromMeleePlayers = toMeleePlayers.min > 0 && other->toMeleePlayers.min > 0 &&
             (toMeleePlayers.min - other->toMeleePlayers.min) >= 0;
 
-    return isFartherFromCreatures && (isNearerToRangedPlayers || isFartherFromMeleePlayers);
+    // return isFartherFromCreatures && (isNearerToRangedPlayers || isFartherFromMeleePlayers);
+    return isFartherFromCreatures && isCloser;
 }
 
 FleePoint* FleeManager::selectOptimalDestination(list<FleePoint*> &points)
@@ -165,10 +167,8 @@ FleePoint* FleeManager::selectOptimalDestination(list<FleePoint*> &points)
 	{
 	    if (byAll->isBetterByDistance(byCreatures))
 	        return byAll;
+        else return byCreatures;
 	}
-
-    if (byCreatures)
-        return byCreatures;
     else
         return byDistance;
 }

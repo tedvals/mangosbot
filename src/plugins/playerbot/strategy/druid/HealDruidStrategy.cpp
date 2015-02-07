@@ -26,7 +26,7 @@ public:
         creators["swiftmend"] = &swiftmend;
         creators["swiftmend on party"] = &swiftmend_on_party;
         creators["swiftmend on master"] = &swiftmend_on_master;
-        creators["moonfire"] = &moonfire;
+        creators["moonfire heal"] = &moonfire;
         creators["nature's grasp"] =natures_grasp;
         creators["nature's swiftness"] = &nature_swiftness;
         creators["nature's swiftness on party"] = &nature_swiftness_on_party;
@@ -148,7 +148,7 @@ private:
     }
    static ActionNode* moonfire(PlayerbotAI* ai)
     {
-        return new ActionNode ("moonfire",
+        return new ActionNode ("moonfire heal",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NULL,
             /*C*/ NULL);

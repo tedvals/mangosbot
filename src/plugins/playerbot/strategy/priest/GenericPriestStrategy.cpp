@@ -86,4 +86,8 @@ void GenericPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"critical aoe heal",
 		NextAction::array(0, new NextAction("inner focus", ACTION_CRITICAL_HEAL + 4), new NextAction("divine hymn", ACTION_CRITICAL_HEAL + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "runaway",
+        NextAction::array(0, new NextAction("psychic scream", ACTION_EMERGENCY + 7), new NextAction("renew", ACTION_EMERGENCY + 7), NULL)));
 }

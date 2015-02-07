@@ -86,7 +86,7 @@ void TankWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "rend",
-        NextAction::array(0, new NextAction("rend", ACTION_NORMAL + 1), NULL)));
+        NextAction::array(0, new NextAction("rend", ACTION_NORMAL + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium rage available",

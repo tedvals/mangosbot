@@ -184,6 +184,20 @@ public:
         else return false;
     }
 
+    void VisitObject(ObjectGuid Id)
+    {
+        if (objectVisited.size() > 9)
+            objectVisited.empty();
+
+        objectVisited.push_back(Id);
+    }
+
+    bool ObjectNotVisited(ObjectGuid Id)
+    {
+        vector<ObjectGuid>::iterator i = find(objectVisited.begin(), objectVisited.end(), Id);
+        return (i == objectVisited.end());
+    }
+
 protected:
 	Player* bot;
 	Player* master;
@@ -204,5 +218,8 @@ protected:
     float go_z;
     bool go_point;
     uint32 go_mapId;
+
+    vector<ObjectGuid> objectVisited;
+
 };
 

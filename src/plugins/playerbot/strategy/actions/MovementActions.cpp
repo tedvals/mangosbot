@@ -409,8 +409,12 @@ bool MoveRandomAction::Execute(Event event)
         {
             target = ai->GetUnit(*i);
 //go a little further
-            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.grindDistance/3)
+            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.grindDistance/3 &&ai->ObjectNotVisited(*i))
+            {
+                ai->VisitObject(*i);
                 break;
+            }
+
         }
     }
 
@@ -421,8 +425,11 @@ bool MoveRandomAction::Execute(Event event)
         {
             target = ai->GetGameObject(*i);
 
-            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sPlayerbotAIConfig.grindDistance/3)
+            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sPlayerbotAIConfig.grindDistance/3 && ai->ObjectNotVisited(*i))
+             {
+                ai->VisitObject(*i);
                 break;
+            }
         }
     }
 

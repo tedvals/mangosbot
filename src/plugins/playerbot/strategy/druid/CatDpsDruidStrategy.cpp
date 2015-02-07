@@ -226,11 +226,11 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "predator's swiftness",
-        NextAction::array(0, new NextAction("instant regrowth on party",  ACTION_NORMAL + 2), NULL)));
+        NextAction::array(0, new NextAction("instant regrowth on master",  ACTION_NORMAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "cat form",
-        NextAction::array(0, new NextAction("cat form", ACTION_MOVE + 9), NULL)));
+        NextAction::array(0, new NextAction("cat form", ACTION_EMERGENCY + 2), NULL)));
 
      triggers.push_back(new TriggerNode(
         "rooted",

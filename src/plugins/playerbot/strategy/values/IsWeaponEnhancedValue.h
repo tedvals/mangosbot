@@ -13,6 +13,8 @@ namespace ai
             Item* weapon = bot->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_MAINHAND);
             if (weapon && weapon->GetEnchantmentId(TEMP_ENCHANTMENT_SLOT))
                 return true;
+            else if (!weapon)
+                return true;
             else return false;
         }
     };
@@ -26,6 +28,8 @@ namespace ai
         {
             Item* weapon = bot->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_OFFHAND);
             if (weapon && weapon->GetEnchantmentId(TEMP_ENCHANTMENT_SLOT))
+                return true;
+            else if (!weapon)
                 return true;
             else return false;
         }
