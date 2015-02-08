@@ -150,7 +150,7 @@ DpsRogueStrategy::DpsRogueStrategy(PlayerbotAI* ai) : MeleeCombatStrategy(ai)
 
 NextAction** DpsRogueStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("backstab", ACTION_NORMAL), NULL);
+    return NextAction::array(0, new NextAction("garrote", ACTION_HIGH + 8), new NextAction("backstab", ACTION_NORMAL), NULL);
 }
 
 void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -328,7 +328,7 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("reach melee", ACTION_MOVE + 8), NULL)));
+        NextAction::array(0, new NextAction("reach melee", ACTION_MOVE + 8), new NextAction("garrote", ACTION_MOVE + 7), NULL)));
 
      triggers.push_back(new TriggerNode(
 	"high energy available",
@@ -501,7 +501,7 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("shadowstep", ACTION_MOVE + 8), NULL)));
+        NextAction::array(0, new NextAction("shadowstep", ACTION_MOVE + 8), new NextAction("garrote", ACTION_MOVE + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
         "combo points available",

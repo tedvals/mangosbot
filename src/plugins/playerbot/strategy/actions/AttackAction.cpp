@@ -88,8 +88,22 @@ bool AttackAction::Attack(Unit* target)
 		pet->AI()->AttackStart(target);
     }
 //needs testing to prevent melee hits from stealth
-    if (ai->HasAnyAuraOf(bot,"stealth","prowl",NULL) && (name != "ambush" && name != "garrote" && name != "cheap shot" && name != "ravage" && name != "pounce" && name != "sap"))
-        return false;
+/*
+    if (name != "attack" && name != "attack least hp target" && name != "attack my target" && name != "attack rti target" && name != "attack duel target" && name != "attack anything" && name != "attack duel target" && name != "reach melee" && name != "shadowstep" && name != "get behind" )
+    {
+
+        if (bot->getLevel() > 19 && ai->HasAura("stealth",bot) && (name != "shadowstep" && name != "ambush" && name != "garrote" && name != "cheap shot" && name != "sap"))
+            return false;
+
+        if (bot->getLevel() > 31 && ai->HasAura("prowl",bot) && (name != "ravage" && name != "pounce"))
+            return false;
+    }
+*/
+    if (bot->getLevel() > 19 && ai->HasAura("stealth",bot) && (name == "melee"))
+            return false;
+
+    if (bot->getLevel() > 31 && ai->HasAura("prowl",bot) && (name == "melee"))
+            return false;
 
     bot->Attack(target, true);
     ai->ChangeEngine(BOT_STATE_COMBAT);

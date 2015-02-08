@@ -66,6 +66,9 @@ public:
     {
         creators["stealth"] = &stealth;
         creators["wound poison offhand"] = &wound_poison;
+        creators["garrote"] = &garrote;
+        creators["ambush"] = &ambush;
+        creators["cheap shot"] = &cheap_shot;
     }
 private:
     static ActionNode* stealth(PlayerbotAI* ai)
@@ -75,18 +78,32 @@ private:
             /*A*/ NULL,
             /*C*/ NULL);
     }
-    static ActionNode* sprint(PlayerbotAI* ai)
-    {
-        return new ActionNode ("sprint",
-            /*P*/ NULL,
-            /*A*/ NULL,
-            /*C*/ NULL);
-    }
     static ActionNode* wound_poison(PlayerbotAI* ai)
     {
         return new ActionNode ("wound poison offhand",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("instant poison offhand"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* garrote(PlayerbotAI* ai)
+    {
+        return new ActionNode ("garrote",
+            /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("ambush"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* ambush(PlayerbotAI* ai)
+    {
+        return new ActionNode ("ambush",
+            /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("cheap shot"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* cheap_shot(PlayerbotAI* ai)
+    {
+        return new ActionNode ("cheap shot",
+            /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("garrote sword"), NULL),
             /*C*/ NULL);
     }
 };
@@ -111,6 +128,10 @@ void GenericRogueNonCombatStealthStrategy::InitTriggers(std::list<TriggerNode*> 
     triggers.push_back(new TriggerNode(
         "offhand not enhanced",
         NextAction::array(0, new NextAction("wound poison offhand", 21.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "garrote",
+        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY + 8), NULL)));
 
 }
 
