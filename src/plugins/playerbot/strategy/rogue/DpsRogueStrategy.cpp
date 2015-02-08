@@ -17,9 +17,9 @@ public:
         creators["kidney shot"] = &kidney_shot;
         creators["evasion"] = &evasion;
         creators["dismantle"] = &dismantle;
-        creators["move behind"] = &move_behind;
+        //creators["move behind"] = &move_behind;
         creators["melee"] = &melee;
-        creators["reach melee"] = &reach_melee;
+        //creators["reach melee"] = &reach_melee;
         creators["vanish"] = &vanish;
         creators["ambush"] = &ambush;
         creators["cheap shot"] = &cheap_shot;
@@ -142,6 +142,10 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     MeleeCombatStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
+        "garrote",
+        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY + 8), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "stealth",
         NextAction::array(0, new NextAction("stealth", ACTION_MOVE + 9), NULL)));
 
@@ -207,7 +211,7 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "not facing target",
-        NextAction::array(0, new NextAction("set facing", ACTION_NORMAL + 7), NULL)));
+        NextAction::array(0, new NextAction("set facing", ACTION_MOVE + 7), NULL)));
 
      triggers.push_back(new TriggerNode(
         "have aggro",

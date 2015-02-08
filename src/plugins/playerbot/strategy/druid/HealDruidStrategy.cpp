@@ -177,6 +177,10 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("reach spell", ACTION_MOVE + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "not facing target",
+        NextAction::array(0, new NextAction("set facing", ACTION_MOVE + 7), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "moonfire",
         NextAction::array(0, new NextAction("moonfire heal", ACTION_NORMAL + 1), new NextAction("wrath heal", ACTION_NORMAL), NULL)));
 

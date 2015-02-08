@@ -374,19 +374,23 @@ namespace ai
 	class CastWrathAction2 : public CastSpellAction
     	{
     	public:
-        	CastWrathAction2(PlayerbotAI* ai) : CastSpellAction(ai, "wrath") {}
+        	CastWrathAction2(PlayerbotAI* ai) : CastSpellAction(ai, "wrath heal") {}
         	virtual bool isUseful() {
             	return (CastSpellAction::isUseful() && AI_VALUE2(uint8, "mana", "self target") > 75);
         	}
+        	virtual bool Execute(Event event);
     	};
 
 	class CastMoonfireAction2 : public CastSpellAction
     	{
     	public:
-        	CastMoonfireAction2(PlayerbotAI* ai) : CastSpellAction(ai, "moonfire") {}
+        	CastMoonfireAction2(PlayerbotAI* ai) : CastSpellAction(ai, "moonfire heal") {}
         	virtual bool isUseful() {
             	return (CastSpellAction::isUseful() && AI_VALUE2(uint8, "mana", "self target") > 75);
         	}
+
+        	virtual bool Execute(Event event);
+        	virtual bool IsInstant() {return true;}
     	};
 
     class CastEntanglingRootsCcAction : public CastDebuffSpellAction
@@ -402,6 +406,7 @@ namespace ai
 	public:
 		CastNaturesGraspAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "nature's grasp") {}
 		virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance;}
+		virtual bool IsInstant() {return true;}
 	};
 
 	class CastForceofNatureAction : public CastBuffSpellAction

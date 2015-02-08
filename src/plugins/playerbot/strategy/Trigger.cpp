@@ -11,7 +11,7 @@ Event Trigger::Check()
 	if (IsActive())
 	{
 	    //Debug only
-	    /*
+
 	    Player* master = GetMaster();
         if (master)
         {
@@ -22,7 +22,7 @@ Event Trigger::Check()
                 }
         }
         //Stop debug
-        */
+
 		Event event(getName());
 		return event;
 	}
