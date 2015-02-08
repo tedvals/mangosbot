@@ -54,7 +54,7 @@ namespace ai
 		CastGarroteAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "garrote") {}
 
         virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", bot) && (!AI_VALUE2(bool, "target normal", "current target"));
+            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", bot);
         }
 
         virtual bool IsInstant() {return true;}

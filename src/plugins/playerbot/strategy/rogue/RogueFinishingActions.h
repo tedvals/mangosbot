@@ -78,6 +78,11 @@ namespace ai
 	{
 	public:
 		CastKidneyShotAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "kidney shot") {}
+
+		virtual bool isUseful()
+	    {
+	        return (!AI_VALUE2(bool, "stunned", "current target") || !AI_VALUE2(bool, "under cc", "current target"));
+	    }
 	};
 
 }
