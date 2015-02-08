@@ -88,7 +88,7 @@ bool AttackAction::Attack(Unit* target)
 		pet->AI()->AttackStart(target);
     }
 //needs testing to prevent melee hits from stealth
-    if (ai->HasAnyAuraOf(bot,"stealth","prowl",NULL) && name == "melee")
+    if (ai->HasAnyAuraOf(bot,"stealth","prowl",NULL) && (name != "ambush" && name != "garrote" && name != "cheap shot" && name != "ravage" && name != "pounce" && name != "sap"))
         return false;
 
     bot->Attack(target, true);

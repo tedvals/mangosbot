@@ -157,77 +157,81 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     MeleeCombatStrategy::InitTriggers(triggers);
 
-    triggers.push_back(new TriggerNode(
+	triggers.push_back(new TriggerNode(
         "garrote",
         NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY + 8), NULL)));
 
-    triggers.push_back(new TriggerNode(
+	triggers.push_back(new TriggerNode(
         "stealth",
         NextAction::array(0, new NextAction("stealth", ACTION_MOVE + 9), NULL)));
 
-    triggers.push_back(new TriggerNode(
+	triggers.push_back(new TriggerNode(
         "takes periodic damage",
         NextAction::array(0, new NextAction("cloak of shadows", ACTION_EMERGENCY), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "sap on cc",
-        NextAction::array(0, new NextAction("sap", ACTION_HIGH + 9), NULL)));
+    //triggers.push_back(new TriggerNode(
+    //    "sap on cc",
+    //    NextAction::array(0, new NextAction("sap", ACTION_HIGH + 9), NULL)));
 
     //triggers.push_back(new TriggerNode(
     //    "sap",
     //    NextAction::array(0, new NextAction("sap", ACTION_HIGH + 10), NULL)));
 
-    triggers.push_back(new TriggerNode(
+	triggers.push_back(new TriggerNode(
         "combo points available",
         NextAction::array(0, new NextAction("sunder armor", ACTION_HIGH + 8), NULL)));
 
-    triggers.push_back(new TriggerNode(
+	triggers.push_back(new TriggerNode(
         "target fleeing",
         NextAction::array(0, new NextAction("kidney shot", ACTION_HIGH), NULL)));
 
-    triggers.push_back(new TriggerNode(
+	triggers.push_back(new TriggerNode(
         "combo point available",
         NextAction::array(0, new NextAction("slice and dice", ACTION_HIGH + 9), NULL)));
 
-    triggers.push_back(new TriggerNode(
+	triggers.push_back(new TriggerNode(
         "riposte",
         NextAction::array(0, new NextAction("riposte", ACTION_HIGH + 3), NULL)));
 
-    triggers.push_back(new TriggerNode(
+	triggers.push_back(new TriggerNode(
         "rupture",
         NextAction::array(0, new NextAction("rupture", ACTION_NORMAL + 5), NULL)));
 
-    triggers.push_back(new TriggerNode(
+	triggers.push_back(new TriggerNode(
         "slice and dice",
         NextAction::array(0, new NextAction("slice and dice", ACTION_HIGH + 9), NULL)));
 
-    triggers.push_back(new TriggerNode(
+	triggers.push_back(new TriggerNode(
         "rooted",
         NextAction::array(0, new NextAction("vanish", ACTION_HIGH + 5), NULL)));
 
-    triggers.push_back(new TriggerNode(
+ 	triggers.push_back(new TriggerNode(
         "snared",
         NextAction::array(0, new NextAction("sprint", ACTION_HIGH + 4), NULL)));
 
-	triggers.push_back(new TriggerNode(
-		"medium threat",
-		NextAction::array(0, new NextAction("feint", ACTION_HIGH), NULL)));
+ 	triggers.push_back(new TriggerNode(
+        "enemy too close for melee",
+        NextAction::array(0, new NextAction("move out of enemy contact", ACTION_NORMAL + 8), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"critical health",
-		NextAction::array(0, new NextAction("vanish", ACTION_EMERGENCY + 8), NULL)));
-
-    triggers.push_back(new TriggerNode(
-		"party member critical health",
-		NextAction::array(0, new NextAction("dismantle", ACTION_HIGH + 7), NULL)));
+	"medium threat",
+	NextAction::array(0, new NextAction("feint", ACTION_HIGH), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"kick",
-		NextAction::array(0, new NextAction("kick", ACTION_INTERRUPT + 2), NULL)));
+	"critical health",
+	NextAction::array(0, new NextAction("vanish", ACTION_EMERGENCY + 8), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"kick on enemy healer",
-		NextAction::array(0, new NextAction("kick on enemy healer", ACTION_INTERRUPT + 1), NULL)));
+	"party member critical health",
+	NextAction::array(0, new NextAction("dismantle", ACTION_HIGH + 7), NULL)));
+
+	triggers.push_back(new TriggerNode(
+	"kick",
+	NextAction::array(0, new NextAction("kick", ACTION_INTERRUPT + 2), NULL)));
+
+	triggers.push_back(new TriggerNode(
+	"kick on enemy healer",
+	NextAction::array(0, new NextAction("kick on enemy healer", ACTION_INTERRUPT + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "not facing target",
@@ -323,16 +327,12 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     DpsRogueStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
-        "garrote",
-        NextAction::array(0, new NextAction("garrote sword", ACTION_EMERGENCY + 8), NULL)));
-
-    triggers.push_back(new TriggerNode(
         "enemy out of melee",
         NextAction::array(0, new NextAction("reach melee", ACTION_MOVE + 8), NULL)));
 
      triggers.push_back(new TriggerNode(
-		"high energy available",
-		NextAction::array(0, new NextAction("sinister strike", ACTION_NORMAL + 3), NULL)));
+	"high energy available",
+	NextAction::array(0, new NextAction("sinister strike", ACTION_NORMAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "combo points available",
@@ -350,10 +350,6 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "not facing target",
         NextAction::array(0, new NextAction("set facing", ACTION_EMERGENCY), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "enemy too close for melee",
-        NextAction::array(0, new NextAction("move out of enemy contact", ACTION_NORMAL + 8), NULL)));
-
      triggers.push_back(new TriggerNode(
         "melee light aoe",
         NextAction::array(0, new NextAction("blade flurry", ACTION_HIGH + 1), NULL)));
@@ -367,8 +363,8 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("adrenaline rush", ACTION_NORMAL + 5),  new NextAction("blade flurry", ACTION_NORMAL + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
-		"target almost dead",
-		NextAction::array(0, new NextAction("eviscerate", ACTION_HIGH + 9), NULL)));
+	"target almost dead",
+	NextAction::array(0, new NextAction("eviscerate", ACTION_HIGH + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "garrote",
@@ -508,10 +504,6 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("shadowstep", ACTION_MOVE + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "garrote",
-        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY + 5), NULL)));
-
-    triggers.push_back(new TriggerNode(
         "combo points available",
         NextAction::array(0, new NextAction("envenom", ACTION_HIGH + 2), NULL)));
 
@@ -540,20 +532,20 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("ghostly strike", ACTION_HIGH + 4), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"medium threat",
-		NextAction::array(0, new NextAction("feint", ACTION_HIGH), NULL)));
+	"medium threat",
+	NextAction::array(0, new NextAction("feint", ACTION_HIGH), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"almost dead",
-		NextAction::array(0, new NextAction("vanish", ACTION_EMERGENCY), NULL)));
+	"almost dead",
+	NextAction::array(0, new NextAction("vanish", ACTION_EMERGENCY), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"kick",
-		NextAction::array(0, new NextAction("kick", ACTION_INTERRUPT + 2), NULL)));
+	"kick",
+	NextAction::array(0, new NextAction("kick", ACTION_INTERRUPT + 2), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"kick on enemy healer",
-		NextAction::array(0, new NextAction("kick on enemy healer", ACTION_INTERRUPT + 1), NULL)));
+	"kick on enemy healer",
+	NextAction::array(0, new NextAction("kick on enemy healer", ACTION_INTERRUPT + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "behind target",
@@ -568,6 +560,6 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("fan of knives", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
-		"target almost dead",
-		NextAction::array(0, new NextAction("envenom", ACTION_HIGH + 9), NULL)));
+	"target almost dead",
+	NextAction::array(0, new NextAction("envenom", ACTION_HIGH + 9), NULL)));
 }

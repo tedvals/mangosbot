@@ -374,7 +374,7 @@ namespace ai
 	class CastWrathAction2 : public CastSpellAction
     	{
     	public:
-        	CastWrathAction2(PlayerbotAI* ai) : CastSpellAction(ai, "wrath heal") {}
+        	CastWrathAction2(PlayerbotAI* ai) : CastSpellAction(ai, "wrath") {}
         	virtual bool isUseful() {
             	return (CastSpellAction::isUseful() && AI_VALUE2(uint8, "mana", "self target") > 75);
         	}
@@ -384,7 +384,7 @@ namespace ai
 	class CastMoonfireAction2 : public CastSpellAction
     	{
     	public:
-        	CastMoonfireAction2(PlayerbotAI* ai) : CastSpellAction(ai, "moonfire heal") {}
+        	CastMoonfireAction2(PlayerbotAI* ai) : CastSpellAction(ai, "moonfire") {}
         	virtual bool isUseful() {
             	return (CastSpellAction::isUseful() && AI_VALUE2(uint8, "mana", "self target") > 75);
         	}
