@@ -41,7 +41,7 @@ namespace ai
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("stealth"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 
         virtual NextAction** getAlternatives();
@@ -66,7 +66,7 @@ namespace ai
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("stealth"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 	};
 
@@ -86,7 +86,7 @@ namespace ai
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("stealth"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 
         virtual bool IsInstant() {return true;}
@@ -102,6 +102,11 @@ namespace ai
         virtual bool IsInstant() {return true;}
         virtual bool isUseful() {
             return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", bot);
+        }
+
+    virtual NextAction** getPrerequisites()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 
 	virtual NextAction** getAlternatives()
@@ -124,6 +129,11 @@ namespace ai
         virtual NextAction** getAlternatives()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("garrote sword"), NULL), CastMeleeSpellAction::getAlternatives());
+        }
+
+        virtual NextAction** getPrerequisites()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
     };
 }

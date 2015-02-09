@@ -389,6 +389,8 @@ namespace ai
             	return (CastSpellAction::isUseful() && AI_VALUE2(uint8, "mana", "self target") > 75);
         	}
 
+        	virtual bool isPossible() { return ai->HasAura("caster form", bot);}
+
         	virtual bool Execute(Event event);
         	virtual bool IsInstant() {return true;}
     	};
