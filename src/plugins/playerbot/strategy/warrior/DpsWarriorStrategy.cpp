@@ -16,8 +16,6 @@ public:
         creators["intercept"] = &intercept;
         creators["rend"] = &rend;
         creators["mocking blow"] = &mocking_blow;
-        creators["execute"] = &execute;
-        creators["slam"] = &slam;
     }
 private:
     static ActionNode* overpower(PlayerbotAI* ai)
@@ -25,13 +23,6 @@ private:
         return new ActionNode ("overpower",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* slam(PlayerbotAI* ai)
-    {
-        return new ActionNode ("slam",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("heroic strike"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* melee(PlayerbotAI* ai)
@@ -69,13 +60,6 @@ private:
             /*A*/ NextAction::array(0, NULL),
             /*C*/ NULL);
     }
-    static ActionNode* execute(PlayerbotAI* ai)
-    {
-        return new ActionNode ("execute",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("heroic strike"), NULL),
-            /*C*/ NULL);
-    }
 };
 
 DpsWarriorStrategy::DpsWarriorStrategy(PlayerbotAI* ai) : GenericWarriorStrategy(ai)
@@ -85,7 +69,7 @@ DpsWarriorStrategy::DpsWarriorStrategy(PlayerbotAI* ai) : GenericWarriorStrategy
 
 NextAction** DpsWarriorStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("overpower", ACTION_NORMAL + 8), new NextAction("heroic strike", ACTION_NORMAL), NULL);
+    return NextAction::array(0, new NextAction("overpower", ACTION_NORMAL + 8), new NextAction("execute", ACTION_NORMAL + 5), NULL);
 }
 
 void DpsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -108,6 +92,11 @@ void DpsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "target critical health",
         NextAction::array(0, new NextAction("execute", ACTION_HIGH + 4), NULL)));
 
+ 	triggers.push_back(new TriggerNode(
+        "enemy too close for melee",
+        NextAction::array(0, new NextAction("move out of enemy contact", ACTION_MOVE + 8), NULL)));
+
+
 	triggers.push_back(new TriggerNode(
 		"hamstring",
 		NextAction::array(0, new NextAction("hamstring", ACTION_INTERRUPT), NULL)));
@@ -123,10 +112,6 @@ void DpsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "target fleeing",
         NextAction::array(0, new NextAction("hamstring", ACTION_HIGH + 2), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "target critical health",
-        NextAction::array(0, new NextAction("execute", ACTION_HIGH + 4), NULL)));
 }
 
 
@@ -222,7 +207,7 @@ DpsArmsWarriorStrategy::DpsArmsWarriorStrategy(PlayerbotAI* ai) : GenericWarrior
 
 NextAction** DpsArmsWarriorStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("overpower", ACTION_NORMAL +8), new NextAction("mortal strike", ACTION_NORMAL + 5), NULL);
+    return NextAction::array(0, new NextAction("overpower", ACTION_NORMAL + 8), new NextAction("execute", ACTION_NORMAL + 6), new NextAction("mortal strike", ACTION_NORMAL + 5), NULL);
 }
 
 void DpsArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -234,12 +219,24 @@ void DpsArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("rend", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "rend on attacker",
+        NextAction::array(0, new NextAction("rend", ACTION_HIGH + 1), NULL)));
+
+ 	triggers.push_back(new TriggerNode(
+        "enemy too close for melee",
+        NextAction::array(0, new NextAction("move out of enemy contact", ACTION_MOVE + 8), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "overpower",
         NextAction::array(0, new NextAction("overpower", ACTION_HIGH + 5), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"hamstring",
 		NextAction::array(0, new NextAction("hamstring", ACTION_INTERRUPT), NULL)));
+
+	triggers.push_back(new TriggerNode(
+        "target critical health",
+        NextAction::array(0, new NextAction("execute", ACTION_HIGH + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
         "rooted",
@@ -292,7 +289,6 @@ public:
         creators["boost"] = &death_wish;
         creators["whirlwind"]= &whirlwind;
         creators["melee"] = &melee;
-        creators["execute"] = &execute;
         creators["slam"] = &slam;
     }
 private:
@@ -317,13 +313,6 @@ private:
         /*A*/ NextAction::array(0, new NextAction("berserker rage"), NULL),
         /*C*/ NULL);
     }
-    static ActionNode* execute(PlayerbotAI* ai)
-    {
-        return new ActionNode ("execute",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("heroic strike"), NULL),
-            /*C*/ NULL);
-    }
     static ActionNode* melee(PlayerbotAI* ai)
     {
         return new ActionNode ("melee",
@@ -347,7 +336,7 @@ DpsFuryWarriorStrategy::DpsFuryWarriorStrategy(PlayerbotAI* ai) : GenericWarrior
 
 NextAction** DpsFuryWarriorStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("bloodthirst", ACTION_NORMAL + 5), new NextAction("whirlwind", ACTION_NORMAL + 4), NULL);
+    return NextAction::array(0, new NextAction("execute", ACTION_NORMAL + 6),new NextAction("bloodthirst", ACTION_NORMAL + 5), new NextAction("whirlwind", ACTION_NORMAL + 4), NULL);
 }
 
 void DpsFuryWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -359,12 +348,16 @@ void DpsFuryWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("execute", ACTION_HIGH + 4), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"hamstring",
-		NextAction::array(0, new NextAction("hamstring", ACTION_INTERRUPT), NULL)));
+	"hamstring",
+	NextAction::array(0, new NextAction("hamstring", ACTION_INTERRUPT), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"victory rush",
-		NextAction::array(0, new NextAction("victory rush", ACTION_HIGH + 3), NULL)));
+	"victory rush",
+	NextAction::array(0, new NextAction("victory rush", ACTION_HIGH + 3), NULL)));
+
+ 	triggers.push_back(new TriggerNode(
+        "enemy too close for melee",
+        NextAction::array(0, new NextAction("move out of enemy contact", ACTION_MOVE + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
