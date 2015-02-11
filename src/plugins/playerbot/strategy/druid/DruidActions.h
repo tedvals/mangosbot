@@ -7,16 +7,20 @@
 
 namespace ai
 {
-	class CastFaerieFireAction : public CastSpellAction
+	class CastFaerieFireAction : public CastDebuffSpellAction
 	{
 	public:
-		CastFaerieFireAction(PlayerbotAI* ai) : CastSpellAction(ai, "faerie fire") {}
+		CastFaerieFireAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "faerie fire") {}
 	};
 
-    class CastFaerieFireFeralAction : public CastSpellAction
+    class CastFaerieFireFeralAction : public CastDebuffSpellAction
     {
     public:
-        CastFaerieFireFeralAction(PlayerbotAI* ai) : CastSpellAction(ai, "faerie fire (feral)") {}
+        CastFaerieFireFeralAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "faerie fire (feral)") {}
+
+        virtual bool isUseful() {
+            return CastDebuffSpellAction::isUseful() && !ai->HasAura("prowl", bot);
+        }
     };
 
 	class CastRejuvenationAction : public CastHealingSpellAction {
@@ -127,7 +131,7 @@ namespace ai
 	public:
 		CastInstantRegrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "regrowth",5) {}
 
-		virtual bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura(69369, bot);}
+	//	virtual bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura(69369, bot);}
 
 		virtual bool IsInstant() {return true;}
 
@@ -141,7 +145,7 @@ namespace ai
     public:
         CastInstantRegrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "regrowth",5) {}
 
-        virtual bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura(69369, bot);}
+       // virtual bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura(69369, bot);}
         virtual bool IsInstant() {return true;}
 
         virtual NextAction** getPrerequisites() {
@@ -153,7 +157,7 @@ namespace ai
     public:
         CastInstantHealingTouchAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "healing touch",10) {}
 
-        virtual bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura(69369, bot);}
+        //virtual bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura(69369, bot);}
         virtual bool IsInstant() {return true;}
 
         virtual NextAction** getPrerequisites() {
@@ -166,7 +170,7 @@ namespace ai
     public:
         CastInstantHealingTouchOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "healing touch",10) {}
 
-        virtual bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura(69369, bot);}
+        //virtual bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura(69369, bot);}
         virtual bool IsInstant() {return true;}
 
         virtual NextAction** getPrerequisites() {
@@ -253,7 +257,7 @@ namespace ai
     public:
         CastInstantRegrowthOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "regrowth",10) {}
 
-        bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura(69369, bot);}
+        //bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura(69369, bot);}
         virtual bool IsInstant() {return true;}
 
           virtual NextAction** getPrerequisites() {
@@ -266,7 +270,7 @@ namespace ai
     public:
         CastInstantHealingTouchOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "healing touch",20) {}
 
-        bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura(69369, bot);}
+        //bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura(69369, bot);}
         virtual bool IsInstant() {return true;}
 
           virtual NextAction** getPrerequisites() {

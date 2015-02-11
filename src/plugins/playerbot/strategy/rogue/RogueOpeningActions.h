@@ -66,7 +66,7 @@ namespace ai
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 	};
 
@@ -86,7 +86,7 @@ namespace ai
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
 
         virtual bool IsInstant() {return true;}
@@ -133,7 +133,7 @@ namespace ai
 
         virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
     };
 }

@@ -9,7 +9,7 @@ namespace ai {
 
 	    virtual bool isUseful()
 	    {
-	        return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "combo", "current target") <= 5;
+	        return CastMeleeSpellAction::isUseful() && !ai->HasAura("prowl", bot) && AI_VALUE2(uint8, "combo", "current target") <= 5;
 	    }
 	    virtual bool IsInstant() {return true;}
 	};
