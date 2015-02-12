@@ -99,13 +99,10 @@ bool AttackAction::Attack(Unit* target)
             return false;
     }
 */
-    if (bot->getLevel() > 19 && ai->HasAura("stealth",bot) && (name == "melee"))
-            return false;
+    if (!((bot->getLevel() > 19 && ai->HasAura("stealth",bot)) || (bot->getLevel() > 31 && ai->HasAura("prowl",bot))))
+        bot->Attack(target, true);
+    //else bot->Attack(target, false);
 
-    if (bot->getLevel() > 31 && ai->HasAura("prowl",bot) && (name == "melee"))
-            return false;
-
-    bot->Attack(target, true);
     ai->ChangeEngine(BOT_STATE_COMBAT);
     return true;
 }
