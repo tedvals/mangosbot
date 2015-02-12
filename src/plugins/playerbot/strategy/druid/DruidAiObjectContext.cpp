@@ -206,6 +206,7 @@ namespace ai
                 creators["mark of the wild"] = &AiObjectContextInternal::mark_of_the_wild;
                 creators["mark of the wild on party"] = &AiObjectContextInternal::mark_of_the_wild_on_party;
                 creators["regrowth"] = &AiObjectContextInternal::regrowth;
+                creators["urgent heal"] = &AiObjectContextInternal::regrowth;
                 creators["wild growth"] = &AiObjectContextInternal::wild_growth;
                 creators["nourish"] = &AiObjectContextInternal::nourish;
                 creators["lifebloom"] = &AiObjectContextInternal::lifebloom;

@@ -356,19 +356,25 @@ namespace ai
 
     BEGIN_SPELL_ACTION(CastHolyNovaAction, "holy nova")
     virtual bool isUseful() {
-        return (!ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance);
+        return (!ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && (AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance) || (AI_VALUE(uint8, "melee attacker count") > 2));
+    }
+    END_SPELL_ACTION()
+
+    BEGIN_SPELL_ACTION(CastHolyNovaAoeAction, "holy nova")
+    virtual bool isUseful() {
+        return (!ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(uint8, "mana", "self target") >= 75 || (AI_VALUE(uint8, "melee attacker count") > 2));
     }
     END_SPELL_ACTION()
 
     BEGIN_SPELL_ACTION(CastHolyFireAction, "holy fire")
         virtual bool isUseful() {
-            return (!ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(uint8, "mana", "self target") > 75);
+            return (!ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(uint8, "mana", "self target") >= 75);
         }
     END_SPELL_ACTION()
 
     BEGIN_SPELL_ACTION(CastSmiteAction, "smite")
         virtual bool isUseful() {
-			return ((!ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(uint8, "mana", "self target") > 75) || ai->HasAura("surge of light", AI_VALUE(Unit*, "self target")));
+			return (!ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && ((AI_VALUE2(uint8, "mana", "self target") >= 75) || ai->HasAura("surge of light", AI_VALUE(Unit*, "self target"))));
         }
 	virtual NextAction** getAlternatives()
         {

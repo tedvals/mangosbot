@@ -143,6 +143,7 @@ namespace ai
                 creators["shadowform"] = &AiObjectContextInternal::shadowform;
                 creators["remove shadowform"] = &AiObjectContextInternal::remove_shadowform;
                 creators["holy nova"] = &AiObjectContextInternal::holy_nova;
+                creators["holy nova aoe"] = &AiObjectContextInternal::holy_nova_aoe;
                 creators["power word: fortitude"] = &AiObjectContextInternal::power_word_fortitude;
                 creators["power word: fortitude on party"] = &AiObjectContextInternal::power_word_fortitude_on_party;
                 creators["divine spirit"] = &AiObjectContextInternal::divine_spirit;
@@ -164,6 +165,7 @@ namespace ai
                 creators["lesser heal on party"] = &AiObjectContextInternal::lesser_heal_on_party;
                 creators["lesser heal on master"] = &AiObjectContextInternal::lesser_heal_on_master;
                 creators["flash heal"] = &AiObjectContextInternal::flash_heal;
+                creators["urgent heal"] = &AiObjectContextInternal::flash_heal;
                 creators["flash heal on party"] = &AiObjectContextInternal::flash_heal_on_party;
                 creators["flash heal on master"] = &AiObjectContextInternal::flash_heal_on_master;
                 creators["dispel magic"] = &AiObjectContextInternal::dispel_magic;
@@ -231,6 +233,7 @@ namespace ai
             static Action* shadowform(PlayerbotAI* ai) { return new CastShadowformAction(ai); }
             static Action* remove_shadowform(PlayerbotAI* ai) { return new CastRemoveShadowformAction(ai); }
             static Action* holy_nova(PlayerbotAI* ai) { return new CastHolyNovaAction(ai); }
+            static Action* holy_nova_aoe(PlayerbotAI* ai) { return new CastHolyNovaAoeAction(ai); }
             static Action* power_word_fortitude(PlayerbotAI* ai) { return new CastPowerWordFortitudeAction(ai); }
             static Action* power_word_fortitude_on_party(PlayerbotAI* ai) { return new CastPowerWordFortitudeOnPartyAction(ai); }
             static Action* divine_spirit(PlayerbotAI* ai) { return new CastDivineSpiritAction(ai); }

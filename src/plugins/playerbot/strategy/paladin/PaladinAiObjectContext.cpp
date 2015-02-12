@@ -192,6 +192,7 @@ namespace ai
                 creators["seal of wisdom"] = &AiObjectContextInternal::seal_of_wisdom;
                 creators["seal of justice"] = &AiObjectContextInternal::seal_of_justice;
                 creators["seal of righteousness"] = &AiObjectContextInternal::seal_of_righteousness;
+                creators["urgent heal"] = &AiObjectContextInternal::flash_of_light;
                 creators["flash of light"] = &AiObjectContextInternal::flash_of_light;
                 creators["instant flash of light"] = &AiObjectContextInternal::instant_flash_of_light;
                 creators["hand of reckoning"] = &AiObjectContextInternal::hand_of_reckoning;

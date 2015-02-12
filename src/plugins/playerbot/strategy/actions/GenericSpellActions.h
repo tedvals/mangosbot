@@ -414,6 +414,10 @@ namespace ai
     {
     public:
         CastWarStompAction(PlayerbotAI* ai) : CastSpellAction(ai, "war stomp") {}
+
+        virtual bool isUseful() {
+        return (AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance) || (AI_VALUE(uint8, "melee attacker count") > 2);
+        }
     };
 
     class CastStoneformAction : public CastSpellAction

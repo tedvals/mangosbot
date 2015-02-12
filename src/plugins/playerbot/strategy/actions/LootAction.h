@@ -11,6 +11,8 @@ namespace ai
     public:
         LootAction(PlayerbotAI* ai) : MovementAction(ai, "loot") {}
         virtual bool Execute(Event event);
+
+        virtual bool isUseful() {return (AI_VALUE2(bool, "combat", "self target"));}
     };
 
     class OpenLootAction : public MovementAction

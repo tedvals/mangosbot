@@ -11,7 +11,7 @@ namespace ai
         HolyPriestStrategyActionNodeFactory()
         {
             creators["smite"] = &smite;
-	    creators["divine hymn"] = &divine_hymn;
+            creators["divine hymn"] = &divine_hymn;
             creators["holy nova"] = &holy_nova;
             creators["circle of healing"] = &circle_of_healing;
         }
@@ -58,7 +58,7 @@ HolyPriestStrategy::HolyPriestStrategy(PlayerbotAI* ai) : GenericPriestStrategy(
 
 NextAction** HolyPriestStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("holy fire", 11.0f), new NextAction("smite", 10.0f), new NextAction("shoot", 8.0f), NULL);
+    return NextAction::array(0, new NextAction("holy fire", ACTION_NORMAL + 4), new NextAction("smite", ACTION_NORMAL + 2), new NextAction("shoot", ACTION_NORMAL), NULL);
 }
 
 void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -92,7 +92,7 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
 		"medium aoe heal",
 		NextAction::array(0, new NextAction("circle of healing", ACTION_MEDIUM_HEAL + 2), NULL)));
-   
+
      triggers.push_back(new TriggerNode(
         "medium health",
         NextAction::array(0, new NextAction("greater heal", ACTION_MEDIUM_HEAL + 6), NULL)));
@@ -136,4 +136,8 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "master almost dead",
         NextAction::array(0, new NextAction("guardian spirit on master", ACTION_EMERGENCY + 9), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "melee medium aoe",
+        NextAction::array(0, new NextAction("holy nova aoe", ACTION_NORMAL + 6), NULL)));
 }

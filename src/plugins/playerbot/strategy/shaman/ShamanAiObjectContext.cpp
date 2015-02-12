@@ -178,6 +178,7 @@ namespace ai
                 creators["earthliving weapon"] = &AiObjectContextInternal::earthliving_weapon;
                 creators["purge"] = &AiObjectContextInternal::purge;
                 creators["healing wave"] = &AiObjectContextInternal::healing_wave;
+                creators["urgent heal"] = &AiObjectContextInternal::lesser_healing_wave;
                 creators["lesser healing wave"] = &AiObjectContextInternal::lesser_healing_wave;
                 creators["healing wave on party"] = &AiObjectContextInternal::healing_wave_on_party;
                 creators["healing wave on master"] = &AiObjectContextInternal::healing_wave_on_master;

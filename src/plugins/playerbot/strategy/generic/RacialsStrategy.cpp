@@ -12,11 +12,13 @@ public:
     {
         creators["lifeblood"] = &lifeblood;
         creators["racial boost"] = &berserking;
-        creators["berserking"] = &berserking;
+        creators["gift of the naaru"] = &berserking;
+        creators["berserking"] = &gift_of_the_naaru;
         creators["blood fury"] = &blood_fury;
         creators["stoneform"] = &stoneform;
         creators["will of the forsaken"] = &will_of_the_forsaken;
         creators["escape artist"] = &escape_artist;
+        creators["war stomp"] = &war_stomp;
     }
 private:
     static ActionNode* stoneform(PlayerbotAI* ai)
@@ -31,6 +33,13 @@ private:
         return new ActionNode ("lifeblood",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("gift of the naaru"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* gift_of_the_naaru(PlayerbotAI* ai)
+    {
+        return new ActionNode ("gift of the naaru",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("war stomp"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* berserking(PlayerbotAI* ai)
@@ -61,6 +70,13 @@ private:
             /*A*/ NextAction::array(0, new NextAction("every man for himself"), NULL),
         /*C*/ NULL);
     }
+    static ActionNode* war_stomp(PlayerbotAI* ai)
+    {
+        return new ActionNode ("war_stomp",
+            /*P*/ NULL,
+            /*A*/ NULL,
+        /*C*/ NextAction::array(0, new NextAction("urgent heal"), NULL));
+    }
 };
 
 void RacialsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -71,7 +87,7 @@ void RacialsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
 		"critical health",
-		NextAction::array(0, new NextAction("lifeblood", ACTION_EMERGENCY + 6), NULL)));
+		NextAction::array(0, new NextAction("lifeblood", ACTION_EMERGENCY + 6), new NextAction("urgent heal", ACTION_EMERGENCY + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"party member almost dead",
