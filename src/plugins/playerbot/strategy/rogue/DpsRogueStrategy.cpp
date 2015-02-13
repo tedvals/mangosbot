@@ -158,10 +158,6 @@ void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     MeleeCombatStrategy::InitTriggers(triggers);
 
 	triggers.push_back(new TriggerNode(
-        "garrote",
-        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY + 8), NULL)));
-
-	triggers.push_back(new TriggerNode(
         "stealth",
         NextAction::array(0, new NextAction("stealth", ACTION_MOVE + 9), NULL)));
 
@@ -325,6 +321,10 @@ NextAction** DpsSwordRogueStrategy::getDefaultActions()
 void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     DpsRogueStrategy::InitTriggers(triggers);
+
+	triggers.push_back(new TriggerNode(
+        "garrote",
+        NextAction::array(0, new NextAction("garrote sword", ACTION_EMERGENCY + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
@@ -498,6 +498,10 @@ NextAction** DpsDaggerRogueStrategy::getDefaultActions()
 void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     DpsRogueStrategy::InitTriggers(triggers);
+
+	triggers.push_back(new TriggerNode(
+        "garrote",
+        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
