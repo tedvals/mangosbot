@@ -120,6 +120,10 @@ void RacialsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
      triggers.push_back(new TriggerNode(
         "rooted",
         NextAction::array(0, new NextAction("escape artist", ACTION_EMERGENCY + 6), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "melee high aoe",
+        NextAction::array(0, new NextAction("bomb", ACTION_HIGH + 6), NULL)));
 }
 
 RacialsStrategy::RacialsStrategy(PlayerbotAI* ai) : Strategy(ai)

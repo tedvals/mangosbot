@@ -49,6 +49,7 @@ namespace ai
             creators["mana potion"] = &ActionContext::mana_potion;
             creators["food"] = &ActionContext::food;
             creators["drink"] = &ActionContext::drink;
+            creators["bomb"] = &ActionContext::bomb;
             creators["tank assist"] = &ActionContext::tank_assist;
             creators["dps assist"] = &ActionContext::dps_assist;
             creators["attack rti target"] = &ActionContext::attack_rti_target;
@@ -123,6 +124,7 @@ namespace ai
         static Action* tank_assist(PlayerbotAI* ai) { return new TankAssistAction(ai); }
         static Action* drink(PlayerbotAI* ai) { return new DrinkAction(ai); }
         static Action* food(PlayerbotAI* ai) { return new EatAction(ai); }
+        static Action* bomb(PlayerbotAI* ai) { return new UseBombAction(ai); }
         static Action* bandage(PlayerbotAI* ai) { return new BandageAction(ai); }
         static Action* mana_potion(PlayerbotAI* ai) { return new UseManaPotion(ai); }
         static Action* healing_potion(PlayerbotAI* ai) { return new UseHealingPotion(ai); }

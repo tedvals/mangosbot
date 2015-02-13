@@ -23,6 +23,7 @@ public:
         creators["bandage"] = &bandage;
         creators["mana potion"] = &mana_potion;
         creators["healing potion"] = &healing_potion;
+        creators["bomb"] = &bomb;
         creators["flee"] = &flee;
     }
 
@@ -107,6 +108,13 @@ private:
     static ActionNode* flee(PlayerbotAI* ai)
     {
         return new ActionNode ("flee",
+            /*P*/ NULL,
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* bomb(PlayerbotAI* ai)
+    {
+        return new ActionNode ("bomb",
             /*P*/ NULL,
             /*A*/ NULL,
             /*C*/ NULL);

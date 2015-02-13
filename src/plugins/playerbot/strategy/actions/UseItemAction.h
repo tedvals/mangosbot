@@ -57,4 +57,9 @@ namespace ai
         virtual bool isUseful() { return (AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.almostDead && !AI_VALUE2(bool, "has aggro", "current target"));}
     };
 
+ class UseBombAction : public UseItemAction
+    {
+    public:
+        UseBombAction(PlayerbotAI* ai) : UseItemAction(ai, "bomb") {}
+    };
 }
