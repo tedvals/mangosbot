@@ -348,6 +348,29 @@ namespace ai
     public:
         CastShootAction(PlayerbotAI* ai) : CastSpellAction(ai, "shoot") {}
         virtual ActionThreatType getThreatType() { return ACTION_THREAT_NONE; }
+
+        virtual bool isUseful() {return AI_VALUE2(uint8, "mana", "self target") < sPlayerbotAIConfig.lowMana/2 || ai->IsHeal(bot) || ai->IsTank(bot) || bot->getClass() == CLASS_HUNTER;}
+
+        virtual NextAction** getAlternatives()
+        {
+
+            if (bot->getClass() == CLASS_WARRIOR || bot->getClass() == CLASS_ROGUE)
+                return NextAction::merge( NextAction::array(0, new NextAction("throw"), NULL), CastSpellAction::getAlternatives());
+            else
+                return NextAction::merge( NextAction::array(0, new NextAction("reposition"), NULL), CastSpellAction::getAlternatives());
+        }
+    };
+
+    class CastThrowAction : public CastSpellAction
+    {
+    public:
+        CastThrowAction(PlayerbotAI* ai) : CastSpellAction(ai, "throw") {}
+        virtual ActionThreatType getThreatType() { return ACTION_THREAT_NONE; }
+
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("reposition"), NULL), CastSpellAction::getAlternatives());
+        }
     };
 
 	class CastLifeBloodAction : public CastHealingSpellAction

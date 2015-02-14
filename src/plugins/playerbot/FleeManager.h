@@ -60,6 +60,7 @@ namespace ai
 	public:
 		FleeManager(Player* bot, float maxAllowedDistance, float followAngle) {
 			this->bot = bot;
+			this->master = bot->GetPlayerbotAI()->GetMaster();
 			this->maxAllowedDistance = maxAllowedDistance;
 			this->followAngle = followAngle;
 		}
@@ -79,6 +80,7 @@ namespace ai
 
 	private:
 		Player* bot;
+		Player* master;
 		float maxAllowedDistance;
 		float followAngle;
 	};

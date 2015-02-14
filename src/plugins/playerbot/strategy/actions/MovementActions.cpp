@@ -382,6 +382,49 @@ bool MovementAction::Flee(Unit *target)
      }
 }
 
+bool MovementAction::Reposition(Unit *target)
+{
+    Player* master = GetMaster();
+    if (!target)
+        target = master;
+
+    if (!target)
+        return false;
+
+    if (!IsMovingAllowed())
+        return false;
+
+    uint32 mapId = target->GetMapId();
+
+    float rx, ry, rz;
+
+    if (ai->GetMovePoint(mapId,rx,ry,rz) && (bot->GetDistance(rx, ry, rz) > (sPlayerbotAIConfig.tooCloseDistance)/2 ))
+    {
+            return FleeTo(target,target->GetMapId(), rx, ry, rz);
+      }
+    else
+    {
+       FleeManager manager(bot, sPlayerbotAIConfig.tooCloseDistance + 5.0f, GetFollowAngle());
+
+       if (!manager.CalculateDestination(&rx, &ry, &rz))
+         return false;
+
+       ai->SetMovePoint(mapId,rx, ry, rz);
+       return FleeTo(target,target->GetMapId(), rx, ry, rz);
+     }
+
+}
+
+bool RepositionAction::Execute(Event event)
+{
+    return Reposition(AI_VALUE(Unit*, "current target"));
+}
+
+bool RepositionAction::isUseful()
+{
+    return AI_VALUE(uint8, "attacker count") > 0;
+}
+
 bool FleeAction::Execute(Event event)
 {
     return Flee(AI_VALUE(Unit*, "current target"));
@@ -409,7 +452,8 @@ bool MoveRandomAction::Execute(Event event)
         {
             target = ai->GetUnit(*i);
 //go a little further
-            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance/3 && ai->ObjectNotVisited(*i))
+    if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance/3)
+//            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance/3 && ai->ObjectNotVisited(*i))
             {
                 ai->VisitObject(*i);
                 break;
@@ -425,7 +469,8 @@ bool MoveRandomAction::Execute(Event event)
         {
             target = ai->GetGameObject(*i);
 
-            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance/3 && ai->ObjectNotVisited(*i))
+            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance/3)
+        //    if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance/3 && ai->ObjectNotVisited(*i))
              {
                 ai->VisitObject(*i);
                 break;

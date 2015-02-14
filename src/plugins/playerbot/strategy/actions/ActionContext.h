@@ -59,7 +59,7 @@ namespace ai
             creators["add all loot"] = &ActionContext::add_all_loot;
             creators["shoot"] = &ActionContext::shoot;
             creators["follow"] = &ActionContext::follow;
-            creators["follow"] = &ActionContext::follow;
+            creators["throw"] = &ActionContext::throwaction;
             creators["runaway"] = &ActionContext::runaway;
             creators["stay"] = &ActionContext::stay;
             creators["attack anything"] = &ActionContext::attack_anything;
@@ -76,6 +76,7 @@ namespace ai
             creators["attack duel opponent"] = &ActionContext::attack_duel_opponent;
             creators["drop target"] = &ActionContext::drop_target;
             creators["check mail"] = &ActionContext::check_mail;
+            creators["reposition"] = &ActionContext::reposition;
         }
 
     private:
@@ -87,6 +88,7 @@ namespace ai
         static Action* move_to_loot(PlayerbotAI* ai) { return new MoveToLootAction(ai); }
         static Action* move_random(PlayerbotAI* ai) { return new MoveRandomAction(ai); }
         static Action* shoot(PlayerbotAI* ai) { return new CastShootAction(ai); }
+        static Action* throwaction(PlayerbotAI* ai) { return new CastThrowAction(ai); }
         static Action* melee(PlayerbotAI* ai) { return new MeleeAction(ai); }
         static Action* ReachSpell(PlayerbotAI* ai) { return new ReachSpellAction(ai); }
         static Action* ReachMelee(PlayerbotAI* ai) { return new ReachMeleeAction(ai); }
@@ -131,6 +133,7 @@ namespace ai
         static Action* healthstone(PlayerbotAI* ai) { return new UseItemAction(ai, "healthstone"); }
         static Action* move_out_of_enemy_contact(PlayerbotAI* ai) { return new MoveOutOfEnemyContactAction(ai); }
         static Action* set_facing(PlayerbotAI* ai) { return new SetFacingTargetAction(ai); }
+        static Action* reposition(PlayerbotAI* ai) { return new RepositionAction(ai); }
     };
 
 };

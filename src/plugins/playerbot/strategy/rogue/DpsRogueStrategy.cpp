@@ -10,7 +10,6 @@ class DpsRogueStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
 public:
     DpsRogueStrategyActionNodeFactory()
     {
-        creators["garrote"] = &garrote;
         creators["backstab"] = &backstab;
         creators["kick"] = &kick;
         creators["gouge"] = &gouge;
@@ -23,8 +22,6 @@ public:
         creators["melee"] = &melee;
         creators["reach melee"] = &reach_melee;
         creators["vanish"] = &vanish;
-        creators["ambush"] = &ambush;
-        creators["cheap shot"] = &cheap_shot;
         creators["sunder armor"] = &sunder_armor;
     }
 private:
@@ -40,21 +37,14 @@ private:
     {
         return new ActionNode ("melee",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
-            /*C*/ NextAction::array(0, new NextAction("garrote"), NULL));
+            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
+            /*C*/  NULL);
     }
     static ActionNode* reach_melee(PlayerbotAI* ai)
     {
         return new ActionNode ("reach melee",
             /*P*/ NULL,
             /*A*/ NULL,
-            /*C*/ NULL);
-    }
-    static ActionNode* garrote(PlayerbotAI* ai)
-    {
-        return new ActionNode ("garrote",
-            /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("ambush"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* backstab(PlayerbotAI* ai)
@@ -125,20 +115,6 @@ private:
         return new ActionNode ("sunder armor",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("rupture"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* ambush(PlayerbotAI* ai)
-    {
-        return new ActionNode ("ambush",
-            /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("cheap shot"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* cheap_shot(PlayerbotAI* ai)
-    {
-        return new ActionNode ("cheap shot",
-            /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("garrote sword"), NULL),
             /*C*/ NULL);
     }
 };
@@ -257,11 +233,8 @@ public:
     {
         creators["riposte"] = &riposte;
         creators["sinister strike"] = &sinister_strike;
-        creators["kick"] = &kick;
-        creators["kidney shot"] = &kidney_shot;
         creators["adrenaline rush"] = &adrenaline_rush;
         creators["boost"] = &adrenaline_rush;
-        creators["melee"] = &melee;
     }
 private:
     static ActionNode* riposte(PlayerbotAI* ai)
@@ -278,32 +251,11 @@ private:
             /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
             /*C*/ NULL);
     }
-    static ActionNode* kick(PlayerbotAI* ai)
-    {
-        return new ActionNode ("kick",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("kidney shot"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* kidney_shot(PlayerbotAI* ai)
-    {
-        return new ActionNode ("kidney shot",
-            /*P*/ NULL,
-            /*A*/ NULL,
-            /*C*/ NULL);
-    }
     static ActionNode* adrenaline_rush(PlayerbotAI* ai)
     {
         return new ActionNode ("adrenaline rush",
             /*P*/ NULL,
             /*A*/ NULL,
-            /*C*/ NULL);
-    }
-    static ActionNode* melee(PlayerbotAI* ai)
-    {
-        return new ActionNode ("melee",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
             /*C*/ NULL);
     }
 };
@@ -388,6 +340,9 @@ public:
         creators["envenom"] = &envenom;
         creators["boost"] = &shadow_dance;
         creators["hemorrhage"] = &hemorrhage;
+        creators["garrote"] = &garrote;
+        creators["ambush"] = &ambush;
+        creators["cheap shot"] = &cheap_shot;
     }
 private:
     static ActionNode* premeditation(PlayerbotAI* ai)
@@ -482,6 +437,27 @@ private:
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("mutilate"),NULL));
     }
+     static ActionNode* garrote(PlayerbotAI* ai)
+    {
+        return new ActionNode ("garrote",
+            /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("ambush"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* ambush(PlayerbotAI* ai)
+    {
+        return new ActionNode ("ambush",
+            /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("cheap shot"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* cheap_shot(PlayerbotAI* ai)
+    {
+        return new ActionNode ("cheap shot",
+            /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("garrote sword"), NULL),
+            /*C*/ NULL);
+    }
 
 };
 
@@ -501,7 +477,7 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
         "garrote",
-        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY + 8), NULL)));
+        NextAction::array(0, new NextAction("ambush", ACTION_EMERGENCY + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",

@@ -66,6 +66,7 @@ bool OpenLootAction::DoLoot(LootObject& lootObject)
         *packet << lootObject.guid;
         bot->GetSession()->QueuePacket(packet);
         return true;
+
     }
 
     if (creature)

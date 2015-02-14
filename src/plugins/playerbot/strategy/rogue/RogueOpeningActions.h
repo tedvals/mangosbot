@@ -54,16 +54,16 @@ namespace ai
 		CastGarroteAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "garrote") {}
 
         virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", bot) && (!AI_VALUE2(bool, "target normal", "current target"));
+            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", bot)&& (!AI_VALUE2(bool, "target normal", "current target"));
         }
-
+//
         virtual bool IsInstant() {return true;}
-
+/*
         virtual NextAction** getAlternatives()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("ambush"), NULL), CastMeleeSpellAction::getAlternatives());
         }
-
+*/
         virtual NextAction** getPrerequisites()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
@@ -101,19 +101,19 @@ namespace ai
 
         virtual bool IsInstant() {return true;}
         virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", bot) && AI_VALUE2(bool, "behind", "current target");
+            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", bot) && (ai->HasAura("garrote", GetTarget()) || AI_VALUE2(bool, "target normal", "current target"));
         }
-
+// && AI_VALUE2(bool, "behind", "current target")
     virtual NextAction** getPrerequisites()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
-
+/*
 	virtual NextAction** getAlternatives()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("cheap shot"), NULL), CastMeleeSpellAction::getAlternatives());
         }
-
+*/
 	};
 
 	class CastCheapShotAction : public CastMeleeSpellAction
@@ -125,12 +125,12 @@ namespace ai
         virtual bool isUseful() {
             return CastMeleeSpellAction::isUseful() && (!AI_VALUE2(bool, "stunned", "current target")) && (AI_VALUE2(bool, "target normal", "current target") || AI_VALUE2(bool, "target player", "current target")) && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
         }
-
+/*
         virtual NextAction** getAlternatives()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("garrote sword"), NULL), CastMeleeSpellAction::getAlternatives());
         }
-
+*/
         virtual NextAction** getPrerequisites()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
