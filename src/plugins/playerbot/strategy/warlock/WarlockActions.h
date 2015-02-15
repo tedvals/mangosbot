@@ -493,6 +493,18 @@ namespace ai
     {
     public:
         CastFearAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "fear") {}
+
+        virtual bool isUseful()
+        {
+            if (AI_VALUE2(bool, "target player", "current target"))
+                return true;
+            else
+            {
+                list<ObjectGuid> targets = AI_VALUE(list<ObjectGuid>, "possible targets");
+                list<ObjectGuid> attackers = AI_VALUE(list<ObjectGuid>, "attackers");
+                return targets.size() == attackers.size();
+            }
+        }
     };
 
     class CastFearOnCcAction : public CastBuffSpellAction
@@ -501,6 +513,18 @@ namespace ai
         CastFearOnCcAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "fear on cc") {}
         virtual Value<Unit*>* GetTargetValue() { return context->GetValue<Unit*>("cc target", "fear"); }
         virtual bool Execute(Event event) { return ai->CastSpell("fear", GetTarget()); }
+
+        virtual bool isUseful()
+        {
+            if (AI_VALUE2(bool, "target player", "cc target"))
+                return true;
+            else
+            {
+                list<ObjectGuid> targets = AI_VALUE(list<ObjectGuid>, "possible targets");
+                list<ObjectGuid> attackers = AI_VALUE(list<ObjectGuid>, "attackers");
+                return targets.size() == attackers.size();
+            }
+        }
     };
 
     class CastLifeTapAction: public CastSpellAction

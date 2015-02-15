@@ -159,42 +159,42 @@ private:
         return new ActionNode ("regrowth",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("rejuvenation"), NULL),
-            /*C*/ NULL);
+            /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
     }
     static ActionNode* regrowth_on_party(PlayerbotAI* ai)
     {
         return new ActionNode ("regrowth on party",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("rejuvenation on party"), NULL),
-            /*C*/ NULL);
+            /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
     }
     static ActionNode* regrowth_on_master(PlayerbotAI* ai)
     {
         return new ActionNode ("regrowth on master",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("rejuvenation on master"), NULL),
-            /*C*/ NULL);
+            /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
     }
     static ActionNode* rejuvenation(PlayerbotAI* ai)
     {
         return new ActionNode ("rejuvenation",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NULL,
-            /*C*/ NULL);
+            /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
     }
     static ActionNode* rejuvenation_on_party(PlayerbotAI* ai)
     {
         return new ActionNode ("rejuvenation on party",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NULL,
-            /*C*/ NULL);
+            /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
     }
     static ActionNode* rejuvenation_on_master(PlayerbotAI* ai)
     {
         return new ActionNode ("rejuvenation on master",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NULL,
-            /*C*/ NULL);
+            /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
     }
 };
 

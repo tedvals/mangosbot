@@ -32,14 +32,14 @@ namespace ai
         {
             return new ActionNode ("lay on hands",
                 /*P*/ NULL,
-                /*A*/ NextAction::array(0, new NextAction("divine shield"), new NextAction("holy light"), NULL),
+                /*A*/ NextAction::array(0, new NextAction("divine shield"), NULL),
                 /*C*/ NULL);
         }
         static ActionNode* lay_on_hands_on_party(PlayerbotAI* ai)
         {
             return new ActionNode ("lay on hands on party",
                 /*P*/ NULL,
-                /*A*/ NextAction::array(0, new NextAction("flash of light"), NULL),
+                /*A*/ NextAction::array(0, new NextAction("flash of light on party"), NULL),
                 /*C*/ NULL);
         }
         static ActionNode* seal_of_light(PlayerbotAI* ai)
@@ -142,7 +142,7 @@ namespace ai
         }
         static ActionNode* hand_of_protection_on_party(PlayerbotAI* ai)
         {
-            return new ActionNode ("hand of protection",
+            return new ActionNode ("hand of protection on party",
                 /*P*/ NULL,
                 /*A*/ NextAction::array(0, new NextAction("hand of salvation on party"), NULL),
                 /*C*/ NULL);

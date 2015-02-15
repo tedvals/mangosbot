@@ -256,7 +256,7 @@ void DpsArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("charge", ACTION_NORMAL + 9), NULL)));
+        NextAction::array(0, new NextAction("charge", ACTION_MOVE + 9), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"victory rush",
@@ -277,6 +277,10 @@ void DpsArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "almost dead",
         NextAction::array(0, new NextAction("bandage", ACTION_EMERGENCY), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "has nearest adds",
+        NextAction::array(0, new NextAction("cleave", ACTION_NORMAL + 6), NULL)));
 }
 
 class DpsFuryWarriorStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
@@ -403,6 +407,9 @@ void DpsFuryWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "light rage available",
         NextAction::array(0, new NextAction("berserker rage", ACTION_HIGH + 1), NULL)));
 
+    triggers.push_back(new TriggerNode(
+        "has nearest adds",
+        NextAction::array(0, new NextAction("cleave", ACTION_NORMAL + 6), NULL)));
 
    //   triggers.push_back(new TriggerNode(
    //     "target fleeing",

@@ -117,11 +117,11 @@ void TankWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		NextAction::array(0, new NextAction("last stand", ACTION_EMERGENCY + 3), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"medium aoe",
+		"melee medium aoe",
 		NextAction::array(0, new NextAction("shockwave", ACTION_HIGH + 2), NULL)));
 
 	triggers.push_back(new TriggerNode(
-        "light aoe",
+        "melee light aoe",
         NextAction::array(0, new NextAction("thunder clap", ACTION_HIGH + 2), new NextAction("cleave", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
@@ -135,4 +135,8 @@ void TankWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "sword and board",
         NextAction::array(0, new NextAction("shield slam", ACTION_HIGH + 4), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "has nearest adds",
+        NextAction::array(0, new NextAction("cleave", ACTION_NORMAL + 6), NULL)));
 }

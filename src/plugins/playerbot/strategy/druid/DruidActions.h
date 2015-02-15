@@ -492,7 +492,6 @@ namespace ai
 		CastBerserkAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "berserk") {}
 	};
 
-
     class CastBoostAction : public CastBuffSpellAction
 	{
 	public:

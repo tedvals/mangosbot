@@ -22,9 +22,17 @@ void GenericPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "almost dead",
         NextAction::array(0, new NextAction("divine shield", ACTION_EMERGENCY + 7), new NextAction("holy light", ACTION_EMERGENCY + 2), NULL)));
 
+     triggers.push_back(new TriggerNode(
+        "low health",
+        NextAction::array(0, new NextAction("flash of light", ACTION_CRITICAL_HEAL + 2), NULL)));
+
+      triggers.push_back(new TriggerNode(
+        "party member critical health",
+        NextAction::array(0, new NextAction("hand of protection on party", ACTION_CRITICAL_HEAL + 2), new NextAction("flash of light on party", ACTION_CRITICAL_HEAL + 1), NULL)));
+
     triggers.push_back(new TriggerNode(
-        "party member low health",
-		NextAction::array(0, new NextAction("flash of light on party", ACTION_HIGH + 3), NULL)));
+        "master critical health",
+        NextAction::array(0, new NextAction("hand of protection on master", ACTION_CRITICAL_HEAL + 4), new NextAction("flash of light on master", ACTION_CRITICAL_HEAL + 5), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"hammer of justice interrupt",
@@ -48,11 +56,15 @@ void GenericPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "party member rooted",
-        NextAction::array(0, new NextAction("blessing of freedom on party", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("hand of freedom on party", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member snared",
-        NextAction::array(0, new NextAction("blessing of freedom on party", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("hand of freedom on party", ACTION_EMERGENCY), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master snared",
+        NextAction::array(0, new NextAction("hand of freedom on master", ACTION_EMERGENCY), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"target critical health",

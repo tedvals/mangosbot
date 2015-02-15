@@ -55,24 +55,40 @@ void MeleeHealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("beacon of light on master",  ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "medium health",
+        NextAction::array(0, new NextAction("holy light", ACTION_MEDIUM_HEAL + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "party member medium health",
-        NextAction::array(0, new NextAction("holy light on party", ACTION_CRITICAL_HEAL + 1), NULL)));
+        NextAction::array(0, new NextAction("holy light on party", ACTION_MEDIUM_HEAL + 1), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "master medium health",
+        NextAction::array(0, new NextAction("holy light on master", ACTION_MEDIUM_HEAL + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low health",
-        NextAction::array(0, new NextAction("flash of light", ACTION_MEDIUM_HEAL + 2), NULL)));
+        NextAction::array(0, new NextAction("flash of light", ACTION_CRITICAL_HEAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
-        NextAction::array(0, new NextAction("flash of light on party", ACTION_MEDIUM_HEAL + 1), NULL)));
+        NextAction::array(0, new NextAction("flash of light on party", ACTION_CRITICAL_HEAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master low health",
+        NextAction::array(0, new NextAction("flash of light on master", ACTION_CRITICAL_HEAL + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"party member critical health",
 		NextAction::array(0, new NextAction("holy shock on party", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "critical health",
-        NextAction::array(0, new NextAction("divine shield", ACTION_CRITICAL_HEAL + 2), new NextAction("holy light", ACTION_CRITICAL_HEAL + 2), NULL)));
+		"master critical health",
+		NextAction::array(0, new NextAction("holy shock on master", ACTION_EMERGENCY + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"critical health",
+		NextAction::array(0, new NextAction("holy shock", ACTION_EMERGENCY + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "judgement of wisdom",
@@ -84,7 +100,7 @@ void MeleeHealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "not facing target",
-        NextAction::array(0, new NextAction("set facing", ACTION_NORMAL + 7), NULL)));
+        NextAction::array(0, new NextAction("set facing", ACTION_MOVE + 7), NULL)));
 
      triggers.push_back(new TriggerNode(
         "low mana",
@@ -134,6 +150,10 @@ void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     RangedCombatStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
+        "almost dead",
+        NextAction::array(0, new NextAction("divine shield", ACTION_EMERGENCY + 7), new NextAction("holy light", ACTION_EMERGENCY + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "enemy out of spell",
         NextAction::array(0, new NextAction("reach spell", ACTION_NORMAL + 9), NULL)));
 
@@ -145,25 +165,41 @@ void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "beacon of light on master",
         NextAction::array(0, new NextAction("beacon of light on master",  ACTION_HIGH), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "party member medium health",
-        NextAction::array(0, new NextAction("holy light on party", ACTION_CRITICAL_HEAL + 1), NULL)));
-
-    triggers.push_back(new TriggerNode(
+      triggers.push_back(new TriggerNode(
         "low health",
-        NextAction::array(0, new NextAction("flash of light", ACTION_MEDIUM_HEAL + 2), NULL)));
+        NextAction::array(0, new NextAction("flash of light", ACTION_CRITICAL_HEAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
-        NextAction::array(0, new NextAction("flash of light on party", ACTION_MEDIUM_HEAL + 1), NULL)));
+        NextAction::array(0, new NextAction("flash of light on party", ACTION_CRITICAL_HEAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master low health",
+        NextAction::array(0, new NextAction("flash of light on master", ACTION_CRITICAL_HEAL + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "medium health",
+        NextAction::array(0, new NextAction("holy light", ACTION_MEDIUM_HEAL + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member medium health",
+        NextAction::array(0, new NextAction("holy light on party", ACTION_MEDIUM_HEAL + 1), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "master medium health",
+        NextAction::array(0, new NextAction("holy light on master", ACTION_MEDIUM_HEAL + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"party member critical health",
 		NextAction::array(0, new NextAction("holy shock on party", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "critical health",
-        NextAction::array(0, new NextAction("divine shield", ACTION_CRITICAL_HEAL + 2), new NextAction("holy light", ACTION_CRITICAL_HEAL + 2), NULL)));
+		"master critical health",
+		NextAction::array(0, new NextAction("holy shock on master", ACTION_EMERGENCY + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"critical health",
+		NextAction::array(0, new NextAction("holy shock", ACTION_EMERGENCY + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "judgement of wisdom",
@@ -175,7 +211,7 @@ void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "not facing target",
-        NextAction::array(0, new NextAction("set facing", ACTION_NORMAL + 7), NULL)));
+        NextAction::array(0, new NextAction("set facing", ACTION_MOVE + 7), NULL)));
 
      triggers.push_back(new TriggerNode(
         "low mana",

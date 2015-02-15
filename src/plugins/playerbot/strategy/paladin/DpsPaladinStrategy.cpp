@@ -82,10 +82,6 @@ void DpsPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("instant flash of light", ACTION_MEDIUM_HEAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "party member almost dead",
-        NextAction::array(0, new NextAction("flash of light on party", ACTION_CRITICAL_HEAL + 1), NULL)));
-	
-    triggers.push_back(new TriggerNode(
         "low health",
         NextAction::array(0, new NextAction("instant flash of light", ACTION_MEDIUM_HEAL + 2), NULL)));
 
