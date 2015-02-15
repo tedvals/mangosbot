@@ -27,6 +27,12 @@ public:
         creators["rip"] = &rip;
         creators["boost"] = &berserk;
         creators["berserk"] = &berserk;
+        creators["instant regrowth"] = &instant_regrowth;
+        creators["instant regrowth on party"] = &instant_regrowth_on_party;
+        creators["instant regrowth on master"] = &instant_regrowth_on_master;
+        creators["instant healing touch"] = &instant_healing_touch;
+        creators["instant healing touch on party"] = &instant_healing_touch_on_party;
+        creators["instant healing touch on master"] = &instant_healing_touch_on_master;
         creators["regrowth"] = &regrowth;
         creators["regrowth on party"] = &regrowth_on_party;
         creators["regrowth on master"] = &regrowth_on_master;
@@ -46,14 +52,14 @@ private:
     {
         return new ActionNode ("ravage",
             /*P*/ NextAction::array(0, new NextAction("prowl"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("pounce"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("shred"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* pounce(PlayerbotAI* ai)
     {
         return new ActionNode ("pounce",
             /*P*/ NextAction::array(0, new NextAction("prowl"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("shred"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("ravage"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* melee(PlayerbotAI* ai)
@@ -196,6 +202,48 @@ private:
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
     }
+    static ActionNode* instant_regrowth(PlayerbotAI* ai)
+    {
+        return new ActionNode ("instant regrowth",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("rejuvenation"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
+    }
+    static ActionNode* instant_regrowth_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("instant regrowth on party",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("rejuvenation on party"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
+    }
+    static ActionNode* instant_regrowth_on_master(PlayerbotAI* ai)
+    {
+        return new ActionNode ("instant regrowth on master",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("rejuvenation on master"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
+    }
+    static ActionNode* instant_healing_touch(PlayerbotAI* ai)
+    {
+        return new ActionNode ("instant healing touch",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("healing touch"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
+    }
+    static ActionNode* instant_healing_touch_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("instant healing touch on party",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("healing touch on party"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
+    }
+    static ActionNode* instant_healing_touch_on_master(PlayerbotAI* ai)
+    {
+        return new ActionNode ("instant healing touch on master",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("healing touch on master"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
+    }
 };
 
 CatDpsDruidStrategy::CatDpsDruidStrategy(PlayerbotAI* ai) : FeralDruidStrategy(ai)
@@ -226,7 +274,7 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "predator's swiftness",
-        NextAction::array(0, new NextAction("instant regrowth on master",  ACTION_NORMAL + 2), NULL)));
+        NextAction::array(0, new NextAction("instant regrowth on party",  ACTION_NORMAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "cat form",
@@ -242,7 +290,7 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "pounce",
-        NextAction::array(0, new NextAction("ravage",  ACTION_EMERGENCY + 1), NULL)));
+        NextAction::array(0, new NextAction("pounce",  ACTION_EMERGENCY + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "front target",
@@ -295,6 +343,18 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "entangling roots",
         NextAction::array(0, new NextAction("entangling roots on cc", ACTION_HIGH + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "low health",
+        NextAction::array(0, new NextAction("instant regrowth", ACTION_MEDIUM_HEAL + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member low health",
+        NextAction::array(0, new NextAction("instant regrowth on party", ACTION_MEDIUM_HEAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master low health",
+        NextAction::array(0, new NextAction("instant regrowth on master", ACTION_MEDIUM_HEAL + 7), NULL)));
 
 }
 

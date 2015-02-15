@@ -25,6 +25,7 @@ public:
         creators["demoralizing roar"] = &demoralizing_roar;
         creators["boost"] = &berserk;
         creators["berserk"] = &berserk;
+        creators["rejuvenation"] = &rejuvenation;
     }
 private:
     static ActionNode* enrage(PlayerbotAI* ai)
@@ -132,6 +133,13 @@ private:
             /*A*/ NextAction::array(0, new NextAction("mangle (bear)"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* rejuvenation(PlayerbotAI* ai)
+    {
+        return new ActionNode ("rejuvenation",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NextAction::array(0, new NextAction("dire bear form"), NULL));
+    }
 };
 
 BearTankDruidStrategy::BearTankDruidStrategy(PlayerbotAI* ai) : FeralDruidStrategy(ai)
@@ -156,14 +164,18 @@ void BearTankDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
         NextAction::array(0, new NextAction("feral charge - bear", ACTION_NORMAL + 5), NULL)));
-
+/*
     triggers.push_back(new TriggerNode(
         "thorns",
         NextAction::array(0, new NextAction("thorns", ACTION_HIGH + 9), NULL)));
-
+*/
     triggers.push_back(new TriggerNode(
         "bear form",
         NextAction::array(0, new NextAction("dire bear form", ACTION_HIGH + 8), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "low health",
+        NextAction::array(0, new NextAction("rejuvenation", ACTION_MEDIUM_HEAL + 2), NULL)));
 
      triggers.push_back(new TriggerNode(
         "rooted",
@@ -182,7 +194,7 @@ void BearTankDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("demoralizing roar", ACTION_HIGH + 6), new NextAction("swipe (bear)", ACTION_HIGH + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "light aoe",
+        "melee light aoe",
         NextAction::array(0, new NextAction("swipe (bear)", ACTION_HIGH + 5), NULL)));
 
     triggers.push_back(new TriggerNode(

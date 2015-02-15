@@ -103,12 +103,12 @@ bool OpenLootAction::DoLoot(LootObject& lootObject)
 //            return bot->HasSkill(SKILL_SKINNING) ? ai->CastSpell(SKINNING, creature) : false;
             if (bot->HasSkill(SKILL_SKINNING))
             {
-                if (!ai->CastSpell(SKINNING_GM, bot))
-                    if (!ai->CastSpell(SKINNING_M, bot))
-                        if (!ai->CastSpell(SKINNING_E, bot))
-                            if (!ai->CastSpell(SKINNING_A, bot))
-                                if (!ai->CastSpell(SKINNING_J, bot))
-                                    if (!ai->CastSpell(SKINNING, bot))
+                if (!ai->CastSpell(SKINNING_GM, creature))
+                    if (!ai->CastSpell(SKINNING_M, creature))
+                        if (!ai->CastSpell(SKINNING_E, creature))
+                            if (!ai->CastSpell(SKINNING_A, creature))
+                                if (!ai->CastSpell(SKINNING_J, creature))
+                                    if (!ai->CastSpell(SKINNING, creature))
                                         return false;
             }
         }

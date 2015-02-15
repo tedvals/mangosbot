@@ -143,8 +143,9 @@ namespace ai {
 		CastRavageAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "ravage") {}
 
 		virtual bool IsInstant() {return true;}
+
 		virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() &&  ai->HasAura("prowl", AI_VALUE(Unit*, "self target")) && AI_VALUE2(bool, "target normal", "current target");
+                return CastMeleeSpellAction::isUseful() &&  ai->HasAura("prowl", AI_VALUE(Unit*, "self target")) && (ai->HasAura("pounce", GetTarget()) || AI_VALUE2(bool, "stunned", "current target") || AI_VALUE2(bool, "target normal", "current target"));
         }
 
         virtual NextAction** getPrerequisites()
