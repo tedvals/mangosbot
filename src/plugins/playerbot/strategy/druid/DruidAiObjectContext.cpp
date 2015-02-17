@@ -91,6 +91,8 @@ namespace ai
                 creators["bear form"] = &TriggerFactoryInternal::bear_form;
                 creators["cat form"] = &TriggerFactoryInternal::cat_form;
                 creators["tree form"] = &TriggerFactoryInternal::tree_form;
+                creators["moonkin form"] = &TriggerFactoryInternal::moonkin_form;
+//                creators["caster form"] = &TriggerFactoryInternal::caster_form;
                 creators["eclipse (solar)"] = &TriggerFactoryInternal::eclipse_solar;
                 creators["eclipse (lunar)"] = &TriggerFactoryInternal::eclipse_lunar;
                 creators["bash on enemy healer"] = &TriggerFactoryInternal::bash_on_enemy_healer;
@@ -124,6 +126,8 @@ namespace ai
             static Trigger* bear_form(PlayerbotAI* ai) { return new BearFormTrigger(ai); }
             static Trigger* cat_form(PlayerbotAI* ai) { return new CatFormTrigger(ai); }
             static Trigger* tree_form(PlayerbotAI* ai) { return new TreeFormTrigger(ai); }
+            static Trigger* moonkin_form(PlayerbotAI* ai) { return new MoonkinFormTrigger(ai); }
+//            static Trigger* caster_form(PlayerbotAI* ai) { return new CasterFormTrigger(ai); }
             static Trigger* bash_on_enemy_healer(PlayerbotAI* ai) { return new BashInterruptEnemyHealerSpellTrigger(ai); }
             static Trigger* prowl(PlayerbotAI* ai) { return new ProwlTrigger(ai); }
             static Trigger* savage_roar(PlayerbotAI* ai) { return new SavageRoarTrigger(ai); }

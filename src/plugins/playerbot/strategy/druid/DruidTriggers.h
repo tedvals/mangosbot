@@ -126,13 +126,28 @@ namespace ai {
         BearFormTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "bear form") {}
         virtual bool IsActive() { return !ai->HasAnyAuraOf(bot, "bear form", "dire bear form", NULL); }
     };
-
+/*
+    class CasterFormTrigger : public BuffTrigger
+    {
+    public:
+        CasterFormTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "caster form") {}
+        virtual bool IsActive() { return !ai->HasAnyAuraOf(bot, "tree of life","bear form", "dire bear form", "moonkin form", "travel form", "aquatic form", NULL); }
+    };
+*/
     class TreeFormTrigger : public BuffTrigger
     {
     public:
         TreeFormTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "tree of life") {}
         virtual bool IsActive() { return !ai->HasAura("tree of life", bot); }
     };
+
+    class MoonkinFormTrigger : public BuffTrigger
+    {
+    public:
+        MoonkinFormTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "Moonkin") {}
+        virtual bool IsActive() { return !ai->HasAura("moonkin form", bot); }
+    };
+
 
     class SavageRoarTrigger : public BuffTrigger
     {

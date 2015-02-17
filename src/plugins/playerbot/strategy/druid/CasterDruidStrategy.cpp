@@ -143,7 +143,7 @@ void CasterDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "rooted",
-        NextAction::array(0, new NextAction("moonkin form", ACTION_MOVE + 10), NULL)));
+        NextAction::array(0, new NextAction("moonkin form", ACTION_MOVE + 9), NULL)));
 
     //triggers.push_back(new TriggerNode(
      //   "almost full health",

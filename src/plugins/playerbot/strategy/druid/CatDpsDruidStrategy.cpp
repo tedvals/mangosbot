@@ -86,7 +86,7 @@ private:
     static ActionNode* feral_charge_cat(PlayerbotAI* ai)
     {
         return new ActionNode ("feral charge - cat",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("cat form"),NULL),
             /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
             /*C*/ NextAction::array(0, new NextAction("pounce"), NULL));
     }
@@ -107,49 +107,49 @@ private:
     static ActionNode* shred(PlayerbotAI* ai)
     {
         return new ActionNode ("shred",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("cat form"),NULL),
             /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* mangle_cat(PlayerbotAI* ai)
     {
         return new ActionNode ("mangle (cat)",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("cat form"),NULL),
             /*A*/ NextAction::array(0, new NextAction("claw"), NULL),
             /*C*/ NextAction::array(0, new NextAction("move behind"), NULL));
     }
     static ActionNode* claw(PlayerbotAI* ai)
     {
         return new ActionNode ("claw",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("cat form"),NULL),
             /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
             /*C*/ NextAction::array(0, new NextAction("move behind"), NULL));
     }
     static ActionNode* rake(PlayerbotAI* ai)
     {
         return new ActionNode ("rake",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("cat form"),NULL),
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("mangle (cat)"), NULL));
     }
     static ActionNode* savageroar(PlayerbotAI* ai)
     {
         return new ActionNode ("savage roar",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("cat form"),NULL),
             /*A*/ NextAction::array(0, new NextAction("rip"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* ferocious_bite(PlayerbotAI* ai)
     {
         return new ActionNode ("ferocious bite",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("cat form"),NULL),
             /*A*/ NULL,
             /*C*/ NULL);
     }
     static ActionNode* rip(PlayerbotAI* ai)
     {
         return new ActionNode ("rip",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("cat form"),NULL),
             /*A*/ NextAction::array(0, new NextAction("ferocious bite"), NULL),
             /*C*/ NULL);
     }
@@ -206,42 +206,42 @@ private:
     {
         return new ActionNode ("instant regrowth",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("rejuvenation"), NULL),
+            /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
     }
     static ActionNode* instant_regrowth_on_party(PlayerbotAI* ai)
     {
         return new ActionNode ("instant regrowth on party",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("rejuvenation on party"), NULL),
+            /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
     }
     static ActionNode* instant_regrowth_on_master(PlayerbotAI* ai)
     {
         return new ActionNode ("instant regrowth on master",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("rejuvenation on master"), NULL),
+            /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
     }
     static ActionNode* instant_healing_touch(PlayerbotAI* ai)
     {
         return new ActionNode ("instant healing touch",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("healing touch"), NULL),
+            /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
     }
     static ActionNode* instant_healing_touch_on_party(PlayerbotAI* ai)
     {
         return new ActionNode ("instant healing touch on party",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("healing touch on party"), NULL),
+            /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
     }
     static ActionNode* instant_healing_touch_on_master(PlayerbotAI* ai)
     {
         return new ActionNode ("instant healing touch on master",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("healing touch on master"), NULL),
+            /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
     }
 };
@@ -274,12 +274,16 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "predator's swiftness",
-        NextAction::array(0, new NextAction("instant regrowth on party",  ACTION_NORMAL + 2), NULL)));
+        NextAction::array(0, new NextAction("instant regrowth on party",  ACTION_NORMAL + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "cat form",
-        NextAction::array(0, new NextAction("cat form", ACTION_EMERGENCY + 2), NULL)));
-
+        NextAction::array(0, new NextAction("cat form", ACTION_MOVE + 10), NULL)));
+/*
+    triggers.push_back(new TriggerNode(
+        "caster form",
+        NextAction::array(0, new NextAction("cat form", ACTION_MOVE + 10), NULL)));
+*/
      triggers.push_back(new TriggerNode(
         "rooted",
         NextAction::array(0, new NextAction("cat form", ACTION_MOVE + 7), NULL)));
@@ -345,16 +349,28 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("entangling roots on cc", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "low health",
+        "medium health",
         NextAction::array(0, new NextAction("instant regrowth", ACTION_MEDIUM_HEAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "party member low health",
+        "party member medium health",
         NextAction::array(0, new NextAction("instant regrowth on party", ACTION_MEDIUM_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "master low health",
+        "master medium health",
         NextAction::array(0, new NextAction("instant regrowth on master", ACTION_MEDIUM_HEAL + 7), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "low health",
+        NextAction::array(0, new NextAction("instant healing touch", ACTION_CRITICAL_HEAL + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member low health",
+        NextAction::array(0, new NextAction("instant healing touch on party", ACTION_CRITICAL_HEAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master low health",
+        NextAction::array(0, new NextAction("instant healing touch on master", ACTION_CRITICAL_HEAL + 7), NULL)));
 
 }
 
