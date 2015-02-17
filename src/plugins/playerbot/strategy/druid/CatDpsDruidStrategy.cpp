@@ -88,7 +88,7 @@ private:
         return new ActionNode ("feral charge - cat",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
-            /*C*/ NextAction::array(0, new NextAction("ravage"), NULL));
+            /*C*/ NextAction::array(0, new NextAction("pounce"), NULL));
     }
     static ActionNode* faerie_fire_feral(PlayerbotAI* ai)
     {
