@@ -127,57 +127,6 @@ namespace ai
         CastHealingTouchOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "healing touch",25) {}
     };
 
-    class CastInstantRegrowthAction : public CastHealingSpellAction {
-	public:
-		CastInstantRegrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "regrowth",5) {}
-
-		virtual bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura(69369, bot);}
-
-		virtual bool IsInstant() {return true;}
-
-		virtual NextAction** getPrerequisites() {
-			return NextAction::merge( NextAction::array(0, new NextAction("caster form"), NULL), CastHealingSpellAction::getPrerequisites());
-		}
-	};
-
-	class CastInstantRegrowthOnPartyAction : public HealPartyMemberAction
-    {
-    public:
-        CastInstantRegrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "regrowth",5) {}
-
-        virtual bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura(69369, bot);}
-        virtual bool IsInstant() {return true;}
-
-        virtual NextAction** getPrerequisites() {
-			return NextAction::merge( NextAction::array(0, new NextAction("caster form"), NULL),  HealPartyMemberAction::getPrerequisites());
-		}
-    };
-
-    class CastInstantHealingTouchAction : public CastHealingSpellAction {
-    public:
-        CastInstantHealingTouchAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "healing touch",10) {}
-
-        virtual bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura(69369, bot);}
-        virtual bool IsInstant() {return true;}
-
-        virtual NextAction** getPrerequisites() {
-			return NextAction::merge( NextAction::array(0, new NextAction("caster form"), NULL), CastHealingSpellAction::getPrerequisites());
-		}
-    };
-
-    class CastInstantHealingTouchOnPartyAction : public HealPartyMemberAction
-    {
-    public:
-        CastInstantHealingTouchOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "healing touch",10) {}
-
-        virtual bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura(69369, bot);}
-        virtual bool IsInstant() {return true;}
-
-        virtual NextAction** getPrerequisites() {
-			return NextAction::merge( NextAction::array(0, new NextAction("caster form"), NULL), HealPartyMemberAction::getPrerequisites());
-		}
-    };
-
 	class CastReviveAction : public ResurrectPartyMemberAction
 	{
 	public:
@@ -251,32 +200,6 @@ namespace ai
 			return NextAction::merge( NextAction::array(0, new NextAction("caster form"), NULL), ResurrectPartyMemberAction::getPrerequisites());
 		}
 	};
-//Predator's swiftness aura
-	class CastInstantRegrowthOnMasterAction : public HealMasterAction
-    {
-    public:
-        CastInstantRegrowthOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "regrowth",10) {}
-
-        bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura(69369, bot);}
-        virtual bool IsInstant() {return true;}
-
-          virtual NextAction** getPrerequisites() {
-			return NextAction::merge( NextAction::array(0, new NextAction("caster form"), NULL), HealMasterAction::getPrerequisites());
-		}
-    };
-
-    class CastInstantHealingTouchOnMasterAction : public HealMasterAction
-    {
-    public:
-        CastInstantHealingTouchOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "healing touch",20) {}
-
-        bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura(69369, bot);}
-        virtual bool IsInstant() {return true;}
-
-          virtual NextAction** getPrerequisites() {
-			return NextAction::merge( NextAction::array(0, new NextAction("caster form"), NULL), HealMasterAction::getPrerequisites());
-		}
-    };
 
 
 	class CastMarkOfTheWildAction : public CastBuffSpellAction {

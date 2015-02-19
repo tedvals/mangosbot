@@ -155,8 +155,9 @@ void GenericDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "hibernate",
         NextAction::array(0, new NextAction("hibernate on cc", ACTION_HIGH + 2), NULL)));
-
+/*
     triggers.push_back(new TriggerNode(
         "runaway",
         NextAction::array(0, new NextAction("nature's grasp", ACTION_EMERGENCY + 7), new NextAction("cat form", ACTION_EMERGENCY + 7), new NextAction("dash", ACTION_EMERGENCY + 8), NULL)));
+*/
 }

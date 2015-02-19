@@ -100,17 +100,25 @@ bool OpenLootAction::DoLoot(LootObject& lootObject)
         case SKILL_MINING:
             return bot->HasSkill(SKILL_MINING) ? ai->CastSpell(32606, creature) : false;
         default:
-//            return bot->HasSkill(SKILL_SKINNING) ? ai->CastSpell(SKINNING, creature) : false;
+           return bot->HasSkill(SKILL_SKINNING) ? ai->CastSpell(SKINNING, creature) : false;
+/*
             if (bot->HasSkill(SKILL_SKINNING))
             {
-                if (!ai->CastSpell(SKINNING_GM, creature))
-                    if (!ai->CastSpell(SKINNING_M, creature))
-                        if (!ai->CastSpell(SKINNING_E, creature))
-                            if (!ai->CastSpell(SKINNING_A, creature))
-                                if (!ai->CastSpell(SKINNING_J, creature))
-                                    if (!ai->CastSpell(SKINNING, creature))
-                                        return false;
+                if (bot->HasSpell(SKINNING_GM))
+                    return ai->CastSpell(SKINNING_GM, creature);
+                else if (bot->HasSpell(SKINNING_M))
+                    return ai->CastSpell(SKINNING_M, creature);
+                else  if (bot->HasSpell(SKINNING_E))
+                    return ai->CastSpell(SKINNING_E, creature);
+                else if (bot->HasSpell(SKINNING_A))
+                    return ai->CastSpell(SKINNING_A, creature);
+                else if (bot->HasSpell(SKINNING_J))
+                    return ai->CastSpell(SKINNING_J, creature);
+                else if (bot->HasSpell(SKINNING))
+                    return ai->CastSpell(SKINNING, creature);
+                else return false;
             }
+            */
         }
     }
 
@@ -124,14 +132,20 @@ bool OpenLootAction::DoLoot(LootObject& lootObject)
 //        return bot->HasSkill(SKILL_MINING) ? ai->CastSpell(MINING, bot) : false;
         if (bot->HasSkill(SKILL_MINING))
         {
-            if (!ai->CastSpell(MINING_GM, bot))
-                if (!ai->CastSpell(MINING_M, bot))
-                    if (!ai->CastSpell(MINING_E, bot))
-                        if (!ai->CastSpell(MINING_A, bot))
-                            if (!ai->CastSpell(MINING_J, bot))
-                                if (!ai->CastSpell(MINING, bot))
-                                    return false;
-        }
+            if (bot->HasSpell(MINING_GM))
+                return ai->CastSpell(MINING_GM, bot);
+            else if (bot->HasSpell(MINING_M))
+                return ai->CastSpell(MINING_M, bot);
+            else  if (bot->HasSpell(MINING_E))
+                return ai->CastSpell(MINING_E, bot);
+            else if (bot->HasSpell(MINING_A))
+                return ai->CastSpell(MINING_A, bot);
+            else if (bot->HasSpell(MINING_J))
+                return ai->CastSpell(MINING_J, bot);
+            else if (bot->HasSpell(MINING))
+                return ai->CastSpell(MINING, bot);
+            else return false;
+          }
     }
 
     if (lootObject.skillId == SKILL_HERBALISM)
@@ -139,13 +153,19 @@ bool OpenLootAction::DoLoot(LootObject& lootObject)
     {
         if (bot->HasSkill(SKILL_HERBALISM))
         {
-            if (!ai->CastSpell(HERB_GATHERING_GM, bot))
-                if (!ai->CastSpell(HERB_GATHERING_M, bot))
-                    if (!ai->CastSpell(HERB_GATHERING_E, bot))
-                        if (!ai->CastSpell(HERB_GATHERING_A, bot))
-                            if (!ai->CastSpell(HERB_GATHERING_J, bot))
-                                if (!ai->CastSpell(HERB_GATHERING, bot))
-                                    return false;
+            if (bot->HasSpell(HERB_GATHERING_GM))
+                return ai->CastSpell(HERB_GATHERING_GM, bot);
+            else if (bot->HasSpell(HERB_GATHERING_M))
+                return ai->CastSpell(HERB_GATHERING_M, bot);
+            else  if (bot->HasSpell(HERB_GATHERING_E))
+                return ai->CastSpell(HERB_GATHERING_E, bot);
+            else if (bot->HasSpell(HERB_GATHERING_A))
+                return ai->CastSpell(HERB_GATHERING_A, bot);
+            else if (bot->HasSpell(HERB_GATHERING_J))
+                return ai->CastSpell(HERB_GATHERING_J, bot);
+            else if (bot->HasSpell(HERB_GATHERING))
+                return ai->CastSpell(HERB_GATHERING, bot);
+            else return false;
         }
     }
 

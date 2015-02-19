@@ -39,6 +39,16 @@ public:
         creators["rejuvenation"] = &rejuvenation;
         creators["rejuvenation on party"] = &rejuvenation_on_party;
         creators["rejuvenation on master"] = &rejuvenation_on_master;
+        creators["cure poison"] = &cure_poison;
+        creators["cure poison on party"] = &cure_poison_on_party;
+        creators["abolish poison"] = &abolish_poison;
+        creators["abolish poison on party"] = &abolish_poison_on_party;
+        creators["rebirth"] = &rebirth;
+        creators["entangling roots on cc"] = &entangling_roots_on_cc;
+        creators["hibernate"] = &hibernate;
+        creators["hibernate on cc"] = &hibernate_on_cc;
+        creators["innervate"] = &innervate;
+        creators["dash"] = &dash;
     }
 private:
     static ActionNode* dire_bear_form(PlayerbotAI* ai)
@@ -69,26 +79,12 @@ private:
             /*A*/ NextAction::array(0, new NextAction("feral charge - cat"), NULL),
             /*C*/ NULL);
     }
-    static ActionNode* hibernate(PlayerbotAI* ai)
-    {
-        return new ActionNode ("hibernate",
-            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
-            /*A*/ NULL,
-            /*C*/ NULL);
-    }
-    static ActionNode* hibernate_on_cc(PlayerbotAI* ai)
-    {
-        return new ActionNode ("hibernate on cc",
-            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
-            /*A*/ NULL,
-            /*C*/ NULL);
-    }
     static ActionNode* feral_charge_cat(PlayerbotAI* ai)
     {
         return new ActionNode ("feral charge - cat",
             /*P*/ NextAction::array(0, new NextAction("cat form"),NULL),
-            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
-            /*C*/ NextAction::array(0, new NextAction("pounce"), NULL));
+            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
+            /*C*/ NULL);
     }
     static ActionNode* faerie_fire_feral(PlayerbotAI* ai)
     {
@@ -244,9 +240,79 @@ private:
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("cat form"), NULL));
     }
+    static ActionNode* cure_poison(PlayerbotAI* ai)
+    {
+        return new ActionNode ("cure poison",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* cure_poison_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("cure poison on party",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* abolish_poison(PlayerbotAI* ai)
+    {
+        return new ActionNode ("abolish poison",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* abolish_poison_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("abolish poison on party",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* rebirth(PlayerbotAI* ai)
+    {
+        return new ActionNode ("rebirth",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* entangling_roots_on_cc(PlayerbotAI* ai)
+    {
+        return new ActionNode ("entangling roots on cc",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* hibernate(PlayerbotAI* ai)
+    {
+        return new ActionNode ("hibernate",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* hibernate_on_cc(PlayerbotAI* ai)
+    {
+        return new ActionNode ("hibernate on cc",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* innervate(PlayerbotAI* ai)
+    {
+        return new ActionNode ("innervate",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("mana potion"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* dash(PlayerbotAI* ai)
+    {
+        return new ActionNode ("dash",
+            /*P*/ NextAction::array(0, new NextAction("cat form")),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
 };
 
-CatDpsDruidStrategy::CatDpsDruidStrategy(PlayerbotAI* ai) : FeralDruidStrategy(ai)
+CatDpsDruidStrategy::CatDpsDruidStrategy(PlayerbotAI* ai) : MeleeCombatStrategy(ai)
 {
     actionNodeFactories.Add(new CatDpsDruidStrategyActionNodeFactory());
 }
@@ -258,7 +324,9 @@ NextAction** CatDpsDruidStrategy::getDefaultActions()
 
 void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    FeralDruidStrategy::InitTriggers(triggers);
+   triggers.push_back(new TriggerNode(
+        "enemy too close for melee",
+        NextAction::array(0, new NextAction("move out of enemy contact", ACTION_MOVE + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
@@ -371,6 +439,50 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "master low health",
         NextAction::array(0, new NextAction("instant healing touch on master", ACTION_CRITICAL_HEAL + 7), NULL)));
+
+       triggers.push_back(new TriggerNode(
+        "critical health",
+        NextAction::array(0, new NextAction("regrowth", ACTION_CRITICAL_HEAL + 3), NULL)));
+
+       triggers.push_back(new TriggerNode(
+        "almost dead",
+        NextAction::array(0, new NextAction("survival instincts", ACTION_EMERGENCY + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member critical health",
+        NextAction::array(0,  new NextAction("regrowth on party", ACTION_CRITICAL_HEAL + 4), new NextAction("rejuvenation on party", ACTION_CRITICAL_HEAL + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master critical health",
+        NextAction::array(0,  new NextAction("regrowth on master", ACTION_CRITICAL_HEAL + 4), new NextAction("rejuvenation on master", ACTION_CRITICAL_HEAL + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "cure poison",
+        NextAction::array(0, new NextAction("abolish poison", ACTION_DISPEL + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member cure poison",
+        NextAction::array(0, new NextAction("abolish poison on party", ACTION_DISPEL + 1), NULL)));
+
+	triggers.push_back(new TriggerNode(
+		"party member dead",
+		NextAction::array(0, new NextAction("rebirth", ACTION_HIGH + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "low mana",
+        NextAction::array(0, new NextAction("innervate", ACTION_EMERGENCY + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "critical aoe heal",
+        NextAction::array(0, new NextAction("barkskin", ACTION_EMERGENCY + 5), new NextAction("tranquility", ACTION_EMERGENCY + 4), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "hibernate",
+        NextAction::array(0, new NextAction("hibernate on cc", ACTION_HIGH + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "runaway",
+        NextAction::array(0, new NextAction("nature's grasp", ACTION_EMERGENCY + 7), new NextAction("cat form", ACTION_EMERGENCY + 7), new NextAction("dash", ACTION_EMERGENCY + 8), NULL)));
 
 }
 
