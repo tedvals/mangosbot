@@ -49,6 +49,7 @@ public:
         creators["hibernate on cc"] = &hibernate_on_cc;
         creators["innervate"] = &innervate;
         creators["dash"] = &dash;
+	creators["tranquility"] = &tranquility;
     }
 private:
     static ActionNode* dire_bear_form(PlayerbotAI* ai)
@@ -112,14 +113,14 @@ private:
         return new ActionNode ("mangle (cat)",
             /*P*/ NextAction::array(0, new NextAction("cat form"),NULL),
             /*A*/ NextAction::array(0, new NextAction("claw"), NULL),
-            /*C*/ NextAction::array(0, new NextAction("move behind"), NULL));
+            /*C*/ NextAction::array(0, new NextAction("reach melee"), NULL));
     }
     static ActionNode* claw(PlayerbotAI* ai)
     {
         return new ActionNode ("claw",
             /*P*/ NextAction::array(0, new NextAction("cat form"),NULL),
             /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
-            /*C*/ NextAction::array(0, new NextAction("move behind"), NULL));
+            /*C*/ NextAction::array(0, new NextAction("reach melee"), NULL));
     }
     static ActionNode* rake(PlayerbotAI* ai)
     {
@@ -303,6 +304,13 @@ private:
             /*A*/ NextAction::array(0, new NextAction("mana potion"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* tranquility(PlayerbotAI* ai)
+    {
+        return new ActionNode ("tranquility",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NULL,
+            /*C*/ NULL);
+    }
     static ActionNode* dash(PlayerbotAI* ai)
     {
         return new ActionNode ("dash",
@@ -417,16 +425,28 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("entangling roots on cc", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "high health",
+        NextAction::array(0, new NextAction("instant regrowth", ACTION_LIGHT_HEAL + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member high health",
+        NextAction::array(0, new NextAction("instant regrowth on party", ACTION_LIGHT_HEAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master high health",
+        NextAction::array(0, new NextAction("instant regrowth on master", ACTION_LIGHT_HEAL + 7), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "medium health",
-        NextAction::array(0, new NextAction("instant regrowth", ACTION_MEDIUM_HEAL + 2), NULL)));
+        NextAction::array(0, new NextAction("instant healing touch", ACTION_MEDIUM_HEAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member medium health",
-        NextAction::array(0, new NextAction("instant regrowth on party", ACTION_MEDIUM_HEAL + 1), NULL)));
+        NextAction::array(0, new NextAction("instant healing touch on party", ACTION_MEDIUM_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "master medium health",
-        NextAction::array(0, new NextAction("instant regrowth on master", ACTION_MEDIUM_HEAL + 7), NULL)));
+        NextAction::array(0, new NextAction("instant healing touch on master", ACTION_MEDIUM_HEAL + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low health",

@@ -168,7 +168,7 @@ namespace ai {
     class CastInstantHealingTouchOnMasterAction : public HealMasterAction
     {
     public:
-        CastInstantHealingTouchOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "healing touch",20) {}
+        CastInstantHealingTouchOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "healing touch",10) {}
 
         bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura("predator's swiftness", bot) && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana;}
         virtual bool IsInstant() {return true;}
