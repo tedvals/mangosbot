@@ -304,6 +304,7 @@ ActionResult Engine::ExecuteAction(string name)
 
     action->MakeVerbose();
     Event emptyEvent;
+
     result = ListenAndExecute(action, emptyEvent);
     MultiplyAndPush(action->getContinuers(), 0.0f, false, emptyEvent);
     delete actionNode;
@@ -469,6 +470,9 @@ Action* Engine::InitializeAction(ActionNode* actionNode)
 bool Engine::ListenAndExecute(Action* action, Event event)
 {
     bool actionExecuted = false;
+
+        //Debug only
+    ai->TellMaster(action->getName());
 
     if (actionExecutionListeners.Before(action, event))
     {

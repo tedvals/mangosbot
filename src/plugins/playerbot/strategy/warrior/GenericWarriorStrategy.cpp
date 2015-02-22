@@ -63,7 +63,7 @@ void GenericWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "high rage available",
-        NextAction::array(0, new NextAction("heroic strike", ACTION_HIGH + 1), NULL)));
+        NextAction::array(0, new NextAction("heroic strike", ACTION_NORMAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "shield bash",

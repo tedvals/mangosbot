@@ -92,7 +92,8 @@ namespace ai
         virtual bool isUseful()
         {
            // return CastMeleeSpellAction::isUseful() && !ai->HasAura("wing clip"), GetTarget());
-           return CastMeleeSpellAction::isUseful() && !ai->HasAnyAuraOf(GetTarget(), "slow", "wing clip", "frost shock", "crippling poison", "hamstring", NULL);
+           return CastMeleeSpellAction::isUseful() && !ai->HasAnyAuraOf(GetTarget(), "slow", "wing clip", "frost shock", "crippling poison", "hamstring", NULL)
+           && (AI_VALUE2(bool, "target player", "current target")||AI_VALUE2(bool, "fleeing", "current target"));
         }
         virtual bool IsInstant() {return true;}
     };

@@ -216,7 +216,7 @@ void DpsArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "rend",
-        NextAction::array(0, new NextAction("rend", ACTION_HIGH + 1), NULL)));
+        NextAction::array(0, new NextAction("rend", ACTION_HIGH + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "rend on attacker",
