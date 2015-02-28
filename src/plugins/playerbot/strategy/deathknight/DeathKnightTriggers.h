@@ -11,7 +11,7 @@ namespace ai
 
     DEBUFF_TRIGGER(FrostFeverDebuffTrigger, "frost fever", "frost fever")
     DEBUFF_TRIGGER(BloodPlagueDebuffTrigger, "blood plague", "blood plague")
-    
+
 
     class FrostFeverDebuffOnAttackerTrigger : public DebuffOnAttackerTrigger
     {
@@ -42,11 +42,11 @@ namespace ai
     public:
         FreezingFogTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "freezing fog") {}
     };
-    
+
     class ChainsOfIceTrigger : public SnareTargetTrigger
     {
     public:
-        ChainsOfIceTrigger(PlayerbotAI* ai) : SnareTargetTrigger(ai, "hamstring") {}
+        ChainsOfIceTrigger(PlayerbotAI* ai) : SnareTargetTrigger(ai, "chains of ice") {}
     };
 
     //class DeathWishTrigger : public BoostTrigger

@@ -12,9 +12,9 @@ public:
     {
 	creators["heart strike"] = &heart_strike;
 	creators["chains of ice"] = &chains_of_ice;
-        creators["mind freeze"] = &mind_freeze;
-	creators["rune stike"] = &rune strike;
-	creators["frost stike"] = &frost strike;
+    creators["mind freeze"] = &mind_freeze;
+	creators["rune strike"] = &rune_strike;
+	creators["frost strike"] = &frost_strike;
 	creators["hysteria on master"] = &hysteria_on_master;
     }
 private:
@@ -39,7 +39,7 @@ private:
             /*A*/ NextAction::array(0, new NextAction("strangulate"), NULL),
             /*C*/ NULL);
     }
-    static ActionNode* runic_strike(PlayerbotAI* ai)
+    static ActionNode* rune_strike(PlayerbotAI* ai)
     {
         return new ActionNode ("rune strike",
             /*P*/ NULL,

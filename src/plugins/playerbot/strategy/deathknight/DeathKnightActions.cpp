@@ -6,7 +6,7 @@ using namespace ai;
 
 NextAction** CastBloodStrikeAction::getPrerequisites()
 {
-    return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastDebuffSpellAction::getPrerequisites());
+    return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
 }
 
 NextAction** CastDeathStrikeAction::getPrerequisites()
@@ -16,7 +16,7 @@ NextAction** CastDeathStrikeAction::getPrerequisites()
 
 NextAction** CastPlagueStrikeAction::getPrerequisites()
 {
-    return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
+    return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastSpellAction::getPrerequisites());
 }
 
 NextAction** CastObliterateAction::getPrerequisites()
@@ -52,4 +52,42 @@ NextAction** CastRuneStrikeAction::getAlternatives()
 NextAction** CastVampiricBloodAction::getAlternatives()
 {
     return NextAction::merge( NextAction::array(0, new NextAction("unbreakable armor"), NULL), CastBuffSpellAction::getAlternatives());
+}
+
+bool CastHysteriaOnPartyAction::isUseful()
+{
+    Unit* player = GetTarget();
+
+    if (player)
+    {
+        switch (player->getClass())
+        {
+            case CLASS_DEATH_KNIGHT:
+            case CLASS_WARRIOR:
+            case CLASS_ROGUE:
+            case CLASS_DRUID:
+                return ai->HasAnyAuraOf(player, "bear form", "dire bear form", "cat form", NULL);
+        }
+            return false;
+    }
+    else return false;
+}
+
+bool CastHysteriaOnMasterAction::isUseful()
+{
+    Unit* player = GetTarget();
+
+    if (player)
+    {
+        switch (player->getClass())
+        {
+            case CLASS_DEATH_KNIGHT:
+            case CLASS_WARRIOR:
+            case CLASS_ROGUE:
+            case CLASS_DRUID:
+                return ai->HasAnyAuraOf(player, "bear form", "dire bear form", "cat form", NULL);
+        }
+            return false;
+    }
+    else return false;
 }

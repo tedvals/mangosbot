@@ -17,14 +17,14 @@ private:
     static ActionNode* melee(PlayerbotAI* ai)
     {
         return new ActionNode ("melee",
-            /*P*/ NextAction::array(0, new NextAction("death grip"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("death grip"), NULL),
             /*C*/ NULL);
     }
-    static ActionNode* charge(PlayerbotAI* ai)
+    static ActionNode* death_grip(PlayerbotAI* ai)
     {
         return new ActionNode ("death grip",
-            /*P*/ NULL),
+            /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("reach target"), NULL),
             /*C*/ NULL);
     }
@@ -63,14 +63,14 @@ class DpsBloodDeathKnightStrategyActionNodeFactory : public NamedObjectFactory<A
 public:
     DpsBloodDeathKnightStrategyActionNodeFactory()
     {
-	creators["melee"] = &melee;	
+	creators["melee"] = &melee;
     }
 private:
     static ActionNode* melee(PlayerbotAI* ai)
     {
         return new ActionNode ("melee",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL,
+            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
             /*C*/ NULL);
     }
 };
@@ -95,7 +95,7 @@ void DpsBloodDeathKnightStrategy::InitTriggers(std::list<TriggerNode*> &triggers
 
     triggers.push_back(new TriggerNode(
         "frost fever",
-        NextAction::array(0, new NextAction("icy touch", ACTION_HIGH + 2), NULL)));    
+        NextAction::array(0, new NextAction("icy touch", ACTION_HIGH + 2), NULL)));
 
      triggers.push_back(new TriggerNode(
         "boost",
@@ -173,7 +173,7 @@ void DpsFrostDeathKnightStrategy::InitTriggers(std::list<TriggerNode*> &triggers
     triggers.push_back(new TriggerNode(
         "frost fever",
         NextAction::array(0, new NextAction("howling blast", ACTION_HIGH + 2), NULL)));
-    
+
      triggers.push_back(new TriggerNode(
         "medium runic power available",
         NextAction::array(0, new NextAction("frost strike", ACTION_NORMAL + 2), NULL)));
@@ -187,12 +187,8 @@ void DpsFrostDeathKnightStrategy::InitTriggers(std::list<TriggerNode*> &triggers
         NextAction::array(0, new NextAction("move behind", ACTION_MOVE + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "death wish",
-        NextAction::array(0, new NextAction("death wish", ACTION_HIGH + 2), NULL)));
-
-    triggers.push_back(new TriggerNode(
         "burst",
-        NextAction::array(0, new NextAction("recklessness", ACTION_HIGH + 2), NULL)));
+        NextAction::array(0, new NextAction("deathchill", ACTION_HIGH + 2), new NextAction("empower rune weapon", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "boost",
@@ -216,7 +212,7 @@ private:
     }
 };
 
-DpsUnholyDeathKnightStrategy::DpsFrostDeathKnightStrategy(PlayerbotAI* ai) : GenericDeathKnightStrategy(ai)
+DpsUnholyDeathKnightStrategy::DpsUnholyDeathKnightStrategy(PlayerbotAI* ai) : GenericDeathKnightStrategy(ai)
 {
     actionNodeFactories.Add(new DpsDeathKnightStrategyActionNodeFactory());
 }
@@ -229,7 +225,7 @@ NextAction** DpsUnholyDeathKnightStrategy::getDefaultActions()
 void DpsUnholyDeathKnightStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericDeathKnightStrategy::InitTriggers(triggers);
-    
+
      triggers.push_back(new TriggerNode(
         "medium runic power available",
         NextAction::array(0, new NextAction("death coil", ACTION_NORMAL + 2), NULL)));
@@ -267,7 +263,7 @@ NextAction** DpsDeathKnightAoeStrategy::getDefaultActions()
 
 void DpsDeathKnightAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-   
+
     triggers.push_back(new TriggerNode(
         "melee medium aoe",
         NextAction::array(0, new NextAction("pestilence", ACTION_HIGH + 3), new NextAction("blood boil", ACTION_HIGH), new NextAction("blood boil", ACTION_HIGH), NULL)));

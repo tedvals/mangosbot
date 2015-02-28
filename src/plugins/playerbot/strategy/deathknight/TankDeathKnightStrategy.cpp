@@ -11,12 +11,11 @@ public:
     TankDeathKnightStrategyActionNodeFactory()
     {
         creators["melee"] = &melee;
-	creators["death grip"] = &death_grip;
-	creators["death strike"] = &death_strike;
-	creators["scourge strike"] = &scourge_strike;
-	creators["obliterate"] = &obliterate;
-	creators["heart strike"] = &obliterate;
-        creators["dark command"] = &taunt;
+        creators["death grip"] = &death_grip;
+        creators["death strike"] = &death_strike;
+        creators["scourge strike"] = &scourge_strike;
+        creators["obliterate"] = &obliterate;
+        creators["dark command"] = &dark_command;
     }
 private:
     static ActionNode* melee(PlayerbotAI* ai)
@@ -26,7 +25,7 @@ private:
             /*A*/ NextAction::array(0, new NextAction("death grip"), NULL),
             /*C*/ NULL);
     }
-    static ActionNode* charge(PlayerbotAI* ai)
+    static ActionNode* death_grip(PlayerbotAI* ai)
     {
         return new ActionNode ("death grip",
             /*P*/ NULL,
@@ -37,21 +36,21 @@ private:
     {
         return new ActionNode ("death strike",
             /*P*/ NULL,
-            /*A*/ new NextAction("scourge strike"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("scourge strike"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* scourge_strike(PlayerbotAI* ai)
     {
         return new ActionNode ("scourge strike",
             /*P*/ NULL,
-            /*A*/ new NextAction("obliterate"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("obliterate"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* obliterate(PlayerbotAI* ai)
     {
         return new ActionNode ("obliterate",
             /*P*/ NULL,
-            /*A*/ new NextAction("plague strike"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("plague strike"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* dark_command(PlayerbotAI* ai)

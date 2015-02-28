@@ -9,7 +9,7 @@ namespace ai
         CastFrostMeleeSpellAction(PlayerbotAI* ai, string spell) : CastMeleeSpellAction(ai, spell) {}
         virtual bool IsInstant() {return true;}
         virtual NextAction** getPrerequisites() {
-            return NextAction::merge( NextAction::array(0, new NextAction("frost presense"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("frost presence"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
     };
 
@@ -19,7 +19,7 @@ namespace ai
         CastBloodMeleeSpellAction(PlayerbotAI* ai, string spell) : CastMeleeSpellAction(ai, spell) {}
         virtual bool IsInstant() {return true;}
         virtual NextAction** getPrerequisites() {
-            return NextAction::merge( NextAction::array(0, new NextAction("blood presense"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("blood presence"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
     };
 
@@ -38,14 +38,14 @@ namespace ai
     public:
         CastBloodStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "blood strike") {}
         virtual bool IsInstant() {return true;}
-        virtual bool isUseful() { return CastMeleeSpellAction::isUseful()}
+        virtual NextAction** getPrerequisites();
     };
 
     class CastRuneStrikeAction : public CastMeleeSpellAction {
     public:
         CastRuneStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "rune strike") {}
         virtual bool IsInstant() {return true;}
-	virtual NextAction** getAlternatives();
+        virtual NextAction** getAlternatives();
         virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "runic power", "self target") > 40; }
     };
 
@@ -53,17 +53,16 @@ namespace ai
     public:
         CastFrostStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "frost strike") {}
         virtual bool IsInstant() {return true;}
-	virtual NextAction** getAlternatives();        
-	virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "runic power", "self target") > 40; }
+        virtual NextAction** getAlternatives();
+        virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "runic power", "self target") > 40; }
     };
 
-    
     class CastHowlingBlastAction : public CastMeleeSpellAction {
     public:
         CastHowlingBlastAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "howling blast") {}
 
         virtual bool IsInstant() {return true;}
-	virtual NextAction** getAlternatives();
+        virtual NextAction** getAlternatives();
         virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE(uint8, "melee attacker count") > 1; }
     };
 
@@ -72,7 +71,7 @@ namespace ai
         CastPestilenceAction(PlayerbotAI* ai) : CastSpellAction(ai, "pestilence") {}
 
         virtual bool IsInstant() {return true;}
-        virtual bool isUseful() { return CastSpellAction::isUseful() && AI_VALUE(uint8, "melee attacker count") > 1 && ai->HasAura("frost fever", getTarget()) && ai->HasAura("blood plague", getTarget()); }
+        virtual bool isUseful() { return CastSpellAction::isUseful() && AI_VALUE(uint8, "melee attacker count") > 1 && ai->HasAura("frost fever", GetTarget()) && ai->HasAura("blood plague", GetTarget()); }
     };
 
     class CastIcyTouchAction : public CastSpellAction {
@@ -85,24 +84,24 @@ namespace ai
     public:
         CastScourgeStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "scourge strike") {}
         virtual bool IsInstant() {return true;}
-	virtual NextAction** getPrerequisites();
-	virtual NextAction** getAlternatives();
+        virtual NextAction** getPrerequisites();
+        virtual NextAction** getAlternatives();
     };
 
     class CastObliterateAction : public CastMeleeSpellAction {
     public:
         CastObliterateAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "obliterate") {}
-	virtual NextAction** getPrerequisites();
-	virtual bool IsInstant() {return true;}
+        virtual NextAction** getPrerequisites();
+        virtual bool IsInstant() {return true;}
     };
-    
+
     class CastChainsOfIceAction : public CastSpellAction {
     public:
         CastChainsOfIceAction(PlayerbotAI* ai) : CastSpellAction(ai, "chains of ice") {}
 
         virtual bool isUseful()
         {
-           return CastMeleeAction::isUseful() && !ai->HasAnyAuraOf(GetTarget(), "slow", "wing clip", "frost shock", "crippling poison", "hamstring", NULL);
+           return CastSpellAction::isUseful() && !ai->HasAnyAuraOf(GetTarget(), "slow", "wing clip", "frost shock", "crippling poison", "hamstring", NULL);
         }
         virtual bool IsInstant() {return true;}
     };
@@ -110,17 +109,18 @@ namespace ai
     class CastPlagueStrikeAction : public CastMeleeSpellAction {
     public:
         CastPlagueStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "plague strike") {}
-	virtual NextAction** getPrerequisites();
+        virtual NextAction** getPrerequisites();
+        virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && !ai->HasAura("blood plague", GetTarget()); }
         virtual bool IsInstant() {return true;}
     };
 
     class CastDeathStrikeAction : public CastMeleeSpellAction {
     public:
         CastDeathStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "death strike") {}
-	virtual NextAction** getPrerequisites();
+        virtual NextAction** getPrerequisites();
         virtual bool IsInstant() {return true;}
     };
-    
+
     class CastDeathCoilAction : public CastSpellAction {
     public:
         CastDeathCoilAction(PlayerbotAI* ai) :CastSpellAction(ai, "death coil") {}
@@ -148,14 +148,14 @@ namespace ai
 
     class CastIceboundFortitudeAction : public CastBuffSpellAction {
     public:
-        CastIceboundFortitude(PlayerbotAI* ai) : CastBuffSpellAction(ai, "icebound fortitude") {}
+        CastIceboundFortitudeAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "icebound fortitude") {}
         virtual bool IsInstant() {return true;}
     };
 
     class CastVampiricBloodAction : public CastBuffSpellAction {
     public:
         CastVampiricBloodAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "vampiric blood") {}
-	virtual NextAction** getAlternatives();        
+	virtual NextAction** getAlternatives();
 	virtual bool IsInstant() {return true;}
     };
 
@@ -175,7 +175,7 @@ namespace ai
 
     class CastCorpseExplosionAction : public CastSpellAction {
     public:
-        CastCorspeExplosionAction(PlayerbotAI* ai) : CastDefensiveMeleeSpellAction(ai, "corpse explosion") {}
+        CastCorpseExplosionAction(PlayerbotAI* ai) : CastSpellAction(ai, "corpse explosion") {}
         virtual bool IsInstant() {return true;}
     };
 
@@ -205,7 +205,6 @@ namespace ai
 		virtual bool IsInstant() {return true;}
 	};
 
-
     //debuffs
     BEGIN_DEBUFF_ACTION(CastMarkOfBloodAction, "mark of blood")
         virtual bool IsInstant() {return true;}
@@ -217,11 +216,11 @@ namespace ai
         virtual bool IsInstant() {return true;}
     };
 
-    
+
     BEGIN_SPELL_ACTION(CastMindFreezeAction, "mind freeze")
     virtual bool IsInstant() {return true;}
     virtual NextAction** getAlternatives();
-    virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "runic power", "self target") > 20; }
+    virtual bool isUseful() { return CastSpellAction::isUseful() && AI_VALUE2(uint8, "runic power", "self target") > 20; }
     END_SPELL_ACTION()
 
     BEGIN_SPELL_ACTION(CastStrangulateAction, "strangulate")
@@ -235,7 +234,7 @@ namespace ai
     // buffs
 	class CastSummonGhoulAction : public CastSpellAction {
 	public:
-		CastSummonGhoulAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon ghoul") {}
+		CastSummonGhoulAction(PlayerbotAI* ai) : CastSpellAction(ai, "summon ghoul") {}
 
         virtual bool IsInstant() {return true;}
 	};
@@ -267,7 +266,7 @@ namespace ai
 
 	class CastUnholyPresenceAction : public CastBuffSpellAction {
 	public:
-		UnholyPresence(PlayerbotAI* ai) : CastBuffSpellAction(ai, "unholy presence") {}
+		CastUnholyPresenceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "unholy presence") {}
 		virtual bool IsInstant() {return true;}
 	};
 
@@ -313,7 +312,7 @@ namespace ai
 
 	class CastDancingRuneWeaponAction : public CastBuffSpellAction {
 	public:
-		CastDancingRuneWeapon(PlayerbotAI* ai) : CastBuffSpellAction(ai, "dancing rune weapon") {}
+		CastDancingRuneWeaponAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "dancing rune weapon") {}
 		virtual bool IsInstant() {return true;}
 	};
 
@@ -344,11 +343,13 @@ namespace ai
         virtual string getName() { return "hysteria on master";}
         virtual string GetTargetName() { return "master target";}
         virtual bool IsInstant() {return true;}
+        virtual bool isUseful();
     };
 
 	class CastHysteriaOnPartyAction : public BuffOnPartyAction {
 	public:
 		CastHysteriaOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "hysteria") {}
 		virtual bool IsInstant() {return true;}
+		virtual bool isUseful();
 	};
 }

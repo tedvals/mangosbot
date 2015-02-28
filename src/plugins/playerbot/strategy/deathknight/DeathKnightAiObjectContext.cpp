@@ -31,7 +31,7 @@ namespace ai
         private:
             static Strategy* nc(PlayerbotAI* ai) { return new GenericDeathKnightNonCombatStrategy(ai); }
             static Strategy* aoe(PlayerbotAI* ai) { return new DpsDeathKnightAoeStrategy(ai); }
-            static Strategy* pull(PlayerbotAI* ai) { return new PullStrategy(ai, "shoot"); }
+            static Strategy* pull(PlayerbotAI* ai) { return new PullStrategy(ai, "death grip"); }
         };
 
         class CombatStrategyFactoryInternal : public NamedObjectContext<Strategy>
@@ -41,7 +41,7 @@ namespace ai
             {
                 creators["tank"] = &DeathKnight::CombatStrategyFactoryInternal::tank;
                 creators["dps"] = &DeathKnight::CombatStrategyFactoryInternal::dps;
-		creators["frost dps"] = &DeathKnight::CombatStrategyFactoryInternal::frost_dps;
+                creators["frost dps"] = &DeathKnight::CombatStrategyFactoryInternal::frost_dps;
                 creators["blood dps"] = &DeathKnight::CombatStrategyFactoryInternal::blood_dps;
                 creators["unholy dps"] = &DeathKnight::CombatStrategyFactoryInternal::unholy_dps;
             }
@@ -51,7 +51,7 @@ namespace ai
             static Strategy* dps(PlayerbotAI* ai) { return new DpsDeathKnightStrategy(ai); }
             static Strategy* frost_dps(PlayerbotAI* ai) { return new DpsFrostDeathKnightStrategy(ai); }
             static Strategy* blood_dps(PlayerbotAI* ai) { return new DpsBloodDeathKnightStrategy(ai); }
-	    static Strategy* unholy_dps(PlayerbotAI* ai) { return new DpsUnholyDeathKnightStrategy(ai); }
+            static Strategy* unholy_dps(PlayerbotAI* ai) { return new DpsUnholyDeathKnightStrategy(ai); }
         };
     };
 };
@@ -69,13 +69,13 @@ namespace ai
             {
                 creators["chains of ice"] = &TriggerFactoryInternal::chains_of_ice;
                 creators["blood presence"] = &TriggerFactoryInternal::blood_presence;
-		creators["frost presence"] = &TriggerFactoryInternal::frost_presence;
-		creators["unholy presence"] = &TriggerFactoryInternal::unholy_presence;
+                creators["frost presence"] = &TriggerFactoryInternal::frost_presence;
+                creators["unholy presence"] = &TriggerFactoryInternal::unholy_presence;
                 creators["horn of winter"] = &TriggerFactoryInternal::horn_of_winter;
-                creators["bone shield"] = &TriggerFactoryInternal::bone shield;
+                creators["bone shield"] = &TriggerFactoryInternal::bone_shield;
                 creators["frost fever"] = &TriggerFactoryInternal::frost_fever;
-		creators["blood plague"] = &TriggerFactoryInternal::blood_plague;                 
-		creators["frost fever on attacker"] = &TriggerFactoryInternal::frost_fever_on_attacker;
+                creators["blood plague"] = &TriggerFactoryInternal::blood_plague;
+                creators["frost fever on attacker"] = &TriggerFactoryInternal::frost_fever_on_attacker;
                 creators["mind freeze"] = &TriggerFactoryInternal::mind_freeze;
                 creators["killing machine"] = &TriggerFactoryInternal::killing_machine;
                 creators["freezing fog"] = &TriggerFactoryInternal::freezing_fog;
@@ -85,20 +85,19 @@ namespace ai
             }
 
         private:
-            static Trigger* chains_of_ice(PlayerbotAI* ai) { return new HamstringTrigger(ai); }
+            static Trigger* chains_of_ice(PlayerbotAI* ai) { return new ChainsOfIceTrigger(ai); }
             static Trigger* bone_shield(PlayerbotAI* ai) { return new BoneShieldTrigger(ai); }
-	    static Trigger* blood_presence(PlayerbotAI* ai) { return new BloodPresenceTrigger(ai); }
-	    static Trigger* frost_presence(PlayerbotAI* ai) { return new FrostPresenceTrigger(ai); }
-	    static Trigger* unholy_presence(PlayerbotAI* ai) { return new UnholyPresenceTrigger(ai); }
+            static Trigger* blood_presence(PlayerbotAI* ai) { return new BloodPresenceTrigger(ai); }
+            static Trigger* frost_presence(PlayerbotAI* ai) { return new FrostPresenceTrigger(ai); }
+            static Trigger* unholy_presence(PlayerbotAI* ai) { return new UnholyPresenceTrigger(ai); }
             static Trigger* frost_fever(PlayerbotAI* ai) { return new FrostFeverDebuffTrigger(ai); }
             static Trigger* horn_of_winter(PlayerbotAI* ai) { return new HornOfWinterTrigger(ai); }
-            static Trigger* blood plague(PlayerbotAI* ai) { return new BloodPlagueDebuffTrigger(ai); }
+            static Trigger* blood_plague(PlayerbotAI* ai) { return new BloodPlagueDebuffTrigger(ai); }
             static Trigger* frost_fever_on_attacker(PlayerbotAI* ai) { return new FrostFeverDebuffOnAttackerTrigger(ai); }
             static Trigger* mind_freeze(PlayerbotAI* ai) { return new MindFreezeInterruptSpellTrigger(ai); }
             static Trigger* sudden_doom(PlayerbotAI* ai) { return new SuddenDoomTrigger(ai); }
             static Trigger* killing_machine(PlayerbotAI* ai) { return new KillingMachineTrigger(ai); }
             static Trigger* freezing_fog(PlayerbotAI* ai) { return new FreezingFogTrigger(ai); }
-            static Trigger* sudden_death(PlayerbotAI* ai) { return new SuddenDeathTrigger(ai); }
             static Trigger* strangulate_on_enemy_healer(PlayerbotAI* ai) { return new StrangulateInterruptEnemyHealerSpellTrigger(ai); }
         };
     };
@@ -119,11 +118,10 @@ namespace ai
                 creators["blood strike"] = &AiObjectContextInternal::blood_strike;
                 creators["rune strike"] = &AiObjectContextInternal::rune_strike;
                 creators["frost strike"] = &AiObjectContextInternal::frost_strike;
-                creators["boost"] = &AiObjectContextInternal::boost_DeathKnight;
-		creators["burst"] = &AiObjectContextInternal::burst_DeathKnight;
+                creators["boost"] = &AiObjectContextInternal::boost_deathknight;
+                creators["burst"] = &AiObjectContextInternal::burst_deathknight;
                 creators["pestilence"] = &AiObjectContextInternal::pestilence;
                 creators["howling blast"] = &AiObjectContextInternal::howling_blast;
-                creators["rend on attacker"] = &AiObjectContextInternal::rend_on_attacker;
                 creators["icy touch"] = &AiObjectContextInternal::icy_touch;
                 creators["scourge strike"] = &AiObjectContextInternal::scourge_strike;
                 creators["obliterate"] = &AiObjectContextInternal::obliterate;
@@ -135,7 +133,7 @@ namespace ai
                 creators["heart strike"] = &AiObjectContextInternal::heart_strike;
                 creators["bone shield"] = &AiObjectContextInternal::bone_shield;
                 creators["icebound fortitude"] = &AiObjectContextInternal::icebound_fortitude;
-                creators["vampiric blood"] = &AiObjectContextInternal::vampiric blood;
+                creators["vampiric blood"] = &AiObjectContextInternal::vampiric_blood;
                 creators["horn of winter"] = &AiObjectContextInternal::horn_of_winter;
                 creators["blood boil"] = &AiObjectContextInternal::blood_boil;
                 creators["corpse explosion"] = &AiObjectContextInternal::corpse_explosion;
@@ -152,21 +150,21 @@ namespace ai
                 creators["blood presence"] = &AiObjectContextInternal::blood_presence;
                 creators["frost presence"] = &AiObjectContextInternal::frost_presence;
                 creators["unholy presence"] = &AiObjectContextInternal::unholy_presence;
-		creators["hysteria"] = &AiObjectContextInternal::hysteria;
+                creators["hysteria"] = &AiObjectContextInternal::hysteria;
                 creators["hysteria on master"] = &AiObjectContextInternal::hysteria_on_master;
                 creators["hysteria on party"] = &AiObjectContextInternal::hysteria_on_party;
-                creators["death grip"] = &AiObjectContextInternal::death_grip;                
+                creators["death grip"] = &AiObjectContextInternal::death_grip;
                 creators["ghoul frenzy"] = &AiObjectContextInternal::ghoul_frenzy;
                 creators["lichborne"] = &AiObjectContextInternal::lichborne;
                 creators["antimagic shell"] = &AiObjectContextInternal::antimagic_shell;
                 creators["antimagic zone"] = &AiObjectContextInternal::antimagic_zone;
-                creators["death chill"] = &AiObjectContextInternal::deathchill;
+                creators["deathchill"] = &AiObjectContextInternal::deathchill;
                 creators["dancing rune weapon"] = &AiObjectContextInternal::dancing_rune_weapon;
                 creators["death and decay"] = &AiObjectContextInternal::death_and_decay;
                 creators["empower rune weapon"] = &AiObjectContextInternal::empower_rune_weapon;
                 creators["strangulate"] = &AiObjectContextInternal::strangulate;
                 creators["mind freeze on enemy healer"] = &AiObjectContextInternal::mind_freeze_on_enemy_healer;
-		creators["strangulate on enemy healer"] = &AiObjectContextInternal::strangulate_on_enemy_healer;
+                creators["strangulate on enemy healer"] = &AiObjectContextInternal::strangulate_on_enemy_healer;
             }
 
         private:
@@ -177,7 +175,7 @@ namespace ai
             static Action* pestilence(PlayerbotAI* ai) { return new CastPestilenceAction(ai); }
             static Action* icy_touch(PlayerbotAI* ai) { return new CastIcyTouchAction(ai); }
             static Action* boost_deathknight(PlayerbotAI* ai) { return new CastUnbreakableArmorAction(ai); }
-	    static Action* burst_deathknight(PlayerbotAI* ai) { return new CastEmpowerRuneWeaponAction(ai); }	
+            static Action* burst_deathknight(PlayerbotAI* ai) { return new CastEmpowerRuneWeaponAction(ai); }
             static Action* scourge_strike(PlayerbotAI* ai) { return new CastScourgeStrikeAction(ai); }
             static Action* obliterate(PlayerbotAI* ai) { return new CastObliterateAction(ai); }
             static Action* chains_of_ice(PlayerbotAI* ai) { return new CastChainsOfIceAction(ai); }
@@ -219,7 +217,7 @@ namespace ai
             static Action* empower_rune_weapon(PlayerbotAI* ai) { return new CastEmpowerRuneWeaponAction(ai); }
             static Action* strangulate(PlayerbotAI* ai) { return new CastStrangulateAction(ai); }
             static Action* mind_freeze_on_enemy_healer(PlayerbotAI* ai) { return new CastMindFreezeOnEnemyHealerAction(ai); }
-	    static Action* strangulate_on_enemy_healer(PlayerbotAI* ai) { return new CastStrangulateOnEnemyHealerAction(ai); }
+            static Action* strangulate_on_enemy_healer(PlayerbotAI* ai) { return new CastStrangulateOnEnemyHealerAction(ai); }
         };
     };
 };
