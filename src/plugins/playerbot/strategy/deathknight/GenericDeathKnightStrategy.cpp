@@ -1,83 +1,149 @@
 #include "../../../pchdef.h"
 #include "../../playerbot.h"
-#include "GenericWarriorStrategy.h"
-#include "WarriorAiObjectContext.h"
+#include "GenericDeathKnightStrategy.h"
+#include "DeathKnightAiObjectContext.h"
 
 using namespace ai;
 
-class GenericWarriorStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+class GenericDeathKnightStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
 {
 public:
-    GenericWarriorStrategyActionNodeFactory()
+    GenericDeathKnightStrategyActionNodeFactory()
     {
-        creators["hamstring"] = &hamstring;
-        creators["heroic strike"] = &heroic_strike;
-        creators["battle shout"] = &battle_shout;
-
+	creators["heart strike"] = &heart_strike;
+	creators["chains of ice"] = &chains_of_ice;
+        creators["mind freeze"] = &mind_freeze;
+	creators["rune stike"] = &rune strike;
+	creators["frost stike"] = &frost strike;
+	creators["hysteria on master"] = &hysteria_on_master;
     }
 private:
-    static ActionNode* hamstring(PlayerbotAI* ai)
+    static ActionNode* heart_strike(PlayerbotAI* ai)
     {
-        return new ActionNode ("hamstring",
-            /*P*/ NextAction::array(0, new NextAction("battle stance"), NULL),
-            /*A*/ NULL,
+        return new ActionNode ("heart strike",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("blood strike"), NULL),
             /*C*/ NULL);
     }
-    static ActionNode* heroic_strike(PlayerbotAI* ai)
+   static ActionNode* chains_of_ice(PlayerbotAI* ai)
     {
-        return new ActionNode ("heroic strike",
+        return new ActionNode ("chains of ice",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("death grip"), NULL),
             /*C*/ NULL);
     }
-    static ActionNode* battle_shout(PlayerbotAI* ai)
+    static ActionNode* mind_freeze(PlayerbotAI* ai)
     {
-        return new ActionNode ("battle shout",
+        return new ActionNode ("mind freeze",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("strangulate"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* runic_strike(PlayerbotAI* ai)
+    {
+        return new ActionNode ("rune strike",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("frost strike"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* frost_strike(PlayerbotAI* ai)
+    {
+        return new ActionNode ("frost strike",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("death coil"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* hysteria_on_master(PlayerbotAI* ai)
+    {
+        return new ActionNode ("hysteria on master",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("hysteria"), NULL),
             /*C*/ NULL);
     }
 
 };
 
-GenericWarriorStrategy::GenericWarriorStrategy(PlayerbotAI* ai) : MeleeCombatStrategy(ai)
+GenericDeathKnightStrategy::GenericDeathKnightStrategy(PlayerbotAI* ai) : MeleeCombatStrategy(ai)
 {
-    actionNodeFactories.Add(new GenericWarriorStrategyActionNodeFactory());
+    actionNodeFactories.Add(new GenericDeathKnightStrategyActionNodeFactory());
 }
 
-void GenericWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void GenericDeathKnightStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     MeleeCombatStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
-        "battle shout",
-        NextAction::array(0, new NextAction("battle shout", ACTION_HIGH + 1), NULL)));
+        "horn of winter",
+        NextAction::array(0, new NextAction("horn of winter", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "demoralizing shout",
-        NextAction::array(0, new NextAction("demoralizing shout", ACTION_NORMAL + 2), NULL)));
+        "blood plague",
+        NextAction::array(0, new NextAction("plague strike", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "bloodrage",
-        NextAction::array(0, new NextAction("bloodrage", ACTION_HIGH + 1), NULL)));
+        "high runic power available",
+        NextAction::array(0, new NextAction("rune strike", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "high rage available",
-        NextAction::array(0, new NextAction("heroic strike", ACTION_HIGH + 1), NULL)));
+        "no pet",
+        NextAction::array(0, new NextAction("raise ghoul", ACTION_HIGH + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "shield bash",
-        NextAction::array(0, new NextAction("shield bash", ACTION_INTERRUPT + 4), NULL)));
+        "target fleeing",
+        NextAction::array(0, new NextAction("chains of ice", ACTION_MOVE + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "shield bash on enemy healer",
-        NextAction::array(0, new NextAction("shield bash on enemy healer", ACTION_INTERRUPT + 3), NULL)));
+        "mind freeze",
+        NextAction::array(0, new NextAction("mind freeze", ACTION_INTERRUPT + 4), NULL)));
 
-	triggers.push_back(new TriggerNode(
+    triggers.push_back(new TriggerNode(
+        "mind freeze on enemy healer",
+        NextAction::array(0, new NextAction("mind freeze on enemy healer", ACTION_INTERRUPT + 3), NULL)));
+
+  triggers.push_back(new TriggerNode(
+        "boost",
+        NextAction::array(0, new NextAction("hysteria on master", ACTION_HIGH + 6), NULL)));
+
+    triggers.push_back(new TriggerNode(
 		"critical health",
-		NextAction::array(0, new NextAction("intimidating shout", ACTION_EMERGENCY), NULL)));
+		NextAction::array(0, new NextAction("icebound fortitude", ACTION_EMERGENCY), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"almost dead",
+		NextAction::array(0, new NextAction("rune tap", ACTION_EMERGENCY), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "not facing target",
+        NextAction::array(0, new NextAction("set facing", ACTION_MOVE + 7), NULL)));
+
+ 	triggers.push_back(new TriggerNode(
+        "enemy too close for melee",
+        NextAction::array(0, new NextAction("move out of enemy contact", ACTION_MOVE + 8), NULL)));
 
      triggers.push_back(new TriggerNode(
         "runaway",
-        NextAction::array(0, new NextAction("intimidating shout", ACTION_EMERGENCY + 7), new NextAction("bandage", ACTION_EMERGENCY + 6), NULL)));
+        NextAction::array(0, new NextAction("hungering cold", ACTION_EMERGENCY + 7), new NextAction("bandage", ACTION_EMERGENCY + 6), NULL)));
 }
+
+
+void DeathKnightBuffHealthStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+    triggers.push_back(new TriggerNode(
+        "frost presence",
+        NextAction::array(0, new NextAction("frost presence", ACTION_EMERGENCY), NULL)));
+}
+
+void DeathKnightBuffSpeedStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+    triggers.push_back(new TriggerNode(
+        "unholy presence",
+        NextAction::array(0, new NextAction("unholy presence", ACTION_EMERGENCY), NULL)));
+}
+
+void DeathKnightBuffDpsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+    triggers.push_back(new TriggerNode(
+        "blood presence",
+        NextAction::array(0, new NextAction("blood presence", ACTION_EMERGENCY), NULL)));
+}
+

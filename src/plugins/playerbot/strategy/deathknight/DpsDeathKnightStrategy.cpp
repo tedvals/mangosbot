@@ -1,395 +1,190 @@
 #include "../../../pchdef.h"
 #include "../../playerbot.h"
-#include "WarriorMultipliers.h"
-#include "DpsWarriorStrategy.h"
+#include "DeathKnightMultipliers.h"
+#include "DpsDeathKnightStrategy.h"
 
 using namespace ai;
 
-class DpsWarriorStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+class DpsDeathKnightStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
 {
 public:
-    DpsWarriorStrategyActionNodeFactory()
+    DpsDeathKnightStrategyActionNodeFactory()
     {
-        creators["overpower"] = &overpower;
         creators["melee"] = &melee;
-        creators["charge"] = &charge;
-        creators["intercept"] = &intercept;
-        creators["rend"] = &rend;
-        creators["mocking blow"] = &mocking_blow;
+        creators["death grip"] = &death_grip;
     }
 private:
-    static ActionNode* overpower(PlayerbotAI* ai)
-    {
-        return new ActionNode ("overpower",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
-            /*C*/ NULL);
-    }
     static ActionNode* melee(PlayerbotAI* ai)
     {
         return new ActionNode ("melee",
-            /*P*/ NextAction::array(0, new NextAction("charge"), NULL),
+            /*P*/ NextAction::array(0, new NextAction("death grip"), NULL),
             /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* charge(PlayerbotAI* ai)
     {
-        return new ActionNode ("charge",
-            /*P*/ NextAction::array(0, new NextAction("battle stance"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* intercept(PlayerbotAI* ai)
-    {
-        return new ActionNode ("intercept",
-            /*P*/ NextAction::array(0, new NextAction("berserker stance"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* rend(PlayerbotAI* ai)
-    {
-        return new ActionNode ("rend",
-            /*P*/ NextAction::array(0, new NextAction("battle stance"), NULL),
-            /*A*/ NULL,
-            /*C*/ NULL);
-    }
-    static ActionNode* mocking_blow(PlayerbotAI* ai)
-    {
-        return new ActionNode ("mocking blow",
-            /*P*/ NextAction::array(0, new NextAction("battle stance"), NULL),
-            /*A*/ NextAction::array(0, NULL),
+        return new ActionNode ("death grip",
+            /*P*/ NULL),
+            /*A*/ NextAction::array(0, new NextAction("reach target"), NULL),
             /*C*/ NULL);
     }
 };
 
-DpsWarriorStrategy::DpsWarriorStrategy(PlayerbotAI* ai) : GenericWarriorStrategy(ai)
+DpsDeathKnightStrategy::DpsDeathKnightStrategy(PlayerbotAI* ai) : GenericDeathKnightStrategy(ai)
 {
-    actionNodeFactories.Add(new DpsWarriorStrategyActionNodeFactory());
+    actionNodeFactories.Add(new DpsDeathKnightStrategyActionNodeFactory());
 }
 
-NextAction** DpsWarriorStrategy::getDefaultActions()
+NextAction** DpsDeathKnightStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("overpower", ACTION_NORMAL + 8), new NextAction("execute", ACTION_NORMAL + 5), NULL);
+    return NextAction::array(0, new NextAction("blood strike", ACTION_NORMAL),  NULL);
 }
 
-void DpsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void DpsDeathKnightStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    GenericWarriorStrategy::InitTriggers(triggers);
+    GenericDeathKnightStrategy::InitTriggers(triggers);
 
-    triggers.push_back(new TriggerNode(
-        "rend",
-        NextAction::array(0, new NextAction("rend", ACTION_HIGH + 1), NULL)));
+    	triggers.push_back(new TriggerNode(
+        "frost fever",
+        NextAction::array(0, new NextAction("icy touch", ACTION_HIGH + 2), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "rend on attacker",
-        NextAction::array(0, new NextAction("rend", ACTION_HIGH + 1), NULL)));
-
-    triggers.push_back(new TriggerNode(
+    	triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("charge", ACTION_NORMAL + 9), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "target critical health",
-        NextAction::array(0, new NextAction("execute", ACTION_HIGH + 4), NULL)));
+        NextAction::array(0, new NextAction("move behind", ACTION_MOVE + 9), NULL)));
 
  	triggers.push_back(new TriggerNode(
         "enemy too close for melee",
         NextAction::array(0, new NextAction("move out of enemy contact", ACTION_MOVE + 8), NULL)));
+	}
 
 
-	triggers.push_back(new TriggerNode(
-		"hamstring",
-		NextAction::array(0, new NextAction("hamstring", ACTION_INTERRUPT), NULL)));
-
-	triggers.push_back(new TriggerNode(
-		"victory rush",
-		NextAction::array(0, new NextAction("victory rush", ACTION_HIGH + 3), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "rooted",
-        NextAction::array(0, new NextAction("heroic throw", ACTION_MOVE + 10), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "target fleeing",
-        NextAction::array(0, new NextAction("hamstring", ACTION_HIGH + 2), NULL)));
-}
-
-
-class DpsArmsWarriorStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+class DpsBloodDeathKnightStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
 {
 public:
-    DpsArmsWarriorStrategyActionNodeFactory()
+    DpsBloodDeathKnightStrategyActionNodeFactory()
     {
-        creators["overpower"] = &overpower;
-        creators["mortal strike"]= &mortal_strike;
-        creators["sweeping strikes"]= &sweeping_strikes;
-        creators["bladestorm"]= &bladestorm;
-        creators["overpower"] = &overpower;
-        creators["rend"] = &rend;
-        creators["melee"] = &melee;
-        creators["charge"] = &charge;
-        creators["rend"] = &rend;
-        creators["mocking blow"] = &mocking_blow;
-        creators["slam"] = &slam;
-
+	creators["melee"] = &melee;	
     }
 private:
-    static ActionNode* overpower(PlayerbotAI* ai)
-    {
-        return new ActionNode ("overpower",
-            /*P*/ NextAction::array(0, new NextAction("battle stance"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("heroic strike"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* mortal_strike(PlayerbotAI* ai)
-    {
-        return new ActionNode ("mortal strike",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("slam"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* sweeping_strikes(PlayerbotAI* ai)
-    {
-        return new ActionNode ("sweeping strikes",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("cleave"), NULL),
-            /*C*/ NULL);
-    }
-     static ActionNode* bladestorm(PlayerbotAI* ai)
-    {
-        return new ActionNode ("bladestorm",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("cleave"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* slam(PlayerbotAI* ai)
-    {
-        return new ActionNode ("slam",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("heroic strike"), NULL),
-            /*C*/ NULL);
-    }
     static ActionNode* melee(PlayerbotAI* ai)
     {
         return new ActionNode ("melee",
-            /*P*/ NextAction::array(0, new NextAction("charge"), NULL),
-            /*A*/ NULL,
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL,
             /*C*/ NULL);
     }
-    static ActionNode* charge(PlayerbotAI* ai)
-    {
-        return new ActionNode ("charge",
-            /*P*/ NextAction::array(0, new NextAction("battle stance"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* rend(PlayerbotAI* ai)
-    {
-        return new ActionNode ("rend",
-            /*P*/ NextAction::array(0, new NextAction("battle stance"), NULL),
-            /*A*/ NULL,
-            /*C*/ NULL);
-    }
-    static ActionNode* mocking_blow(PlayerbotAI* ai)
-    {
-        return new ActionNode ("mocking blow",
-            /*P*/ NextAction::array(0, new NextAction("battle stance"), NULL),
-            /*A*/ NextAction::array(0, NULL),
-            /*C*/ NULL);
-    }
-
 };
 
-DpsArmsWarriorStrategy::DpsArmsWarriorStrategy(PlayerbotAI* ai) : GenericWarriorStrategy(ai)
+DpsBloodDeathKnightStrategy::DpsBloodDeathKnightStrategy(PlayerbotAI* ai) : GenericDeathKnightStrategy(ai)
 {
-    actionNodeFactories.Add(new DpsArmsWarriorStrategyActionNodeFactory());
+    actionNodeFactories.Add(new DpsBloodDeathKnightStrategyActionNodeFactory());
 }
 
-NextAction** DpsArmsWarriorStrategy::getDefaultActions()
+NextAction** DpsBloodDeathKnightStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("overpower", ACTION_NORMAL + 8), new NextAction("execute", ACTION_NORMAL + 6), new NextAction("mortal strike", ACTION_NORMAL + 5), NULL);
+    return NextAction::array(0, new NextAction("heart strike", ACTION_NORMAL + 8), new NextAction("death strike", ACTION_NORMAL + 6), NULL);
 }
 
-void DpsArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void DpsBloodDeathKnightStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    GenericWarriorStrategy::InitTriggers(triggers);
-
-    triggers.push_back(new TriggerNode(
-        "rend",
-        NextAction::array(0, new NextAction("rend", ACTION_HIGH + 1), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "rend on attacker",
-        NextAction::array(0, new NextAction("rend", ACTION_HIGH + 1), NULL)));
+    GenericDeathKnightStrategy::InitTriggers(triggers);
 
  	triggers.push_back(new TriggerNode(
         "enemy too close for melee",
         NextAction::array(0, new NextAction("move out of enemy contact", ACTION_MOVE + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "overpower",
-        NextAction::array(0, new NextAction("overpower", ACTION_HIGH + 5), NULL)));
-
-	triggers.push_back(new TriggerNode(
-		"hamstring",
-		NextAction::array(0, new NextAction("hamstring", ACTION_INTERRUPT), NULL)));
-
-	triggers.push_back(new TriggerNode(
-        "target critical health",
-        NextAction::array(0, new NextAction("execute", ACTION_HIGH + 4), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "rooted",
-        NextAction::array(0, new NextAction("heroic throw", ACTION_MOVE + 9), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "target fleeing",
-        NextAction::array(0, new NextAction("hamstring", ACTION_HIGH + 2), NULL)));
+        "frost fever",
+        NextAction::array(0, new NextAction("icy touch", ACTION_HIGH + 2), NULL)));    
 
      triggers.push_back(new TriggerNode(
-        "medium rage available",
-        NextAction::array(0, new NextAction("heroic strike", ACTION_NORMAL + 2), NULL)));
+        "boost",
+        NextAction::array(0, new NextAction("dancing rune weapon", ACTION_HIGH + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "battle stance",
-        NextAction::array(0, new NextAction("battle stance", ACTION_MOVE + 10), NULL)));
+        "rooted",
+        NextAction::array(0, new NextAction("death coil", ACTION_MOVE + 9), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "medium runic power available",
+        NextAction::array(0, new NextAction("death coil", ACTION_NORMAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("charge", ACTION_MOVE + 9), NULL)));
+        NextAction::array(0, new NextAction("move behind", ACTION_MOVE + 9), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"victory rush",
-		NextAction::array(0, new NextAction("victory rush", ACTION_HIGH + 3), NULL)));
-
-	triggers.push_back(new TriggerNode(
-		"sudden death",
-		NextAction::array(0, new NextAction("execute", ACTION_HIGH + 8), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "taste for blood",
-        NextAction::array(0, new NextAction("overpower", ACTION_HIGH + 6), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "boost",
-        NextAction::array(0, new NextAction("recklessness", ACTION_HIGH + 2), new NextAction("bladestorm", ACTION_HIGH + 2), NULL)));
+		"sudden doom",
+		NextAction::array(0, new NextAction("death coil", ACTION_HIGH + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "almost dead",
         NextAction::array(0, new NextAction("bandage", ACTION_EMERGENCY), NULL)));
+ }
 
-    triggers.push_back(new TriggerNode(
-        "has nearest adds",
-        NextAction::array(0, new NextAction("cleave", ACTION_NORMAL + 6), NULL)));
-}
-
-class DpsFuryWarriorStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+class DpsFrostDeathKnightStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
 {
 public:
-    DpsFuryWarriorStrategyActionNodeFactory()
+    DpsFrostDeathKnightStrategyActionNodeFactory()
     {
-        creators["intercept"] = &intercept;
-        creators["death wish"] = &death_wish;
-        creators["boost"] = &death_wish;
-        creators["whirlwind"]= &whirlwind;
         creators["melee"] = &melee;
-        creators["slam"] = &slam;
+	creators["howling blast"] = &howling_blast;
+	creators["frost strike"] = &frost_strike;
     }
 private:
-    static ActionNode* intercept(PlayerbotAI* ai)
-    {
-        return new ActionNode ("intercept",
-            /*P*/ NextAction::array(0, new NextAction("berserker stance"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* whirlwind(PlayerbotAI* ai)
-    {
-        return new ActionNode ("whirlwind",
-            /*P*/ NextAction::array(0, new NextAction("berserker stance"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("cleave"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* death_wish(PlayerbotAI* ai)
-    {
-        return new ActionNode ("death wish",
-        /*P*/ NULL,
-        /*A*/ NextAction::array(0, new NextAction("berserker rage"), NULL),
-        /*C*/ NULL);
-    }
-    static ActionNode* melee(PlayerbotAI* ai)
+   static ActionNode* melee(PlayerbotAI* ai)
     {
         return new ActionNode ("melee",
-            /*P*/ NextAction::array(0, new NextAction("intercept"), NULL),
-            /*A*/ NULL,
-            /*C*/ NULL);
-    }
-    static ActionNode* slam(PlayerbotAI* ai)
-    {
-        return new ActionNode ("slam",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("heroic strike"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
             /*C*/ NULL);
     }
+   static ActionNode* howling_blast(PlayerbotAI* ai)
+    {
+        return new ActionNode ("howling blast",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("icy touch"), NULL),
+            /*C*/ NULL);
+    }
+   static ActionNode* frost_strike(PlayerbotAI* ai)
+    {
+        return new ActionNode ("frost strike",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("death coil"), NULL),
+            /*C*/ NULL);
+    }
+
 };
 
-DpsFuryWarriorStrategy::DpsFuryWarriorStrategy(PlayerbotAI* ai) : GenericWarriorStrategy(ai)
+DpsFrostDeathKnightStrategy::DpsFrostDeathKnightStrategy(PlayerbotAI* ai) : GenericDeathKnightStrategy(ai)
 {
-    actionNodeFactories.Add(new DpsWarriorStrategyActionNodeFactory());
+    actionNodeFactories.Add(new DpsDeathKnightStrategyActionNodeFactory());
 }
 
-NextAction** DpsFuryWarriorStrategy::getDefaultActions()
+NextAction** DpsFrostDeathKnightStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("execute", ACTION_NORMAL + 6),new NextAction("bloodthirst", ACTION_NORMAL + 5), new NextAction("whirlwind", ACTION_NORMAL + 4), NULL);
+    return NextAction::array(0, new NextAction("howling blast", ACTION_NORMAL + 6),new NextAction("obliterate", ACTION_NORMAL + 5), new NextAction("blood strike", ACTION_NORMAL + 4), NULL);
 }
 
-void DpsFuryWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void DpsFrostDeathKnightStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    GenericWarriorStrategy::InitTriggers(triggers);
+    GenericDeathKnightStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
-        "target critical health",
-        NextAction::array(0, new NextAction("execute", ACTION_HIGH + 4), NULL)));
-
-	triggers.push_back(new TriggerNode(
-	"hamstring",
-	NextAction::array(0, new NextAction("hamstring", ACTION_INTERRUPT), NULL)));
-
-	triggers.push_back(new TriggerNode(
-	"victory rush",
-	NextAction::array(0, new NextAction("victory rush", ACTION_HIGH + 3), NULL)));
-
- 	triggers.push_back(new TriggerNode(
-        "enemy too close for melee",
-        NextAction::array(0, new NextAction("move out of enemy contact", ACTION_MOVE + 8), NULL)));
+        "frost fever",
+        NextAction::array(0, new NextAction("howling blast", ACTION_HIGH + 2), NULL)));
+    
+     triggers.push_back(new TriggerNode(
+        "medium runic power available",
+        NextAction::array(0, new NextAction("frost strike", ACTION_NORMAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("intercept", ACTION_MOVE + 9), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "target fleeing",
-        NextAction::array(0, new NextAction("hamstring", ACTION_HIGH + 2), NULL)));
-
-      triggers.push_back(new TriggerNode(
-        "medium rage available",
-        NextAction::array(0, new NextAction("heroic strike", ACTION_NORMAL + 2), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "berserker stance",
-        NextAction::array(0, new NextAction("berserker stance", ACTION_MOVE + 10), NULL)));
+        NextAction::array(0, new NextAction("move behind", ACTION_MOVE + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "reach melee",
-        NextAction::array(0, new NextAction("intercept", ACTION_MOVE + 9), NULL)));
-
-     triggers.push_back(new TriggerNode(
-        "rooted",
-        NextAction::array(0, new NextAction("heroic fury", ACTION_MOVE + 8), NULL)));
-
-	triggers.push_back(new TriggerNode(
-		"bloodsurge",
-		NextAction::array(0, new NextAction("slam", ACTION_HIGH + 3), NULL)));
+        NextAction::array(0, new NextAction("move behind", ACTION_MOVE + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "death wish",
@@ -401,41 +196,83 @@ void DpsFuryWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "boost",
-        NextAction::array(0, new NextAction("death wish", ACTION_HIGH + 2), NULL)));
+        NextAction::array(0, new NextAction("unbreakable armor", ACTION_HIGH + 2), NULL)));
+ }
 
-    triggers.push_back(new TriggerNode(
-        "light rage available",
-        NextAction::array(0, new NextAction("berserker rage", ACTION_HIGH + 1), NULL)));
+class DpsUnholyDeathKnightStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+{
+public:
+    DpsUnholyDeathKnightStrategyActionNodeFactory()
+    {
+        creators["melee"] = &melee;
+    }
+private:
+   static ActionNode* melee(PlayerbotAI* ai)
+    {
+        return new ActionNode ("melee",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
+            /*C*/ NULL);
+    }
+};
 
-    triggers.push_back(new TriggerNode(
-        "has nearest adds",
-        NextAction::array(0, new NextAction("cleave", ACTION_NORMAL + 6), NULL)));
-
-   //   triggers.push_back(new TriggerNode(
-   //     "target fleeing",
-   //     NextAction::array(0, new NextAction("hamstring", ACTION_HIGH + 2), NULL)));
+DpsUnholyDeathKnightStrategy::DpsFrostDeathKnightStrategy(PlayerbotAI* ai) : GenericDeathKnightStrategy(ai)
+{
+    actionNodeFactories.Add(new DpsDeathKnightStrategyActionNodeFactory());
 }
 
-NextAction** DpsWarriorAoeStrategy::getDefaultActions()
+NextAction** DpsUnholyDeathKnightStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("cleave", ACTION_NORMAL + 6), NULL);
+    return NextAction::array(0, new NextAction("scourge strike", ACTION_NORMAL + 6),new NextAction("blood strike", ACTION_NORMAL + 4), NULL);
 }
 
-void DpsWarriorAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void DpsUnholyDeathKnightStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    triggers.push_back(new TriggerNode(
-        "light aoe",
-        NextAction::array(0,new NextAction("demoralizing shout", ACTION_HIGH + 2), NULL)));
+    GenericDeathKnightStrategy::InitTriggers(triggers);
+    
+     triggers.push_back(new TriggerNode(
+        "medium runic power available",
+        NextAction::array(0, new NextAction("death coil", ACTION_NORMAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "melee light aoe",
-        NextAction::array(0, new NextAction("thunder clap", ACTION_HIGH + 3),  new NextAction("cleave", ACTION_HIGH + 1),NULL)));
+        "enemy out of melee",
+        NextAction::array(0, new NextAction("move behind", ACTION_MOVE + 9), NULL)));
 
+ 	triggers.push_back(new TriggerNode(
+        "enemy too close for melee",
+        NextAction::array(0, new NextAction("move out of enemy contact", ACTION_MOVE + 8), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "target fleeing",
+        NextAction::array(0, new NextAction("chains of ice", ACTION_HIGH + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "reach melee",
+        NextAction::array(0, new NextAction("move behind", ACTION_MOVE + 9), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "burst",
+        NextAction::array(0, new NextAction("empower rune weapon", ACTION_HIGH + 2), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "boost",
+        NextAction::array(0, new NextAction("summon gargoyle", ACTION_HIGH + 2), NULL)));
+ }
+
+
+NextAction** DpsDeathKnightAoeStrategy::getDefaultActions()
+{
+    return NextAction::array(0, new NextAction("blood boil", ACTION_NORMAL), NULL);
+}
+
+void DpsDeathKnightAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+   
     triggers.push_back(new TriggerNode(
         "melee medium aoe",
-        NextAction::array(0, new NextAction("sweeping strikes", ACTION_HIGH + 5), new NextAction("cleave", ACTION_HIGH + 3), NULL)));
+        NextAction::array(0, new NextAction("pestilence", ACTION_HIGH + 3), new NextAction("blood boil", ACTION_HIGH), new NextAction("blood boil", ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
         "melee high aoe",
-        NextAction::array(0, new NextAction("bladestorm", ACTION_HIGH + 7), new NextAction("cleave", ACTION_HIGH + 3), NULL)));
+        NextAction::array(0, new NextAction("death and decay", ACTION_HIGH + 7), new NextAction("pestilence", ACTION_HIGH + 3), new NextAction("blood boil", ACTION_HIGH), new NextAction("blood boil", ACTION_HIGH), NULL)));
 }

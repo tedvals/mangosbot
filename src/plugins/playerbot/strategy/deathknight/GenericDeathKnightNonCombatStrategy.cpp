@@ -1,19 +1,24 @@
 #include "../../../pchdef.h"
 #include "../../playerbot.h"
-#include "WarriorMultipliers.h"
-#include "GenericWarriorNonCombatStrategy.h"
+#include "DeathKnightMultipliers.h"
+#include "GenericDeathKnightNonCombatStrategy.h"
 
 using namespace ai;
 
-void GenericWarriorNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void GenericDeathKnightNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     NonCombatStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
-        "battle stance",
-        NextAction::array(0, new NextAction("battle stance", 11.0f), NULL)));
+        "horn of winter",
+        NextAction::array(0, new NextAction("horn of winter", 11.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "vigilance",
-        NextAction::array(0, new NextAction("vigilance on master", 21.0f), NULL)));
+        "bone shield",
+        NextAction::array(0, new NextAction("bone shield", 21.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "almost dead",
+        NextAction::array(0, new NextAction("bandage", 22.0f), NULL)));
+
 }

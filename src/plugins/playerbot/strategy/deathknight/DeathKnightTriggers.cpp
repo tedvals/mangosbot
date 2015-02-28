@@ -1,7 +1,7 @@
 #include "../../../pchdef.h"
 #include "../../playerbot.h"
-#include "WarriorTriggers.h"
-#include "WarriorActions.h"
+#include "DeathKnightTriggers.h"
+#include "DeathKnightActions.h"
 
 using namespace ai;
 

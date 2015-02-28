@@ -1,13 +1,13 @@
 #pragma once
 
-#include "GenericWarriorStrategy.h"
+#include "GenericDeathKnightStrategy.h"
 
 namespace ai
 {
-    class DpsWarriorStrategy : public GenericWarriorStrategy
+    class DpsDeathKnightStrategy : public GenericDeathKnightStrategy
     {
     public:
-        DpsWarriorStrategy(PlayerbotAI* ai);
+        DpsDeathKnightStrategy(PlayerbotAI* ai);
 
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
@@ -16,34 +16,46 @@ namespace ai
         virtual int GetType() { return STRATEGY_TYPE_COMBAT | STRATEGY_TYPE_DPS | STRATEGY_TYPE_MELEE; }
     };
 
-    class DpsArmsWarriorStrategy : public GenericWarriorStrategy
+    class DpsBloodDeathKnightStrategy : public GenericDeathKnightStrategy
     {
     public:
-        DpsArmsWarriorStrategy(PlayerbotAI* ai);
+        DpsBloodDeathKnightStrategy(PlayerbotAI* ai);
 
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
-        virtual string getName() { return "arms"; }
+        virtual string getName() { return "blood dps"; }
         virtual NextAction** getDefaultActions();
         virtual int GetType() { return STRATEGY_TYPE_COMBAT | STRATEGY_TYPE_DPS | STRATEGY_TYPE_MELEE; }
     };
 
-    class DpsFuryWarriorStrategy : public GenericWarriorStrategy
+    class DpsFrostDeathKnightStrategy : public GenericDeathKnightStrategy
     {
     public:
-        DpsFuryWarriorStrategy(PlayerbotAI* ai);
+        DpsFrostDeathKnightStrategy(PlayerbotAI* ai);
 
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
-        virtual string getName() { return "fury"; }
+        virtual string getName() { return "frost dps"; }
         virtual NextAction** getDefaultActions();
         virtual int GetType() { return STRATEGY_TYPE_COMBAT | STRATEGY_TYPE_DPS | STRATEGY_TYPE_MELEE; }
     };
 
-    class DpsWarriorAoeStrategy : public CombatStrategy
+    class DpsUnholyDeathKnightStrategy : public GenericDeathKnightStrategy
     {
     public:
-        DpsWarriorAoeStrategy(PlayerbotAI* ai) : CombatStrategy(ai) {}
+        DpsUnholyDeathKnightStrategy(PlayerbotAI* ai);
+
+    public:
+        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual string getName() { return "unholy dps"; }
+        virtual NextAction** getDefaultActions();
+        virtual int GetType() { return STRATEGY_TYPE_COMBAT | STRATEGY_TYPE_DPS | STRATEGY_TYPE_MELEE; }
+    };
+
+    class DpsDeathKnightAoeStrategy : public CombatStrategy
+    {
+    public:
+        DpsDeathKnightAoeStrategy(PlayerbotAI* ai) : CombatStrategy(ai) {}
 
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);

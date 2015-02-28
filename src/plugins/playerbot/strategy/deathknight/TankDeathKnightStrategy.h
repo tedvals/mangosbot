@@ -1,13 +1,13 @@
 #pragma once
 
-#include "GenericWarriorStrategy.h"
+#include "GenericDeathKnightStrategy.h"
 
 namespace ai
 {
-    class TankWarriorStrategy : public GenericWarriorStrategy
+    class TankDeathKnightStrategy : public GenericDeathKnightStrategy
     {
     public:
-        TankWarriorStrategy(PlayerbotAI* ai);
+        TankDeathKnightStrategy(PlayerbotAI* ai);
 
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);

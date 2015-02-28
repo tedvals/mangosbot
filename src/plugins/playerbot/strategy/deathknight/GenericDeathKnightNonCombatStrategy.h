@@ -4,10 +4,10 @@
 
 namespace ai
 {
-    class GenericWarriorNonCombatStrategy : public NonCombatStrategy
+    class GenericDeathKnightNonCombatStrategy : public NonCombatStrategy
     {
     public:
-        GenericWarriorNonCombatStrategy(PlayerbotAI* ai) : NonCombatStrategy(ai) {}
+        GenericDeathKnightNonCombatStrategy(PlayerbotAI* ai) : NonCombatStrategy(ai) {}
         virtual string getName() { return "nc"; }
 
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
