@@ -12,6 +12,7 @@
 #include "strategy/druid/DruidAiObjectContext.h"
 #include "strategy/hunter/HunterAiObjectContext.h"
 #include "strategy/rogue/RogueAiObjectContext.h"
+#include "strategy/deathknight/DeathKnightAiObjectContext.h"
 #include "../Entities/Player/Player.h"
 #include "PlayerbotAIConfig.h"
 #include "RandomPlayerbotMgr.h"
@@ -47,6 +48,9 @@ AiObjectContext* AiFactory::createAiObjectContext(Player* player, PlayerbotAI* a
         break;
     case CLASS_ROGUE:
         return new RogueAiObjectContext(ai);
+        break;
+    case CLASS_DEATH_KNIGHT:
+        return new DeathKnightAiObjectContext(ai);
         break;
     }
     return new AiObjectContext(ai);
@@ -90,6 +94,21 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
 
     switch (player->getClass())
     {
+        case CLASS_DEATH_KNIGHT:
+            if ((rand() % 2))
+            {
+                if (tab == 0)
+                    engine->addStrategies("blood dps", "aoe", "threat", "bdps", NULL);
+                else if (tab == 1)
+                    engine->addStrategies("frost dps", "aoe", "threat", "bdps", NULL);
+                else
+                    engine->addStrategies("unholy dps", "aoe", "threat", "bdps", NULL);
+            }
+            else
+            {
+                 engine->addStrategies("tank", "tank aoe", "bhealth", NULL);
+            }
+            break;
         case CLASS_PRIEST:
             if (tab == 2)
             {
@@ -209,6 +228,9 @@ void AiFactory::AddDefaultNonCombatStrategies(Player* player, PlayerbotAI* const
     int tab = GetPlayerSpecTab(player);
 
     switch (player->getClass()){
+        case CLASS_DEATH_KNIGHT:
+            nonCombatEngine->addStrategy("bspeed");
+            break;
         case CLASS_PALADIN:
         case CLASS_HUNTER:
         case CLASS_SHAMAN:

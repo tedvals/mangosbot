@@ -77,7 +77,7 @@ namespace ai
                     range = sPlayerbotAIConfig.fleeDistance;
                 break;
             case CLASS_SHAMAN:
-                if (ai->IsHeal(bot))
+                if (ai->IsHeal(bot) || ai->IsRanged(bot))
                     range = sPlayerbotAIConfig.fleeDistance;
                 break;
             }

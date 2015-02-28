@@ -585,6 +585,8 @@ bool PlayerbotAI::IsRanged(Player* player)
     case CLASS_WARRIOR:
     case CLASS_ROGUE:
         return false;
+    case CLASS_SHAMAN:
+        return HasAnyAuraOf(player, "water shield", NULL);
     case CLASS_DRUID:
         return !HasAnyAuraOf(player, "cat form", "bear form", "dire bear form", NULL);
     }
@@ -601,6 +603,8 @@ bool PlayerbotAI::IsSpellcaster(Player* player)
         return false;
     case CLASS_DRUID:
         return HasAnyAuraOf(player, "moonkin form", "caster form", NULL);
+    case CLASS_SHAMAN:
+        return HasAnyAuraOf(player, "water shield", NULL);
     }
     return true;
 }

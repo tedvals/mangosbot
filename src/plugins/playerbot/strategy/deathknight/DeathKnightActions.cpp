@@ -19,6 +19,11 @@ NextAction** CastPlagueStrikeAction::getPrerequisites()
     return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastSpellAction::getPrerequisites());
 }
 
+NextAction** CastScourgeStrikeAction::getPrerequisites()
+{
+    return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastSpellAction::getPrerequisites());
+}
+
 NextAction** CastObliterateAction::getPrerequisites()
 {
     return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());

@@ -84,6 +84,12 @@ uint8 LfgJoinAction::GetRoles()
         else
             return PLAYER_ROLE_DAMAGE;
         break;
+    case CLASS_DEATH_KNIGHT:
+        if (ai->IsTank(bot))
+            return PLAYER_ROLE_TANK;
+        else
+            return PLAYER_ROLE_DAMAGE;
+        break;
     default:
         return PLAYER_ROLE_DAMAGE;
         break;

@@ -31,6 +31,7 @@ void FleeManager::calculateDistanceToPlayers(FleePoint *point)
 			case CLASS_PALADIN:
 			case CLASS_ROGUE:
 			case CLASS_WARRIOR:
+            case CLASS_DEATH_KNIGHT:
 				point->toMeleePlayers.probe(d);
 				break;
 		}

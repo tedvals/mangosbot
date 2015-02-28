@@ -472,7 +472,7 @@ bool Engine::ListenAndExecute(Action* action, Event event)
     bool actionExecuted = false;
 
         //Debug only
-    ai->TellMaster(action->getName());
+   // ai->TellMaster(action->getName());
 
     if (actionExecutionListeners.Before(action, event))
     {

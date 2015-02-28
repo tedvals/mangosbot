@@ -24,6 +24,17 @@ RandomPlayerbotFactory::RandomPlayerbotFactory(uint32 accountId) : accountId(acc
     availableRaces[CLASS_WARRIOR].push_back(RACE_TROLL);
     availableRaces[CLASS_WARRIOR].push_back(RACE_DRAENEI);
 
+    availableRaces[CLASS_DEATH_KNIGHT].push_back(RACE_HUMAN);
+    availableRaces[CLASS_DEATH_KNIGHT].push_back(RACE_NIGHTELF);
+    availableRaces[CLASS_DEATH_KNIGHT].push_back(RACE_GNOME);
+    availableRaces[CLASS_DEATH_KNIGHT].push_back(RACE_DWARF);
+    availableRaces[CLASS_DEATH_KNIGHT].push_back(RACE_ORC);
+    availableRaces[CLASS_DEATH_KNIGHT].push_back(RACE_UNDEAD_PLAYER);
+    availableRaces[CLASS_DEATH_KNIGHT].push_back(RACE_TAUREN);
+    availableRaces[CLASS_DEATH_KNIGHT].push_back(RACE_TROLL);
+    availableRaces[CLASS_DEATH_KNIGHT].push_back(RACE_DRAENEI);
+    availableRaces[CLASS_DEATH_KNIGHT].push_back(RACE_BLOODELF);
+
     availableRaces[CLASS_PALADIN].push_back(RACE_HUMAN);
     availableRaces[CLASS_PALADIN].push_back(RACE_DWARF);
     availableRaces[CLASS_PALADIN].push_back(RACE_DRAENEI);
