@@ -3,94 +3,50 @@
 
 namespace ai
 {
-    BUFF_TRIGGER(BattleShoutTrigger, "battle shout", "battle shout")
+    BUFF_TRIGGER(HornOfWinterTrigger, "horn of winter", "horn of winter")
+    BUFF_TRIGGER(BoneShieldTrigger, "bone shield", "bone shield")
+    BUFF_TRIGGER(BloodPresenceTrigger, "blood presence", "blood presence")
+    BUFF_TRIGGER(FrostPresenceTrigger, "frost presence", "frost presence")
+    BUFF_TRIGGER(UnholyPresenceTrigger, "unholy presence", "unholy presence")
 
-    DEBUFF_TRIGGER(RendDebuffTrigger, "rend", "rend")
-    DEBUFF_TRIGGER(DemoralizingShoutDebuffTrigger, "demoralizing shout", "demoralizing shout")
-    DEBUFF_TRIGGER(DisarmDebuffTrigger, "disarm", "disarm")
-    DEBUFF_TRIGGER(SunderArmorDebuffTrigger, "sunder armor", "sunder armor")
+    DEBUFF_TRIGGER(FrostFeverDebuffTrigger, "frost fever", "frost fever")
+    DEBUFF_TRIGGER(BloodPlagueDebuffTrigger, "blood plague", "blood plague")
+    
 
-    class VigilanceOnMasterTrigger : public BuffTrigger
+    class FrostFeverDebuffOnAttackerTrigger : public DebuffOnAttackerTrigger
     {
     public:
-        VigilanceOnMasterTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "vigilance") {}
-
-        bool IsActive()
-        {
-            return (BuffTrigger::IsActive() && bot->getLevel() > 39);
-            };
+        FrostFeverDebuffOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "frost fever") {}
     };
 
-    class RendDebuffOnAttackerTrigger : public DebuffOnAttackerTrigger
+    class MindFreezeInterruptSpellTrigger : public InterruptSpellTrigger
     {
     public:
-        RendDebuffOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "rend") {}
+        MindFreezeInterruptSpellTrigger(PlayerbotAI* ai) : InterruptSpellTrigger(ai, "mind freeze") {}
     };
 
-	class RevengeAvailableTrigger : public SpellCanBeCastTrigger
-	{
-	public:
-		RevengeAvailableTrigger(PlayerbotAI* ai) : SpellCanBeCastTrigger(ai, "revenge") {}
-	};
-
-    class BloodrageDebuffTrigger : public DebuffTrigger
+    class SuddenDoomTrigger : public HasAuraTrigger
     {
     public:
-        BloodrageDebuffTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "bloodrage") {}
-        virtual bool IsActive()
-        {
-            return DebuffTrigger::IsActive() &&
-                AI_VALUE2(uint8, "health", "self target") >= 75 &&
-                AI_VALUE2(uint8, "rage", "self target") < 20;
-        }
+        SuddenDoomTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "sudden doom") {}
     };
 
-    class ShieldBashInterruptSpellTrigger : public InterruptSpellTrigger
+    class KillingMachineTrigger : public HasAuraTrigger
     {
     public:
-        ShieldBashInterruptSpellTrigger(PlayerbotAI* ai) : InterruptSpellTrigger(ai, "shield bash") {}
+        KillingMachineTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "killing machine") {}
     };
 
-    class BloodsurgeTrigger : public HasAuraTrigger
+    class FreezingFogTrigger : public HasAuraTrigger
     {
     public:
-        BloodsurgeTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "bloodsurge") {}
+        FreezingFogTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "freezing fog") {}
     };
-
-    class TasteForBloodTrigger : public HasAuraTrigger
+    
+    class ChainsOfIceTrigger : public SnareTargetTrigger
     {
     public:
-        TasteForBloodTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "taste for blood") {}
-    };
-
-    class SuddenDeathTrigger : public HasAuraTrigger
-    {
-    public:
-        SuddenDeathTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "sudden death") {}
-    };
-
-    class VictoryRushTrigger : public HasAuraTrigger
-    {
-    public:
-        VictoryRushTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "victorious") {}
-    };
-
-    class SwordAndBoardTrigger : public HasAuraTrigger
-    {
-    public:
-        SwordAndBoardTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "sword and board") {}
-    };
-
-    class ConcussionBlowTrigger : public SnareTargetTrigger
-    {
-    public:
-        ConcussionBlowTrigger(PlayerbotAI* ai) : SnareTargetTrigger(ai, "concussion blow") {}
-    };
-
-    class HamstringTrigger : public SnareTargetTrigger
-    {
-    public:
-        HamstringTrigger(PlayerbotAI* ai) : SnareTargetTrigger(ai, "hamstring") {}
+        ChainsOfIceTrigger(PlayerbotAI* ai) : SnareTargetTrigger(ai, "hamstring") {}
     };
 
     //class DeathWishTrigger : public BoostTrigger
@@ -99,10 +55,10 @@ namespace ai
     //    DeathWishTrigger(PlayerbotAI* ai) : BoostTrigger(ai, "death wish") {}
     //};
 
-    class ShieldBashInterruptEnemyHealerSpellTrigger : public InterruptEnemyHealerTrigger
+    class StrangulateInterruptEnemyHealerSpellTrigger : public InterruptEnemyHealerTrigger
     {
     public:
-        ShieldBashInterruptEnemyHealerSpellTrigger(PlayerbotAI* ai) : InterruptEnemyHealerTrigger(ai, "shield bash") {}
+        StrangulateInterruptEnemyHealerSpellTrigger(PlayerbotAI* ai) : InterruptEnemyHealerTrigger(ai, "strangulate") {}
     };
 
 }

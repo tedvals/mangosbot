@@ -4,9 +4,9 @@
 
 namespace ai
 {
-    class WarriorAiObjectContext : public AiObjectContext
+    class DeathKnightAiObjectContext : public AiObjectContext
     {
     public:
-        WarriorAiObjectContext(PlayerbotAI* ai);
+        DeathKnightAiObjectContext(PlayerbotAI* ai);
     };
 }

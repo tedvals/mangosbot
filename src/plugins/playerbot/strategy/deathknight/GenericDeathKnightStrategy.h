@@ -7,13 +7,45 @@ namespace ai
 {
     class AiObjectContext;
 
-    class GenericWarriorStrategy : public MeleeCombatStrategy
+    class GenericDeathKnightStrategy : public MeleeCombatStrategy
     {
     public:
-        GenericWarriorStrategy(PlayerbotAI* ai);
+        GenericDeathKnightStrategy(PlayerbotAI* ai);
 
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
-        virtual string getName() { return "warrior"; }
+        virtual string getName() { return "death knight"; }
     };
+
+
+    class DeathKnightBuffDpsStrategy : public Strategy
+    {
+    public:
+        DeathKnightBuffDpsStrategy(PlayerbotAI* ai) : Strategy(ai) {}
+
+    public:
+        virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual string getName() { return "bdps"; }
+    };
+
+    class DeathKnightBuffHealthStrategy : public Strategy
+    {
+    public:
+	DeathKnightBuffHealthStrategy(PlayerbotAI* ai) : Strategy(ai) {}
+
+    public:
+	virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+	virtual string getName() { return "bhealth"; }
+	};
+
+    class DeathKnightBuffSpeedStrategy : public Strategy
+    {
+    public:
+	DeathKnightBuffSpeedStrategy(PlayerbotAI* ai) : Strategy(ai) {}
+
+    public:
+	virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+	virtual string getName() { return "bspeed"; }
+	};
+
 }

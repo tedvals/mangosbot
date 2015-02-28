@@ -3,379 +3,352 @@
 
 namespace ai
 {
-    // battle
-    class CastBattleMeleeSpellAction : public CastMeleeSpellAction {
+    //frost
+    class CastFrostMeleeSpellAction : public CastMeleeSpellAction {
     public:
-        CastBattleMeleeSpellAction(PlayerbotAI* ai, string spell) : CastMeleeSpellAction(ai, spell) {}
+        CastFrostMeleeSpellAction(PlayerbotAI* ai, string spell) : CastMeleeSpellAction(ai, spell) {}
         virtual bool IsInstant() {return true;}
         virtual NextAction** getPrerequisites() {
-            return NextAction::merge( NextAction::array(0, new NextAction("battle stance"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("frost presense"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
     };
 
-    //berserker
-    class CastBerserkerMeleeSpellAction : public CastMeleeSpellAction {
+    //blood
+    class CastBloodMeleeSpellAction : public CastMeleeSpellAction {
     public:
-        CastBerserkerMeleeSpellAction(PlayerbotAI* ai, string spell) : CastMeleeSpellAction(ai, spell) {}
+        CastBloodMeleeSpellAction(PlayerbotAI* ai, string spell) : CastMeleeSpellAction(ai, spell) {}
         virtual bool IsInstant() {return true;}
         virtual NextAction** getPrerequisites() {
-            return NextAction::merge( NextAction::array(0, new NextAction("berserker stance"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("blood presense"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
     };
 
-    // defensive
-    class CastDefensiveMeleeSpellAction : public CastMeleeSpellAction {
+    // unholy
+    class CastUnholyMeleeSpellAction : public CastMeleeSpellAction {
     public:
-        CastDefensiveMeleeSpellAction(PlayerbotAI* ai, string spell) : CastMeleeSpellAction(ai, spell) {}
+        CastUnholyMeleeSpellAction(PlayerbotAI* ai, string spell) : CastMeleeSpellAction(ai, spell) {}
         virtual bool IsInstant() {return true;}
         virtual NextAction** getPrerequisites() {
-            return NextAction::merge( NextAction::array(0, new NextAction("defensive stance"), NULL), CastMeleeSpellAction::getPrerequisites());
+            return NextAction::merge( NextAction::array(0, new NextAction("unholy presence"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
     };
 
     // all
-    class CastHeroicStrikeAction : public CastMeleeSpellAction {
+    class CastBloodStrikeAction : public CastMeleeSpellAction {
     public:
-        CastHeroicStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "heroic strike") {}
+        CastBloodStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "blood strike") {}
         virtual bool IsInstant() {return true;}
-        virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "rage", "self target") > 40; }
+        virtual bool isUseful() { return CastMeleeSpellAction::isUseful()}
     };
 
-    // all
-    class CastCleaveAction : public CastMeleeSpellAction {
+    class CastRuneStrikeAction : public CastMeleeSpellAction {
     public:
-        CastCleaveAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "cleave") {}
+        CastRuneStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "rune strike") {}
+        virtual bool IsInstant() {return true;}
+	virtual NextAction** getAlternatives();
+        virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "runic power", "self target") > 40; }
+    };
+
+    class CastFrostStrikeAction : public CastMeleeSpellAction {
+    public:
+        CastFrostStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "frost strike") {}
+        virtual bool IsInstant() {return true;}
+	virtual NextAction** getAlternatives();        
+	virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "runic power", "self target") > 40; }
+    };
+
+    
+    class CastHowlingBlastAction : public CastMeleeSpellAction {
+    public:
+        CastHowlingBlastAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "howling blast") {}
 
         virtual bool IsInstant() {return true;}
-        virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE(uint8, "melee attacker count") > 1 && AI_VALUE2(uint8, "rage", "self target") > 40; }
+	virtual NextAction** getAlternatives();
+        virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE(uint8, "melee attacker count") > 1; }
     };
 
-    // battle, berserker
-    class CastMockingBlowAction : public CastMeleeSpellAction {
+    class CastPestilenceAction : public CastSpellAction {
     public:
-        CastMockingBlowAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "mocking blow") {}
+        CastPestilenceAction(PlayerbotAI* ai) : CastSpellAction(ai, "pestilence") {}
+
         virtual bool IsInstant() {return true;}
+        virtual bool isUseful() { return CastSpellAction::isUseful() && AI_VALUE(uint8, "melee attacker count") > 1 && ai->HasAura("frost fever", getTarget()) && ai->HasAura("blood plague", getTarget()); }
     };
 
-    class CastBloodthirstAction : public CastMeleeSpellAction {
+    class CastIcyTouchAction : public CastSpellAction {
     public:
-        CastBloodthirstAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "bloodthirst") {}
-        virtual bool IsInstant() {return true;}
-
-        virtual NextAction** getAlternatives();
-    };
-
-    // battle, berserker
-    class CastExecuteAction : public CastMeleeSpellAction {
-    public:
-        CastExecuteAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "execute") {}
-
-        virtual bool isUseful()
-	    {
-	        return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "health", "current target") < 20;
-	    }
-	    virtual bool IsInstant() {return true;}
-    };
-
-    // battle
-    class CastOverpowerAction : public CastBattleMeleeSpellAction {
-    public:
-        CastOverpowerAction(PlayerbotAI* ai) : CastBattleMeleeSpellAction(ai, "overpower") {}
+        CastIcyTouchAction(PlayerbotAI* ai) : CastSpellAction(ai, "icy touch") {}
         virtual bool IsInstant() {return true;}
     };
 
-    // battle, berserker
-    class CastHamstringAction : public CastMeleeSpellAction {
+    class CastScourgeStrikeAction : public CastMeleeSpellAction {
     public:
-        CastHamstringAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "hamstring") {}
+        CastScourgeStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "scourge strike") {}
+        virtual bool IsInstant() {return true;}
+	virtual NextAction** getPrerequisites();
+	virtual NextAction** getAlternatives();
+    };
+
+    class CastObliterateAction : public CastMeleeSpellAction {
+    public:
+        CastObliterateAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "obliterate") {}
+	virtual NextAction** getPrerequisites();
+	virtual bool IsInstant() {return true;}
+    };
+    
+    class CastChainsOfIceAction : public CastSpellAction {
+    public:
+        CastChainsOfIceAction(PlayerbotAI* ai) : CastSpellAction(ai, "chains of ice") {}
 
         virtual bool isUseful()
         {
-           // return CastMeleeSpellAction::isUseful() && !ai->HasAura("wing clip"), GetTarget());
-           return CastMeleeSpellAction::isUseful() && !ai->HasAnyAuraOf(GetTarget(), "slow", "wing clip", "frost shock", "crippling poison", "hamstring", NULL);
+           return CastMeleeAction::isUseful() && !ai->HasAnyAuraOf(GetTarget(), "slow", "wing clip", "frost shock", "crippling poison", "hamstring", NULL);
         }
         virtual bool IsInstant() {return true;}
     };
-    // battle, berserker
-    class CastMortalStrikeAction : public CastMeleeSpellAction {
-    public:
-        CastMortalStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "mortal strike") {}
 
-        virtual bool IsInstant() {return true;}
-        virtual NextAction** getAlternatives();
-    };
-    // berserker
-    class CastWhirlwindAction : public CastBerserkerMeleeSpellAction {
+    class CastPlagueStrikeAction : public CastMeleeSpellAction {
     public:
-        CastWhirlwindAction(PlayerbotAI* ai) : CastBerserkerMeleeSpellAction(ai, "whirlwind") {}
-        virtual bool IsInstant() {return true;}
-    };
-    // Intercept
-    class CastInterceptAction : public CastBerserkerMeleeSpellAction {
-    public:
-        CastInterceptAction(PlayerbotAI* ai) :CastBerserkerMeleeSpellAction(ai, "intercept") {}
+        CastPlagueStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "plague strike") {}
+	virtual NextAction** getPrerequisites();
         virtual bool IsInstant() {return true;}
     };
 
-    // battle, berserker
-    class CastBladestormAction : public CastMeleeSpellAction {
+    class CastDeathStrikeAction : public CastMeleeSpellAction {
     public:
-        CastBladestormAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "bladestorm") {}
+        CastDeathStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "death strike") {}
+	virtual NextAction** getPrerequisites();
+        virtual bool IsInstant() {return true;}
+    };
+    
+    class CastDeathCoilAction : public CastSpellAction {
+    public:
+        CastDeathCoilAction(PlayerbotAI* ai) :CastSpellAction(ai, "death coil") {}
+        virtual bool IsInstant() {return true;}
+    };
+
+    class CastHeartStrikeAction : public CastMeleeSpellAction {
+    public:
+        CastHeartStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "heart strike") {}
+        virtual bool IsInstant() {return true;}
+    };
+
+    class CastDarkCommandAction : public CastSpellAction {
+    public:
+        CastDarkCommandAction(PlayerbotAI* ai) : CastSpellAction(ai, "dark command") {}
         virtual bool IsInstant() {return true;}
     };
 
     // defensive
-    class CastTauntAction : public CastSpellAction {
+    class CastBoneShieldAction : public CastBuffSpellAction {
     public:
-        CastTauntAction(PlayerbotAI* ai) : CastSpellAction(ai, "taunt") {}
-        virtual bool IsInstant() {return true;}
-        virtual NextAction** getPrerequisites() {
-            return NextAction::merge( NextAction::array(0, new NextAction("defensive stance"), NULL), CastSpellAction::getPrerequisites());
-        }
-    };
-
-    // defensive
-    class CastShieldBlockAction : public CastBuffSpellAction {
-    public:
-        CastShieldBlockAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "shield block") {}
-        virtual bool IsInstant() {return true;}
-		virtual NextAction** getPrerequisites() {
-			return NextAction::merge( NextAction::array(0, new NextAction("defensive stance"), NULL), CastSpellAction::getPrerequisites());
-		}
-    };
-
-    // defensive
-    class CastShieldWallAction : public CastDefensiveMeleeSpellAction {
-    public:
-        CastShieldWallAction(PlayerbotAI* ai) : CastDefensiveMeleeSpellAction(ai, "shield wall") {}
+        CastBoneShieldAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "bone shield") {}
         virtual bool IsInstant() {return true;}
     };
 
-    class CastBloodrageAction : public CastBuffSpellAction {
+    class CastIceboundFortitudeAction : public CastBuffSpellAction {
     public:
-        CastBloodrageAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "bloodrage") {}
+        CastIceboundFortitude(PlayerbotAI* ai) : CastBuffSpellAction(ai, "icebound fortitude") {}
         virtual bool IsInstant() {return true;}
     };
 
-    class CastRecklessnessAction : public CastBuffSpellAction {
+    class CastVampiricBloodAction : public CastBuffSpellAction {
     public:
-        CastRecklessnessAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "recklessness") {}
+        CastVampiricBloodAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "vampiric blood") {}
+	virtual NextAction** getAlternatives();        
+	virtual bool IsInstant() {return true;}
+    };
+
+    class CastHornOfWinterAction : public CastBuffSpellAction {
+    public:
+        CastHornOfWinterAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "horn of winter") {}
         virtual bool IsInstant() {return true;}
     };
 
-    class CastRetaliationAction : public CastBuffSpellAction {
+    class CastBloodBoilAction : public CastMeleeSpellAction {
     public:
-        CastRetaliationAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "retaliation") {}
+        CastBloodBoilAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "blood boil") {}
         virtual bool IsInstant() {return true;}
+
+	virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE(uint8, "melee attacker count") > 2; }
     };
 
-
-    // defensive
-    class CastDevastateAction : public CastDefensiveMeleeSpellAction {
+    class CastCorpseExplosionAction : public CastSpellAction {
     public:
-        CastDevastateAction(PlayerbotAI* ai) : CastDefensiveMeleeSpellAction(ai, "devastate") {}
-        virtual bool IsInstant() {return true;}
-    };
-
-    class CastSpellReflectAction : public CastDefensiveMeleeSpellAction {
-    public:
-        CastSpellReflectAction(PlayerbotAI* ai) : CastDefensiveMeleeSpellAction(ai, "spell reflect") {}
+        CastCorspeExplosionAction(PlayerbotAI* ai) : CastDefensiveMeleeSpellAction(ai, "corpse explosion") {}
         virtual bool IsInstant() {return true;}
     };
 
     // all
-    class CastSlamAction : public CastMeleeSpellAction {
+    class CastRaiseDeadAction : public CastSpellAction {
     public:
-        CastSlamAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "slam") {}
+        CastRaiseDeadAction(PlayerbotAI* ai) : CastSpellAction(ai, "raise dead") {}
+    };
+
+
+    class CastArmyOfTheDeadAction : public CastSpellAction {
+    public:
+        CastArmyOfTheDeadAction(PlayerbotAI* ai) : CastSpellAction(ai, "army of the dead") {}
     };
 
 	// all
-	class CastShieldSlamAction : public CastMeleeSpellAction {
+	class CastRuneTapAction : public CastHealingSpellAction {
 	public:
-		CastShieldSlamAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "shield slam") {}
+		CastRuneTapAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "rune tap") {}
 		virtual bool IsInstant() {return true;}
 	};
 
-    // after dodge
-    BEGIN_MELEE_SPELL_ACTION(CastRevengeAction, "revenge")
-        virtual NextAction** getPrerequisites();
-        virtual bool IsInstant() {return true;}
-    END_SPELL_ACTION()
+	// all
+	class CastDeathPactAction : public CastHealingSpellAction {
+	public:
+		CastDeathPactAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "death pact") {}
+		virtual bool IsInstant() {return true;}
+	};
 
 
     //debuffs
-    BEGIN_DEBUFF_ACTION(CastRendAction, "rend")
-        virtual NextAction** getPrerequisites();
+    BEGIN_DEBUFF_ACTION(CastMarkOfBloodAction, "mark of blood")
         virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
-    class CastRendOnAttackerAction : public CastDebuffSpellOnAttackerAction
-    {
+    class CastHungeringColdAction : public CastDebuffSpellAction {
     public:
-        CastRendOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "rend") {}
-        virtual NextAction** getPrerequisites();
+        CastHungeringColdAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "hungering cold") {}
         virtual bool IsInstant() {return true;}
     };
 
-    BEGIN_DEBUFF_ACTION(CastDisarmAction, "disarm")
-        virtual NextAction** getPrerequisites();
-        virtual bool IsInstant() {return true;}
+    
+    BEGIN_SPELL_ACTION(CastMindFreezeAction, "mind freeze")
+    virtual bool IsInstant() {return true;}
+    virtual NextAction** getAlternatives();
+    virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "runic power", "self target") > 20; }
     END_SPELL_ACTION()
 
-    BEGIN_DEBUFF_ACTION(CastSunderArmorAction, "sunder armor") // 5 times
-        virtual NextAction** getPrerequisites();
-        virtual bool IsInstant() {return true;}
-    END_SPELL_ACTION()
-
-    class CastDemoralizingShoutAction : public CastDebuffSpellAction {
-    public:
-        CastDemoralizingShoutAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "demoralizing shout") {}
-        virtual bool IsInstant() {return true;}
-    };
-
-    BEGIN_MELEE_SPELL_ACTION(CastChallengingShoutAction, "challenging shout")
+    BEGIN_SPELL_ACTION(CastStrangulateAction, "strangulate")
     virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
-    // stuns
-    BEGIN_MELEE_SPELL_ACTION(CastShieldBashAction, "shield bash")
-    virtual bool IsInstant() {return true;}
-    END_SPELL_ACTION()
-
-    BEGIN_MELEE_SPELL_ACTION(CastIntimidatingShoutAction, "intimidating shout")
-    virtual bool IsInstant() {return true;}
-    END_SPELL_ACTION()
-
-    BEGIN_MELEE_SPELL_ACTION(CastThunderClapAction, "thunder clap")
+    BEGIN_SPELL_ACTION(CastEmpowerRuneWeaponAction, "empower rune weapon")
     virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
     // buffs
-	class CastBattleShoutAction : public CastBuffSpellAction {
+	class CastSummonGhoulAction : public CastSpellAction {
 	public:
-		CastBattleShoutAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "battle shout") {}
+		CastSummonGhoulAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon ghoul") {}
 
-        virtual NextAction** getAlternatives();
         virtual bool IsInstant() {return true;}
-        virtual bool isUseful()
-	    {
-	        return !ai->HasAura("blessing of might", AI_VALUE(Unit*, "self target"));
-	    }
 	};
 
-	class CastCommandingShoutAction : public CastBuffSpellAction {
+	class CastSummonGargoyleAction : public CastBuffSpellAction {
 	public:
-		CastCommandingShoutAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "commanding shout") {}
+		CastSummonGargoyleAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "summon gargoyle") {}
 
-        virtual NextAction** getAlternatives();
         virtual bool IsInstant() {return true;}
-        virtual bool isUseful()
-	    {
-	        return !ai->HasAura("blood pact", AI_VALUE(Unit*, "self target"));
-	    }
-	};
+       	};
 
-    class CastSweepingStrikesAction : public CastBuffSpellAction {
+    	class CastUnbreakableArmorAction : public CastBuffSpellAction {
 	public:
-		CastSweepingStrikesAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "sweeping strikes") {}
+		CastUnbreakableArmorAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "unbreakable armor") {}
 		virtual bool IsInstant() {return true;}
 	};
 
-	class CastDefensiveStanceAction : public CastBuffSpellAction {
+	class CastBloodPresenceAction : public CastBuffSpellAction {
 	public:
-		CastDefensiveStanceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "defensive stance") {}
+		CastBloodPresenceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "blood presence") {}
 		virtual bool IsInstant() {return true;}
 	};
 
-	class CastBattleStanceAction : public CastBuffSpellAction {
+	class CastFrostPresenceAction : public CastBuffSpellAction {
 	public:
-		CastBattleStanceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "battle stance") {}
+		CastFrostPresenceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "frost presence") {}
 		virtual bool IsInstant() {return true;}
 	};
 
-	class CastBerserkerStanceAction : public CastBuffSpellAction {
+	class CastUnholyPresenceAction : public CastBuffSpellAction {
 	public:
-		CastBerserkerStanceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "berserker stance") {}
+		UnholyPresence(PlayerbotAI* ai) : CastBuffSpellAction(ai, "unholy presence") {}
 		virtual bool IsInstant() {return true;}
 	};
 
-    BEGIN_RANGED_SPELL_ACTION(CastChargeAction, "charge")
+    BEGIN_RANGED_SPELL_ACTION(CastDeathGripAction, "death grip")
     virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
-    BEGIN_RANGED_SPELL_ACTION(CastShatteringThrowAction, "shattering throw")
-    END_SPELL_ACTION()
-
-    BEGIN_RANGED_SPELL_ACTION(CastHeroicThrowAction, "heroic throw")
-    END_SPELL_ACTION()
-
-	class CastDeathWishAction : public CastBuffSpellAction {
+	class CastHysteriaAction : public CastBuffSpellAction {
 	public:
-		CastDeathWishAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "death wish") {}
+		CastHysteriaAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "hysteria") {}
 		virtual bool IsInstant() {return true;}
 	};
 
-	class CastBerserkerRageAction : public CastBuffSpellAction {
+	class CastGhoulFrenzyAction : public CastBuffSpellAction {
 	public:
-		CastBerserkerRageAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "berserker rage") {}
+		CastGhoulFrenzyAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "ghoul frenzy") {}
 		virtual bool IsInstant() {return true;}
 	};
 
-	class CastHeroicFuryAction : public CastBuffSpellAction {
+	class CastLichborneAction : public CastBuffSpellAction {
 	public:
-		CastHeroicFuryAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "heroic fury") {}
+		CastLichborneAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "lichborne") {}
 		virtual bool IsInstant() {return true;}
 	};
 
-	class CastLastStandAction : public CastBuffSpellAction {
+	class CastAntimagicShellAction : public CastBuffSpellAction {
 	public:
-		CastLastStandAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "last stand") {}
+		CastAntimagicShellAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "anti-magic shell") {}
 		virtual bool IsInstant() {return true;}
 	};
 
-	// defensive
-	class CastShockwaveAction : public CastDefensiveMeleeSpellAction {
+	class CastAntimagicZoneAction : public CastBuffSpellAction {
 	public:
-		CastShockwaveAction(PlayerbotAI* ai) : CastDefensiveMeleeSpellAction(ai, "shockwave") {}
+		CastAntimagicZoneAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "anti-magic zone") {}
 		virtual bool IsInstant() {return true;}
 	};
 
-	// defensive
-	class CastConcussionBlowAction : public CastDefensiveMeleeSpellAction {
+	class CastDeathChillAction : public CastBuffSpellAction {
 	public:
-		CastConcussionBlowAction(PlayerbotAI* ai) : CastDefensiveMeleeSpellAction(ai, "concussion blow") {}
+		CastDeathChillAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "deathchill") {}
 		virtual bool IsInstant() {return true;}
 	};
 
-	BEGIN_MELEE_SPELL_ACTION(CastVictoryRushAction, "victory rush")
-	virtual bool IsInstant() {return true;}
-	END_SPELL_ACTION()
+	class CastDancingRuneWeaponAction : public CastBuffSpellAction {
+	public:
+		CastDancingRuneWeapon(PlayerbotAI* ai) : CastBuffSpellAction(ai, "dancing rune weapon") {}
+		virtual bool IsInstant() {return true;}
+	};
 
-    class CastShieldBashOnEnemyHealerAction : public CastSpellOnEnemyHealerAction
+	class CastDeathAndDecayAction : public CastSpellAction {
+	public:
+		CastDeathAndDecayAction(PlayerbotAI* ai) : CastSpellAction(ai, "death and decay") {}
+		virtual bool IsInstant() {return true;}
+	};
+
+    class CastMindFreezeOnEnemyHealerAction : public CastSpellOnEnemyHealerAction
     {
     public:
-        CastShieldBashOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "shield bash") {}
+        CastMindFreezeOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "mind freeze") {}
         virtual bool IsInstant() {return true;}
     };
 
-    class CastInterveneOnPartyAction : public BuffOnPartyAction {
-	public:
-		CastInterveneOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "intervene") {}
-		virtual bool IsInstant() {return true;}
-	};
-
-    class CastVigilanceOnMasterAction : public BuffOnPartyAction
+    class CastStrangulateOnEnemyHealerAction : public CastSpellOnEnemyHealerAction
     {
     public:
-        CastVigilanceOnMasterAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "vigilance") {}
-        virtual string getName() { return "vigilance on master";}
+        CastStrangulateOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "strangulate") {}
+        virtual bool IsInstant() {return true;}
+    };
+
+    class CastHysteriaOnMasterAction : public BuffOnPartyAction
+    {
+    public:
+        CastHysteriaOnMasterAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "hysteria") {}
+        virtual string getName() { return "hysteria on master";}
         virtual string GetTargetName() { return "master target";}
         virtual bool IsInstant() {return true;}
     };
 
-	class CastVigilanceOnPartyAction : public BuffOnPartyAction {
+	class CastHysteriaOnPartyAction : public BuffOnPartyAction {
 	public:
-		CastVigilanceOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "vigilance") {}
+		CastHysteriaOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "hysteria") {}
 		virtual bool IsInstant() {return true;}
 	};
 }

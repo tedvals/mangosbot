@@ -1,142 +1,107 @@
 #include "../../../pchdef.h"
 #include "../../playerbot.h"
-#include "WarriorMultipliers.h"
-#include "TankWarriorStrategy.h"
+#include "DeathKnightMultipliers.h"
+#include "TankDeathKnightStrategy.h"
 
 using namespace ai;
 
-class TankWarriorStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+class TankDeathKnightStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
 {
 public:
-    TankWarriorStrategyActionNodeFactory()
+    TankDeathKnightStrategyActionNodeFactory()
     {
         creators["melee"] = &melee;
-        creators["shield wall"] = &shield_wall;
-        creators["rend"] = &rend;
-        creators["revenge"] = &revenge;
-        creators["devastate"] = &devastate;
-        creators["shockwave"] = &shockwave;
-        creators["taunt"] = &taunt;
+	creators["death grip"] = &death_grip;
+	creators["death strike"] = &death_strike;
+	creators["scourge strike"] = &scourge_strike;
+	creators["obliterate"] = &obliterate;
+	creators["heart strike"] = &obliterate;
+        creators["dark command"] = &taunt;
     }
 private:
     static ActionNode* melee(PlayerbotAI* ai)
     {
         return new ActionNode ("melee",
-            /*P*/ NextAction::array(0, new NextAction("defensive stance"), new NextAction("reach melee"), NULL),
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("death grip"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* charge(PlayerbotAI* ai)
+    {
+        return new ActionNode ("death grip",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("reach target"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* death_strike(PlayerbotAI* ai)
+    {
+        return new ActionNode ("death strike",
+            /*P*/ NULL,
+            /*A*/ new NextAction("scourge strike"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* scourge_strike(PlayerbotAI* ai)
+    {
+        return new ActionNode ("scourge strike",
+            /*P*/ NULL,
+            /*A*/ new NextAction("obliterate"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* obliterate(PlayerbotAI* ai)
+    {
+        return new ActionNode ("obliterate",
+            /*P*/ NULL,
+            /*A*/ new NextAction("plague strike"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* dark_command(PlayerbotAI* ai)
+    {
+        return new ActionNode ("dark command",
+            /*P*/ NULL,
             /*A*/ NULL,
-            /*C*/ NULL);
-    }
-    static ActionNode* shield_wall(PlayerbotAI* ai)
-    {
-        return new ActionNode ("shield wall",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("shield block"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* rend(PlayerbotAI* ai)
-    {
-        return new ActionNode ("rend",
-            /*P*/ NextAction::array(0, new NextAction("defensive stance"), NULL),
-            /*A*/ NULL,
-            /*C*/ NULL);
-    }
-    static ActionNode* revenge(PlayerbotAI* ai)
-    {
-        return new ActionNode ("revenge",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* devastate(PlayerbotAI* ai)
-    {
-        return new ActionNode ("devastate",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("sunder armor"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* shockwave(PlayerbotAI* ai)
-    {
-        return new ActionNode ("shockwave",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("cleave"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* taunt(PlayerbotAI* ai)
-    {
-        return new ActionNode ("taunt",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("mocking blow"), NULL),
             /*C*/ NULL);
     }
 };
 
-TankWarriorStrategy::TankWarriorStrategy(PlayerbotAI* ai) : GenericWarriorStrategy(ai)
+TankDeathKnightStrategy::TankDeathKnightStrategy(PlayerbotAI* ai) : GenericDeathKnightStrategy(ai)
 {
-    actionNodeFactories.Add(new TankWarriorStrategyActionNodeFactory());
+    actionNodeFactories.Add(new TankDeathKnightStrategyActionNodeFactory());
 }
 
-NextAction** TankWarriorStrategy::getDefaultActions()
+NextAction** TankDeathKnightStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("devastate", ACTION_NORMAL + 1), new NextAction("revenge", ACTION_NORMAL + 2), NULL);
+    return NextAction::array(0, new NextAction("heart strike", ACTION_NORMAL + 1), new NextAction("plague strike", ACTION_NORMAL + 2), NULL);
 }
 
-void TankWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+void TankDeathKnightStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    GenericWarriorStrategy::InitTriggers(triggers);
-
-     triggers.push_back(new TriggerNode(
-        "rend",
-        NextAction::array(0, new NextAction("rend", ACTION_NORMAL + 6), NULL)));
+    GenericDeathKnightStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
-        "medium rage available",
-        NextAction::array(0, new NextAction("shield slam", ACTION_NORMAL + 2), new NextAction("heroic strike", ACTION_NORMAL + 2), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "disarm",
-        NextAction::array(0, new NextAction("disarm", ACTION_NORMAL), NULL)));
+        "medium runic power available",
+        NextAction::array(0, new NextAction("rune strike", ACTION_NORMAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "lose aggro",
-        NextAction::array(0, new NextAction("taunt", ACTION_HIGH + 9), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "party member critical health",
-        NextAction::array(0, new NextAction("intervene on party", ACTION_EMERGENCY + 1), NULL)));
+        NextAction::array(0, new NextAction("dark command", ACTION_HIGH + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "critical health",
-        NextAction::array(0, new NextAction("shield wall", ACTION_MEDIUM_HEAL), NULL)));
+        NextAction::array(0, new NextAction("icebound fortitude", ACTION_MEDIUM_HEAL), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "medium health",
-        NextAction::array(0, new NextAction("shield block", ACTION_LIGHT_HEAL), NULL)));
+     triggers.push_back(new TriggerNode(
+        "enemy out of melee",
+        NextAction::array(0, new NextAction("death grip", ACTION_NORMAL + 9), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"almost dead",
-		NextAction::array(0, new NextAction("last stand", ACTION_EMERGENCY + 3), NULL)));
+		NextAction::array(0, new NextAction("dark pact", ACTION_EMERGENCY + 3), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"melee medium aoe",
-		NextAction::array(0, new NextAction("shockwave", ACTION_HIGH + 2), NULL)));
-
-	triggers.push_back(new TriggerNode(
-        "melee light aoe",
-        NextAction::array(0, new NextAction("thunder clap", ACTION_HIGH + 2), new NextAction("cleave", ACTION_HIGH + 1), NULL)));
+		"melee light aoe",
+		NextAction::array(0, new NextAction("howling blast", ACTION_HIGH + 3), new NextAction("pestilence", ACTION_HIGH + 2),  new NextAction("blood boil", ACTION_HIGH + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "high aoe",
-        NextAction::array(0, new NextAction("challenging shout", ACTION_HIGH + 3), new NextAction("retaliation", ACTION_HIGH + 3),NULL)));
-
-	triggers.push_back(new TriggerNode(
-		"concussion blow",
-		NextAction::array(0, new NextAction("concussion blow", ACTION_INTERRUPT), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "sword and board",
-        NextAction::array(0, new NextAction("shield slam", ACTION_HIGH + 4), NULL)));
-
-     triggers.push_back(new TriggerNode(
-        "has nearest adds",
-        NextAction::array(0, new NextAction("cleave", ACTION_NORMAL + 6), NULL)));
+        NextAction::array(0, new NextAction("death and decay", ACTION_HIGH + 3),NULL)));
 }

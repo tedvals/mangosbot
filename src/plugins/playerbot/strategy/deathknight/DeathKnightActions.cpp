@@ -1,50 +1,55 @@
 #include "../../../pchdef.h"
 #include "../../playerbot.h"
-#include "WarriorActions.h"
+#include "DeathKnightActions.h"
 
 using namespace ai;
 
-NextAction** CastRendAction::getPrerequisites()
+NextAction** CastBloodStrikeAction::getPrerequisites()
 {
     return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastDebuffSpellAction::getPrerequisites());
 }
 
-NextAction** CastRendOnAttackerAction::getPrerequisites()
+NextAction** CastDeathStrikeAction::getPrerequisites()
 {
-    return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastDebuffSpellOnAttackerAction::getPrerequisites());
+    return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
 }
 
-NextAction** CastDisarmAction::getPrerequisites()
+NextAction** CastPlagueStrikeAction::getPrerequisites()
 {
-    return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), new NextAction("defensive stance"), NULL), CastDebuffSpellAction::getPrerequisites());
+    return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
 }
 
-NextAction** CastSunderArmorAction::getPrerequisites()
+NextAction** CastObliterateAction::getPrerequisites()
 {
-    return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastDebuffSpellAction::getPrerequisites());
+    return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), CastMeleeSpellAction::getPrerequisites());
 }
 
-NextAction** CastRevengeAction::getPrerequisites()
+NextAction** CastScourgeStrikeAction::getAlternatives()
 {
-    return NextAction::merge( NextAction::array(0, new NextAction("defensive stance"), NULL), CastMeleeSpellAction::getPrerequisites());
+    return NextAction::merge( NextAction::array(0, new NextAction("plague strike"), NULL), CastMeleeSpellAction::getAlternatives());
 }
 
-NextAction** CastBloodthirstAction::getAlternatives()
+NextAction** CastFrostStrikeAction::getAlternatives()
 {
-    return NextAction::merge( NextAction::array(0, new NextAction("heroic strike"), NULL), CastMeleeSpellAction::getAlternatives());
+    return NextAction::merge( NextAction::array(0, new NextAction("runic strike"), NULL), CastMeleeSpellAction::getAlternatives());
 }
 
-NextAction** CastMortalStrikeAction::getAlternatives()
+NextAction** CastHowlingBlastAction::getAlternatives()
 {
-    return NextAction::merge( NextAction::array(0, new NextAction("heroic strike"), NULL), CastMeleeSpellAction::getAlternatives());
+    return NextAction::merge( NextAction::array(0, new NextAction("icy touch"), NULL), CastMeleeSpellAction::getAlternatives());
 }
 
-NextAction** CastBattleShoutAction::getAlternatives()
+NextAction** CastMindFreezeAction::getAlternatives()
 {
-    return NextAction::merge( NextAction::array(0, new NextAction("commanding shout"), NULL), CastBuffSpellAction::getAlternatives());
+    return NextAction::merge( NextAction::array(0, new NextAction("strangulate"), NULL), CastSpellAction::getAlternatives());
 }
 
-NextAction** CastCommandingShoutAction::getAlternatives()
+NextAction** CastRuneStrikeAction::getAlternatives()
 {
-    return NextAction::merge( NextAction::array(0, new NextAction("battle shout"), NULL), CastBuffSpellAction::getAlternatives());
+    return NextAction::merge( NextAction::array(0, new NextAction("death coil"), NULL), CastSpellAction::getAlternatives());
+}
+
+NextAction** CastVampiricBloodAction::getAlternatives()
+{
+    return NextAction::merge( NextAction::array(0, new NextAction("unbreakable armor"), NULL), CastBuffSpellAction::getAlternatives());
 }
