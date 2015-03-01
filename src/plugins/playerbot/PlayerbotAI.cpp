@@ -636,9 +636,13 @@ bool PlayerbotAI::IsHeal(Player* player)
     switch (player->getClass())
     {
     case CLASS_PRIEST:
-        return true;
+        return !HasAnyAuraOf(player, "shadow form", NULL);
+    case CLASS_SHAMAN:
+        return HasAnyAuraOf(player, "water shield", NULL);
+    case CLASS_PALADIN:
+        return HasAnyAuraOf(player, "seal of wisdom", NULL);
     case CLASS_DRUID:
-        return HasAnyAuraOf(player, "tree of life form", NULL);
+        return HasAnyAuraOf(player, "tree of life form", "caster form", NULL);
     }
     return false;
 }
@@ -759,6 +763,8 @@ bool IsRealAura(Player* bot, Aura const* aura, Unit* unit)
 {
     if (!aura)
         return false;
+//Debug
+    if (aura->GetSpellInfo()->Is
 
     if (!unit->IsHostileTo(bot))
         return true;
