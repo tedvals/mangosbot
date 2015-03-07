@@ -62,13 +62,6 @@ enum BotState
     BOT_STATE_DEAD = 2
 };
 
-enum BotAuraType
-{
-    BOT_AURA_NORMAL = 0,
-    BOT_AURA_DAMAGE = 1,
-    BOT_AURA_HEAL = 2
-};
-
 #define BOT_STATE_MAX 3
 
 class PacketHandlingHelper
@@ -149,14 +142,14 @@ public:
 
     virtual bool CanCastSpell(string name, Unit* target);
     virtual bool CastSpell(string name, Unit* target);
-    virtual bool HasAura(string spellName, Unit* player, BotAuraType auratype = BOT_AURA_NORMAL);
+    virtual bool HasAura(string spellName, Unit* player);
     virtual bool HasAnyAuraOf(Unit* player, ...);
 
     virtual bool IsInterruptableSpellCasting(Unit* player, string spell);
     virtual bool HasAuraToDispel(Unit* player, uint32 dispelType);
     bool CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell = true);
 
-    bool HasAura(uint32 spellId, const Unit* player, BotAuraType auratype = BOT_AURA_NORMAL);
+    bool HasAura(uint32 spellId, const Unit* player);
     bool CastSpell(uint32 spellId, Unit* target);
     bool canDispel(const SpellInfo* entry, uint32 dispelType);
 

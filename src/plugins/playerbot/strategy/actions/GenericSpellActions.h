@@ -97,16 +97,6 @@ namespace ai
     {
     public:
         CastDebuffSpellAction(PlayerbotAI* ai, string spell) : CastAuraSpellAction(ai, spell) {}
-
-        virtual bool isUseful();
-    };
-
-    class CastHotSpellAction : public CastAuraSpellAction
-    {
-    public:
-        CastHotSpellAction(PlayerbotAI* ai, string spell) : CastAuraSpellAction(ai, spell) {}
-
-        virtual bool isUseful();
     };
 
     class CastDebuffSpellOnAttackerAction : public CastAuraSpellAction
@@ -119,8 +109,6 @@ namespace ai
         }
         virtual string getName() { return spell + " on attacker"; }
         virtual ActionThreatType getThreatType() { return ACTION_THREAT_AOE; }
-
-        virtual bool isUseful();
     };
 
 	class CastBuffSpellAction : public CastAuraSpellAction

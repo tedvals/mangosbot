@@ -759,50 +759,34 @@ bool PlayerbotAI::TellMaster(string text, PlayerbotSecurityLevel securityLevel)
     return true;
 }
 
-bool IsRealAura(Player* bot, Aura const* aura, Unit* unit, BotAuraType auratype = BOT_AURA_NORMAL)
+bool IsRealAura(Player* bot, Aura const* aura, Unit* unit)
 {
     if (!aura)
         return false;
+//Debug
+    if (aura->GetSpellInfo()->Is
 
-    if (auratype == BOT_AURA_NORMAL || auratype == BOT_AURA_HEAL)
-    {
-        if (!unit->IsHostileTo(bot))
-            return true;
-    }
+    if (!unit->IsHostileTo(bot))
+        return true;
 
     uint32 stacks = aura->GetStackAmount();
     if (stacks >= aura->GetSpellInfo()->StackAmount)
         return true;
 
-    if (aura->GetMaxDuration() > 1500 && aura->GetDuration() > 0 && (aura->GetMaxDuration() - aura->GetDuration() < 1500))
-        return false;
-
-    if (auratype == BOT_AURA_NORMAL || auratype == BOT_AURA_HEAL)
-    {
-
-        if (aura->GetCaster() == bot || aura->GetSpellInfo()->IsPositive() || aura->IsArea())
-            return true;
-    }
-    else
-    {
-        if (aura->GetCaster() == bot || aura->IsArea())
-            return true;
-    }
-
-//    if (aura->GetCaster() == bot || aura->IsArea())
-//        return true;
+    if (aura->GetCaster() == bot || aura->GetSpellInfo()->IsPositive() || aura->IsArea())
+        return true;
 
     return false;
 }
 
-bool PlayerbotAI::HasAura(string name, Unit* unit, BotAuraType auratype)
+bool PlayerbotAI::HasAura(string name, Unit* unit)
 {
     if (!unit)
         return false;
 
     uint32 spellId = aiObjectContext->GetValue<uint32>("spell id", name)->Get();
     if (spellId)
-        return HasAura(spellId, unit,auratype);
+        return HasAura(spellId, unit);
 
     wstring wnamepart;
     if (!Utf8toWStr(name, wnamepart))
@@ -821,14 +805,14 @@ bool PlayerbotAI::HasAura(string name, Unit* unit, BotAuraType auratype)
         if (auraName.empty() || auraName.length() != wnamepart.length() || !Utf8FitTo(auraName, wnamepart))
             continue;
 
-        if (IsRealAura(bot, aura, unit,auratype))
+        if (IsRealAura(bot, aura, unit))
             return true;
     }
 
     return false;
 }
 
-bool PlayerbotAI::HasAura(uint32 spellId, const Unit* unit, BotAuraType auratype)
+bool PlayerbotAI::HasAura(uint32 spellId, const Unit* unit)
 {
     if (!spellId || !unit)
         return false;
@@ -837,7 +821,7 @@ bool PlayerbotAI::HasAura(uint32 spellId, const Unit* unit, BotAuraType auratype
     {
         Aura* aura = ((Unit*)unit)->GetAura(spellId);
 
-        if (IsRealAura(bot, aura, (Unit*)unit),auratype)
+        if (IsRealAura(bot, aura, (Unit*)unit))
             return true;
     }
 
