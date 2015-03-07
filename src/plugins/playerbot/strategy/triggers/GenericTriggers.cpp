@@ -65,6 +65,14 @@ bool BuffTrigger::IsActive()
 		(!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") >= sPlayerbotAIConfig.lowMana);
 }
 
+bool HotTrigger::IsActive()
+{
+    Unit* target = GetTarget();
+	return SpellTrigger::IsActive() &&
+		!ai->HasAura(spell, target,BOT_AURA_HEAL) &&
+		(!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") >= sPlayerbotAIConfig.lowMana);
+}
+
 Value<Unit*>* BuffOnPartyTrigger::GetTargetValue()
 {
 	return context->GetValue<Unit*>("party member without aura", spell);
@@ -112,11 +120,17 @@ bool MeleeAoeTrigger::IsActive()
 
 bool DebuffTrigger::IsActive()
 {
-    if (AI_VALUE2(bool, "target normal", "current target"))
-        return BuffTrigger::IsActive() && (AI_VALUE2(uint8, "health", "current target") > 30);
-    else if (AI_VALUE2(bool, "target boss", "current target"))
-        return BuffTrigger::IsActive() && (AI_VALUE2(uint8, "health", "current target") > 5);
-    else return BuffTrigger::IsActive() && (AI_VALUE2(uint8, "health", "current target") > 20);
+	if (SpellTrigger::IsActive() &&
+		!ai->HasAura(spell, GetTarget(),BOT_AURA_DAMAGE) &&
+		(!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") >= sPlayerbotAIConfig.lowMana))
+    {
+     if (AI_VALUE2(bool, "target normal", "current target"))
+        return (AI_VALUE2(uint8, "health", "current target") > 30);
+     else if (AI_VALUE2(bool, "target boss", "current target"))
+        return (AI_VALUE2(uint8, "health", "current target") > 5);
+     else return (AI_VALUE2(uint8, "health", "current target") > 20);
+    }
+    else return false;
 }
 
 bool SpellTrigger::IsActive()

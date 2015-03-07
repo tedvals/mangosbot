@@ -305,6 +305,15 @@ namespace ai
         virtual bool IsActive();
     };
 
+    class HotTrigger : public SpellTrigger
+    {
+    public:
+        HotTrigger(PlayerbotAI* ai, string spell) : SpellTrigger(ai, spell, 5) {}
+    public:
+		virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive();
+    };
+
     class BuffOnPartyTrigger : public BuffTrigger
     {
     public:
