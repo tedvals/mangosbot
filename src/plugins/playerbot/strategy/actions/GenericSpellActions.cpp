@@ -27,6 +27,16 @@ bool CastAuraSpellAction::isUseful()
 	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget());
 }
 
+bool CastDebuffSpellAction::isUseful()
+{
+	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget(), BOT_AURA_DAMAGE);
+}
+
+bool CastHotSpellAction::isUseful()
+{
+	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget(), BOT_AURA_HEAL);
+}
+
 bool CastEnchantItemAction::isUseful()
 {
     if (!CastSpellAction::isUseful())

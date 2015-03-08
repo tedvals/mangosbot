@@ -18,7 +18,7 @@ Unit* AttackerWithoutAuraTargetValue::Calculate()
         if (bot->GetDistance(unit) > sPlayerbotAIConfig.spellDistance)
             continue;
 
-        if (!ai->HasAura(qualifier, unit))
+        if (!ai->HasAura(qualifier, unit), BOT_AURA_DAMAGE)
             return unit;
     }
 

@@ -112,11 +112,25 @@ bool MeleeAoeTrigger::IsActive()
 
 bool DebuffTrigger::IsActive()
 {
+    if (SpellTrigger::IsActive() &&
+		!ai->HasAura(spell, GetTarget(),BOT_AURA_DAMAGE) &&
+		(!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") >= sPlayerbotAIConfig.lowMana))
+    {
+     if (AI_VALUE2(bool, "target normal", "current target"))
+        return (AI_VALUE2(uint8, "health", "current target") > 30);
+     else if (AI_VALUE2(bool, "target boss", "current target"))
+        return (AI_VALUE2(uint8, "health", "current target") > 5);
+     else return (AI_VALUE2(uint8, "health", "current target") > 20);
+    }
+    else return false;
+
+    /*
     if (AI_VALUE2(bool, "target normal", "current target"))
         return BuffTrigger::IsActive() && (AI_VALUE2(uint8, "health", "current target") > 30);
     else if (AI_VALUE2(bool, "target boss", "current target"))
         return BuffTrigger::IsActive() && (AI_VALUE2(uint8, "health", "current target") > 5);
     else return BuffTrigger::IsActive() && (AI_VALUE2(uint8, "health", "current target") > 20);
+    */
 }
 
 bool SpellTrigger::IsActive()

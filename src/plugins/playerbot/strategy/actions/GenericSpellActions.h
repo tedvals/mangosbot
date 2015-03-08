@@ -93,22 +93,32 @@ namespace ai
     };
 
     //---------------------------------------------------------------------------------------------------------------------
-    class CastDebuffSpellAction : public CastAuraSpellAction
+    class CastDebuffSpellAction : public CastSpellAction
     {
     public:
-        CastDebuffSpellAction(PlayerbotAI* ai, string spell) : CastAuraSpellAction(ai, spell) {}
+        CastDebuffSpellAction(PlayerbotAI* ai, string spell) : CastSpellAction(ai, spell) {}
+
+        virtual bool isUseful();
     };
 
-    class CastDebuffSpellOnAttackerAction : public CastAuraSpellAction
+    class CastDebuffSpellOnAttackerAction : public CastDebuffSpellAction
     {
     public:
-        CastDebuffSpellOnAttackerAction(PlayerbotAI* ai, string spell) : CastAuraSpellAction(ai, spell) {}
+        CastDebuffSpellOnAttackerAction(PlayerbotAI* ai, string spell) : CastDebuffSpellAction(ai, spell) {}
         Value<Unit*>* GetTargetValue()
         {
             return context->GetValue<Unit*>("attacker without aura", spell);
         }
         virtual string getName() { return spell + " on attacker"; }
         virtual ActionThreatType getThreatType() { return ACTION_THREAT_AOE; }
+    };
+
+    class CastHotSpellAction : public CastSpellAction
+    {
+    public:
+        CastHotSpellAction(PlayerbotAI* ai, string spell) : CastSpellAction(ai, spell) {}
+
+        virtual bool isUseful();
     };
 
 	class CastBuffSpellAction : public CastAuraSpellAction
