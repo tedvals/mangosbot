@@ -133,6 +133,14 @@ bool DebuffTrigger::IsActive()
     */
 }
 
+bool HotTrigger::IsActive()
+{
+    Unit* target = GetTarget();
+	return SpellTrigger::IsActive() &&
+		!ai->HasAura(spell, target,BOT_AURA_HEAL) &&
+		(!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") >= sPlayerbotAIConfig.lowMana);
+}
+
 bool SpellTrigger::IsActive()
 {
 	return GetTarget();

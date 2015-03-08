@@ -356,6 +356,15 @@ namespace ai
         virtual string getName() { return spell + " on attacker"; }
     };
 
+    class HotTrigger : public SpellTrigger
+    {
+    public:
+        HotTrigger(PlayerbotAI* ai, string spell) : SpellTrigger(ai, spell, 5) {}
+    public:
+		virtual string GetTargetName() { return "self target"; }
+        virtual bool IsActive();
+    };
+
 	class BoostTrigger : public BuffTrigger
 	{
 	public:
