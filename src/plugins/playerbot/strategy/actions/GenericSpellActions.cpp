@@ -48,7 +48,7 @@ bool CastEnchantItemAction::isUseful()
 
 bool CastHealingSpellAction::isUseful()
 {
-	return CastAuraSpellAction::isUseful() && AI_VALUE2(uint8, "health", GetTargetName()) < (100 - estAmount);
+	return CastHotSpellAction::isUseful() && AI_VALUE2(uint8, "health", GetTargetName()) < (100 - estAmount);
 }
 
 bool CastAoeHealSpellAction::isUseful()
