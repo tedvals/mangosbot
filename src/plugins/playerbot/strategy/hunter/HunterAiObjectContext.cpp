@@ -77,6 +77,7 @@ namespace ai
                 creators["hunters pet low health"] = &TriggerFactoryInternal::hunters_pet_low_health;
                 creators["hunter's mark"] = &TriggerFactoryInternal::hunters_mark;
                 creators["freezing trap"] = &TriggerFactoryInternal::freezing_trap;
+		creators["freezing trap aggro"] = &TriggerFactoryInternal::freezing_trap_aggro;
                 creators["aspect of the pack"] = &TriggerFactoryInternal::aspect_of_the_pack;
                 creators["rapid fire"] = &TriggerFactoryInternal::rapid_fire;
                 creators["kill command"] = &TriggerFactoryInternal::kill_command;
@@ -106,6 +107,7 @@ namespace ai
             static Trigger* hunters_pet_low_health(PlayerbotAI* ai) { return new HuntersPetLowHealthTrigger(ai); }
             static Trigger* hunters_mark(PlayerbotAI* ai) { return new HuntersMarkTrigger(ai); }
             static Trigger* freezing_trap(PlayerbotAI* ai) { return new FreezingTrapTrigger(ai); }
+	    static Trigger* freezing_trap_aggro(PlayerbotAI* ai) { return new FreezingTrapAggroTrigger(ai); }
             static Trigger* aspect_of_the_pack(PlayerbotAI* ai) { return new HunterAspectOfThePackTrigger(ai); }
             static Trigger* rapid_fire(PlayerbotAI* ai) { return new RapidFireTrigger(ai); }
             static Trigger* kill_command(PlayerbotAI* ai) { return new KillCommandTrigger(ai); }

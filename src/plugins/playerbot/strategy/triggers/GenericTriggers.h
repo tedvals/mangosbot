@@ -257,13 +257,13 @@ namespace ai
     class LightAoeTrigger : public AoeTrigger
     {
     public:
-        LightAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 2, 15.0f) {}
+        LightAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 2, 12.0f) {}
     };
 
     class MediumAoeTrigger : public AoeTrigger
     {
     public:
-        MediumAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 3, 17.0f) {}
+        MediumAoeTrigger(PlayerbotAI* ai) : AoeTrigger(ai, 3, 15.0f) {}
     };
 
     class HighAoeTrigger : public AoeTrigger
@@ -287,13 +287,13 @@ namespace ai
     class MeleeMediumAoeTrigger : public MeleeAoeTrigger
     {
     public:
-        MeleeMediumAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 3, 8.0f) {}
+        MeleeMediumAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 3, 10.0f) {}
     };
 
     class MeleeHighAoeTrigger : public MeleeAoeTrigger
     {
     public:
-        MeleeHighAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 4, 8.0f) {}
+        MeleeHighAoeTrigger(PlayerbotAI* ai) : MeleeAoeTrigger(ai, 4, 10.0f) {}
     };
 
     class BuffTrigger : public SpellTrigger

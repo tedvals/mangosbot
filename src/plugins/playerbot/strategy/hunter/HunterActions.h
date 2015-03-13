@@ -274,7 +274,7 @@ namespace ai
         virtual bool isUseful()
         {
            // return CastMeleeSpellAction::isUseful() && !ai->HasAura("wing clip"), GetTarget());
-           return CastMeleeSpellAction::isUseful() && !ai->HasAnyAuraOf(GetTarget(), "slow", "wing clip", "frost shock", "crippling poison", "hamstring", NULL);
+           return CastMeleeSpellAction::isUseful() && !ai->HasAnyAuraOf(GetTarget(), "slow", "wing clip", "frost shock", "crippling poison", "hamstring", "chains of ice", NULL);
         }
         virtual bool IsInstant() {return true;}
 

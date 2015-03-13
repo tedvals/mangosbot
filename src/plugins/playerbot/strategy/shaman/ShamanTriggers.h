@@ -82,7 +82,7 @@ namespace ai
 
         virtual bool IsActive()
 		{
-            return TotemTrigger::IsActive() && !AI_VALUE2(bool, "has own totem", "fire elemental totem");
+            return TotemTrigger::IsActive() && AI_VALUE(uint8, "aoe attacker count") > 2 && !AI_VALUE2(bool, "has own totem", "fire elemental totem");
         }
     };
 
@@ -92,7 +92,7 @@ namespace ai
 
         virtual bool IsActive()
 		{
-            return TotemTrigger::IsActive() && !AI_VALUE2(bool, "has own totem", "fire elemental totem");
+            return TotemTrigger::IsActive() && AI_VALUE(uint8, "aoe attacker count") <= 2 && !AI_VALUE2(bool, "has own totem", "fire elemental totem");
         }
     };
 
