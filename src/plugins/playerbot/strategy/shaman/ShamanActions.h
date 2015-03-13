@@ -225,6 +225,10 @@ namespace ai
     public:
         CastCallOfTheElementsTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "call of the elements") {}
         virtual bool IsInstant() {return true;}
+
+        virtual bool isUseful() {
+           return CastBuffSpellAction::isUseful() && !AI_VALUE2(bool, "has own totem", "totem");
+            }
     };
 
     class CastCallOfTheAncestorsTotemAction : public CastBuffSpellAction
@@ -232,6 +236,10 @@ namespace ai
     public:
         CastCallOfTheAncestorsTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "call of the ancestors") {}
         virtual bool IsInstant() {return true;}
+
+        virtual bool isUseful() {
+           return CastBuffSpellAction::isUseful() && !AI_VALUE2(bool, "has own totem", "totem");
+            }
     };
 
     class CastCallOfTheSpiritsTotemAction : public CastBuffSpellAction
@@ -239,6 +247,10 @@ namespace ai
     public:
         CastCallOfTheSpiritsTotemAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "call of the spirits") {}
         virtual bool IsInstant() {return true;}
+
+        virtual bool isUseful() {
+           return CastBuffSpellAction::isUseful() && !AI_VALUE2(bool, "has own totem", "totem");
+            }
     };
 
     class CastFlametongueTotemAction : public CastTotemAction
@@ -336,10 +348,38 @@ namespace ai
         CastWaterWalkingOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "water walking") {}
     };
 
-
     class CastCleanseSpiritAction : public CastCureSpellAction {
     public:
         CastCleanseSpiritAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "cleanse spirit") {}
+        virtual bool IsInstant() {return true;}
+
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("cure toxins"), NULL), CastCureSpellAction::getAlternatives());
+        }
+    };
+
+    class CastCureToxinsAction : public CastCureSpellAction {
+    public:
+        CastCureToxinsAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "cure toxins") {}
+        virtual bool IsInstant() {return true;}
+    };
+
+    class CastCureToxinsPoisonOnPartyAction : public CurePartyMemberAction
+    {
+    public:
+        CastCureToxinsPoisonOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "cure toxins", DISPEL_POISON) {}
+
+        virtual string getName() { return "cure toxins poison on party"; }
+        virtual bool IsInstant() {return true;}
+    };
+
+    class CastCureToxinsDiseaseOnPartyAction : public CurePartyMemberAction
+    {
+    public:
+        CastCureToxinsDiseaseOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "cure toxins", DISPEL_DISEASE) {}
+
+        virtual string getName() { return "cure toxins disease on party"; }
         virtual bool IsInstant() {return true;}
     };
 
@@ -350,6 +390,11 @@ namespace ai
 
         virtual string getName() { return "cleanse spirit poison on party"; }
         virtual bool IsInstant() {return true;}
+
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("cure toxins poison on party"), NULL), CurePartyMemberAction::getAlternatives());
+        }
     };
     class CastCleanseSpiritCurseOnPartyAction : public CurePartyMemberAction
     {
@@ -366,6 +411,11 @@ namespace ai
 
         virtual string getName() { return "cleanse spirit disease on party"; }
         virtual bool IsInstant() {return true;}
+
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("cure toxins disease on party"), NULL), CurePartyMemberAction::getAlternatives());
+        }
     };
 
     class CastFlameShockAction : public CastDebuffSpellAction
@@ -405,6 +455,11 @@ namespace ai
     {
     public:
         CastLightningBoltAction(PlayerbotAI* ai) : CastSpellAction(ai, "lightning bolt") {}
+
+        virtual NextAction** getAlternatives()
+        {
+            return NextAction::merge( NextAction::array(0, new NextAction("reposition"), NULL), CastSpellAction::getAlternatives());
+        }
     };
 
    class CastLightningBoltAction2 : public CastSpellAction
@@ -416,14 +471,13 @@ namespace ai
         }
     };
 
-
-     class CastLavaBurstAction : public CastSpellAction
+    class CastLavaBurstAction : public CastSpellAction
     {
     public:
         CastLavaBurstAction(PlayerbotAI* ai) : CastSpellAction(ai, "lava burst") {}
 
         virtual bool isUseful() {
-           return CastSpellAction::isUseful() && ai->HasAura("flame shock",GetTarget());
+           return CastSpellAction::isUseful() && ai->HasAura("flame shock",GetTarget(),BOT_AURA_DAMAGE);
             }
     };
 
@@ -452,6 +506,16 @@ namespace ai
         {
             return NextAction::merge( NextAction::array(0, new NextAction("heroism"), NULL), CastBuffSpellAction::getPrerequisites());
         }
+    };
+
+    class CastTotemicRecallAction : public CastSpellAction
+    {
+    public:
+        CastTotemicRecallAction(PlayerbotAI* ai) : CastSpellAction(ai, "totemic recall") {}
+
+        virtual bool isUseful() {
+           return CastSpellAction::isUseful() && AI_VALUE2(bool, "has own totem", "totem");
+            }
     };
 
     class CastWindShearOnEnemyHealerAction : public CastSpellOnEnemyHealerAction

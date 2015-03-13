@@ -18,6 +18,19 @@ namespace ai
         virtual bool Calculate();
     };
 
+    class IsTargetInLosValue : public BoolCalculatedValue, public Qualified
+    {
+    public:
+        IsTargetInLosValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate();
+    };
+
     class IsTargetPlayerValue : public BoolCalculatedValue, public Qualified
     {
     public:

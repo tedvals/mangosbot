@@ -18,6 +18,9 @@ public:
         creators["lesser healing wave"] = &lesser_healing_wave;
         creators["lesser healing wave on party"] = &lesser_healing_wave_on_party;
         creators["lesser healing wave on master"] = &lesser_healing_wave_on_master;
+        creators["healing wave"] = &healing_wave;
+        creators["healing wave on party"] = &healing_wave_on_party;
+        creators["healing wave on master"] = &healing_wave_on_master;
         creators["chain heal"] = &chain_heal;
         creators["chain heal on party"] = &chain_heal_on_party;
         creators["chain heal on master"] = &chain_heal_on_master;
@@ -187,6 +190,27 @@ private:
         return new ActionNode ("lesser healing wave on master",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("healing wave on master"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* healing_wave(PlayerbotAI* ai)
+    {
+        return new ActionNode ("healing wave",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("relocate"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* healing_wave_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("healing wave on party",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("relocate"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* healing_wave_on_master(PlayerbotAI* ai)
+    {
+        return new ActionNode ("healing wave on master",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("relocate"), NULL),
             /*C*/ NULL);
     }
 };

@@ -112,6 +112,7 @@ namespace ai
             creators["mana"] = &ValueContext::mana;
             creators["combo"] = &ValueContext::combo;
             creators["dead"] = &ValueContext::dead;
+            creators["target in los"] = &ValueContext::target_in_los;
             creators["target normal"] = &ValueContext::target_normal;
             creators["target elite"] = &ValueContext::target_elite;
             creators["target boss"] = &ValueContext::target_boss;
@@ -165,6 +166,7 @@ namespace ai
             creators["chat"] = &ValueContext::chat;
             creators["has totem"] = &ValueContext::has_totem;
             creators["has own totem"] = &ValueContext::has_own_totem;
+            creators["has any own totem"] = &ValueContext::has_any_own_totem;
 
             creators["aoe heal"] = &ValueContext::aoe_heal;
 
@@ -233,6 +235,7 @@ namespace ai
         static UntypedValue* mana(PlayerbotAI* ai) { return new ManaValue(ai); }
         static UntypedValue* combo(PlayerbotAI* ai) { return new ComboPointsValue(ai); }
         static UntypedValue* dead(PlayerbotAI* ai) { return new IsDeadValue(ai); }
+        static UntypedValue* target_in_los(PlayerbotAI* ai) { return new IsTargetInLosValue(ai); }
         static UntypedValue* target_normal(PlayerbotAI* ai) { return new IsTargetNormalValue(ai); }
         static UntypedValue* target_elite(PlayerbotAI* ai) { return new IsTargetEliteValue(ai); }
         static UntypedValue* target_boss(PlayerbotAI* ai) { return new IsTargetBossValue(ai); }
@@ -293,6 +296,7 @@ namespace ai
         static UntypedValue* duel_target(PlayerbotAI* ai) { return new DuelTargetValue(ai); }
         static UntypedValue* has_totem(PlayerbotAI* ai) { return new HasTotemValue(ai); }
         static UntypedValue* has_own_totem(PlayerbotAI* ai) { return new HasOwnTotemValue(ai); }
+        static UntypedValue* has_any_own_totem(PlayerbotAI* ai) { return new HasAnyOwnTotemValue(ai); }
         static UntypedValue* threat(PlayerbotAI* ai) { return new ThreatValue(ai); }
         static UntypedValue* combat(PlayerbotAI* ai) { return new IsInCombatValue(ai); }
         static UntypedValue* lfg_proposal(PlayerbotAI* ai) { return new LfgProposalValue(ai); }

@@ -61,7 +61,7 @@ uint8 AoeAttackerCountValue::Calculate()
 uint8 MeleeAttackerCountValue::Calculate()
 {
     int count = 0;
-    float range = sPlayerbotAIConfig.tooCloseDistance;
+    float range = sPlayerbotAIConfig.meleeDistance;
 
     list<ObjectGuid> attackers = context->GetValue<list<ObjectGuid> >("attackers")->Get();
     for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); i++)

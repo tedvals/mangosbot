@@ -452,8 +452,8 @@ bool MoveRandomAction::Execute(Event event)
         {
             target = ai->GetUnit(*i);
 //go a little further
-    if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance/3)
-//            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance/3 && ai->ObjectNotVisited(*i))
+ //   if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance/3)
+           if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance/3 && ai->ObjectNotVisited(*i))
             {
                 ai->VisitObject(*i);
                 break;
@@ -469,8 +469,8 @@ bool MoveRandomAction::Execute(Event event)
         {
             target = ai->GetGameObject(*i);
 
-            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance/3)
-        //    if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance/3 && ai->ObjectNotVisited(*i))
+//            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance/3)
+            if (target && bot->GetDistance(target) > sPlayerbotAIConfig.sightDistance/3 && ai->ObjectNotVisited(*i))
              {
                 ai->VisitObject(*i);
                 break;

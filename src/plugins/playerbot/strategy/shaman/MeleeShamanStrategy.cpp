@@ -102,6 +102,22 @@ void MeleeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "maelstrom weapon",
         NextAction::array(0, new NextAction("lightning bolt", 32.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "cleanse spirit poison",
+        NextAction::array(0, new NextAction("cure toxin", 24.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "cleanse spirit disease",
+        NextAction::array(0, new NextAction("cure toxin", 24.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member cure toxins poison",
+        NextAction::array(0, new NextAction("cure toxins poison on party", 23.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member cure toxins disease",
+        NextAction::array(0, new NextAction("cure toxins disease on party", 23.0f), NULL)));
 }
 
 void MeleeAoeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -115,8 +131,8 @@ void MeleeAoeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("magma totem", 26.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "medium aoe",
-        NextAction::array(0, new NextAction("fire nova", 25.0f), NULL)));
+        "medium melee aoe",
+        NextAction::array(0, new NextAction("magma totem", 26.0f), new NextAction("fire nova", 26.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "maelstrom weapon",

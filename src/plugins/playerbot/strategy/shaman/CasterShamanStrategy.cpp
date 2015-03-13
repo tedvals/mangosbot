@@ -81,12 +81,28 @@ void CasterShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("frost shock", 21.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "high aoe",
+        "medium melee aoe",
         NextAction::array(0, new NextAction("magma totem", 19.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy too close for spell",
         NextAction::array(0, new NextAction("thunderstorm", 50.0f), NULL)));
+
+     triggers.push_back(new TriggerNode(
+        "cleanse spirit poison",
+        NextAction::array(0, new NextAction("cure toxin", 24.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "cleanse spirit disease",
+        NextAction::array(0, new NextAction("cure toxin", 24.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member cure toxins poison",
+        NextAction::array(0, new NextAction("cure toxins poison on party", 23.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member cure toxins disease",
+        NextAction::array(0, new NextAction("cure toxins disease on party", 23.0f), NULL)));
 
 }
 
@@ -97,10 +113,18 @@ void CasterAoeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("chain lightning", 25.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "high aoe",
-        NextAction::array(0, new NextAction("fire nova", 26.0f), NULL)));
+        "medium melee aoe",
+        NextAction::array(0, new NextAction("magma totem", 26.0f), new NextAction("fire nova", 26.0f), NULL)));
 
-      triggers.push_back(new TriggerNode(
+     triggers.push_back(new TriggerNode(
+        "medium aoe",
+        NextAction::array(0, new NextAction("reach melee", ACTION_MOVE + 5), new NextAction("magma totem", 26.0f), new NextAction("fire nova", 26.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "high aoe",
+        NextAction::array(0, new NextAction("reach melee", ACTION_MOVE + 5), new NextAction("magma totem", 26.0f), new NextAction("fire nova", 26.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "magma totem",
         NextAction::array(0, new NextAction("magma totem", 26.0f), NULL)));
 

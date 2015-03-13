@@ -248,21 +248,21 @@ namespace ai
         {
             return new ActionNode ("lesser heal",
                 /*P*/ NextAction::array(0, new NextAction("remove shadowform"), NULL),
-                /*A*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("relocate"), NULL),
                 /*C*/ NULL);
         }
         static ActionNode* lesser_heal_on_party(PlayerbotAI* ai)
         {
             return new ActionNode ("lesser heal on party",
                 /*P*/ NextAction::array(0, new NextAction("remove shadowform"), NULL),
-                /*A*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("relocate"), NULL),
                 /*C*/ NULL);
         }
         static ActionNode* lesser_heal_on_master(PlayerbotAI* ai)
         {
             return new ActionNode ("lesser heal on master",
                 /*P*/ NextAction::array(0, new NextAction("remove shadowform"), NULL),
-                /*A*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("relocate"), NULL),
                 /*C*/ NULL);
         }
         static ActionNode* flash_heal(PlayerbotAI* ai)

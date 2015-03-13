@@ -69,6 +69,14 @@ namespace ai
 				return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), Action::getPrerequisites());
 		}
 
+        virtual NextAction** getAlternatives()
+		{
+		    Unit* target = GetTarget();
+            if (target && (target != bot) && !AI_VALUE2(bool, "target in los", "current target"))
+                 return NextAction::merge( NextAction::array(0, new NextAction("reposition"), NULL), Action::getAlternatives());
+            else return NULL;
+		}
+
     protected:
         string spell;
 		float range;
@@ -193,7 +201,6 @@ namespace ai
 	private:
 		string name;
 	};
-
 
 	class MasterActionNameSupport {
 	public:

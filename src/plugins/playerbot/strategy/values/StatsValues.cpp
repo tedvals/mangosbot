@@ -4,6 +4,23 @@
 
 using namespace ai;
 
+bool IsTargetInLosValue::Calculate()
+{
+    Unit* target = GetTarget();
+
+    if (!target)
+        return false;
+    else
+    {
+
+      float targetX = target->GetPositionX();
+      float targetY = target->GetPositionY();
+      float targetZ = target->GetPositionZ();
+
+      return (bot->IsWithinLOS(targetX, targetY, targetZ));
+    }
+}
+
 bool IsTargetPlayerValue::Calculate()
 {
     Unit* target = GetTarget();

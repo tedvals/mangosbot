@@ -24,6 +24,16 @@ namespace ai
         int attackerCount;
     };
 
+    class RecallTotemTrigger : public Trigger {
+    public:
+        RecallTotemTrigger(PlayerbotAI* ai) : Trigger(ai, "recall all totems") {}
+
+        virtual bool IsActive()
+		{
+            return AI_VALUE(uint8, "attacker count") == 0 && AI_VALUE(uint8, "possible targets") == 0 && !AI_VALUE2(bool, "mounted", "self target") && AI_VALUE2(bool, "has any own totem", "totem");
+        }
+    };
+
     class WindfuryTotemTrigger : public TotemTrigger {
     public:
         WindfuryTotemTrigger(PlayerbotAI* ai) : TotemTrigger(ai, "windfury totem") {}
