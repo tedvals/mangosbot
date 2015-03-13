@@ -517,7 +517,7 @@ namespace ai
         CastTotemicRecallAction(PlayerbotAI* ai) : CastSpellAction(ai, "totemic recall") {}
 
         virtual bool isUseful() {
-           return CastSpellAction::isUseful() && AI_VALUE2(bool, "has own totem", "totem");
+           return CastSpellAction::isUseful() && AI_VALUE2(bool, "has any own totem", "totem");
             }
     };
 
