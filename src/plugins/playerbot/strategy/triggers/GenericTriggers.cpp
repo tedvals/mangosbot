@@ -102,12 +102,12 @@ bool MyAttackerCountTrigger::IsActive()
 
 bool AoeTrigger::IsActive()
 {
-    return (AI_VALUE(uint8, "aoe attacker count")) >= amount;
+    return AI_VALUE(uint8, "aoe attacker count") >= amount;
 }
 
 bool MeleeAoeTrigger::IsActive()
 {
-    return (AI_VALUE(uint8, "melee attacker count")) >= amount;
+    return AI_VALUE(uint8, "melee attacker count") >= amount;
 }
 
 bool DebuffTrigger::IsActive()

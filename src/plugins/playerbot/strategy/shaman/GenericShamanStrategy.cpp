@@ -28,9 +28,11 @@ public:
         creators["stoneskin totem"] = &stoneskin_totem;
         creators["totem of wrath totem"] = &wrath_totem;
         creators["flametongue totem"] = &flametongue_totem;
+	creators["searing totem"] = &searing_totem;
         creators["mana spring totem"] = &mana_spring_totem;
         creators["wrath of air totem"] = &wrath_air_totem;
         creators["grace of air totem"] = &grace_air_totem;
+	creators["magma totem"] = &magma_totem;
         creators["boost"] = &bloodlust;
         creators["bloodlust"] = &bloodlust;
         creators["heroism"] = &bloodlust;
@@ -101,11 +103,25 @@ private:
             /*A*/ NextAction::array(0, new NextAction("flametongue totem"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* magma_totem(PlayerbotAI* ai)
+    {
+        return new ActionNode ("magma totem",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("fire nova"), NULL),
+            /*C*/ NULL);
+    }
     static ActionNode* flametongue_totem(PlayerbotAI* ai)
     {
         return new ActionNode ("flametongue totem",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("searing totem"), NULL),
+            /*C*/ NULL);
+    }
+   static ActionNode* searing_totem(PlayerbotAI* ai)
+    {
+        return new ActionNode ("searing totem",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("magma totem"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* mana_spring_totem(PlayerbotAI* ai)

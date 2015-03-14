@@ -282,6 +282,7 @@ namespace ai
     public:
         CastSearingTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "searing totem") {}
         virtual string GetTargetName() { return "self target"; }
+	virtual bool isUseful() { return CastSpellAction::isUseful() && !AI_VALUE2(bool, "has own totem", name) && (AI_VALUE(uint8, "aoe attacker count") <= 2 || bot->getLevel() < 32); } 	
     };
 
     class CastMagmaTotemAction : public CastMeleeSpellAction
@@ -289,13 +290,15 @@ namespace ai
     public:
         CastMagmaTotemAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "magma totem") {}
         virtual string GetTargetName() { return "self target"; }
-        virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && !AI_VALUE2(bool, "has totem", name); }
+        virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && !AI_VALUE2(bool, "has own totem", name); }
         virtual bool IsInstant() {return true;}
     };
 
     class CastFireNovaAction : public CastSpellAction {
     public:
         CastFireNovaAction(PlayerbotAI* ai) : CastSpellAction(ai, "fire nova") {}
+
+	virtual bool isUseful() { return CastSpellAction::isUseful() && AI_VALUE2(bool, "has own totem", "magma totem"); }
     };
 
     class CastWindShearAction : public CastSpellAction {
@@ -514,7 +517,7 @@ namespace ai
         CastTotemicRecallAction(PlayerbotAI* ai) : CastSpellAction(ai, "totemic recall") {}
 
         virtual bool isUseful() {
-           return CastSpellAction::isUseful() && AI_VALUE2(bool, "has own totem", "totem");
+           return CastSpellAction::isUseful() && AI_VALUE2(bool, "has any own totem", "totem");
             }
     };
 
