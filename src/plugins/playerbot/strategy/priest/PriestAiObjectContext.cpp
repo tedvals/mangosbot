@@ -47,12 +47,14 @@ namespace ai
                 creators["shadow"] = &priest::CombatStrategyFactoryInternal::dps;
                 creators["dps"] = &priest::CombatStrategyFactoryInternal::dps;
                 creators["holy"] = &priest::CombatStrategyFactoryInternal::holy;
+                creators["holy dps"] = &priest::CombatStrategyFactoryInternal::holy_dps;
             }
 
         private:
             static Strategy* heal(PlayerbotAI* ai) { return new HealPriestStrategy(ai); }
             static Strategy* dps(PlayerbotAI* ai) { return new ShadowPriestStrategy(ai); }
             static Strategy* holy(PlayerbotAI* ai) { return new HolyPriestStrategy(ai); }
+            static Strategy* holy_dps(PlayerbotAI* ai) { return new DpsHolyPriestStrategy(ai); }
         };
     };
 };

@@ -30,7 +30,7 @@ namespace ai
 
         virtual bool IsActive()
 		{
-            return AI_VALUE(uint8, "attacker count") == 0 && AI_VALUE(uint8, "possible targets") == 0 && !AI_VALUE2(bool, "mounted", "self target") && AI_VALUE2(bool, "has any own totem", "totem");
+            return !AI_VALUE2(bool, "combat", "self target") && AI_VALUE(uint8, "possible targets") == 0 && !AI_VALUE2(bool, "mounted", "self target") && AI_VALUE2(bool, "has any own totem", "totem");
         }
     };
 

@@ -117,7 +117,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
                     engine->addStrategy("dps debuff");
             }
             else if (tab == 1)
-                engine->addStrategy("holy");
+                engine->addStrategy("holy","holy dps");
             else
                 engine->addStrategy("heal");
 

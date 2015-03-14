@@ -14,6 +14,9 @@ public:
         creators["aimed shot"] = &aimed_shot;
         creators["arcane shot"] = &arcane_shot;
         creators["chimera shot"] = &chimera_shot;
+        creators["black arrow"] = &black_arrow;
+        creators["immolation trap"] = &immolation_trap;
+        creators["explosive trap"] = &explosive_trap;
         creators["explosive shot"] = &explosive_shot;
         creators["steady shot"] = &steady_shot;
         creators["concussive shot"] = &concussive_shot;
@@ -24,42 +27,63 @@ private:
     {
         return new ActionNode ("viper sting",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("mana potion", 10.0f), NULL),
+            /*A*/ NextAction::array(0, new NextAction("mana potion"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* aimed_shot(PlayerbotAI* ai)
     {
         return new ActionNode ("aimed shot",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("auto shot", 10.0f), NULL),
+            /*A*/ NextAction::array(0, new NextAction("auto shot"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* chimera_shot(PlayerbotAI* ai)
     {
         return new ActionNode ("chimera shot",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("arcane shot", 10.0f), NULL),
+            /*A*/ NextAction::array(0, new NextAction("arcane shot"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* explosive_shot(PlayerbotAI* ai)
     {
         return new ActionNode ("explosive shot",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("chimera shot", 10.0f), NULL),
+            /*A*/ NextAction::array(0, new NextAction("chimera shot"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* black_arrow(PlayerbotAI* ai)
+    {
+        return new ActionNode ("black arrow",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("immolation trap"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* immolation_trap(PlayerbotAI* ai)
+    {
+        return new ActionNode ("immolation trap",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("explosive trap"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* explosive_trap(PlayerbotAI* ai)
+    {
+        return new ActionNode ("explosive trap",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("freezing trap"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* steady_shot(PlayerbotAI* ai)
     {
         return new ActionNode ("steady shot",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("arcane shot", 10.0f), NULL),
+            /*A*/ NextAction::array(0, new NextAction("arcane shot"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* arcane_shot(PlayerbotAI* ai)
     {
         return new ActionNode ("arcane shot",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("auto shot", 10.0f), NULL),
+            /*A*/ NextAction::array(0, new NextAction("auto shot"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* concussive_shot(PlayerbotAI* ai)
@@ -67,7 +91,7 @@ private:
         return new ActionNode ("concussive shot",
             /*P*/ NULL,
             /*A*/ NULL,
-            /*C*/ NextAction::array(0, new NextAction("flee", 40.0f), NULL));
+            /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
     }
 };
 
@@ -78,7 +102,7 @@ DpsHunterStrategy::DpsHunterStrategy(PlayerbotAI* ai) : GenericHunterStrategy(ai
 
 NextAction** DpsHunterStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("explosive shot", 15.0f), new NextAction("kill command", 12.0f), new NextAction("aimed shot", 12.0f), new NextAction("steady shot", 12.0f), new NextAction("auto shot", 10.0f), NULL);
+    return NextAction::array(0, new NextAction("explosive shot", 15.0f), new NextAction("kill command", 15.0f), new NextAction("aimed shot", 15.0f), new NextAction("steady shot", 12.0f), new NextAction("auto shot", 10.0f), NULL);
 }
 
 void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -100,6 +124,10 @@ void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "hunters pet low health",
         NextAction::array(0, new NextAction("mend pet", ACTION_HIGH + 4), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "enemy in melee range",
+        NextAction::array(0, new NextAction("freezing trap", ACTION_HIGH + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
         "hunter's mark",

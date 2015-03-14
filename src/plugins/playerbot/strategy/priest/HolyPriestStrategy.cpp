@@ -58,7 +58,7 @@ HolyPriestStrategy::HolyPriestStrategy(PlayerbotAI* ai) : GenericPriestStrategy(
 
 NextAction** HolyPriestStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("holy fire", ACTION_NORMAL + 4), new NextAction("smite", ACTION_NORMAL + 2), new NextAction("shoot", ACTION_NORMAL), NULL);
+    return NextAction::array(0, new NextAction("shoot", ACTION_NORMAL), NULL);
 }
 
 void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -136,8 +136,81 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "master almost dead",
         NextAction::array(0, new NextAction("guardian spirit on master", ACTION_EMERGENCY + 9), NULL)));
+}
+
+   class DpsHolyPriestStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>
+    {
+    public:
+        DpsHolyPriestStrategyActionNodeFactory()
+        {
+            creators["smite"] = &smite;
+        }
+    private:
+        static ActionNode* smite(PlayerbotAI* ai)
+        {
+            return new ActionNode ("smite",
+                /*P*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("shoot"), NULL),
+                /*C*/ NULL);
+        }
+    };
+
+DpsHolyPriestStrategy::DpsHolyPriestStrategy(PlayerbotAI* ai) : GenericPriestStrategy(ai)
+{
+    actionNodeFactories.Add(new DpsHolyPriestStrategyActionNodeFactory());
+}
+
+NextAction** DpsHolyPriestStrategy::getDefaultActions()
+{
+    return NextAction::array(0, new NextAction("holy fire", ACTION_NORMAL + 4), new NextAction("smite", ACTION_NORMAL + 2), NULL);
+}
+
+void DpsHolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
+{
+    GenericPriestStrategy::InitTriggers(triggers);
+
+    triggers.push_back(new TriggerNode(
+        "enemy out of spell",
+        NextAction::array(0, new NextAction("reach spell", ACTION_MOVE + 9), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "surge of light",
+        NextAction::array(0, new NextAction("smite", ACTION_NORMAL + 10), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member critical health",
+        NextAction::array(0, new NextAction("flash heal on party", ACTION_CRITICAL_HEAL + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master critical health",
+        NextAction::array(0, new NextAction("flash heal on master", ACTION_CRITICAL_HEAL + 8), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "low health",
+        NextAction::array(0, new NextAction("renew", ACTION_CRITICAL_HEAL + 4), new NextAction("greater heal", ACTION_CRITICAL_HEAL + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member low health",
+        NextAction::array(0, new NextAction("renew on party", ACTION_CRITICAL_HEAL + 2), new NextAction("greater heal on party", ACTION_CRITICAL_HEAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master low health",
+        NextAction::array(0, new NextAction("renew on master", ACTION_CRITICAL_HEAL + 6), new NextAction("greater heal on party", ACTION_CRITICAL_HEAL + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "almost dead",
+        NextAction::array(0, new NextAction("guardian spirit", ACTION_EMERGENCY + 6), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member almost dead",
+        NextAction::array(0, new NextAction("guardian spirit on party", ACTION_EMERGENCY + 5), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master almost dead",
+        NextAction::array(0, new NextAction("guardian spirit on master", ACTION_EMERGENCY + 9), NULL)));
 
      triggers.push_back(new TriggerNode(
         "melee medium aoe",
         NextAction::array(0, new NextAction("holy nova aoe", ACTION_NORMAL + 6), NULL)));
 }
+

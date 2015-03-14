@@ -157,4 +157,5 @@ namespace ai
         FearTrigger(PlayerbotAI* ai) : HasCcTargetTrigger(ai, "fear") {}
     };
 
+
 }

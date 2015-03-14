@@ -182,6 +182,7 @@ namespace ai
     {
     public:
         CastDisengageAction(PlayerbotAI* ai) : CastSpellAction(ai, "disengage") {}
+        virtual bool isUseful() { return CastSpellAction::isUseful() && (AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.meleeDistance); }
         virtual bool IsInstant() {return true;}
     };
 
@@ -189,6 +190,7 @@ namespace ai
     {
     public:
         CastDeterrenceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "deterrence") {}
+
         virtual bool IsInstant() {return true;}
     };
 
@@ -296,6 +298,8 @@ namespace ai
     public:
         CastImmolationTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "immolation trap") {}
         virtual bool IsInstant() {return true;}
+
+        virtual bool isUseful() { return CastSpellAction::isUseful() && (AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.meleeDistance) && (AI_VALUE(uint8, "aoe attacker count") <= 2); }
     };
 
     class CastExplosiveTrapAction : public CastSpellAction
@@ -303,6 +307,8 @@ namespace ai
     public:
         CastExplosiveTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "explosive trap") {}
         virtual bool IsInstant() {return true;}
+
+        virtual bool isUseful() { return CastSpellAction::isUseful() && (AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.meleeDistance) && (AI_VALUE(uint8, "aoe attacker count") > 2); }
     };
 
     class CastCounterAttackAction : public CastMeleeSpellAction

@@ -72,12 +72,6 @@ namespace ai
         FreezingTrapTrigger(PlayerbotAI* ai) : HasCcTargetTrigger(ai, "freezing trap") {}
     };
 
-    class FreezingTrapAggroTrigger : public HasAggroTrigger
-    {
-    public:
-        FreezingTrapAggroTrigger(PlayerbotAI* ai) : HasAggroTrigger(ai, "freezing trap aggro") {}
-    };
-
     class RapidFireTrigger : public BoostTrigger
     {
     public:

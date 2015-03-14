@@ -282,7 +282,7 @@ namespace ai
     public:
         CastSearingTotemAction(PlayerbotAI* ai) : CastTotemAction(ai, "searing totem") {}
         virtual string GetTargetName() { return "self target"; }
-	virtual bool isUseful() { return CastSpellAction::isUseful() && !AI_VALUE2(bool, "has own totem", name) && (AI_VALUE(uint8, "aoe attacker count") <= 2 || bot->getLevel() < 32); } 	
+        virtual bool isUseful() { return CastSpellAction::isUseful() && !AI_VALUE2(bool, "has own totem", name) && (AI_VALUE(uint8, "aoe attacker count") <= 2 || bot->getLevel() < 32); }
     };
 
     class CastMagmaTotemAction : public CastMeleeSpellAction
@@ -470,7 +470,7 @@ namespace ai
     public:
         CastLightningBoltAction2(PlayerbotAI* ai) : CastSpellAction(ai, "lightning bolt") {}
         virtual bool isUseful() {
-            return (CastSpellAction::isUseful() && AI_VALUE2(uint8, "mana", "self target") > 75);
+            return (CastSpellAction::isUseful() && AI_VALUE2(uint8, "mana", "self target") > 60);
         }
     };
 

@@ -496,7 +496,9 @@ namespace ai
 
         virtual bool isUseful()
         {
-            if (AI_VALUE2(bool, "target player", "current target"))
+            if (AI_VALUE2(bool, "has aggro", "current target"))
+                return true;
+            else if (AI_VALUE2(bool, "target player", "current target"))
                 return true;
             else
             {

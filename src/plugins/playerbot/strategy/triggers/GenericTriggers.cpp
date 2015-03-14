@@ -309,12 +309,12 @@ bool HasNearestAddsTrigger::IsActive()
 
 bool MainhandEnhanceTrigger::IsActive()
 {
-    return !AI_VALUE2(bool, "mainhand enhanced", "self target");
+    return !AI_VALUE2(bool, "mainhand enhanced", "self target") && !AI_VALUE2(bool, "mounted", "self target");
 }
 
 bool OffhandEnhanceTrigger::IsActive()
 {
-    return !AI_VALUE2(bool, "offhand enhanced", "self target");
+    return !AI_VALUE2(bool, "offhand enhanced", "self target") && !AI_VALUE2(bool, "mounted", "self target");
 }
 
 bool HasItemForSpellTrigger::IsActive()

@@ -76,8 +76,7 @@ namespace ai
                 creators["hunters pet dead"] = &TriggerFactoryInternal::hunters_pet_dead;
                 creators["hunters pet low health"] = &TriggerFactoryInternal::hunters_pet_low_health;
                 creators["hunter's mark"] = &TriggerFactoryInternal::hunters_mark;
-                creators["freezing trap"] = &TriggerFactoryInternal::freezing_trap;
-		creators["freezing trap aggro"] = &TriggerFactoryInternal::freezing_trap_aggro;
+                creators["freezing trap on cc"] = &TriggerFactoryInternal::freezing_trap_cc;
                 creators["aspect of the pack"] = &TriggerFactoryInternal::aspect_of_the_pack;
                 creators["rapid fire"] = &TriggerFactoryInternal::rapid_fire;
                 creators["kill command"] = &TriggerFactoryInternal::kill_command;
@@ -106,8 +105,7 @@ namespace ai
             static Trigger* hunters_pet_dead(PlayerbotAI* ai) { return new HuntersPetDeadTrigger(ai); }
             static Trigger* hunters_pet_low_health(PlayerbotAI* ai) { return new HuntersPetLowHealthTrigger(ai); }
             static Trigger* hunters_mark(PlayerbotAI* ai) { return new HuntersMarkTrigger(ai); }
-            static Trigger* freezing_trap(PlayerbotAI* ai) { return new FreezingTrapTrigger(ai); }
-	    static Trigger* freezing_trap_aggro(PlayerbotAI* ai) { return new FreezingTrapAggroTrigger(ai); }
+            static Trigger* freezing_trap_cc(PlayerbotAI* ai) { return new FreezingTrapTrigger(ai); }
             static Trigger* aspect_of_the_pack(PlayerbotAI* ai) { return new HunterAspectOfThePackTrigger(ai); }
             static Trigger* rapid_fire(PlayerbotAI* ai) { return new RapidFireTrigger(ai); }
             static Trigger* kill_command(PlayerbotAI* ai) { return new KillCommandTrigger(ai); }
@@ -153,6 +151,7 @@ namespace ai
                 creators["misdirection on party"] = &AiObjectContextInternal::misdirection_on_party;
                 creators["wyvern sting"] = &AiObjectContextInternal::wyvern_sting;
                 creators["wyvern sting on cc"] = &AiObjectContextInternal::wyvern_sting_on_cc;
+                creators["prepare attack"] = &AiObjectContextInternal::AiObjectContextInternal::aspect_of_the_dragonhawk;
                 creators["viper sting"] = &AiObjectContextInternal::viper_sting;
                 creators["scorpid sting"] = &AiObjectContextInternal::scorpid_sting;
                 creators["hunter's mark"] = &AiObjectContextInternal::hunters_mark;
