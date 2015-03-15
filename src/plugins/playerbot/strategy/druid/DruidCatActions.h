@@ -84,7 +84,7 @@ namespace ai {
 		virtual bool IsInstant() {return true;}
 		virtual bool isUseful()
 	    {
-	        return  CastDebuffSpellAction::isUseful() &&  (AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.criticalHealth) && (AI_VALUE2(uint8, "combo", "current target") >= 2);
+	        return  CastDebuffSpellAction::isUseful() && AI_VALUE2(uint8, "combo", "current target") >= 3;
 	    }
 	};
 
@@ -145,7 +145,7 @@ namespace ai {
 		virtual bool IsInstant() {return true;}
 
 		virtual bool isUseful() {
-                return CastMeleeSpellAction::isUseful() &&  ai->HasAura("prowl", bot) && (ai->HasAura("pounce", GetTarget()) || (AI_VALUE2(uint8, "health", "current target") < 90) || AI_VALUE2(bool, "stunned", "current target") || AI_VALUE2(bool, "target normal", "current target"));
+                return CastMeleeSpellAction::isUseful() && ai->HasAura("prowl", bot) && ai->HasAura("pounce", GetTarget()) || (AI_VALUE2(uint8, "health", "current target") < 95 || AI_VALUE2(bool, "stunned", "current target") || AI_VALUE2(bool, "target normal", "current target"));
         }
 
         virtual NextAction** getPrerequisites()

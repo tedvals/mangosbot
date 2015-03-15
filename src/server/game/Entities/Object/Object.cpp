@@ -1595,7 +1595,7 @@ Position WorldObject::GetRandomPoint(const Position &srcPos, float distance) con
 
 void WorldObject::UpdateGroundPositionZ(float x, float y, float &z) const
 {
-    float new_z = GetMap()->GetHeight(GetPhaseMask(), x, y, z + 2.0f, true);
+    float new_z = GetMap()->GetHeight(GetPhaseMask(), x, y, z, true);
     if (new_z > INVALID_HEIGHT)
         z = new_z + 0.05f;                                   // just to be sure that we are not a few pixel under the surface
 }

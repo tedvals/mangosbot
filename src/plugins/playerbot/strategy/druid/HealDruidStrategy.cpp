@@ -27,6 +27,7 @@ public:
         creators["swiftmend on party"] = &swiftmend_on_party;
         creators["swiftmend on master"] = &swiftmend_on_master;
         creators["moonfire heal"] = &moonfire;
+        creators["tree form"] = &tree_form;
         creators["nature's grasp"] =natures_grasp;
         creators["nature's swiftness"] = &nature_swiftness;
         creators["nature's swiftness on party"] = &nature_swiftness_on_party;
@@ -36,84 +37,84 @@ private:
     static ActionNode* swiftmend(PlayerbotAI* ai)
     {
         return new ActionNode ("swiftmend",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("nature's swiftness"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* swiftmend_on_party(PlayerbotAI* ai)
     {
         return new ActionNode ("swiftmend on party",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("nature's swiftness"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* swiftmend_on_master(PlayerbotAI* ai)
     {
         return new ActionNode ("swiftmend on master",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("nature's swiftness"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* regrowth(PlayerbotAI* ai)
     {
         return new ActionNode ("regrowth",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("nourish"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* regrowth_on_party(PlayerbotAI* ai)
     {
         return new ActionNode ("regrowth on party",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("nourish on party"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* regrowth_on_master(PlayerbotAI* ai)
     {
         return new ActionNode ("regrowth on master",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("nourish on master"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* nourish(PlayerbotAI* ai)
     {
         return new ActionNode ("nourish",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("healing touch"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* nourish_on_party(PlayerbotAI* ai)
     {
         return new ActionNode ("nourish on party",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("healing touch on party"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* nourish_on_master(PlayerbotAI* ai)
     {
         return new ActionNode ("nourish on master",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("healing touch on master"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* rejuvenation(PlayerbotAI* ai)
     {
         return new ActionNode ("rejuvenation",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("lifebloom"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* rejuvenation_on_party(PlayerbotAI* ai)
     {
         return new ActionNode ("rejuvenation on party",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("lifebloom on party"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* rejuvenation_on_master(PlayerbotAI* ai)
     {
         return new ActionNode ("rejuvenation on master",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("lifebloom on master"), NULL),
             /*C*/ NULL);
     }
@@ -121,28 +122,28 @@ private:
     static ActionNode* wild_growth_on_master(PlayerbotAI* ai)
     {
         return new ActionNode ("wild growth on master",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NextAction::array(0, new NextAction("lifebloom on master"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* nature_swiftness(PlayerbotAI* ai)
     {
         return new ActionNode ("nature's swiftness",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("healing touch"), NULL));
     }
     static ActionNode* nature_swiftness_on_party(PlayerbotAI* ai)
     {
         return new ActionNode ("nature's swiftness on party",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("healing touch on party"), NULL));
     }
     static ActionNode* nature_swiftness_on_master(PlayerbotAI* ai)
     {
         return new ActionNode ("nature's swiftness on master",
-            /*P*/ NULL,
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("healing touch on master"), NULL));
     }
@@ -151,6 +152,13 @@ private:
         return new ActionNode ("moonfire heal",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* tree_form(PlayerbotAI* ai)
+    {
+        return new ActionNode ("tree form",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*C*/ NULL);
     }
    static ActionNode* natures_grasp(PlayerbotAI* ai)

@@ -385,6 +385,10 @@ void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("rake", ACTION_NORMAL + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "rip",
+        NextAction::array(0, new NextAction("rip", ACTION_HIGH + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "combo point available",
         NextAction::array(0, new NextAction("savage roar", ACTION_HIGH + 6), NULL)));
 
