@@ -280,7 +280,7 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("reach melee", ACTION_MOVE + 8), new NextAction("garrote", ACTION_MOVE + 7), NULL)));
+        NextAction::array(0, new NextAction("reach melee", ACTION_MOVE + 8), new NextAction("garrote sword", ACTION_MOVE + 7), NULL)));
 
      triggers.push_back(new TriggerNode(
 	"high energy available",
@@ -317,10 +317,6 @@ void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
 	"target almost dead",
 	NextAction::array(0, new NextAction("eviscerate", ACTION_HIGH + 9), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "garrote",
-        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY + 2), NULL)));
 }
 
 class DpsDaggerRogueStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>

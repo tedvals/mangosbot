@@ -61,4 +61,6 @@ namespace ai
         StrangulateInterruptEnemyHealerSpellTrigger(PlayerbotAI* ai) : InterruptEnemyHealerTrigger(ai, "strangulate") {}
     };
 
+	BEGIN_TRIGGER(GhoulPetDeadTrigger, Trigger)
+    END_TRIGGER()
 }

@@ -81,7 +81,7 @@ namespace ai
                 creators["freezing fog"] = &TriggerFactoryInternal::freezing_fog;
                 creators["sudden doom"] = &TriggerFactoryInternal::sudden_doom;
                 creators["strangulate on enemy healer"] = &TriggerFactoryInternal::strangulate_on_enemy_healer;
-
+                creators["ghoul pet dead"] = &TriggerFactoryInternal::ghoul_pet_dead;
             }
 
         private:
@@ -99,6 +99,7 @@ namespace ai
             static Trigger* killing_machine(PlayerbotAI* ai) { return new KillingMachineTrigger(ai); }
             static Trigger* freezing_fog(PlayerbotAI* ai) { return new FreezingFogTrigger(ai); }
             static Trigger* strangulate_on_enemy_healer(PlayerbotAI* ai) { return new StrangulateInterruptEnemyHealerSpellTrigger(ai); }
+            static Trigger* ghoul_pet_dead(PlayerbotAI* ai) { return new GhoulPetDeadTrigger(ai); }
         };
     };
 };

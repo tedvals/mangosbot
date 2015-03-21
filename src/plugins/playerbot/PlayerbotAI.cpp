@@ -785,12 +785,23 @@ bool IsRealAura(Player* bot, Aura const* aura, Unit* unit, BotAuraType auratype)
     if (aura->GetMaxDuration() > 1500 && aura->GetDuration() > 0 && (aura->GetMaxDuration() - aura->GetDuration() < 1500))
         return false;
 
+    if (aura->IsArea())
+        return true;
+
+    if  (aura->GetSpellInfo()->IsStackableOnOneSlotWithDifferentCasters())
+    {
+        if (aura->GetCaster())
+            return (aura->GetCaster()->GetGUID() == bot->GetGUID());
+    }
+    else return false;
+
+/*
     if (auratype == BOT_AURA_NORMAL)
       return (aura->GetCaster() == bot || aura->GetSpellInfo()->IsPositive() || aura->IsArea());
     else if (auratype == BOT_AURA_HEAL)
         return (aura->GetCaster() == bot || aura->IsArea());
     else return (aura->GetCaster() == bot || aura->IsArea());
-
+*/
 }
 
 bool PlayerbotAI::HasAura(string name, Unit* unit, BotAuraType auratype)
