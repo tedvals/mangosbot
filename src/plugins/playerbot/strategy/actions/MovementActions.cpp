@@ -39,7 +39,7 @@ bool MovementAction::MoveNear(WorldObject* target, float distance)
 bool MovementAction::MoveTo(uint32 mapId, float x, float y, float z)
 {
 
-    bot->UpdateGroundPositionZ(x, y, z);
+    bot->UpdateAllowedPositionZ(x, y, z);
     if (!IsMovingAllowed(mapId, x, y, z))
         return false;
 
@@ -82,7 +82,7 @@ bool MovementAction::MoveTo(uint32 mapId, float x, float y, float z)
 bool MovementAction::FleeTo(Unit* target, uint32 mapId, float x, float y, float z)
 {
 
-    bot->UpdateGroundPositionZ(x, y, z);
+    bot->UpdateAllowedPositionZ(x, y, z);
     if (!IsMovingAllowed(mapId, x, y, z))
         return false;
 
@@ -447,7 +447,7 @@ bool MoveRandomAction::Execute(Event event)
 
     if (!(rand() % 3))
     {
-        list<ObjectGuid> npcs = AI_VALUE(list<ObjectGuid>, "nearest npcs");
+        list<ObjectGuid> npcs = AI_VALUE(list<ObjectGuid>, "near npcs");
         for (list<ObjectGuid>::iterator i = npcs.begin(); i != npcs.end(); i++)
         {
             target = ai->GetUnit(*i);
@@ -464,7 +464,7 @@ bool MoveRandomAction::Execute(Event event)
 
     if (!target || !(rand() % 3))
     {
-        list<ObjectGuid> gos = AI_VALUE(list<ObjectGuid>, "nearest game objects");
+        list<ObjectGuid> gos = AI_VALUE(list<ObjectGuid>, "near game objects");
         for (list<ObjectGuid>::iterator i = gos.begin(); i != gos.end(); i++)
         {
             target = ai->GetGameObject(*i);
@@ -499,7 +499,7 @@ bool MoveRandomAction::Execute(Event event)
         float z = bot->GetPositionZ();
         x += urand(0, distance) - distance / 2;
         y += urand(0, distance) - distance / 2;
-        bot->UpdateGroundPositionZ(x, y, z);
+        bot->UpdateAllowedPositionZ(x, y, z);
 
         if (map->IsInWater(x, y, z))
             continue;

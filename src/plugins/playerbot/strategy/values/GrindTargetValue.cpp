@@ -43,7 +43,12 @@ Unit* GrindTargetValue::FindTargetForGrinding(int assistCount)
     list<ObjectGuid> targets = *context->GetValue<list<ObjectGuid> >("possible targets");
 
     if(targets.empty())
-        return NULL;
+    {
+        targets = *context->GetValue<list<ObjectGuid> >("far targets");
+
+        if (targets.empty())
+            return NULL;
+    }
 
     float distance = 0;
     Unit* result = NULL;

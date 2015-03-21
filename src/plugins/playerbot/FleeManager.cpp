@@ -80,7 +80,7 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
             float y = botPosY + sin(angle) * distance;
             float z = botPosZ;
 
-            bot->UpdateGroundPositionZ(x, y, z);
+            bot->UpdateAllowedPositionZ(x, y, z);
             //need to investigate
             if (abs(z - botPosZ) > 10.0f)
                 continue;

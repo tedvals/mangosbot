@@ -68,7 +68,10 @@ namespace ai
             creators["nearest game objects"] = &ValueContext::nearest_game_objects;
             creators["nearest npcs"] = &ValueContext::nearest_npcs;
             creators["possible targets"] = &ValueContext::possible_targets;
+            creators["far targets"] = &ValueContext::far_targets;
             creators["nearest adds"] = &ValueContext::nearest_adds;
+            creators["near game objects"] = &ValueContext::near_game_objects;
+            creators["near npcs"] = &ValueContext::near_npcs;
             creators["nearest corpses"] = &ValueContext::nearest_corpses;
             creators["log level"] = &ValueContext::log_level;
             creators["party member without aura"] = &ValueContext::party_member_without_aura;
@@ -256,10 +259,13 @@ namespace ai
         static UntypedValue* takes_damage(PlayerbotAI* ai) { return new TakesPeriodicDamageValue(ai); }
         static UntypedValue* has_mana(PlayerbotAI* ai) { return new HasManaValue(ai); }
         static UntypedValue* nearest_game_objects(PlayerbotAI* ai) { return new NearestGameObjects(ai); }
+        static UntypedValue* near_game_objects(PlayerbotAI* ai) { return new NearestGameObjects(ai,sPlayerbotAIConfig.grindDistance); }
         static UntypedValue* log_level(PlayerbotAI* ai) { return new LogLevelValue(ai); }
         static UntypedValue* nearest_npcs(PlayerbotAI* ai) { return new NearestNpcsValue(ai); }
+        static UntypedValue* near_npcs(PlayerbotAI* ai) { return new NearestNpcsValue(ai,sPlayerbotAIConfig.grindDistance); }
         static UntypedValue* nearest_corpses(PlayerbotAI* ai) { return new NearestCorpsesValue(ai); }
         static UntypedValue* possible_targets(PlayerbotAI* ai) { return new PossibleTargetsValue(ai); }
+        static UntypedValue* far_targets(PlayerbotAI* ai) { return new PossibleTargetsValue(ai,sPlayerbotAIConfig.grindDistance); }
         static UntypedValue* nearest_adds(PlayerbotAI* ai) { return new NearestAdsValue(ai); }
         static UntypedValue* party_member_without_aura(PlayerbotAI* ai) { return new PartyMemberWithoutAuraValue(ai); }
         static UntypedValue* master_without_aura(PlayerbotAI* ai) { return new MasterWithoutAuraValue(ai); }
