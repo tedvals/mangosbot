@@ -28,11 +28,11 @@ public:
         creators["stoneskin totem"] = &stoneskin_totem;
         creators["totem of wrath totem"] = &wrath_totem;
         creators["flametongue totem"] = &flametongue_totem;
-	creators["searing totem"] = &searing_totem;
+        creators["searing totem"] = &searing_totem;
         creators["mana spring totem"] = &mana_spring_totem;
         creators["wrath of air totem"] = &wrath_air_totem;
         creators["grace of air totem"] = &grace_air_totem;
-	creators["magma totem"] = &magma_totem;
+        creators["magma totem"] = &magma_totem;
         creators["boost"] = &bloodlust;
         creators["bloodlust"] = &bloodlust;
         creators["heroism"] = &bloodlust;

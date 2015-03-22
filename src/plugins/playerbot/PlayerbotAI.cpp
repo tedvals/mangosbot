@@ -769,7 +769,7 @@ bool IsRealAura(Player* bot, Aura const* aura, Unit* unit, BotAuraType auratype)
 //  if (!unit->IsHostileTo(bot))
 //      return true;
 
-    if (auratype == BOT_AURA_NORMAL || auratype == BOT_AURA_HEAL)
+    if (auratype == BOT_AURA_NORMAL)
     {
         if (!unit->IsHostileTo(bot))
             return true;

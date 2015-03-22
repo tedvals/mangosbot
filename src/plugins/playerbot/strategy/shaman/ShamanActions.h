@@ -428,10 +428,10 @@ namespace ai
         virtual bool IsInstant() {return true;}
     };
 
-    class CastEarthShockAction : public CastDebuffSpellAction
+    class CastEarthShockAction : public CastSpellAction
     {
     public:
-        CastEarthShockAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "earth shock") {}
+        CastEarthShockAction(PlayerbotAI* ai) : CastSpellAction(ai, "earth shock") {}
         virtual bool IsInstant() {return true;}
     };
 
