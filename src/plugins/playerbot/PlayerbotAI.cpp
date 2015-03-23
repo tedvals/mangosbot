@@ -776,7 +776,8 @@ bool IsRealAura(Player* bot, Aura const* aura, Unit* unit, BotAuraType auratype)
     }
 
     uint32 stacks = aura->GetStackAmount();
-    if (stacks >= aura->GetSpellInfo()->StackAmount)
+
+    if (aura->GetSpellInfo()->StackAmount > 0 && stacks >= aura->GetSpellInfo()->StackAmount)
         return true;
 
 //  if (aura->GetCaster() == bot || aura->GetSpellInfo()->IsPositive() || aura->IsArea())
