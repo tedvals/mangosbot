@@ -197,11 +197,11 @@ void DpsWarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
         "curse of agony on attacker",
-        NextAction::array(0, new NextAction("curse of the agony on attacker", 24.0f), NULL)));
+        NextAction::array(0, new NextAction("curse of agony on attacker", 24.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "no curse",
-        NextAction::array(0, new NextAction("curse of the agony", 25.0f), NULL)));
+        NextAction::array(0, new NextAction("curse of agony", 25.0f), NULL)));
 }
 
 
@@ -210,7 +210,8 @@ class DpsFireWarlockStrategyActionNodeFactory : public NamedObjectFactory<Action
 public:
     DpsFireWarlockStrategyActionNodeFactory()
     {
-        creators["shadow bolt"] = &shadow_bolt;
+        creators["conflagrate"] = &conflagrate;
+	creators["shadow bolt"] = &shadow_bolt;
         creators["chaos bolt"] = &chaos_bolt;
         creators["summon imp"] = &summon_imp;
         creators["incinerate"] = &incinerate;
@@ -227,7 +228,14 @@ private:
     {
         return new ActionNode ("chaos bolt",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("chaos bolt"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("incinerate"), NULL),
+            /*C*/ NULL);
+    }
+   static ActionNode* conflagrate(PlayerbotAI* ai)
+    {
+        return new ActionNode ("conflagrate",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("incinerate"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* incinerate(PlayerbotAI* ai)
@@ -254,7 +262,7 @@ DpsFireWarlockStrategy::DpsFireWarlockStrategy(PlayerbotAI* ai) : GenericWarlock
 
 NextAction** DpsFireWarlockStrategy::getDefaultActions()
 {
-    return NextAction::array(0,new NextAction("conflagrate", 20.0f), new NextAction("chaos bolt", 15.0f),new NextAction("incinerate", 10.0f), NULL);
+    return NextAction::array(0,new NextAction("conflagrate", 20.0f), new NextAction("chaos bolt", 15.0f), new NextAction("incinerate", 15.0f), NULL);
 }
 
 void DpsFireWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
