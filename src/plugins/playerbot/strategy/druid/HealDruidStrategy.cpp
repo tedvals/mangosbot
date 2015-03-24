@@ -230,11 +230,23 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("nourish on master", ACTION_MEDIUM_HEAL + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "party low critical health",
-        NextAction::array(0, new NextAction("swiftmend on party", ACTION_CRITICAL_HEAL + 1), NULL)));
+        "party member critical health",
+        NextAction::array(0, new NextAction("healing touch on party", ACTION_CRITICAL_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "master critical health",
+        NextAction::array(0, new NextAction("healing touch on master", ACTION_EMERGENCY + 1), NULL)));
+
+ 	triggers.push_back(new TriggerNode(
+        "party member almost dead",
+        NextAction::array(0, new NextAction("swiftmend on party", ACTION_EMERGENCY), NULL)));
+
+	triggers.push_back(new TriggerNode(
+        "almost dead",
+        NextAction::array(0, new NextAction("swiftmend", ACTION_EMERGENCY + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master almost dead",
         NextAction::array(0, new NextAction("swiftmend on master", ACTION_EMERGENCY + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
