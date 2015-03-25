@@ -418,9 +418,9 @@ namespace ai
     {
     public:
         CastImmolateAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "immolate") {}
-        //virtual bool isUseful() {
-        //    return !ai->HasAura("shadowform", AI_VALUE(Unit*, "self target"));
-        //}
+        virtual bool isUseful() {
+            return !ai->HasAura("immolate", AI_VALUE(Unit*, "current target"));
+        }
     };
 
     class CastConflagrateAction : public CastSpellAction
@@ -432,7 +432,12 @@ namespace ai
         {
             return NextAction::merge( NextAction::array(0, new NextAction("shadow bolt"), NULL), CastSpellAction::getAlternatives());
         }
-        virtual bool IsInstant() {return true;}
+        
+	virtual bool IsInstant() {return true;}
+	        virtual bool isUseful() {
+            return ai->HasAura("immolate", AI_VALUE(Unit*, "current target"));
+        }
+
     };
 
     class CastIncinerateAction : public CastSpellAction

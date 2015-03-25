@@ -880,7 +880,7 @@ bool PlayerbotAI::CanCastSpell(string name, Unit* target)
     return CanCastSpell(aiObjectContext->GetValue<uint32>("spell id", name)->Get(), target);
 }
 
-bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
+bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell, bool interruptcasting)
 {
     if (!spellid)
         return false;
@@ -927,6 +927,11 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
         }
 */
 
+   if (!interruptcasting)
+   {
+	if (bot->IsNonMeleeSpellCast(true))
+	    return false;
+
         Spell* castingSpell = bot->GetCurrentSpell(CURRENT_GENERIC_SPELL);
         if (castingSpell)
             return false;
@@ -934,6 +939,7 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell)
         Spell* channelSpell = bot->GetCurrentSpell(CURRENT_CHANNELED_SPELL);
         if (channelSpell)
             return false;
+	}
 
     Unit* oldSel = bot->GetSelectedUnit();
     bot->SetSelection(target->GetGUID());
