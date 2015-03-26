@@ -80,27 +80,27 @@ void HealPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "medium health",
-        NextAction::array(0, new NextAction("penance", ACTION_MEDIUM_HEAL + 2), NULL)));
+        NextAction::array(0, new NextAction("greater heal", ACTION_MEDIUM_HEAL + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "master medium health",
-        NextAction::array(0, new NextAction("penance on master", ACTION_MEDIUM_HEAL + 5), NULL)));
+        NextAction::array(0, new NextAction("greater heal on master", ACTION_MEDIUM_HEAL + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member medium health",
-        NextAction::array(0, new NextAction("flash heal on party", ACTION_MEDIUM_HEAL + 1), NULL)));
+        NextAction::array(0, new NextAction("greater heal on party", ACTION_MEDIUM_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low health",
-        NextAction::array(0, new NextAction("renew", ACTION_CRITICAL_HEAL + 4), new NextAction("greater heal", ACTION_CRITICAL_HEAL + 3), NULL)));
+        NextAction::array(0, new NextAction("penance", ACTION_CRITICAL_HEAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
-        NextAction::array(0, new NextAction("greater heal on party", ACTION_CRITICAL_HEAL + 1), NULL)));
+        NextAction::array(0, new NextAction("penance on party", ACTION_CRITICAL_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "master low health",
-        NextAction::array(0, new NextAction("greater heal on master", ACTION_CRITICAL_HEAL + 6), NULL)));
+        NextAction::array(0, new NextAction("penance on master", ACTION_CRITICAL_HEAL + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member critical health",
