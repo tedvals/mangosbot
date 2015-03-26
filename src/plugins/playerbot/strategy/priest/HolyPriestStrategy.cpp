@@ -75,15 +75,15 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "almost full health",
-        NextAction::array(0, new NextAction("prayer of mending", ACTION_LIGHT_HEAL + 5), NULL)));
+        NextAction::array(0, new NextAction("prayer of mending", ACTION_LIGHT_HEAL + 5), new NextAction("renew", ACTION_LIGHT_HEAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member almost full health",
-        NextAction::array(0, new NextAction("prayer of mending on party", ACTION_LIGHT_HEAL + 2), NULL)));
+        NextAction::array(0, new NextAction("prayer of mending on party", ACTION_LIGHT_HEAL + 2), new NextAction("renew on party", ACTION_LIGHT_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "master almost full health",
-        NextAction::array(0, new NextAction("prayer of mending on master", ACTION_LIGHT_HEAL + 5), NULL)));
+        NextAction::array(0, new NextAction("prayer of mending on master", ACTION_LIGHT_HEAL + 5), new NextAction("renew on master", ACTION_LIGHT_HEAL + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
 		"light aoe heal",
@@ -99,11 +99,11 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "party member medium health",
-        NextAction::array(0, new NextAction("greater heal on party", ACTION_MEDIUM_HEAL + 1), NULL)));
+        NextAction::array(0, new NextAction("binding heal on party", ACTION_MEDIUM_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "master medium health",
-        NextAction::array(0, new NextAction("greater heal on master", ACTION_MEDIUM_HEAL + 8), NULL)));
+        NextAction::array(0, new NextAction("binding heal on master", ACTION_MEDIUM_HEAL + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member critical health",
@@ -115,15 +115,15 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "low health",
-        NextAction::array(0, new NextAction("flash heal", ACTION_CRITICAL_HEAL + 3), NULL)));
+        NextAction::array(0, new NextAction("renew", ACTION_CRITICAL_HEAL + 4), new NextAction("greater heal", ACTION_CRITICAL_HEAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member low health",
-        NextAction::array(0, new NextAction("flash heal on party", ACTION_CRITICAL_HEAL + 1), NULL)));
+        NextAction::array(0, new NextAction("renew on party", ACTION_CRITICAL_HEAL + 2), new NextAction("greater heal on party", ACTION_CRITICAL_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "master low health",
-        NextAction::array(0, new NextAction("flash heal on party", ACTION_CRITICAL_HEAL + 5), NULL)));
+        NextAction::array(0, new NextAction("renew on master", ACTION_CRITICAL_HEAL + 6), new NextAction("greater heal on party", ACTION_CRITICAL_HEAL + 5), NULL)));
 
     triggers.push_back(new TriggerNode(
         "almost dead",

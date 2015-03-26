@@ -73,13 +73,6 @@ bool CorruptionOnAttackerTrigger::IsActive()
             !ai->HasAura("seed of corruption", target);
 }
 
-bool ImmolateOnAttackerTrigger::IsActive()
-{
-	Unit* target = AI_VALUE(Unit*, "current target");
-    return target && AI_VALUE2(uint8, "health", "current target") > 10 &&
-            !ai->HasAura("immolate", target);
-}
-
 bool DemonDeadTrigger::IsActive()
 {
     Unit* pet = AI_VALUE(Unit*, "pet target");

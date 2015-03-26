@@ -88,7 +88,6 @@ namespace ai
                 creators["no corruption"] = &TriggerFactoryInternal::corruption;
                 creators["corruption on attacker"] = &TriggerFactoryInternal::corruption_on_attacker;
                 creators["curse of agony on attacker"] = &TriggerFactoryInternal::curse_of_agony_on_attacker;
-                creators["immolate on attacker"] = &TriggerFactoryInternal::immolate_on_attacker;
                 creators["no curse"] = &TriggerFactoryInternal::curse_of_agony;
                 creators["banish"] = &TriggerFactoryInternal::banish;
              //   creators["spellstone"] = &TriggerFactoryInternal::spellstone;
@@ -98,7 +97,7 @@ namespace ai
                 creators["molten core"] = &TriggerFactoryInternal::molten_core;
                 creators["decimation"] = &TriggerFactoryInternal::decimation;
                 creators["fear"] = &TriggerFactoryInternal::fear;
-             //   creators["immolate"] = &TriggerFactoryInternal::immolate;
+                creators["immolate"] = &TriggerFactoryInternal::immolate;
                 creators["haunt"] = &TriggerFactoryInternal::haunt;
                 creators["demon dead"] = &TriggerFactoryInternal::demon_dead;
                 creators["demon low health"] = &TriggerFactoryInternal::demon_low_health;
@@ -116,7 +115,6 @@ namespace ai
             static Trigger* soulstone_on_master(PlayerbotAI* ai) { return new SoulstoneOnMasterTrigger(ai); }
             static Trigger* corruption(PlayerbotAI* ai) { return new WarlockNoCorruptionTrigger(ai); }
             static Trigger* corruption_on_attacker(PlayerbotAI* ai) { return new CorruptionOnAttackerTrigger(ai); }
-            static Trigger* immolate_on_attacker(PlayerbotAI* ai) { return new ImmolateOnAttackerTrigger(ai); }
             static Trigger* curse_of_agony_on_attacker(PlayerbotAI* ai) { return new CurseOfAgonyOnAttackerTrigger(ai); }
             static Trigger* curse_of_agony(PlayerbotAI* ai) { return new WarlockNoCurseTrigger(ai); }
             static Trigger* banish(PlayerbotAI* ai) { return new BanishTrigger(ai); }
@@ -124,7 +122,7 @@ namespace ai
        //     static Trigger* firestone(PlayerbotAI* ai) { return new FirestoneTrigger(ai); }
             static Trigger* backlash(PlayerbotAI* ai) { return new BacklashTrigger(ai); }
             static Trigger* fear(PlayerbotAI* ai) { return new FearTrigger(ai); }
-       //     static Trigger* immolate(PlayerbotAI* ai) { return new ImmolateTrigger(ai); }
+            static Trigger* immolate(PlayerbotAI* ai) { return new ImmolateTrigger(ai); }
             static Trigger* haunt(PlayerbotAI* ai) { return new HauntTrigger(ai); }
             static Trigger* demon_dead(PlayerbotAI* ai) { return new DemonDeadTrigger(ai); }
             static Trigger* demon_low_health(PlayerbotAI* ai) { return new DemonLowHealthTrigger(ai); }
@@ -162,9 +160,6 @@ namespace ai
                 creators["corruption"] = &AiObjectContextInternal::corruption;
                 //creators["death coil on attacker"] = &AiObjectContextInternal::death_coil_on_attacker;
                 creators["curse of agony"] = &AiObjectContextInternal::curse_of_agony;
-                creators["curse of agony on attacker"] = &AiObjectContextInternal::curse_of_agony_on_attacker;
-                creators["corruption on attacker"] = &AiObjectContextInternal::corruption_on_attacker;
-                creators["immolate on attacker"] = &AiObjectContextInternal::immolate_on_attacker;
                 creators["curse of exhaustion"] = &AiObjectContextInternal::curse_of_exhaustion;
                 creators["curse of the elements"] = &AiObjectContextInternal::curse_of_the_elements;
                 creators["curse of doom"] = &AiObjectContextInternal::curse_of_doom;
@@ -222,9 +217,6 @@ namespace ai
             static Action* summon_felhunter(PlayerbotAI* ai) { return new CastSummonFelhunterAction(ai); }
             static Action* corruption(PlayerbotAI* ai) { return new CastCorruptionAction(ai); }
             //static Action* death_coil_on_attacker(PlayerbotAI* ai) { return new CastDeathCoilOnAttackerAction(ai); }
-            static Action* corruption_on_attacker(PlayerbotAI* ai) { return new CastCorruptionOnAttackerAction(ai); }
-            static Action* immolate_on_attacker(PlayerbotAI* ai) { return new CastImmolateOnAttackerAction(ai); }
-            static Action* curse_of_agony_on_attacker(PlayerbotAI* ai) { return new CastCurseOfAgonyOnAttackerAction(ai); }
             static Action* curse_of_agony(PlayerbotAI* ai) { return new CastCurseOfAgonyAction(ai); }
             static Action* curse_of_exhaustion(PlayerbotAI* ai) { return new CastCurseOfExhaustionAction(ai); }
             static Action* curse_of_doom(PlayerbotAI* ai) { return new CastCurseOfDoomAction(ai); }

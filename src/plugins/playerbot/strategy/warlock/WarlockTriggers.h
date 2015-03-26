@@ -70,30 +70,22 @@ namespace ai
     class CorruptionOnAttackerTrigger : public DebuffOnAttackerTrigger
     {
     public:
-        CorruptionOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "corruption") {}
+        CorruptionOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "corruption on attacker") {}
         virtual bool IsActive();
     };
 
 
-    class ImmolateOnAttackerTrigger : public DebuffOnAttackerTrigger
-    {
-    public:
-        ImmolateOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "immolate") {}
-        virtual bool IsActive();
-    };
-
-
-    class CurseOfAgonyOnAttackerTrigger : public DebuffOnAttackerTrigger
+    class CurseOfAgonyOnAttackerTrigger : public DebuffTrigger
 	{
 	public:
-		CurseOfAgonyOnAttackerTrigger(PlayerbotAI* ai) :  DebuffOnAttackerTrigger(ai, "curse of agony") {}
+		CurseOfAgonyOnAttackerTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "curse of agony on attacker") {}
 		virtual bool IsActive();
 	};
 
 
     //DEBUFF_TRIGGER(WarlockNoCurseTrigger, "curse of agony", "curse of agony");
     //DEBUFF_TRIGGER(WarlockNoCorruptionTrigger, "corruption", "corruption");
-    //DEBUFF_TRIGGER(ImmolateTrigger, "immolate", "immolate");
+    DEBUFF_TRIGGER(ImmolateTrigger, "immolate", "immolate");
     DEBUFF_TRIGGER(HauntTrigger, "haunt", "haunt");
     DEBUFF_TRIGGER(ImprovedShadowbolt, "shadow Mastery", "shadow Mastery")
 

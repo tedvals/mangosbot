@@ -67,6 +67,10 @@ void DpsWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "corruption on attacker",
         NextAction::array(0, new NextAction("corruption on attacker", 25.0f), NULL)));
 
+     triggers.push_back(new TriggerNode(
+        "corruption",
+        NextAction::array(0, new NextAction("corruption", 15.0f), NULL)));
+
   //  triggers.push_back(new TriggerNode(
   //      "curse of agony on attacker",
   //      NextAction::array(0, new NextAction("corruption on attacker", 15.0f), NULL)));
@@ -86,6 +90,10 @@ void DpsWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
 		"target critical health",
 		NextAction::array(0, new NextAction("drain soul", 30.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "no curse",
+        NextAction::array(0, new NextAction("curse of agony", 18.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "no corruption",
@@ -152,6 +160,10 @@ WarlockDebuffStrategy::WarlockDebuffStrategy(PlayerbotAI* ai) : CombatStrategy(a
 
 void WarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
+    triggers.push_back(new TriggerNode(
+        "curse of the elements",
+        NextAction::array(0, new NextAction("curse of the elements", 25.0f), NULL)));
+
      triggers.push_back(new TriggerNode(
         "no curse",
         NextAction::array(0, new NextAction("curse of the elements", 25.0f), NULL)));
@@ -186,11 +198,10 @@ void DpsWarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "curse of agony on attacker",
         NextAction::array(0, new NextAction("curse of agony on attacker", 24.0f), NULL)));
-/*
+
     triggers.push_back(new TriggerNode(
         "no curse",
         NextAction::array(0, new NextAction("curse of agony", 25.0f), NULL)));
-*/
 }
 
 
@@ -200,11 +211,10 @@ public:
     DpsFireWarlockStrategyActionNodeFactory()
     {
         creators["conflagrate"] = &conflagrate;
-        creators["shadow bolt"] = &shadow_bolt;
+	creators["shadow bolt"] = &shadow_bolt;
         creators["chaos bolt"] = &chaos_bolt;
         creators["summon imp"] = &summon_imp;
         creators["incinerate"] = &incinerate;
-        creators["immolate"] = &immolate;
     }
 private:
     static ActionNode* summon_imp(PlayerbotAI* ai)
@@ -225,14 +235,7 @@ private:
     {
         return new ActionNode ("conflagrate",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("immolate"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* immolate(PlayerbotAI* ai)
-    {
-        return new ActionNode ("immolate",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("shadow bolt"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("incinerate"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* incinerate(PlayerbotAI* ai)
@@ -259,7 +262,7 @@ DpsFireWarlockStrategy::DpsFireWarlockStrategy(PlayerbotAI* ai) : GenericWarlock
 
 NextAction** DpsFireWarlockStrategy::getDefaultActions()
 {
-    return NextAction::array(0,new NextAction("conflagrate", 20.0f), new NextAction("chaos bolt", 15.0f), new NextAction("incinerate", 10.0f), NULL);
+    return NextAction::array(0,new NextAction("conflagrate", 20.0f), new NextAction("chaos bolt", 15.0f), new NextAction("incinerate", 15.0f), NULL);
 }
 
 void DpsFireWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -270,10 +273,6 @@ void DpsFireWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"shadow trance",
 		NextAction::array(0, new NextAction("shadow bolt", 20.0f), NULL)));
 
-     triggers.push_back(new TriggerNode(
-        "immolate on attacker",
-        NextAction::array(0, new NextAction("immolate on attacker", 25.0f), NULL)));
-
     triggers.push_back(new TriggerNode(
 		"shadow mastery",
 		NextAction::array(0, new NextAction("shadow bolt", 25.0f), NULL)));
@@ -281,18 +280,18 @@ void DpsFireWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"backlash",
 		NextAction::array(0, new NextAction("incinerate", 20.0f), NULL)));
-/*
+
     triggers.push_back(new TriggerNode(
         "immolate",
         NextAction::array(0, new NextAction("immolate", 25.0f), NULL)));
-*/
+
     triggers.push_back(new TriggerNode(
         "molten core",
         NextAction::array(0, new NextAction("incinerate", 18.0f), new NextAction("incinerate", 18.0f), new NextAction("incinerate", 18.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "decimation",
-        NextAction::array(0, new NextAction("soul fire", 18.0f), NULL)));
+        NextAction::array(0, new NextAction("soul fire", 18.0f), new NextAction("soul fire", 18.0f), NULL)));
 }
 
 void DpsFireAoeWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
