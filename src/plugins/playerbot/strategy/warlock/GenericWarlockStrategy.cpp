@@ -96,6 +96,10 @@ void GenericWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "medium mana",
         NextAction::array(0, new NextAction("life tap", ACTION_NORMAL + 2), NULL)));
 
+      triggers.push_back(new TriggerNode(
+        "low mana",
+        NextAction::array(0, new NextAction("life tap", ACTION_NORMAL + 3), NULL)));
+
 	triggers.push_back(new TriggerNode(
 		"target almost dead",
 		NextAction::array(0, new NextAction("drain soul", 30.0f), NULL)));

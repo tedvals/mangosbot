@@ -875,9 +875,9 @@ bool PlayerbotAI::HasAnyAuraOf(Unit* player, ...)
     return false;
 }
 
-bool PlayerbotAI::CanCastSpell(string name, Unit* target)
+bool PlayerbotAI::CanCastSpell(string name, Unit* target, bool interruptcasting)
 {
-    return CanCastSpell(aiObjectContext->GetValue<uint32>("spell id", name)->Get(), target);
+    return CanCastSpell(aiObjectContext->GetValue<uint32>("spell id", name)->Get(), target,true,interruptcasting);
 }
 
 bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell, bool interruptcasting)

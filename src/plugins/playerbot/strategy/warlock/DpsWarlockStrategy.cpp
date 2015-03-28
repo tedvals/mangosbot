@@ -64,18 +64,6 @@ void DpsWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     GenericWarlockStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
-        "corruption on attacker",
-        NextAction::array(0, new NextAction("corruption on attacker", 25.0f), NULL)));
-
-     triggers.push_back(new TriggerNode(
-        "corruption",
-        NextAction::array(0, new NextAction("corruption", 15.0f), NULL)));
-
-  //  triggers.push_back(new TriggerNode(
-  //      "curse of agony on attacker",
-  //      NextAction::array(0, new NextAction("corruption on attacker", 15.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
         "critical health",
         NextAction::array(0, new NextAction("drain life", 40.0f), NULL)));
 
@@ -110,21 +98,13 @@ void DpsWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 void DpsAoeWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    //triggers.push_back(new TriggerNode(
-    //    "high aoe",
-    //    NextAction::array(0, new NextAction("rain of fire", 30.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "high aoe",
-        NextAction::array(0, new NextAction("seed of corruption", 31.0f), NULL)));
-
     triggers.push_back(new TriggerNode(
         "medium aoe",
         NextAction::array(0, new NextAction("shadowfury", 29.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "corruption on attacker",
-        NextAction::array(0, new NextAction("corruption on attacker", 25.0f), NULL)));
+        "no corruption",
+        NextAction::array(0, new NextAction("seed of corruption", 30.0f), NULL)));
 
 }
 
@@ -160,9 +140,6 @@ WarlockDebuffStrategy::WarlockDebuffStrategy(PlayerbotAI* ai) : CombatStrategy(a
 
 void WarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-    triggers.push_back(new TriggerNode(
-        "curse of the elements",
-        NextAction::array(0, new NextAction("curse of the elements", 25.0f), NULL)));
 
      triggers.push_back(new TriggerNode(
         "no curse",
@@ -196,10 +173,6 @@ DpsWarlockDebuffStrategy::DpsWarlockDebuffStrategy(PlayerbotAI* ai) : CombatStra
 void DpsWarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     triggers.push_back(new TriggerNode(
-        "curse of agony on attacker",
-        NextAction::array(0, new NextAction("curse of agony on attacker", 24.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
         "no curse",
         NextAction::array(0, new NextAction("curse of agony", 25.0f), NULL)));
 }
@@ -210,9 +183,7 @@ class DpsFireWarlockStrategyActionNodeFactory : public NamedObjectFactory<Action
 public:
     DpsFireWarlockStrategyActionNodeFactory()
     {
-        creators["conflagrate"] = &conflagrate;
-	creators["shadow bolt"] = &shadow_bolt;
-        creators["chaos bolt"] = &chaos_bolt;
+        creators["shadow bolt"] = &shadow_bolt;
         creators["summon imp"] = &summon_imp;
         creators["incinerate"] = &incinerate;
     }
@@ -222,20 +193,6 @@ private:
         return new ActionNode ("summon imp",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("life tap"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* chaos_bolt(PlayerbotAI* ai)
-    {
-        return new ActionNode ("chaos bolt",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("incinerate"), NULL),
-            /*C*/ NULL);
-    }
-   static ActionNode* conflagrate(PlayerbotAI* ai)
-    {
-        return new ActionNode ("conflagrate",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("incinerate"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* incinerate(PlayerbotAI* ai)

@@ -67,21 +67,6 @@ namespace ai
 		virtual bool IsActive();
 	};
 
-    class CorruptionOnAttackerTrigger : public DebuffOnAttackerTrigger
-    {
-    public:
-        CorruptionOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "corruption on attacker") {}
-        virtual bool IsActive();
-    };
-
-
-    class CurseOfAgonyOnAttackerTrigger : public DebuffTrigger
-	{
-	public:
-		CurseOfAgonyOnAttackerTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "curse of agony on attacker") {}
-		virtual bool IsActive();
-	};
-
 
     //DEBUFF_TRIGGER(WarlockNoCurseTrigger, "curse of agony", "curse of agony");
     //DEBUFF_TRIGGER(WarlockNoCorruptionTrigger, "corruption", "corruption");

@@ -54,25 +54,6 @@ bool WarlockNoCorruptionTrigger::IsActive()
             !ai->HasAura("seed of corruption", target);
 }
 
-bool CurseOfAgonyOnAttackerTrigger::IsActive()
-{
-	Unit* target = AI_VALUE(Unit*, "current target");
-    return target && AI_VALUE2(uint8, "health", "current target") > 10 &&
-            !ai->HasAura("curse of the elements", target) &&
-            !ai->HasAura("curse of weakness", target) &&
-            !ai->HasAura("curse of exhaustion", target) &&
-            !ai->HasAura("curse of agony", target) &&
-            !ai->HasAura("curse of doom", target);
-}
-
-bool CorruptionOnAttackerTrigger::IsActive()
-{
-	Unit* target = AI_VALUE(Unit*, "current target");
-    return target && AI_VALUE2(uint8, "health", "current target") > 10 &&
-            !ai->HasAura("corruption", target) &&
-            !ai->HasAura("seed of corruption", target);
-}
-
 bool DemonDeadTrigger::IsActive()
 {
     Unit* pet = AI_VALUE(Unit*, "pet target");
