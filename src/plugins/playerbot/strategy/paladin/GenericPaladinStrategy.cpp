@@ -15,6 +15,14 @@ void GenericPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     MeleeCombatStrategy::InitTriggers(triggers);
 
     triggers.push_back(new TriggerNode(
+        "seal mana",
+        NextAction::array(0, new NextAction("seal of wisdom", 89.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "seal health",
+        NextAction::array(0, new NextAction("seal of light", 89.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "critical health",
         NextAction::array(0, new NextAction("flash of light", ACTION_CRITICAL_HEAL + 2), NULL)));
 

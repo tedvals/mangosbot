@@ -81,6 +81,13 @@ namespace ai
             LowHealthTrigger(ai, "almost full health", sPlayerbotAIConfig.almostFullHealth, sPlayerbotAIConfig.highHealth) {}
     };
 
+    class FullHealthTrigger : public LowHealthTrigger
+    {
+    public:
+        FullHealthTrigger(PlayerbotAI* ai) :
+            LowHealthTrigger(ai, "full health", 100, sPlayerbotAIConfig.almostFullHealth) {}
+    };
+
     class MasterLowHealthTrigger : public HealthInRangeTrigger
     {
     public:

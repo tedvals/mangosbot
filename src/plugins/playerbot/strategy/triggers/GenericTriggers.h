@@ -475,6 +475,22 @@ namespace ai
 		virtual bool IsActive();
 	};
 
+	class AlmostFullManaTrigger : public Trigger
+	{
+	public:
+		AlmostFullManaTrigger(PlayerbotAI* ai) : Trigger(ai, "almost full mana") {}
+
+		virtual bool IsActive();
+	};
+
+	class FullManaTrigger : public Trigger
+	{
+	public:
+		FullManaTrigger(PlayerbotAI* ai) : Trigger(ai, "full mana") {}
+
+		virtual bool IsActive();
+	};
+
 	class DrinkManaTrigger : public Trigger
 	{
 	public:

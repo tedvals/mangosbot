@@ -59,6 +59,14 @@ void MeleeHealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("holy light", ACTION_MEDIUM_HEAL + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "medium mana",
+        NextAction::array(0, new NextAction("seal of wisdom", ACTION_MEDIUM_HEAL + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "full mana",
+        NextAction::array(0, new NextAction("seal of righteousness", ACTION_MEDIUM_HEAL + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "party member medium health",
         NextAction::array(0, new NextAction("holy light on party", ACTION_MEDIUM_HEAL + 1), NULL)));
 

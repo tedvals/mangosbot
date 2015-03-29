@@ -13,6 +13,10 @@ namespace ai
     {
     public:
         CastJudgementOfWisdomAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "judgement of wisdom") {}
+	virtual bool isUseful()
+	{
+		return AI_VALUE2(uint8, "mana", "self target") <= sPlayerbotAIConfig.almostFullMana;
+		}
     };
 
     class CastRangedJudgementOfLightAction : public CastSpellAction
@@ -25,6 +29,10 @@ namespace ai
     {
     public:
         CastRangedJudgementOfWisdomAction(PlayerbotAI* ai) : CastSpellAction(ai, "judgement of wisdom") {}
+	virtual bool isUseful()
+	{
+		return AI_VALUE2(uint8, "mana", "self target") <= sPlayerbotAIConfig.almostFullMana;
+		}
     };
 
     class CastJudgementOfJusticeAction : public CastMeleeSpellAction

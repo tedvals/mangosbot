@@ -60,7 +60,7 @@ namespace ai
     {
     public:
         CastFrostNovaAction(PlayerbotAI* ai) : CastSpellAction(ai, "frost nova") {}
-        virtual bool isUseful() { return AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance; }
+        virtual bool isUseful() { return AI_VALUE(uint8, "melee attacker count") > 0; }
 
         virtual bool IsInstant() {return true;}
     };
@@ -69,7 +69,7 @@ namespace ai
     {
     public:
         CastArcaneExplosionAction(PlayerbotAI* ai) : CastSpellAction(ai, "arcane explosion") {}
-        virtual bool isUseful() { return AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance; }
+        virtual bool isUseful() { return return AI_VALUE(uint8, "melee attacker count") > 1; }
         virtual bool IsInstant() {return true;}
     };
 
@@ -116,6 +116,8 @@ namespace ai
     {
 	public:
 		CastArcaneIntellectOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "arcane intellect") {}
+		
+		virtual bool isUseful() {return AI_VALUE2(bool, "has mana", GetTargetName());} 
 	};
 
 	class CastFocusMagicOnPartyAction : public BuffOnPartyAction

@@ -2,6 +2,7 @@
 #include "../../playerbot.h"
 #include "PaladinTriggers.h"
 #include "PaladinActions.h"
+#include "../../PlayerbotAIConfig.h"
 
 using namespace ai;
 
@@ -9,32 +10,25 @@ bool SealTrigger::IsActive()
 {
 	Unit* target = GetTarget();
 	return !ai->HasAura("seal of justice", target) &&
-        !ai->HasAura("seal of command", target) &&
-        !ai->HasAura("seal of vengeance", target) &&
+        	!ai->HasAura("seal of command", target) &&
+        	!ai->HasAura("seal of vengeance", target) &&
+		!ai->HasAura("seal of wisdom", target) &&
 		!ai->HasAura("seal of righteousness", target) &&
-		!ai->HasAura("seal of wisdom", target);
+		AI_VALUE2(uint8, "mana", "self target") >= sPlayerbotAIConfig.lowMana/2;
 }
 
 bool SealManaLowTrigger::IsActive()
 {
 	Unit* target = GetTarget();
-	return !ai->HasAura("seal of justice", target) &&
-        !ai->HasAura("seal of command", target) &&
-        !ai->HasAura("seal of vengeance", target) &&
-		!ai->HasAura("seal of righteousness", target) &&
-		!ai->HasAura("seal of light", target) &&
-		!ai->HasAura("seal of wisdom", target);
+	return return !ai->HasAura("seal of wisdom", target) &&
+		AI_VALUE2(uint8, "health", "self target") >= sPlayerbotAIConfig.criticalHealth && AI_VALUE2(uint8, "mana", "self target") < sPlayerbotAIConfig.lowMana/2;
 }
 
 bool SealLowTrigger::IsActive()
 {
 	Unit* target = GetTarget();
-	return !ai->HasAura("seal of justice", target) &&
-        !ai->HasAura("seal of command", target) &&
-        !ai->HasAura("seal of vengeance", target) &&
-		!ai->HasAura("seal of righteousness", target) &&
-		!ai->HasAura("seal of light", target) &&
-		!ai->HasAura("seal of wisdom", target);
+	return !ai->HasAura("seal of light", target) &&
+		AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.criticalHealth && AI_VALUE2(uint8, "mana", "self target") < sPlayerbotAIConfig.lowMana/2;
 }
 
 bool CrusaderAuraTrigger::IsActive()

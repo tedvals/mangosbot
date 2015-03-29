@@ -16,9 +16,19 @@ bool MediumManaTrigger::IsActive()
     return AI_VALUE2(bool, "has mana", "self target") && AI_VALUE2(uint8, "mana", "self target") < sPlayerbotAIConfig.mediumMana;
 }
 
+bool AlmostFullManaTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "has mana", "self target") && AI_VALUE2(uint8, "mana", "self target") <= sPlayerbotAIConfig.almostFullMana;
+}
+
+bool FullManaTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "has mana", "self target") && AI_VALUE2(uint8, "mana", "self target") = 100;
+}
+
 bool DrinkManaTrigger::IsActive()
 {
-    return AI_VALUE2(bool, "has mana", "self target") && !AI_VALUE2(bool, "combat", "self target") && AI_VALUE2(uint8, "mana", "self target") < sPlayerbotAIConfig.almostFullMana;
+    return AI_VALUE2(bool, "has mana", "self target") && !AI_VALUE2(bool, "combat", "self target") && AI_VALUE2(uint8, "mana", "self target") < sPlayerbotAIConfig.mediumMana;
 }
 
 bool RageAvailable::IsActive()
