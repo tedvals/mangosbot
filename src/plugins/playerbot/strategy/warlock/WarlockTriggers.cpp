@@ -35,23 +35,38 @@ bool FirestoneTrigger::IsActive()
 }
 */
 
-bool WarlockNoCurseTrigger::IsActive()
+bool CurseOnAttackerTrigger::IsActive()
 {
-	Unit* target = AI_VALUE(Unit*, "current target");
-    return target && AI_VALUE2(uint8, "health", "current target") > 10 &&
-            !ai->HasAura("curse of the elements", target) &&
-            !ai->HasAura("curse of weakness", target) &&
-            !ai->HasAura("curse of exhaustion", target) &&
-            !ai->HasAura("curse of agony", target) &&
-            !ai->HasAura("curse of doom", target);
+    return DebuffOnAttackerTrigger::IsActive() &&
+            !ai->HasOwnAura("curse of the elements", GetTarget()) &&
+            !ai->HasOwnAura("curse of weakness", GetTarget()) &&
+            !ai->HasOwnAura("curse of exhaustion", GetTarget()) &&
+            !ai->HasOwnAura("curse of agony", GetTarget()) &&
+            !ai->HasOwnAura("curse of doom", GetTarget());
 }
 
-bool WarlockNoCorruptionTrigger::IsActive()
+bool CorruptionOnAttackerTrigger::IsActive()
 {
-	Unit* target = AI_VALUE(Unit*, "current target");
-    return target && AI_VALUE2(uint8, "health", "current target") > 10 &&
-            !ai->HasAura("corruption", target) &&
-            !ai->HasAura("seed of corruption", target);
+    return DebuffOnAttackerTrigger::IsActive() &&
+            !ai->HasOwnAura("corruption", GetTarget()) &&
+            !ai->HasOwnAura("seed of corruption", GetTarget());
+}
+
+bool NoCurseTrigger::IsActive()
+{
+    return DebuffTrigger::IsActive() &&
+            !ai->HasOwnAura("curse of the elements", GetTarget()) &&
+            !ai->HasOwnAura("curse of weakness", GetTarget()) &&
+            !ai->HasOwnAura("curse of exhaustion", GetTarget()) &&
+            !ai->HasOwnAura("curse of agony", GetTarget()) &&
+            !ai->HasOwnAura("curse of doom", GetTarget());
+}
+
+bool NoCorruptionTrigger::IsActive()
+{
+    return DebuffTrigger::IsActive() &&
+            !ai->HasOwnAura("corruption", GetTarget()) &&
+            !ai->HasOwnAura("seed of corruption", GetTarget());
 }
 
 bool DemonDeadTrigger::IsActive()

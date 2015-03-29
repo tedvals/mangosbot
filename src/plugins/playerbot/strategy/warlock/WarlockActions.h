@@ -53,22 +53,22 @@ namespace ai
 	};
 
 
-	class CastCurseOfAgonyAction : public CastDebuffSpellAction
+	class CastCurseOfAgonyAction : public CastOwnDebuffSpellAction
 	{
 	public:
-		CastCurseOfAgonyAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "curse of agony") {}
+		CastCurseOfAgonyAction(PlayerbotAI* ai) : CastOwnDebuffSpellAction(ai, "curse of agony") {}
 		virtual bool IsInstant() {return true;}
 
        virtual bool isUseful()
         {
-            return CastDebuffSpellAction::isUseful() && !ai->HasAura("curse of doom", AI_VALUE(Unit*, "current target"));
+            return CastOwnDebuffSpellAction::isUseful() && !ai->HasOwnAura("curse of weakness",  GetTarget())  && !ai->HasOwnAura("curse of the elements",  GetTarget());
             }
 	};
 
-    class CastCurseOfExhaustionAction : public CastDebuffSpellAction
+    class CastCurseOfExhaustionAction : public CastOwnDebuffSpellAction
 	{
 	public:
-		CastCurseOfExhaustionAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "curse of exhaustion") {}
+		CastCurseOfExhaustionAction(PlayerbotAI* ai) : CastOwnDebuffSpellAction(ai, "curse of exhaustion") {}
 		virtual bool IsInstant() {return true;}
 	};
 
@@ -80,32 +80,32 @@ namespace ai
 
         virtual bool isUseful()
         {
-            return CastDebuffSpellAction::isUseful() && !ai->HasAura("curse of agony", AI_VALUE(Unit*, "current target"));
+            return CastDebuffSpellAction::isUseful() && !ai->HasOwnAura("curse of agony",  GetTarget());
             }
 	};
 
 
-	class CastCurseOfWeaknessAction : public CastDebuffSpellAction
+	class CastCurseOfWeaknessAction : public CastOwnDebuffSpellAction
 	{
 	public:
-		CastCurseOfWeaknessAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "curse of weakness") {}
+		CastCurseOfWeaknessAction(PlayerbotAI* ai) : CastOwnDebuffSpellAction(ai, "curse of weakness") {}
 		virtual bool IsInstant() {return true;}
 
     virtual bool isUseful()
         {
-            return CastDebuffSpellAction::isUseful() && !ai->HasAura("curse of the elements", AI_VALUE(Unit*, "current target"));
+            return CastOwnDebuffSpellAction::isUseful() && !ai->HasOwnAura("curse of the elements",  GetTarget());
             }
 	};
 
-	class CastCurseOfTheElementsAction : public CastDebuffSpellAction
+	class CastCurseOfTheElementsAction : public CastOwnDebuffSpellAction
 	{
 	public:
-		CastCurseOfTheElementsAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "curse of the elements") {}
+		CastCurseOfTheElementsAction(PlayerbotAI* ai) : CastOwnDebuffSpellAction(ai, "curse of the elements") {}
 		virtual bool IsInstant() {return true;}
 
- virtual bool isUseful()
+        virtual bool isUseful()
         {
-            return CastDebuffSpellAction::isUseful() && !ai->HasAura("curse of weakness", AI_VALUE(Unit*, "current target"));
+            return CastOwnDebuffSpellAction::isUseful() && !ai->HasOwnAura("curse of weakness",  GetTarget())  && !ai->HasOwnAura("curse of agony",  GetTarget());
             }
 	};
 
@@ -117,7 +117,7 @@ namespace ai
 
         virtual bool isUseful()
         {
-            return CastDebuffSpellAction::isUseful() && !ai->HasAura("seed of corruption", AI_VALUE(Unit*, "current target"));
+            return CastDebuffSpellAction::isUseful() && !ai->HasAura("seed of corruption", GetTarget());
             }
 	};
 
@@ -363,7 +363,7 @@ namespace ai
 
         virtual bool isUseful()
         {
-            return CastDebuffSpellAction::isUseful() && !ai->HasAura("corruption", AI_VALUE(Unit*, "current target"));
+            return CastDebuffSpellAction::isUseful() && !ai->HasOwnAura("corruption", GetTarget());
             }
     };
 
@@ -380,13 +380,48 @@ namespace ai
         virtual bool isUseful() { return AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance; }
     };
 
-    class CastImmolateAction : public CastDebuffSpellAction
+    class CastImmolateAction : public CastOwnDebuffSpellAction
     {
     public:
-        CastImmolateAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "immolate") {}
-        virtual bool isUseful() {
-            return CastSpellAction::isUseful() && !ai->HasAura("immolate", AI_VALUE(Unit*, "current target"));
-        }
+        CastImmolateAction(PlayerbotAI* ai) : CastOwnDebuffSpellAction(ai, "immolate") {}
+ //       virtual bool isUseful() {
+ //           return CastSpellAction::isUseful() && !ai->HasOwnAura("immolate", AI_VALUE(Unit*, "current target"));
+ //       }
+    };
+
+    class CastImmolateOnAttackerAction : public CastOwnDebuffSpellOnAttackerAction
+    {
+    public:
+        CastImmolateOnAttackerAction(PlayerbotAI* ai) : CastOwnDebuffSpellOnAttackerAction(ai, "immolate") {}
+        virtual bool IsInstant() {return true;}
+    };
+
+    class CastCorruptionOnAttackerAction : public CastOwnDebuffSpellOnAttackerAction
+    {
+    public:
+        CastCorruptionOnAttackerAction(PlayerbotAI* ai) : CastOwnDebuffSpellOnAttackerAction(ai, "corruption") {}
+        virtual bool IsInstant() {return true;}
+    };
+
+    class CastCurseOfAgonyOnAttackerAction : public CastOwnDebuffSpellOnAttackerAction
+    {
+    public:
+        CastCurseOfAgonyOnAttackerAction(PlayerbotAI* ai) : CastOwnDebuffSpellOnAttackerAction(ai, "curse of agony") {}
+        virtual bool IsInstant() {return true;}
+    };
+
+    class CastCurseOfTheElementsOnAttackerAction : public CastDebuffSpellOnAttackerAction
+    {
+    public:
+        CastCurseOfTheElementsOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "curse of the elements") {}
+        virtual bool IsInstant() {return true;}
+    };
+
+    class CastCurseOfWeaknessOnAttackerAction : public CastDebuffSpellOnAttackerAction
+    {
+    public:
+        CastCurseOfWeaknessOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "curse of weakness") {}
+        virtual bool IsInstant() {return true;}
     };
 
     class CastConflagrateAction : public CastSpellAction
@@ -401,7 +436,7 @@ namespace ai
 
             virtual bool IsInstant() {return true;}
             virtual bool isUseful() {
-            return CastSpellAction::isUseful() && ai->HasAura("immolate", AI_VALUE(Unit*, "current target"));
+            return CastSpellAction::isUseful() && ai->HasOwnAura("immolate", AI_VALUE(Unit*, "current target"));
         }
 
     };

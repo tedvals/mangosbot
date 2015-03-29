@@ -32,6 +32,11 @@ bool CastDebuffSpellAction::isUseful()
 	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget(), BOT_AURA_DAMAGE);
 }
 
+bool CastOwnDebuffSpellAction::isUseful()
+{
+	return CastSpellAction::isUseful() && !ai->HasOwnAura(spell, GetTarget(), BOT_AURA_DAMAGE);
+}
+
 bool CastHotSpellAction::isUseful()
 {
 	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget(), BOT_AURA_HEAL);

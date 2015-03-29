@@ -779,8 +779,8 @@ bool IsRealAura(Player* bot, Aura const* aura, Unit* unit, BotAuraType auratype)
     if (aura->GetSpellInfo()->StackAmount > 0 && stacks >= aura->GetSpellInfo()->StackAmount)
         return true;
 
-//  if (aura->GetCaster() == bot || aura->GetSpellInfo()->IsPositive() || aura->IsArea())
-//      return true;
+    if (aura->GetCaster() == bot || aura->GetSpellInfo()->IsPositive() || aura->IsArea())
+        return true;
 
     if (aura->GetMaxDuration() > 1500 && aura->GetDuration() > 0 && (aura->GetMaxDuration() - aura->GetDuration() < 1500))
         return false;
@@ -803,6 +803,27 @@ bool IsRealAura(Player* bot, Aura const* aura, Unit* unit, BotAuraType auratype)
     else return (aura->GetCaster() == bot || aura->IsArea());
 */
 }
+
+bool IsRealOwnAura(Player* bot, Aura const* aura, Unit* unit, BotAuraType auratype)
+{
+   if (!aura)
+        return false;
+    //Debug
+
+    if (!unit->IsHostileTo(bot))
+        return true;
+
+    uint32 stacks = aura->GetStackAmount();
+
+    if (stacks >= aura->GetSpellInfo()->StackAmount)
+        return true;
+
+    if (aura->GetCaster() == bot || aura->GetSpellInfo()->IsPositive() || aura->IsArea())
+        return true;
+
+    return false;
+}
+
 
 bool PlayerbotAI::HasAura(string name, Unit* unit, BotAuraType auratype)
 {
@@ -837,6 +858,39 @@ bool PlayerbotAI::HasAura(string name, Unit* unit, BotAuraType auratype)
     return false;
 }
 
+bool PlayerbotAI::HasOwnAura(string name, Unit* unit, BotAuraType auratype)
+{
+    if (!unit)
+        return false;
+
+    uint32 spellId = aiObjectContext->GetValue<uint32>("spell id", name)->Get();
+    if (spellId)
+        return HasOwnAura(spellId, unit);
+
+    wstring wnamepart;
+    if (!Utf8toWStr(name, wnamepart))
+        return 0;
+
+    wstrToLower(wnamepart);
+
+    Unit::AuraApplicationMap& map = unit->GetAppliedAuras();
+    for (Unit::AuraApplicationMap::iterator i = map.begin(); i != map.end(); ++i)
+    {
+        Aura const* aura  = i->second->GetBase();
+        if (!aura)
+            continue;
+
+        const string auraName = aura->GetSpellInfo()->SpellName[0];
+        if (auraName.empty() || auraName.length() != wnamepart.length() || !Utf8FitTo(auraName, wnamepart))
+            continue;
+
+        if (IsRealOwnAura(bot, aura, unit,auratype))
+            return true;
+    }
+
+    return false;
+}
+
 bool PlayerbotAI::HasAura(uint32 spellId, const Unit* unit, BotAuraType auratype)
 {
     if (!spellId || !unit)
@@ -847,6 +901,22 @@ bool PlayerbotAI::HasAura(uint32 spellId, const Unit* unit, BotAuraType auratype
         Aura* aura = ((Unit*)unit)->GetAura(spellId);
 
         if (IsRealAura(bot, aura, (Unit*)unit,auratype))
+            return true;
+    }
+
+    return false;
+}
+
+bool PlayerbotAI::HasOwnAura(uint32 spellId, const Unit* unit, BotAuraType auratype)
+{
+    if (!spellId || !unit)
+        return false;
+
+    for (uint32 effect = EFFECT_0; effect <= EFFECT_2; effect++)
+    {
+        Aura* aura = ((Unit*)unit)->GetAura(spellId);
+
+        if (IsRealOwnAura(bot, aura, (Unit*)unit,auratype))
             return true;
     }
 

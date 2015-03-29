@@ -80,6 +80,11 @@ Value<Unit*>* DebuffOnAttackerTrigger::GetTargetValue()
 	return context->GetValue<Unit*>("attacker without aura", spell);
 }
 
+Value<Unit*>* OwnDebuffOnAttackerTrigger::GetTargetValue()
+{
+	return context->GetValue<Unit*>("attacker without own aura", spell);
+}
+
 bool NoAttackersTrigger::IsActive()
 {
     return !AI_VALUE(Unit*, "current target") && AI_VALUE(uint8, "attacker count") > 0;
@@ -114,6 +119,29 @@ bool DebuffTrigger::IsActive()
 {
     if (SpellTrigger::IsActive() &&
 		!ai->HasAura(spell, GetTarget(),BOT_AURA_DAMAGE) &&
+		(!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") >= sPlayerbotAIConfig.lowMana))
+    {
+     if (AI_VALUE2(bool, "target normal", "current target"))
+        return (AI_VALUE2(uint8, "health", "current target") > 30);
+     else if (AI_VALUE2(bool, "target boss", "current target"))
+        return (AI_VALUE2(uint8, "health", "current target") > 5);
+     else return (AI_VALUE2(uint8, "health", "current target") > 20);
+    }
+    else return false;
+
+    /*
+    if (AI_VALUE2(bool, "target normal", "current target"))
+        return BuffTrigger::IsActive() && (AI_VALUE2(uint8, "health", "current target") > 30);
+    else if (AI_VALUE2(bool, "target boss", "current target"))
+        return BuffTrigger::IsActive() && (AI_VALUE2(uint8, "health", "current target") > 5);
+    else return BuffTrigger::IsActive() && (AI_VALUE2(uint8, "health", "current target") > 20);
+    */
+}
+
+bool OwnDebuffTrigger::IsActive()
+{
+    if (SpellTrigger::IsActive() &&
+		!ai->HasOwnAura(spell, GetTarget(),BOT_AURA_DAMAGE) &&
 		(!AI_VALUE2(bool, "has mana", "self target") || AI_VALUE2(uint8, "mana", "self target") >= sPlayerbotAIConfig.lowMana))
     {
      if (AI_VALUE2(bool, "target normal", "current target"))

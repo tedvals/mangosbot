@@ -109,6 +109,14 @@ namespace ai
         virtual bool isUseful();
     };
 
+     class CastOwnDebuffSpellAction : public CastSpellAction
+    {
+    public:
+        CastOwnDebuffSpellAction(PlayerbotAI* ai, string spell) : CastSpellAction(ai, spell) {}
+
+        virtual bool isUseful();
+    };
+
     class CastDebuffSpellOnAttackerAction : public CastDebuffSpellAction
     {
     public:
@@ -116,6 +124,18 @@ namespace ai
         Value<Unit*>* GetTargetValue()
         {
             return context->GetValue<Unit*>("attacker without aura", spell);
+        }
+        virtual string getName() { return spell + " on attacker"; }
+        virtual ActionThreatType getThreatType() { return ACTION_THREAT_AOE; }
+    };
+
+class CastOwnDebuffSpellOnAttackerAction : public CastOwnDebuffSpellAction
+    {
+    public:
+        CastOwnDebuffSpellOnAttackerAction(PlayerbotAI* ai, string spell) : CastOwnDebuffSpellAction(ai, spell) {}
+        Value<Unit*>* GetTargetValue()
+        {
+            return context->GetValue<Unit*>("attacker without own aura", spell);
         }
         virtual string getName() { return spell + " on attacker"; }
         virtual ActionThreatType getThreatType() { return ACTION_THREAT_AOE; }

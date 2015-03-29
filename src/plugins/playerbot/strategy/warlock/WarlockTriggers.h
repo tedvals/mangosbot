@@ -50,29 +50,53 @@ namespace ai
     //};
 
 
-    //BEGIN_TRIGGER(ImmolateTrigger, Trigger);
-    //END_TRIGGER()
-
-    class WarlockNoCurseTrigger : public DebuffTrigger
+    class NoCurseTrigger : public DebuffTrigger
 	{
 	public:
-		WarlockNoCurseTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "curse of the elements") {}
+		NoCurseTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "curse of the elements") {}
 		virtual bool IsActive();
 	};
 
-    class WarlockNoCorruptionTrigger : public DebuffTrigger
+    class NoCorruptionTrigger : public DebuffTrigger
 	{
 	public:
-		WarlockNoCorruptionTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "corruption") {}
+		NoCorruptionTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "corruption") {}
 		virtual bool IsActive();
+	};
+
+    class ImmolateTrigger : public DebuffTrigger
+	{
+	public:
+		ImmolateTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "immolate") {}
 	};
 
 
     //DEBUFF_TRIGGER(WarlockNoCurseTrigger, "curse of agony", "curse of agony");
     //DEBUFF_TRIGGER(WarlockNoCorruptionTrigger, "corruption", "corruption");
-    DEBUFF_TRIGGER(ImmolateTrigger, "immolate", "immolate");
+    //DEBUFF_TRIGGER(ImmolateTrigger, "immolate", "immolate");
     DEBUFF_TRIGGER(HauntTrigger, "haunt", "haunt");
     DEBUFF_TRIGGER(ImprovedShadowbolt, "shadow Mastery", "shadow Mastery")
+
+    class CurseOnAttackerTrigger : public DebuffOnAttackerTrigger
+    {
+    public:
+        CurseOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "curse of agony") {}
+        virtual bool IsActive();
+    };
+
+    class CorruptionOnAttackerTrigger : public DebuffOnAttackerTrigger
+    {
+    public:
+        CorruptionOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "corruption") {}
+        virtual bool IsActive();
+    };
+
+    class ImmolateOnAttackerTrigger : public DebuffOnAttackerTrigger
+    {
+    public:
+        ImmolateOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "immolate") {}
+    };
+
 
     class ShadowTranceTrigger : public HasAuraTrigger
     {

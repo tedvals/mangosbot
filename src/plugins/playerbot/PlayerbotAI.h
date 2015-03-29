@@ -152,6 +152,7 @@ public:
     virtual bool CanCastSpell(string name, Unit* target, bool interruptcasting = false);
     virtual bool CastSpell(string name, Unit* target);
     virtual bool HasAura(string spellName, Unit* player, BotAuraType auratype = BOT_AURA_NORMAL);
+    virtual bool HasOwnAura(string spellName, Unit* player, BotAuraType auratype = BOT_AURA_NORMAL);
     virtual bool HasAnyAuraOf(Unit* player, ...);
 
     virtual bool IsInterruptableSpellCasting(Unit* player, string spell);
@@ -159,6 +160,7 @@ public:
     bool CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell = true, bool interruptcasting = false);
 
     bool HasAura(uint32 spellId, const Unit* player, BotAuraType auratype = BOT_AURA_NORMAL);
+    bool HasOwnAura(uint32 spellId, const Unit* player, BotAuraType auratype = BOT_AURA_NORMAL);
     bool CastSpell(uint32 spellId, Unit* target);
     bool canDispel(const SpellInfo* entry, uint32 dispelType);
 
