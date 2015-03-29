@@ -16,7 +16,8 @@ public:
         creators["combustion"] = &combustion;
         creators["burst"] = &combustion;
         creators["dragon's breath"] = dragons_breath;
-        creators["blast wave"] = blast_wave;
+	creators["cone of cold"] = cone_of_cold;        
+	creators["blast wave"] = blast_wave;
     }
 private:
     static ActionNode* fireball(PlayerbotAI* ai)
@@ -51,14 +52,21 @@ private:
     {
         return new ActionNode ("dragon's breath",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("blast wave"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("cone of cold"), NULL),
             /*C*/ NextAction::array(0, new NextAction("flamestrike", 50.0f), NULL));
+    }
+    static ActionNode* cone_of_cold(PlayerbotAI* ai)
+    {
+        return new ActionNode ("cone of cold",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("frost nova"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("blast wave", 50.0f), NULL));
     }
     static ActionNode* blast_wave(PlayerbotAI* ai)
     {
         return new ActionNode ("blast wave",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("cone of cold"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("frost nova"), NULL),
             /*C*/ NextAction::array(0, new NextAction("flamestrike", 50.0f), NULL));
     }
 };
