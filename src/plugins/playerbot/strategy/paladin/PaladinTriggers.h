@@ -28,6 +28,20 @@ namespace ai
 		virtual bool IsActive();
 	};
 
+	class SealManaLowTrigger : public BuffTrigger
+	{
+	public:
+		SealManaLowTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "seal of wisdom") {}
+		virtual bool IsActive();
+	};
+
+	class SealLowTrigger : public BuffTrigger
+	{
+	public:
+		SealLowTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "seal of light") {}
+		virtual bool IsActive();
+	};
+
     DEBUFF_TRIGGER(JudgementOfLightTrigger, "judgement of light", "judgement of light")
     DEBUFF_TRIGGER(JudgementOfWisdomTrigger, "judgement of wisdom", "judgement of wisdom")
 

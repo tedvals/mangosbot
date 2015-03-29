@@ -65,8 +65,8 @@ bool NoCurseTrigger::IsActive()
 bool NoCorruptionTrigger::IsActive()
 {
     return DebuffTrigger::IsActive() &&
-            !ai->HasOwnAura("corruption", GetTarget()) &&
-            !ai->HasOwnAura("seed of corruption", GetTarget());
+            !ai->HasAura("corruption", GetTarget()) &&
+            !ai->HasAura("seed of corruption", GetTarget());
 }
 
 bool DemonDeadTrigger::IsActive()

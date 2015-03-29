@@ -14,7 +14,7 @@ namespace ai
             creators["cleanse poison on party"] = &cleanse_poison_on_party;
             creators["cleanse disease on party"] = &cleanse_disease_on_party;
             creators["seal of wisdom"] = &seal_of_wisdom;
-            creators["seal of justice"] = &seal_of_righteousness;
+            creators["seal of righteousness"] = &seal_of_righteousness;
             creators["hand of reckoning"] = &hand_of_reckoning;
             creators["judgement of wisdom"] = &judgement_of_wisdom;
             creators["divine shield"] = &divine_shield;
@@ -95,7 +95,7 @@ namespace ai
         {
             return new ActionNode ("seal of righteousness",
                 /*P*/ NULL,
-                /*A*/ NextAction::array(0, new NextAction("seal_of_justice"), NULL),
+                /*A*/ NextAction::array(0, new NextAction("seal_of_light"), NULL),
                 /*C*/ NULL);
         }
         static ActionNode* hand_of_reckoning(PlayerbotAI* ai)

@@ -11,23 +11,23 @@ class MeleeHealPaladinStrategyActionNodeFactory : public NamedObjectFactory<Acti
 public:
     MeleeHealPaladinStrategyActionNodeFactory()
     {
-        creators["seal of wisdom"] = &seal_of_wisdom;
-        creators["seal of light"] = &seal_of_light;
+        creators["seal of righteousness"] = &seal_of_righteousness;
+        creators["seal of wisdom"] = &seal of wisdom;
     }
 
 private:
+    static ActionNode* seal_of_righteousness(PlayerbotAI* ai)
+    {
+        return new ActionNode ("seal_of_righteousness",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("seal of wisdom"), NULL),
+            /*C*/ NULL);
+    }
     static ActionNode* seal_of_wisdom(PlayerbotAI* ai)
     {
         return new ActionNode ("seal of wisdom",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("seal of light"), NULL),
-            /*C*/ NULL);
-    }
-     static ActionNode* seal_of_light(PlayerbotAI* ai)
-    {
-        return new ActionNode ("seal of light",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("seal of righteousness"), NULL),
             /*C*/ NULL);
     }
 };
