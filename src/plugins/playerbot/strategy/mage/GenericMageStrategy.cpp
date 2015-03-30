@@ -47,14 +47,14 @@ private:
         return new ActionNode ("frost nova",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("cone of cold",70), NULL),
-            /*C*/ NULL);
+            /*C*/ NextAction::array(0, new NextAction("relocate",ACTION_MOVE + 5), NULL));
     }
     static ActionNode* cone_of_cold(PlayerbotAI* ai)
     {
         return new ActionNode ("cone of cold",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("blink",ACTION_MOVE + 5), NULL),
-            /*C*/ NextAction::array(0, new NextAction("blink",ACTION_MOVE + 5), NULL));
+            /*C*/ NextAction::array(0, new NextAction("relocate",ACTION_MOVE + 5), NULL));
     }
     static ActionNode* blink(PlayerbotAI* ai)
     {

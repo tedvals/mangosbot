@@ -59,7 +59,7 @@ private:
     {
         return new ActionNode ("cone of cold",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("frost nova"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("blast wave"), NULL),
             /*C*/ NextAction::array(0, new NextAction("blast wave", 50.0f), NULL));
     }
     static ActionNode* blast_wave(PlayerbotAI* ai)
