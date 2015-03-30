@@ -69,7 +69,7 @@ namespace ai
     {
     public:
         CastArcaneExplosionAction(PlayerbotAI* ai) : CastSpellAction(ai, "arcane explosion") {}
-        virtual bool isUseful() { return return AI_VALUE(uint8, "melee attacker count") > 1; }
+        virtual bool isUseful() { return AI_VALUE(uint8, "melee attacker count") > 1; }
         virtual bool IsInstant() {return true;}
     };
 

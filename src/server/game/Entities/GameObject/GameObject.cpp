@@ -20,7 +20,6 @@
 #include "Battleground.h"
 #include "CellImpl.h"
 #include "CreatureAISelector.h"
-#include "DynamicTree.h"
 #include "GameObjectModel.h"
 #include "GridNotifiersImpl.h"
 #include "Group.h"

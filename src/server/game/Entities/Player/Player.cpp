@@ -51,7 +51,6 @@
 #include "LFGMgr.h"
 #include "Language.h"
 #include "Log.h"
-#include "MapInstanced.h"
 #include "MapManager.h"
 #include "ObjectAccessor.h"
 #include "ObjectMgr.h"
@@ -73,7 +72,6 @@
 #include "UpdateFieldFlags.h"
 #include "UpdateMask.h"
 #include "Util.h"
-#include "Vehicle.h"
 #include "Weather.h"
 #include "WeatherMgr.h"
 #include "World.h"
@@ -9837,7 +9835,7 @@ uint32 Player::GetXPRestBonus(uint32 xp)
 
     SetRestBonus(GetRestBonus() - rested_bonus);
 
-    TC_LOG_DEBUG("entities.player", "Player gain %u xp (+ %u Rested Bonus). Rested points=%f", xp+rested_bonus, rested_bonus, GetRestBonus());
+    TC_LOG_DEBUG("entities.player", "GetXPRestBonus: Player %s (%u) gain %u xp (+%u Rested Bonus). Rested points=%f", GetName().c_str(), GetGUIDLow(), xp+rested_bonus, rested_bonus, GetRestBonus());
     return rested_bonus;
 }
 

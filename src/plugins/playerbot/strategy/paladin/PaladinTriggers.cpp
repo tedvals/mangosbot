@@ -20,7 +20,7 @@ bool SealTrigger::IsActive()
 bool SealManaLowTrigger::IsActive()
 {
 	Unit* target = GetTarget();
-	return return !ai->HasAura("seal of wisdom", target) &&
+	return !ai->HasAura("seal of wisdom", target) &&
 		AI_VALUE2(uint8, "health", "self target") >= sPlayerbotAIConfig.criticalHealth && AI_VALUE2(uint8, "mana", "self target") < sPlayerbotAIConfig.lowMana/2;
 }
 

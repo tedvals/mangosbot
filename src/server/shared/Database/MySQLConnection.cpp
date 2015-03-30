@@ -22,11 +22,9 @@
   #include <winsock2.h>
 #endif
 #include <mysql.h>
-#include <mysqld_error.h>
 #include <errmsg.h>
 
 #include "MySQLConnection.h"
-#include "MySQLThreading.h"
 #include "QueryResult.h"
 #include "SQLOperation.h"
 #include "PreparedStatement.h"
@@ -79,7 +77,7 @@ uint32 MySQLConnection::Open()
     if (!mysqlInit)
     {
         TC_LOG_ERROR("sql.sql", "Could not initialize Mysql connection to database `%s`", m_connectionInfo.database.c_str());
-        return false;
+        return CR_UNKNOWN_ERROR;
     }
 
     int port;
@@ -137,9 +135,7 @@ uint32 MySQLConnection::Open()
         // set connection properties to UTF8 to properly handle locales for different
         // server configs - core sends data in UTF8, so MySQL must expect UTF8 too
         mysql_set_character_set(m_Mysql, "utf8");
-
-        // Prepare statements only at reconnect
-        return m_reconnecting ? static_cast<uint32>(PrepareStatements()) : 0;
+        return 0;
     }
     else
     {
@@ -493,8 +489,18 @@ bool MySQLConnection::_HandleMySQLErrno(uint32 errNo)
             m_reconnecting = true;
             uint64 oldThreadId = mysql_thread_id(GetHandle());
             mysql_close(GetHandle());
-            if (this->Open())                           // Don't remove 'this' pointer unless you want to skip loading all prepared statements....
+
+            uint32 const lErrno = Open();
+            if (!lErrno)
             {
+                // Don't remove 'this' pointer unless you want to skip loading all prepared statements...
+                if (!this->PrepareStatements())
+                {
+                    TC_LOG_ERROR("sql.sql", "Could not re-prepare statements!");
+                    Close();
+                    return false;
+                }
+
                 TC_LOG_INFO("sql.sql", "Connection to the MySQL server is active.");
                 if (oldThreadId != mysql_thread_id(GetHandle()))
                     TC_LOG_INFO("sql.sql", "Successfully reconnected to %s @%s:%s (%s).",
@@ -505,7 +511,7 @@ bool MySQLConnection::_HandleMySQLErrno(uint32 errNo)
                 return true;
             }
 
-            uint32 lErrno = mysql_errno(GetHandle());   // It's possible this attempted reconnect throws 2006 at us. To prevent crazy recursive calls, sleep here.
+            // It's possible this attempted reconnect throws 2006 at us. To prevent crazy recursive calls, sleep here.
             std::this_thread::sleep_for(std::chrono::seconds(3)); // Sleep 3 seconds
             return _HandleMySQLErrno(lErrno);                     // Call self (recursive)
         }

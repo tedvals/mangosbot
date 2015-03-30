@@ -12,7 +12,7 @@ public:
     MeleeHealPaladinStrategyActionNodeFactory()
     {
         creators["seal of righteousness"] = &seal_of_righteousness;
-        creators["seal of wisdom"] = &seal of wisdom;
+        creators["seal of wisdom"] = &seal_of_wisdom;
     }
 
 private:

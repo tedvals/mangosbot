@@ -3265,6 +3265,7 @@ Logger.eluna=1,Console Eluna
 Logger.sql.updates=3,Console Server
 
 #Logger.achievement=3,Console Server
+#Logger.addon=3,Console Server
 #Logger.ahbot=3,Console Server
 #Logger.auctionHouse=3,Console Server
 #Logger.bg.arena=3,Console Server
