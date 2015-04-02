@@ -7,6 +7,8 @@ namespace ai
     public:
         GenericPaladinStrategyActionNodeFactory()
         {
+            creators["seal of vengeance"] = &seal_of_vengeance;
+            creators["seal of command"] = &seal_of_command;
             creators["seal of light"] = &seal_of_light;
             creators["cleanse poison"] = &cleanse_poison;
             creators["cleanse disease"] = &cleanse_disease;
@@ -28,6 +30,20 @@ namespace ai
             creators["blessing of wisdom on party"] = &blessing_of_wisdom_on_party;
         }
     private:
+        static ActionNode* seal_of_vengeance(PlayerbotAI* ai)
+    {
+        return new ActionNode ("seal of vengeance",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("seal of command"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* seal_of_command(PlayerbotAI* ai)
+    {
+        return new ActionNode ("seal of command",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("seal of righteousness"), NULL),
+            /*C*/ NULL);
+    }
         static ActionNode* lay_on_hands(PlayerbotAI* ai)
         {
             return new ActionNode ("lay on hands",

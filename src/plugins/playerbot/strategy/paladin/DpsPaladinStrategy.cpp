@@ -10,28 +10,12 @@ class DpsPaladinStrategyActionNodeFactory : public NamedObjectFactory<ActionNode
 public:
     DpsPaladinStrategyActionNodeFactory()
     {
-        creators["seal of vengeance"] = &seal_of_vengeance;
-        creators["seal of command"] = &seal_of_command;
         creators["blessing of might"] = &blessing_of_might;
         creators["blessing of kings"] = &blessing_of_kings;
         creators["crusader strike"] = &crusader_strike;
     }
 
 private:
-    static ActionNode* seal_of_vengeance(PlayerbotAI* ai)
-    {
-        return new ActionNode ("seal of vengeance",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("seal of command"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* seal_of_command(PlayerbotAI* ai)
-    {
-        return new ActionNode ("seal of command",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("seal of righteousness"), NULL),
-            /*C*/ NULL);
-    }
     static ActionNode* blessing_of_might(PlayerbotAI* ai)
     {
         return new ActionNode ("blessing of might",

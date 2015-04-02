@@ -101,7 +101,8 @@ namespace ai
 
         virtual bool IsInstant() {return true;}
         virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", bot) && (ai->HasAura("garrote", GetTarget()) || AI_VALUE2(bool, "target normal", "current target"));
+            // return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", bot) && (ai->HasAura("garrote", GetTarget()) || AI_VALUE2(bool, "target normal", "current target"));
+            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", bot);
         }
 // && AI_VALUE2(bool, "behind", "current target")
     virtual NextAction** getPrerequisites()
@@ -123,7 +124,7 @@ namespace ai
 
         virtual bool IsInstant() {return true;}
         virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && (!AI_VALUE2(bool, "stunned", "current target")) && (AI_VALUE2(bool, "target normal", "current target") || AI_VALUE2(bool, "target player", "current target")) && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
+            return CastMeleeSpellAction::isUseful() && (!AI_VALUE2(bool, "stunned", "current target")) && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
         }
 /*
         virtual NextAction** getAlternatives()

@@ -81,10 +81,7 @@ namespace ai
                 if (!creature || !creature->IsTotem())
                     continue;
 
-                if (creature->GetOwner() != ai->GetBot())
-                    return false;
-
-                if (bot->GetDistance(creature) <= sPlayerbotAIConfig.spellDistance)
+                if (creature->GetOwner() == ai->GetBot())
                     return true;
             }
 

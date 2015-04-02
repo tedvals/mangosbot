@@ -43,11 +43,11 @@ namespace ai
 	virtual bool IsActive() { return DebuffTrigger::IsActive() && !ai->HasAura("sunder armor", bot) && (AI_VALUE2(bool, "target boss", "current target"));}
     };
 
-    class GarroteTrigger : public DebuffTrigger
+    class GarroteTrigger : public OwnDebuffTrigger
     {
     public:
-        GarroteTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "garrote") {}
-        virtual bool IsActive() { return DebuffTrigger::IsActive() && ai->HasAura("stealth", bot);}
+        GarroteTrigger(PlayerbotAI* ai) : OwnDebuffTrigger(ai, "garrote") {}
+        virtual bool IsActive() { return OwnDebuffTrigger::IsActive() && ai->HasAura("stealth", bot);}
     };
 
     class KickInterruptEnemyHealerSpellTrigger : public InterruptEnemyHealerTrigger

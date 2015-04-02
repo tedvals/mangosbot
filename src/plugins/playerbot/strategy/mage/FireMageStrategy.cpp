@@ -16,8 +16,9 @@ public:
         creators["combustion"] = &combustion;
         creators["burst"] = &combustion;
         creators["dragon's breath"] = dragons_breath;
-	creators["cone of cold"] = cone_of_cold;        
+	creators["cone of cold"] = cone_of_cold;
 	creators["blast wave"] = blast_wave;
+	creators["frost nova"] = frost_nova;
     }
 private:
     static ActionNode* fireball(PlayerbotAI* ai)
@@ -68,6 +69,13 @@ private:
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("frost nova"), NULL),
             /*C*/ NextAction::array(0, new NextAction("flamestrike", 50.0f), NULL));
+    }
+    static ActionNode* frost_nova(PlayerbotAI* ai)
+    {
+        return new ActionNode ("frost nova",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("blink"), NULL),
+            /*C*/ NextAction::array(0, new NextAction("relocate", 50.0f), NULL));
     }
 };
 

@@ -27,13 +27,13 @@ namespace ai
             creators["medium health"] = &TriggerContext::MediumHealth;
             creators["high health"] = &TriggerContext::HighHealth;
             creators["almost full health"] = &TriggerContext::AlmostFullHealth;
-	    creators["full health"] = &TriggerContext::FullHealth;
+            creators["full health"] = &TriggerContext::FullHealth;
             creators["almost dead"] = &TriggerContext::AlmostDead;
 
             creators["low mana"] = &TriggerContext::LowMana;
             creators["medium mana"] = &TriggerContext::MediumMana;
-	    creators["almost full mana"] = &TriggerContext::AlmostFullMana;
-	    creators["full mana"] = &TriggerContext::FullMana;
+            creators["almost full mana"] = &TriggerContext::AlmostFullMana;
+            creators["full mana"] = &TriggerContext::FullMana;
             creators["drink mana"] = &TriggerContext::DrinkMana;
 
             creators["party member almost dead"] = &TriggerContext::PartyMemberAlmostDead;

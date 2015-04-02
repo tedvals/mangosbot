@@ -61,7 +61,7 @@ namespace ai
 
        virtual bool isUseful()
         {
-            return CastOwnDebuffSpellAction::isUseful() && !ai->HasOwnAura("curse of weakness",  GetTarget())  && !ai->HasOwnAura("curse of the elements",  GetTarget());
+            return CastOwnDebuffSpellAction::isUseful() && !ai->HasOwnAura("curse of doom",  GetTarget());
             }
 	};
 
@@ -105,7 +105,7 @@ namespace ai
 
         virtual bool isUseful()
         {
-            return CastOwnDebuffSpellAction::isUseful() && !ai->HasOwnAura("curse of weakness",  GetTarget())  && !ai->HasOwnAura("curse of agony",  GetTarget());
+            return CastOwnDebuffSpellAction::isUseful() && !ai->HasOwnAura("curse of weakness",  GetTarget());
             }
 	};
 
@@ -506,6 +506,8 @@ namespace ai
                 return true;
             else if (AI_VALUE2(bool, "target player", "current target"))
                 return true;
+            else if (AI_VALUE2(bool, "in party", "self target"))
+                return false;
             else
             {
                 list<ObjectGuid> targets = AI_VALUE(list<ObjectGuid>, "possible targets");
@@ -526,6 +528,8 @@ namespace ai
         {
             if (AI_VALUE2(bool, "target player", "cc target"))
                 return true;
+             else if (AI_VALUE2(bool, "in party", "self target"))
+                return false;
             else
             {
                 list<ObjectGuid> targets = AI_VALUE(list<ObjectGuid>, "possible targets");

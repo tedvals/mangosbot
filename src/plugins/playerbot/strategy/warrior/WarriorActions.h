@@ -38,7 +38,7 @@ namespace ai
     public:
         CastHeroicStrikeAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "heroic strike") {}
         virtual bool IsInstant() {return true;}
-        virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE2(uint8, "rage", "self target") > 40; }
+        virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE(uint8, "melee attacker count") <= 1 && AI_VALUE2(uint8, "rage", "self target") > 30; }
     };
 
     // all
@@ -47,7 +47,7 @@ namespace ai
         CastCleaveAction(PlayerbotAI* ai) : CastMeleeSpellAction(ai, "cleave") {}
 
         virtual bool IsInstant() {return true;}
-        virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE(uint8, "melee attacker count") > 1 && AI_VALUE2(uint8, "rage", "self target") > 40; }
+        virtual bool isUseful() { return CastMeleeSpellAction::isUseful() && AI_VALUE(uint8, "melee attacker count") > 1 && AI_VALUE2(uint8, "rage", "self target") > 30; }
     };
 
     // battle, berserker

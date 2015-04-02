@@ -235,6 +235,8 @@ public:
         creators["sinister strike"] = &sinister_strike;
         creators["adrenaline rush"] = &adrenaline_rush;
         creators["boost"] = &adrenaline_rush;
+        creators["garrote"] = &garrote;
+        creators["cheap shot"] = &cheap_shot;
     }
 private:
     static ActionNode* riposte(PlayerbotAI* ai)
@@ -256,6 +258,20 @@ private:
         return new ActionNode ("adrenaline rush",
             /*P*/ NULL,
             /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* garrote(PlayerbotAI* ai)
+    {
+        return new ActionNode ("garrote",
+            /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("cheap shot"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* cheap_shot(PlayerbotAI* ai)
+    {
+        return new ActionNode ("cheap shot",
+            /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("sinister strike"), NULL),
             /*C*/ NULL);
     }
 };
@@ -473,7 +489,7 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
         "garrote",
-        NextAction::array(0, new NextAction("ambush", ACTION_EMERGENCY + 8), NULL)));
+        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",

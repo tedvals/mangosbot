@@ -104,6 +104,7 @@ namespace ai
             creators["grind target"] = &ValueContext::grind_target;
             creators["rti target"] = &ValueContext::rti_target;
             creators["duel target"] = &ValueContext::duel_target;
+            creators["in party"] = &ValueContext::in_party;
             creators["party member to dispel"] = &ValueContext::party_member_to_dispel;
             creators["party member dispel root"] = &ValueContext::party_member_dispel_root;
             creators["party member dispel frozen"] = &ValueContext::party_member_dispel_frozen;
@@ -276,6 +277,7 @@ namespace ai
         static UntypedValue* party_member_without_own_aura(PlayerbotAI* ai) { return new PartyMemberWithoutOwnAuraValue(ai); }
         static UntypedValue* master_without_own_aura(PlayerbotAI* ai) { return new MasterWithoutOwnAuraValue(ai); }
         static UntypedValue* attacker_without_own_aura(PlayerbotAI* ai) { return new AttackerWithoutOwnAuraTargetValue(ai); }
+        static UntypedValue* in_party(PlayerbotAI* ai) { return new IsPartyValue(ai); }
         static UntypedValue* party_member_to_heal(PlayerbotAI* ai) { return new PartyMemberToHeal(ai); }
         static UntypedValue* party_member_to_resurrect(PlayerbotAI* ai) { return new PartyMemberToResurrect(ai); }
         static UntypedValue* party_member_to_dispel(PlayerbotAI* ai) { return new PartyMemberToDispel(ai); }
