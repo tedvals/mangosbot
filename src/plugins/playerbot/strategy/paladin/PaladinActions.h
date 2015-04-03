@@ -117,6 +117,7 @@ namespace ai
 	{
 	public:
 		CastSealOfLightAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "seal of light") {}
+		virtual bool isUseful();
 	};
 
 	class CastSealOfWisdomAction : public CastBuffSpellAction

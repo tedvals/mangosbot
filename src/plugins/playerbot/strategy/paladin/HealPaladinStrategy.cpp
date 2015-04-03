@@ -48,7 +48,7 @@ void MeleeHealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("move behind", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("move behind", ACTION_MOVE), NULL)));
 
     triggers.push_back(new TriggerNode(
         "beacon of light on master",
@@ -64,7 +64,7 @@ void MeleeHealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "full mana",
-        NextAction::array(0, new NextAction("seal of righteousness", ACTION_MEDIUM_HEAL + 3), NULL)));
+        NextAction::array(0, new NextAction("seal of righteousness", ACTION_HIGH + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member medium health",

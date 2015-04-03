@@ -53,15 +53,15 @@ namespace ai
 	};
 
 
-	class CastCurseOfAgonyAction : public CastOwnDebuffSpellAction
+	class CastCurseOfAgonyAction : public CastDebuffSpellAction
 	{
 	public:
-		CastCurseOfAgonyAction(PlayerbotAI* ai) : CastOwnDebuffSpellAction(ai, "curse of agony") {}
+		CastCurseOfAgonyAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "curse of agony") {}
 		virtual bool IsInstant() {return true;}
 
        virtual bool isUseful()
         {
-            return CastOwnDebuffSpellAction::isUseful() && !ai->HasOwnAura("curse of doom",  GetTarget());
+            return CastDebuffSpellAction::isUseful() && !ai->HasAura("curse of doom",  GetTarget());
             }
 	};
 
@@ -80,10 +80,9 @@ namespace ai
 
         virtual bool isUseful()
         {
-            return CastDebuffSpellAction::isUseful() && !ai->HasOwnAura("curse of agony",  GetTarget());
+            return CastDebuffSpellAction::isUseful() && !ai->HasAura("curse of agony",  GetTarget());
             }
 	};
-
 
 	class CastCurseOfWeaknessAction : public CastOwnDebuffSpellAction
 	{

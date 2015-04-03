@@ -12,7 +12,7 @@ bool SealTrigger::IsActive()
 	return !ai->HasAura("seal of justice", target) &&
         	!ai->HasAura("seal of command", target) &&
         	!ai->HasAura("seal of vengeance", target) &&
-		!ai->HasAura("seal of wisdom", target) &&
+//		!ai->HasAura("seal of wisdom", target) &&
 		!ai->HasAura("seal of righteousness", target) &&
 		AI_VALUE2(uint8, "mana", "self target") >= sPlayerbotAIConfig.lowMana/2;
 }
@@ -20,15 +20,14 @@ bool SealTrigger::IsActive()
 bool SealManaLowTrigger::IsActive()
 {
 	Unit* target = GetTarget();
-	return !ai->HasAura("seal of wisdom", target) &&
-		AI_VALUE2(uint8, "health", "self target") >= sPlayerbotAIConfig.criticalHealth && AI_VALUE2(uint8, "mana", "self target") < sPlayerbotAIConfig.lowMana/2;
+	return !ai->HasAura("seal of wisdom", target) && AI_VALUE2(uint8, "mana", "self target") < sPlayerbotAIConfig.lowMana;
 }
 
 bool SealLowTrigger::IsActive()
 {
 	Unit* target = GetTarget();
 	return !ai->HasAura("seal of light", target) &&
-		AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.criticalHealth && AI_VALUE2(uint8, "mana", "self target") < sPlayerbotAIConfig.lowMana/2;
+		AI_VALUE2(uint8, "health", "self target") < sPlayerbotAIConfig.criticalHealth;
 }
 
 bool CrusaderAuraTrigger::IsActive()

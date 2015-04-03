@@ -82,17 +82,18 @@ bool  CastSealOfCommandAction::isUseful()
 
 bool  CastSealOfWisdomAction::isUseful()
 {
-      Player* player = ai->GetBot();
-      if (player)
-        return ai->IsHeal(player);
-      else return false;
+      return (AI_VALUE2(uint8, "mana", "self target") <= sPlayerbotAIConfig.lowMana);
+}
+
+bool  CastSealOfLightAction::isUseful()
+{
+    return (AI_VALUE2(uint8, "health", "self target") <= sPlayerbotAIConfig.lowHealth);
 }
 
 bool  CastSealOfVengeanceAction::isUseful()
 {
      return (AI_VALUE(uint8, "melee attacker count") < 2);
 }
-
 
 bool CastInstantFlashOfLightAction::isUseful()
 {
