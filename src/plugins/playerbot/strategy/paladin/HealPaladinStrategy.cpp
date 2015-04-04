@@ -13,6 +13,7 @@ public:
     {
         creators["seal of righteousness"] = &seal_of_righteousness;
         creators["seal of wisdom"] = &seal_of_wisdom;
+        creators["holy shock on party"] = &holy_shock_on_party;
     }
 
 private:
@@ -30,6 +31,13 @@ private:
             /*A*/ NextAction::array(0, new NextAction("seal of light"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* holy_shock_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("holy shock on party",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("holy shock on attacker"), NULL),
+            /*C*/ NULL);
+    }
 };
 
 MeleeHealPaladinStrategy::MeleeHealPaladinStrategy(PlayerbotAI* ai) : GenericPaladinStrategy(ai)
@@ -39,7 +47,7 @@ MeleeHealPaladinStrategy::MeleeHealPaladinStrategy(PlayerbotAI* ai) : GenericPal
 
 NextAction** MeleeHealPaladinStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("judgement of wisdom", ACTION_NORMAL + 1), NULL);
+    return NextAction::array(0, new NextAction("judgement of wisdom", ACTION_NORMAL + 2), new NextAction("holy shock on party", ACTION_NORMAL + 2), NULL);
 }
 
 void MeleeHealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -65,6 +73,14 @@ void MeleeHealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "full mana",
         NextAction::array(0, new NextAction("seal of righteousness", ACTION_HIGH + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "party member almost full health",
+        NextAction::array(0, new NextAction("holy shock on party", ACTION_LIGHT_HEAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master almost full health",
+        NextAction::array(0, new NextAction("holy shock on master", ACTION_LIGHT_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member medium health",
@@ -150,7 +166,7 @@ HealPaladinStrategy::HealPaladinStrategy(PlayerbotAI* ai) : RangedCombatStrategy
 
 NextAction** HealPaladinStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("ranged judgement of wisdom", ACTION_NORMAL + 1), NULL);
+    return NextAction::array(0, new NextAction("ranged judgement of wisdom", ACTION_NORMAL + 2), new NextAction("exorcism heal", ACTION_NORMAL), NULL);
 }
 
 void HealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

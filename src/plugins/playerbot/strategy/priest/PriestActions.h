@@ -368,13 +368,13 @@ namespace ai
 
     BEGIN_SPELL_ACTION(CastHolyFireAction, "holy fire")
         virtual bool isUseful() {
-            return (!ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && AI_VALUE2(uint8, "mana", "self target") >= 50);
+            return (!ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && (AI_VALUE2(uint8, "mana", "self target") >= 60 && AI_VALUE2(uint8, "aoe heal", "almost full") == 0));
         }
     END_SPELL_ACTION()
 
     BEGIN_SPELL_ACTION(CastSmiteAction, "smite")
         virtual bool isUseful() {
-			return (!ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && ((AI_VALUE2(uint8, "mana", "self target") >= 50) || ai->HasAura("surge of light", AI_VALUE(Unit*, "self target"))));
+			return (!ai->HasAura("shadowform", AI_VALUE(Unit*, "self target")) && ((AI_VALUE2(uint8, "mana", "self target") >= 60 && AI_VALUE2(uint8, "aoe heal", "almost full") == 0) || ai->HasAura("surge of light", AI_VALUE(Unit*, "self target"))));
         }
 	virtual NextAction** getAlternatives()
         {

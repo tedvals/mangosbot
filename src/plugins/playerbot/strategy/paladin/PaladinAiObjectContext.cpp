@@ -202,6 +202,8 @@ namespace ai
                 creators["hand of reckoning"] = &AiObjectContextInternal::hand_of_reckoning;
                 creators["avenger's shield"] = &AiObjectContextInternal::avengers_shield;
                 creators["exorcism"] = &AiObjectContextInternal::exorcism;
+                creators["exorcism heal"] = &AiObjectContextInternal::exorcism_heal;
+                creators["instant exorcism"] = &AiObjectContextInternal::instant_exorcism;
                 creators["judgement of light"] = &AiObjectContextInternal::judgement_of_light;
                 creators["judgement of wisdom"] = &AiObjectContextInternal::judgement_of_wisdom;
                 creators["ranged judgement of light"] = &AiObjectContextInternal::ranged_judgement_of_light;
@@ -236,6 +238,7 @@ namespace ai
                 creators["holy shock"] = &AiObjectContextInternal::holy_shock;
                 creators["holy shock on party"] = &AiObjectContextInternal::holy_shock_on_party;
                 creators["holy shock on master"] = &AiObjectContextInternal::holy_shock_on_master;
+                creators["holy shock on attacker"] = &AiObjectContextInternal::holy_shock_on_attacker;
                 creators["divine plea"] = &AiObjectContextInternal::divine_plea;
                 creators["divine favor"] = &AiObjectContextInternal::divine_favor;
                 creators["divine illumination"] = &AiObjectContextInternal::divine_illumination;
@@ -289,6 +292,8 @@ namespace ai
             static Action* hand_of_reckoning(PlayerbotAI* ai) { return new CastHandOfReckoningAction(ai); }
             static Action* avengers_shield(PlayerbotAI* ai) { return new CastAvengersShieldAction(ai); }
             static Action* exorcism(PlayerbotAI* ai) { return new CastExorcismAction(ai); }
+            static Action* exorcism_heal(PlayerbotAI* ai) { return new CastExorcismHealAction(ai); }
+            static Action* instant_exorcism(PlayerbotAI* ai) { return new CastInstantExorcismAction(ai); }
             static Action* judgement_of_light(PlayerbotAI* ai) { return new CastJudgementOfLightAction(ai); }
             static Action* judgement_of_wisdom(PlayerbotAI* ai) { return new CastJudgementOfWisdomAction(ai); }
             static Action* ranged_judgement_of_light(PlayerbotAI* ai) { return new CastRangedJudgementOfLightAction(ai); }
@@ -321,6 +326,7 @@ namespace ai
             static Action* holy_shock(PlayerbotAI* ai) { return new CastHolyShockAction(ai); }
             static Action* holy_shock_on_party(PlayerbotAI* ai) { return new CastHolyShockOnPartyAction(ai); }
             static Action* holy_shock_on_master(PlayerbotAI* ai) { return new CastHolyShockOnMasterAction(ai); }
+            static Action* holy_shock_on_attacker(PlayerbotAI* ai) { return new CastHolyShockOnAttackerAction(ai); }
             static Action* divine_plea(PlayerbotAI* ai) { return new CastDivinePleaAction(ai); }
             static Action* divine_favor(PlayerbotAI* ai) { return new CastDivineFavorAction(ai); }
             static Action* aura_mastery(PlayerbotAI* ai) { return new CastAuraMasteryAction(ai); }

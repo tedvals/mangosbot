@@ -465,12 +465,12 @@ namespace ai
         }
     };
 
-   class CastLightningBoltAction2 : public CastSpellAction
+   class CastLightningBoltHealAction : public CastSpellAction
     {
     public:
-        CastLightningBoltAction2(PlayerbotAI* ai) : CastSpellAction(ai, "lightning bolt") {}
+        CastLightningBoltHealAction(PlayerbotAI* ai) : CastSpellAction(ai, "lightning bolt") {}
         virtual bool isUseful() {
-            return (CastSpellAction::isUseful() && AI_VALUE2(uint8, "mana", "self target") > 60);
+            return (CastSpellAction::isUseful() && (AI_VALUE2(uint8, "mana", "self target") >= 60 && AI_VALUE2(uint8, "aoe heal", "almost full") == 0));
         }
     };
 

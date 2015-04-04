@@ -13,6 +13,8 @@ public:
         creators["blessing of might"] = &blessing_of_might;
         creators["blessing of kings"] = &blessing_of_kings;
         creators["crusader strike"] = &crusader_strike;
+        creators["instant flash of light on master"] = &instant_exorcism;
+        creators["instant exorcism"] = &instant_flash_of_light;
     }
 
 private:
@@ -37,6 +39,20 @@ private:
             /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
             /*C*/ NULL);
     }
+    static ActionNode* instant_exorcism(PlayerbotAI* ai)
+    {
+        return new ActionNode ("instant exorcism",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("instant flash of light on master"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* instant_flash_of_light(PlayerbotAI* ai)
+    {
+        return new ActionNode ("instant flash of light on master",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("instant flash of light on party"), NULL),
+            /*C*/ NULL);
+    }
 };
 
 DpsPaladinStrategy::DpsPaladinStrategy(PlayerbotAI* ai) : GenericPaladinStrategy(ai)
@@ -46,7 +62,7 @@ DpsPaladinStrategy::DpsPaladinStrategy(PlayerbotAI* ai) : GenericPaladinStrategy
 
 NextAction** DpsPaladinStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("crusader strike", ACTION_NORMAL + 1), NULL);
+    return NextAction::array(0, new NextAction("instant exorcism", ACTION_NORMAL + 2), new NextAction("crusader strike", ACTION_NORMAL + 1), NULL);
 }
 
 void DpsPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -60,6 +76,10 @@ void DpsPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "party member low health",
         NextAction::array(0, new NextAction("instant flash of light on party", ACTION_MEDIUM_HEAL + 1), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "master medium health",
+        NextAction::array(0, new NextAction("instant flash of light on master", ACTION_MEDIUM_HEAL + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium health",

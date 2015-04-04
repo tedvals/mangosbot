@@ -86,9 +86,9 @@ namespace ai
                 creators["no spellstone"] = &TriggerFactoryInternal::HasSpellstone;
                 creators["no soulstone"] = &TriggerFactoryInternal::HasSoulstone;
                 creators["corruption"] = &TriggerFactoryInternal::corruption;
-                //creators["corruption on attacker"] = &TriggerFactoryInternal::corruption_on_attacker;
+                creators["corruption on attacker"] = &TriggerFactoryInternal::corruption_on_attacker;
                 creators["no curse"] = &TriggerFactoryInternal::curse_of_agony;
-                //creators["curse on attacker"] = &TriggerFactoryInternal::curse_on_attacker;
+                creators["curse on attacker"] = &TriggerFactoryInternal::curse_on_attacker;
                 creators["banish"] = &TriggerFactoryInternal::banish;
              //   creators["spellstone"] = &TriggerFactoryInternal::spellstone;
              //   creators["firestone"] = &TriggerFactoryInternal::firestone;
@@ -115,9 +115,9 @@ namespace ai
             static Trigger* HasSoulstone(PlayerbotAI* ai) { return new HasSoulstoneTrigger(ai); }
             static Trigger* soulstone_on_master(PlayerbotAI* ai) { return new SoulstoneOnMasterTrigger(ai); }
             static Trigger* corruption(PlayerbotAI* ai) { return new NoCorruptionTrigger(ai); }
-            //static Trigger* corruption_on_attacker(PlayerbotAI* ai) { return new CorruptionOnAttackerTrigger(ai); }
+            static Trigger* corruption_on_attacker(PlayerbotAI* ai) { return new CorruptionOnAttackerTrigger(ai); }
             static Trigger* curse_of_agony(PlayerbotAI* ai) { return new NoCurseTrigger(ai); }
-            //static Trigger* curse_on_attacker(PlayerbotAI* ai) { return new CurseOnAttackerTrigger(ai); }
+            static Trigger* curse_on_attacker(PlayerbotAI* ai) { return new CurseOnAttackerTrigger(ai); }
             static Trigger* banish(PlayerbotAI* ai) { return new BanishTrigger(ai); }
        //     static Trigger* spellstone(PlayerbotAI* ai) { return new SpellstoneTrigger(ai); }
        //     static Trigger* firestone(PlayerbotAI* ai) { return new FirestoneTrigger(ai); }

@@ -55,12 +55,12 @@ bool CastNaturesSwiftnessOnPartyAction::Execute(Event event)
     return ai->CastSpell("nature's swiftness", GetTarget());
 }
 
-bool CastMoonfireAction2::Execute(Event event)
+bool CastMoonfireHealAction::Execute(Event event)
 {
     return ai->CastSpell("moonfire", GetTarget());
 }
 
-bool CastWrathAction2::Execute(Event event)
+bool CastWrathHealAction::Execute(Event event)
 {
     return ai->CastSpell("wrath", GetTarget());
 }

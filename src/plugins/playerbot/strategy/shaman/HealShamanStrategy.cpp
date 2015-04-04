@@ -61,7 +61,7 @@ HealShamanStrategy::HealShamanStrategy(PlayerbotAI* ai) : GenericShamanStrategy(
 
 NextAction** HealShamanStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("lightning bolt2", 10.0f),NULL);
+    return NextAction::array(0, new NextAction("lightning bolt heal", 10.0f),NULL);
 }
 
 void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

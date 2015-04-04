@@ -129,7 +129,7 @@ namespace ai
         virtual ActionThreatType getThreatType() { return ACTION_THREAT_AOE; }
     };
 
-class CastOwnDebuffSpellOnAttackerAction : public CastOwnDebuffSpellAction
+    class CastOwnDebuffSpellOnAttackerAction : public CastOwnDebuffSpellAction
     {
     public:
         CastOwnDebuffSpellOnAttackerAction(PlayerbotAI* ai, string spell) : CastOwnDebuffSpellAction(ai, spell) {}

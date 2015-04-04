@@ -104,6 +104,10 @@ void DpsAoeWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("shadowfury", 29.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "corruption on attacker",
+        NextAction::array(0, new NextAction("corruption on attacker", 15.0f),  NULL)));
+
+    triggers.push_back(new TriggerNode(
         "corruption",
         NextAction::array(0, new NextAction("seed of corruption", 30.0f), NULL)));
 }
@@ -114,7 +118,6 @@ public:
     WarlockDebuffStrategyActionNodeFactory()
     {
         creators["curse of the elements"] = curse_of_the_elements;
-        creators["curse of the elements on attacker"] = curse_of_the_elements_on_attacker;
     }
 private:
     static ActionNode* curse_of_the_elements(PlayerbotAI* ai)
@@ -122,13 +125,6 @@ private:
         return new ActionNode ("curse of the elements",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("curse of weakness"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* curse_of_the_elements_on_attacker(PlayerbotAI* ai)
-    {
-        return new ActionNode ("curse of the elements on attacker",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("curse of weakness on attacker"), NULL),
             /*C*/ NULL);
     }
 };
@@ -140,11 +136,11 @@ WarlockDebuffStrategy::WarlockDebuffStrategy(PlayerbotAI* ai) : CombatStrategy(a
 
 void WarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-/*
+
      triggers.push_back(new TriggerNode(
         "curse on attacker",
-        NextAction::array(0, new NextAction("curse of the elements on attacker", 30.0f), NULL)));
-*/
+        NextAction::array(0, new NextAction("curse of the elements on attacker", 12.0f), NULL)));
+
      triggers.push_back(new TriggerNode(
         "no curse",
         NextAction::array(0, new NextAction("curse of the elements", 30.0f), NULL)));
@@ -176,11 +172,10 @@ DpsWarlockDebuffStrategy::DpsWarlockDebuffStrategy(PlayerbotAI* ai) : CombatStra
 
 void DpsWarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
-/*
     triggers.push_back(new TriggerNode(
         "curse on attacker",
-        NextAction::array(0, new NextAction("curse of agony on attacker", 25.0f), NULL)));
-*/
+        NextAction::array(0, new NextAction("curse of agony on attacker", 12.0f), NULL)));
+
   triggers.push_back(new TriggerNode(
         "no curse",
         NextAction::array(0, new NextAction("curse of agony", 25.0f), NULL)));

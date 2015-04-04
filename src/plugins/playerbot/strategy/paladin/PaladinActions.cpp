@@ -105,6 +105,21 @@ bool CastInstantFlashOfLightAction::Execute(Event event)
     return ai->CastSpell("flash of light", GetTarget());
 }
 
+bool CastInstantExorcismAction::isUseful()
+{
+    return ai->HasAura("art of war",bot);
+}
+
+bool CastInstantExorcismAction::Execute(Event event)
+{
+    return ai->CastSpell("exorcism", GetTarget());
+}
+
+bool CastExorcismHealAction::Execute(Event event)
+{
+    return ai->CastSpell("exorcism", GetTarget());
+}
+
 bool CastInstantFlashOfLightOnPartyAction::isUseful()
 {
     return ai->HasAura("art of war",bot);

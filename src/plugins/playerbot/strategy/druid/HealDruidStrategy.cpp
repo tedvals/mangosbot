@@ -178,7 +178,7 @@ HealDruidStrategy::HealDruidStrategy(PlayerbotAI* ai) : GenericDruidStrategy(ai)
 
 NextAction** HealDruidStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("wrath heal", ACTION_NORMAL),NULL);
+    return NextAction::array(0, new NextAction("moonfire heal", ACTION_NORMAL + 1), new NextAction("wrath heal", ACTION_NORMAL),NULL);
 }
 
 void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

@@ -379,47 +379,47 @@ namespace ai
         virtual bool isUseful() { return AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance; }
     };
 
-    class CastImmolateAction : public CastOwnDebuffSpellAction
+    class CastImmolateAction : public CastDebuffSpellAction
     {
     public:
-        CastImmolateAction(PlayerbotAI* ai) : CastOwnDebuffSpellAction(ai, "immolate") {}
+        CastImmolateAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "immolate") {}
  //       virtual bool isUseful() {
  //           return CastSpellAction::isUseful() && !ai->HasOwnAura("immolate", AI_VALUE(Unit*, "current target"));
  //       }
     };
 
-    class CastImmolateOnAttackerAction : public CastOwnDebuffSpellOnAttackerAction
+    class CastImmolateOnAttackerAction : public CastDebuffSpellOnAttackerAction
     {
     public:
-        CastImmolateOnAttackerAction(PlayerbotAI* ai) : CastOwnDebuffSpellOnAttackerAction(ai, "immolate") {}
+        CastImmolateOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "immolate") {}
         virtual bool IsInstant() {return true;}
     };
 
-    class CastCorruptionOnAttackerAction : public CastOwnDebuffSpellOnAttackerAction
+    class CastCorruptionOnAttackerAction : public CastDebuffSpellOnAttackerAction
     {
     public:
-        CastCorruptionOnAttackerAction(PlayerbotAI* ai) : CastOwnDebuffSpellOnAttackerAction(ai, "corruption") {}
+        CastCorruptionOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "corruption") {}
         virtual bool IsInstant() {return true;}
     };
 
-    class CastCurseOfAgonyOnAttackerAction : public CastOwnDebuffSpellOnAttackerAction
+    class CastCurseOfAgonyOnAttackerAction : public CastDebuffSpellOnAttackerAction
     {
     public:
-        CastCurseOfAgonyOnAttackerAction(PlayerbotAI* ai) : CastOwnDebuffSpellOnAttackerAction(ai, "curse of agony") {}
+        CastCurseOfAgonyOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "curse of agony") {}
         virtual bool IsInstant() {return true;}
     };
 
-    class CastCurseOfTheElementsOnAttackerAction : public CastDebuffSpellOnAttackerAction
+    class CastCurseOfTheElementsOnAttackerAction : public CastOwnDebuffSpellOnAttackerAction
     {
     public:
-        CastCurseOfTheElementsOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "curse of the elements") {}
+        CastCurseOfTheElementsOnAttackerAction(PlayerbotAI* ai) : CastOwnDebuffSpellOnAttackerAction(ai, "curse of the elements") {}
         virtual bool IsInstant() {return true;}
     };
 
-    class CastCurseOfWeaknessOnAttackerAction : public CastDebuffSpellOnAttackerAction
+    class CastCurseOfWeaknessOnAttackerAction : public CastOwnDebuffSpellOnAttackerAction
     {
     public:
-        CastCurseOfWeaknessOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "curse of weakness") {}
+        CastCurseOfWeaknessOnAttackerAction(PlayerbotAI* ai) : CastOwnDebuffSpellOnAttackerAction(ai, "curse of weakness") {}
         virtual bool IsInstant() {return true;}
     };
 

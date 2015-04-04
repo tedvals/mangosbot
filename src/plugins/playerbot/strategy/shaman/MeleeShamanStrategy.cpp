@@ -52,7 +52,7 @@ MeleeShamanStrategy::MeleeShamanStrategy(PlayerbotAI* ai) : GenericShamanStrateg
 
 NextAction** MeleeShamanStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("stormstrike", 10.0f), NULL);
+    return NextAction::array(0, new NextAction("stormstrike", 20.0f), NULL);
 }
 
 void MeleeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

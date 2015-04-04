@@ -41,15 +41,15 @@ bool CurseOnAttackerTrigger::IsActive()
             !ai->HasOwnAura("curse of the elements", GetTarget()) &&
             !ai->HasOwnAura("curse of weakness", GetTarget()) &&
             !ai->HasOwnAura("curse of exhaustion", GetTarget()) &&
-            !ai->HasOwnAura("curse of agony", GetTarget()) &&
-            !ai->HasOwnAura("curse of doom", GetTarget());
+            !ai->HasAura("curse of agony", GetTarget()) &&
+            !ai->HasAura("curse of doom", GetTarget());
 }
 
 bool CorruptionOnAttackerTrigger::IsActive()
 {
     return DebuffOnAttackerTrigger::IsActive() &&
-            !ai->HasOwnAura("corruption", GetTarget()) &&
-            !ai->HasOwnAura("seed of corruption", GetTarget());
+            !ai->HasAura("corruption", GetTarget()) &&
+            !ai->HasAura("seed of corruption", GetTarget());
 }
 
 bool NoCurseTrigger::IsActive()
@@ -58,8 +58,8 @@ bool NoCurseTrigger::IsActive()
             !ai->HasOwnAura("curse of the elements", GetTarget()) &&
             !ai->HasOwnAura("curse of weakness", GetTarget()) &&
             !ai->HasOwnAura("curse of exhaustion", GetTarget()) &&
-            !ai->HasOwnAura("curse of agony", GetTarget()) &&
-            !ai->HasOwnAura("curse of doom", GetTarget());
+            !ai->HasAura("curse of agony", GetTarget()) &&
+            !ai->HasAura("curse of doom", GetTarget());
 }
 
 bool NoCorruptionTrigger::IsActive()

@@ -298,25 +298,25 @@ namespace ai
 		CastEntanglingRootsAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "entangling roots") {}
 	};
 
-	class CastWrathAction2 : public CastSpellAction
+	class CastWrathHealAction : public CastSpellAction
     	{
     	public:
-        	CastWrathAction2(PlayerbotAI* ai) : CastSpellAction(ai, "wrath") {}
+        	CastWrathHealAction(PlayerbotAI* ai) : CastSpellAction(ai, "wrath") {}
         	virtual bool isUseful() {
-            	return (CastSpellAction::isUseful() && AI_VALUE2(uint8, "mana", "self target") > 75);
+            	return (CastSpellAction::isUseful() && (AI_VALUE2(uint8, "mana", "self target") >= 60 && AI_VALUE2(uint8, "aoe heal", "almost full") == 0));
         	}
         	virtual bool Execute(Event event);
     	};
 
-	class CastMoonfireAction2 : public CastSpellAction
+	class CastMoonfireHealAction : public CastDebuffSpellAction
     	{
     	public:
-        	CastMoonfireAction2(PlayerbotAI* ai) : CastSpellAction(ai, "moonfire") {}
+        	CastMoonfireHealAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "moonfire") {}
         	virtual bool isUseful() {
-            	return (CastSpellAction::isUseful() && AI_VALUE2(uint8, "mana", "self target") > 75);
+            	return (CastDebuffSpellAction::isUseful() && (AI_VALUE2(uint8, "mana", "self target") >= 60 && AI_VALUE2(uint8, "aoe heal", "almost full") == 0));
         	}
 
-        	virtual bool isPossible() { return ai->HasAura("caster form", bot);}
+        	virtual bool isPossible() { return !ai->HasAura("tree form", bot);}
 
         	virtual bool Execute(Event event);
         	virtual bool IsInstant() {return true;}

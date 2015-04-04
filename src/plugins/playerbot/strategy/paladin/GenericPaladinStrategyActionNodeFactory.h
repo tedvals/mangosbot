@@ -22,6 +22,7 @@ namespace ai
             creators["divine shield"] = &divine_shield;
             creators["flash of light"] = &flash_of_light;
             creators["flash of light on party"] = &flash_of_light_on_party;
+            creators["flash of light on master"] = &flash_of_light_on_master;
             creators["holy wrath"] = &holy_wrath;
             creators["lay on hands"] = &lay_on_hands;
             creators["lay on hands on party"] = &lay_on_hands_on_party;
@@ -34,7 +35,7 @@ namespace ai
     {
         return new ActionNode ("seal of vengeance",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("seal of command"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("seal of righteousness"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* seal_of_command(PlayerbotAI* ai)
@@ -147,6 +148,13 @@ namespace ai
             return new ActionNode ("flash of light on party",
                 /*P*/ NULL,
                 /*A*/ NextAction::array(0, new NextAction("holy light on party"), NULL),
+                /*C*/ NULL);
+        }
+         static ActionNode* flash_of_light_on_master(PlayerbotAI* ai)
+        {
+            return new ActionNode ("flash of light on master",
+                /*P*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("holy light on master"), NULL),
                 /*C*/ NULL);
         }
         static ActionNode* holy_wrath(PlayerbotAI* ai)

@@ -256,6 +256,25 @@ namespace ai
         virtual bool IsInstant() {return true;}
     };
 
+    class CastHolyShockOnAttackerAction : public CastSpellAction
+	{
+    public:
+	    CastHolyShockOnAttackerAction(PlayerbotAI* ai) : CastSpellAction(ai, "holy shock") {}
+	    virtual bool IsInstant() {return true;}
+	    virtual string getName() { return "holy shock on attacker"; }
+
+        virtual string GetTargetName() { return "current target"; }
+
+        virtual bool isUseful() {
+            	return (CastSpellAction::isUseful() && (AI_VALUE2(uint8, "mana", "self target") >= 60 && AI_VALUE2(uint8, "aoe heal", "almost full") == 0));
+        	}
+
+        virtual bool Execute(Event event)
+        {
+            return ai->CastSpell("holy shock", GetTarget());
+        }
+	};
+
     class CastSacredShieldOnPartyAction : public HealPartyMemberAction
     {
     public:
@@ -295,6 +314,14 @@ namespace ai
     {
     public:
         CastInstantFlashOfLightAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "flash of light") {}
+        virtual bool isUseful();
+        virtual bool Execute(Event event);
+    };
+
+    class CastInstantExorcismAction : public CastSpellAction
+    {
+    public:
+        CastInstantExorcismAction(PlayerbotAI* ai) : CastSpellAction(ai, "instant flash of light") {}
         virtual bool isUseful();
         virtual bool Execute(Event event);
     };
@@ -603,6 +630,16 @@ namespace ai
 
 	BEGIN_SPELL_ACTION(CastExorcismAction, "exorcism")
 	END_SPELL_ACTION()
+
+	class CastExorcismHealAction : public CastSpellAction
+    	{
+    	public:
+        	CastExorcismHealAction(PlayerbotAI* ai) : CastSpellAction(ai, "exorcism") {}
+        	virtual bool isUseful() {
+            	return (CastSpellAction::isUseful() && (AI_VALUE2(uint8, "mana", "self target") >= 60 && AI_VALUE2(uint8, "aoe heal", "almost full") == 0));
+        	}
+        	virtual bool Execute(Event event);
+    	};
 
 	class CastHolyShieldAction : public CastBuffSpellAction
 	{
