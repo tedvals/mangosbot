@@ -17390,7 +17390,8 @@ bool Player::LoadFromDB(ObjectGuid guid, SQLQueryHolder *holder)
         GetByteValue(PLAYER_BYTES, 0))) // skin color
     {
         TC_LOG_ERROR("entities.player", "Player %s has wrong Appearance values (Hair/Skin/Color), can't be loaded.", guid.ToString().c_str());
-        return false;
+        //return false;    
+        //hack for playerbot - will solve later
     }
 
     SetUInt32Value(PLAYER_FLAGS, fields[11].GetUInt32());
