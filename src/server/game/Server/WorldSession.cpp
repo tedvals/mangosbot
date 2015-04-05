@@ -244,6 +244,7 @@ void WorldSession::SendPacket(WorldPacket* packet)
         return;
 #endif
 
+    TC_LOG_TRACE("network.opcode", "S->C: %s %s", GetPlayerInfo().c_str(), GetOpcodeNameForLogging(packet->GetOpcode()).c_str());
     m_Socket->SendPacket(*packet);
 }
 
