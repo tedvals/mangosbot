@@ -151,7 +151,7 @@ namespace ai
                 creators["misdirection on party"] = &AiObjectContextInternal::misdirection_on_party;
                 creators["wyvern sting"] = &AiObjectContextInternal::wyvern_sting;
                 creators["wyvern sting on cc"] = &AiObjectContextInternal::wyvern_sting_on_cc;
-                creators["prepare attack"] = &AiObjectContextInternal::AiObjectContextInternal::aspect_of_the_dragonhawk;
+                creators["prepare attack"] = &AiObjectContextInternal::aspect_of_the_dragonhawk;
                 creators["viper sting"] = &AiObjectContextInternal::viper_sting;
                 creators["scorpid sting"] = &AiObjectContextInternal::scorpid_sting;
                 creators["hunter's mark"] = &AiObjectContextInternal::hunters_mark;
