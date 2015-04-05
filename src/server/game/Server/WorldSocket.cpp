@@ -179,16 +179,13 @@ bool WorldSocket::ReadDataHandler()
             HandleAuthSession(packet);
             break;
         case CMSG_KEEP_ALIVE:
-<<<<<<< HEAD
             TC_LOG_DEBUG("network", "%s", GetOpcodeNameForLogging(opcode).c_str());
             sScriptMgr->OnPacketReceive(_worldSession, packet);
 #ifdef ELUNA
             if (!sEluna->OnPacketReceive(_worldSession, packet))
                 break;
 #endif
-=======
             LogOpcodeText(opcode, sessionGuard);
->>>>>>> 78d2f934b99d2e92d28648a4f12dcb47767d43db
             break;
         default:
         {
