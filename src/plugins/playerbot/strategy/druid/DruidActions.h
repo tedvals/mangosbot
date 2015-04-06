@@ -316,7 +316,7 @@ namespace ai
             	return (CastDebuffSpellAction::isUseful() && (AI_VALUE2(uint8, "mana", "self target") >= 60 && AI_VALUE2(uint8, "aoe heal", "almost full") == 0));
         	}
 
-        	virtual bool isPossible() { return !ai->HasAura("tree form", bot);}
+        	virtual bool isPossible() { return CastDebuffSpellAction::isPossible() && !ai->HasAura("tree form", bot);}
 
         	virtual bool Execute(Event event);
         	virtual bool IsInstant() {return true;}

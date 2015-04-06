@@ -110,6 +110,7 @@ namespace ai
     {
 	public:
 		CastArcaneIntellectAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "arcane intellect") {}
+		virtual bool IsInstant() { return true; }
 	};
 
 	class CastArcaneIntellectOnPartyAction : public BuffOnPartyAction
@@ -218,6 +219,7 @@ namespace ai
     public:
         CastMoltenArmorAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "molten armor") {}
         virtual string GetTargetName() { return "self target"; }
+		virtual bool IsInstant() { return true; }
         virtual NextAction** getAlternatives()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("mage armor"), NULL), CastBuffSpellAction::getAlternatives());
@@ -229,6 +231,7 @@ namespace ai
     public:
         CastMageArmorAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "mage armor") {}
         virtual string GetTargetName() { return "self target"; }
+		virtual bool IsInstant() { return true; }
         virtual NextAction** getAlternatives()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("ice armor"), NULL), CastBuffSpellAction::getAlternatives());
@@ -240,6 +243,7 @@ namespace ai
     public:
         CastIceArmorAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "ice armor") {}
         virtual string GetTargetName() { return "self target"; }
+		virtual bool IsInstant() { return true; }
         virtual NextAction** getAlternatives()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("frost armor"), NULL), CastBuffSpellAction::getAlternatives());
@@ -250,6 +254,7 @@ namespace ai
     {
     public:
         CastFrostArmorAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "frost armor") {}
+		virtual bool IsInstant() { return true; }
         virtual string GetTargetName() { return "self target"; }
     };
 
@@ -273,12 +278,14 @@ namespace ai
     {
     public:
         CastSpellstealAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "spellsteal") {}
+		virtual bool IsInstant() { return true; }
     };
 
 	class CastLivingBombAction : public CastDebuffSpellAction
 	{
 	public:
 	    CastLivingBombAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "living bomb") {}
+		virtual bool IsInstant() { return true; }
 	};
 
 	class CastConeOfColdAction : public CastSpellAction

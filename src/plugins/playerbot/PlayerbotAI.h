@@ -180,6 +180,7 @@ public:
     PlayerbotSecurity* GetSecurity() { return &security; }
     void SetMovePoint (uint32 mapId, float x, float y, float z) {go_point= true; go_mapId = mapId; go_x = x; go_y = y;go_z = z;}
 	void ResetMovePoint() {go_point = false;}
+	bool IsMoving() { return go_point; }
 	bool GetMovePoint( uint32 mapId, float& x, float& y, float& z)
     {
         if (mapId != go_mapId)

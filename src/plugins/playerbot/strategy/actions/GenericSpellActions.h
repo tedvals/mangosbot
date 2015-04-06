@@ -55,7 +55,8 @@ namespace ai
 
 		virtual string GetTargetName() { return "current target"; };
         virtual bool Execute(Event event);
-        virtual bool isPossible();
+		virtual bool isPossible();
+
 		virtual bool isUseful();
         virtual ActionThreatType getThreatType() { return ACTION_THREAT_SINGLE; }
 

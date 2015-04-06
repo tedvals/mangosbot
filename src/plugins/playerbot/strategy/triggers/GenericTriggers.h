@@ -176,7 +176,7 @@ namespace ai
     public:
         virtual bool IsActive()
 		{
-            return AI_VALUE(uint8, "aoe attacker count");
+			return (AI_VALUE(uint8, "aoe attacker count") > 0) ? true : false;
         }
         virtual string getName() { return "aoe attacker count"; }
 
@@ -333,7 +333,7 @@ namespace ai
     class TargetInSightTrigger : public Trigger {
     public:
         TargetInSightTrigger(PlayerbotAI* ai) : Trigger(ai, "target in sight") {}
-        virtual bool IsActive() { return AI_VALUE(Unit*, "grind target"); }
+        virtual bool IsActive() { return AI_VALUE(Unit*, "grind target")? true:false; }
     };
 
     class DebuffTrigger : public BuffTrigger
