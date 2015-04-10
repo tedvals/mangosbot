@@ -440,12 +440,12 @@ void PlayerbotAI::ChangeEngine(BotState type)
     }
 }
 
-void PlayerbotAI::DoNextAction(int depth, bool instantonly)
+void PlayerbotAI::DoNextAction(int depth, bool instantonly, bool noflee)
 {
     if (bot->IsBeingTeleported() || (GetMaster() && GetMaster()->IsBeingTeleported()))
         return;
 
-    currentEngine->DoNextAction(NULL,depth,instantonly);
+    currentEngine->DoNextAction(NULL,depth,instantonly,noflee);
 
     if (bot->HasAuraType(SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED))
     {

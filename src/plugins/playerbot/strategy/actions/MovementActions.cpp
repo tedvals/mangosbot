@@ -87,28 +87,27 @@ bool MovementAction::FleeTo(Unit* target, uint32 mapId, float x, float y, float 
         return false;
 
     float distance = bot->GetDistance(x, y, z);
+	float targetDistance = bot->GetDistance(target);
+
+	if (targetDistance > sPlayerbotAIConfig.tooCloseDistance)
+	{
+		ai->ResetMovePoint();
+		return true;
+	}
 
     if (distance > sPlayerbotAIConfig.contactDistance)
     {
-        WaitForReach(distance);
+		WaitForReach(distance);
 
         if (bot->IsSitState())
-            bot->SetStandState(UNIT_STAND_STATE_STAND);
+            bot->SetStandState(UNIT_STAND_STATE_STAND);		        
 
 		if (bot->IsNonPositiveSpellCast(true))
-        {
-            bot->CastStop();
-            ai->InterruptSpell();
-            ai->TellMaster("Interrupt spell to flee");
-        }
-
-        float targetDistance = bot->GetDistance(target);
-
-        if (targetDistance > sPlayerbotAIConfig.tooCloseDistance)
-        {
-            ai->ResetMovePoint();
-            return true;
-        }
+		{
+			bot->CastStop();
+			ai->InterruptSpell();
+			ai->TellMaster("Interrupt spell to flee");
+		}
 
         bool generatePath = bot->HasAuraType(SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED) &&
                 !bot->IsFlying() && !bot->IsUnderWater();
@@ -343,7 +342,7 @@ void MovementAction::WaitForReach(float distance)
     if ((player || target) && delay > sPlayerbotAIConfig.globalCoolDown)
         delay = sPlayerbotAIConfig.globalCoolDown;
 
-    ai->DoNextAction(1,true);
+    ai->DoNextAction(1,true,true);
     ai->SetNextCheckDelay((uint32)delay);
 }
 

@@ -4,7 +4,7 @@ std::vector<std::string> split(const std::string &s, char delim);
 #ifndef WIN32
 int strcmpi(std::string s1, std::string s2);
 #endif
-#include "vld.h"
+//#include "vld.h"
 #include "../Spell.h"
 #include "../../shared/Packets/WorldPacket.h"
 #include "../Loot/LootMgr.h"

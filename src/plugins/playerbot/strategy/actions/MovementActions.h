@@ -14,8 +14,13 @@ namespace ai
 
         virtual bool isUseful()
         {
-            return !bot->IsNonMeleeSpellCast(true);
+            return !bot->IsNonPositiveSpellCast(true);
         }
+
+		virtual bool isInstant()
+		{
+			return false;
+		}
 
     protected:
         bool MoveNear(uint32 mapId, float x, float y, float z, float distance = sPlayerbotAIConfig.followDistance);

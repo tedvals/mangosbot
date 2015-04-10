@@ -114,7 +114,7 @@ void Engine::Init()
 }
 
 
-bool Engine::DoNextAction(Unit* unit, int depth, bool instantonly)
+bool Engine::DoNextAction(Unit* unit, int depth, bool instantonly, bool noflee)
 {
     LogAction("--- AI Tick ---");
     if (sPlayerbotAIConfig.logValuesPerTick)
@@ -214,7 +214,7 @@ bool Engine::DoNextAction(Unit* unit, int depth, bool instantonly)
         lastRelevance = 0.0f;
         PushDefaultActions();
         if (queue.Peek() && depth < 2)
-            return DoNextAction(unit, depth + 1,instantonly);
+            return DoNextAction(unit, depth + 1,instantonly,noflee);
     }
 
     if (time(0) - currentTime > 1) {

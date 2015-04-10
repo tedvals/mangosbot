@@ -70,14 +70,14 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 	float botPosX = bot->GetPositionX();
 	float botPosY = bot->GetPositionY();
 	float botPosZ = bot->GetPositionZ();
-	float oldPosX;
-	float oldPosY;
-	float oldPosZ;
-	uint32 mapId = bot->GetMapId();
-	bool movePoint = false;
+	//float oldPosX;
+	//float oldPosY;
+	//float oldPosZ;
+	//uint32 mapId = bot->GetMapId();
+	//bool movePoint = false;
 
-	if (bot)
-		movePoint = bot->GetPlayerbotAI()->GetMovePoint(mapId, oldPosX, oldPosY, oldPosX);
+	//if (bot)
+	//	movePoint = bot->GetPlayerbotAI()->GetMovePoint(mapId, oldPosX, oldPosY, oldPosX);
 
 	for (float distance = maxAllowedDistance; distance >= sPlayerbotAIConfig.tooCloseDistance + 5.0f; distance -= 5.0f)
 	{
@@ -96,11 +96,14 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
             if (!bot->IsWithinLOS(x, y, z))
                 continue;
 
+			if (master && !master->IsWithinLOS(x, y, z))
+				continue;
+
             if (master && master->GetDistance(x, y, z) > sPlayerbotAIConfig.sightDistance)
                 continue;
 
-			if (movePoint && abs(bot->GetDistance(x, y, z) - bot->GetDistance(oldPosX, oldPosY, oldPosX)) < 1.0f)
-				continue;
+		//	if (movePoint && abs(bot->GetDistance(x, y, z) - bot->GetDistance(oldPosX, oldPosY, oldPosX)) < 1.0f)
+		//		continue;
 
             FleePoint *point = new FleePoint(x, y, z);
             calculateDistanceToPlayers(point);
