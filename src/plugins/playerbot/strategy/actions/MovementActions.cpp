@@ -89,7 +89,7 @@ bool MovementAction::FleeTo(Unit* target, uint32 mapId, float x, float y, float 
     float distance = bot->GetDistance(x, y, z);
 	float targetDistance = bot->GetDistance(target);
 
-	if (targetDistance > sPlayerbotAIConfig.tooCloseDistance)
+	if (targetDistance > sPlayerbotAIConfig.tooCloseDistance + 2.0f)
 	{
 		ai->ResetMovePoint();
 		return true;

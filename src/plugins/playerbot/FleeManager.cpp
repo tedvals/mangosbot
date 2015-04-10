@@ -70,14 +70,14 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 	float botPosX = bot->GetPositionX();
 	float botPosY = bot->GetPositionY();
 	float botPosZ = bot->GetPositionZ();
-	//float oldPosX;
-	//float oldPosY;
-	//float oldPosZ;
-	//uint32 mapId = bot->GetMapId();
-	//bool movePoint = false;
+	float oldPosX;
+	float oldPosY;
+	float oldPosZ;
+	uint32 mapId = bot->GetMapId();
+	bool movePoint = false;
 
-	//if (bot)
-	//	movePoint = bot->GetPlayerbotAI()->GetMovePoint(mapId, oldPosX, oldPosY, oldPosX);
+	if (bot)
+		movePoint = bot->GetPlayerbotAI()->GetMovePoint(mapId, oldPosX, oldPosY, oldPosX);
 
 	for (float distance = maxAllowedDistance; distance >= sPlayerbotAIConfig.tooCloseDistance + 5.0f; distance -= 5.0f)
 	{
