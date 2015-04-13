@@ -114,11 +114,11 @@ void CasterAoeShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "medium melee aoe",
-        NextAction::array(0, new NextAction("magma totem", 26.0f), new NextAction("fire nova", 25.0f), new NextAction("chain lightning", 24.0f), NULL)));
+        NextAction::array(0, new NextAction("magma totem", 26.0f), new NextAction("fire nova", 25.0f), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "high aoe",
-        NextAction::array(0, new NextAction("reach melee", ACTION_MOVE + 5), new NextAction("magma totem", 26.0f), new NextAction("fire nova", 26.0f), new NextAction("chain lightning", 24.0f),NULL)));
+ //   triggers.push_back(new TriggerNode(
+ //       "high aoe",
+ //       NextAction::array(0, new NextAction("reach melee", ACTION_MOVE + 5), new NextAction("magma totem", 26.0f), new NextAction("fire nova", 26.0f), new NextAction("chain lightning", 24.0f),NULL)));
 
     triggers.push_back(new TriggerNode(
         "magma totem",

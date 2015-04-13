@@ -174,9 +174,17 @@ void DpsAoeHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "light aoe",
         NextAction::array(0, new NextAction("multi-shot", 20.0f), NULL)));
 
+    triggers.push_back(new TriggerNode(
+		"melee high aoe",
+		NextAction::array(0, new NextAction("explosive trap", 20.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"melee light aoe",
+		NextAction::array(0, new NextAction("freezing trap", 20.0f), NULL)));
+
 	triggers.push_back(new TriggerNode(
 		"high aoe",
-		NextAction::array(0, new NextAction("reach melee", ACTION_MOVE + 5), new NextAction("explosive trap", 20.0f), new NextAction("volley", 20.0f), NULL)));
+		NextAction::array(0, new NextAction("volley", 20.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
 		"serpent sting on attacker",

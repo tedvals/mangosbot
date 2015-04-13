@@ -92,6 +92,7 @@ bool MovementAction::FleeTo(Unit* target, uint32 mapId, float x, float y, float 
 	if (targetDistance > sPlayerbotAIConfig.tooCloseDistance + 2.0f)
 	{
 		ai->ResetMovePoint();
+		//ai->Reset();
 		return true;
 	}
 
@@ -100,7 +101,7 @@ bool MovementAction::FleeTo(Unit* target, uint32 mapId, float x, float y, float 
 		WaitForReach(distance);
 
         if (bot->IsSitState())
-            bot->SetStandState(UNIT_STAND_STATE_STAND);		        
+            bot->SetStandState(UNIT_STAND_STATE_STAND);
 
 		if (bot->IsNonPositiveSpellCast(true))
 		{
@@ -361,11 +362,14 @@ bool MovementAction::Flee(Unit *target)
     if (!IsMovingAllowed())
         return false;
 
+    if (ai->IsMoving())
+        return false;
+
     uint32 mapId = target->GetMapId();
 
     float rx, ry, rz;
 
-    if (ai->GetMovePoint(mapId,rx,ry,rz) && (bot->GetDistance(rx, ry, rz) > (sPlayerbotAIConfig.meleeDistance + sPlayerbotAIConfig.tooCloseDistance)/2 ))
+    if (ai->GetMovePoint(mapId,rx,ry,rz))
     {
             return FleeTo(target,target->GetMapId(), rx, ry, rz);
       }

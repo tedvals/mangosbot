@@ -351,7 +351,6 @@ public:
         creators["cold blood"] = &cold_blood;
         creators["envenom"] = &envenom;
         creators["boost"] = &shadow_dance;
-        creators["hemorrhage"] = &hemorrhage;
         creators["garrote"] = &garrote;
         creators["ambush"] = &ambush;
         creators["cheap shot"] = &cheap_shot;
@@ -403,7 +402,7 @@ private:
     {
         return new ActionNode ("backstab",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("hemorrhage"), NULL),
             /*C*/ NextAction::array(0, new NextAction("move behind"), NULL));
     }
     static ActionNode* ghostly_strike(PlayerbotAI* ai)
@@ -419,13 +418,6 @@ private:
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("hemorrhage"), NULL),
             /*C*/ NextAction::array(0, new NextAction("move behind"), NULL));
-    }
-    static ActionNode* hemorrhage(PlayerbotAI* ai)
-    {
-        return new ActionNode ("hemorrhage",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("sinister strike"), NULL),
-            /*C*/ NULL);
     }
     static ActionNode* envenom(PlayerbotAI* ai)
     {
@@ -480,7 +472,7 @@ DpsDaggerRogueStrategy::DpsDaggerRogueStrategy(PlayerbotAI* ai) : DpsRogueStrate
 
 NextAction** DpsDaggerRogueStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("mutilate", ACTION_NORMAL + 5), new NextAction("backstab", ACTION_NORMAL), NULL);
+    return NextAction::array(0, new NextAction("ambush", ACTION_NORMAL + 7), new NextAction("mutilate", ACTION_NORMAL + 5), new NextAction("backstab", ACTION_NORMAL), NULL);
 }
 
 void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

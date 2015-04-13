@@ -145,6 +145,10 @@ void FireMageAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("living bomb", 25.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "melee medium aoe",
+        NextAction::array(0, new NextAction("blast wave", ACTION_HIGH + 3), new NextAction("flamestrike", 20.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "high aoe",
         NextAction::array(0, new NextAction("flamestrike", 20.0f), NULL)));
 }

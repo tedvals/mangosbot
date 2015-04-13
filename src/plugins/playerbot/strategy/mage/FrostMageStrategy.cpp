@@ -119,9 +119,9 @@ void FrostMageAoeStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 		"high aoe",
 		NextAction::array(0, new NextAction("blizzard", 40.0f), NULL)));
 
-		triggers.push_back(new TriggerNode(
-		"medium aoe",
-		NextAction::array(0, new NextAction("cone of cold", 40.0f), NULL)));
+        triggers.push_back(new TriggerNode(
+        "melee light aoe",
+        NextAction::array(0, new NextAction("cone of cold", ACTION_HIGH + 3), NULL)));
 
 		triggers.push_back(new TriggerNode(
         "enemy too close for spell",

@@ -136,7 +136,7 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
     if (!player)
         return false;
 
-    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Bot %s added", player->GetName().c_str());
+    //sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Bot %s added", player->GetName().c_str());
 
     PlayerbotAI* ai = player->GetPlayerbotAI();
     if (!ai)
