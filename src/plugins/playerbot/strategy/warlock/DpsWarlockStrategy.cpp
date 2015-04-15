@@ -56,7 +56,7 @@ DpsWarlockStrategy::DpsWarlockStrategy(PlayerbotAI* ai) : GenericWarlockStrategy
 
 NextAction** DpsWarlockStrategy::getDefaultActions()
 {
-    return NextAction::array(0,new NextAction("shadow bolt", 12.0f), NULL);
+    return NextAction::array(0, new NextAction("life tap", 13.0f),  new NextAction("shadow bolt", 12.0f), NULL);
 }
 
 void DpsWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -223,7 +223,7 @@ DpsFireWarlockStrategy::DpsFireWarlockStrategy(PlayerbotAI* ai) : GenericWarlock
 
 NextAction** DpsFireWarlockStrategy::getDefaultActions()
 {
-    return NextAction::array(0,new NextAction("conflagrate", 20.0f), new NextAction("chaos bolt", 15.0f), new NextAction("incinerate", 15.0f), NULL);
+    return NextAction::array(0,new NextAction("conflagrate", 20.0f), new NextAction("chaos bolt", 15.0f), new NextAction("life tap", 13.0f),  new NextAction("incinerate", 12.0f), NULL);
 }
 
 void DpsFireWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
