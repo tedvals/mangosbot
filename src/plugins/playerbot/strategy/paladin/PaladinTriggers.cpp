@@ -12,9 +12,9 @@ bool SealTrigger::IsActive()
 	return !ai->HasAura("seal of justice", target) &&
         	!ai->HasAura("seal of command", target) &&
         	!ai->HasAura("seal of vengeance", target) &&
-//		!ai->HasAura("seal of wisdom", target) &&
+		!ai->HasAura("seal of wisdom", target) &&
 		!ai->HasAura("seal of righteousness", target) &&
-		AI_VALUE2(uint8, "mana", "self target") >= sPlayerbotAIConfig.lowMana/2;
+		AI_VALUE2(uint8, "mana", "self target") >= sPlayerbotAIConfig.lowMana;
 }
 
 bool SealManaLowTrigger::IsActive()

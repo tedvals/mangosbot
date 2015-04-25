@@ -50,10 +50,10 @@ namespace ai
     //};
 
 
-    class NoCurseTrigger : public DebuffTrigger
+    class NoCurseTrigger : public OwnDebuffTrigger
 	{
 	public:
-		NoCurseTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "curse of the elements") {}
+		NoCurseTrigger(PlayerbotAI* ai) : OwnDebuffTrigger(ai, "curse of the elements") {}
 		virtual bool IsActive();
 	};
 
@@ -77,10 +77,10 @@ namespace ai
     DEBUFF_TRIGGER(HauntTrigger, "haunt", "haunt");
     DEBUFF_TRIGGER(ImprovedShadowbolt, "shadow Mastery", "shadow Mastery")
 
-    class CurseOnAttackerTrigger : public DebuffOnAttackerTrigger
+    class CurseOnAttackerTrigger : public OwnDebuffOnAttackerTrigger
     {
     public:
-        CurseOnAttackerTrigger(PlayerbotAI* ai) : DebuffOnAttackerTrigger(ai, "curse of agony") {}
+        CurseOnAttackerTrigger(PlayerbotAI* ai) : OwnDebuffOnAttackerTrigger(ai, "curse of agony") {}
         virtual bool IsActive();
     };
 

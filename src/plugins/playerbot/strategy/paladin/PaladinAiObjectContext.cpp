@@ -101,8 +101,8 @@ namespace ai
                 creators["judgement of light"] = &TriggerFactoryInternal::judgement_of_light;
                 creators["blessing"] = &TriggerFactoryInternal::blessing;
                 creators["seal"] = &TriggerFactoryInternal::seal;
-		creators["seal mana"] = &TriggerFactoryInternal::seal_mana;
-		creators["seal health"] = &TriggerFactoryInternal::seal_health;
+				creators["seal mana"] = &TriggerFactoryInternal::seal_mana;
+				creators["seal health"] = &TriggerFactoryInternal::seal_health;
                 creators["art of war"] = &TriggerFactoryInternal::art_of_war;
                 creators["blessing of kings on party"] = &TriggerFactoryInternal::blessing_of_kings_on_party;
                 creators["beacon of light on master"] = &TriggerFactoryInternal::beacon_of_light_on_master;
@@ -133,8 +133,8 @@ namespace ai
             static Trigger* judgement_of_light(PlayerbotAI* ai) { return new JudgementOfLightTrigger(ai); }
             static Trigger* blessing(PlayerbotAI* ai) { return new BlessingTrigger(ai); }
             static Trigger* seal(PlayerbotAI* ai) { return new SealTrigger(ai); }
-	    static Trigger* seal_health(PlayerbotAI* ai) { return new SealLowTrigger(ai); }
-	    static Trigger* seal_mana(PlayerbotAI* ai) { return new SealManaLowTrigger(ai); }
+			static Trigger* seal_health(PlayerbotAI* ai) { return new SealLowTrigger(ai); }
+			static Trigger* seal_mana(PlayerbotAI* ai) { return new SealManaLowTrigger(ai); }
             static Trigger* art_of_war(PlayerbotAI* ai) { return new ArtOfWarTrigger(ai); }
             static Trigger* blessing_of_kings_on_party(PlayerbotAI* ai) { return new BlessingOfKingsOnPartyTrigger(ai); }
             static Trigger* beacon_of_light_on_master(PlayerbotAI* ai) { return new BeaconOfLightOnMasterTrigger(ai); }

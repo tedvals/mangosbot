@@ -37,7 +37,7 @@ bool FirestoneTrigger::IsActive()
 
 bool CurseOnAttackerTrigger::IsActive()
 {
-    return DebuffOnAttackerTrigger::IsActive() &&
+    return OwnDebuffOnAttackerTrigger::IsActive() &&
             !ai->HasOwnAura("curse of the elements", GetTarget()) &&
             !ai->HasOwnAura("curse of weakness", GetTarget()) &&
             !ai->HasOwnAura("curse of exhaustion", GetTarget()) &&
@@ -54,7 +54,7 @@ bool CorruptionOnAttackerTrigger::IsActive()
 
 bool NoCurseTrigger::IsActive()
 {
-    return DebuffTrigger::IsActive() &&
+    return OwnDebuffTrigger::IsActive() &&
             !ai->HasOwnAura("curse of the elements", GetTarget()) &&
             !ai->HasOwnAura("curse of weakness", GetTarget()) &&
             !ai->HasOwnAura("curse of exhaustion", GetTarget()) &&
