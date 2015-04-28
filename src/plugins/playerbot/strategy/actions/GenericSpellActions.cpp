@@ -17,6 +17,21 @@ bool CastSpellAction::isPossible()
 	//if (ai->IsMoving() && !isInstant())
 	//	return false;
 
+	Unit* target = GetTarget();
+	
+	if (!target)
+		target = bot;
+	 	
+	if (!bot->IsWithinLOSInMap(target))
+		return false;
+
+	if (!bot->IsFriendlyTo(target) && target->UnderCc() && !target->isStunned())
+	{
+		if (target->isFrozen() && bot->getClass() == CLASS_MAGE)
+			return  ai->CanCastSpell(spell, GetTarget());
+		else return false;
+	}
+	
 	return ai->CanCastSpell(spell, GetTarget());
 }
 

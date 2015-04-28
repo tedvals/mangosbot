@@ -64,6 +64,13 @@ bool AttackAction::Attack(Unit* target)
         return false;
     }
 
+	if (target && target->UnderCc() && !target->isStunned())
+	{
+		if (target->isFrozen() && bot->getClass() == CLASS_MAGE)
+			return true;
+		else return false;			
+	}	
+
     if (bot->IsMounted())
     {
         WorldPacket emptyPacket;
@@ -89,7 +96,7 @@ bool AttackAction::Attack(Unit* target)
     }
 //needs testing to prevent melee hits from stealth
 /*
-    if (name != "attack" && name != "attack least hp target" && name != "attack my target" && name != "attack rti target" && name != "attack duel target" && name != "attack anything" && name != "attack duel target" && name != "reach melee" && name != "shadowstep" && name != "get behind" )
+    if ( && name != "attack least hp target" && name != "attack my target" && name != "attack rti target" && name != "attack duel target" && name != "attack anything" && name != "attack duel target" && name != "reach melee" && name != "shadowstep" && name != "get behind" )
     {
 
         if (bot->getLevel() > 19 && ai->HasAura("stealth",bot) && (name != "shadowstep" && name != "ambush" && name != "garrote" && name != "cheap shot" && name != "sap"))

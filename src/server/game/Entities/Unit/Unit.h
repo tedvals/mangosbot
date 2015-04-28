@@ -1708,7 +1708,7 @@ class Unit : public WorldObject
 
         bool isDisoriented() { return HasUnitState(UNIT_STATE_CONFUSED); }
 
-        bool UnderCc() {return isStunned()||isDisoriented()||IsPolymorphed()||isPossessed()||isInRoots()||isFrozen(); }
+        bool UnderCc() {return isStunned()||isDisoriented()||IsPolymorphed()||isPossessed()||isFeared()||isFrozen()||isInRoots(); }
 
         CharmInfo* GetCharmInfo() { return m_charmInfo; }
         CharmInfo* InitCharmInfo();
