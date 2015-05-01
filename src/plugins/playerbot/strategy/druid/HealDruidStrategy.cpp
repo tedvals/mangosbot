@@ -199,7 +199,7 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
  	triggers.push_back(new TriggerNode(
         "enemy too close for spell",
-        NextAction::array(0, new NextAction("nature's grasp", ACTION_MOVE + 9), NULL)));
+		NextAction::array(0, new NextAction("nature's grasp", ACTION_MOVE + 9), new NextAction("reposition", ACTION_MOVE + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium health",
