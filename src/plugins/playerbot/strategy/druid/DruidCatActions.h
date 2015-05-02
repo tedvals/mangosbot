@@ -161,16 +161,16 @@ namespace ai {
     public:
         CastInstantRegrowthOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "regrowth",10) {}
 
-        bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura("predator's swiftness", bot) && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana;}
+		bool isUseful() { return HealMasterAction::isUseful() && ai->HasAura("predator's swiftness", bot) && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana && (AI_VALUE2(uint8, "aoe heal", "almost full") == 0); }
         virtual bool IsInstant() {return true;}
     };
-
+	
     class CastInstantHealingTouchOnMasterAction : public HealMasterAction
     {
     public:
         CastInstantHealingTouchOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "healing touch",10) {}
 
-        bool isUseful() {return HealMasterAction::isUseful() && ai->HasAura("predator's swiftness", bot) && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana;}
+		bool isUseful() { return HealMasterAction::isUseful() && ai->HasAura("predator's swiftness", bot) && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana && (AI_VALUE2(uint8, "aoe heal", "almost full") == 0); }
         virtual bool IsInstant() {return true;}
     };
 
@@ -178,7 +178,7 @@ namespace ai {
 	public:
 		CastInstantRegrowthAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "regrowth",5) {}
 
-		virtual bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura("predator's swiftness", bot) && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana;}
+		virtual bool isUseful() { return CastHealingSpellAction::isUseful() && ai->HasAura("predator's swiftness", bot) && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana && (AI_VALUE2(uint8, "aoe heal", "almost full") != 0); }
 		virtual bool IsInstant() {return true;}
 	};
 
@@ -187,7 +187,7 @@ namespace ai {
     public:
         CastInstantRegrowthOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "regrowth",5) {}
 
-        virtual bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura("predator's swiftness", bot) && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana;}
+		virtual bool isUseful() { return HealPartyMemberAction::isUseful() && ai->HasAura("predator's swiftness", bot) && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana && (AI_VALUE2(uint8, "aoe heal", "almost full") != 0); }
         virtual bool IsInstant() {return true;}
     };
 
@@ -195,7 +195,7 @@ namespace ai {
     public:
         CastInstantHealingTouchAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "healing touch",10) {}
 
-        virtual bool isUseful() {return CastHealingSpellAction::isUseful() && ai->HasAura("predator's swiftness", bot) && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana;}
+		virtual bool isUseful() { return CastHealingSpellAction::isUseful() && ai->HasAura("predator's swiftness", bot) && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana && (AI_VALUE2(uint8, "aoe heal", "almost full") != 0); }
         virtual bool IsInstant() {return true;}
     };
 
@@ -204,7 +204,7 @@ namespace ai {
     public:
         CastInstantHealingTouchOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "healing touch",10) {}
 
-        virtual bool isUseful() {return HealPartyMemberAction::isUseful() && ai->HasAura("predator's swiftness", bot) && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana;}
+		virtual bool isUseful() { return HealPartyMemberAction::isUseful() && ai->HasAura("predator's swiftness", bot) && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana && (AI_VALUE2(uint8, "aoe heal", "almost full") != 0); }
         virtual bool IsInstant() {return true;}
     };
 

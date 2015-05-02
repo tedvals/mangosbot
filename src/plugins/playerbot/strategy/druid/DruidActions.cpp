@@ -10,6 +10,57 @@ bool CastCasterFormAction::Execute(Event event)
     return true;
 }
 
+bool CastCatFormAction::Execute(Event event)
+{
+	if (ai->HasAnyAuraOf(GetTarget(), "dire bear form", "bear form", "travel form", "aquatic form",
+		"flight form", "swift flight form", "moonkin form", "tree of life", NULL))
+		ai->RemoveShapeshift();
+	
+	ai->CastSpell("cat form", bot);
+	return true;
+}
+
+bool CastBearFormAction::Execute(Event event)
+{
+	if (ai->HasAnyAuraOf(GetTarget(),"cat form","travel form", "aquatic form",
+		"flight form", "swift flight form", "moonkin form", "tree of life", NULL))
+		ai->RemoveShapeshift();
+
+	ai->CastSpell("bear form", bot);
+	return true;
+}
+
+bool CastDireBearFormAction::Execute(Event event)
+{
+	if (ai->HasAnyAuraOf(GetTarget(), "cat form", "travel form", "aquatic form",
+		"flight form", "swift flight form", "moonkin form", "tree of life", NULL))
+		ai->RemoveShapeshift();
+
+	ai->CastSpell("dire bear form", bot);
+	return true;
+}
+
+bool CastMoonkinFormAction::Execute(Event event)
+{
+	if (ai->HasAnyAuraOf(GetTarget(), "dire bear form", "bear form", "cat form", "travel form", "aquatic form",
+		"flight form", "swift flight form", "tree of life", NULL))
+		ai->RemoveShapeshift();
+
+	ai->CastSpell("moonkin form", bot);
+	return true;
+}
+
+bool CastTreeFormAction::Execute(Event event)
+{
+	if (ai->HasAnyAuraOf(GetTarget(), "dire bear form", "bear form", "cat form", "travel form", "aquatic form",
+		"flight form", "swift flight form", "moonkin form", NULL))
+		ai->RemoveShapeshift();
+
+	ai->CastSpell("tree of life", bot);
+	return true;
+}
+
+
 NextAction** CastAbolishPoisonAction::getAlternatives()
 {
     return NextAction::merge( NextAction::array(0, new NextAction("cure poison"), NULL), CastSpellAction::getPrerequisites());
