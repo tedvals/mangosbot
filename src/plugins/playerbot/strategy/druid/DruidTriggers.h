@@ -180,6 +180,7 @@ namespace ai {
     {
     public:
         PredatorySwiftnessTrigger(PlayerbotAI* ai) : HasAuraTrigger(ai, "predator's swiftness") {}
+		virtual bool IsActive() { return HasAuraTrigger::IsActive() && (AI_VALUE2(uint8, "mana", "self target") >= 30 && AI_VALUE2(uint8, "aoe heal", "almost full") != 0); }
     };
 
     class EclipseSolarTrigger : public HasAuraTrigger

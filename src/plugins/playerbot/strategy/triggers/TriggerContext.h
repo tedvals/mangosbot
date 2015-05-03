@@ -189,7 +189,7 @@ namespace ai
         static Trigger* LowHealth(PlayerbotAI* ai) { return new LowHealthTrigger(ai); }
         static Trigger* MediumHealth(PlayerbotAI* ai) { return new MediumHealthTrigger(ai); }
         static Trigger* AlmostFullHealth(PlayerbotAI* ai) { return new AlmostFullHealthTrigger(ai); }
-	static Trigger* FullHealth(PlayerbotAI* ai) { return new FullHealthTrigger(ai); }
+		static Trigger* FullHealth(PlayerbotAI* ai) { return new FullHealthTrigger(ai); }
         static Trigger* HighHealth(PlayerbotAI* ai) { return new HighHealthTrigger(ai); }
         static Trigger* AlmostDead(PlayerbotAI* ai) { return new AlmostDeadTrigger(ai); }
         static Trigger* CriticalHealth(PlayerbotAI* ai) { return new CriticalHealthTrigger(ai); }
@@ -197,8 +197,8 @@ namespace ai
         static Trigger* TargetAlmostDead(PlayerbotAI* ai) { return new TargetAlmostDeadTrigger(ai); }
         static Trigger* LowMana(PlayerbotAI* ai) { return new LowManaTrigger(ai); }
         static Trigger* MediumMana(PlayerbotAI* ai) { return new MediumManaTrigger(ai); }
-	static Trigger* AlmostFullMana(PlayerbotAI* ai) { return new AlmostFullManaTrigger(ai); }
-	static Trigger* FullMana(PlayerbotAI* ai) { return new FullManaTrigger(ai); }
+		static Trigger* AlmostFullMana(PlayerbotAI* ai) { return new AlmostFullManaTrigger(ai); }
+		static Trigger* FullMana(PlayerbotAI* ai) { return new FullManaTrigger(ai); }
         static Trigger* DrinkMana(PlayerbotAI* ai) { return new DrinkManaTrigger(ai); }
         static Trigger* LightRageAvailable(PlayerbotAI* ai) { return new LightRageAvailableTrigger(ai); }
         static Trigger* MediumRageAvailable(PlayerbotAI* ai) { return new MediumRageAvailableTrigger(ai); }

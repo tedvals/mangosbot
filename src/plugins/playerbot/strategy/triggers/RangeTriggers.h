@@ -16,9 +16,9 @@ namespace ai
 			    if (bot->getClass() == CLASS_HUNTER)
                     return true;
 
-                if (AI_VALUE2(bool, "target normal", "current target") && !target->isSnared())
+				if (AI_VALUE2(bool, "target normal", "current target") && (AI_VALUE(uint8, "melee attacker count") < 2) && (AI_VALUE2(uint8, "health", "self target") > sPlayerbotAIConfig.mediumHealth))
                     return false;
-                else if (target->UnderCc())
+				else if (target->UnderCc() && !target->isFrozen() && !target->isInRoots())
                     return false;
                 else return true;
 			}

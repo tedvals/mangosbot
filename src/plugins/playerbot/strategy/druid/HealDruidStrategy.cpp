@@ -166,7 +166,7 @@ private:
         return new ActionNode ("nature's grasp",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NULL,
-            /*C*/ NextAction::array(0, new NextAction("flee", 49.0f), NULL));
+            /*C*/NULL);
     }
 
 };
@@ -199,7 +199,7 @@ void HealDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
  	triggers.push_back(new TriggerNode(
         "enemy too close for spell",
-        NextAction::array(0, new NextAction("nature's grasp", ACTION_MOVE + 9), NULL)));
+		NextAction::array(0, new NextAction("nature's grasp", ACTION_MOVE + 9), new NextAction("flee", ACTION_MOVE + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium health",

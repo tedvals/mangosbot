@@ -11,6 +11,8 @@ namespace ai {
         virtual bool isUseful() {
 			return CastBuffSpellAction::isUseful() && !ai->HasAura("dire bear form", GetTarget());
 		}
+
+		virtual bool Execute(Event event);
 	};
 
 	class CastDireBearFormAction : public CastBuffSpellAction {
@@ -18,23 +20,31 @@ namespace ai {
 		CastDireBearFormAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "dire bear form") {}
 
         virtual NextAction** getAlternatives() {
-			return NextAction::merge(NextAction::array(0, new NextAction("bear form"), NULL), CastSpellAction::getAlternatives());
+			return NextAction::merge(NextAction::array(0, new NextAction("bear form"), NULL), CastSpellAction::getAlternatives());		
 		}
+
+		virtual bool Execute(Event event);
 	};
 
 	class CastCatFormAction : public CastBuffSpellAction {
 	public:
 		CastCatFormAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "cat form") {}
+
+		virtual bool Execute(Event event);
 	};
 
 	class CastTreeFormAction : public CastBuffSpellAction {
 	public:
 		CastTreeFormAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "tree of life") {}
+
+		virtual bool Execute(Event event);
 	};
 
 	class CastMoonkinFormAction : public CastBuffSpellAction {
 	public:
 		CastMoonkinFormAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "moonkin form") {}
+
+		virtual bool Execute(Event event);
 	};
 
 	class CastCasterFormAction : public CastBuffSpellAction {

@@ -25,6 +25,31 @@ Value<Unit*>* CastFreezingTrapCcAction::GetTargetValue()
     return context->GetValue<Unit*>("cc target", "freezing trap");
 }
 
+bool CastFreezingTrapAction::Execute(Event event)
+{
+	return ai->CastSpell(1499 , GetTarget());
+}
+
+bool CastDisengageAction::Execute(Event event)
+{
+	return ai->CastSpell(781, GetTarget());
+}
+
+bool CastFrostTrapAction::Execute(Event event)
+{
+	return ai->CastSpell(13809, GetTarget());
+}
+
+bool CastImmolationTrapAction::Execute(Event event)
+{
+	return ai->CastSpell(14302, GetTarget());
+}
+
+bool CastExplosiveTrapAction::Execute(Event event)
+{
+	return ai->CastSpell(13813, GetTarget());
+}
+
 Value<Unit*>* CastWyvernStingCcAction::GetTargetValue()
 {
     return context->GetValue<Unit*>("cc target4", getName());
