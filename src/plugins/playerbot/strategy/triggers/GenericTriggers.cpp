@@ -23,7 +23,7 @@ bool AlmostFullManaTrigger::IsActive()
 
 bool FullManaTrigger::IsActive()
 {
-    return AI_VALUE2(bool, "has mana", "self target") && AI_VALUE2(uint8, "mana", "self target") == 100;
+    return AI_VALUE2(bool, "has mana", "self target") && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.almostFullMana;
 }
 
 bool DrinkManaTrigger::IsActive()

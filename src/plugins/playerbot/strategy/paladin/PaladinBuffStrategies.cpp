@@ -12,6 +12,10 @@ void PaladinBuffManaStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("seal of wisdom", 90.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "full mana",
+        NextAction::array(0, new NextAction("seal of righteousness", 90.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
 		"devotion aura",
 		NextAction::array(0, new NextAction("devotion aura", 90.0f), NULL)));
 }

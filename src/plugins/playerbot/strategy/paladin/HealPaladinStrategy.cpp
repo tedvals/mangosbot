@@ -47,7 +47,7 @@ MeleeHealPaladinStrategy::MeleeHealPaladinStrategy(PlayerbotAI* ai) : GenericPal
 
 NextAction** MeleeHealPaladinStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("judgement of wisdom", ACTION_NORMAL + 2), new NextAction("holy shock on party", ACTION_NORMAL + 2), NULL);
+    return NextAction::array(0, new NextAction("judgement of wisdom", ACTION_NORMAL + 3), new NextAction("holy shock on party", ACTION_NORMAL + 2), NULL);
 }
 
 void MeleeHealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -73,6 +73,14 @@ void MeleeHealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "full mana",
         NextAction::array(0, new NextAction("seal of righteousness", ACTION_HIGH + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "seal",
+        NextAction::array(0, new NextAction("seal of righteousness", ACTION_HIGH + 3), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "seal mana",
+        NextAction::array(0, new NextAction("seal of wisdom", ACTION_HIGH + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "party member almost full health",

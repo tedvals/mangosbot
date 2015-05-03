@@ -272,7 +272,7 @@ namespace ai
     class CastHolyShockOnPartyAction : public HealPartyMemberAction
     {
     public:
-        CastHolyShockOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "shock shock") {}
+        CastHolyShockOnPartyAction(PlayerbotAI* ai) : HealPartyMemberAction(ai, "holy shock") {}
 
         virtual string getName() { return "holy shock on party"; }
         virtual bool IsInstant() {return true;}
@@ -281,7 +281,7 @@ namespace ai
     class CastHolyShockOnMasterAction : public HealMasterAction
     {
     public:
-        CastHolyShockOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "shock shock") {}
+        CastHolyShockOnMasterAction(PlayerbotAI* ai) : HealMasterAction(ai, "holy shock") {}
         virtual bool IsInstant() {return true;}
     };
 
