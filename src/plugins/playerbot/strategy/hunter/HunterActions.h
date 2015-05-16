@@ -181,9 +181,9 @@ namespace ai
 	class CastDisengageAction : public CastMeleeSpellAction
     {
     public:
-		CastDisengageAction(PlayerbotAI* ai) :CastMeleeSpellAction(ai, "disengage") {}		
+		CastDisengageAction(PlayerbotAI* ai) :CastMeleeSpellAction(ai, "disengage") {}
         virtual bool IsInstant() {return true;}
-		virtual bool Execute(Event event);
+        virtual bool isPossible() {return true;}
     };
 
     class CastDeterrenceAction : public CastBuffSpellAction
@@ -261,8 +261,8 @@ namespace ai
             return NextAction::merge( NextAction::array(0, new NextAction("immolation trap"), NULL), CastSpellAction::getAlternatives());
         }
         virtual bool IsInstant() {return true;}
-		virtual bool IsUseful() {return true;}
-		virtual bool Execute(Event event);
+		virtual bool isPossible() {return true;}
+		virtual bool isUseful() {return true;}
     };
 
     class CastFrostTrapAction : public CastDebuffSpellAction
@@ -270,8 +270,8 @@ namespace ai
     public:
         CastFrostTrapAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "frost trap") {}
         virtual bool IsInstant() {return true;}
-		virtual bool IsUseful() {return true;}
-		virtual bool Execute(Event event);
+        virtual bool isUseful() {return true;}
+		virtual bool isPossible() {return true;}
     };
 
     class CastWingClipAction : public CastMeleeSpellAction
@@ -296,7 +296,7 @@ namespace ai
     public:
         CastSnakeTrapAction(PlayerbotAI* ai) : CastSpellAction(ai, "snake trap") {}
         virtual bool IsInstant() {return true;}
-	virtual bool IsUseful() {return true;}
+        virtual bool isPossible() {return true;}
     };
 
     class CastImmolationTrapAction : public CastSpellAction
@@ -306,8 +306,8 @@ namespace ai
         virtual bool IsInstant() {return true;}
 
       //  virtual bool isUseful() { return (AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.meleeDistance) && (AI_VALUE(uint8, "aoe attacker count") <= 2); }
-		virtual bool IsUseful() {return true;}
-		virtual bool Execute(Event event);
+		virtual bool isPossible() {return true;}
+		virtual bool isUseful() {return true;}
     };
 
     class CastExplosiveTrapAction : public CastSpellAction
@@ -317,7 +317,7 @@ namespace ai
         virtual bool IsInstant() {return true;}
 
         virtual bool isUseful() { return(AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.meleeDistance) && (AI_VALUE(uint8, "aoe attacker count") > 2); }
-		virtual bool Execute(Event event);
+        virtual bool isPossible() {return true;}
     };
 
     class CastCounterAttackAction : public CastMeleeSpellAction

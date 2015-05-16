@@ -129,7 +129,7 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
         triggers.push_back(new TriggerNode(
         "takes periodic damage",
-        NextAction::array(0, new NextAction("flee", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("reposition", ACTION_EMERGENCY), NULL)));
 
      triggers.push_back(new TriggerNode(
         "enemy too close for spell",

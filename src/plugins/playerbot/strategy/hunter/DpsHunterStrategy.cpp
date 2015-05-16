@@ -12,6 +12,7 @@ public:
     DpsHunterStrategyActionNodeFactory()
     {
         creators["aimed shot"] = &aimed_shot;
+        creators["multi-shot"] = &multi_shot;
         creators["arcane shot"] = &arcane_shot;
         creators["chimera shot"] = &chimera_shot;
         creators["black arrow"] = &black_arrow;
@@ -34,7 +35,7 @@ private:
     {
         return new ActionNode ("aimed shot",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("auto shot"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("arcane shot"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* chimera_shot(PlayerbotAI* ai)
@@ -82,6 +83,13 @@ private:
     static ActionNode* arcane_shot(PlayerbotAI* ai)
     {
         return new ActionNode ("arcane shot",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("multi-shot"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* multi_shot(PlayerbotAI* ai)
+    {
+        return new ActionNode ("multi-shot",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("auto shot"), NULL),
             /*C*/ NULL);

@@ -18,10 +18,13 @@ bool CastSpellAction::isPossible()
 	//	return false;
 
 	Unit* target = GetTarget();
-	
+
 	if (!target)
-		target = bot;
-	 	
+    {
+        target = bot;
+        return  ai->CanCastSpell(spell, GetTarget());
+    }
+
 	if (!bot->IsWithinLOSInMap(target))
 		return false;
 
@@ -31,7 +34,7 @@ bool CastSpellAction::isPossible()
 			return  ai->CanCastSpell(spell, GetTarget());
 		else return false;
 	}
-	
+
 	return ai->CanCastSpell(spell, GetTarget());
 }
 

@@ -54,7 +54,7 @@ uint8 LfgJoinAction::GetRoles()
         if (spec == 2)
             return PLAYER_ROLE_HEALER;
         else if (spec == 1 && bot->getLevel() >= 40)
-            return PLAYER_ROLE_TANK;
+            return PLAYER_ROLE_TANK | PLAYER_ROLE_DAMAGE;
         else
             return PLAYER_ROLE_DAMAGE;
         break;

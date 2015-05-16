@@ -1299,6 +1299,9 @@ bool PlayerbotAI::IsInterruptableSpellCasting(Unit* target, string spell)
 
 bool PlayerbotAI::HasAuraToDispel(Unit* target, uint32 dispelType)
 {
+    if (target->getClass() == CLASS_DEATH_KNIGHT)
+        return false;
+
     for (uint32 type = SPELL_AURA_NONE; type < TOTAL_AURAS; ++type)
     {
         Unit::AuraEffectList const& auras = target->GetAuraEffectsByType((AuraType)type);

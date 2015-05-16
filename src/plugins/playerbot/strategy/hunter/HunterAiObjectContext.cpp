@@ -90,7 +90,7 @@ namespace ai
                 creators["silencing shot"] = &TriggerFactoryInternal::silencing_shot_interrupt;
                 creators["silencing shot on enemy healer"] = &TriggerFactoryInternal::silencing_shot_on_enemy_healer;
                 creators["concussive shot snare"] = &TriggerFactoryInternal::concussive_shot_snare;
-                creators["arcane shot on attacker"] = &TriggerFactoryInternal::arcane_shot;
+                creators["arcane shot"] = &TriggerFactoryInternal::arcane_shot;
                 creators["misdirection on party"] = &TriggerFactoryInternal::misdirection_on_party;
                 creators["wyvern sting"] = &TriggerFactoryInternal::wyvern_sting;
                 creators["counterstrike"] = &TriggerFactoryInternal::counterstrike;
