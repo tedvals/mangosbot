@@ -50,7 +50,7 @@ void PlayerbotHolder::LogoutAllBots()
         LogoutPlayerBot(bot->GetGUID());
     }
 	//debug
-	_CrtDumpMemoryLeaks();
+	//_CrtDumpMemoryLeaks();
 }
 
 void PlayerbotHolder::LogoutPlayerBot(uint64 guid)

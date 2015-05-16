@@ -133,13 +133,8 @@ namespace ai
             static Trigger* judgement_of_light(PlayerbotAI* ai) { return new JudgementOfLightTrigger(ai); }
             static Trigger* blessing(PlayerbotAI* ai) { return new BlessingTrigger(ai); }
             static Trigger* seal(PlayerbotAI* ai) { return new SealTrigger(ai); }
-<<<<<<< HEAD
             static Trigger* seal_health(PlayerbotAI* ai) { return new SealLowTrigger(ai); }
             static Trigger* seal_mana(PlayerbotAI* ai) { return new SealManaLowTrigger(ai); }
-=======
-			static Trigger* seal_health(PlayerbotAI* ai) { return new SealLowTrigger(ai); }
-			static Trigger* seal_mana(PlayerbotAI* ai) { return new SealManaLowTrigger(ai); }
->>>>>>> 9d8fa0375b6f379bd387b3326a1332baba94e7da
             static Trigger* art_of_war(PlayerbotAI* ai) { return new ArtOfWarTrigger(ai); }
             static Trigger* blessing_of_kings_on_party(PlayerbotAI* ai) { return new BlessingOfKingsOnPartyTrigger(ai); }
             static Trigger* beacon_of_light_on_master(PlayerbotAI* ai) { return new BeaconOfLightOnMasterTrigger(ai); }
