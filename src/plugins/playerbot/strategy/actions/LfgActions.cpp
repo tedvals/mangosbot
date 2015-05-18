@@ -109,7 +109,7 @@ bool LfgJoinAction::JoinProposal()
     ItemCountByQuality visitor;
     IterateItems(&visitor, ITERATE_ITEMS_IN_EQUIP);
 	bool heroic = urand(0, 100) < 50 && (visitor.count[ITEM_QUALITY_EPIC] >= 3 || visitor.count[ITEM_QUALITY_RARE] >= 10) && bot->getLevel() >= 70;
-    bool random = urand(0, 100) < 25;
+    bool random = urand(0, 100) < 50;
     bool raid = !heroic && (urand(0, 100) < 50 && visitor.count[ITEM_QUALITY_EPIC] >= 5 && (bot->getLevel() == 60 || bot->getLevel() == 70 || bot->getLevel() == 80));
 
     Group* group = bot->GetGroup();
