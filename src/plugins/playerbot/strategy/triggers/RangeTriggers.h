@@ -4,6 +4,21 @@
 
 namespace ai
 {
+    class TargetOutOfLOSSpellTrigger : public Trigger {
+    public:
+        TargetOutOfLOSSpellTrigger(PlayerbotAI* ai) : Trigger(ai, "target out of los") {}
+        virtual bool IsActive()
+		{
+			Unit* target = AI_VALUE(Unit*, "current target");
+
+			if (target && bot->IsWithinLOSInMap(target))
+			{
+			     return true;
+			}
+            else return false;
+        }
+    };
+
     class EnemyTooCloseForSpellTrigger : public Trigger {
     public:
         EnemyTooCloseForSpellTrigger(PlayerbotAI* ai) : Trigger(ai, "enemy too close for spell") {}
@@ -18,7 +33,7 @@ namespace ai
 
 				if (AI_VALUE2(bool, "target normal", "current target") && (AI_VALUE(uint8, "melee attacker count") < 2) && (AI_VALUE2(uint8, "health", "self target") > sPlayerbotAIConfig.mediumHealth))
                     return false;
-				else if (target->UnderCc() && !target->isFrozen() && !target->isInRoots())
+				else if (target->UnderCc())
                     return false;
                 else return true;
 			}

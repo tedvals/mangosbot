@@ -35,6 +35,7 @@
 #include "GroupMgr.h"
 #include "MMapFactory.h"
 #include "DisableMgr.h"
+#include "SpellHistory.h"
 
 #include "../../../plugins/ahbot/AhBot.h"
 #include "../../../plugins/playerbot/playerbot.h"
@@ -717,7 +718,7 @@ public:
 
         if (!*args)
         {
-            target->RemoveAllSpellCooldown();
+            target->GetSpellHistory()->ResetAllCooldowns();
             handler->PSendSysMessage(LANG_REMOVEALL_COOLDOWN, nameLink.c_str());
         }
         else
@@ -727,14 +728,15 @@ public:
             if (!spellIid)
                 return false;
 
-            if (!sSpellMgr->GetSpellInfo(spellIid))
+            SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellIid);
+            if (!spellInfo)
             {
                 handler->PSendSysMessage(LANG_UNKNOWN_SPELL, target == handler->GetSession()->GetPlayer() ? handler->GetTrinityString(LANG_YOU) : nameLink.c_str());
                 handler->SetSentErrorMessage(true);
                 return false;
             }
 
-            target->RemoveSpellCooldown(spellIid, true);
+            target->GetSpellHistory()->ResetCooldown(spellIid, true);
             handler->PSendSysMessage(LANG_REMOVE_COOLDOWN, spellIid, target == handler->GetSession()->GetPlayer() ? handler->GetTrinityString(LANG_YOU) : nameLink.c_str());
         }
         return true;

@@ -79,6 +79,7 @@ namespace ai
             creators["melee medium aoe"] = &TriggerContext::MeleeMediumAoe;
             creators["melee high aoe"] = &TriggerContext::MeleeHighAoe;
 
+            creators["target out of los"] = &TriggerContext::TargetOutOfLOS;
             creators["enemy out of melee"] = &TriggerContext::EnemyOutOfMelee;
             creators["enemy out of spell"] = &TriggerContext::EnemyOutOfSpell;
             creators["enemy too close for spell"] = &TriggerContext::enemy_too_close_for_spell;
@@ -218,6 +219,7 @@ namespace ai
         static Trigger* Random(PlayerbotAI* ai) { return new RandomTrigger(ai); }
         static Trigger* seldom(PlayerbotAI* ai) { return new SeldomTrigger(ai); }
         static Trigger* often(PlayerbotAI* ai) { return new OftenTrigger(ai); }
+        static Trigger* TargetOutOfLOS(PlayerbotAI* ai) { return new TargetOutOfLOSSpellTrigger(ai); }
         static Trigger* EnemyOutOfMelee(PlayerbotAI* ai) { return new EnemyOutOfMeleeTrigger(ai); }
         static Trigger* EnemyInMeleeRange(PlayerbotAI* ai) { return new EnemyInMeleeRangeTrigger(ai); }
         static Trigger* EnemyOutOfSpell(PlayerbotAI* ai) { return new EnemyOutOfSpellRangeTrigger(ai); }
