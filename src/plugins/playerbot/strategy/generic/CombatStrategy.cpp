@@ -10,8 +10,3 @@ void CombatStrategy::InitTriggers(list<TriggerNode*> &triggers)
         "invalid target",
         NextAction::array(0, new NextAction("drop target", ACTION_EMERGENCY + 9), NULL)));
 }
-
-void CombatStrategy::DeleteTriggers(list<TriggerNode*> &triggers)
-{
-  //  triggers.erase("invalid target");
-}

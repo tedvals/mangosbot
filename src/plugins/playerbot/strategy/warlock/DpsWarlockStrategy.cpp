@@ -17,6 +17,13 @@ public:
         creators["unstable affliction"] = &unstable_affliction;
         creators["haunt"] = &haunt;
     }
+    ~DpsWarlockStrategyActionNodeFactory()
+    {
+        creators.erase("summon felhunter");
+        creators.erase("shadow bolt");
+        creators.erase("unstable affliction");
+        creators.erase("haunt");
+    }
 private:
     static ActionNode* shadow_bolt(PlayerbotAI* ai)
     {
@@ -50,13 +57,21 @@ private:
 
 DpsWarlockStrategy::DpsWarlockStrategy(PlayerbotAI* ai) : GenericWarlockStrategy(ai)
 {
-    actionNodeFactories.Add(new DpsWarlockStrategyActionNodeFactory());
+    factoryInternal = new DpsWarlockStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
 }
 
+DpsWarlockStrategy::~DpsWarlockStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
+    delete defaultActions;
+}
 
 NextAction** DpsWarlockStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("life tap", 13.0f),  new NextAction("shadow bolt", 12.0f), NULL);
+    defaultActions = NextAction::array(0, new NextAction("life tap", 13.0f),  new NextAction("shadow bolt", 12.0f), NULL);
+    return defaultActions;
 }
 
 void DpsWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -119,6 +134,10 @@ public:
     {
         creators["curse of the elements"] = curse_of_the_elements;
     }
+    ~WarlockDebuffStrategyActionNodeFactory()
+    {
+        creators.erase("curse of the elements");
+    }
 private:
     static ActionNode* curse_of_the_elements(PlayerbotAI* ai)
     {
@@ -127,11 +146,19 @@ private:
             /*A*/ NextAction::array(0, new NextAction("curse of weakness"), NULL),
             /*C*/ NULL);
     }
+
 };
 
 WarlockDebuffStrategy::WarlockDebuffStrategy(PlayerbotAI* ai) : CombatStrategy(ai)
 {
-    actionNodeFactories.Add(new WarlockDebuffStrategyActionNodeFactory());
+    factoryInternal = new WarlockDebuffStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
+}
+
+WarlockDebuffStrategy::~WarlockDebuffStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
 }
 
 void WarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -154,6 +181,10 @@ public:
     {
         creators["curse of agony on attacker"] = curse_of_agony;
     }
+    ~DpsWarlockDebuffStrategyActionNodeFactory()
+    {
+        creators.erase("curse of agony on attacker");
+    }
 private:
     static ActionNode* curse_of_agony(PlayerbotAI* ai)
     {
@@ -166,9 +197,15 @@ private:
 
 DpsWarlockDebuffStrategy::DpsWarlockDebuffStrategy(PlayerbotAI* ai) : CombatStrategy(ai)
 {
-    actionNodeFactories.Add(new DpsWarlockDebuffStrategyActionNodeFactory());
+    factoryInternal = new DpsWarlockDebuffStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
 }
 
+DpsWarlockDebuffStrategy::~DpsWarlockDebuffStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
+}
 
 void DpsWarlockDebuffStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
@@ -231,11 +268,13 @@ DpsFireWarlockStrategy::~DpsFireWarlockStrategy()
 {
     actionNodeFactories.Remove(factoryInternal);
     delete factoryInternal;
+    delete defaultActions;
 }
 
 NextAction** DpsFireWarlockStrategy::getDefaultActions()
 {
-    return NextAction::array(0,new NextAction("conflagrate", 20.0f), new NextAction("chaos bolt", 15.0f), new NextAction("life tap", 13.0f),  new NextAction("incinerate", 12.0f), NULL);
+    defaultActions = NextAction::array(0,new NextAction("conflagrate", 20.0f), new NextAction("chaos bolt", 15.0f), new NextAction("life tap", 13.0f),  new NextAction("incinerate", 12.0f), NULL);
+    return defaultActions;
 }
 
 void DpsFireWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -269,19 +308,6 @@ void DpsFireWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "decimation",
         NextAction::array(0, new NextAction("soul fire", 18.0f), new NextAction("soul fire", 18.0f), NULL)));
-}
-
-void DpsFireWarlockStrategy::DeleteTriggers(std::list<TriggerNode*> &triggers)
-{
-    //GenericWarlockStrategy::InitTriggers(triggers);
-
-	//triggers.erase("shadow trance");
-	//triggers.erase("shadow mastery");
-	//triggers.erase("backlash");
-	//triggers.erase("immolate on attacker");
-	//triggers.erase("immolate");
-	//triggers.erase("molten core");
-	//triggers.erase("decimation");
 }
 
 void DpsFireAoeWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

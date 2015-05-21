@@ -16,9 +16,20 @@ public:
         creators["combustion"] = &combustion;
         creators["burst"] = &combustion;
         creators["dragon's breath"] = dragons_breath;
-	creators["cone of cold"] = cone_of_cold;
-	creators["blast wave"] = blast_wave;
-	creators["frost nova"] = frost_nova;
+        creators["cone of cold"] = cone_of_cold;
+        creators["blast wave"] = blast_wave;
+        creators["frost nova"] = frost_nova;
+    }
+    ~FireMageStrategyActionNodeFactory()
+    {
+        creators.erase("fire blast");
+        creators.erase("scorch");
+        creators.erase("combustion");
+        creators.erase("burst");
+        creators.erase("dragon's breath");
+        creators.erase("cone of cold");
+        creators.erase("blast wave");
+        creators.erase("frost nova");
     }
 private:
     static ActionNode* fireball(PlayerbotAI* ai)
@@ -81,13 +92,23 @@ private:
 
 FireMageStrategy::FireMageStrategy(PlayerbotAI* ai) : GenericMageStrategy(ai)
 {
-    actionNodeFactories.Add(new FireMageStrategyActionNodeFactory());
+    factoryInternal = new FireMageStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
+}
+
+FireMageStrategy::~FireMageStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
+    delete defaultActions;
 }
 
 NextAction** FireMageStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("fireball", ACTION_NORMAL), NULL);
+    defaultActions = NextAction::array(0, new NextAction("fireball", ACTION_NORMAL), NULL);
+    return defaultActions;
 }
+
 
 void FireMageStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {

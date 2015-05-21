@@ -24,6 +24,22 @@ public:
         creators["vanish"] = &vanish;
         creators["sunder armor"] = &sunder_armor;
     }
+    ~DpsRogueStrategyActionNodeFactory()
+    {
+        creators.erase("backstab");
+        creators.erase("kick");
+        creators.erase("gouge");
+        creators.erase("kidney shot");
+        creators.erase("evasion");
+        creators.erase("dismantle");
+        creators.erase("move behind");
+        creators.erase("sap");
+        creators.erase("sap on cc");
+        creators.erase("melee");
+        creators.erase("reach melee");
+        creators.erase("vanish");
+        creators.erase("sunder armor");
+    }
 private:
 
     static ActionNode* move_behind(PlayerbotAI* ai)
@@ -121,12 +137,21 @@ private:
 
 DpsRogueStrategy::DpsRogueStrategy(PlayerbotAI* ai) : MeleeCombatStrategy(ai)
 {
-    actionNodeFactories.Add(new DpsRogueStrategyActionNodeFactory());
+    factoryInternal = new DpsRogueStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
+}
+
+DpsRogueStrategy::~DpsRogueStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
+    delete defaultActions;
 }
 
 NextAction** DpsRogueStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("garrote", ACTION_HIGH + 8), new NextAction("backstab", ACTION_NORMAL), NULL);
+    defaultActions = NextAction::array(0, new NextAction("garrote", ACTION_HIGH + 8), new NextAction("backstab", ACTION_NORMAL), NULL);
+    return defaultActions;
 }
 
 void DpsRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -238,6 +263,15 @@ public:
         creators["garrote"] = &garrote;
         creators["cheap shot"] = &cheap_shot;
     }
+    ~DpsSwordRogueStrategyActionNodeFactory()
+    {
+        creators.erase("riposte");
+        creators.erase("sinister strike");
+        creators.erase("adrenaline rush");
+        creators.erase("boost");
+        creators.erase("garrote");
+        creators.erase("cheap shot");
+    }
 private:
     static ActionNode* riposte(PlayerbotAI* ai)
     {
@@ -276,14 +310,23 @@ private:
     }
 };
 
-DpsSwordRogueStrategy::DpsSwordRogueStrategy(PlayerbotAI* ai) : DpsRogueStrategy(ai)
+DpsSwordRogueStrategy::DpsSwordRogueStrategy(PlayerbotAI* ai) :  DpsRogueStrategy(ai)
 {
-    actionNodeFactories.Add(new DpsSwordRogueStrategyActionNodeFactory());
+    factoryInternal = new DpsSwordRogueStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
+}
+
+DpsSwordRogueStrategy::~DpsSwordRogueStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
+    delete defaultActions;
 }
 
 NextAction** DpsSwordRogueStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("riposte", ACTION_NORMAL + 2), new NextAction("sinister strike", ACTION_NORMAL), NULL);
+    defaultActions = NextAction::array(0, new NextAction("riposte", ACTION_NORMAL + 2), new NextAction("sinister strike", ACTION_NORMAL), NULL);
+    return defaultActions;
 }
 
 void DpsSwordRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -354,6 +397,23 @@ public:
         creators["garrote"] = &garrote;
         creators["ambush"] = &ambush;
         creators["cheap shot"] = &cheap_shot;
+    }
+    ~DpsDaggerRogueStrategyActionNodeFactory()
+    {
+        creators.erase("premeditation");
+        creators.erase("melee");
+        creators.erase("ghostly strike");
+        creators.erase("gouge");
+        creators.erase("shadowstep");
+        creators.erase("mutilate");
+        creators.erase("vanish");
+        creators.erase("backstab");
+        creators.erase("cold blood");
+        creators.erase("envenom");
+        creators.erase("boost");
+        creators.erase("garrote");
+        creators.erase("ambush");
+        creators.erase("cheap shot");
     }
 private:
     static ActionNode* premeditation(PlayerbotAI* ai)
@@ -465,14 +525,23 @@ private:
 
 };
 
-DpsDaggerRogueStrategy::DpsDaggerRogueStrategy(PlayerbotAI* ai) : DpsRogueStrategy(ai)
+DpsDaggerRogueStrategy::DpsDaggerRogueStrategy(PlayerbotAI* ai) :  DpsRogueStrategy(ai)
 {
-    actionNodeFactories.Add(new DpsDaggerRogueStrategyActionNodeFactory());
+    factoryInternal = new DpsDaggerRogueStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
+}
+
+DpsDaggerRogueStrategy::~DpsDaggerRogueStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
+    delete defaultActions;
 }
 
 NextAction** DpsDaggerRogueStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("ambush", ACTION_NORMAL + 7), new NextAction("mutilate", ACTION_NORMAL + 5), new NextAction("backstab", ACTION_NORMAL), NULL);
+    defaultActions = NextAction::array(0, new NextAction("ambush", ACTION_NORMAL + 7), new NextAction("mutilate", ACTION_NORMAL + 5), new NextAction("backstab", ACTION_NORMAL), NULL);
+    return defaultActions;
 }
 
 void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

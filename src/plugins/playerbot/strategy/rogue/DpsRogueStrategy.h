@@ -9,7 +9,10 @@ namespace ai
     {
     public:
         DpsRogueStrategy(PlayerbotAI* ai);
-
+        ~DpsRogueStrategy();
+    protected:
+        NamedObjectFactory<ActionNode>* factoryInternal;
+        NextAction** defaultActions;
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
         virtual string getName() { return "dps"; }
@@ -20,18 +23,24 @@ namespace ai
     {
     public:
         DpsSwordRogueStrategy(PlayerbotAI* ai);
-
+        ~DpsSwordRogueStrategy();
+    protected:
+        NamedObjectFactory<ActionNode>* factoryInternal;
+        NextAction** defaultActions;
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
         virtual string getName() { return "sword"; }
         virtual NextAction** getDefaultActions();
     };
 
-     class DpsDaggerRogueStrategy : public DpsRogueStrategy
+    class DpsDaggerRogueStrategy : public DpsRogueStrategy
     {
     public:
         DpsDaggerRogueStrategy(PlayerbotAI* ai);
-
+        ~DpsDaggerRogueStrategy();
+    protected:
+        NamedObjectFactory<ActionNode>* factoryInternal;
+        NextAction** defaultActions;
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
         virtual string getName() { return "dagger"; }

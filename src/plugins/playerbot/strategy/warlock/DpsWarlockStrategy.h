@@ -9,8 +9,11 @@ namespace ai
     {
     public:
         DpsWarlockStrategy(PlayerbotAI* ai);
+        ~DpsWarlockStrategy();
         virtual string getName() { return "dps"; }
-
+    protected:
+        NamedObjectFactory<ActionNode>* factoryInternal;
+        NextAction** defaultActions;
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
         virtual NextAction** getDefaultActions();
@@ -20,7 +23,8 @@ namespace ai
     {
     public:
         DpsAoeWarlockStrategy(PlayerbotAI* ai) : CombatStrategy(ai) {}
-
+    protected:
+        NamedObjectFactory<ActionNode>* factoryInternal;
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
         virtual string getName() { return "aoe"; }
@@ -32,14 +36,12 @@ namespace ai
         DpsFireWarlockStrategy(PlayerbotAI* ai);
         ~DpsFireWarlockStrategy();
         virtual string getName() { return "fire"; }
-
+    protected:
+        NamedObjectFactory<ActionNode>* factoryInternal;
+        NextAction** defaultActions;
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
-        virtual void DeleteTriggers(std::list<TriggerNode*> &triggers);
         virtual NextAction** getDefaultActions();
-
-     protected:
-        NamedObjectFactory<ActionNode>* factoryInternal;
     };
 
     class DpsFireAoeWarlockStrategy : public CombatStrategy
@@ -56,7 +58,9 @@ namespace ai
     {
     public:
         DpsWarlockDebuffStrategy(PlayerbotAI* ai);
-
+        ~DpsWarlockDebuffStrategy();
+    protected:
+        NamedObjectFactory<ActionNode>* factoryInternal;
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
         virtual string getName() { return "dps debuff"; }
@@ -66,7 +70,9 @@ namespace ai
     {
     public:
         WarlockDebuffStrategy(PlayerbotAI* ai);
-
+         ~WarlockDebuffStrategy();
+    protected:
+        NamedObjectFactory<ActionNode>* factoryInternal;
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
         virtual string getName() { return "debuff"; }

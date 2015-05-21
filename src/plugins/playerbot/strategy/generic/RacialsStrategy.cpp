@@ -77,6 +77,19 @@ private:
             /*A*/ NULL,
         /*C*/ NextAction::array(0, new NextAction("urgent heal"), NULL));
     }
+    ~RacialsStrategyActionNodeFactory()
+    {
+        creators.erase("lifeblood");
+        creators.erase("racial boost");
+        creators.erase("gift of the naaru");
+        creators.erase("berserking");
+        creators.erase("blood fury");
+        creators.erase("stoneform");
+        creators.erase("will of the forsaken");
+        creators.erase("escape artist");
+        creators.erase("war stomp");
+
+    }
 };
 
 void RacialsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -128,5 +141,12 @@ void RacialsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 RacialsStrategy::RacialsStrategy(PlayerbotAI* ai) : Strategy(ai)
 {
-    actionNodeFactories.Add(new RacialsStrategyActionNodeFactory());
+    factoryInternal = new RacialsStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
+}
+
+RacialsStrategy::~RacialsStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
 }

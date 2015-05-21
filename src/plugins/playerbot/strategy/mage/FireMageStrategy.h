@@ -9,7 +9,10 @@ namespace ai
     {
     public:
         FireMageStrategy(PlayerbotAI* ai);
-
+        ~FireMageStrategy();
+     protected:
+        NamedObjectFactory<ActionNode>* factoryInternal;
+        NextAction** defaultActions;
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
         virtual string getName() { return "fire"; }
