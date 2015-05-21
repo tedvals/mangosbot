@@ -233,6 +233,11 @@ namespace ai
             factories.push_front(context);
         }
 
+        void Remove(NamedObjectFactory<T>* context)
+        {
+            factories.remove(context);
+        }
+
         T* GetObject(string name, PlayerbotAI* ai)
         {
             for (typename list<NamedObjectFactory<T>*>::iterator i = factories.begin(); i != factories.end(); i++)

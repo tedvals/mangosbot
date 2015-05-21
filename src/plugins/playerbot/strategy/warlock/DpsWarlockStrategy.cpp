@@ -191,6 +191,12 @@ public:
         creators["summon imp"] = &summon_imp;
         creators["incinerate"] = &incinerate;
     }
+    ~DpsFireWarlockStrategyActionNodeFactory()
+    {
+        creators.erase("shadow bolt");
+        creators.erase("summon imp");
+        creators.erase("incinerate");
+    }
 private:
     static ActionNode* summon_imp(PlayerbotAI* ai)
     {
@@ -217,9 +223,15 @@ private:
 
 DpsFireWarlockStrategy::DpsFireWarlockStrategy(PlayerbotAI* ai) : GenericWarlockStrategy(ai)
 {
-    actionNodeFactories.Add(new DpsWarlockStrategyActionNodeFactory());
+    factoryInternal = new DpsWarlockStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
 }
 
+DpsFireWarlockStrategy::~DpsFireWarlockStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
+}
 
 NextAction** DpsFireWarlockStrategy::getDefaultActions()
 {
@@ -257,6 +269,19 @@ void DpsFireWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "decimation",
         NextAction::array(0, new NextAction("soul fire", 18.0f), new NextAction("soul fire", 18.0f), NULL)));
+}
+
+void DpsFireWarlockStrategy::DeleteTriggers(std::list<TriggerNode*> &triggers)
+{
+    //GenericWarlockStrategy::InitTriggers(triggers);
+
+	//triggers.erase("shadow trance");
+	//triggers.erase("shadow mastery");
+	//triggers.erase("backlash");
+	//triggers.erase("immolate on attacker");
+	//triggers.erase("immolate");
+	//triggers.erase("molten core");
+	//triggers.erase("decimation");
 }
 
 void DpsFireAoeWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

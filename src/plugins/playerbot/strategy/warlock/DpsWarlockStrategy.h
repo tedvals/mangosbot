@@ -30,11 +30,16 @@ namespace ai
     {
     public:
         DpsFireWarlockStrategy(PlayerbotAI* ai);
+        ~DpsFireWarlockStrategy();
         virtual string getName() { return "fire"; }
 
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
+        virtual void DeleteTriggers(std::list<TriggerNode*> &triggers);
         virtual NextAction** getDefaultActions();
+
+     protected:
+        NamedObjectFactory<ActionNode>* factoryInternal;
     };
 
     class DpsFireAoeWarlockStrategy : public CombatStrategy

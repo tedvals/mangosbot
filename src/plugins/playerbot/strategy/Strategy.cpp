@@ -119,11 +119,35 @@ private:
             /*A*/ NULL,
             /*C*/ NULL);
     }
+
+    ~ActionNodeFactoryInternal()
+    {
+        creators.erase("melee");
+        creators.erase("healthstone");
+        creators.erase("be near");
+        creators.erase("attack anything");
+        creators.erase("move random");
+        creators.erase("move to loot");
+        creators.erase("food");
+        creators.erase("drink");
+        creators.erase("bandage");
+        creators.erase("mana potion");
+        creators.erase("healing potion");
+        creators.erase("bomb");
+        creators.erase("flee");
+    }
 };
 
 Strategy::Strategy(PlayerbotAI* ai) : PlayerbotAIAware(ai)
 {
-    actionNodeFactories.Add(new ActionNodeFactoryInternal());
+    factoryInternal = new ActionNodeFactoryInternal();
+    actionNodeFactories.Add(factoryInternal);
+}
+
+Strategy::~Strategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
 }
 
 ActionNode* Strategy::GetAction(string name)

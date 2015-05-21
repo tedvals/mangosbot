@@ -36,11 +36,12 @@ namespace ai
     {
     public:
         Strategy(PlayerbotAI* ai);
-        virtual ~Strategy() {}
+        virtual ~Strategy();
 
     public:
         virtual NextAction** getDefaultActions() { return NULL; }
         virtual void InitTriggers(std::list<TriggerNode*> &triggers) {}
+        virtual void DeleteTriggers(std::list<TriggerNode*> &triggers) {}
         virtual void InitMultipliers(std::list<Multiplier*> &multipliers) {}
         virtual string getName() = 0;
 		virtual int GetType() { return STRATEGY_TYPE_GENERIC; }
@@ -50,6 +51,7 @@ namespace ai
 
     protected:
         NamedObjectFactoryList<ActionNode> actionNodeFactories;
+        NamedObjectFactory<ActionNode>* factoryInternal;
     };
 
 }
