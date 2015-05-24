@@ -35,6 +35,20 @@ namespace ai
                 creators["felhunter"] = &warlock::StrategyFactoryInternal::nc_felhunter;
                 creators["felguard"] = &warlock::StrategyFactoryInternal::nc_felguard;
             }
+            ~StrategyFactoryInternal()
+            {
+                creators.erase("nc");
+                creators.erase("pull");
+                creators.erase("aoe");
+                creators.erase("fire aoe");
+                creators.erase("dps debuff");
+                creators.erase("debuff");
+                creators.erase("imp");
+                creators.erase("voidwalker");
+                creators.erase("succubus");
+                creators.erase("felhunter");
+                creators.erase("felguard");
+            }
 
         private:
             static Strategy* nc(PlayerbotAI* ai) { return new GenericWarlockNonCombatStrategy(ai); }
@@ -58,6 +72,12 @@ namespace ai
                 creators["dps"] = &warlock::CombatStrategyFactoryInternal::dps;
                 creators["fire"] = &warlock::CombatStrategyFactoryInternal::fire_dps;
                 creators["tank"] = &warlock::CombatStrategyFactoryInternal::tank;
+            }
+            ~CombatStrategyFactoryInternal()
+            {
+                creators.erase("dps");
+                creators.erase("fire");
+                creators.erase("tank");
             }
 
         private:
@@ -102,6 +122,29 @@ namespace ai
                 creators["haunt"] = &TriggerFactoryInternal::haunt;
                 creators["demon dead"] = &TriggerFactoryInternal::demon_dead;
                 creators["demon low health"] = &TriggerFactoryInternal::demon_low_health;
+            }
+            ~TriggerFactoryInternal()
+            {
+                creators.erase("shadow trance");
+                creators.erase("demon armor");
+                creators.erase("no healthstone");
+                creators.erase("no firestone");
+                creators.erase("no spellstone");
+                creators.erase("no soulstone");
+                creators.erase("corruption");
+                creators.erase("corruption on attacker");
+                creators.erase("no curse");
+                creators.erase("curse on attacker");
+                creators.erase("banish");
+                creators.erase("soulstone on master");
+                creators.erase("backlash");
+                creators.erase("molten core");
+                creators.erase("decimation");
+                creators.erase("fear");
+                creators.erase("immolate");
+                creators.erase("haunt");
+                creators.erase("demon dead");
+                creators.erase("demon low health");
             }
 
         private:
@@ -199,6 +242,64 @@ namespace ai
                 creators["demon charge"] = &AiObjectContextInternal::demon_charge;
                 creators["challenging howl"] = &AiObjectContextInternal::challenging_howl;
                 creators["soul shatter"] = &AiObjectContextInternal::soul_shatter;
+            }
+            ~AiObjectContextInternal()
+            {
+                creators.erase("summon imp");
+                creators.erase("fel armor");
+                creators.erase("demon armor");
+                creators.erase("demon skin");
+                creators.erase("create healthstone");
+                creators.erase("create firestone");
+                creators.erase("create spellstone");
+                creators.erase("create soulstone");
+                creators.erase("spellstone");
+                creators.erase("firestone");
+                creators.erase("soulstone on master");
+                creators.erase("summon voidwalker");
+                creators.erase("summon felguard");
+                creators.erase("summon succubus");
+                creators.erase("summon felhunter");
+                creators.erase("immolate");
+                creators.erase("corruption");
+                creators.erase("immolate on attacker");
+                creators.erase("corruption on attacker");
+                creators.erase("curse of agony");
+                creators.erase("curse of agony on attacker");
+                creators.erase("curse of exhaustion");
+                creators.erase("curse of the elements");
+                creators.erase("curse of the elements on attacker");
+                creators.erase("curse of doom");
+                creators.erase("curse of weakness");
+                creators.erase("curse of weakness on attacker");
+                creators.erase("shadow bolt");
+                creators.erase("drain soul");
+                creators.erase("drain mana");
+                creators.erase("drain life");
+                creators.erase("banish");
+                creators.erase("banish on cc");
+                creators.erase("seed of corruption");
+                creators.erase("rain of fire");
+                creators.erase("shadowfury");
+                creators.erase("chaos bolt");
+                creators.erase("haunt");
+                creators.erase("death coil");
+                creators.erase("soul fire");
+                creators.erase("howl of terror");
+                creators.erase("shadowfury");
+                creators.erase("life tap");
+                creators.erase("fear");
+                creators.erase("fear on cc");
+                creators.erase("incinerate");
+                creators.erase("conflagrate");
+                creators.erase("fel domination");
+                creators.erase("demonic empowerment");
+                creators.erase("metamorphosis");
+                creators.erase("shadow cleave");
+                creators.erase("immolation aura");
+                creators.erase("demon charge");
+                creators.erase("challenging howl");
+                creators.erase("soul shatter");
             }
 
         private:
