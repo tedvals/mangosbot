@@ -141,6 +141,11 @@ namespace ai
             contexts.push_back(context);
         }
 
+        void Remove(NamedObjectContext<T>* context)
+        {
+            contexts.remove(context);
+        }
+
         T* GetObject(string name, PlayerbotAI* ai)
         {
             for (typename list<NamedObjectContext<T>*>::iterator i = contexts.begin(); i != contexts.end(); i++)

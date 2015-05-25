@@ -30,6 +30,13 @@ namespace ai
                 creators["fire aoe"] = &mage::StrategyFactoryInternal::fire_aoe;
                 creators["frost aoe"] = &mage::StrategyFactoryInternal::frost_aoe;
             }
+            ~StrategyFactoryInternal()
+            {
+                creators.erase("nc");
+                creators.erase("pull");
+                creators.erase("fire aoe");
+                creators.erase("frost aoe");
+            }
 
         private:
             static Strategy* nc(PlayerbotAI* ai) { return new GenericMageNonCombatStrategy(ai); }
@@ -47,7 +54,12 @@ namespace ai
                 creators["fire"] = &mage::MageStrategyFactoryInternal::fire;
                 creators["arcane"] = &mage::MageStrategyFactoryInternal::arcane;
             }
-
+            ~MageStrategyFactoryInternal()
+            {
+                creators.erase("frost");
+                creators.erase("fire");
+                creators.erase("arcane");
+            }
         private:
             static Strategy* frost(PlayerbotAI* ai) { return new FrostMageStrategy(ai); }
             static Strategy* fire(PlayerbotAI* ai) { return new FireMageStrategy(ai); }
@@ -62,7 +74,11 @@ namespace ai
                 creators["bmana"] = &mage::MageBuffStrategyFactoryInternal::bmana;
                 creators["bdps"] = &mage::MageBuffStrategyFactoryInternal::bdps;
             }
-
+            ~MageBuffStrategyFactoryInternal()
+            {
+                creators.erase("bmana");
+                creators.erase("bdps");
+            }
         private:
             static Strategy* bmana(PlayerbotAI* ai) { return new MageBuffManaStrategy(ai); }
             static Strategy* bdps(PlayerbotAI* ai) { return new MageBuffDpsStrategy(ai); }
@@ -105,7 +121,29 @@ namespace ai
                 creators["counterspell on enemy healer"] = &TriggerFactoryInternal::counterspell_enemy_healer;
                 creators["slow on attacker"] = &TriggerFactoryInternal::slow;
             }
-
+            ~TriggerFactoryInternal()
+            {
+                creators.erase("combustion");
+                creators.erase("icy veins");
+                creators.erase("arcane intellect");
+                creators.erase("arcane intellect on party");
+                creators.erase("molten armor");
+                creators.erase("remove curse");
+                creators.erase("remove curse on party");
+                creators.erase("counterspell");
+                creators.erase("polymorph");
+                creators.erase("spellsteal");
+                creators.erase("hot streak");
+                creators.erase("blazing speed");
+                creators.erase("fingers of frost");
+                creators.erase("brain freeze");
+                creators.erase("fiery payback");
+                creators.erase("living bomb");
+                creators.erase("missile barrage");
+                creators.erase("arcane blast");
+                creators.erase("counterspell on enemy healer");
+                creators.erase("slow on attacker");
+            }
         private:
             static Trigger* hot_streak(PlayerbotAI* ai) { return new HotStreakTrigger(ai); }
             static Trigger* blazing_speed(PlayerbotAI* ai) { return new BlazingSpeedTrigger(ai); }
@@ -113,8 +151,6 @@ namespace ai
             static Trigger* brain_freeze(PlayerbotAI* ai) { return new BrainfreezeTrigger(ai); }
             static Trigger* fiery_payback(PlayerbotAI* ai) { return new FieryPaybackTrigger(ai); }
             static Trigger* improved_scorch(PlayerbotAI* ai) { return new ImprovedScorchTrigger(ai); }
-            //static Trigger* fireball(PlayerbotAI* ai) { return new FireballTrigger(ai); }
-            //static Trigger* pyroblast(PlayerbotAI* ai) { return new PyroblastTrigger(ai); }
             static Trigger* combustion(PlayerbotAI* ai) { return new CombustionTrigger(ai); }
             static Trigger* icy_veins(PlayerbotAI* ai) { return new IcyVeinsTrigger(ai); }
             static Trigger* arcane_intellect(PlayerbotAI* ai) { return new ArcaneIntellectTrigger(ai); }
@@ -197,6 +233,58 @@ namespace ai
                 creators["frost ward"] = &AiObjectContextInternal::frost_ward;
                 creators["boost"] = &AiObjectContextInternal::mage_boost;
             }
+            ~AiObjectContextInternal()
+            {
+                creators.erase("frostbolt");
+                creators.erase("blizzard");
+                creators.erase("frost nova");
+                creators.erase("arcane intellect");
+                creators.erase("arcane intellect on party");
+                creators.erase("conjure water");
+                creators.erase("conjure food");
+                creators.erase("molten armor");
+                creators.erase("mage armor");
+                creators.erase("ice armor");
+                creators.erase("frost armor");
+                creators.erase("fireball");
+                creators.erase("pyroblast");
+                creators.erase("flamestrike");
+                creators.erase("fire blast");
+                creators.erase("scorch");
+                creators.erase("counterspell");
+                creators.erase("remove curse");
+                creators.erase("remove curse on party");
+                creators.erase("icy veins");
+                creators.erase("combustion");
+                creators.erase("ice block");
+                creators.erase("polymorph");
+                creators.erase("polymorph on cc");
+                creators.erase("spellsteal");
+                creators.erase("living bomb");
+                creators.erase("dragon's breath");
+                creators.erase("blast wave");
+                creators.erase("invisibility");
+                creators.erase("evocation");
+                creators.erase("arcane blast");
+                creators.erase("arcane barrage");
+                creators.erase("arcane missiles");
+                creators.erase("counterspell on enemy healer");
+                creators.erase("cold snap");
+                creators.erase("ice barrier");
+                creators.erase("summon water elemental");
+                creators.erase("frostfire bolt");
+                creators.erase("ice lance");
+                creators.erase("blink");
+                creators.erase("cone of cold");
+                creators.erase("arcane explosion");
+                creators.erase("mana shield");
+                creators.erase("presence of mind");
+                creators.erase("arcane power");
+                creators.erase("slow");
+                creators.erase("fire ward");
+                creators.erase("frost ward");
+                creators.erase("boost");
+            }
 
         private:
             static Action* arcane_missiles(PlayerbotAI* ai) { return new CastArcaneMissilesAction(ai); }
@@ -262,3 +350,4 @@ MageAiObjectContext::MageAiObjectContext(PlayerbotAI* ai) : AiObjectContext(ai)
     actionContexts.Add(new ai::mage::AiObjectContextInternal());
     triggerContexts.Add(new ai::mage::TriggerFactoryInternal());
 }
+

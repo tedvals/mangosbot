@@ -366,8 +366,26 @@ namespace ai
 
 WarlockAiObjectContext::WarlockAiObjectContext(PlayerbotAI* ai) : AiObjectContext(ai)
 {
-    strategyContexts.Add(new ai::warlock::StrategyFactoryInternal());
-    strategyContexts.Add(new ai::warlock::CombatStrategyFactoryInternal());
-    actionContexts.Add(new ai::warlock::AiObjectContextInternal());
-    triggerContexts.Add(new ai::warlock::TriggerFactoryInternal());
+    strategyFactoryInternal = new ai::warlock::StrategyFactoryInternal();
+    combatStrategyFactoryInternal = new ai::warlock::CombatStrategyFactoryInternal();
+    aiObjectContextInternal = new ai::warlock::AiObjectContextInternal();
+    triggerFactoryInternal = new ai::warlock::TriggerFactoryInternal();
+
+    strategyContexts.Add(strategyFactoryInternal);
+    strategyContexts.Add(combatStrategyFactoryInternal);
+    actionContexts.Add(aiObjectContextInternal);
+    triggerContexts.Add(triggerFactoryInternal);
+}
+
+WarlockAiObjectContext::~WarlockAiObjectContext()
+{
+    strategyContexts.Remove(strategyFactoryInternal);
+    strategyContexts.Remove(combatStrategyFactoryInternal);
+    actionContexts.Remove(aiObjectContextInternal);
+    triggerContexts.Remove(triggerFactoryInternal);
+
+    delete strategyFactoryInternal;
+    delete combatStrategyFactoryInternal;
+    delete aiObjectContextInternal;
+    delete triggerFactoryInternal;
 }
