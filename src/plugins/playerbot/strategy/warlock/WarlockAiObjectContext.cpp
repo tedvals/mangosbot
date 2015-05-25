@@ -384,8 +384,8 @@ WarlockAiObjectContext::~WarlockAiObjectContext()
     actionContexts.Remove(aiObjectContextInternal);
     triggerContexts.Remove(triggerFactoryInternal);
 
-    delete strategyFactoryInternal;
-    delete combatStrategyFactoryInternal;
-    delete aiObjectContextInternal;
-    delete triggerFactoryInternal;
+    delete dynamic_cast<ai::warlock::StrategyFactoryInternal*>(strategyFactoryInternal);
+    delete dynamic_cast<ai::warlock::CombatStrategyFactoryInternal*>(combatStrategyFactoryInternal);
+    delete dynamic_cast<ai::warlock::AiObjectContextInternal*>(aiObjectContextInternal);
+    delete dynamic_cast<ai::warlock::TriggerFactoryInternal*>(triggerFactoryInternal);
 }
