@@ -344,10 +344,31 @@ namespace ai
 
 MageAiObjectContext::MageAiObjectContext(PlayerbotAI* ai) : AiObjectContext(ai)
 {
-    strategyContexts.Add(new ai::mage::StrategyFactoryInternal());
-    strategyContexts.Add(new ai::mage::MageStrategyFactoryInternal());
-    strategyContexts.Add(new ai::mage::MageBuffStrategyFactoryInternal());
-    actionContexts.Add(new ai::mage::AiObjectContextInternal());
-    triggerContexts.Add(new ai::mage::TriggerFactoryInternal());
+    strategyFactoryInternal = new ai::mage::StrategyFactoryInternal();
+    mageStrategyFactoryInternal = new ai::mage::StrategyFactoryInternal();
+    buffStrategyFactoryInternal = new ai::mage::MageBuffStrategyFactoryInternal();
+    aiObjectContextInternal = new ai::mage::AiObjectContextInternal();
+    triggerFactoryInternal = new ai::mage::TriggerFactoryInternal();
+
+    strategyContexts.Add(strategyFactoryInternal);
+    strategyContexts.Add(mageStrategyFactoryInternal);
+    strategyContexts.Add(buffStrategyFactoryInternal);
+    actionContexts.Add(aiObjectContextInternal);
+    triggerContexts.Add(triggerFactoryInternal);
+}
+
+MageAiObjectContext::~MageAiObjectContext()
+{
+    strategyContexts.Remove(strategyFactoryInternal);
+    strategyContexts.Remove(mageStrategyFactoryInternal);
+    strategyContexts.Remove(buffStrategyFactoryInternal);
+    actionContexts.Remove(aiObjectContextInternal);
+    triggerContexts.Remove(triggerFactoryInternal);
+
+    delete dynamic_cast<ai::mage::StrategyFactoryInternal*>(strategyFactoryInternal);
+    delete dynamic_cast<ai::mage::MageStrategyFactoryInternal*>(mageStrategyFactoryInternal);
+    delete dynamic_cast<ai::mage::MageBuffStrategyFactoryInternal*>(buffStrategyFactoryInternal);
+    delete dynamic_cast<ai::mage::AiObjectContextInternal*>(aiObjectContextInternal);
+    delete dynamic_cast<ai::mage::TriggerFactoryInternal*>(triggerFactoryInternal);
 }
 
