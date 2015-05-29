@@ -15,6 +15,13 @@ namespace ai
             creators["holy nova"] = &holy_nova;
             creators["circle of healing"] = &circle_of_healing;
         }
+        ~HolyPriestStrategyActionNodeFactory()
+        {
+            creators.erase("smite");
+            creators.erase("divine hymn");
+            creators.erase("holy nova");
+            creators.erase("circle of healing");
+        }
     private:
         static ActionNode* smite(PlayerbotAI* ai)
         {
@@ -53,12 +60,21 @@ using namespace ai;
 
 HolyPriestStrategy::HolyPriestStrategy(PlayerbotAI* ai) : GenericPriestStrategy(ai)
 {
-    actionNodeFactories.Add(new HolyPriestStrategyActionNodeFactory());
+    factoryInternal = new HolyPriestStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
 }
 
 NextAction** HolyPriestStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("shoot", ACTION_NORMAL), NULL);
+    defaultActions =  NextAction::array(0, new NextAction("shoot", ACTION_NORMAL), NULL);
+    return defaultActions;
+}
+
+HolyPriestStrategy::~HolyPriestStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
+    delete defaultActions;
 }
 
 void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -145,6 +161,10 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         {
             creators["smite"] = &smite;
         }
+        ~DpsHolyPriestStrategyActionNodeFactory()
+        {
+            creators["smite"] = &smite;
+        }
     private:
         static ActionNode* smite(PlayerbotAI* ai)
         {
@@ -155,14 +175,23 @@ void HolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         }
     };
 
-DpsHolyPriestStrategy::DpsHolyPriestStrategy(PlayerbotAI* ai) : GenericPriestStrategy(ai)
-{
-    actionNodeFactories.Add(new DpsHolyPriestStrategyActionNodeFactory());
-}
-
 NextAction** DpsHolyPriestStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("holy fire", ACTION_NORMAL + 4), new NextAction("smite", ACTION_NORMAL + 2), NULL);
+    defaultActions =   NextAction::array(0, new NextAction("holy fire", ACTION_NORMAL + 4), new NextAction("smite", ACTION_NORMAL + 2), NULL);
+    return defaultActions;
+}
+
+DpsHolyPriestStrategy::DpsHolyPriestStrategy(PlayerbotAI* ai) : GenericPriestStrategy(ai)
+{
+    factoryInternal = new DpsHolyPriestStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
+}
+
+DpsHolyPriestStrategy::~DpsHolyPriestStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
+    delete defaultActions;
 }
 
 void DpsHolyPriestStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

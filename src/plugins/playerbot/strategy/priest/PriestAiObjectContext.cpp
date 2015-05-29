@@ -30,6 +30,15 @@ namespace ai
                 creators["dps debuff"] = &priest::StrategyFactoryInternal::shadow_debuff;
                 creators["shadow debuff"] = &priest::StrategyFactoryInternal::shadow_debuff;
             }
+            ~StrategyFactoryInternal()
+            {
+                creators.erase("nc");
+                creators.erase("pull");
+                creators.erase("aoe");
+                creators.erase("shadow aoe");
+                creators.erase("dps debuff");
+                creators.erase("shadow debuff");
+            }
 
         private:
             static Strategy* nc(PlayerbotAI* ai) { return new PriestNonCombatStrategy(ai); }
@@ -48,6 +57,14 @@ namespace ai
                 creators["dps"] = &priest::CombatStrategyFactoryInternal::dps;
                 creators["holy"] = &priest::CombatStrategyFactoryInternal::holy;
                 creators["holy dps"] = &priest::CombatStrategyFactoryInternal::holy_dps;
+            }
+            ~CombatStrategyFactoryInternal()
+            {
+                creators.erase("heal");
+                creators.erase("shadow");
+                creators.erase("dps");
+                creators.erase("holy");
+                creators.erase("holy dps");
             }
 
         private:
@@ -92,6 +109,31 @@ namespace ai
                 creators["surge of light"] = &TriggerFactoryInternal::surge_of_light;
                 creators["silence on enemy healer"] = &TriggerFactoryInternal::silence_enemy_healer;
                 creators["shackle undead"] = &TriggerFactoryInternal::shackle_undead;
+            }
+            ~TriggerFactoryInternal()
+            {
+                creators.erase("devouring plague");
+                creators.erase("shadow word: pain");
+                creators.erase("shadow word: pain on attacker");
+                creators.erase("dispel magic");
+                creators.erase("dispel magic on party");
+                creators.erase("cure disease");
+                creators.erase("party member cure disease");
+                creators.erase("power word: fortitude");
+                creators.erase("power word: fortitude on party");
+                creators.erase("prayer of shadow protection");
+                creators.erase("prayer of shadow protection on party");
+                creators.erase("divine spirit");
+                creators.erase("divine spirit on party");
+                creators.erase("inner fire");
+                creators.erase("fear ward");
+                creators.erase("fear ward on master");
+                creators.erase("vampiric touch");
+                creators.erase("shadowform");
+                creators.erase("vampiric embrace");
+                creators.erase("surge of light");
+                creators.erase("silence on enemy healer");
+                creators.erase("shackle undead");
             }
 
         private:
@@ -216,7 +258,90 @@ namespace ai
                 creators["divine hymn"] = &AiObjectContextInternal::divine_hymn;
                 creators["hymn of hope"] = &AiObjectContextInternal::hymn_of_hope;
             }
-
+            ~AiObjectContextInternal()
+            {
+                creators.erase("shadow word: pain");
+                creators.erase("shadow word: pain on attacker");
+                creators.erase("devouring plague");
+                creators.erase("mind flay");
+                creators.erase("holy fire");
+                creators.erase("smite");
+                creators.erase("mind blast");
+                creators.erase("mind shear");
+                creators.erase("shadowform");
+                creators.erase("remove shadowform");
+                creators.erase("holy nova");
+                creators.erase("holy nova aoe");
+                creators.erase("power word: fortitude");
+                creators.erase("power word: fortitude on party");
+                creators.erase("divine spirit");
+                creators.erase("divine spirit on party");
+                creators.erase("power word: shield");
+                creators.erase("power word: shield on party");
+                creators.erase("power word: shield on master");
+                creators.erase("prepare attack");
+                creators.erase("renew");
+                creators.erase("renew on party");
+                creators.erase("renew on master");
+                creators.erase("greater heal");
+                creators.erase("greater heal on party");
+                creators.erase("greater heal on master");
+                creators.erase("heal");
+                creators.erase("heal on party");
+                creators.erase("heal on master");
+                creators.erase("lesser heal");
+                creators.erase("lesser heal on party");
+                creators.erase("lesser heal on master");
+                creators.erase("flash heal");
+                creators.erase("urgent heal");
+                creators.erase("flash heal on party");
+                creators.erase("flash heal on master");
+                creators.erase("dispel magic");
+                creators.erase("dispel magic on party");
+                creators.erase("dispel magic on target");
+                creators.erase("cure disease");
+                creators.erase("cure disease on party");
+                creators.erase("abolish disease");
+                creators.erase("abolish disease on party");
+                creators.erase("fade");
+                creators.erase("inner fire");
+                creators.erase("resurrection");
+                creators.erase("circle of healing");
+                creators.erase("psychic scream");
+                creators.erase("psychic horror");
+                creators.erase("vampiric touch");
+                creators.erase("vampiric embrace");
+                creators.erase("dispersion");
+                creators.erase("prayer of healing");
+                creators.erase("prayer of mending");
+                creators.erase("prayer of mending on party");
+                creators.erase("prayer of mending on master");
+                creators.erase("binding heal on party");
+                creators.erase("penance on attacker");
+                creators.erase("penance");
+                creators.erase("penance on party");
+                creators.erase("penance on master");
+                creators.erase("pain suppression");
+                creators.erase("pain suppression on party");
+                creators.erase("pain suppression on master");
+                creators.erase("guardian spirit");
+                creators.erase("guardian spirit on party");
+                creators.erase("guardian spirit on master");
+                creators.erase("power infusion");
+                creators.erase("power infusion on party");
+                creators.erase("shadowfiend");
+                creators.erase("power word: death");
+                creators.erase("finish target");
+                creators.erase("prayer of shadow protection");
+                creators.erase("prayer of shadow protection on party");
+                creators.erase("inner focus");
+                creators.erase("fear ward");
+                creators.erase("fear ward on party");
+                creators.erase("fear ward on master");
+                creators.erase("desperate prayer");
+                creators.erase("divine hymn");
+                creators.erase("hymn of hope");
+            }
         private:
             static Action* dispersion(PlayerbotAI* ai) { return new CastDispersionAction(ai); }
             static Action* vampiric_embrace(PlayerbotAI* ai) { return new CastVampiricEmbraceAction(ai); }
@@ -303,8 +428,27 @@ namespace ai
 
 PriestAiObjectContext::PriestAiObjectContext(PlayerbotAI* ai) : AiObjectContext(ai)
 {
-    strategyContexts.Add(new ai::priest::StrategyFactoryInternal());
-    strategyContexts.Add(new ai::priest::CombatStrategyFactoryInternal());
-    actionContexts.Add(new ai::priest::AiObjectContextInternal());
-    triggerContexts.Add(new ai::priest::TriggerFactoryInternal());
+    strategyFactoryInternal = new ai::priest::StrategyFactoryInternal();
+    combatStrategyFactoryInternal = new ai::priest::CombatStrategyFactoryInternal();
+    aiObjectContextInternal = new ai::priest::AiObjectContextInternal();
+    triggerFactoryInternal = new ai::priest::TriggerFactoryInternal();
+
+    strategyContexts.Add(strategyFactoryInternal);
+    strategyContexts.Add(combatStrategyFactoryInternal);
+    actionContexts.Add(aiObjectContextInternal);
+    triggerContexts.Add(triggerFactoryInternal);
 }
+
+PriestAiObjectContext::~PriestAiObjectContext()
+{
+    strategyContexts.Remove(strategyFactoryInternal);
+    strategyContexts.Remove(combatStrategyFactoryInternal);
+    actionContexts.Remove(aiObjectContextInternal);
+    triggerContexts.Remove(triggerFactoryInternal);
+
+    delete dynamic_cast<ai::priest::StrategyFactoryInternal*>(strategyFactoryInternal);
+    delete dynamic_cast<ai::priest::StrategyFactoryInternal*>(combatStrategyFactoryInternal);
+    delete dynamic_cast<ai::priest::AiObjectContextInternal*>(aiObjectContextInternal);
+    delete dynamic_cast<ai::priest::TriggerFactoryInternal*>(triggerFactoryInternal);
+}
+

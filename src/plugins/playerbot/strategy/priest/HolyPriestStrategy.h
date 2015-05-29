@@ -8,7 +8,10 @@ namespace ai
     {
     public:
         HolyPriestStrategy(PlayerbotAI* ai);
-
+        ~HolyPriestStrategy();
+    protected:
+        NamedObjectFactory<ActionNode>* factoryInternal;
+        NextAction** defaultActions;
     public:
         virtual NextAction** getDefaultActions();
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
@@ -20,7 +23,10 @@ namespace ai
     {
     public:
         DpsHolyPriestStrategy(PlayerbotAI* ai);
-
+        ~DpsHolyPriestStrategy();
+    protected:
+        NamedObjectFactory<ActionNode>* factoryInternal;
+        NextAction** defaultActions;
     public:
         virtual NextAction** getDefaultActions();
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
