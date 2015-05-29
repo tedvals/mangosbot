@@ -29,6 +29,14 @@ namespace ai
                 creators["dps debuff"] = &hunter::StrategyFactoryInternal::dps_debuff;
                 creators["pull"] = &hunter::StrategyFactoryInternal::pull;
             }
+            ~StrategyFactoryInternal()
+            {
+                creators.erase("dps");
+                creators.erase("nc");
+                creators.erase("aoe");
+                creators.erase("dps debuff");
+                creators.erase("pull");
+            }
 
         private:
             static Strategy* aoe(PlayerbotAI* ai) { return new DpsAoeHunterStrategy(ai); }
@@ -47,6 +55,13 @@ namespace ai
                 creators["bdps"] = &hunter::BuffStrategyFactoryInternal::bdps;
                 creators["bmana"] = &hunter::BuffStrategyFactoryInternal::bmana;
                 creators["rnature"] = &hunter::BuffStrategyFactoryInternal::rnature;
+            }
+            ~BuffStrategyFactoryInternal()
+            {
+                creators.erase("bspeed");
+                creators.erase("bdps");
+                creators.erase("bmana");
+                creators.erase("rnature");
             }
 
         private:
@@ -94,6 +109,33 @@ namespace ai
                 creators["misdirection on party"] = &TriggerFactoryInternal::misdirection_on_party;
                 creators["wyvern sting"] = &TriggerFactoryInternal::wyvern_sting;
                 creators["counterstrike"] = &TriggerFactoryInternal::counterstrike;
+            }
+            ~TriggerFactoryInternal()
+            {
+                creators.erase("aspect of the viper");
+                creators.erase("black arrow");
+                creators.erase("no stings");
+                creators.erase("hunters pet dead");
+                creators.erase("hunters pet low health");
+                creators.erase("hunter's mark");
+                creators.erase("freezing trap on cc");
+                creators.erase("aspect of the pack");
+                creators.erase("rapid fire");
+                creators.erase("kill command");
+                creators.erase("kill shot");
+                creators.erase("aspect of the dragonhawk");
+                creators.erase("aspect of the hawk");
+                creators.erase("aspect of the wild");
+                creators.erase("aspect of the viper");
+                creators.erase("trueshot aura");
+                creators.erase("serpent sting on attacker");
+                creators.erase("silencing shot");
+                creators.erase("silencing shot on enemy healer");
+                creators.erase("concussive shot snare");
+                creators.erase("arcane shot");
+                creators.erase("misdirection on party");
+                creators.erase("wyvern sting");
+                creators.erase("counterstrike");
             }
 
         private:
@@ -191,6 +233,62 @@ namespace ai
                 creators["immolation trap"] = &AiObjectContextInternal::immolation_trap;
                 creators["explosive trap"] = &AiObjectContextInternal::explosive_trap;
             }
+            ~AiObjectContextInternal()
+            {
+                creators.erase("auto shot");
+                creators.erase("aimed shot");
+                creators.erase("chimera shot");
+                creators.erase("explosive shot");
+                creators.erase("arcane shot");
+                creators.erase("concussive shot");
+                creators.erase("distracting shot");
+                creators.erase("multi-shot");
+                creators.erase("volley");
+                creators.erase("serpent sting");
+                creators.erase("serpent sting on attacker");
+                creators.erase("misdirection on party");
+                creators.erase("wyvern sting");
+                creators.erase("wyvern sting on cc");
+                creators.erase("prepare attack");
+                creators.erase("viper sting");
+                creators.erase("scorpid sting");
+                creators.erase("hunter's mark");
+                creators.erase("mend pet");
+                creators.erase("revive pet");
+                creators.erase("call pet");
+                creators.erase("black arrow");
+                creators.erase("frost trap");
+                creators.erase("freezing trap");
+                creators.erase("freezing trap on cc");
+                creators.erase("rapid fire");
+                creators.erase("boost");
+                creators.erase("readiness");
+                creators.erase("aspect of the hawk");
+                creators.erase("aspect of the dragonhawk");
+                creators.erase("aspect of the wild");
+                creators.erase("aspect of the monkey");
+                creators.erase("aspect of the viper");
+                creators.erase("aspect of the pack");
+                creators.erase("aspect of the cheetah");
+                creators.erase("trueshot aura");
+                creators.erase("feign death");
+                creators.erase("wing clip");
+                creators.erase("steady shot");
+                creators.erase("kill command");
+                creators.erase("kill shot");
+                creators.erase("misdirection");
+                creators.erase("silencing shot");
+                creators.erase("bestial wrath");
+                creators.erase("intimidation");
+                creators.erase("deterrence");
+                creators.erase("disengage");
+                creators.erase("readiness");
+                creators.erase("scatter shot");
+                creators.erase("counterattack");
+                creators.erase("snake trap");
+                creators.erase("immolation trap");
+                creators.erase("explosive trap");
+            }
 
         private:
             static Action* feign_death(PlayerbotAI* ai) { return new CastFeignDeathAction(ai); }
@@ -250,8 +348,26 @@ namespace ai
 
 HunterAiObjectContext::HunterAiObjectContext(PlayerbotAI* ai) : AiObjectContext(ai)
 {
-    strategyContexts.Add(new ai::hunter::StrategyFactoryInternal());
-    strategyContexts.Add(new ai::hunter::BuffStrategyFactoryInternal());
-    actionContexts.Add(new ai::hunter::AiObjectContextInternal());
-    triggerContexts.Add(new ai::hunter::TriggerFactoryInternal());
+    strategyFactoryInternal = new ai::hunter::StrategyFactoryInternal();
+    buffStrategyFactoryInternal = new ai::hunter::BuffStrategyFactoryInternal();
+    aiObjectContextInternal = new ai::hunter::AiObjectContextInternal();
+    triggerFactoryInternal = new ai::hunter::TriggerFactoryInternal();
+
+    strategyContexts.Add(strategyFactoryInternal);
+    strategyContexts.Add(buffStrategyFactoryInternal);
+    actionContexts.Add(aiObjectContextInternal);
+    triggerContexts.Add(triggerFactoryInternal);
+}
+
+HunterAiObjectContext::~HunterAiObjectContext()
+{
+    strategyContexts.Remove(strategyFactoryInternal);
+    strategyContexts.Remove(buffStrategyFactoryInternal);
+    actionContexts.Remove(aiObjectContextInternal);
+    triggerContexts.Remove(triggerFactoryInternal);
+
+    delete dynamic_cast<ai::hunter::StrategyFactoryInternal*>(strategyFactoryInternal);
+    delete dynamic_cast<ai::hunter::StrategyFactoryInternal*>(buffStrategyFactoryInternal);
+    delete dynamic_cast<ai::hunter::AiObjectContextInternal*>(aiObjectContextInternal);
+    delete dynamic_cast<ai::hunter::TriggerFactoryInternal*>(triggerFactoryInternal);
 }

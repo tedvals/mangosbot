@@ -24,6 +24,22 @@ public:
         creators["deterrence"] = &deterrence;
         creators["wing clip"] = &wing_clip;
     }
+    ~GenericHunterStrategyActionNodeFactory()
+    {
+        creators.erase("rapid fire");
+        creators.erase("boost");
+        creators.erase("aspect of the pack");
+        creators.erase("aspect of the dragonhawk");
+        creators.erase("feign death");
+        creators.erase("silencing shot");
+        creators.erase("concussive shot");
+        creators.erase("disengage");
+        creators.erase("intimidation");
+        creators.erase("counterstrike");
+        creators.erase("misdirection on party");
+        creators.erase("deterrence");
+        creators.erase("wing clip");
+    }
 private:
     static ActionNode* rapid_fire(PlayerbotAI* ai)
     {
@@ -120,7 +136,14 @@ private:
 
 GenericHunterStrategy::GenericHunterStrategy(PlayerbotAI* ai) : RangedCombatStrategy(ai)
 {
-    actionNodeFactories.Add(new GenericHunterStrategyActionNodeFactory());
+    factoryInternal = new GenericHunterStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
+}
+
+GenericHunterStrategy::~GenericHunterStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
 }
 
 void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

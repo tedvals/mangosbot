@@ -22,7 +22,21 @@ public:
         creators["steady shot"] = &steady_shot;
         creators["concussive shot"] = &concussive_shot;
         creators["viper sting"] = &viper_sting;
-            }
+    }
+    ~DpsHunterStrategyActionNodeFactory()
+    {
+        creators.erase("aimed shot");
+        creators.erase("multi-shot");
+        creators.erase("arcane shot");
+        creators.erase("chimera shot");
+        creators.erase("black arrow");
+        creators.erase("immolation trap");
+        creators.erase("explosive trap");
+        creators.erase("explosive shot");
+        creators.erase("steady shot");
+        creators.erase("concussive shot");
+        creators.erase("viper sting");
+    }
 private:
     static ActionNode* viper_sting(PlayerbotAI* ai)
     {
@@ -103,14 +117,23 @@ private:
     }
 };
 
-DpsHunterStrategy::DpsHunterStrategy(PlayerbotAI* ai) : GenericHunterStrategy(ai)
-{
-    actionNodeFactories.Add(new DpsHunterStrategyActionNodeFactory());
-}
-
 NextAction** DpsHunterStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("explosive shot", 15.0f), new NextAction("kill command", 15.0f), new NextAction("aimed shot", 15.0f), new NextAction("steady shot", 12.0f), new NextAction("auto shot", 10.0f), NULL);
+    defaultActions = NextAction::array(0, new NextAction("explosive shot", 15.0f), new NextAction("kill command", 15.0f), new NextAction("aimed shot", 15.0f), new NextAction("steady shot", 12.0f), new NextAction("auto shot", 10.0f), NULL);
+    return defaultActions;
+}
+
+DpsHunterStrategy::DpsHunterStrategy(PlayerbotAI* ai) : GenericHunterStrategy(ai)
+{
+    factoryInternal = new DpsHunterStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
+}
+
+DpsHunterStrategy::~DpsHunterStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
+    delete defaultActions;
 }
 
 void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -161,6 +184,10 @@ public:
     {
         creators["explosive trap"] = &explosive_trap;
     }
+    ~DpsAoeHunterStrategyActionNodeFactory()
+    {
+        creators.erase("explosive trap");
+    }
 private:
     static ActionNode* explosive_trap(PlayerbotAI* ai)
     {
@@ -173,7 +200,14 @@ private:
 
 DpsAoeHunterStrategy::DpsAoeHunterStrategy(PlayerbotAI* ai) : CombatStrategy(ai)
 {
-    actionNodeFactories.Add(new DpsAoeHunterStrategyActionNodeFactory());
+    factoryInternal = new DpsAoeHunterStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
+}
+
+DpsAoeHunterStrategy::~DpsAoeHunterStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
 }
 
 void DpsAoeHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
