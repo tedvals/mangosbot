@@ -38,6 +38,36 @@ public:
         creators["heroism"] = &bloodlust;
         creators["earth elemental totem"] = &earth_elemental_totem;
     }
+    ~GenericShamanStrategyActionNodeFactory()
+    {
+        creators.erase("flame shock");
+        creators.erase("earth shock");
+        creators.erase("flametongue weapon");
+        creators.erase("frostbrand weapon");
+        creators.erase("windfury weapon");
+        creators.erase("lesser healing wave");
+        creators.erase("lesser healing wave on party");
+        creators.erase("lesser healing wave on master");
+        creators.erase("healing wave");
+        creators.erase("healing wave on party");
+        creators.erase("healing wave on master");
+        creators.erase("chain heal");
+        creators.erase("chain heal on party");
+        creators.erase("chain heal on master");
+        creators.erase("strength of earth totem");
+        creators.erase("stoneskin totem");
+        creators.erase("totem of wrath totem");
+        creators.erase("flametongue totem");
+        creators.erase("searing totem");
+        creators.erase("mana spring totem");
+        creators.erase("wrath of air totem");
+        creators.erase("grace of air totem");
+        creators.erase("magma totem");
+        creators.erase("boost");
+        creators.erase("bloodlust");
+        creators.erase("heroism");
+        creators.erase("earth elemental totem");
+    }
 private:
 
     static ActionNode* flame_shock(PlayerbotAI* ai)
@@ -233,7 +263,14 @@ private:
 
 GenericShamanStrategy::GenericShamanStrategy(PlayerbotAI* ai) : CombatStrategy(ai)
 {
-    actionNodeFactories.Add(new GenericShamanStrategyActionNodeFactory());
+    factoryInternal = new GenericShamanStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
+}
+
+GenericShamanStrategy::~GenericShamanStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
 }
 
 void GenericShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

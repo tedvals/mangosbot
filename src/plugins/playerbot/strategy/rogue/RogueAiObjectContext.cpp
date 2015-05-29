@@ -29,6 +29,15 @@ namespace ai
                 creators["stealth"] = &rogue::StrategyFactoryInternal::stealth;
                 creators["pull"] = &rogue::StrategyFactoryInternal::pull;
             }
+            ~StrategyFactoryInternal()
+            {
+                creators.erase("dps");
+                creators.erase("sword");
+                creators.erase("dagger");
+                creators.erase("nc");
+                creators.erase("stealth");
+                creators.erase("pull");
+            }
 
         private:
             static Strategy* dps(PlayerbotAI* ai) { return new DpsRogueStrategy(ai); }
@@ -64,6 +73,19 @@ namespace ai
                 creators["kick on enemy healer"] = &TriggerFactoryInternal::kick_on_enemy_healer;
                 creators["premeditation"] = &TriggerFactoryInternal::premeditation;
 
+            }
+            ~TriggerFactoryInternal()
+            {
+               creators.erase("riposte");
+                creators.erase("kick");
+                creators.erase("stealth");
+                creators.erase("garrote");
+                creators.erase("rupture");
+                creators.erase("hunger for blood");
+                creators.erase("slice and dice");
+                creators.erase("expose armor");
+                creators.erase("kick on enemy healer");
+                creators.erase("premeditation");
             }
 
         private:
@@ -144,6 +166,58 @@ namespace ai
                 creators["boost"] = &AiObjectContextInternal::adrenaline_rush;
                 creators["burst"] = &AiObjectContextInternal::killing_spree;
             }
+            ~AiObjectContextInternal()
+            {
+                creators.erase("riposte");
+                creators.erase("mutilate");
+                creators.erase("sinister strike");
+                creators.erase("kidney shot");
+                creators.erase("rupture");
+                creators.erase("slice and dice");
+                creators.erase("eviscerate");
+                creators.erase("finish target");
+                creators.erase("envenom");
+                creators.erase("vanish");
+                creators.erase("evasion");
+                creators.erase("kick");
+                creators.erase("feint");
+                creators.erase("backstab");
+                creators.erase("adrenaline rush");
+                creators.erase("blade flurry");
+                creators.erase("killing spree");
+                creators.erase("shadow dance");
+                creators.erase("hunger for blood");
+                creators.erase("hemorrhage");
+                creators.erase("shadowstep");
+                creators.erase("stealth");
+                creators.erase("prepare attack");
+                creators.erase("garrote");
+                creators.erase("garrote sword");
+                creators.erase("ambush");
+                creators.erase("preparation");
+                creators.erase("fan of knives");
+                creators.erase("premeditation");
+                creators.erase("dismantle");
+                creators.erase("deadly throw");
+                creators.erase("blind");
+                creators.erase("wound poison mainhand");
+                creators.erase("instant poison mainhand");
+                creators.erase("deadly poison mainhand");
+                creators.erase("crippling poison mainhand");
+                creators.erase("mind-numbing poison mainhand");
+                creators.erase("wound poison offhand");
+                creators.erase("instant poison offhand");
+                creators.erase("deadly poison offhand");
+                creators.erase("crippling poison offhand");
+                creators.erase("mind-numbing poison offhand");
+                creators.erase("cloak of shadows");
+                creators.erase("sap");
+                creators.erase("sap on cc");
+                creators.erase("expose armor");
+                creators.erase("kick on enemy healer");
+                creators.erase("boost");
+                creators.erase("burst");
+            }
 
         private:
             static Action* riposte(PlayerbotAI* ai) { return new CastRiposteAction(ai); }
@@ -197,7 +271,22 @@ namespace ai
 
 RogueAiObjectContext::RogueAiObjectContext(PlayerbotAI* ai) : AiObjectContext(ai)
 {
-    strategyContexts.Add(new ai::rogue::StrategyFactoryInternal());
-    actionContexts.Add(new ai::rogue::AiObjectContextInternal());
-    triggerContexts.Add(new ai::rogue::TriggerFactoryInternal());
+    strategyFactoryInternal = new ai::rogue::StrategyFactoryInternal();
+    aiObjectContextInternal = new ai::rogue::AiObjectContextInternal();
+    triggerFactoryInternal = new ai::rogue::TriggerFactoryInternal();
+
+    strategyContexts.Add(strategyFactoryInternal);
+    actionContexts.Add(aiObjectContextInternal);
+    triggerContexts.Add(triggerFactoryInternal);
+}
+
+RogueAiObjectContext::~RogueAiObjectContext()
+{
+    strategyContexts.Remove(strategyFactoryInternal);
+    actionContexts.Remove(aiObjectContextInternal);
+    triggerContexts.Remove(triggerFactoryInternal);
+
+    delete dynamic_cast<ai::rogue::StrategyFactoryInternal*>(strategyFactoryInternal);
+    delete dynamic_cast<ai::rogue::AiObjectContextInternal*>(aiObjectContextInternal);
+    delete dynamic_cast<ai::rogue::TriggerFactoryInternal*>(triggerFactoryInternal);
 }

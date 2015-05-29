@@ -8,7 +8,10 @@ namespace ai
     {
     public:
         HealShamanStrategy(PlayerbotAI* ai);
-
+        ~HealShamanStrategy();
+    protected:
+        NamedObjectFactory<ActionNode>* factoryInternal;
+        NextAction** defaultActions;
     public:
         virtual void InitTriggers(std::list<TriggerNode*> &triggers);
         virtual NextAction** getDefaultActions();

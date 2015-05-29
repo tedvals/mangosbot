@@ -16,6 +16,14 @@ public:
         creators["riptide on party"] = &riptide_on_party;
         creators["tidal force"] = &tidal_force;
     }
+    ~HealShamanStrategyActionNodeFactory()
+    {
+        creators.erase("earthliving weapon");
+        creators.erase("mana tide totem");
+        creators.erase("riptide");
+        creators.erase("riptide on party");
+        creators.erase("tidal force");
+    }
 private:
     static ActionNode* earthliving_weapon(PlayerbotAI* ai)
     {
@@ -56,12 +64,21 @@ private:
 
 HealShamanStrategy::HealShamanStrategy(PlayerbotAI* ai) : GenericShamanStrategy(ai)
 {
-    actionNodeFactories.Add(new HealShamanStrategyActionNodeFactory());
+    factoryInternal = new HealShamanStrategyActionNodeFactory();
+    actionNodeFactories.Add(factoryInternal);
+}
+
+HealShamanStrategy::~HealShamanStrategy()
+{
+    actionNodeFactories.Remove(factoryInternal);
+    delete factoryInternal;
+    delete defaultActions;
 }
 
 NextAction** HealShamanStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("lightning bolt heal", 10.0f),NULL);
+    defaultActions = NextAction::array(0, new NextAction("lightning bolt heal", 10.0f),NULL);
+    return defaultActions;
 }
 
 void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
