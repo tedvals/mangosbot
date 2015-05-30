@@ -345,7 +345,7 @@ namespace ai
 MageAiObjectContext::MageAiObjectContext(PlayerbotAI* ai) : AiObjectContext(ai)
 {
     strategyFactoryInternal = new ai::mage::StrategyFactoryInternal();
-    mageStrategyFactoryInternal = new ai::mage::StrategyFactoryInternal();
+    mageStrategyFactoryInternal = new ai::mage::MageStrategyFactoryInternal();
     buffStrategyFactoryInternal = new ai::mage::MageBuffStrategyFactoryInternal();
     aiObjectContextInternal = new ai::mage::AiObjectContextInternal();
     triggerFactoryInternal = new ai::mage::TriggerFactoryInternal();
