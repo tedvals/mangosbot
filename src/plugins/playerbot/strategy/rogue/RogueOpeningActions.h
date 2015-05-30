@@ -109,12 +109,12 @@ namespace ai
         {
             return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
         }
-/*
+
 	virtual NextAction** getAlternatives()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("cheap shot"), NULL), CastMeleeSpellAction::getAlternatives());
+            return NextAction::merge( NextAction::array(0, new NextAction("garrote"), NULL), CastMeleeSpellAction::getAlternatives());
         }
-*/
+
 	};
 
 	class CastCheapShotAction : public CastMeleeSpellAction
@@ -124,7 +124,7 @@ namespace ai
 
         virtual bool IsInstant() {return true;}
         virtual bool isUseful() {
-            return CastMeleeSpellAction::isUseful() && (!AI_VALUE2(bool, "stunned", "current target")) && ai->HasAura("stealth", AI_VALUE(Unit*, "self target"));
+            return CastMeleeSpellAction::isUseful() && (!AI_VALUE2(bool, "stunned", "current target")) && ai->HasAura("stealth", bot);
         }
 /*
         virtual NextAction** getAlternatives()

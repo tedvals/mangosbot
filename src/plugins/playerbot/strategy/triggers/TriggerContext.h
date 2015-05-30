@@ -157,6 +157,151 @@ namespace ai
             creators["invalid target"] = &TriggerContext::invalid_target;
             creators["lfg proposal active"] = &TriggerContext::lfg_proposal_active;
         }
+        ~TriggerContext()
+        {
+            creators.erase("timer");
+            creators.erase("random");
+            creators.erase("seldom");
+            creators.erase("often");
+
+            creators.erase("target critical health");
+            creators.erase("target almost dead");
+
+            creators.erase("critical health");
+            creators.erase("low health");
+            creators.erase("medium health");
+            creators.erase("high health");
+            creators.erase("almost full health");
+            creators.erase("full health");
+            creators.erase("almost dead");
+
+            creators.erase("low mana");
+            creators.erase("medium mana");
+            creators.erase("almost full mana");
+            creators.erase("full mana");
+            creators.erase("drink mana");
+
+            creators.erase("party member almost dead");
+            creators.erase("party member critical health");
+            creators.erase("party member low health");
+            creators.erase("party member medium health");
+            creators.erase("party member high health");
+            creators.erase("party member almost full health");
+
+            creators.erase("master almost dead");
+            creators.erase("master critical health");
+            creators.erase("master low health");
+            creators.erase("master high health");
+            creators.erase("master almost full health");
+
+            creators.erase("light rage available");
+            creators.erase("medium rage available");
+            creators.erase("high rage available");
+
+            creators.erase("light energy available");
+            creators.erase("medium energy available");
+            creators.erase("high energy available");
+
+            creators.erase("loot available");
+            creators.erase("no attackers");
+            creators.erase("no target");
+            creators.erase("target in sight");
+            creators.erase("not least hp target active");
+            creators.erase("has nearest adds");
+            creators.erase("enemy player is attacking");
+
+            creators.erase("tank aoe");
+            creators.erase("lose aggro");
+            creators.erase("have aggro");
+
+            creators.erase("no aoe");
+            creators.erase("light aoe");
+            creators.erase("medium aoe");
+            creators.erase("high aoe");
+
+            creators.erase("no melee aoe");
+            creators.erase("melee light aoe");
+            creators.erase("melee medium aoe");
+            creators.erase("melee high aoe");
+
+            creators.erase("target out of los");
+            creators.erase("enemy out of melee");
+            creators.erase("enemy out of spell");
+            creators.erase("enemy too close for spell");
+            creators.erase("enemy too close for melee");
+            creators.erase("enemy in melee range");
+
+            creators.erase("combo points available");
+            creators.erase("combo point available");
+
+            creators.erase("medium threat");
+
+            creators.erase("dead");
+            creators.erase("is rooted");
+            creators.erase("is frozen");
+            creators.erase("is snared");
+            creators.erase("is bleeding");
+            creators.erase("is stunned");
+            creators.erase("is disoriented");
+            creators.erase("is possessed");
+            creators.erase("is charmed");
+            creators.erase("is silenced");
+
+            creators.erase("is polymorphed");
+            creators.erase("takes periodic damage");
+
+            creators.erase("party member dead");
+            creators.erase("no pet");
+            creators.erase("has attackers");
+            creators.erase("no possible targets");
+
+            creators.erase("no drink");
+            creators.erase("no food");
+
+            creators.erase("mainhand not enhanced");
+            creators.erase("offhand not enhanced");
+
+            creators.erase("panic");
+            creators.erase("behind target");
+            creators.erase("front target");
+            creators.erase("not facing target");
+            creators.erase("far from master");
+            creators.erase("far from loot target");
+            creators.erase("can loot");
+            creators.erase("swimming");
+            creators.erase("target changed");
+
+            creators.erase("enemy rooted");
+            creators.erase("enemy frozen");
+            creators.erase("enemy snared");
+            creators.erase("enemy bleeding");
+            creators.erase("enemy stunned");
+            creators.erase("enemy polymorphed");
+            creators.erase("enemy disoriented");
+            creators.erase("enemy possessed");
+            creators.erase("enemy charmed");
+            creators.erase("enemy silenced");
+
+            creators.erase("party member rooted");
+            creators.erase("party member frozen");
+            creators.erase("party member snared");
+            creators.erase("party member polymorphed");
+            creators.erase("party member charmed");
+            creators.erase("party member possessed");
+
+            creators.erase("target not rooted");
+            creators.erase("target not frozen");
+            creators.erase("target not snared");
+            creators.erase("target not bleeding");
+            creators.erase("target not stunned");
+
+            creators.erase("critical aoe heal");
+            creators.erase("low aoe heal");
+            creators.erase("medium aoe heal");
+            creators.erase("almost full aoe heal");
+            creators.erase("invalid target");
+            creators.erase("lfg proposal active");
+        }
 
     private:
         static Trigger* lfg_proposal_active(PlayerbotAI* ai) { return new LfgProposalActiveTrigger(ai); }

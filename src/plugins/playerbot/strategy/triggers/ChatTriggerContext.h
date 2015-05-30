@@ -78,6 +78,77 @@ namespace ai
             creators["attackers"] = &ChatTriggerContext::attackers;
             creators["formation"] = &ChatTriggerContext::formation;
         }
+        ~ChatTriggerContext()
+        {
+            creators.erase("quests");
+            creators.erase("stats");
+            creators.erase("leave");
+            creators.erase("rep");
+            creators.erase("reputation");
+            creators.erase("log");
+            creators.erase("los");
+            creators.erase("drop");
+            creators.erase("q");
+            creators.erase("ll");
+            creators.erase("loot all");
+            creators.erase("add all loot");
+            creators.erase("release");
+            creators.erase("teleport");
+            creators.erase("taxi");
+            creators.erase("repair");
+            creators.erase("u");
+            creators.erase("use");
+            creators.erase("c");
+            creators.erase("e");
+            creators.erase("ue");
+            creators.erase("s");
+            creators.erase("b");
+            creators.erase("r");
+            creators.erase("t");
+            creators.erase("nt");
+            creators.erase("talents");
+            creators.erase("spells");
+            creators.erase("co");
+            creators.erase("nc");
+            creators.erase("dead");
+            creators.erase("trainer");
+            creators.erase("attack");
+            creators.erase("chat");
+            creators.erase("accept");
+            creators.erase("home");
+            creators.erase("reset ai");
+            creators.erase("destroy");
+            creators.erase("emote");
+            creators.erase("buff");
+            creators.erase("enhance");
+            creators.erase("inventory");
+            creators.erase("help");
+            creators.erase("gb");
+            creators.erase("bank");
+            creators.erase("follow");
+            creators.erase("stay");
+            creators.erase("flee");
+            creators.erase("grind");
+            creators.erase("stop attack");
+            creators.erase("resume attack");
+            creators.erase("tank attack");
+            creators.erase("talk");
+            creators.erase("cast");
+            creators.erase("invite");
+            creators.erase("spell");
+            creators.erase("rti");
+            creators.erase("revive");
+            creators.erase("runaway");
+            creators.erase("move behind");
+            creators.erase("warning");
+            creators.erase("position");
+            creators.erase("summon");
+            creators.erase("who");
+            creators.erase("save mana");
+            creators.erase("max dps");
+            creators.erase("attackers");
+            creators.erase("formation");
+        }
 
     private:
         static Trigger* formation(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "formation"); }

@@ -512,7 +512,7 @@ private:
     {
         return new ActionNode ("ambush",
             /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("cheap shot"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("garrote sword"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* cheap_shot(PlayerbotAI* ai)
