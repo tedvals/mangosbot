@@ -73,13 +73,36 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 	float oldPosX;
 	float oldPosY;
 	float oldPosZ;
+	float maxDistance;
+	float minDistance;
+	float distanceStep;
+
 	uint32 mapId = bot->GetMapId();
 	bool movePoint = false;
 
 	if (bot)
 		movePoint = bot->GetPlayerbotAI()->GetMovePoint(mapId, oldPosX, oldPosY, oldPosX);
 
-	for (float distance = maxAllowedDistance; distance >= sPlayerbotAIConfig.tooCloseDistance + 5.0f; distance -= 5.0f)
+    switch (bot->getClass()) {
+			case CLASS_HUNTER:
+			case CLASS_MAGE:
+			case CLASS_PRIEST:
+			case CLASS_WARLOCK:
+				maxDistance = maxAllowedDistance;
+				minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
+				distanceStep = 5.0f;
+				break;
+			case CLASS_PALADIN:
+			case CLASS_ROGUE:
+			case CLASS_WARRIOR:
+            case CLASS_DEATH_KNIGHT:
+				maxDistance = sPlayerbotAIConfig.meleeDistance;
+				minDistance = sPlayerbotAIConfig.contactDistance;
+				distanceStep = 2.0f;
+				break;
+    }
+
+	for (float distance = maxDistance; distance >= minDistance; distance -= distanceStep)
 	{
         for (float angle = -M_PI + followAngle; angle < M_PI + followAngle; angle += M_PI / 16)
         {

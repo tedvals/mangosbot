@@ -27,7 +27,7 @@ namespace ai
 			this->checkInterval = checkInterval;
 			ticksElapsed = 0;
         }
-        virtual ~Trigger() {}
+        virtual ~Trigger() {name.clear();}
 
 	public:
         virtual Event Check();
@@ -70,6 +70,7 @@ namespace ai
         virtual ~TriggerNode()
         {
             NextAction::destroy(handlers);
+            name.clear();
         }
 
     public:
