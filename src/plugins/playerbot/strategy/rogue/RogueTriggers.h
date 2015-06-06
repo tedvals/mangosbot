@@ -50,6 +50,13 @@ namespace ai
         virtual bool IsActive() { return OwnDebuffTrigger::IsActive() && ai->HasAura("stealth", bot);}
     };
 
+    class AmbushTrigger : public DebuffTrigger
+    {
+    public:
+        AmbushTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "ambush") {}
+        virtual bool IsActive() { return DebuffTrigger::IsActive() && ai->HasAura("stealth", bot);}
+    };
+
     class KickInterruptEnemyHealerSpellTrigger : public InterruptEnemyHealerTrigger
     {
     public:

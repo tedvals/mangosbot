@@ -11,6 +11,7 @@ public:
     DpsRogueStrategyActionNodeFactory()
     {
         creators["backstab"] = &backstab;
+        creators["hemorrhage"] = &hemorrhage;
         creators["kick"] = &kick;
         creators["gouge"] = &gouge;
         creators["kidney shot"] = &kidney_shot;
@@ -27,6 +28,7 @@ public:
     ~DpsRogueStrategyActionNodeFactory()
     {
         creators.erase("backstab");
+        creators.erase("hemorrhage");
         creators.erase("kick");
         creators.erase("gouge");
         creators.erase("kidney shot");
@@ -69,6 +71,13 @@ private:
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("hemorrhage"), NULL),
             /*C*/ NextAction::array(0, new NextAction("move behind"), NULL));
+    }
+    static ActionNode* hemorrhage(PlayerbotAI* ai)
+    {
+        return new ActionNode ("hemorrhage",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("move behind"), NULL),
+            /*C*/ NULL);
     }
     static ActionNode* kick(PlayerbotAI* ai)
     {
@@ -540,7 +549,7 @@ DpsDaggerRogueStrategy::~DpsDaggerRogueStrategy()
 
 NextAction** DpsDaggerRogueStrategy::getDefaultActions()
 {
-    defaultActions = NextAction::array(0, new NextAction("ambush", ACTION_NORMAL + 7), new NextAction("mutilate", ACTION_NORMAL + 5), new NextAction("backstab", ACTION_NORMAL), NULL);
+    defaultActions = NextAction::array(0, new NextAction("mutilate", ACTION_NORMAL + 5), new NextAction("backstab", ACTION_NORMAL), NULL);
     return defaultActions;
 }
 
@@ -553,8 +562,12 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
+        "ambush",
+        NextAction::array(0, new NextAction("ambush", ACTION_EMERGENCY + 4), NULL)));
+
+    triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("shadowstep", ACTION_MOVE + 8), new NextAction("garrote", ACTION_MOVE + 7), NULL)));
+        NextAction::array(0, new NextAction("shadowstep", ACTION_MOVE + 9), new NextAction("garrote", ACTION_MOVE + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
         "combo points available",

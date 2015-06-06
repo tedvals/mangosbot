@@ -58,12 +58,12 @@ namespace ai
         }
 //
         virtual bool IsInstant() {return true;}
-/*
+
         virtual NextAction** getAlternatives()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("ambush"), NULL), CastMeleeSpellAction::getAlternatives());
         }
-*/
+
         virtual NextAction** getPrerequisites()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());
@@ -112,7 +112,7 @@ namespace ai
 
 	virtual NextAction** getAlternatives()
         {
-            return NextAction::merge( NextAction::array(0, new NextAction("garrote"), NULL), CastMeleeSpellAction::getAlternatives());
+            return NextAction::merge( NextAction::array(0, new NextAction("cheap shot"), NULL), CastMeleeSpellAction::getAlternatives());
         }
 
 	};
@@ -126,12 +126,12 @@ namespace ai
         virtual bool isUseful() {
             return CastMeleeSpellAction::isUseful() && (!AI_VALUE2(bool, "stunned", "current target")) && ai->HasAura("stealth", bot);
         }
-/*
+
         virtual NextAction** getAlternatives()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("garrote sword"), NULL), CastMeleeSpellAction::getAlternatives());
         }
-*/
+
         virtual NextAction** getPrerequisites()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("move behind"), NULL), CastMeleeSpellAction::getPrerequisites());

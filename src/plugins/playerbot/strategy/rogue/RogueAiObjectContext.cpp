@@ -65,6 +65,7 @@ namespace ai
                 creators["kick"] = &TriggerFactoryInternal::kick;
                 creators["stealth"] = &TriggerFactoryInternal::stealth;
                 creators["garrote"] = &TriggerFactoryInternal::garrote;
+                creators["ambush"] = &TriggerFactoryInternal::ambush;
                 creators["rupture"] = &TriggerFactoryInternal::rupture;
       //          creators["sap"] = &TriggerFactoryInternal::sap;
                 creators["hunger for blood"] = &TriggerFactoryInternal::hunger_for_blood;
@@ -80,6 +81,7 @@ namespace ai
                 creators.erase("kick");
                 creators.erase("stealth");
                 creators.erase("garrote");
+                creators.erase("ambush");
                 creators.erase("rupture");
                 creators.erase("hunger for blood");
                 creators.erase("slice and dice");
@@ -93,6 +95,7 @@ namespace ai
             static Trigger* kick(PlayerbotAI* ai) { return new KickInterruptSpellTrigger(ai); }
             static Trigger* stealth(PlayerbotAI* ai) { return new StealthTrigger(ai); }
             static Trigger* garrote(PlayerbotAI* ai) { return new GarroteTrigger(ai); }
+            static Trigger* ambush(PlayerbotAI* ai) { return new AmbushTrigger(ai); }
             static Trigger* rupture(PlayerbotAI* ai) { return new RuptureTrigger(ai); }
    //         static Trigger* sap(PlayerbotAI* ai) { return new SapTrigger(ai); }
             static Trigger* hunger_for_blood(PlayerbotAI* ai) { return new HungerForBloodTrigger(ai); }
