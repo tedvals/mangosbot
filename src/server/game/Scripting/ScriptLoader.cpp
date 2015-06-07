@@ -1421,6 +1421,7 @@ void AddBattlegroundScripts()
 void AddSC_PWS_Transmogrification();
 void AddSC_CS_Transmogrification();
 void AddSC_REFORGER_NPC();
+void AddSC_GOMove_commandscript();
 #endif
 
 void AddCustomScripts()
@@ -1428,8 +1429,12 @@ void AddCustomScripts()
 #ifdef SCRIPTS
     /* This is where custom scripts should be added. */
 
+<<<<<<< HEAD
     AddSC_PWS_Transmogrification();
     AddSC_CS_Transmogrification();
     AddSC_REFORGER_NPC();
+=======
+    AddSC_GOMove_commandscript();
+>>>>>>> 332e81972d1d140f459aeef102b68e66878a05ea
 #endif
 }
