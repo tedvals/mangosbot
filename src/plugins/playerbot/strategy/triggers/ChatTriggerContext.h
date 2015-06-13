@@ -77,6 +77,7 @@ namespace ai
             creators["max dps"] = &ChatTriggerContext::max_dps;
             creators["attackers"] = &ChatTriggerContext::attackers;
             creators["formation"] = &ChatTriggerContext::formation;
+            creators["move"] = &ChatTriggerContext::move_to;
         }
         ~ChatTriggerContext()
         {
@@ -148,6 +149,7 @@ namespace ai
             creators.erase("max dps");
             creators.erase("attackers");
             creators.erase("formation");
+            creators.erase("move");
         }
 
     private:
@@ -217,5 +219,6 @@ namespace ai
         static Trigger* release(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "release"); }
         static Trigger* reset_ai(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "reset ai"); }
         static Trigger* spell(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "spell"); }
+        static Trigger* move_to(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "move"); }
     };
 };

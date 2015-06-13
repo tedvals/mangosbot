@@ -428,6 +428,30 @@ bool RepositionAction::isUseful()
     return AI_VALUE(uint8, "attacker count") > 0;
 }
 
+bool MoveOrderAction::Execute(Event event)
+{
+    Player* player = GetMaster();
+
+    float rx, ry, rz;
+
+    uint32 mapId = bot->GetMapId();
+    if (player->GetMovePoint(mapId,rx,ry,rz))
+    {
+        float distance = bot->GetDistance(rx,ry,rz);
+
+        if (distance <= sPlayerbotAIConfig.sightDistance)
+            return FleeTo(bot,mapId, rx, ry, rz);
+         else player->ResetMovePoint();
+      }
+    else return false;
+}
+
+bool MoveOrderAction::isUseful()
+{
+    return true;
+}
+
+
 bool FleeAction::Execute(Event event)
 {
     return Flee(AI_VALUE(Unit*, "current target"));

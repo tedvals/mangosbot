@@ -19,6 +19,20 @@ namespace ai
         virtual bool Execute(Event event);
     };
 
+    class MoveToPointChatShortcutAction : public Action
+    {
+    public:
+         MoveToPointChatShortcutAction(PlayerbotAI* ai) : Action(ai, "move to point chat shortcut") {}
+        virtual bool Execute(Event event);
+    };
+
+    class RepositionChatShortcutAction : public Action
+    {
+    public:
+        RepositionChatShortcutAction(PlayerbotAI* ai) : Action(ai, "reposition chat shortcut") {}
+        virtual bool Execute(Event event);
+    };
+
     class StayChatShortcutAction : public Action
     {
     public:

@@ -17,6 +17,7 @@
 
 #include "ScriptLoader.h"
 #include "World.h"
+#include "../../../src/plugins/playerbot/playerbot.h"
 
 // spells
 void AddSC_deathknight_spell_scripts();
@@ -1422,6 +1423,7 @@ void AddSC_PWS_Transmogrification();
 void AddSC_CS_Transmogrification();
 void AddSC_REFORGER_NPC();
 void AddSC_GOMove_commandscript();
+void AddSC_MoveBot_commandscript();
 #endif
 
 void AddCustomScripts()
@@ -1433,5 +1435,6 @@ void AddCustomScripts()
     AddSC_CS_Transmogrification();
     AddSC_REFORGER_NPC();
     AddSC_GOMove_commandscript();
+    AddSC_MoveBot_commandscript();
 #endif
 }

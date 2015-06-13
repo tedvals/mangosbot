@@ -121,6 +121,8 @@ namespace ai
             creators["max dps chat shortcut"] = &ChatActionContext::max_dps_chat_shortcut;
             creators["tell attackers"] = &ChatActionContext::tell_attackers;
             creators["formation"] = &ChatActionContext::formation;
+            creators["move to point chat shortcut"] = &ChatActionContext::move_to_point_chat_shortcut;
+            creators["reposition chat shortcut"] = &ChatActionContext::reposition_chat_shortcut;
         }
 
     private:
@@ -143,6 +145,8 @@ namespace ai
         static Action* resume_attack_chat_shortcut(PlayerbotAI* ai) { return new ResumeAttackChatShortcutAction(ai); }
         static Action* stop_attack_chat_shortcut(PlayerbotAI* ai) { return new StopAttackChatShortcutAction(ai); }
         static Action* move_behind_chat_shortcut(PlayerbotAI* ai) { return new MoveBehindChatShortcutAction(ai); }
+        static Action* move_to_point_chat_shortcut(PlayerbotAI* ai) { return new MoveToPointChatShortcutAction(ai); }
+        static Action* reposition_chat_shortcut(PlayerbotAI* ai) { return new RepositionChatShortcutAction(ai); }
         static Action* runaway_chat_shortcut(PlayerbotAI* ai) { return new GoawayChatShortcutAction(ai); }
         static Action* stay_chat_shortcut(PlayerbotAI* ai) { return new StayChatShortcutAction(ai); }
         static Action* follow_chat_shortcut(PlayerbotAI* ai) { return new FollowChatShortcutAction(ai); }

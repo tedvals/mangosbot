@@ -34,7 +34,40 @@ bool MoveBehindChatShortcutAction::Execute(Event event)
         ai->TellMaster("can not get behind target - too far away");
         return true;
     }
+    ai->DoSpecificAction("move behind");
     ai->TellMaster("Moving behind target");
+    return true;
+}
+
+bool RepositionChatShortcutAction::Execute(Event event)
+{
+    Player* master = GetMaster();
+    if (!master)
+        return false;
+
+    if (bot->GetMapId() != master->GetMapId() || bot->GetDistance(master) > sPlayerbotAIConfig.sightDistance)
+    {
+        ai->TellMaster("can not reposition - too far away");
+        return true;
+    }
+    ai->DoSpecificAction("reposition");
+    ai->TellMaster("reposition");
+    return true;
+}
+
+bool MoveToPointChatShortcutAction::Execute(Event event)
+{
+    Player* master = GetMaster();
+    if (!master)
+        return false;
+
+    if (bot->GetMapId() != master->GetMapId() || bot->GetDistance(master) > sPlayerbotAIConfig.sightDistance)
+    {
+        ai->TellMaster("can not move to point - too far away");
+        return true;
+    }
+    ai->DoSpecificAction("move to point");
+    ai->TellMaster("Moving to point");
     return true;
 }
 

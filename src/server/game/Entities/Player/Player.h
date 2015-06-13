@@ -2361,7 +2361,31 @@ class Player : public Unit, public GridObject<Player>
         PresetMapType presetMap; // presetMap[presetId] = presetData
 #endif
         ReforgeMapType reforgeMap; // reforgeMap[iGUID] = ReforgeData
+   // Playerbot mod:
+        float order_mov_x;
+        float order_mov_y;
+        float order_mov_z;
+        bool order_mov_point;
+        uint32 order_mov_mapId;
 
+        bool HasMoveOrder() { return order_mov_point; }
+        void SetMovePoint (uint32 mapId, float x, float y, float z) {order_mov_point= true; order_mov_mapId = mapId; order_mov_x = x; order_mov_y = y;order_mov_z = z;}
+        void ResetMovePoint() {order_mov_point = false;}
+
+        bool GetMovePoint( uint32 mapId, float& x, float& y, float& z)
+        {
+            if (mapId != order_mov_mapId)
+                return false;
+
+            if (order_mov_point)
+            {
+                x = order_mov_x;
+                y = order_mov_y;
+                z = order_mov_z;
+                return true;
+            }
+            else return false;
+    }
     protected:
         // Gamemaster whisper whitelist
         GuidList WhisperList;

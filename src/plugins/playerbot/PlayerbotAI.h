@@ -229,6 +229,7 @@ protected:
     float go_y;
     float go_z;
     bool go_point;
+
     uint32 go_mapId;
 
     vector<ObjectGuid> objectVisited;

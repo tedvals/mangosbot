@@ -75,6 +75,21 @@ namespace ai
 		float distance;
     };
 
+    class MoveOrderAction : public MovementAction
+    {
+    public:
+        MoveOrderAction(PlayerbotAI* ai, float distance = sPlayerbotAIConfig.tooCloseDistance) : MovementAction(ai, "move to point")
+        {
+			this->distance = distance;
+		}
+
+        virtual bool Execute(Event event);
+        virtual bool isUseful();
+
+	private:
+		float distance;
+    };
+
     class RunAwayAction : public MovementAction
     {
     public:
