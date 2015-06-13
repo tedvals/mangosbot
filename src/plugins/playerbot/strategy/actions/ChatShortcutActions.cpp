@@ -71,6 +71,38 @@ bool MoveToPointChatShortcutAction::Execute(Event event)
     return true;
 }
 
+bool BoostChatShortcutAction::Execute(Event event)
+{
+    Player* master = GetMaster();
+    if (!master)
+        return false;
+
+    if (bot->GetMapId() != master->GetMapId() || bot->GetDistance(master) > sPlayerbotAIConfig.sightDistance)
+    {
+        ai->TellMaster("can not move to point - too far away");
+        return true;
+    }
+    ai->DoSpecificAction("boost");
+    ai->TellMaster("Moving to point");
+    return true;
+}
+
+bool BurstChatShortcutAction::Execute(Event event)
+{
+    Player* master = GetMaster();
+    if (!master)
+        return false;
+
+    if (bot->GetMapId() != master->GetMapId() || bot->GetDistance(master) > sPlayerbotAIConfig.sightDistance)
+    {
+        ai->TellMaster("can not move to point - too far away");
+        return true;
+    }
+    ai->DoSpecificAction("burst");
+    ai->TellMaster("Moving to point");
+    return true;
+}
+
 bool StayChatShortcutAction::Execute(Event event)
 {
     Player* master = GetMaster();

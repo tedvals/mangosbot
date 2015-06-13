@@ -77,7 +77,11 @@ namespace ai
             creators["max dps"] = &ChatTriggerContext::max_dps;
             creators["attackers"] = &ChatTriggerContext::attackers;
             creators["formation"] = &ChatTriggerContext::formation;
-            creators["move"] = &ChatTriggerContext::move_to;
+            creators["move there"] = &ChatTriggerContext::move_to;
+            creators["move there"] = &ChatTriggerContext::move_to;
+            creators["boost"] = &ChatTriggerContext::boost_now;
+            creators["burst"] = &ChatTriggerContext::burst_now;
+            creators["reposition"] = &ChatTriggerContext::reposition;
         }
         ~ChatTriggerContext()
         {
@@ -149,7 +153,10 @@ namespace ai
             creators.erase("max dps");
             creators.erase("attackers");
             creators.erase("formation");
-            creators.erase("move");
+            creators.erase("move there");
+            creators.erase("reposition");
+            creators.erase("burst");
+            creators.erase("boost");
         }
 
     private:
@@ -219,6 +226,9 @@ namespace ai
         static Trigger* release(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "release"); }
         static Trigger* reset_ai(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "reset ai"); }
         static Trigger* spell(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "spell"); }
-        static Trigger* move_to(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "move"); }
+        static Trigger* move_to(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "move there"); }
+        static Trigger* reposition(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "reposition now"); }
+        static Trigger* burst_now(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "boost now"); }
+        static Trigger* boost_now(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "burst now"); }
     };
 };

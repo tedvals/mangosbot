@@ -123,6 +123,8 @@ namespace ai
             creators["formation"] = &ChatActionContext::formation;
             creators["move to point chat shortcut"] = &ChatActionContext::move_to_point_chat_shortcut;
             creators["reposition chat shortcut"] = &ChatActionContext::reposition_chat_shortcut;
+            creators["boost chat shortcut"] = &ChatActionContext::boost_chat_shortcut;
+            creators["burst chat shortcut"] = &ChatActionContext::burst_chat_shortcut;
         }
 
     private:
@@ -150,6 +152,8 @@ namespace ai
         static Action* runaway_chat_shortcut(PlayerbotAI* ai) { return new GoawayChatShortcutAction(ai); }
         static Action* stay_chat_shortcut(PlayerbotAI* ai) { return new StayChatShortcutAction(ai); }
         static Action* follow_chat_shortcut(PlayerbotAI* ai) { return new FollowChatShortcutAction(ai); }
+        static Action* boost_chat_shortcut(PlayerbotAI* ai) { return new BoostChatShortcutAction(ai); }
+        static Action* burst_chat_shortcut(PlayerbotAI* ai) { return new BurstChatShortcutAction(ai); }
         static Action* gb(PlayerbotAI* ai) { return new GuildBankAction(ai); }
         static Action* bank(PlayerbotAI* ai) { return new BankAction(ai); }
         static Action* help(PlayerbotAI* ai) { return new HelpAction(ai); }

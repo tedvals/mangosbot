@@ -22,7 +22,21 @@ namespace ai
     class MoveToPointChatShortcutAction : public Action
     {
     public:
-         MoveToPointChatShortcutAction(PlayerbotAI* ai) : Action(ai, "move to point chat shortcut") {}
+        MoveToPointChatShortcutAction(PlayerbotAI* ai) : Action(ai, "move to point chat shortcut") {}
+        virtual bool Execute(Event event);
+    };
+
+    class BoostChatShortcutAction : public Action
+    {
+    public:
+        BoostChatShortcutAction(PlayerbotAI* ai) : Action(ai, "boost chat shortcut") {}
+        virtual bool Execute(Event event);
+    };
+
+    class BurstChatShortcutAction : public Action
+    {
+    public:
+        BurstChatShortcutAction(PlayerbotAI* ai) : Action(ai, "burst chat shortcut") {}
         virtual bool Execute(Event event);
     };
 
