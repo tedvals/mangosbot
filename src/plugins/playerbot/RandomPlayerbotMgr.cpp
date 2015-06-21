@@ -770,7 +770,7 @@ void RandomPlayerbotMgr::PrintStats()
         horde[i] = 0;
     }
 
-    map<uint8, int> perRace, perClass;
+    map<uint8, int> perRace, perClass, spec1, spec2, spec3;
     for (uint8 race = RACE_HUMAN; race < MAX_RACES; ++race)
     {
         perRace[race] = 0;
@@ -778,6 +778,9 @@ void RandomPlayerbotMgr::PrintStats()
     for (uint8 cls = CLASS_WARRIOR; cls < MAX_CLASSES; ++cls)
     {
         perClass[cls] = 0;
+        spec1[cls] = 0;
+        spec2[cls] = 0;
+        spec3[cls] = 0;
     }
 
     int dps = 0, heal = 0, tank = 0;
@@ -793,6 +796,14 @@ void RandomPlayerbotMgr::PrintStats()
         perClass[bot->getClass()]++;
 
         int spec = AiFactory::GetPlayerSpecTab(bot);
+
+        if (spec == 0)
+            spec1[bot->getClass()]++;
+        else if (spec == 1)
+            spec2[bot->getClass()]++;
+        else if (spec == 2)
+            spec3[bot->getClass()]++;
+
         switch (bot->getClass())
         {
         case CLASS_DRUID:
@@ -858,7 +869,7 @@ void RandomPlayerbotMgr::PrintStats()
     for (uint8 cls = CLASS_WARRIOR; cls < MAX_CLASSES; ++cls)
     {
         if (perClass[cls])
-            sLog->outMessage("playerbot", LOG_LEVEL_INFO, "    %s: %d", ChatHelper::formatClass(cls).c_str(), perClass[cls]);
+            sLog->outMessage("playerbot", LOG_LEVEL_INFO, "    %s: %d (%d,%d,%d)", ChatHelper::formatClass(cls).c_str(), perClass[cls],spec1[cls],spec2[cls],spec3[cls]);
     }
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Per role:");
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "    tank: %d", tank);
