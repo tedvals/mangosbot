@@ -163,6 +163,7 @@ namespace ai
 	{
 	public:
 		CastRevivePetAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "revive pet") {}
+		virtual bool isUseful() {return !AI_VALUE2(bool, "has aggro", "current target") && !AI_VALUE2(bool, "combat", "self target");}
 	};
 
     class CastTrueshotAuraAction : public CastBuffSpellAction
