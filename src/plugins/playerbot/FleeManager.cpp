@@ -77,6 +77,9 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 	float minDistance;
 	float distanceStep;
 
+	bool frontonly = 0;
+	bool backonly = 0;
+
 	uint32 mapId = bot->GetMapId();
 	bool movePoint = false;
 
@@ -100,13 +103,19 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 				maxDistance = sPlayerbotAIConfig.meleeDistance;
 				minDistance = sPlayerbotAIConfig.contactDistance;
 				distanceStep = 2.0f;
+
+                if (bot->GetPlayerbotAI()->IsTank(bot))
+                    frontonly = 1;
+                else backonly = 1;
+
+				break;
             case CLASS_SHAMAN:
-                //if bot->GetSpe
                 if (spec == 1)
                 {
                     maxDistance = sPlayerbotAIConfig.meleeDistance;
                     minDistance = sPlayerbotAIConfig.contactDistance;
                     distanceStep = 2.0f;
+                    backonly = 1;
                 }
                 else
                 {
@@ -121,6 +130,9 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
                     maxDistance = sPlayerbotAIConfig.meleeDistance;
                     minDistance = sPlayerbotAIConfig.contactDistance;
                     distanceStep = 2.0f;
+                    if (bot->GetPlayerbotAI()->IsTank(bot))
+                        frontonly = 1;
+                    else backonly = 1;
                 }
                 else
                 {
@@ -141,6 +153,10 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
                     maxDistance = sPlayerbotAIConfig.meleeDistance;
                     minDistance = sPlayerbotAIConfig.contactDistance;
                     distanceStep = 2.0f;
+
+                    if (bot->GetPlayerbotAI()->IsTank(bot))
+                        frontonly = 1;
+                    else backonly = 1;
                 }
                 break;
     }
@@ -168,6 +184,11 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
             if (master && master->GetDistance(x, y, z) > sPlayerbotAIConfig.sightDistance)
                 continue;
 
+          //  if (backonly && bot->isInFront(target, M_PI / 3.0f))
+          //      continue;
+
+           // if (frontonly && !bot->isInFront(target, M_PI / 3.0f))
+           //     continue;
 		//	if (movePoint && abs(bot->GetDistance(x, y, z) - bot->GetDistance(oldPosX, oldPosY, oldPosX)) < 1.0f)
 		//		continue;
 
