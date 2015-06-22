@@ -795,7 +795,7 @@ void RandomPlayerbotMgr::PrintStats()
         perRace[bot->getRace()]++;
         perClass[bot->getClass()]++;
 
-        int spec = AiFactory::GetPlayerSpecTab(bot);
+        int spec = bot->GetSpec();
 
         if (spec == 0)
             spec1[bot->getClass()]++;
@@ -869,7 +869,7 @@ void RandomPlayerbotMgr::PrintStats()
     for (uint8 cls = CLASS_WARRIOR; cls < MAX_CLASSES; ++cls)
     {
         if (perClass[cls])
-            sLog->outMessage("playerbot", LOG_LEVEL_INFO, "    %s: %d (%d,%d,%d)", ChatHelper::formatClass(cls).c_str(), perClass[cls],spec1[cls],spec2[cls],spec3[cls]);
+            sLog->outMessage("playerbot", LOG_LEVEL_INFO, "    %s: %d (%d/%d/%d)", ChatHelper::formatClass(cls).c_str(), perClass[cls],spec1[cls],spec2[cls],spec3[cls]);
     }
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Per role:");
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "    tank: %d", tank);

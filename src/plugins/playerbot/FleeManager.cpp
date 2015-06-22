@@ -83,6 +83,8 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 	if (bot)
 		movePoint = bot->GetPlayerbotAI()->GetMovePoint(mapId, oldPosX, oldPosY, oldPosX);
 
+    uint8 spec = bot->GetSpec();
+
     switch (bot->getClass()) {
 			case CLASS_HUNTER:
 			case CLASS_MAGE:
@@ -92,14 +94,55 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 				minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
 				distanceStep = 5.0f;
 				break;
-			case CLASS_PALADIN:
 			case CLASS_ROGUE:
 			case CLASS_WARRIOR:
             case CLASS_DEATH_KNIGHT:
 				maxDistance = sPlayerbotAIConfig.meleeDistance;
 				minDistance = sPlayerbotAIConfig.contactDistance;
 				distanceStep = 2.0f;
-				break;
+            case CLASS_SHAMAN:
+                //if bot->GetSpe
+                if (spec == 1)
+                {
+                    maxDistance = sPlayerbotAIConfig.meleeDistance;
+                    minDistance = sPlayerbotAIConfig.contactDistance;
+                    distanceStep = 2.0f;
+                }
+                else
+                {
+                    maxDistance = maxAllowedDistance;
+                    minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
+                    distanceStep = 5.0f;
+                }
+                break;
+			case CLASS_DRUID:
+			    if (spec == 1)
+                {
+                    maxDistance = sPlayerbotAIConfig.meleeDistance;
+                    minDistance = sPlayerbotAIConfig.contactDistance;
+                    distanceStep = 2.0f;
+                }
+                else
+                {
+                    maxDistance = maxAllowedDistance;
+                    minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
+                    distanceStep = 5.0f;
+                }
+                break;
+            case CLASS_PALADIN:
+				if (spec == 0 && bot->getLevel() > 55)
+                {
+                    maxDistance = maxAllowedDistance;
+                    minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
+                    distanceStep = 5.0f;
+                }
+                else
+                {
+                    maxDistance = sPlayerbotAIConfig.meleeDistance;
+                    minDistance = sPlayerbotAIConfig.contactDistance;
+                    distanceStep = 2.0f;
+                }
+                break;
     }
 
 	for (float distance = maxDistance; distance >= minDistance; distance -= distanceStep)

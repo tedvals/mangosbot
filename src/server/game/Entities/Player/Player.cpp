@@ -1911,6 +1911,38 @@ void Player::Update(uint32 p_time)
        m_playerbotMgr->UpdateAI(p_time);
 }
 
+uint8 Player::GetSpec() const
+{
+// Playerbot mod
+    int c0 = 0, c1 = 0, c2 = 0;
+    PlayerTalentMap& talentMap = *m_talents[m_activeSpec];
+
+    for (PlayerTalentMap::iterator i = talentMap.begin(); i != talentMap.end(); ++i)
+    {
+        uint32 spellId = i->first;
+        TalentSpellPos const* talentPos = GetTalentSpellPos(spellId);
+        if(!talentPos)
+            continue;
+
+        TalentEntry const* talentInfo = sTalentStore.LookupEntry(talentPos->talent_id);
+        if (!talentInfo)
+            continue;
+
+        uint32 const* talentTabIds = GetTalentTabPages(getClass());
+        if (talentInfo->TalentTab == talentTabIds[0]) c0++;
+        if (talentInfo->TalentTab == talentTabIds[1]) c1++;
+        if (talentInfo->TalentTab == talentTabIds[2]) c2++;
+    }
+
+    if (c0 >= c1 && c0 >= c2)
+        return 0;
+
+    if (c1 >= c0 && c1 >= c2)
+        return 1;
+
+    return 2;
+}
+
 void Player::setDeathState(DeathState s)
 {
     uint32 ressSpellId = 0;
@@ -17220,7 +17252,7 @@ bool Player::LoadFromDB(ObjectGuid guid, SQLQueryHolder *holder)
         GetByteValue(PLAYER_BYTES, 0))) // skin color
     {
         TC_LOG_ERROR("entities.player", "Player %s has wrong Appearance values (Hair/Skin/Color), can't be loaded.", guid.ToString().c_str());
-        //return false;    
+        //return false;
         //hack for playerbot - will solve later
     }
 

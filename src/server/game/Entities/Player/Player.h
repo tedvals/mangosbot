@@ -2349,6 +2349,7 @@ class Player : public Unit, public GridObject<Player>
         PlayerbotMgr* GetPlayerbotMgr() { return m_playerbotMgr; }
         void SetBotDeathTimer() { m_deathTimer = 0; }
         PlayerTalentMap& GetTalentMap(uint8 spec) { return *m_talents[spec]; }
+        uint8 GetSpec() const;
         bool MinimalLoadFromDB( QueryResult result, uint32 guid );
         //! Return collision height sent to client
         float GetCollisionHeight(bool mounted) const;
