@@ -58,7 +58,7 @@ namespace ai
 	class FleeManager
 	{
 	public:
-		FleeManager(Player* bot, float maxAllowedDistance, float followAngle, Unit* target = null) {
+		FleeManager(Player* bot, float maxAllowedDistance, float followAngle, Unit* target = NULL) {
 			this->bot = bot;
 			this->master = bot->GetPlayerbotAI()->GetMaster();
 			this->maxAllowedDistance = maxAllowedDistance;

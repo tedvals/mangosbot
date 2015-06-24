@@ -49,6 +49,19 @@ bool AttackAction::Attack(Unit* target)
         return false;
     }
 
+    Player* master = GetMaster();
+    if (AI_VALUE(uint8, "balance") < 75 && (master && master->isDead() && !bot->IsInCombat()))
+    {
+        if (verbose) ai->TellMaster("target too strong!");
+        return false;
+    }
+
+    if (AI_VALUE(uint8, "balance") < 75 && !(master || bot->GetGroup()))
+    {
+        if (verbose) ai->TellMaster("target too strong!");
+        return false;
+    }
+
     ostringstream msg;
     msg << target->GetName();
     if (bot->IsFriendlyTo(target))
@@ -68,8 +81,8 @@ bool AttackAction::Attack(Unit* target)
 	{
 		if (target->isFrozen() && bot->getClass() == CLASS_MAGE)
 			return true;
-		else return false;			
-	}	
+		else return false;
+	}
 
     if (bot->IsMounted())
     {

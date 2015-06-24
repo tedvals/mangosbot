@@ -128,6 +128,9 @@ uint8 BalancePercentValue::Calculate()
         if (!creature || !creature->IsAlive())
             continue;
 
+        if (creature->UnderCc())
+            continue;
+
         uint32 level = creature->getLevel();
 
         switch (creature->GetCreatureTemplate()->rank) {
