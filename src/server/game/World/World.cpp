@@ -1537,7 +1537,7 @@ void World::SetInitialWorldSettings()
 
     TC_LOG_INFO("server.loading", "Loading Gameobject Data...");
     sObjectMgr->LoadGameobjects();
-    
+
     TC_LOG_INFO("server.loading", "Loading GameObject Addon Data...");
     sObjectMgr->LoadGameObjectAddons();                          // must be after LoadGameObjectTemplate() and LoadGameobjects()
 
@@ -2077,7 +2077,10 @@ void World::Update(uint32 diff)
 
     // playerbot mod
     sRandomPlayerbotMgr.UpdateAI(diff);
+    sRandomPlayerbotMgr1.UpdateAI(diff);
+
     sRandomPlayerbotMgr.UpdateSessions(diff);
+    sRandomPlayerbotMgr1.UpdateSessions(diff);
 //    std::thread tupdatesessions(&RandomPlayerbotMgr::UpdateSessions,&sRandomPlayerbotMgr,diff);
 //    tupdatesessions.detach();
 
@@ -2651,6 +2654,7 @@ void World::ShutdownServ(uint32 time, uint32 options, uint8 exitcode, const std:
 
     // playerbot mod
     sRandomPlayerbotMgr.LogoutAllBots();
+    sRandomPlayerbotMgr1.LogoutAllBots();
     // end of playerbot mod
 
     sScriptMgr->OnShutdownInitiate(ShutdownExitCode(exitcode), ShutdownMask(options));
