@@ -1189,7 +1189,8 @@ bool PlayerbotAI::CastSpell(uint32 spellId, Unit* target)
     }
 
 
-    if (!bot->isInFront(faceTo, M_PI / 2))
+    //if (!bot->isInFront(faceTo, M_PI / 2))
+    if (!bot->HasInArc(float(M_PI), faceTo) && !Spell->GetSpellInfo()->IsPositive()) 
     {
         bot->SetFacingTo(bot->GetAngle(faceTo));
         delete spell;

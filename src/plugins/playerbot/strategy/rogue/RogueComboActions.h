@@ -52,7 +52,8 @@ namespace ai
 		CastGougeAction(PlayerbotAI* ai) : CastComboAction(ai, "gouge") {}
 		virtual bool isUseful()
 	    {
-	        return !AI_VALUE2(bool, "behind", "current target") && (AI_VALUE2(bool, "target normal", "current target") || AI_VALUE2(bool, "target player", "current target"));
+//	        return !AI_VALUE2(bool, "behind", "current target") && (AI_VALUE2(bool, "target normal", "current target") || AI_VALUE2(bool, "target player", "current target"));
+		return (AI_VALUE2(bool, "target normal", "current target") || AI_VALUE2(bool, "target player", "current target"));
 	    }
 	};
 
@@ -61,10 +62,10 @@ namespace ai
     public:
         CastBackstabAction(PlayerbotAI* ai) : CastComboAction(ai, "backstab") {}
 
-        virtual bool isUseful()
-	    {
-	        return AI_VALUE2(bool, "behind", "current target");
-	    }
+        //virtual bool isUseful()
+	//    {
+	//        return AI_VALUE2(bool, "behind", "current target");
+	//    }
 
         virtual NextAction** getAlternatives();
     };

@@ -19,7 +19,8 @@ namespace ai
             float distance = bot->GetDistance(target);
 
             //return distance <= ATTACK_DISTANCE && abs(targetOrientation - orientation) < M_PI / 2;
-            return distance <= ATTACK_DISTANCE && !bot->isInFront(target, M_PI / 3.0f);
+            //return distance <= ATTACK_DISTANCE && !bot->isInFront(target, M_PI / 3.0f);
+	    return distance <= ATTACK_DISTANCE &&  !bot->HasInArc(float(M_PI), target);
         }
     };
 }
