@@ -1219,7 +1219,7 @@ ObjectGuid PlayerbotFactory::GetRandomBot()
 
 void PlayerbotFactory::InitQuests()
 {
-    QueryResult results = WorldDatabase.PQuery("SELECT Id, AllowableClasses, RequiredRaces FROM quest_template q1 LEFT JOIN quest_template_addon q2 ON q1.ID=q2.ID where QuestLevel = -1 and MinLevel <= '%u'",
+    QueryResult results = WorldDatabase.PQuery("SELECT q1.ID, AllowableClasses, RequiredRaces FROM quest_template q1 LEFT JOIN quest_template_addon q2 ON q1.ID=q2.ID where QuestLevel = -1 and MinLevel <= '%u'",
             bot->getLevel());
 
     list<uint32> ids;
