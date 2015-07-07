@@ -2042,7 +2042,7 @@ bool Player::BuildEnumData(PreparedQueryResult result, WorldPacket* data)
 
     if (!ValidateAppearance(uint8(plrRace), uint8(plrClass), gender, uint8(playerBytes >> 16), uint8(playerBytes >> 24), uint8(playerBytes >> 8), uint8(playerBytes2), uint8(playerBytes)))
     {
-        TC_LOG_ERROR("entities.player.loading", "Player %u has wrong Appearance values (Hair/Skin/Color), forcing recustomize", guid);
+        //TC_LOG_ERROR("entities.player.loading", "Player %u has wrong Appearance values (Hair/Skin/Color), forcing recustomize", guid);
 
         if (!(atLoginFlags & AT_LOGIN_CUSTOMIZE))
         {
@@ -17238,7 +17238,8 @@ bool Player::LoadFromDB(ObjectGuid guid, SQLQueryHolder *holder)
     SetByteValue(PLAYER_BYTES_3, 0, fields[5].GetUInt8());
     SetByteValue(PLAYER_BYTES_3, 1, fields[49].GetUInt8());
 
-    if (!ValidateAppearance(
+/*
+     if (!ValidateAppearance(
         fields[3].GetUInt8(), // race
         fields[4].GetUInt8(), // class
         gender, GetByteValue(PLAYER_BYTES, 2), // hair type
@@ -17248,9 +17249,10 @@ bool Player::LoadFromDB(ObjectGuid guid, SQLQueryHolder *holder)
         GetByteValue(PLAYER_BYTES, 0))) // skin color
     {
         TC_LOG_ERROR("entities.player", "Player %s has wrong Appearance values (Hair/Skin/Color), can't be loaded.", guid.ToString().c_str());
-        //return false;
+        return false;
         //hack for playerbot - will solve later
     }
+*/
 
     SetUInt32Value(PLAYER_FLAGS, fields[11].GetUInt32());
     SetInt32Value(PLAYER_FIELD_WATCHED_FACTION_INDEX, fields[48].GetUInt32());
