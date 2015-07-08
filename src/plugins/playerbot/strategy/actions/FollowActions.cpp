@@ -17,7 +17,10 @@ bool FollowAction::Execute(Event event)
     else
     {
         WorldLocation loc = formation->GetLocation();
-        bot->UpdateAllowedPositionZ(loc.m_positionX, loc.m_positionY, loc.m_positionZ);
+
+        if (bot->GetMapId() == loc.GetMapId())
+           bot->UpdateAllowedPositionZ(loc.m_positionX, loc.m_positionY, loc.m_positionZ);
+
         if (loc == Formation::NullLocation || loc.GetMapId() == -1)
             return false;
 
