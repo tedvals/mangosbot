@@ -521,14 +521,14 @@ private:
     {
         return new ActionNode ("ambush",
             /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("garrote sword"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("garrote"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* cheap_shot(PlayerbotAI* ai)
     {
         return new ActionNode ("cheap shot",
             /*P*/ NextAction::array(0, new NextAction("stealth"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("garrote sword"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("garrote"), NULL),
             /*C*/ NULL);
     }
 
@@ -549,7 +549,7 @@ DpsDaggerRogueStrategy::~DpsDaggerRogueStrategy()
 
 NextAction** DpsDaggerRogueStrategy::getDefaultActions()
 {
-    defaultActions = NextAction::array(0, new NextAction("mutilate", ACTION_NORMAL + 5), new NextAction("backstab", ACTION_NORMAL), NULL);
+    defaultActions = NextAction::array(0, new NextAction("ambush", ACTION_HIGH + 10), new NextAction("garrote sword", ACTION_HIGH + 5), new NextAction("mutilate", ACTION_NORMAL + 5), new NextAction("backstab", ACTION_NORMAL), NULL);
     return defaultActions;
 }
 
@@ -557,9 +557,9 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     DpsRogueStrategy::InitTriggers(triggers);
 
-	triggers.push_back(new TriggerNode(
-        "garrote",
-        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY + 8), NULL)));
+//	triggers.push_back(new TriggerNode(
+//        "garrote",
+//        NextAction::array(0, new NextAction("garrote", ACTION_EMERGENCY + 8), NULL)));
 
     triggers.push_back(new TriggerNode(
         "ambush",
