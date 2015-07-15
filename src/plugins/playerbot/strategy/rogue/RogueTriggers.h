@@ -21,7 +21,7 @@ namespace ai
 		virtual bool IsActive() { return DebuffTrigger::IsActive() && ai->HasAura("slice and dice", bot);}
 	};
 
-    DEBUFF_TRIGGER(PremeditationTrigger, "premeditation","premeditation");
+    BUFF_TRIGGER(PremeditationTrigger, "premeditation","premeditation");
     DEBUFF_TRIGGER(HungerForBloodTrigger, "hunger for blood","hunger for blood");
 
     class KickInterruptSpellTrigger : public InterruptSpellTrigger
@@ -50,11 +50,22 @@ namespace ai
         virtual bool IsActive() { return OwnDebuffTrigger::IsActive() && ai->HasAura("stealth", bot);}
     };
 
-    class AmbushTrigger : public DebuffTrigger
+    class AmbushTrigger : public IsBehindTargetTrigger
     {
     public:
-        AmbushTrigger(PlayerbotAI* ai) : DebuffTrigger(ai, "ambush") {}
-        virtual bool IsActive() { return DebuffTrigger::IsActive() && ai->HasAura("stealth", bot);}
+        AmbushTrigger(PlayerbotAI* ai) : IsBehindTargetTrigger(ai) {}
+        virtual bool IsActive()
+        {
+            Unit* target = AI_VALUE(Unit*, "current target");
+
+			if (target && AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.meleeDistance)
+			{
+			    if (target->UnderCc())
+                    return false;
+                else return IsBehindTargetTrigger::IsActive() && ai->HasAura("stealth", bot);
+			}
+            else return false;
+        }
     };
 
     class KickInterruptEnemyHealerSpellTrigger : public InterruptEnemyHealerTrigger

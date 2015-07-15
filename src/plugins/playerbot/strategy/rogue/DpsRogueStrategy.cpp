@@ -549,7 +549,7 @@ DpsDaggerRogueStrategy::~DpsDaggerRogueStrategy()
 
 NextAction** DpsDaggerRogueStrategy::getDefaultActions()
 {
-    defaultActions = NextAction::array(0, new NextAction("ambush", ACTION_HIGH + 10), new NextAction("garrote sword", ACTION_HIGH + 5), new NextAction("mutilate", ACTION_NORMAL + 5), new NextAction("backstab", ACTION_NORMAL), NULL);
+    defaultActions = NextAction::array(0, new NextAction("ambush", ACTION_HIGH + 10), new NextAction("garrote sword", ACTION_HIGH), new NextAction("mutilate", ACTION_NORMAL + 5), new NextAction("backstab", ACTION_NORMAL), NULL);
     return defaultActions;
 }
 
@@ -575,7 +575,7 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "front target",
-        NextAction::array(0, new NextAction("move behind", ACTION_HIGH), NULL)));
+        NextAction::array(0, new NextAction("gauge", ACTION_HIGH), new NextAction("move behind", ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
         "high energy available",
@@ -584,10 +584,6 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
      triggers.push_back(new TriggerNode(
         "rupture",
         NextAction::array(0, new NextAction("rupture", ACTION_HIGH + 6), NULL)));
-
-     triggers.push_back(new TriggerNode(
-        "front target",
-        NextAction::array(0, new NextAction("gouge",  ACTION_MOVE + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
         "premeditation",
