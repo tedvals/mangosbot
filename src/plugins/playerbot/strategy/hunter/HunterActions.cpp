@@ -5,14 +5,9 @@
 
 using namespace ai;
 
-bool CastSerpentStingAction::isUseful()
-{
-    return AI_VALUE2(uint8, "health", "current target") > 10;
-}
-
 bool CastViperStingAction::isUseful()
 {
-    return AI_VALUE2(uint8, "mana", "self target") < 30 && AI_VALUE2(uint8, "mana", "current target") >= 30;
+    return CastDebuffSpellAction::isUseful() && AI_VALUE2(uint8, "mana", "self target") < 30 && AI_VALUE2(uint8, "mana", "current target") >= 30;
 }
 
 bool CastAspectOfTheCheetahAction::isUseful()

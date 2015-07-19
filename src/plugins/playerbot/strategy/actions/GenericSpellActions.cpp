@@ -51,7 +51,18 @@ bool CastAuraSpellAction::isUseful()
 bool CastDebuffSpellAction::isUseful()
 {
     if (AI_VALUE(uint8, "balance") > 50)
-        return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget(), BOT_AURA_DAMAGE);
+    {
+	if AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.almostDead && ((AI_VALUE2(bool, "target normal", "current target") || 		AI_VALUE2(bool, "target player", "current target")))
+        	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget(), BOT_AURA_DAMAGE);
+	}
+    else if AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.almostDead/2 && AI_VALUE2(bool, "target elite", "current target")
+    {
+        	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget(), BOT_AURA_DAMAGE);
+	}
+    else if AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.almostDead/3 && AI_VALUE2(bool, "target boss", "current target")
+    {    
+    	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget(), BOT_AURA_DAMAGE);
+	}    
     else return false;
 }
 

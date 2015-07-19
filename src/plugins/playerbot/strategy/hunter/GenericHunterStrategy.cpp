@@ -168,15 +168,15 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "freezing trap on cc",
-        NextAction::array(0, new NextAction("freezing trap on cc", 83.0f), NULL)));
+        NextAction::array(0, new NextAction("freezing trap on cc", ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
         "has nearest adds",
-        NextAction::array(0, new NextAction("freezing trap", 83.0f), NULL)));
+        NextAction::array(0, new NextAction("freezing trap", ACTION_HIGH), NULL)));
 
     triggers.push_back(new TriggerNode(
         "misdirection on party",
-        NextAction::array(0, new NextAction("misdirection on party", 60.0f), new NextAction("multi-shot",59.0f),NULL)));
+        NextAction::array(0, new NextAction("misdirection on party", ACTION_HIGH), new NextAction("multi-shot",59.0f),NULL)));
 
     triggers.push_back(new TriggerNode(
         "boost",
@@ -188,27 +188,23 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "critical health",
-        NextAction::array(0, new NextAction("deterrence", 70), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "has nearest adds",
-        NextAction::array(0, new NextAction("freezing trap", 70.0f), NULL)));
+        NextAction::array(0, new NextAction("deterrence", ACTION_EMERGENCY), NULL)));
 
     triggers.push_back(new TriggerNode(
         "hunters pet low health",
-        NextAction::array(0, new NextAction("mend pet", 60.0f), NULL)));
+        NextAction::array(0, new NextAction("mend pet", ACTION_HIGH + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "rapid fire",
-        NextAction::array(0, new NextAction("rapid fire", 55.0f), NULL)));
+        NextAction::array(0, new NextAction("rapid fire", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "target fleeing",
-        NextAction::array(0, new NextAction("concussive shot", 55.0f), NULL)));
+        NextAction::array(0, new NextAction("concussive shot", ACTION_MOVEMENT), NULL)));
 
     triggers.push_back(new TriggerNode(
         "concussive shot snare",
-        NextAction::array(0, new NextAction("concussive shot", 55.0f), NULL)));
+        NextAction::array(0, new NextAction("concussive shot", ACTION_MOVEMENT), NULL)));
 
     triggers.push_back(new TriggerNode(
         "silencing shot on enemy healer",
@@ -217,10 +213,6 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
      triggers.push_back(new TriggerNode(
         "wyvern sting",
         NextAction::array(0, new NextAction("wyvern sting", 30.0f), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "concussive shot snare",
-        NextAction::array(0, new NextAction("concussive shot", 25.0f), new NextAction("flee", 25.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "almost dead",

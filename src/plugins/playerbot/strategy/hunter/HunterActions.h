@@ -18,16 +18,32 @@ namespace ai
 
     BEGIN_RANGED_SPELL_ACTION(CastExplosiveShotAction, "explosive shot")
     virtual bool IsInstant() {return true;}
+    virtual NextAction** getAlternatives()
+    {
+            return NextAction::merge( NextAction::array(0, new NextAction("chimera shot"), NULL), CastSpellActionAction::getAlternatives());
+       }
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastSteadyShotAction, "steady shot")
+    virtual NextAction** getAlternatives()
+    {
+            return NextAction::merge( NextAction::array(0, new NextAction("arcane shot"), NULL), CastSpellActionAction::getAlternatives());
+       }
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastAimedShotAction, "aimed shot")
     virtual bool IsInstant() {return true;}
+    virtual NextAction** getAlternatives()
+    {
+            return NextAction::merge( NextAction::array(0, new NextAction("arcane shot"), NULL), CastSpellActionAction::getAlternatives());
+       }
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastChimeraShotAction, "chimera shot")
+    virtual NextAction** getAlternatives()
+    {
+            return NextAction::merge( NextAction::array(0, new NextAction("aimed shot"), NULL), CastSpellActionAction::getAlternatives());
+       }
     virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
@@ -68,10 +84,6 @@ namespace ai
 	BEGIN_RANGED_SPELL_ACTION(CastVolleyAction, "volley")
 	END_SPELL_ACTION()
 
-    BEGIN_RANGED_SPELL_ACTION(CastSerpentStingAction, "serpent sting")
-    virtual bool IsInstant() {return true;}
-    virtual bool isUseful();
-    END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastWyvernStingAction, "wyvern sting")
     virtual bool IsInstant() {return true;}
@@ -85,10 +97,20 @@ namespace ai
         virtual bool IsInstant() {return true;}
     };
 
-    BEGIN_RANGED_SPELL_ACTION(CastViperStingAction, "viper sting")
-    virtual bool IsInstant() {return true;}
-    virtual bool isUseful();
-    END_SPELL_ACTION()
+   class CastSerpentStingAction : public CastDebuffSpellAction
+   {
+    public:
+	CastSerpentStingAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "serpent sting") {}
+    	virtual bool IsInstant() {return true;}
+   }
+
+    class CastViperStingAction : public CastDebuffSpellAction
+   {
+    public:
+	CastViperStingAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "viper sting") {}
+    	virtual bool IsInstant() {return true;}
+    	virtual bool isUseful();
+   }
 
     BEGIN_RANGED_SPELL_ACTION(CastScorpidStingAction, "scorpid sting")
     virtual bool IsInstant() {return true;}
