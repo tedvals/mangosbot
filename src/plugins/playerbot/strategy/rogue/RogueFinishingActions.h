@@ -36,7 +36,7 @@ namespace ai
         virtual bool IsInstant() {return true;}
 		virtual bool isUseful()
 	    {
-	        return !ai->HasAura(spell, AI_VALUE(Unit*, "self target"));
+	        return !ai->HasAura(spell, AI_VALUE(Unit*, "self target")) && (AI_VALUE(uint8, "balance") > 50);
 	    }
 
 	};

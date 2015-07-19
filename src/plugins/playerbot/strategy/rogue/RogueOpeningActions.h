@@ -103,7 +103,7 @@ namespace ai
         virtual bool isUseful() {
 
             // return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", bot) && (ai->HasAura("garrote", GetTarget()) || AI_VALUE2(bool, "target normal", "current target"));
-            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", bot) && AI_VALUE2(bool, "behind", "current target");
+            return CastMeleeSpellAction::isUseful() && ai->HasAura("stealth", bot); //&& AI_VALUE2(bool, "behind", "current target")
         }
 // && AI_VALUE2(bool, "behind", "current target")
     virtual NextAction** getPrerequisites()

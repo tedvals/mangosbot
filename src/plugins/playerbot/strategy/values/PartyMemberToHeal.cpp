@@ -40,7 +40,10 @@ Unit* PartyMemberToHeal::Calculate()
             continue;
 
         uint8 health = player->GetHealthPct();
-        if (isRaid || health < sPlayerbotAIConfig.almostFullHealth || !IsTargetOfSpellCast(player, predicate))
+
+        if (player->GetPlayerbotAI()->IsTank(player))
+            calc.probe(health, player);
+        else if (isRaid || health < sPlayerbotAIConfig.almostFullHealth || !IsTargetOfSpellCast(player, predicate))
             calc.probe(health, player);
 
         Pet* pet = player->GetPet();

@@ -217,7 +217,9 @@ bool BoostTrigger::IsActive()
 bool SnareTargetTrigger::IsActive()
 {
 	Unit* target = GetTarget();
-	return DebuffTrigger::IsActive() && AI_VALUE2(bool, "moving", "current target") && !ai->HasAura(spell, target);
+	if (target->IsFleeing() || AI_VALUE2(bool, "has aggro", "current target"))
+        return DebuffTrigger::IsActive() && AI_VALUE2(bool, "moving", "current target") && !ai->HasAura(spell, target);
+    else return false;
 }
 
 bool ItemCountTrigger::IsActive()

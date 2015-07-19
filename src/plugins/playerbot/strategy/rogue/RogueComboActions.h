@@ -62,12 +62,10 @@ namespace ai
     public:
         CastBackstabAction(PlayerbotAI* ai) : CastComboAction(ai, "backstab") {}
 
-        //virtual bool isUseful()
-	//    {
-	//        return AI_VALUE2(bool, "behind", "current target");
-	//    }
-
-        virtual NextAction** getAlternatives();
+        virtual bool isUseful()
+	    {
+	        return AI_VALUE2(bool, "behind", "current target");
+	    }
     };
 
     class CastHemorrhageAction : public CastComboAction

@@ -50,7 +50,9 @@ bool CastAuraSpellAction::isUseful()
 
 bool CastDebuffSpellAction::isUseful()
 {
-	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget(), BOT_AURA_DAMAGE);
+    if (AI_VALUE(uint8, "balance") > 50)
+        return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget(), BOT_AURA_DAMAGE);
+    else return false;
 }
 
 bool CastOwnDebuffSpellAction::isUseful()

@@ -81,7 +81,7 @@ private:
         return new ActionNode ("concussive shot",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("wing clip"), NULL),
-            /*C*/ NULL);
+            /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
     }
     static ActionNode* intimidation(PlayerbotAI* ai)
     {
@@ -108,7 +108,7 @@ private:
     {
         return new ActionNode ("wing clip",
             /*P*/ NULL,
-            /*A*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("concussive shot"), NULL),
             /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
     }
     static ActionNode* scatter_shot(PlayerbotAI* ai)
@@ -156,7 +156,7 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "enemy too close for spell",
-        NextAction::array(0, new NextAction("disengage", ACTION_MOVE + 8), new NextAction("concussive shot", ACTION_MOVE + 7), new NextAction("flee",ACTION_MOVE + 6), NULL)));
+        NextAction::array(0, new NextAction("disengage", ACTION_MOVE + 8), new NextAction("wing clip", ACTION_MOVE + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
         "have aggro",

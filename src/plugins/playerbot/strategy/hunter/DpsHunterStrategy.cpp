@@ -119,7 +119,7 @@ private:
 
 NextAction** DpsHunterStrategy::getDefaultActions()
 {
-    defaultActions = NextAction::array(0, new NextAction("explosive shot", 15.0f), new NextAction("kill command", 15.0f), new NextAction("aimed shot", 15.0f), new NextAction("steady shot", 12.0f), new NextAction("auto shot", 10.0f), NULL);
+    defaultActions = NextAction::array(0, new NextAction("explosive shot", 18.0f), new NextAction("kill command", 15.0f), new NextAction("aimed shot", 15.0f), new NextAction("steady shot", 12.0f), new NextAction("auto shot", 10.0f), NULL);
     return defaultActions;
 }
 

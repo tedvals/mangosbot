@@ -549,7 +549,7 @@ DpsDaggerRogueStrategy::~DpsDaggerRogueStrategy()
 
 NextAction** DpsDaggerRogueStrategy::getDefaultActions()
 {
-    defaultActions = NextAction::array(0, new NextAction("ambush", ACTION_HIGH + 10), new NextAction("garrote sword", ACTION_HIGH), new NextAction("mutilate", ACTION_NORMAL + 5), new NextAction("backstab", ACTION_NORMAL), NULL);
+    defaultActions = NextAction::array(0, new NextAction("garrote", ACTION_HIGH + 9), new NextAction("ambush", ACTION_HIGH), new NextAction("mutilate", ACTION_NORMAL + 5), new NextAction("backstab", ACTION_NORMAL), NULL);
     return defaultActions;
 }
 
@@ -579,7 +579,7 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "high energy available",
-        NextAction::array(0, new NextAction("backstab", ACTION_NORMAL + 5), NULL)));
+        NextAction::array(0, new NextAction("backstab", ACTION_HIGH), NULL)));
 
      triggers.push_back(new TriggerNode(
         "rupture",
