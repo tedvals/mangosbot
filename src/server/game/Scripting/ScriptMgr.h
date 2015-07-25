@@ -26,6 +26,7 @@
 #include "SharedDefines.h"
 #include "World.h"
 #include "Weather.h"
+#include "EventMap.h"
 
 class AccountMgr;
 class AuctionHouseObject;
