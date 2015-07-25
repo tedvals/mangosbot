@@ -95,6 +95,10 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 			case CLASS_WARLOCK:
 				maxDistance = maxAllowedDistance;
 				minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
+
+				if (maxdistance < minDistance  + 5.0f)
+                    maxDistance = minDistance  + 5.0f;
+
 				distanceStep = 5.0f;
 				break;
 			case CLASS_ROGUE:
@@ -121,6 +125,10 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
                 {
                     maxDistance = maxAllowedDistance;
                     minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
+
+                    if (maxdistance < minDistance  + 5.0f)
+                        maxDistance = minDistance  + 5.0f;
+
                     distanceStep = 5.0f;
                 }
                 break;
@@ -138,6 +146,10 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
                 {
                     maxDistance = maxAllowedDistance;
                     minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
+
+                    if (maxdistance < minDistance  + 5.0f)
+                        maxDistance = minDistance  + 5.0f;
+
                     distanceStep = 5.0f;
                 }
                 break;
@@ -146,6 +158,10 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
                 {
                     maxDistance = maxAllowedDistance;
                     minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
+
+                    if (maxdistance < minDistance  + 5.0f)
+                        maxDistance = minDistance  + 5.0f;
+
                     distanceStep = 5.0f;
                 }
                 else
