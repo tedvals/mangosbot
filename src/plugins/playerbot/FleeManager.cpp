@@ -96,7 +96,7 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 				maxDistance = maxAllowedDistance;
 				minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
 
-				if (maxdistance < minDistance  + 5.0f)
+				if (maxDistance < minDistance  + 5.0f)
                     maxDistance = minDistance  + 5.0f;
 
 				distanceStep = 5.0f;
@@ -126,7 +126,7 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
                     maxDistance = maxAllowedDistance;
                     minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
 
-                    if (maxdistance < minDistance  + 5.0f)
+                    if (maxDistance < minDistance  + 5.0f)
                         maxDistance = minDistance  + 5.0f;
 
                     distanceStep = 5.0f;
@@ -147,7 +147,7 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
                     maxDistance = maxAllowedDistance;
                     minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
 
-                    if (maxdistance < minDistance  + 5.0f)
+                    if (maxDistance < minDistance  + 5.0f)
                         maxDistance = minDistance  + 5.0f;
 
                     distanceStep = 5.0f;
@@ -159,7 +159,7 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
                     maxDistance = maxAllowedDistance;
                     minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
 
-                    if (maxdistance < minDistance  + 5.0f)
+                    if (maxDistance < minDistance  + 5.0f)
                         maxDistance = minDistance  + 5.0f;
 
                     distanceStep = 5.0f;

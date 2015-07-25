@@ -40,6 +40,8 @@ bool MovementAction::MoveTo(uint32 mapId, float x, float y, float z)
 {
 
     bot->UpdateAllowedPositionZ(x, y, z);
+    z = z + 0.05f;
+
     if (!IsMovingAllowed(mapId, x, y, z))
         return false;
 
@@ -83,6 +85,8 @@ bool MovementAction::FleeTo(Unit* target, uint32 mapId, float x, float y, float 
 {
 
     bot->UpdateAllowedPositionZ(x, y, z);
+    z = z + 0.05f;
+
     if (!IsMovingAllowed(mapId, x, y, z))
         return false;
 
@@ -251,6 +255,10 @@ bool MovementAction::Follow(Unit* target, float distance, float angle)
     {
         mm.Clear();
         float x = target->GetPositionX(), y = target->GetPositionY(), z = target->GetPositionZ();
+
+        bot->UpdateAllowedPositionZ(x, y, z);
+        z = z + 0.05f;
+
         if (target->GetMapId() && bot->GetMapId() != target->GetMapId())
         {
             bot->TeleportTo(target->GetMapId(), x, y, z, bot->GetOrientation());
@@ -300,6 +308,9 @@ bool MovementAction::GetBehind(Unit* target, float distance, float angle)
     {
         mm.Clear();
         float x = target->GetPositionX(), y = target->GetPositionY(), z = target->GetPositionZ();
+        bot->UpdateAllowedPositionZ(x, y, z);
+        z = z + 0.05f;
+
         if (target->GetMapId() && bot->GetMapId() != target->GetMapId())
         {
            return false;
