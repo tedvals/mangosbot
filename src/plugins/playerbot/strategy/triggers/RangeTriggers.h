@@ -77,6 +77,12 @@ namespace ai
         virtual bool IsActive()
 		{
 			Unit* target = AI_VALUE(Unit*, GetTargetName());
+
+			if (target && !bot->IsWithinLOSInMap(target))
+			{
+			     return true;
+			}
+
 			return target && AI_VALUE2(float, "distance", GetTargetName()) > distance;
         }
         virtual string GetTargetName() { return "current target"; }

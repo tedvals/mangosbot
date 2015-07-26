@@ -29,21 +29,21 @@ private:
     {
         return new ActionNode ("melee",
             /*P*/ NextAction::array(0, new NextAction("charge"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* charge(PlayerbotAI* ai)
     {
         return new ActionNode ("charge",
             /*P*/ NextAction::array(0, new NextAction("battle stance"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* intercept(PlayerbotAI* ai)
     {
         return new ActionNode ("intercept",
             /*P*/ NextAction::array(0, new NextAction("berserker stance"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("behind target"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* rend(PlayerbotAI* ai)
@@ -321,7 +321,7 @@ private:
     {
         return new ActionNode ("melee",
             /*P*/ NextAction::array(0, new NextAction("intercept"), NULL),
-            /*A*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("reach melee"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* slam(PlayerbotAI* ai)
