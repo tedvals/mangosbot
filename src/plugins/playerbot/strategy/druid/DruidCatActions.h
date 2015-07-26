@@ -164,7 +164,7 @@ namespace ai {
 		bool isUseful() { return HealMasterAction::isUseful() && ai->HasAura("predator's swiftness", bot) && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana && (AI_VALUE2(uint8, "aoe heal", "almost full") == 0); }
         virtual bool IsInstant() {return true;}
     };
-	
+
     class CastInstantHealingTouchOnMasterAction : public HealMasterAction
     {
     public:
