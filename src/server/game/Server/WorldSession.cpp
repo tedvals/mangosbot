@@ -39,7 +39,6 @@
 #include "BattlegroundMgr.h"
 #include "OutdoorPvPMgr.h"
 #include "SocialMgr.h"
-#include "zlib.h"
 #include "ScriptMgr.h"
 #include "WardenWin.h"
 #include "WardenMac.h"
@@ -47,6 +46,9 @@
 #include "LuaEngine.h"
 #endif
 #include "MoveSpline.h"
+#include "WardenMac.h"
+
+#include <zlib.h>
 
 // Playerbot mod
 #include "../../plugins/playerbot/playerbot.h"
