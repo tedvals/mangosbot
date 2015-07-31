@@ -327,7 +327,7 @@ CatDpsDruidStrategy::CatDpsDruidStrategy(PlayerbotAI* ai) : MeleeCombatStrategy(
 
 NextAction** CatDpsDruidStrategy::getDefaultActions()
 {
-    return NextAction::array(0, new NextAction("shred", ACTION_NORMAL), NULL);
+    return NextAction::array(0, new NextAction("ravage", ACTION_NORMAL + 5), new NextAction("shred", ACTION_NORMAL), NULL);
 }
 
 void CatDpsDruidStrategy::InitTriggers(std::list<TriggerNode*> &triggers)

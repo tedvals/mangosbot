@@ -91,10 +91,10 @@ namespace ai {
     class CastShredAction : public CastCatComboAction {
 	public:
 		CastShredAction(PlayerbotAI* ai) : CastCatComboAction(ai, "shred") {}
-		virtual bool isUseful()
-	    {
-            return CastCatComboAction::isUseful() && AI_VALUE2(bool, "behind", "current target");
-	    }
+		//virtual bool isUseful()
+	    //{
+        //    return CastCatComboAction::isUseful() && AI_VALUE2(bool, "behind", "current target");
+	    //}
 	};
 
 	class CastClawAction : public  CastCatComboAction {
@@ -145,7 +145,7 @@ namespace ai {
 		virtual bool IsInstant() {return true;}
 
 		virtual bool isUseful() {
-                return CastMeleeSpellAction::isUseful() && ai->HasAura("prowl", bot) && ai->HasAura("pounce", GetTarget()) || (AI_VALUE2(uint8, "health", "current target") < 95 || AI_VALUE2(bool, "stunned", "current target") || AI_VALUE2(bool, "target normal", "current target"));
+                return CastMeleeSpellAction::isUseful() && ai->HasAura("prowl", bot) && ((AI_VALUE(uint8, "balance") < 100) || AI_VALUE2(bool, "stunned", "current target"));
         }
 
         virtual NextAction** getPrerequisites()
