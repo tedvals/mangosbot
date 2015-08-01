@@ -60,6 +60,7 @@ namespace ai
         virtual bool Execute(Event event) { return true; }
         virtual bool isPossible() { return true; }
         virtual bool isUseful() { return true; }
+        virtual bool hasMultipliers() { return true; }
         virtual bool isInstant() { return false; }
         virtual NextAction** getPrerequisites() { return NULL; }
         virtual NextAction** getAlternatives() { return NULL; }

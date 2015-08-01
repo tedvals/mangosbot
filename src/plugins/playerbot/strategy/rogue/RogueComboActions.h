@@ -63,7 +63,7 @@ namespace ai
         CastBackstabAction(PlayerbotAI* ai) : CastComboAction(ai, "backstab") {}
 
         virtual bool isUseful()
-	    {
+        {
 	        return AI_VALUE2(bool, "behind", "current target");
 	    }
     };

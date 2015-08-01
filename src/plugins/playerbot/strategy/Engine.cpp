@@ -148,14 +148,18 @@ bool Engine::DoNextAction(Unit* unit, int depth, bool instantonly, bool noflee)
             }
             else if (action->isUseful())
             {
-                for (list<Multiplier*>::iterator i = multipliers.begin(); i!= multipliers.end(); i++)
+                if (action->hasMultipliers())
                 {
-                    Multiplier* multiplier = *i;
-                    relevance *= multiplier->GetValue(action);
-                    if (!relevance)
+
+                    for (list<Multiplier*>::iterator i = multipliers.begin(); i!= multipliers.end(); i++)
                     {
-                        LogAction("Multiplier %s made action %s useless", multiplier->getName().c_str(), action->getName().c_str());
-                        break;
+                        Multiplier* multiplier = *i;
+                        relevance *= multiplier->GetValue(action);
+                        if ( !relevance)
+                        {
+                            LogAction("Multiplier %s made action %s useless", multiplier->getName().c_str(), action->getName().c_str());
+                            break;
+                        }
                     }
                 }
 

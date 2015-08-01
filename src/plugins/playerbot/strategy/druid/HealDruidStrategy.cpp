@@ -26,8 +26,11 @@ public:
         creators["swiftmend"] = &swiftmend;
         creators["swiftmend on party"] = &swiftmend_on_party;
         creators["swiftmend on master"] = &swiftmend_on_master;
-        creators["moonfire heal"] = &moonfire;
+        creators["moonfire heal"] = &moonfire_heal;
         creators["tree form"] = &tree_form;
+        creators["healing touch on party"] = &healing_touch_on_party;
+        creators["healing on master"] = &healing_touch_on_master;
+        creators["wrath heal"] = &wrath_heal;
         creators["nature's grasp"] =natures_grasp;
         creators["nature's swiftness"] = &nature_swiftness;
         creators["nature's swiftness on party"] = &nature_swiftness_on_party;
@@ -147,11 +150,18 @@ private:
             /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("healing touch on master"), NULL));
     }
-   static ActionNode* moonfire(PlayerbotAI* ai)
+   static ActionNode* moonfire_heal(PlayerbotAI* ai)
     {
         return new ActionNode ("moonfire heal",
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NULL,
+            /*C*/ NULL);
+    }
+    static ActionNode* wrath_heal(PlayerbotAI* ai)
+    {
+        return new ActionNode ("wrath heal",
+            /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("reach spell"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* tree_form(PlayerbotAI* ai)
@@ -167,6 +177,20 @@ private:
             /*P*/ NextAction::array(0, new NextAction("caster form"), NULL),
             /*A*/ NULL,
             /*C*/NULL);
+    }
+    static ActionNode* healing_touch_on_party(PlayerbotAI* ai)
+    {
+        return new ActionNode ("healing touch on party",
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("reach spell"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* healing_touch_on_master(PlayerbotAI* ai)
+    {
+        return new ActionNode ("healing touch on master",
+            /*P*/ NextAction::array(0, new NextAction("tree form"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("reach spell"), NULL),
+            /*C*/ NULL);
     }
 
 };

@@ -15,6 +15,7 @@ namespace ai
         void setTargetMainhand();
         void setTargetOffhand();
         void setTargetUnit(Unit* target) {actionUnit = target;}
+        virtual bool hasMultipliers() {return false;}
     private:
         bool UseItemAuto(Item* item);
         bool UseItemOnGameObject(Item* item, ObjectGuid go);

@@ -12,6 +12,7 @@ namespace ai {
 			return CastBuffSpellAction::isUseful() && !ai->HasAura("dire bear form", GetTarget());
 		}
 
+        virtual bool hasMultipliers() {return false;}
 		virtual bool Execute(Event event);
 	};
 
@@ -20,15 +21,17 @@ namespace ai {
 		CastDireBearFormAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "dire bear form") {}
 
         virtual NextAction** getAlternatives() {
-			return NextAction::merge(NextAction::array(0, new NextAction("bear form"), NULL), CastSpellAction::getAlternatives());		
+			return NextAction::merge(NextAction::array(0, new NextAction("bear form"), NULL), CastSpellAction::getAlternatives());
 		}
 
 		virtual bool Execute(Event event);
+		virtual bool hasMultipliers() {return false;}
 	};
 
 	class CastCatFormAction : public CastBuffSpellAction {
 	public:
 		CastCatFormAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "cat form") {}
+		virtual bool hasMultipliers() {return false;}
 
 		virtual bool Execute(Event event);
 	};
@@ -36,6 +39,7 @@ namespace ai {
 	class CastTreeFormAction : public CastBuffSpellAction {
 	public:
 		CastTreeFormAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "tree of life") {}
+		virtual bool hasMultipliers() {return false;}
 
 		virtual bool Execute(Event event);
 	};
@@ -56,6 +60,7 @@ namespace ai {
 				"flight form", "swift flight form", "moonkin form", "tree of life", NULL);
 		}
 		virtual bool isPossible() { return true; }
+		virtual bool hasMultipliers() {return false;}
 
 		virtual bool Execute(Event event);
 	};

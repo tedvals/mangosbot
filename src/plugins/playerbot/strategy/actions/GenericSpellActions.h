@@ -65,16 +65,16 @@ namespace ai
 			if (range > sPlayerbotAIConfig.spellDistance)
 				return NULL;
 			else if (range > ATTACK_DISTANCE)
-				return NextAction::merge( NextAction::array(0, new NextAction("reach spell"), NULL), Action::getPrerequisites());
+				return NextAction::merge( NextAction::array(0, new NextAction("reach spell", ACTION_MOVE), NULL), Action::getPrerequisites());
 			else
-				return NextAction::merge( NextAction::array(0, new NextAction("reach melee"), NULL), Action::getPrerequisites());
+				return NextAction::merge( NextAction::array(0, new NextAction("reach melee", ACTION_MOVE), NULL), Action::getPrerequisites());
 		}
 
         virtual NextAction** getAlternatives()
 		{
 		    Unit* target = GetTarget();
-            if (target && (target != bot) && !AI_VALUE2(bool, "target in los", "current target"))
-                 return NextAction::merge( NextAction::array(0, new NextAction("reposition"), NULL), Action::getAlternatives());
+            if (target && (target != bot) && !AI_VALUE2(bool, "target in los", GetTargetName()))
+                return NextAction::merge( NextAction::array(0, new NextAction("reposition", ACTION_MOVE), NULL), Action::getAlternatives());
             else return NULL;
 		}
 
@@ -386,7 +386,7 @@ namespace ai
     public:
         CastShootAction(PlayerbotAI* ai) : CastSpellAction(ai, "shoot") {}
         virtual ActionThreatType getThreatType() { return ACTION_THREAT_NONE; }
-
+        virtual bool hasMultipliers() {return false;}
         virtual bool isUseful() {return AI_VALUE2(uint8, "mana", "self target") < sPlayerbotAIConfig.lowMana/2 || ai->IsHeal(bot) || ai->IsTank(bot) || bot->getClass() == CLASS_HUNTER;}
 
         virtual NextAction** getAlternatives()
@@ -404,6 +404,7 @@ namespace ai
     public:
         CastThrowAction(PlayerbotAI* ai) : CastSpellAction(ai, "throw") {}
         virtual ActionThreatType getThreatType() { return ACTION_THREAT_NONE; }
+        virtual bool hasMultipliers() {return false;}
 
         virtual NextAction** getAlternatives()
         {
@@ -415,12 +416,14 @@ namespace ai
 	{
 	public:
 		CastLifeBloodAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "lifeblood") {}
+		virtual bool hasMultipliers() {return false;}
 	};
 
 	class CastGiftOfTheNaaruAction : public CastHealingSpellAction
 	{
 	public:
 		CastGiftOfTheNaaruAction(PlayerbotAI* ai) : CastHealingSpellAction(ai, "gift of the naaru") {}
+		virtual bool hasMultipliers() {return false;}
 	};
 
 	class CastGiftOfTheNaaruOnPartyAction : public HealPartyMemberAction
@@ -435,12 +438,14 @@ namespace ai
     {
     public:
         CastArcaneTorrentAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "arcane torrent") {}
+        virtual bool hasMultipliers() {return false;}
     };
 
     class CastBerserkingAction : public CastBuffSpellAction
     {
     public:
         CastBerserkingAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "berserking") {}
+        virtual bool hasMultipliers() {return false;}
         virtual NextAction** getAlternatives()
         {
             return NextAction::merge( NextAction::array(0, new NextAction("blood fury"), NULL), CastBuffSpellAction::getAlternatives());
@@ -451,6 +456,7 @@ namespace ai
     {
     public:
         CastBloodFuryAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "blood fury") {}
+        virtual bool hasMultipliers() {return false;}
     };
 
     class CastWillOfTheForsakenAction : public CastBuffSpellAction
@@ -485,18 +491,22 @@ namespace ai
     {
     public:
         CastStoneformAction(PlayerbotAI* ai) : CastSpellAction(ai, "stoneform") {}
+        virtual bool hasMultipliers() {return false;}
     };
 
     class CastShadowmeltAction : public CastSpellAction
     {
     public:
         CastShadowmeltAction(PlayerbotAI* ai) : CastSpellAction(ai, "shadowmelt") {}
+        virtual bool hasMultipliers() {return false;}
     };
 
     class CastEscapeArtistAction : public CastSpellAction
     {
     public:
         CastEscapeArtistAction(PlayerbotAI* ai) : CastSpellAction(ai, "escape artist") {}
+        virtual bool hasMultipliers() {return false;}
+        virtual bool isUseful() { return AI_VALUE2(bool, "rooted", GetTargetName()); };
     };
 
     class CastSpellOnEnemyHealerAction : public CastSpellAction

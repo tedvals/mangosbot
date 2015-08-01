@@ -303,7 +303,7 @@ namespace ai
     	public:
         	CastWrathHealAction(PlayerbotAI* ai) : CastSpellAction(ai, "wrath") {}
         	virtual bool isUseful() {
-            	return (CastSpellAction::isUseful() && (AI_VALUE2(uint8, "mana", "self target") >= 60 && AI_VALUE2(uint8, "aoe heal", "almost full") == 0));
+            	return (CastSpellAction::isUseful() && (AI_VALUE2(uint8, "mana", "self target") >= 60 && !ai->HasAura("tree of life", bot) && AI_VALUE2(uint8, "aoe heal", "almost full") == 0));
         	}
         	virtual bool Execute(Event event);
     	};
@@ -313,7 +313,7 @@ namespace ai
     	public:
         	CastMoonfireHealAction(PlayerbotAI* ai) : CastDebuffSpellAction(ai, "moonfire") {}
         	virtual bool isUseful() {
-            	return (CastDebuffSpellAction::isUseful() && (AI_VALUE2(uint8, "mana", "self target") >= 60 && AI_VALUE2(uint8, "aoe heal", "almost full") == 0));
+            	return (CastDebuffSpellAction::isUseful() && (AI_VALUE2(uint8, "mana", "self target") >= 60 && !ai->HasAura("tree of life", bot) && AI_VALUE2(uint8, "aoe heal", "almost full") == 0));
         	}
 
         	virtual bool isPossible() { return CastDebuffSpellAction::isPossible() && !ai->HasAura("tree form", bot);}
