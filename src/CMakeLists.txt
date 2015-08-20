@@ -9,16 +9,12 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 add_subdirectory(genrev)
-<<<<<<< HEAD
-add_subdirectory(server)
 add_subdirectory(plugins)
-=======
 add_subdirectory(common)
 
 if(SERVERS)
   add_subdirectory(server)
 endif(SERVERS)
->>>>>>> 30fc4f9f63b7a0ce01e5aad4667902991b70e298
 
 if(TOOLS)
   add_subdirectory(tools)
