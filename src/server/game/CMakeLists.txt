@@ -222,7 +222,6 @@ add_library(game STATIC
   ${LuaEngine_STAT_SRCS}
 )
 
-<<<<<<< HEAD
 add_dependencies(game revision.h)
 add_dependencies(game lualib)
 
@@ -234,7 +233,6 @@ target_link_libraries(game
 endif()
 
 =======
->>>>>>> 0471f321c7f2d7dc4b55653f448afdc2d8aa943e
 # Generate precompiled header
 if (USE_COREPCH)
   add_cxx_pch(game ${game_STAT_PCH_HDR} ${game_STAT_PCH_SRC})
