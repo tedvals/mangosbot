@@ -232,7 +232,6 @@ target_link_libraries(game
 )
 endif()
 
-=======
 # Generate precompiled header
 if (USE_COREPCH)
   add_cxx_pch(game ${game_STAT_PCH_HDR} ${game_STAT_PCH_SRC})
