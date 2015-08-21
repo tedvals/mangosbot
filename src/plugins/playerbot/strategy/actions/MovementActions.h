@@ -39,6 +39,7 @@ namespace ai
         bool IsMovingAllowed(uint32 mapId, float x, float y, float z);
         bool IsMovingAllowed();
         bool Flee(Unit *target);
+        bool Disperse(Unit *target);
         bool Reposition(Unit *target);
 
     protected:
@@ -55,6 +56,20 @@ namespace ai
 
         virtual bool Execute(Event event);
         virtual bool isUseful();
+
+	private:
+		float distance;
+    };
+
+    class DisperseAction : public MovementAction
+    {
+    public:
+        DisperseAction(PlayerbotAI* ai, float distance = sPlayerbotAIConfig.disperseDistance) : MovementAction(ai, "flee")
+        {
+			this->distance = distance;
+		}
+
+        virtual bool Execute(Event event);
 
 	private:
 		float distance;

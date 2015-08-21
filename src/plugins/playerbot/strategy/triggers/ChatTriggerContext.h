@@ -57,6 +57,7 @@ namespace ai
             creators["follow"] = &ChatTriggerContext::follow;
             creators["stay"] = &ChatTriggerContext::stay;
             creators["flee"] = &ChatTriggerContext::flee;
+            creators["disperse"] = &ChatTriggerContext::disperse;
             creators["grind"] = &ChatTriggerContext::grind;
             creators["stop attack"] = &ChatTriggerContext::stop_attack;
             creators["resume attack"] = &ChatTriggerContext::resume_attack;
@@ -133,6 +134,7 @@ namespace ai
             creators.erase("follow");
             creators.erase("stay");
             creators.erase("flee");
+            creators.erase("disperse");
             creators.erase("grind");
             creators.erase("stop attack");
             creators.erase("resume attack");
@@ -175,6 +177,7 @@ namespace ai
         static Trigger* cast(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "cast"); }
         static Trigger* talk(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "talk"); }
         static Trigger* flee(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "flee"); }
+        static Trigger* disperse(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "disperse"); }
         static Trigger* grind(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "grind"); }
         static Trigger* tank_attack(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "tank attack"); }
         static Trigger* stay(PlayerbotAI* ai) { return new ChatCommandTrigger(ai, "stay"); }

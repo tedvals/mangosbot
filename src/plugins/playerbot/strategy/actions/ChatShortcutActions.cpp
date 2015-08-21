@@ -12,8 +12,8 @@ bool FollowChatShortcutAction::Execute(Event event)
         return false;
 
     ai->Reset();
-    ai->ChangeStrategy("+follow,-passive", BOT_STATE_NON_COMBAT);
-    ai->ChangeStrategy("-follow,-passive", BOT_STATE_COMBAT);
+    ai->ChangeStrategy("+follow,-disperse,-passive", BOT_STATE_NON_COMBAT);
+    ai->ChangeStrategy("-follow,-disperse,-passive", BOT_STATE_COMBAT);
     if (bot->GetMapId() != master->GetMapId() || bot->GetDistance(master) > sPlayerbotAIConfig.sightDistance)
     {
         ai->TellMaster("I will not follow you - too far away");
@@ -52,6 +52,25 @@ bool RepositionChatShortcutAction::Execute(Event event)
     }
     ai->DoSpecificAction("reposition");
     ai->TellMaster("reposition");
+    return true;
+}
+
+bool DisperseChatShortcutAction::Execute(Event event)
+{
+    Player* master = GetMaster();
+    if (!master)
+        return false;
+
+    ai->ChangeStrategy("-follow,+disperse,-passive", BOT_STATE_NON_COMBAT);
+    ai->ChangeStrategy("-follow,+disperse,-passive", BOT_STATE_COMBAT);
+
+    if (bot->GetMapId() != master->GetMapId() || bot->GetDistance(master) > sPlayerbotAIConfig.sightDistance)
+    {
+        ai->TellMaster("can not disperse - too far away");
+        return true;
+    }
+    ai->DoSpecificAction("disperse");
+    ai->TellMaster("disperse");
     return true;
 }
 
@@ -149,8 +168,8 @@ bool FleeChatShortcutAction::Execute(Event event)
         return false;
 
     ai->Reset();
-    ai->ChangeStrategy("+follow,+passive", BOT_STATE_NON_COMBAT);
-    ai->ChangeStrategy("+follow,+passive", BOT_STATE_COMBAT);
+    ai->ChangeStrategy("+follow,+disperse,+passive", BOT_STATE_NON_COMBAT);
+    ai->ChangeStrategy("+follow,+disperse,+passive", BOT_STATE_COMBAT);
     if (bot->GetMapId() != master->GetMapId() || bot->GetDistance(master) > sPlayerbotAIConfig.sightDistance)
     {
         ai->TellMaster("I will not flee with you - too far away");
@@ -167,8 +186,8 @@ bool GoawayChatShortcutAction::Execute(Event event)
         return false;
 
     ai->Reset();
-    ai->ChangeStrategy("+runaway", BOT_STATE_NON_COMBAT);
-    ai->ChangeStrategy("+runaway", BOT_STATE_COMBAT);
+    ai->ChangeStrategy("+runaway,+disperse", BOT_STATE_NON_COMBAT);
+    ai->ChangeStrategy("+runaway,+disperse", BOT_STATE_COMBAT);
     ai->TellMaster("Running away");
     return true;
 }

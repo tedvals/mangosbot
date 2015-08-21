@@ -5,6 +5,7 @@
 #include "../../../Movement/MotionMaster.h"
 #include "../../../Movement/MovementGenerator.h"
 #include "../../FleeManager.h"
+#include "../../DisperseManager.h"
 #include "../../LootObjectStack.h"
 #include "../../PlayerbotAIConfig.h"
 
@@ -396,6 +397,41 @@ bool MovementAction::Flee(Unit *target)
      }
 }
 
+bool MovementAction::Disperse(Unit *target)
+{
+    Player* master = GetMaster();
+    if (!target)
+        target = master;
+
+    if (!target)
+        return false;
+
+    if (!IsMovingAllowed())
+        return false;
+
+    if (ai->IsMoving())
+        return false;
+
+    uint32 mapId = target->GetMapId();
+
+    float rx, ry, rz;
+
+    if (ai->GetMovePoint(mapId,rx,ry,rz))
+    {
+            return FleeTo(target,target->GetMapId(), rx, ry, rz);
+      }
+    else
+    {
+       DisperseManager manager(bot, sPlayerbotAIConfig.disperseDistance, GetFollowAngle());
+
+       if (!manager.CalculateDestination(&rx, &ry, &rz))
+         return false;
+
+       ai->SetMovePoint(mapId,rx, ry, rz);
+       return FleeTo(target,target->GetMapId(), rx, ry, rz);
+     }
+}
+
 bool MovementAction::Reposition(Unit *target)
 {
     Player* master = GetMaster();
@@ -472,6 +508,11 @@ bool FleeAction::isUseful()
 {
     return AI_VALUE(uint8, "attacker count") > 0 &&
             AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance;
+}
+
+bool DisperseAction::Execute(Event event)
+{
+    return Disperse(AI_VALUE(Unit*, "current target"));
 }
 
 bool RunAwayAction::Execute(Event event)

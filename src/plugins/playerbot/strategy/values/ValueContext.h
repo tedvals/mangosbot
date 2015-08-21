@@ -5,6 +5,7 @@
 #include "NearestNpcsValue.h"
 #include "PossibleTargetsValue.h"
 #include "NearestAdsValue.h"
+#include "NearestGroupMemberValue.h"
 #include "NearestCorpsesValue.h"
 #include "PartyMemberWithoutAuraValue.h"
 #include "PartyMemberAfflicted.h"
@@ -154,6 +155,7 @@ namespace ai
             creators["loot strategy"] = &ValueContext::loot_strategy;
             creators["last movement"] = &ValueContext::last_movement;
             creators["distance"] = &ValueContext::distance;
+            creators["party members near"] = &ValueContext::party_member_near;
             creators["moving"] = &ValueContext::moving;
             creators["swimming"] = &ValueContext::swimming;
             creators["behind"] = &ValueContext::behind;
@@ -264,6 +266,7 @@ namespace ai
         static UntypedValue* has_mana(PlayerbotAI* ai) { return new HasManaValue(ai); }
         static UntypedValue* nearest_game_objects(PlayerbotAI* ai) { return new NearestGameObjects(ai); }
         static UntypedValue* near_game_objects(PlayerbotAI* ai) { return new NearestGameObjects(ai,sPlayerbotAIConfig.grindDistance); }
+        static UntypedValue* party_member_near(PlayerbotAI* ai) { return new NearestGroupMemberValue(ai,sPlayerbotAIConfig.disperseDistance); }
         static UntypedValue* log_level(PlayerbotAI* ai) { return new LogLevelValue(ai); }
         static UntypedValue* nearest_npcs(PlayerbotAI* ai) { return new NearestNpcsValue(ai); }
         static UntypedValue* near_npcs(PlayerbotAI* ai) { return new NearestNpcsValue(ai,sPlayerbotAIConfig.grindDistance); }

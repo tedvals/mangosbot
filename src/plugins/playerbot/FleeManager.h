@@ -71,7 +71,7 @@ namespace ai
 	private:
 		void calculatePossibleDestinations(list<FleePoint*> &points);
 		void calculateDistanceToPlayers(FleePoint *point);
-		void calculateDistanceToCreatures(FleePoint *point);
+		bool calculateDistanceToCreatures(FleePoint *point);
 		void calculateDistanceToDestination(FleePoint *point);
 		void cleanup(list<FleePoint*> &points);
 		FleePoint* selectOptimalDestination(list<FleePoint*> &points);

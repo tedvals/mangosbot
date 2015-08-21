@@ -123,6 +123,7 @@ namespace ai
             creators["formation"] = &ChatActionContext::formation;
             creators["move to point chat shortcut"] = &ChatActionContext::move_to_point_chat_shortcut;
             creators["reposition chat shortcut"] = &ChatActionContext::reposition_chat_shortcut;
+            creators["disperse chat shortcut"] = &ChatActionContext::disperse_chat_shortcut;
             creators["boost chat shortcut"] = &ChatActionContext::boost_chat_shortcut;
             creators["burst chat shortcut"] = &ChatActionContext::burst_chat_shortcut;
         }
@@ -144,6 +145,7 @@ namespace ai
         static Action* tank_attack_chat_shortcut(PlayerbotAI* ai) { return new TankAttackChatShortcutAction(ai); }
         static Action* grind_chat_shortcut(PlayerbotAI* ai) { return new GrindChatShortcutAction(ai); }
         static Action* flee_chat_shortcut(PlayerbotAI* ai) { return new FleeChatShortcutAction(ai); }
+        static Action* disperse_chat_shortcut(PlayerbotAI* ai) { return new DisperseChatShortcutAction(ai); }
         static Action* resume_attack_chat_shortcut(PlayerbotAI* ai) { return new ResumeAttackChatShortcutAction(ai); }
         static Action* stop_attack_chat_shortcut(PlayerbotAI* ai) { return new StopAttackChatShortcutAction(ai); }
         static Action* move_behind_chat_shortcut(PlayerbotAI* ai) { return new MoveBehindChatShortcutAction(ai); }

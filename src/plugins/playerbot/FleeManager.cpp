@@ -19,6 +19,8 @@ void FleeManager::calculateDistanceToPlayers(FleePoint *point)
 		if(player == bot)
 			continue;
 
+        uint8 spec = bot->GetSpec();
+
 		float d = player->GetDistance(point->x, point->y, point->z);
 		point->toAllPlayers.probe(d);
 		switch (player->getClass()) {
@@ -28,7 +30,24 @@ void FleeManager::calculateDistanceToPlayers(FleePoint *point)
 			case CLASS_WARLOCK:
 				point->toRangedPlayers.probe(d);
 				break;
+            case CLASS_SHAMAN:
+                if (spec == 1)
+                    point->toMeleePlayers.probe(d);
+                else
+                    point->toRangedPlayers.probe(d);
+                break;
+            case CLASS_DRUID:
+                if (spec == 1)
+                    point->toMeleePlayers.probe(d);
+                else
+                    point->toRangedPlayers.probe(d);
+                break;
 			case CLASS_PALADIN:
+			    if (spec == 0)
+                    point->toRangedPlayers.probe(d);
+                else
+                    point->toMeleePlayers.probe(d);
+                break;
 			case CLASS_ROGUE:
 			case CLASS_WARRIOR:
             case CLASS_DEATH_KNIGHT:
@@ -38,9 +57,10 @@ void FleeManager::calculateDistanceToPlayers(FleePoint *point)
 	}
 }
 
-void FleeManager::calculateDistanceToCreatures(FleePoint *point)
+bool FleeManager::calculateDistanceToCreatures(FleePoint *point)
 {
 	RangePair &distance = point->toCreatures;
+    float d;
 
 	list<ObjectGuid> units = *bot->GetPlayerbotAI()->GetAiObjectContext()->GetValue<list<ObjectGuid> >("possible targets");
 	for (list<ObjectGuid>::iterator i = units.begin(); i != units.end(); ++i)
@@ -49,12 +69,14 @@ void FleeManager::calculateDistanceToCreatures(FleePoint *point)
 		if (!unit)
 		    continue;
 
-		float d = unit->GetDistance(point->x, point->y, point->z);
+		d = unit->GetDistance(point->x, point->y, point->z);
 		if (d <= sPlayerbotAIConfig.aggroDistance)
 		    continue;
 
 		distance.probe(d);
 	}
+
+	return (d > sPlayerbotAIConfig.aggroDistance);
 }
 
 void FleeManager::calculateDistanceToDestination(FleePoint *point)
@@ -210,9 +232,10 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 
             FleePoint *point = new FleePoint(x, y, z);
             calculateDistanceToPlayers(point);
-            calculateDistanceToCreatures(point);
             calculateDistanceToDestination(point);
-            points.push_back(point);
+
+            if (calculateDistanceToCreatures(point))
+                points.push_back(point);
         }
 	}
 }

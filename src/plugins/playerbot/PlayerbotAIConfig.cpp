@@ -51,6 +51,7 @@ bool PlayerbotAIConfig::Initialize()
     reactDistance = config.GetFloatDefault("AiPlayerbot.ReactDistance", 150.0f);
     grindDistance = config.GetFloatDefault("AiPlayerbot.GrindDistance", 100.0f);
     lootDistance = config.GetFloatDefault("AiPlayerbot.LootDistance", 20.0f);
+    disperseDistance = config.GetFloatDefault("AiPlayerbot.DisperseDistance", 6.0f);
     aggroDistance = config.GetFloatDefault("AiPlayerbot.AggroDistance", 12.0f);
     fleeDistance = config.GetFloatDefault("AiPlayerbot.FleeDistance", 20.0f);
     tooCloseDistance = config.GetFloatDefault("AiPlayerbot.TooCloseDistance", 7.0f);
@@ -66,6 +67,7 @@ bool PlayerbotAIConfig::Initialize()
     almostFullHealth = config.GetIntDefault("AiPlayerbot.AlmostFullHealth", 90);
     almostDead = config.GetIntDefault("AiPlayerbot.AlmostDead", 10);
     lowMana = config.GetIntDefault("AiPlayerbot.LowMana", 15);
+    almostNoMana = config.GetIntDefault("AiPlayerbot.AlmostNoMana", 4);
     mediumMana = config.GetIntDefault("AiPlayerbot.MediumMana", 40);
     almostFullMana = config.GetIntDefault("AiPlayerbot.AlmostFullMana", 85);
 

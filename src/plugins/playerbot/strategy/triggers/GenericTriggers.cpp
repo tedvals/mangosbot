@@ -21,6 +21,11 @@ bool AlmostFullManaTrigger::IsActive()
     return AI_VALUE2(bool, "has mana", "self target") && AI_VALUE2(uint8, "mana", "self target") <= sPlayerbotAIConfig.almostFullMana;
 }
 
+bool AlmostNoManaTrigger::IsActive()
+{
+    return AI_VALUE2(bool, "has mana", "self target") && AI_VALUE2(uint8, "mana", "self target") < sPlayerbotAIConfig.almostNoMana;
+}
+
 bool FullManaTrigger::IsActive()
 {
     return AI_VALUE2(bool, "has mana", "self target") && AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.almostFullMana;
@@ -344,6 +349,12 @@ bool IsSwimmingTrigger::IsActive()
 bool HasNearestAddsTrigger::IsActive()
 {
     list<ObjectGuid> targets = AI_VALUE(list<ObjectGuid>, "nearest adds");
+    return targets.size();
+}
+
+bool  HasGroupMemberNearTrigger::IsActive()
+{
+    list<ObjectGuid> targets = AI_VALUE(list<ObjectGuid>, "party members near");
     return targets.size();
 }
 

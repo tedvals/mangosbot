@@ -33,6 +33,7 @@ namespace ai
             creators["low mana"] = &TriggerContext::LowMana;
             creators["medium mana"] = &TriggerContext::MediumMana;
             creators["almost full mana"] = &TriggerContext::AlmostFullMana;
+            creators["almost no mana"] = &TriggerContext::AlmostNoMana;
             creators["full mana"] = &TriggerContext::FullMana;
             creators["drink mana"] = &TriggerContext::DrinkMana;
 
@@ -63,6 +64,7 @@ namespace ai
             creators["target in sight"] = &TriggerContext::TargetInSight;
             creators["not least hp target active"] = &TriggerContext::not_least_hp_target_active;
             creators["has nearest adds"] = &TriggerContext::has_nearest_adds;
+            creators["group member near"] = &TriggerContext::has_group_members_near;
             creators["enemy player is attacking"] = &TriggerContext::enemy_player_is_attacking;
 
             creators["tank aoe"] = &TriggerContext::TankAoe;
@@ -178,6 +180,7 @@ namespace ai
             creators.erase("low mana");
             creators.erase("medium mana");
             creators.erase("almost full mana");
+            creators.erase("almost no mana");
             creators.erase("full mana");
             creators.erase("drink mana");
 
@@ -208,6 +211,7 @@ namespace ai
             creators.erase("target in sight");
             creators.erase("not least hp target active");
             creators.erase("has nearest adds");
+            creators.erase("group member near");
             creators.erase("enemy player is attacking");
 
             creators.erase("tank aoe");
@@ -344,6 +348,7 @@ namespace ai
         static Trigger* LowMana(PlayerbotAI* ai) { return new LowManaTrigger(ai); }
         static Trigger* MediumMana(PlayerbotAI* ai) { return new MediumManaTrigger(ai); }
 		static Trigger* AlmostFullMana(PlayerbotAI* ai) { return new AlmostFullManaTrigger(ai); }
+		static Trigger* AlmostNoMana(PlayerbotAI* ai) { return new AlmostNoManaTrigger(ai); }
 		static Trigger* FullMana(PlayerbotAI* ai) { return new FullManaTrigger(ai); }
         static Trigger* DrinkMana(PlayerbotAI* ai) { return new DrinkManaTrigger(ai); }
         static Trigger* LightRageAvailable(PlayerbotAI* ai) { return new LightRageAvailableTrigger(ai); }
@@ -360,6 +365,7 @@ namespace ai
         static Trigger* TargetInSight(PlayerbotAI* ai) { return new TargetInSightTrigger(ai); }
         static Trigger* not_least_hp_target_active(PlayerbotAI* ai) { return new NotLeastHpTargetActiveTrigger(ai); }
         static Trigger* has_nearest_adds(PlayerbotAI* ai) { return new HasNearestAddsTrigger(ai); }
+        static Trigger* has_group_members_near(PlayerbotAI* ai) { return new HasGroupMemberNearTrigger(ai); }
         static Trigger* enemy_player_is_attacking(PlayerbotAI* ai) { return new EnemyPlayerIsAttacking(ai); }
         static Trigger* Random(PlayerbotAI* ai) { return new RandomTrigger(ai); }
         static Trigger* seldom(PlayerbotAI* ai) { return new SeldomTrigger(ai); }

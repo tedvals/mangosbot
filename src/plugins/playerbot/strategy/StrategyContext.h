@@ -10,6 +10,7 @@
 #include "generic/DuelStrategy.h"
 #include "generic/KiteStrategy.h"
 #include "generic/FleeStrategy.h"
+#include "generic/DisperseStrategy.h"
 #include "generic/FollowMasterStrategy.h"
 #include "generic/RunawayStrategy.h"
 #include "generic/StayStrategy.h"
@@ -53,6 +54,7 @@ namespace ai
             creators["flee"] = &StrategyContext::flee;
             creators["duel"] = &StrategyContext::duel;
             creators["kite"] = &StrategyContext::kite;
+            creators["disperse"] = &StrategyContext::disperse;
             creators["potions"] = &StrategyContext::potions;
             creators["cast time"] = &StrategyContext::cast_time;
             creators["threat"] = &StrategyContext::threat;
@@ -68,6 +70,7 @@ namespace ai
         static Strategy* cast_time(PlayerbotAI* ai) { return new CastTimeStrategy(ai); }
         static Strategy* potions(PlayerbotAI* ai) { return new UsePotionsStrategy(ai); }
         static Strategy* kite(PlayerbotAI* ai) { return new KiteStrategy(ai); }
+        static Strategy* disperse(PlayerbotAI* ai) { return new DisperseStrategy(ai); }
         static Strategy* duel(PlayerbotAI* ai) { return new DuelStrategy(ai); }
         static Strategy* flee(PlayerbotAI* ai) { return new FleeStrategy(ai); }
         static Strategy* dead(PlayerbotAI* ai) { return new DeadStrategy(ai); }

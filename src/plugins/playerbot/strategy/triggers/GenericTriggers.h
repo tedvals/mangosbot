@@ -459,6 +459,14 @@ namespace ai
         virtual string getName() { return "target is moving"; }
     };
 
+	class AlmostNoManaTrigger : public Trigger
+	{
+	public:
+		AlmostNoManaTrigger(PlayerbotAI* ai) : Trigger(ai, "almost no mana") {}
+
+		virtual bool IsActive();
+	};
+
 	class LowManaTrigger : public Trigger
 	{
 	public:
@@ -703,6 +711,15 @@ namespace ai
     {
     public:
         HasNearestAddsTrigger(PlayerbotAI* ai) : Trigger(ai, "has nearest adds") {}
+
+    public:
+        virtual bool IsActive();
+    };
+
+    class HasGroupMemberNearTrigger : public Trigger
+    {
+    public:
+        HasGroupMemberNearTrigger(PlayerbotAI* ai) : Trigger(ai, "group member near") {}
 
     public:
         virtual bool IsActive();

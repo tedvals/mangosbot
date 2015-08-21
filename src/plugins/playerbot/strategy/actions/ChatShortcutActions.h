@@ -75,6 +75,13 @@ namespace ai
         virtual bool Execute(Event event);
     };
 
+    class DisperseChatShortcutAction : public Action
+    {
+    public:
+        DisperseChatShortcutAction(PlayerbotAI* ai) : Action(ai, "disperse chat shortcut") {}
+        virtual bool Execute(Event event);
+    };
+
     class GoawayChatShortcutAction : public Action
     {
     public:
