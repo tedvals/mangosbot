@@ -34,7 +34,7 @@
 #include "ScriptMgr.h"
 #include "Transport.h"
 #include "Vehicle.h"
-#include "VMapFactory.h"
+#include "../../../../common/Collision/Management/VMapFactory.h"
 #ifdef ELUNA
 #include "LuaEngine.h"
 #endif

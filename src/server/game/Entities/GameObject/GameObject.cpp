@@ -20,7 +20,7 @@
 #include "Battleground.h"
 #include "CellImpl.h"
 #include "CreatureAISelector.h"
-#include "GameObjectModel.h"
+#include "../../../../common/Collision/Models/GameObjectModel.h"
 #include "GridNotifiersImpl.h"
 #include "Group.h"
 #include "GroupMgr.h"

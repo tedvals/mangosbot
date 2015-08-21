@@ -5,7 +5,7 @@
 
 #include "../../plugins/ahbot/AhBot.h"
 #include "../../server/game/Guilds/GuildMgr.h"
-#include "../../shared/Database/DatabaseEnv.h"
+#include "../../server/database/Database/DatabaseEnv.h"
 #include "../../server/game/Mails/Mail.h"
 #include "PlayerbotAI.h"
 

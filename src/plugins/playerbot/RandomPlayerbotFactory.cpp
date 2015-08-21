@@ -2,13 +2,13 @@
 #include "playerbot.h"
 #include "PlayerbotAIConfig.h"
 #include "PlayerbotFactory.h"
-#include "../../shared/Database/DatabaseEnv.h"
+#include "../../database/Database/DatabaseEnv.h"
 #include "PlayerbotAI.h"
 #include "../../server/game/Entities/Player/Player.h"
 #include "../../server/game/Guilds/Guild.h"
 #include "../../server/game/Guilds/GuildMgr.h"
 #include "RandomPlayerbotFactory.h"
-#include "SystemConfig.h"
+
 
 map<uint8, vector<uint8> > RandomPlayerbotFactory::availableRaces;
 

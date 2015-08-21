@@ -28,8 +28,8 @@
 #include "SharedDefines.h"
 #include "GridRefManager.h"
 #include "MapRefManager.h"
-#include "DynamicTree.h"
-#include "GameObjectModel.h"
+#include "../../../common/Collision/DynamicTree.h"
+#include "../../../common/Collision/Models/GameObjectModel.h"
 #include "ObjectGuid.h"
 
 #include <bitset>
