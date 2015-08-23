@@ -101,16 +101,20 @@ void ChatCommandHandlerStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("move behind chat shortcut", relevance), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "reposition now",
+        "reposition",
         NextAction::array(0, new NextAction("reposition chat shortcut", relevance), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "burst now",
+        "burst",
         NextAction::array(0, new NextAction("burst chat shortcut", relevance), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "boost now",
+        "boost",
         NextAction::array(0, new NextAction("boost chat shortcut", relevance), NULL)));
+
+    triggers.push_back(new TriggerNode(
+        "disperse",
+        NextAction::array(0, new NextAction("disperse chat shortcut", relevance), NULL)));
 
     triggers.push_back(new TriggerNode(
         "stay",
@@ -157,7 +161,7 @@ void ChatCommandHandlerStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("tell attackers", relevance), NULL)));
 
     triggers.push_back(new TriggerNode(
-        "move there",
+        "move to point",
         NextAction::array(0, new NextAction("move to point chat shortcut", relevance), NULL)));
 
     triggers.push_back(new TriggerNode(
@@ -208,5 +212,5 @@ ChatCommandHandlerStrategy::ChatCommandHandlerStrategy(PlayerbotAI* ai) : PassTr
     supported.push_back("who");
     supported.push_back("save mana");
     supported.push_back("formation");
-    supported.push_back("move there");
+    supported.push_back("move to point");
 }
