@@ -400,11 +400,9 @@ bool MovementAction::Flee(Unit *target)
 bool MovementAction::Disperse(Unit *target)
 {
     Player* master = GetMaster();
-    if (!target)
-        target = master;
 
     if (!target)
-        return false;
+        target = bot;
 
     if (!IsMovingAllowed())
         return false;
@@ -512,7 +510,7 @@ bool FleeAction::isUseful()
 
 bool DisperseAction::Execute(Event event)
 {
-    return Disperse(AI_VALUE(Unit*, "current target"));
+    return Disperse(AI_VALUE(Unit*, "self target"));
 }
 
 bool RunAwayAction::Execute(Event event)

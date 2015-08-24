@@ -13,12 +13,6 @@ bool DemonArmorTrigger::IsActive()
 		!ai->HasAura("fel armor", target);
 }
 
-bool SoulstoneOnMasterTrigger::IsActive()
-{
-    Unit* target = GetTarget();
-    return (!ai->HasAura("soulstone", target) && AI_VALUE2(uint8, "item count", getName()) > 0);
-}
-
 /*
 bool SpellstoneTrigger::IsActive()
 {

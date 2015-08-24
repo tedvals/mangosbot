@@ -23,7 +23,9 @@ bool UseItemAction::Execute(Event event)
             list<Item*>::iterator i = items.begin();
             Item* itemTarget = *i++;
             Item* item = *i;
-            UseItemOnItem(item, itemTarget);
+
+            if (item->GetGUID() == itemTarget->GetGUID())
+                UseItemOnItem(item, itemTarget);
         }
 
         if (!items.empty())

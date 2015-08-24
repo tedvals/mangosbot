@@ -10,7 +10,7 @@ using namespace std;
 bool DisperseManager::calculateDistanceToPlayers(FleePoint *point)
 {
     bool flag;
-    float d;
+    float d = sPlayerbotAIConfig.sightDistance;
 
 	Group* group = bot->GetGroup();
 	if (!group)
@@ -87,9 +87,13 @@ bool DisperseManager::calculateDistanceToPlayers(FleePoint *point)
 bool DisperseManager::calculateDistanceToCreatures(FleePoint *point)
 {
 	RangePair &distance = point->toCreatures;
-    float d;
+    float d = 0;
 
 	list<ObjectGuid> units = *bot->GetPlayerbotAI()->GetAiObjectContext()->GetValue<list<ObjectGuid> >("possible targets");
+
+	if (units.empty())
+        return true;
+
 	for (list<ObjectGuid>::iterator i = units.begin(); i != units.end(); ++i)
     {
 		Unit* unit = bot->GetPlayerbotAI()->GetUnit(*i);

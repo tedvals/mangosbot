@@ -64,7 +64,7 @@ namespace ai
     class DisperseAction : public MovementAction
     {
     public:
-        DisperseAction(PlayerbotAI* ai, float distance = sPlayerbotAIConfig.disperseDistance) : MovementAction(ai, "flee")
+        DisperseAction(PlayerbotAI* ai, float distance = sPlayerbotAIConfig.disperseDistance) : MovementAction(ai, "disperse")
         {
 			this->distance = distance;
 		}

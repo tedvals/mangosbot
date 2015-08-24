@@ -32,12 +32,6 @@ namespace ai
     };
 */
 
-     class SoulstoneOnMasterTrigger : public BuffOnMasterTrigger
-    {
-    public:
-        SoulstoneOnMasterTrigger(PlayerbotAI* ai) : BuffOnMasterTrigger(ai, "soulstone") {}
-        virtual bool IsActive();
-    };
 
     //DEBUFF_TRIGGER(CurseOfAgonyTrigger, "curse of agony", "curse of agony");
     //DEBUFF_TRIGGER(CorruptionTrigger, "corruption", "corruption");
@@ -158,6 +152,13 @@ namespace ai
     {
     public:
         HasSoulstoneTrigger(PlayerbotAI* ai) : WarlockConjuredItemTrigger(ai, "soulstone") {}
+    };
+
+    class SoulstoneOnMasterTrigger : public BuffOnMasterTrigger {
+    public:
+        SoulstoneOnMasterTrigger(PlayerbotAI* ai) : BuffOnMasterTrigger(ai, "soulstone") {}
+
+        virtual bool IsActive() { return BuffOnMasterTrigger::IsActive() && AI_VALUE2(uint8, "item count", "soulstone") > 0; }
     };
 
     class FearTrigger : public HasCcTargetTrigger

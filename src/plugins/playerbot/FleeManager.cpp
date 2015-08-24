@@ -60,7 +60,7 @@ void FleeManager::calculateDistanceToPlayers(FleePoint *point)
 bool FleeManager::calculateDistanceToCreatures(FleePoint *point)
 {
 	RangePair &distance = point->toCreatures;
-    float d;
+    float d = 0;
 
 	list<ObjectGuid> units = *bot->GetPlayerbotAI()->GetAiObjectContext()->GetValue<list<ObjectGuid> >("possible targets");
 	for (list<ObjectGuid>::iterator i = units.begin(); i != units.end(); ++i)

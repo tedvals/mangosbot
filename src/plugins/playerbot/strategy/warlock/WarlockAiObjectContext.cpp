@@ -112,7 +112,7 @@ namespace ai
                 creators["banish"] = &TriggerFactoryInternal::banish;
              //   creators["spellstone"] = &TriggerFactoryInternal::spellstone;
              //   creators["firestone"] = &TriggerFactoryInternal::firestone;
-                creators["soulstone on master"] = &TriggerFactoryInternal::soulstone_on_master;
+                creators["no soulstone on master"] = &TriggerFactoryInternal::soulstone_on_master;
                 creators["backlash"] = &TriggerFactoryInternal::backlash;
                 creators["molten core"] = &TriggerFactoryInternal::molten_core;
                 creators["decimation"] = &TriggerFactoryInternal::decimation;
