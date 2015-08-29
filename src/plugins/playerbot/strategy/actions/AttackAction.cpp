@@ -77,11 +77,48 @@ bool AttackAction::Attack(Unit* target)
         return false;
     }
 
-	if (target && target->UnderCc() && !target->isStunned())
+	if ((target && target->UnderCc() && !target->isStunned()) || target->isFrozen())
 	{
-		if (target->isFrozen() && bot->getClass() == CLASS_MAGE)
-			return true;
-		else return false;
+	    float minHealth = 0;
+
+        if (AI_VALUE(uint8, "my attacker count") >= 2)
+        {
+             list<ObjectGuid> attackers = AI_VALUE(list<ObjectGuid>, "attackers");
+             for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); ++i)
+            {
+                Unit* unit = ai->GetUnit(*i);
+
+                if (!unit || (unit == target) || unit->UnderCc())
+                    continue;
+
+                float health = unit->GetHealth();
+
+                if (minHealth == 0 || minHealth > health)
+                {
+                    minHealth = health;
+                    target = unit;
+                    msg << "new target due to cc";
+                    }
+                }
+            }
+            else if (!bot->GetGroup())
+            {
+                if (ai->CanHeal(bot) && bot->GetHealthPct() < 60)
+                {
+                    ai->DoSpecificAction("urgent heal");
+                    return false;
+                }
+                else if (ai->IsRanged(bot) && AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance)
+                {
+                    ai->DoSpecificAction("flee");
+                    return false;
+                }
+                else if (bot->GetHealthPct() < 50)
+                {
+                   ai->DoSpecificAction("bandage");
+                   return false;
+                }
+            }
 	}
 
     if (bot->IsMounted())

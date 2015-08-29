@@ -213,6 +213,7 @@ namespace ai
                 creators["cure toxins disease on party"] = &AiObjectContextInternal::cure_toxins_disease_on_party;
                 creators["totemic recall"] = &AiObjectContextInternal::totemic_recall;
                 creators["flame shock"] = &AiObjectContextInternal::flame_shock;
+                creators["instant action"] = &AiObjectContextInternal::flame_shock;
                 creators["earth shock"] = &AiObjectContextInternal::earth_shock;
                 creators["frost shock"] = &AiObjectContextInternal::frost_shock;
                 creators["chain lightning"] = &AiObjectContextInternal::chain_lightning;

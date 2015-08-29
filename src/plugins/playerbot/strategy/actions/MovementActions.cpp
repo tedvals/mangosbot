@@ -60,6 +60,7 @@ bool MovementAction::MoveTo(uint32 mapId, float x, float y, float z)
             bot->CastStop();
             ai->InterruptSpell();
             ai->TellMaster("Interrupt spell to move");
+            ai->DoSpecificAction("instant action");
         }
 
         bool generatePath = bot->HasAuraType(SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED) &&
@@ -420,7 +421,7 @@ bool MovementAction::Disperse(Unit *target)
       }
     else
     {
-       DisperseManager manager(bot, sPlayerbotAIConfig.disperseDistance, GetFollowAngle());
+       DisperseManager manager(bot, sPlayerbotAIConfig.fleeDistance, GetFollowAngle());
 
        if (!manager.CalculateDestination(&rx, &ry, &rz))
          return false;

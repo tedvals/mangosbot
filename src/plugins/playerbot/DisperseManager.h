@@ -11,11 +11,12 @@ namespace ai
 	class DisperseManager
 	{
 	public:
-		DisperseManager(Player* bot, float maxAllowedDistance, float followAngle, Unit* target = NULL) {
+		DisperseManager(Player* bot, float maxAllowedDistance, float followAngle, Unit* target = NULL, bool allPlayers = false) {
 			this->bot = bot;
 			this->master = bot->GetPlayerbotAI()->GetMaster();
 			this->maxAllowedDistance = maxAllowedDistance;
 			this->followAngle = followAngle;
+			this->allPlayers = allPlayers;
 		}
 
 	public:
@@ -36,6 +37,7 @@ namespace ai
 		Player* master;
 		float maxAllowedDistance;
 		float followAngle;
+		bool allPlayers;
 	};
 
 };

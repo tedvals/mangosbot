@@ -138,7 +138,7 @@ private:
     {
         return new ActionNode ("overpower",
             /*P*/ NextAction::array(0, new NextAction("battle stance"), NULL),
-            /*A*/ NextAction::array(0, new NextAction("heroic strike"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("mortal strike"), NULL),
             /*C*/ NULL);
     }
     static ActionNode* mortal_strike(PlayerbotAI* ai)

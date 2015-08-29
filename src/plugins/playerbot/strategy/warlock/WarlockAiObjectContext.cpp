@@ -205,6 +205,7 @@ namespace ai
                 creators["corruption"] = &AiObjectContextInternal::corruption;
                 creators["immolate on attacker"] = &AiObjectContextInternal::immolate_on_attacker;
                 creators["corruption on attacker"] = &AiObjectContextInternal::corruption_on_attacker;
+                creators["instant action"] = &AiObjectContextInternal::corruption_on_attacker;
                 //creators["death coil on attacker"] = &AiObjectContextInternal::death_coil_on_attacker;
                 creators["curse of agony"] = &AiObjectContextInternal::curse_of_agony;
                 creators["curse of agony on attacker"] = &AiObjectContextInternal::curse_of_agony_on_attacker;

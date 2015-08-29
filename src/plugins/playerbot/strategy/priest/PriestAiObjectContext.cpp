@@ -257,6 +257,7 @@ namespace ai
                 creators["desperate prayer"] = &AiObjectContextInternal::desperate_prayer;
                 creators["divine hymn"] = &AiObjectContextInternal::divine_hymn;
                 creators["hymn of hope"] = &AiObjectContextInternal::hymn_of_hope;
+                creators["instant action"] = &AiObjectContextInternal::shadow_word_pain_on_attacker;
             }
             ~AiObjectContextInternal()
             {

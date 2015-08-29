@@ -18,6 +18,7 @@ public:
         creators["evocation"] = &evocation;
         creators["frostfire bolt"] = &frostfire_bolt;
         creators["ice block"] = &ice_block;
+        creators["ice lance"] = &ice_lance;
         creators["cone of cold"] = &cone_of_cold;
     }
 private:
@@ -83,6 +84,13 @@ private:
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("cold snap"), NULL),
             /*C*/ NextAction::array(0, new NextAction("ice block"), NULL));
+    }
+    static ActionNode* ice_lance(PlayerbotAI* ai)
+    {
+        return new ActionNode ("ice block",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("fire blast"), NULL),
+            /*C*/ NULL);
     }
 };
 

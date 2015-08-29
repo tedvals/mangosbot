@@ -576,8 +576,9 @@ void PlayerbotAI::ResetStrategies()
 bool PlayerbotAI::IsRanged(Player* player)
 {
     PlayerbotAI* botAi = player->GetPlayerbotAI();
-    if (botAi)
-        return botAi->ContainsStrategy(STRATEGY_TYPE_RANGED);
+
+    if (botAi && botAi->ContainsStrategy(STRATEGY_TYPE_RANGED))
+        return true;
 
     switch (player->getClass())
     {
@@ -590,6 +591,26 @@ bool PlayerbotAI::IsRanged(Player* player)
         return HasAnyAuraOf(player, "water shield", NULL);
     case CLASS_DRUID:
         return !HasAnyAuraOf(player, "cat form", "bear form", "dire bear form", NULL);
+    }
+    return true;
+}
+
+bool PlayerbotAI::CanHeal(Player* player)
+{
+    PlayerbotAI* botAi = player->GetPlayerbotAI();
+
+    if (botAi && botAi->ContainsStrategy(STRATEGY_TYPE_HEAL))
+        return true;
+
+    switch (player->getClass())
+    {
+    case CLASS_DEATH_KNIGHT:
+    case CLASS_WARRIOR:
+    case CLASS_ROGUE:
+    case CLASS_HUNTER:
+    case CLASS_MAGE:
+    case CLASS_WARLOCK:
+        return false;
     }
     return true;
 }
@@ -613,8 +634,9 @@ bool PlayerbotAI::IsSpellcaster(Player* player)
 bool PlayerbotAI::IsTank(Player* player)
 {
     PlayerbotAI* botAi = player->GetPlayerbotAI();
-    if (botAi)
-        return botAi->ContainsStrategy(STRATEGY_TYPE_TANK);
+
+    if (botAi && botAi->ContainsStrategy(STRATEGY_TYPE_TANK))
+        return true;
 
     switch (player->getClass())
     {
@@ -631,8 +653,8 @@ bool PlayerbotAI::IsTank(Player* player)
 bool PlayerbotAI::IsHeal(Player* player)
 {
     PlayerbotAI* botAi = player->GetPlayerbotAI();
-    if (botAi)
-        return botAi->ContainsStrategy(STRATEGY_TYPE_HEAL);
+    if (botAi && botAi->ContainsStrategy(STRATEGY_TYPE_HEAL))
+        return true;
 
     switch (player->getClass())
     {

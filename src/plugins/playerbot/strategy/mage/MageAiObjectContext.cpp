@@ -232,6 +232,7 @@ namespace ai
                 creators["fire ward"] = &AiObjectContextInternal::fire_ward;
                 creators["frost ward"] = &AiObjectContextInternal::frost_ward;
                 creators["boost"] = &AiObjectContextInternal::mage_boost;
+                creators["instant action"] = &AiObjectContextInternal::ice_lance;
             }
             ~AiObjectContextInternal()
             {

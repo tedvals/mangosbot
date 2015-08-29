@@ -9,79 +9,71 @@ using namespace std;
 
 bool DisperseManager::calculateDistanceToPlayers(FleePoint *point)
 {
-    bool flag;
-    float d = sPlayerbotAIConfig.sightDistance;
+
+    float minDistance = sPlayerbotAIConfig.sightDistance;
 
 	Group* group = bot->GetGroup();
+	float d;
+
 	if (!group)
 		return true;
 
 	for (GroupReference *gref = group->GetFirstMember(); gref; gref = gref->next())
     {
 		Player* player = gref->GetSource();
+
 		if(player == bot)
 			continue;
 
-        uint8 spec = bot->GetSpec();
+        if (allPlayers)
+        {
+            d = player->GetDistance(point->x, point->y, point->z);
+            point->toAllPlayers.probe(d);
 
-		d = player->GetDistance(point->x, point->y, point->z);
-		point->toAllPlayers.probe(d);
-		switch (player->getClass()) {
-			case CLASS_HUNTER:
-			case CLASS_MAGE:
-			case CLASS_PRIEST:
-			case CLASS_WARLOCK:
-				point->toRangedPlayers.probe(d);
-				flag = true;
+            if (minDistance > d)
+                minDistance = d;
+            }
+        else
+        {
+            uint8 spec = bot->GetSpec();
+
+            d = player->GetDistance(point->x, point->y, point->z);
+            point->toAllPlayers.probe(d);
+
+            switch (player->getClass()) {
+                case CLASS_HUNTER:
+                case CLASS_MAGE:
+                case CLASS_PRIEST:
+                case CLASS_WARLOCK:
+                     if (minDistance > d)
+                        minDistance = d;
+                    break;
+                case CLASS_SHAMAN:
+                if (spec != 1)
+                     if (minDistance > d)
+                        minDistance = d;
+                break;
+                case CLASS_DRUID:
+                if (spec != 1)
+                     if (minDistance > d)
+                        minDistance = d;
+                break;
+                case CLASS_PALADIN:
+			    if (spec == 0 && bot->getLevel() > 55)
+                     if (minDistance > d)
+                        minDistance = d;
+                break;
+                case CLASS_ROGUE:
+                case CLASS_WARRIOR:
+                case CLASS_DEATH_KNIGHT:
+				 if (minDistance > d)
+                    minDistance = d;
 				break;
-            case CLASS_SHAMAN:
-                if (spec == 1)
-                {
-                    point->toMeleePlayers.probe(d);
-                    flag = false;
-                }
-                else
-                {
-                    point->toRangedPlayers.probe(d);
-                    flag = true;
-                }
-                break;
-            case CLASS_DRUID:
-                if (spec == 1)
-                {
-                    point->toMeleePlayers.probe(d);
-                    flag = false;
-                }
-                else
-                {
-                    point->toRangedPlayers.probe(d);
-                    flag = true;
-                }
-                break;
-			case CLASS_PALADIN:
-			    if (spec == 0)
-                {
-                    point->toRangedPlayers.probe(d);
-                    flag = true;
-                }
-                else
-                {
-                    point->toMeleePlayers.probe(d);
-                    flag = false;
-                }
-                break;
-			case CLASS_ROGUE:
-			case CLASS_WARRIOR:
-            case CLASS_DEATH_KNIGHT:
-				point->toMeleePlayers.probe(d);
-				flag = false;
-				break;
-		}
+            }
+        }
 	}
 
-	if (flag)
-        return (d >= 6.0f);
-    else return true;
+        return (d >= sPlayerbotAIConfig.disperseDistance);
 }
 
 bool DisperseManager::calculateDistanceToCreatures(FleePoint *point)
@@ -141,13 +133,19 @@ void DisperseManager::calculatePossibleDestinations(list<FleePoint*> &points)
 
     uint8 spec = bot->GetSpec();
 
-    switch (bot->getClass()) {
+    if (allPlayers)
+    {
+        minDistance = sPlayerbotAIConfig.disperseDistance;
+    }
+    else
+    {
+        switch (bot->getClass()) {
 			case CLASS_HUNTER:
 			case CLASS_MAGE:
 			case CLASS_PRIEST:
 			case CLASS_WARLOCK:
 				maxDistance = maxAllowedDistance;
-				minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
+				minDistance = sPlayerbotAIConfig.disperseDistance;
 
 				if (maxDistance < minDistance  + 5.0f)
                     maxDistance = minDistance  + 5.0f;
@@ -177,7 +175,7 @@ void DisperseManager::calculatePossibleDestinations(list<FleePoint*> &points)
                 else
                 {
                     maxDistance = maxAllowedDistance;
-                    minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
+                    minDistance = sPlayerbotAIConfig.disperseDistance;
 
                     if (maxDistance < minDistance  + 5.0f)
                         maxDistance = minDistance  + 5.0f;
@@ -198,7 +196,7 @@ void DisperseManager::calculatePossibleDestinations(list<FleePoint*> &points)
                 else
                 {
                     maxDistance = maxAllowedDistance;
-                    minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
+                    minDistance = sPlayerbotAIConfig.disperseDistance;
 
                     if (maxDistance < minDistance  + 5.0f)
                         maxDistance = minDistance  + 5.0f;
@@ -210,7 +208,7 @@ void DisperseManager::calculatePossibleDestinations(list<FleePoint*> &points)
 				if (spec == 0 && bot->getLevel() > 55)
                 {
                     maxDistance = maxAllowedDistance;
-                    minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
+                    minDistance = sPlayerbotAIConfig.disperseDistance;
 
                     if (maxDistance < minDistance  + 5.0f)
                         maxDistance = minDistance  + 5.0f;
@@ -228,6 +226,7 @@ void DisperseManager::calculatePossibleDestinations(list<FleePoint*> &points)
                     else backonly = 1;
                 }
                 break;
+        }
     }
 
 	for (float distance = maxDistance; distance >= minDistance; distance -= distanceStep)

@@ -227,7 +227,7 @@ namespace ai
         virtual bool IsInstant() {return true;}
 
         virtual bool isUseful() {
-           return CastBuffSpellAction::isUseful() && !AI_VALUE2(bool, "has own totem", "totem");
+           return true;
             }
     };
 

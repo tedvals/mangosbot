@@ -232,6 +232,7 @@ namespace ai
                 creators["snake trap"] = &AiObjectContextInternal::snake_trap;
                 creators["immolation trap"] = &AiObjectContextInternal::immolation_trap;
                 creators["explosive trap"] = &AiObjectContextInternal::explosive_trap;
+                creators["instant action"] = &AiObjectContextInternal::explosive_shot;
             }
             ~AiObjectContextInternal()
             {

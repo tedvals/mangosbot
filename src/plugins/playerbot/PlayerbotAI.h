@@ -136,6 +136,7 @@ public:
     bool IsHeal(Player* player);
     bool IsSpellcaster(Player* player);
     bool IsRanged(Player* player);
+    bool CanHeal(Player* player);
     Creature* GetCreature(ObjectGuid guid);
     Unit* GetUnit(ObjectGuid guid);
     GameObject* GetGameObject(ObjectGuid guid);

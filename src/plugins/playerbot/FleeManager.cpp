@@ -116,7 +116,7 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 			case CLASS_PRIEST:
 			case CLASS_WARLOCK:
 				maxDistance = maxAllowedDistance;
-				minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
+				minDistance = sPlayerbotAIConfig.tooCloseDistance + 4.0f;
 
 				if (maxDistance < minDistance  + 5.0f)
                     maxDistance = minDistance  + 5.0f;
@@ -126,9 +126,9 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 			case CLASS_ROGUE:
 			case CLASS_WARRIOR:
             case CLASS_DEATH_KNIGHT:
-				maxDistance = sPlayerbotAIConfig.meleeDistance;
-				minDistance = sPlayerbotAIConfig.contactDistance;
-				distanceStep = 2.0f;
+				maxDistance = sPlayerbotAIConfig.meleeDistance + 10.0f;
+				minDistance = sPlayerbotAIConfig.tooCloseDistance + 4.0f;
+				distanceStep = 3.0f;
 
                 if (bot->GetPlayerbotAI()->IsTank(bot))
                     frontonly = 1;
@@ -138,15 +138,16 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
             case CLASS_SHAMAN:
                 if (spec == 1)
                 {
-                    maxDistance = sPlayerbotAIConfig.meleeDistance;
-                    minDistance = sPlayerbotAIConfig.contactDistance;
-                    distanceStep = 2.0f;
+                    maxDistance = sPlayerbotAIConfig.meleeDistance + 10.0f;
+                    minDistance = sPlayerbotAIConfig.tooCloseDistance + 4.0f;
+                    distanceStep = 3.0f;
                     backonly = 1;
                 }
                 else
                 {
-                    maxDistance = maxAllowedDistance;
-                    minDistance = sPlayerbotAIConfig.tooCloseDistance + 5.0f;
+                    maxDistance = sPlayerbotAIConfig.meleeDistance + 10.0f;
+                    minDistance = sPlayerbotAIConfig.tooCloseDistance + 4.0f;
+                    distanceStep = 3.0f;
 
                     if (maxDistance < minDistance  + 5.0f)
                         maxDistance = minDistance  + 5.0f;
@@ -157,9 +158,10 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
 			case CLASS_DRUID:
 			    if (spec == 1)
                 {
-                    maxDistance = sPlayerbotAIConfig.meleeDistance;
-                    minDistance = sPlayerbotAIConfig.contactDistance;
-                    distanceStep = 2.0f;
+                    maxDistance = sPlayerbotAIConfig.meleeDistance + 10.0f;
+                    minDistance = sPlayerbotAIConfig.tooCloseDistance + 4.0f;
+                    distanceStep = 3.0f;
+
                     if (bot->GetPlayerbotAI()->IsTank(bot))
                         frontonly = 1;
                     else backonly = 1;
@@ -188,9 +190,9 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
                 }
                 else
                 {
-                    maxDistance = sPlayerbotAIConfig.meleeDistance;
-                    minDistance = sPlayerbotAIConfig.contactDistance;
-                    distanceStep = 2.0f;
+                    maxDistance = sPlayerbotAIConfig.meleeDistance + 10.0f;
+                    minDistance = sPlayerbotAIConfig.tooCloseDistance + 4.0f;
+                    distanceStep = 3.0f;
 
                     if (bot->GetPlayerbotAI()->IsTank(bot))
                         frontonly = 1;
