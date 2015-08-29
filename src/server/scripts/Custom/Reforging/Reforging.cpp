@@ -1,4 +1,3 @@
-#include "ScriptPCH.h"
 
 /*
 Reforging by Rochet2

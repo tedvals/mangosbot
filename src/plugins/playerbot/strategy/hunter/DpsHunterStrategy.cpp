@@ -20,7 +20,6 @@ public:
         creators["explosive trap"] = &explosive_trap;
         creators["explosive shot"] = &explosive_shot;
         creators["steady shot"] = &steady_shot;
-        creators["concussive shot"] = &concussive_shot;
         creators["viper sting"] = &viper_sting;
     }
     ~DpsHunterStrategyActionNodeFactory()
@@ -34,7 +33,6 @@ public:
         creators.erase("explosive trap");
         creators.erase("explosive shot");
         creators.erase("steady shot");
-        creators.erase("concussive shot");
         creators.erase("viper sting");
     }
 private:
@@ -108,13 +106,6 @@ private:
             /*A*/ NextAction::array(0, new NextAction("auto shot"), NULL),
             /*C*/ NULL);
     }
-    static ActionNode* concussive_shot(PlayerbotAI* ai)
-    {
-        return new ActionNode ("concussive shot",
-            /*P*/ NULL,
-            /*A*/ NULL,
-            /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
-    }
 };
 
 NextAction** DpsHunterStrategy::getDefaultActions()
@@ -142,7 +133,7 @@ void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "black arrow",
-        NextAction::array(0, new NextAction("black arrow", ACTION_HIGH + 6), NULL)));
+        NextAction::array(0, new NextAction("black arrow", ACTION_NORMAL + 6), NULL)));
 
     triggers.push_back(new TriggerNode(
         "low mana",
@@ -162,7 +153,7 @@ void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "hunter's mark",
-        NextAction::array(0, new NextAction("hunter's mark", ACTION_HIGH + 1), NULL)));
+        NextAction::array(0, new NextAction("hunter's mark", ACTION_HIGH + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "kill command",

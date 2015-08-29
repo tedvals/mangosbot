@@ -1,4 +1,3 @@
-#include "ScriptPCH.h"
 #include "MapManager.h"
 #include "Language.h"
 

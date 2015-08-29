@@ -23,6 +23,7 @@ public:
         creators["misdirection on party"] = &misdirection_on_party;
         creators["deterrence"] = &deterrence;
         creators["wing clip"] = &wing_clip;
+        creators["auto shot"] = &auto_shot;
     }
     ~GenericHunterStrategyActionNodeFactory()
     {
@@ -39,6 +40,7 @@ public:
         creators.erase("misdirection on party");
         creators.erase("deterrence");
         creators.erase("wing clip");
+        creators.erase("auto shot");
     }
 private:
     static ActionNode* rapid_fire(PlayerbotAI* ai)
@@ -81,7 +83,7 @@ private:
         return new ActionNode ("concussive shot",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("wing clip"), NULL),
-            /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
+            /*C*/ NULL);
     }
     static ActionNode* intimidation(PlayerbotAI* ai)
     {
@@ -108,7 +110,7 @@ private:
     {
         return new ActionNode ("wing clip",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("concussive shot"), NULL),
+            /*A*/ NULL,
             /*C*/ NextAction::array(0, new NextAction("flee"), NULL));
     }
     static ActionNode* scatter_shot(PlayerbotAI* ai)
@@ -130,6 +132,13 @@ private:
         return new ActionNode ("deterrence",
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("feign death"), NULL),
+            /*C*/ NULL);
+    }
+    static ActionNode* auto_shot(PlayerbotAI* ai)
+    {
+        return new ActionNode ("auto shot",
+            /*P*/ NULL,
+            /*A*/ NextAction::array(0, new NextAction("reposition"), NULL),
             /*C*/ NULL);
     }
 };
@@ -156,7 +165,7 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "enemy too close for spell",
-        NextAction::array(0, new NextAction("disengage", ACTION_MOVE + 8), new NextAction("wing clip", ACTION_MOVE + 7), NULL)));
+        NextAction::array(0, new NextAction("wing clip", ACTION_MOVE + 7), new NextAction("disengage", ACTION_MOVE + 8),  NULL)));
 
     triggers.push_back(new TriggerNode(
         "have aggro",
@@ -216,5 +225,5 @@ void GenericHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "almost dead",
-        NextAction::array(0, new NextAction("bandage", ACTION_EMERGENCY), NULL)));
+        NextAction::array(0, new NextAction("feign death", ACTION_EMERGENCY), NULL)));
 }

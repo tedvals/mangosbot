@@ -14,7 +14,6 @@ Cant transmogrify rediculus items // Foereaper: would be fun to stab people with
 -- Cant think of any good way to handle this easily, could rip flagged items from cata DB
 */
 
-#include "ScriptPCH.h"
 #include "Config.h"
 #include "Language.h"
 #include "Transmogrification.h"

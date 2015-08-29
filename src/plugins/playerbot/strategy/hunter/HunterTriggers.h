@@ -15,6 +15,11 @@ namespace ai
         HunterAspectOfTheHawkTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "aspect of the hawk") {
 			checkInterval = 1;
 		}
+
+		virtual bool IsActive()
+        {
+            return BuffTrigger::IsActive() && !ai->HasAura("aspect of the dragonhawk", GetTarget());
+        }
     };
 
     class HunterAspectOfTheDragonHawkTrigger : public BuffTrigger
@@ -22,7 +27,8 @@ namespace ai
     public:
         HunterAspectOfTheDragonHawkTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "aspect of the dragonhawk") {
 			checkInterval = 1;
-		}
+
+        }
     };
 
 	class HunterAspectOfTheWildTrigger : public BuffTrigger

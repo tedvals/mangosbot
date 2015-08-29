@@ -1,4 +1,3 @@
-#include "ScriptPCH.h"
 #include "Config.h"
 #include "Language.h"
 #include "Transmogrification.h"

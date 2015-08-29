@@ -90,7 +90,10 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
 {
     int tab = GetPlayerSpecTab(player);
 
-    engine->addStrategies("attack weak", "racials", "chat", "default", "aoe", "potions", "cast time", "conserve mana", "duel", "pvp", NULL);
+    if (player->getClass() == CLASS_DEATH_KNIGHT || player->getClass() == CLASS_WARRIOR || player->getClass() == CLASS_ROGUE)
+        engine->addStrategies("attack weak", "racials", "chat", "default", "aoe", "potions", "cast time", "duel", "pvp", NULL);
+    else
+        engine->addStrategies("attack weak", "racials", "chat", "default", "aoe", "potions", "cast time", "conserve mana", "duel", "pvp", NULL);
 
     switch (player->getClass())
     {

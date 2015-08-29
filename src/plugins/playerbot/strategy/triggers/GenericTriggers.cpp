@@ -186,7 +186,7 @@ bool HotTrigger::IsActive()
 
 bool SpellTrigger::IsActive()
 {
-	return GetTarget();
+	return GetTarget() && ai->CanCastSpell(spell,GetTarget());
 }
 
 bool SpellCanBeCastTrigger::IsActive()
