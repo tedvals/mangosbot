@@ -15,11 +15,6 @@ namespace ai
         HunterAspectOfTheHawkTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "aspect of the hawk") {
 			checkInterval = 1;
 		}
-
-		virtual bool IsActive()
-        {
-            return BuffTrigger::IsActive() && !ai->HasAura("aspect of the dragonhawk", GetTarget());
-        }
     };
 
     class HunterAspectOfTheDragonHawkTrigger : public BuffTrigger
@@ -45,7 +40,7 @@ namespace ai
         HunterAspectOfTheViperTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "aspect of the viper") {}
         virtual bool IsActive()
         {
-            return SpellTrigger::IsActive() && !ai->HasAura(spell, GetTarget());
+            return BuffTrigger::IsActive() &&  (AI_VALUE2(uint8, "mana", "self target") <= sPlayerbotAIConfig.mediumMana);
         }
     };
 
@@ -54,7 +49,7 @@ namespace ai
     public:
         HunterAspectOfThePackTrigger(PlayerbotAI* ai) : BuffTrigger(ai, "aspect of the pack") {}
         virtual bool IsActive() {
-			return BuffTrigger::IsActive() && !ai->HasAura("aspect of the cheetah", GetTarget());
+			return (BuffTrigger::IsActive() && bot->GetGroup() && !AI_VALUE2(bool, "mounted", "self target"));
         };
     };
 
