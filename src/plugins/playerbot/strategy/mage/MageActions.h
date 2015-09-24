@@ -63,6 +63,7 @@ namespace ai
         virtual bool isUseful() { return  (AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance || AI_VALUE(uint8, "melee attacker count") > 0); }
 
         virtual bool IsInstant() {return true;}
+        virtual bool hasMultipliers() { return false; }
     };
 
     class CastArcaneExplosionAction : public CastSpellAction
@@ -77,6 +78,7 @@ namespace ai
 	{
 	public:
 		CastFrostboltAction(PlayerbotAI* ai) : CastSpellAction(ai, "frostbolt") {}
+		virtual bool hasMultipliers() { return false; }
 	};
 
 	class CastIceLanceAction : public CastSpellAction
@@ -86,6 +88,7 @@ namespace ai
 
 		virtual bool isUseful() {return AI_VALUE2(bool, "frozen", "current target");}
 		virtual bool IsInstant() {return true;}
+		virtual bool hasMultipliers() { return false; }
 	};
 
 	class CastFrostfireBoltAction : public CastSpellAction
@@ -133,6 +136,7 @@ namespace ai
 	public:
 		CastRemoveCurseAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "remove curse") {}
 		virtual bool IsInstant() {return true;}
+		virtual bool hasMultipliers() { return false; }
 	};
 
     class CastArcanePowerAction : public CastBuffSpellAction
@@ -171,6 +175,7 @@ namespace ai
 	public:
 		CastIceBlockAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "ice block") {}
 		virtual bool IsInstant() {return true;}
+		virtual bool hasMultipliers() { return false; }
 	};
 
 	class CastColdSnapAction : public CastBuffSpellAction
@@ -178,6 +183,7 @@ namespace ai
 	public:
 		CastColdSnapAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "cold snap") {}
 		virtual bool IsInstant() {return true;}
+		virtual bool hasMultipliers() { return false; }
 	};
 
 	class CastIceBarrierAction : public CastBuffSpellAction
@@ -185,6 +191,7 @@ namespace ai
 	public:
 		CastIceBarrierAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "ice barrier") {}
         virtual bool IsInstant() {return true;}
+        virtual bool hasMultipliers() { return false; }
 	};
 
     BEGIN_SPELL_ACTION(CastCounterspellAction, "counterspell")
@@ -194,6 +201,7 @@ namespace ai
     {
     public:
         CastRemoveCurseOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "remove curse", DISPEL_CURSE) {}
+        virtual bool hasMultipliers() { return false; }
     };
 
 	class CastConjureFoodAction : public CastBuffSpellAction
@@ -352,6 +360,7 @@ namespace ai
             }
 
         virtual bool IsInstant() {return true;}
+        virtual bool hasMultipliers() { return false; }
 	};
 
 	class CastEvocationAction : public CastSpellAction

@@ -49,6 +49,7 @@ namespace ai
 
     BEGIN_RANGED_SPELL_ACTION(CastConcussiveShotAction, "concussive shot")
     virtual bool IsInstant() {return true;}
+    virtual bool hasMultipliers() { return false; }
     END_SPELL_ACTION()
 
     BEGIN_RANGED_SPELL_ACTION(CastDistractingShotAction, "distracting shot")
@@ -61,6 +62,7 @@ namespace ai
 
     BEGIN_RANGED_SPELL_ACTION(CastMisdirectionAction, "misdirection")
     virtual bool IsInstant() {return true;}
+    virtual bool hasMultipliers() { return false; }
     END_SPELL_ACTION()
 
     class CastMisdirectionOnPartyAction : public BuffOnPartyAction
@@ -68,6 +70,7 @@ namespace ai
     public:
         CastMisdirectionOnPartyAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "misdirection") {}
         virtual bool isUseful();
+        virtual bool hasMultipliers() { return false; }
     };
 
     class CasttMisdirectionOnMasterAction : public BuffOnPartyAction
@@ -76,6 +79,7 @@ namespace ai
         CasttMisdirectionOnMasterAction(PlayerbotAI* ai) : BuffOnPartyAction(ai, "misdirection") {}
         virtual string getName() { return "misdirection on master";}
         virtual string GetTargetName() { return "master target";}
+        virtual bool hasMultipliers() { return false; }
     };
 
     BEGIN_RANGED_SPELL_ACTION(CastMultiShotAction, "multi-shot")
@@ -87,6 +91,7 @@ namespace ai
 
     BEGIN_RANGED_SPELL_ACTION(CastWyvernStingAction, "wyvern sting")
     virtual bool IsInstant() {return true;}
+    virtual bool hasMultipliers() { return false; }
     END_SPELL_ACTION()
 
     class CastWyvernStingCcAction : public CastBuffSpellAction
@@ -199,6 +204,7 @@ namespace ai
     public:
         CastFeignDeathAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "feign death") {}
         virtual bool IsInstant() {return true;}
+        virtual bool hasMultipliers() { return false; }
     };
 
 	class CastDisengageAction : public CastMeleeSpellAction
@@ -207,6 +213,7 @@ namespace ai
 		CastDisengageAction(PlayerbotAI* ai) :CastMeleeSpellAction(ai, "disengage") {}
         virtual bool IsInstant() {return true;}
         virtual bool isPossible() {return true;}
+        virtual bool hasMultipliers() { return false; }
     };
 
     class CastDeterrenceAction : public CastBuffSpellAction
@@ -215,6 +222,7 @@ namespace ai
         CastDeterrenceAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "deterrence") {}
 
         virtual bool IsInstant() {return true;}
+        virtual bool hasMultipliers() { return false; }
     };
 
 	class CastRapidFireAction : public CastBuffSpellAction
@@ -242,6 +250,7 @@ namespace ai
 	public:
 		CastIntimidationAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "intimidation") {}
 		virtual bool IsInstant() {return true;}
+		virtual bool hasMultipliers() { return false; }
 	};
 
 	class CastKillCommandAction : public CastBuffSpellAction

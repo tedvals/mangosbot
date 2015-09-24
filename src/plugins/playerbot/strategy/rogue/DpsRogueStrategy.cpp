@@ -567,7 +567,7 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("shadowstep", ACTION_MOVE + 9), new NextAction("garrote", ACTION_MOVE + 7), NULL)));
+        NextAction::array(0, new NextAction("shadowstep", ACTION_MOVE + 9), new NextAction("garrote", ACTION_HIGH + 7), NULL)));
 
     triggers.push_back(new TriggerNode(
         "combo points available",
@@ -575,7 +575,7 @@ void DpsDaggerRogueStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "front target",
-        NextAction::array(0, new NextAction("gauge", ACTION_HIGH), new NextAction("move behind", ACTION_HIGH), NULL)));
+        NextAction::array(0, new NextAction("move behind", ACTION_MOVE + 4), NULL)));
 
     triggers.push_back(new TriggerNode(
         "high energy available",

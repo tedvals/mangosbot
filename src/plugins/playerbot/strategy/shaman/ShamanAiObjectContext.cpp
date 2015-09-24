@@ -310,7 +310,7 @@ namespace ai
             static Action* stoneskin_totem(PlayerbotAI* ai) { return new CastStoneskinTotemAction(ai); }
             static Action* earthbind_totem(PlayerbotAI* ai) { return new CastEarthbindTotemAction(ai); }
             static Action* tremor_totem(PlayerbotAI* ai) { return new CastTremorTotemAction(ai); }
-            static Action* tremor_totem_on_party(PlayerbotAI* ai) { return new CastTremorTotemOnPartyAction(ai); }
+            static Action* tremor_totem_on_party(PlayerbotAI* ai) { return new CastTremorTotemAction(ai); }
             static Action* totem_of_wrath(PlayerbotAI* ai) { return new CastTotemOfWrathAction(ai); }
             static Action* wrath_of_air_totem(PlayerbotAI* ai) { return new CastWrathOfAirTotemAction(ai); }
             static Action* summon_earth_elemental(PlayerbotAI* ai) { return new CastSummonEarthElementalAction(ai); }

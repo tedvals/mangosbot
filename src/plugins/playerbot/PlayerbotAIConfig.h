@@ -26,6 +26,7 @@ public:
     uint32 globalCoolDown, reactDelay, maxWaitForMove;
     float sightDistance, spellDistance, reactDistance, aggroDistance, grindDistance, lootDistance, disperseDistance,
         fleeDistance, tooCloseDistance, meleeDistance, followDistance, whisperDistance, contactDistance;
+    float closeDistance, mediumDistance, farDistance, extremeDistance;
     uint32 criticalHealth, lowHealth, mediumHealth, highHealth, almostFullHealth, almostDead;
     uint32 lowMana, mediumMana, almostFullMana, almostNoMana;
 

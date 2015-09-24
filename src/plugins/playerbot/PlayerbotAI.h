@@ -126,6 +126,7 @@ public:
     void ChangeEngine(BotState type);
 	void DoNextAction(int depth = 0, bool instantonly = false, bool noflee = false);
     void DoSpecificAction(string name);
+    bool DoMovingAction(Player* player, Unit* target);
     void ChangeStrategy(string name, BotState type);
     bool ContainsStrategy(StrategyType type);
     bool HasStrategy(string name, BotState type);

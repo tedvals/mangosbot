@@ -224,6 +224,12 @@ void FleeManager::calculatePossibleDestinations(list<FleePoint*> &points)
             if (master && master->GetDistance(x, y, z) > sPlayerbotAIConfig.sightDistance)
                 continue;
 
+            if (master && master->GetDistance(x,y,z) < bot->GetMinMasterDistance())
+                continue;
+
+            if (target && target->GetDistance(x,y,z) < bot->GetMinTargetDistance())
+                continue;
+
           //  if (backonly && bot->isInFront(target, M_PI / 3.0f))
           //      continue;
 

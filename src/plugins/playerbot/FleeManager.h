@@ -63,6 +63,7 @@ namespace ai
 			this->master = bot->GetPlayerbotAI()->GetMaster();
 			this->maxAllowedDistance = maxAllowedDistance;
 			this->followAngle = followAngle;
+			this->target = target;
 		}
 
 	public:
@@ -81,6 +82,7 @@ namespace ai
 	private:
 		Player* bot;
 		Player* master;
+		Unit* target;
 		float maxAllowedDistance;
 		float followAngle;
 	};

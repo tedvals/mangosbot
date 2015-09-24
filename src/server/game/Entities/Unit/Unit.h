@@ -1495,7 +1495,7 @@ class Unit : public WorldObject
 
         bool HasStealthAura()      const { return HasAuraType(SPELL_AURA_MOD_STEALTH); }
         bool HasInvisibilityAura() const { return HasAuraType(SPELL_AURA_MOD_INVISIBILITY); }
-        bool isAsleed() const { return HasAuraWithMechanic(MECHANIC_SLEEP); }
+        bool isAsleep() const { return HasAuraWithMechanic(MECHANIC_SLEEP); }
         bool isFeared()  const { return HasAuraType(SPELL_AURA_MOD_FEAR); }
         bool isSilenced()  const { return HasAuraWithMechanic(MECHANIC_SILENCE); }
         bool isInRoots() const { return HasAuraType(SPELL_AURA_MOD_ROOT); }

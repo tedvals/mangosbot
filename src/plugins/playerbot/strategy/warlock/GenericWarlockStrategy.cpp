@@ -86,7 +86,7 @@ void GenericWarlockStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
      triggers.push_back(new TriggerNode(
         "medium threat",
-        NextAction::array(0, new NextAction("soul shatter", 50.0f) , new NextAction("flee",49.0f), NULL)));
+        NextAction::array(0, new NextAction("soul shatter", 50.0f), NULL)));
 
     triggers.push_back(new TriggerNode(
         "critical health",

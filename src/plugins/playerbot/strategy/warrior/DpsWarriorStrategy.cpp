@@ -86,7 +86,7 @@ void DpsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "enemy out of melee",
-        NextAction::array(0, new NextAction("charge", ACTION_NORMAL + 9), NULL)));
+        NextAction::array(0, new NextAction("charge", ACTION_MOVE + 9), NULL)));
 
     triggers.push_back(new TriggerNode(
         "target critical health",
@@ -232,7 +232,7 @@ void DpsArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 	triggers.push_back(new TriggerNode(
 		"hamstring",
-		NextAction::array(0, new NextAction("hamstring", ACTION_INTERRUPT), NULL)));
+		NextAction::array(0, new NextAction("hamstring", ACTION_MOVE + 3), NULL)));
 
 	triggers.push_back(new TriggerNode(
         "target critical health",
@@ -244,7 +244,7 @@ void DpsArmsWarriorStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "target fleeing",
-        NextAction::array(0, new NextAction("hamstring", ACTION_HIGH + 2), NULL)));
+        NextAction::array(0, new NextAction("hamstring", ACTION_HIGH + 6), NULL)));
 
      triggers.push_back(new TriggerNode(
         "medium rage available",

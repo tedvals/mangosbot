@@ -20,11 +20,16 @@ namespace ai
             else
                 return MoveTo(AI_VALUE(Unit*, "current target"), distance);
         }
+        virtual bool IsInstant() {return false;}
+
         virtual bool isUseful()
 		{
             Unit* target = AI_VALUE(Unit*, "current target");
 
-            if (target->IsFriendlyTo(bot))
+            if (!target)
+                return false;
+
+            if (target && target->IsFriendlyTo(bot))
                 return AI_VALUE2(float, "distance", "current target") > distance;
 
 		    list<ObjectGuid> targets = AI_VALUE(list<ObjectGuid>, "possible targets");
@@ -41,9 +46,6 @@ namespace ai
                     if (!unit)
                         continue;
 
-                    if (!target)
-                        continue;
-
                     if (target && unit->GetGUID() == target->GetGUID())
                         continue;
 
@@ -54,7 +56,6 @@ namespace ai
                     if (d <= sPlayerbotAIConfig.aggroDistance)
                         return false;
                 }
-
                     return AI_VALUE2(float, "distance", "current target") > distance;
             }
 

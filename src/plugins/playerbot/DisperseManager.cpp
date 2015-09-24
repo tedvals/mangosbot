@@ -249,6 +249,12 @@ void DisperseManager::calculatePossibleDestinations(list<FleePoint*> &points)
 			if (master && !master->IsWithinLOS(x, y, z))
 				continue;
 
+            if (master && master->GetDistance(x, y, z) > sPlayerbotAIConfig.sightDistance)
+                continue;
+
+            if (master && master->GetDistance(x,y,z) < bot->GetMinMasterDistance())
+                continue;
+
          //   if (master && master->GetDistance(x, y, z) > sPlayerbotAIConfig.sightDistance)
          //       continue;
 

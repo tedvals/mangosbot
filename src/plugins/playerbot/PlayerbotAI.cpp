@@ -631,6 +631,108 @@ bool PlayerbotAI::IsSpellcaster(Player* player)
     return true;
 }
 
+bool PlayerbotAI::DoMovingAction(Player* player, Unit* target)
+{
+    if (!target || !player)
+        return true;
+
+    PlayerbotAI* ai = player->GetPlayerbotAI();
+
+    if (!ai)
+        return true;
+
+    if (ai->IsHeal(player))
+    {
+        Group *group = player->GetGroup();
+        if (!master && group)
+        {
+            float health = player->GetHealthPct();
+
+            for (GroupReference *gref = group->GetFirstMember(); gref; gref = gref->next())
+            {
+                Player* member = gref->GetSource();
+                if (member && member->IsInWorld() && member->GetDistance(player) < sPlayerbotAIConfig.spellDistance)
+                {
+                    if (member->GetHealthPct() < health)
+                        health = member->GetHealthPct();
+                }
+            }
+
+            if (health > sPlayerbotAIConfig.almostFullHealth)
+                return true;
+            else if (health > sPlayerbotAIConfig.lowHealth)
+            {
+                switch (player->getClass())
+                {
+                case CLASS_PRIEST:
+                    if (health == player->GetHealthPct())
+                        ai->DoSpecificAction("renew");
+                    else
+                        ai->DoSpecificAction("renew on party");
+                    return true;
+                case CLASS_DRUID:
+                    if (health == player->GetHealthPct())
+                        ai->DoSpecificAction("rejuvenation");
+                    else
+                        ai->DoSpecificAction("rejuvenation on party");
+                    return true;
+                case CLASS_SHAMAN:
+                    if (health == player->GetHealthPct())
+                        ai->DoSpecificAction("riptide");
+                    else
+                        ai->DoSpecificAction("riptide on party");
+                    return true;
+                case CLASS_PALADIN:
+                    if (health == player->GetHealthPct())
+                        ai->DoSpecificAction("holy shock");
+                    else
+                        ai->DoSpecificAction("holy shock on party");
+                    return true;
+                }
+            }
+            else return false; //stop moving someone is dying!
+        }
+    }
+
+//damage dealers
+    if (!target->IsHostileTo(player))
+        return true;
+
+    if (!ai->GetMaster()->IsInCombat())
+        return true;
+
+    switch (player->getClass())
+    {
+    case CLASS_HUNTER:
+        ai->DoSpecificAction("explosive shot");
+        ai->DoSpecificAction("chimera shot");
+        ai->DoSpecificAction("arcane shot");
+        return true;
+    case CLASS_MAGE:
+        if (player->getLevel() >= 66)
+            ai->DoSpecificAction("ice lance");
+        else ai->DoSpecificAction("fire blast");
+
+        return true;
+    case CLASS_DRUID:
+        if (HasAnyAuraOf(player, "moonkin form",NULL))
+            ai->DoSpecificAction("moonfire");
+        return true;
+    case CLASS_WARLOCK:
+        ai->DoSpecificAction("corruption");
+        return true;
+    case CLASS_PRIEST:
+         if (HasAnyAuraOf(player, "shadow form", NULL))
+            ai->DoSpecificAction("shadow word:pain");
+        return true;
+    case CLASS_SHAMAN:
+            ai->DoSpecificAction("flame shock");
+            return true;
+    }
+    return true;
+}
+
+
 bool PlayerbotAI::IsTank(Player* player)
 {
     PlayerbotAI* botAi = player->GetPlayerbotAI();

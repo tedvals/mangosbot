@@ -336,6 +336,7 @@ namespace ai
 		CastNaturesGraspAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "nature's grasp") {}
 		virtual bool isUseful() { return AI_VALUE2(float, "distance", GetTargetName()) <= sPlayerbotAIConfig.tooCloseDistance;}
 		virtual bool IsInstant() {return true;}
+		virtual bool hasMultipliers() { return false; }
 	};
 
 	class CastForceofNatureAction : public CastBuffSpellAction
@@ -386,12 +387,14 @@ namespace ai
 	{
 	public:
 		CastCurePoisonAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "cure poison") {}
+		virtual bool hasMultipliers() { return false; }
 	};
 
     class CastCurePoisonOnPartyAction : public CurePartyMemberAction
     {
     public:
         CastCurePoisonOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "cure poison", DISPEL_POISON) {}
+        virtual bool hasMultipliers() { return false; }
     };
 
 	class CastAbolishPoisonAction : public CastCureSpellAction
@@ -399,6 +402,7 @@ namespace ai
 	public:
 		CastAbolishPoisonAction(PlayerbotAI* ai) : CastCureSpellAction(ai, "abolish poison") {}
 		virtual NextAction** getAlternatives();
+		virtual bool hasMultipliers() { return false; }
 	};
 
     class CastAbolishPoisonOnPartyAction : public CurePartyMemberAction
@@ -407,6 +411,7 @@ namespace ai
         CastAbolishPoisonOnPartyAction(PlayerbotAI* ai) : CurePartyMemberAction(ai, "abolish poison", DISPEL_POISON) {}
 
         virtual NextAction** getAlternatives();
+        virtual bool hasMultipliers() { return false; }
     };
 
     class CastBerserkAction : public CastBuffSpellAction
@@ -433,6 +438,7 @@ namespace ai
     {
     public:
         CastBarkskinAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "barkskin") {}
+        virtual bool hasMultipliers() { return false; }
     };
 
     class CastInnervateAction : public CastSpellAction

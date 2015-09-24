@@ -151,7 +151,18 @@ bool MovementAction::MoveTo(Unit* target, float distance)
 
     float distanceToTarget = bot->GetDistance(target);
     float angle = bot->GetAngle(target);
-    float needToGo = distanceToTarget - distance;
+    float needToGo;
+
+    if (target && target == GetMaster() && bot->GetMinMasterDistance() > 0)
+    {
+        needToGo = distanceToTarget + bot->GetMinMasterDistance() - distance;
+        }
+    else if (target  && bot->GetMinTargetDistance() > 0)
+    {
+        needToGo = distanceToTarget + bot->GetMinTargetDistance() - distance;
+        }
+    else
+         needToGo = distanceToTarget - distance;
 
     float maxDistance = sPlayerbotAIConfig.spellDistance;
     if (needToGo > 0 && needToGo > maxDistance)
@@ -356,8 +367,8 @@ void MovementAction::WaitForReach(float distance)
     if ((player || target) && delay > sPlayerbotAIConfig.globalCoolDown)
         delay = sPlayerbotAIConfig.globalCoolDown;
 
-    ai->DoNextAction(1,true,true);
-    ai->SetNextCheckDelay((uint32)delay);
+    if (ai->DoMovingAction(bot,GetTarget()))
+        ai->SetNextCheckDelay((uint32)delay);
 }
 
 bool MovementAction::Flee(Unit *target)

@@ -2350,26 +2350,35 @@ class Player : public Unit, public GridObject<Player>
 #endif
         ReforgeMapType reforgeMap; // reforgeMap[iGUID] = ReforgeData
    // Playerbot mod:
-        float order_mov_x;
-        float order_mov_y;
-        float order_mov_z;
-        bool order_mov_point;
-        uint32 order_mov_mapId;
+        float m_minTargetDistance = .0f;
+        float m_minMasterDistance = .0f;
 
-        bool HasMoveOrder() { return order_mov_point; }
-        void SetMovePoint (uint32 mapId, float x, float y, float z) {order_mov_point= true; order_mov_mapId = mapId; order_mov_x = x; order_mov_y = y;order_mov_z = z;}
-        void ResetMovePoint() {order_mov_point = false;}
+        void SetMinTargetDistance(float minTargetDistance) {m_minTargetDistance = minTargetDistance;}
+        void SetMinMasterDistance(float minMasterDistance) {m_minMasterDistance = minMasterDistance;}
+
+        float GetMinTargetDistance() {return m_minTargetDistance;}
+        float GetMinMasterDistance() {return m_minMasterDistance;}
+
+        float m_order_mov_x;
+        float m_order_mov_y;
+        float m_order_mov_z;
+        bool m_order_mov_point;
+        uint32 m_order_mov_mapId;
+
+        bool HasMoveOrder() { return m_order_mov_point; }
+        void SetMovePoint (uint32 mapId, float x, float y, float z) {m_order_mov_point= true; m_order_mov_mapId = mapId; m_order_mov_x = x; m_order_mov_y = y;m_order_mov_z = z;}
+        void ResetMovePoint() {m_order_mov_point = false;}
 
         bool GetMovePoint( uint32 mapId, float& x, float& y, float& z)
         {
-            if (mapId != order_mov_mapId)
+            if (mapId != m_order_mov_mapId)
                 return false;
 
-            if (order_mov_point)
+            if (m_order_mov_point)
             {
-                x = order_mov_x;
-                y = order_mov_y;
-                z = order_mov_z;
+                x = m_order_mov_x;
+                y = m_order_mov_y;
+                z = m_order_mov_z;
                 return true;
             }
             else return false;

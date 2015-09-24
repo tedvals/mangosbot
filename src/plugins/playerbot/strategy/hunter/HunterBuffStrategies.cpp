@@ -40,6 +40,14 @@ void HunterBuffDpsStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"aspect of the dragonhawk",
 		NextAction::array(0, new NextAction("aspect of the dragonhawk", 90.0f), NULL)));
+
+        triggers.push_back(new TriggerNode(
+		"aspect of the hawk",
+		NextAction::array(0, new NextAction("aspect of the hawk", 90.0f), NULL)));
+
+        triggers.push_back(new TriggerNode(
+		"aspect of the viper",
+		NextAction::array(0, new NextAction("aspect of the viper", 90.0f), NULL)));
 }
 
 void HunterNatureResistanceStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
@@ -59,6 +67,14 @@ void HunterBuffSpeedStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
 void HunterBuffManaStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
+    triggers.push_back(new TriggerNode(
+		"aspect of the dragonhawk",
+		NextAction::array(0, new NextAction("aspect of the dragonhawk", 90.0f), NULL)));
+
+    triggers.push_back(new TriggerNode(
+		"aspect of the hawk",
+		NextAction::array(0, new NextAction("aspect of the hawk", 90.0f), NULL)));
+
     triggers.push_back(new TriggerNode(
         "aspect of the viper",
         NextAction::array(0, new NextAction("aspect of the viper", 10.0f), NULL)));

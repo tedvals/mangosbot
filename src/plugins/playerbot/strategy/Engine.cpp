@@ -169,13 +169,13 @@ bool Engine::DoNextAction(Unit* unit, int depth, bool instantonly, bool noflee)
                     {
                         if (!action->isInstant())
                         {
-                            MultiplyAndPush(actionNode->getAlternatives(), relevance + 0.03, false, event);
+                            MultiplyAndPush(actionNode->getAlternatives(), relevance + 0.03, false, event, instantonly,(actionNode->getName()+= "-instant"));
                             continue;
                         }
                     }
 
                     if ((!skipPrerequisites || lastRelevance-relevance > 0.04) &&
-                            MultiplyAndPush(actionNode->getPrerequisites(), relevance + 0.02, false, event))
+                            MultiplyAndPush(actionNode->getPrerequisites(), relevance + 0.02, false, event,instantonly,actionNode->getName()+= "-prereq"))
                     {
                         PushAgain(actionNode, relevance + 0.01, event);
                         continue;
@@ -186,20 +186,20 @@ bool Engine::DoNextAction(Unit* unit, int depth, bool instantonly, bool noflee)
                     if (actionExecuted)
                     {
                         LogAction("A:%s - OK", action->getName().c_str());
-                        MultiplyAndPush(actionNode->getContinuers(), 0, false, event);
+                        MultiplyAndPush(actionNode->getContinuers(), 0, false, event, instantonly,(actionNode->getName()+= "-continue"));
                         lastRelevance = relevance;
                         delete actionNode;
                         break;
                     }
                     else
                     {
-                        MultiplyAndPush(actionNode->getAlternatives(), relevance + 0.03, false, event);
+                        MultiplyAndPush(actionNode->getAlternatives(), relevance + 0.03, false, event, instantonly,(actionNode->getName()+= "-alter"));
                         LogAction("A:%s - FAILED", action->getName().c_str());
                     }
                 }
                 else
                 {
-                    MultiplyAndPush(actionNode->getAlternatives(), relevance + 0.03, false, event);
+                    MultiplyAndPush(actionNode->getAlternatives(), relevance + 0.03, false, event, instantonly,(actionNode->getName()+= "-alter2"));
                     LogAction("A:%s - IMPOSSIBLE", action->getName().c_str());
                 }
             }
@@ -246,16 +246,20 @@ ActionNode* Engine::CreateActionNode(string name)
         /*C*/ NULL);
 }
 
-bool Engine::MultiplyAndPush(NextAction** actions, float forceRelevance, bool skipPrerequisites, Event event)
+bool Engine::MultiplyAndPush(NextAction** actions, float forceRelevance, bool skipPrerequisites, Event event,bool instantonly, string referrer)
 {
     bool pushed = false;
     if (actions)
     {
-        for (int j=0; j<10; j++) // TODO: remove 10
+        for (int j=0; j<20; j++) // TODO: remove 10
         {
             NextAction* nextAction = actions[j];
             if (nextAction)
             {
+                //Check if already exists
+
+
+
                 ActionNode* action = CreateActionNode(nextAction->getName());
                 InitializeAction(action);
 
@@ -267,7 +271,11 @@ bool Engine::MultiplyAndPush(NextAction** actions, float forceRelevance, bool sk
 
                 if (k > 0)
                 {
-                    LogAction("PUSH:%s %f", action->getName().c_str(), k);
+                    if (instantonly)
+                        LogAction("INSTANT PUSH:%s %f %s", action->getName().c_str(), k, referrer.c_str());
+                    else
+                        LogAction("PUSH:%s %f %s", action->getName().c_str(), k, referrer.c_str());
+
                     queue.Push(new ActionBasket(action, k, skipPrerequisites, event));
                     pushed = true;
                 }

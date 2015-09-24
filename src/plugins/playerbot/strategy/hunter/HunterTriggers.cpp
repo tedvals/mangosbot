@@ -27,3 +27,18 @@ bool HuntersPetLowHealthTrigger::IsActive()
     return pet && AI_VALUE2(uint8, "health", "pet target") < 40 &&
         !AI_VALUE2(bool, "dead", "pet target") && !AI_VALUE2(bool, "mounted", "self target");
 }
+
+bool HunterAspectOfTheDragonHawkTrigger::IsActive()
+{
+    Unit* target = GetTarget();
+    return !ai->HasAura("aspect of the dragonhawk", target) &&
+        (AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana) && BuffTrigger::IsActive();
+}
+
+bool HunterAspectOfTheHawkTrigger::IsActive()
+{
+    Unit* target = GetTarget();
+    return !ai->HasAura("aspect of the dragonhawk", target) &&
+        !ai->HasAura("aspect of the hawk", target) &&
+        (AI_VALUE2(uint8, "mana", "self target") > sPlayerbotAIConfig.lowMana);
+}

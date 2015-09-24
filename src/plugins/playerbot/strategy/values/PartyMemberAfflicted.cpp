@@ -47,7 +47,7 @@ public:
                 return false;
         }
 
-        return unit->IsAlive() && unit->isAsleed();
+        return unit->IsAlive() && unit->IsCharmed();
     }
 };
 

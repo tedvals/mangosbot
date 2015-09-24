@@ -212,6 +212,139 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
             sRandomPlayerbotMgr.Randomize(bot);
             return "ok";
         }
+        else if (cmd == "distance=none")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinTargetDistance(.0f);
+            bot->SetMinMasterDistance(.0f);
+            return "ok";
+        }
+        else if (cmd == "distance=melee")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinTargetDistance(sPlayerbotAIConfig.meleeDistance);
+            bot->SetMinMasterDistance(sPlayerbotAIConfig.meleeDistance);
+            return "ok";
+        }
+        else if (cmd == "distance=spell")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinTargetDistance(sPlayerbotAIConfig.spellDistance);
+            bot->SetMinMasterDistance(sPlayerbotAIConfig.spellDistance);
+            return "ok";
+        }
+        else if (cmd == "distance=close")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinTargetDistance(sPlayerbotAIConfig.closeDistance);
+            bot->SetMinMasterDistance(sPlayerbotAIConfig.closeDistance);
+            return "ok";
+        }
+        else if (cmd == "distance=medium")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinTargetDistance(sPlayerbotAIConfig.mediumDistance);
+            bot->SetMinMasterDistance(sPlayerbotAIConfig.mediumDistance);
+            return "ok";
+        }
+        else if (cmd == "distance=far")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinTargetDistance(sPlayerbotAIConfig.farDistance);
+            bot->SetMinMasterDistance(sPlayerbotAIConfig.farDistance);
+            return "ok";
+        }
+        else if (cmd == "distance=extreme")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinTargetDistance(sPlayerbotAIConfig.extremeDistance);
+            bot->SetMinMasterDistance(sPlayerbotAIConfig.extremeDistance);
+            return "ok";
+        }
+        else if (cmd == "targetdistance=none")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinTargetDistance(.0f);
+            return "ok";
+        }
+        else if (cmd == "targetdistance=melee")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinTargetDistance(sPlayerbotAIConfig.meleeDistance);
+            return "ok";
+        }
+        else if (cmd == "targetdistance=spell")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinTargetDistance(sPlayerbotAIConfig.spellDistance);
+            return "ok";
+        }
+        else if (cmd == "targetdistance=close")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinTargetDistance(sPlayerbotAIConfig.closeDistance);
+            return "ok";
+        }
+        else if (cmd == "targetdistance=medium")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinTargetDistance(sPlayerbotAIConfig.mediumDistance);
+            return "ok";
+        }
+        else if (cmd == "targetdistance=far")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinTargetDistance(sPlayerbotAIConfig.farDistance);
+            return "ok";
+        }
+        else if (cmd == "targetdistance=extreme")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinTargetDistance(sPlayerbotAIConfig.extremeDistance);
+            return "ok";
+        }
+        else if (cmd == "masterdistance=none")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinMasterDistance(.0f);
+            return "ok";
+        }
+        else if (cmd == "masterdistance=melee")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinMasterDistance(sPlayerbotAIConfig.meleeDistance);
+            return "ok";
+        }
+        else if (cmd == "masterdistance=spell")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinMasterDistance(sPlayerbotAIConfig.spellDistance);
+            return "ok";
+        }
+        else if (cmd == "masterdistance=close")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinMasterDistance(sPlayerbotAIConfig.closeDistance);
+            return "ok";
+        }
+        else if (cmd == "masterdistance=medium")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinMasterDistance(sPlayerbotAIConfig.mediumDistance);
+            return "ok";
+        }
+        else if (cmd == "masterdistance=far")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinMasterDistance(sPlayerbotAIConfig.farDistance);
+            return "ok";
+        }
+        else if (cmd == "masterdistance=extreme")
+        {
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            bot->SetMinMasterDistance(sPlayerbotAIConfig.extremeDistance);
+            return "ok";
+        }
     }
 
     return "unknown command";

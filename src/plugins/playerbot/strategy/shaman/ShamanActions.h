@@ -100,6 +100,7 @@ namespace ai
     public:
         CastWaterShieldAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "water shield") {}
         virtual bool IsInstant() {return true;}
+        virtual bool hasMultipliers() { return false; }
     };
 
 	class CastLightningShieldAction : public CastBuffSpellAction {
@@ -149,6 +150,7 @@ namespace ai
         CastTotemAction(PlayerbotAI* ai, string spell) : CastBuffSpellAction(ai, spell) {}
         virtual bool isUseful() { return CastBuffSpellAction::isUseful() && !AI_VALUE2(bool, "has totem", name); }
         virtual bool IsInstant() {return true;}
+        virtual bool hasMultipliers() { return false; }
     };
 
     class CastOwnTotemAction : public CastBuffSpellAction
@@ -181,12 +183,6 @@ namespace ai
     {
     public:
         CastStoneclawTotemAction(PlayerbotAI* ai) : CastOwnTotemAction(ai, "stoneclaw totem") {}
-    };
-
-    class CastTremorTotemOnPartyAction : public DispelCharmPartyMemberAction
-    {
-    public:
-        CastTremorTotemOnPartyAction(PlayerbotAI* ai) : DispelCharmPartyMemberAction(ai, "tremor totem on party") {}
     };
 
     class CastStrengthOfEarthTotemAction : public CastTotemAction
@@ -526,6 +522,7 @@ namespace ai
     public:
         CastWindShearOnEnemyHealerAction(PlayerbotAI* ai) : CastSpellOnEnemyHealerAction(ai, "wind shear") {}
         virtual bool IsInstant() {return true;}
+        virtual bool hasMultipliers() { return false; }
     };
 
     class CastSummonEarthElementalAction : public CastBuffSpellAction
@@ -533,6 +530,7 @@ namespace ai
     public:
         CastSummonEarthElementalAction(PlayerbotAI* ai) : CastBuffSpellAction(ai, "earth elemental totem") {}
         virtual bool IsInstant() {return true;}
+        virtual bool hasMultipliers() { return false; }
     };
 
     class CastSummonFireElementalAction : public CastBuffSpellAction
