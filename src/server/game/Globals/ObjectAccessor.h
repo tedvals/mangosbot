@@ -102,6 +102,51 @@ class ObjectAccessor
             return &instance;
         }
 
+        template<class T> static T* GetObjectInOrOutOfWorld(ObjectGuid guid, T* /*typeSpecifier*/)
+        {
+            return HashMapHolder<T>::Find(guid);
+        }
+
+        static Unit* GetObjectInOrOutOfWorld(ObjectGuid guid, Unit* /*typeSpecifier*/)
+        {
+            if (guid.IsPlayer())
+                return (Unit*)GetObjectInOrOutOfWorld(guid, (Player*)NULL);
+
+            if (guid.IsPet())
+                return (Unit*)GetObjectInOrOutOfWorld(guid, (Pet*)NULL);
+
+            return (Unit*)GetObjectInOrOutOfWorld(guid, (Creature*)NULL);
+        }
+
+        // returns object if is in world
+        template<class T> static T* GetObjectInWorld(ObjectGuid guid, T* /*typeSpecifier*/)
+        {
+            return HashMapHolder<T>::Find(guid);
+        }
+
+        // Player may be not in world while in ObjectAccessor
+        static Player* GetObjectInWorld(ObjectGuid guid, Player* /*typeSpecifier*/);
+
+        static Unit* GetObjectInWorld(ObjectGuid guid, Unit* /*typeSpecifier*/)
+        {
+            if (guid.IsPlayer())
+                return (Unit*)GetObjectInWorld(guid, (Player*)NULL);
+
+            if (guid.IsPet())
+                return (Unit*)GetObjectInWorld(guid, (Pet*)NULL);
+
+            return (Unit*)GetObjectInWorld(guid, (Creature*)NULL);
+        }
+
+        // returns object if is in map
+        template<class T> static T* GetObjectInMap(ObjectGuid guid, Map* map, T* /*typeSpecifier*/)
+        {
+            ASSERT(map);
+            if (T * obj = GetObjectInWorld(guid, (T*)NULL))
+                if (obj->GetMap() == map)
+                    return obj;
+            return NULL;
+        }
         // these functions return objects only if in map of specified object
         static WorldObject* GetWorldObject(WorldObject const&, ObjectGuid const&);
         static Object* GetObjectByTypeMask(WorldObject const&, ObjectGuid const&, uint32 typemask);

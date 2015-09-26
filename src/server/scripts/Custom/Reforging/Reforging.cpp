@@ -381,7 +381,7 @@ static void UpdatePlayerReforgeStats(Item* invItem, Player* player, uint32 decre
 
     // Update player stats
     player->_ApplyItemMods(invItem, invItem->GetSlot(), false);
-    uint32 guidlow = invItem->GetGUID.GetCounter();
+    uint32 guidlow = invItem->GetGUID().GetCounter();
     ReforgeData& data = player->reforgeMap[guidlow];
     data.increase = increase;
     data.decrease = decrease;

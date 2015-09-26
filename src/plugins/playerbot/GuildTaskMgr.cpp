@@ -674,7 +674,7 @@ bool GuildTaskMgr::Reward(uint32 owner, uint32 guildId)
 
 void GuildTaskMgr::CheckKillTask(Player* player, Unit* victim)
 {
-    uint32 owner = player->GetGUIDLow();
+    uint32 owner = player->GetGUID().GetCounter();
     Creature* creature = victim->ToCreature();
     if (!creature)
         return;
