@@ -261,16 +261,11 @@ class Field
             return data.value == NULL;
         }
 
-<<<<<<< HEAD
         enum_field_types GetType() const
         {
             return data.type;
         }
 
-    protected:
-        Field();
-        ~Field();
-=======
         struct Metadata
         {
             char const* TableName;
@@ -280,7 +275,6 @@ class Field
             char const* Type;
             uint32 Index;
         };
->>>>>>> 774ea0b4bd1e0d469cfce8013f2e557f030c7c97
 
     protected:
         #pragma pack(push, 1)
