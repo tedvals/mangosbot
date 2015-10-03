@@ -424,7 +424,7 @@ void WorldSession::HandleQuestLogRemoveQuest(WorldPacket& recvData)
 #ifdef ELUNA
             sEluna->OnQuestAbandon(_player, questId);
 #endif
-            TC_LOG_INFO("network", "Player %u abandoned quest %u", _player->GetGUIDLow(), questId);
+            // TC_LOG_INFO("network", "Player %u abandoned quest %u", _player->GetGUIDLow(), questId);
 
             if (sWorld->getBoolConfig(CONFIG_QUEST_ENABLE_QUEST_TRACKER)) // check if Quest Tracker is enabled
             {

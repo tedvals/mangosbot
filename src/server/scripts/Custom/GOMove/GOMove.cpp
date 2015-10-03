@@ -137,8 +137,8 @@ public:
                             ChatHandler(player->GetSession()).PSendSysMessage("No objects found");
                         else
                         {
-                            bool isHex = (object->GetGUIDHigh() != HIGHGUID_GAMEOBJECT);
-                            SendSelectionInfo(player, isHex ? object->GetGUIDHigh() : object->GetDBTableGUIDLow() ? object->GetDBTableGUIDLow() : object->GetGUIDLow(), isHex, true);
+                            bool isHex = (object->GetGUID().GetHigh() != HighGuid::GameObject);
+                            SendSelectionInfo(player, isHex ? (uint32)object->GetGUID().GetHigh() : object->GetSpawnId() ? object->GetSpawnId() : (uint32)object->GetGUID().GetCounter(), isHex, true);
                             session->SendAreaTriggerMessage("Selected %s", object->GetName().c_str());
                         }
                     } break;
@@ -235,7 +235,7 @@ public:
         uint32 closestID = 0;
         for (std::set<uint32>::const_iterator it = GObjects.begin(); it != GObjects.end();)
         {
-            if (obj && obj->GetGUIDHigh() == (*it))
+            if (obj && (uint32)obj->GetGUID().GetHigh() == (*it))
             {
                 ++it;
                 continue;
@@ -255,7 +255,7 @@ public:
             obj = temp;
             ++it;
         }
-        if (obj && !closestID && obj->GetGUIDLow() && !obj->GetDBTableGUIDLow()) // obj is .gob add temp, respawn and return
+        if (obj && !closestID && obj->GetGUID().GetCounter() && !obj->GetSpawnId()) // obj is .gob add temp, respawn and return
         {
             float x, y, z, o;
             obj->GetPosition(x, y, z, o);
@@ -348,8 +348,8 @@ public:
         obj->AddGameObject(go);
         map->AddToMap(go);
 
-        go->SetSpellId(go->GetGUIDHigh()); // small hack :3
-        GObjects.insert(go->GetGUIDHigh());
+        go->SetSpellId((uint32)go->GetGUID().GetHigh()); // small hack :3
+        GObjects.insert((uint32)go->GetGUID().GetHigh());
         return go;
     }
 
@@ -359,7 +359,7 @@ public:
         //    GObjects.erase(GObjectID);
         if (object)
         {
-            GObjects.erase(object->GetGUIDHigh()); // remove from temp store
+            GObjects.erase((uint32)object->GetGUID().GetHigh()); // remove from temp store
 
             ObjectGuid ownerGuid = object->GetOwnerGUID();
             if (ownerGuid != ObjectGuid::Empty)
@@ -396,9 +396,9 @@ public:
             // object->SetPhaseMask(p, true);
             std::ostringstream ss;
             if (!isHex)
-                ss << "GOMOVE|SWAP|" << eorg << "||" << "0x" << std::hex << spawned->GetGUIDHigh();
+                ss << "GOMOVE|SWAP|" << eorg << "||" << "0x" << std::hex << (uint32)spawned->GetGUID().GetHigh();
             else
-                ss << "GOMOVE|SWAP|" << "0x" << std::hex << eorg << "||" << "0x" << std::hex << spawned->GetGUIDHigh();
+                ss << "GOMOVE|SWAP|" << "0x" << std::hex << eorg << "||" << "0x" << std::hex << (uint32)spawned->GetGUID().GetHigh();
             SendAddonMessage(player, ss.str().c_str());
         }
         else
@@ -406,7 +406,7 @@ public:
             object = SummonGameObject(player, eorg, x, y, z, o, p, 0, 0, rot2, rot3, 0);
             if (!object)
                 return nullptr;
-            SendSelectionInfo(player, object->GetGUIDHigh(), true, true); // MUST be handled here. There are no good ways to get the GObjectID later.
+            SendSelectionInfo(player, (uint32)object->GetGUID().GetHigh(), true, true); // MUST be handled here. There are no good ways to get the GObjectID later.
         }
 
         return object;
@@ -420,7 +420,7 @@ public:
 
         Map* map = player->GetMap();
         GameObject* saved = new GameObject();
-        uint32 guidLow = sObjectMgr->GenerateLowGuid(HIGHGUID_GAMEOBJECT);
+        uint32 guidLow = sObjectMgr->GenerateGameObjectSpawnId();
         float x, y, z, o;
         object->GetPosition(x, y, z, o);
         if (!saved->Create(guidLow, object->GetEntry(), map, object->GetPhaseMask(), x, y, z, o, 0.0f, 0.0f, 0.0f, 0.0f, 0, GO_STATE_READY))

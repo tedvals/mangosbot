@@ -822,7 +822,15 @@ Unit* PlayerbotAI::GetUnit(ObjectGuid guid)
     if (!map)
         return NULL;
 
-    return ObjectAccessor::GetObjectInMap(guid, map, (Unit*)NULL);
+    if (guid.IsPlayer())
+        return ObjectAccessor::GetPlayer(map,guid);
+
+    if (guid.IsPet())
+        return map->GetPet(guid);
+
+    return map->GetCreature(guid);
+
+//    return ObjectAccessor::GetObjectInMap(guid, map, (Unit*)NULL);
 }
 
 
