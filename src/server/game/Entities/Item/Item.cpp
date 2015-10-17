@@ -255,6 +255,10 @@ Item::Item()
     m_paidExtendedCost = 0;
 }
 
+Item::~Item()
+{
+}
+
 bool Item::Create(ObjectGuid::LowType guidlow, uint32 itemid, Player const* owner)
 {
     Object::_Create(guidlow, 0, HighGuid::Item);

@@ -292,7 +292,7 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
         }
 
         z = 0.05f + ground;
-        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random teleporting bot %s to %s %f,%f,%f", bot->GetName().c_str(), area->area_name[0], x, y, z);
+        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random teleporting bot %s to %s %f,%f,%f (1/%u locations)", bot->GetName().c_str(), area->area_name[0], x, y, z, locs.size());
 
         bot->GetMotionMaster()->Clear();
         bot->TeleportTo(loc.GetMapId(), x, y, z, 0);
@@ -304,52 +304,55 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
 
 void RandomPlayerbotMgr::RandomTeleportForLevel(Player* bot)
 {
-     vector<WorldLocation> locs;
-    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Finding a place for %s...", bot->GetName().c_str());
-    QueryResult results = WorldDatabase.PQuery("select map, position_x, position_y, position_z "
-        "from (select map, position_x, position_y, position_z, avg(t.maxlevel), avg(t.minlevel), "
-        "%u - (avg(t.maxlevel) + avg(t.minlevel)) / 2 delta "
-        "from creature c inner join creature_template t on c.id = t.entry group by t.entry) q "
-        "where delta >= 0 and delta <= %u and map in (%s) and not exists ( "
-        "select map, position_x, position_y, position_z from "
-        "("
-        "select map, c.position_x, c.position_y, c.position_z, avg(t.maxlevel), avg(t.minlevel), "
-        "%u - (avg(t.maxlevel) + avg(t.minlevel)) / 2 delta "
-        "from creature c "
-        "inner join creature_template t on c.id = t.entry group by t.entry "
-        ") q1 "
-        "where delta > %u and q1.map = q.map "
-        "and sqrt("
-        "(q1.position_x - q.position_x)*(q1.position_x - q.position_x) +"
-        "(q1.position_y - q.position_y)*(q1.position_y - q.position_y) +"
-        "(q1.position_z - q.position_z)*(q1.position_z - q.position_z)"
-        ") < %f)",
-        bot->getLevel(),
-        sPlayerbotAIConfig.randomBotTeleLevel,
-        sPlayerbotAIConfig.randomBotMapsAsString.c_str(),
-        bot->getLevel(),
-        sPlayerbotAIConfig.randomBotTeleLevel,
-        sPlayerbotAIConfig.sightDistance
-        );
+ sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Preparing location to random teleporting bot %s for level %u", bot->GetName().c_str(), bot->getLevel());
+
+     if (locsPerLevelCache[bot->getLevel()].empty()) {
+         QueryResult results = WorldDatabase.PQuery("select map, position_x, position_y, position_z "
+             "from (select map, position_x, position_y, position_z, avg(t.maxlevel), avg(t.minlevel), "
+             "%u - (avg(t.maxlevel) + avg(t.minlevel)) / 2 delta "
+             "from creature c inner join creature_template t on c.id = t.entry group by t.entry) q "
+             "where delta >= 0 and delta <= %u and map in (%s) and not exists ( "
+             "select map, position_x, position_y, position_z from "
+             "("
+             "select map, c.position_x, c.position_y, c.position_z, avg(t.maxlevel), avg(t.minlevel), "
+             "%u - (avg(t.maxlevel) + avg(t.minlevel)) / 2 delta "
+             "from creature c "
+             "inner join creature_template t on c.id = t.entry group by t.entry "
+             ") q1 "
+             "where delta > %u and q1.map = q.map "
+             "and sqrt("
+             "(q1.position_x - q.position_x)*(q1.position_x - q.position_x) +"
+             "(q1.position_y - q.position_y)*(q1.position_y - q.position_y) +"
+             "(q1.position_z - q.position_z)*(q1.position_z - q.position_z)"
+             ") < %u)",
+             bot->getLevel(),
+             sPlayerbotAIConfig.randomBotTeleLevel,
+             sPlayerbotAIConfig.randomBotMapsAsString.c_str(),
+             bot->getLevel(),
+             sPlayerbotAIConfig.randomBotTeleLevel,
+             (uint32)sPlayerbotAIConfig.sightDistance);
     if (results)
     {
-        do
-        {
-            Field* fields = results->Fetch();
-            uint16 mapId = fields[0].GetUInt16();
-            float x = fields[1].GetFloat();
-            float y = fields[2].GetFloat();
-            float z = fields[3].GetFloat();
-            WorldLocation loc(mapId, x, y, z, 0);
-            locs.push_back(loc);
-        } while (results->NextRow());
+            do
+             {
+                 Field* fields = results->Fetch();
+                 uint16 mapId = fields[0].GetUInt16();
+                 float x = fields[1].GetFloat();
+                 float y = fields[2].GetFloat();
+                 float z = fields[3].GetFloat();
+                 WorldLocation loc(mapId, x, y, z, 0);
+                 locsPerLevelCache[bot->getLevel()].push_back(loc);
+             } while (results->NextRow());
+         }
     }
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Found...");
-    RandomTeleport(bot, locs);
+    RandomTeleport(bot, locsPerLevelCache[bot->getLevel()]);
 }
 
 void RandomPlayerbotMgr::RandomTeleporting(Player* bot, uint16 mapId, float teleX, float teleY, float teleZ)
 {
+    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Preparing location to random teleporting bot %s", bot->GetName().c_str());
+
     vector<WorldLocation> locs;
     QueryResult results = WorldDatabase.PQuery("select position_x, position_y, position_z from creature where map = '%u' and abs(position_x - '%f') < '%u' and abs(position_y - '%f') < '%u'",
             mapId, teleX, sPlayerbotAIConfig.randomBotTeleportDistance / 2, teleY, sPlayerbotAIConfig.randomBotTeleportDistance / 2);
@@ -661,6 +664,7 @@ bool RandomPlayerbotMgr::HandlePlayerbotConsoleCommand(ChatHandler* handler, cha
     else if (cmd == "init" || cmd == "refresh" || cmd == "teleport")
     {
 		sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Randomizing bots for %d accounts", sPlayerbotAIConfig.randomBotAccounts.size());
+		list<uint32> botIds;
         for (list<uint32>::iterator i = sPlayerbotAIConfig.randomBotAccounts.begin(); i != sPlayerbotAIConfig.randomBotAccounts.end(); ++i)
         {
             uint32 account = *i;
@@ -669,7 +673,9 @@ bool RandomPlayerbotMgr::HandlePlayerbotConsoleCommand(ChatHandler* handler, cha
                 do
                 {
                     Field* fields = results->Fetch();
-                    ObjectGuid guid = ObjectGuid(HighGuid::Player, fields[0].GetUInt32());
+
+                    uint32 botId = fields[0].GetUInt32();
+                    ObjectGuid guid = ObjectGuid(HighGuid::Player, botId);
                     Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
 
                     if (bot->GetGUID()%RANDOM_BOT_INSTANCES != 0)
@@ -678,29 +684,40 @@ bool RandomPlayerbotMgr::HandlePlayerbotConsoleCommand(ChatHandler* handler, cha
                     if (!bot)
                         continue;
 
-                    if (cmd == "init")
-                    {
-                        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Randomizing bot %s for account %u", bot->GetName().c_str(), account);
-                        sRandomPlayerbotMgr.RandomizeFirst(bot);
-                    }
-                    else if (cmd == "teleport")
-                    {
-                        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Random teleporting bot %s for account %u", bot->GetName().c_str(), account);
-                        sRandomPlayerbotMgr.RandomTeleportForLevel(bot);
-                    }
-                    else
-                    {
-                        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Refreshing bot %s for account %u", bot->GetName().c_str(), account);
-                        bot->SetLevel(bot->getLevel() - 1);
-                        sRandomPlayerbotMgr.IncreaseLevel(bot);
-                    }
-                    uint32 randomTime = urand(sPlayerbotAIConfig.minRandomBotRandomizeTime, sPlayerbotAIConfig.maxRandomBotRandomizeTime);
-                    CharacterDatabase.PExecute("update ai_playerbot_random_bots set validIn = '%u' where event = 'randomize' and bot = '%u'",
-                            randomTime, bot->GetGUID().GetCounter());
-                    CharacterDatabase.PExecute("update ai_playerbot_random_bots set validIn = '%u' where event = 'logout' and bot = '%u'",
-                            sPlayerbotAIConfig.maxRandomBotInWorldTime, bot->GetGUID().GetCounter());
+                   botIds.push_back(botId);
                 } while (results->NextRow());
             }
+        }
+
+        int processed = 0;
+        for (list<uint32>::iterator i = botIds.begin(); i != botIds.end(); ++i)
+        {
+            ObjectGuid guid = ObjectGuid(HighGuid::Player, *i);
+            Player* bot = sObjectMgr->GetPlayerByLowGUID(guid);
+            if (!bot)
+                continue;
+
+            sLog->outMessage("playerbot", LOG_LEVEL_INFO, "[%u/%u] Processing command '%s' for bot '%s'",
+                    processed++, botIds.size(), cmd.c_str(), bot->GetName().c_str());
+
+            if (cmd == "init")
+            {
+                sRandomPlayerbotMgr.RandomizeFirst(bot);
+            }
+            else if (cmd == "teleport")
+            {
+                sRandomPlayerbotMgr.RandomTeleportForLevel(bot);
+            }
+            else
+            {
+                bot->SetLevel(bot->getLevel() - 1);
+                sRandomPlayerbotMgr.IncreaseLevel(bot);
+            }
+            uint32 randomTime = urand(sPlayerbotAIConfig.minRandomBotRandomizeTime, sPlayerbotAIConfig.maxRandomBotRandomizeTime);
+            CharacterDatabase.PExecute("update ai_playerbot_random_bots set validIn = '%u' where event = 'randomize' and bot = '%u'",
+                    randomTime, bot->GetGUID().GetCounter());
+            CharacterDatabase.PExecute("update ai_playerbot_random_bots set validIn = '%u' where event = 'logout' and bot = '%u'",
+                    sPlayerbotAIConfig.maxRandomBotInWorldTime, bot->GetGUID().GetCounter());
         }
         return true;
     }
@@ -711,6 +728,7 @@ bool RandomPlayerbotMgr::HandlePlayerbotConsoleCommand(ChatHandler* handler, cha
         {
             sLog->outMessage("playerbot", LOG_LEVEL_INFO, i->c_str());
         }
+
         return true;
     }
 
