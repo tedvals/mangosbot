@@ -44,12 +44,12 @@ public:
     static std::set<uint32> GObjects; // GObjects[] = GObjectID // GObjectID comes from highguid. lowguid is 0 for temps.
     static std::unordered_map<ObjectGuid, uint32> SpawnQue;
 
-    ChatCommand* GetCommands() const override
+    std::vector<ChatCommand> GetCommands() const override
     {
-        static ChatCommand GOMoveCommandTable[] =
+        static std::vector<ChatCommand> GOMoveCommandTable =
         {
-            { "gomove", rbac::RBAC_PERM_COMMAND_GOBJECT_ADD_TEMP, false, &GOMove_Command, "", nullptr },
-            { nullptr, 0, false, nullptr, "", nullptr }
+            { "gomove", rbac::RBAC_PERM_COMMAND_GOBJECT_ADD_TEMP, false, &GOMove_Command, ""},
+            { nullptr, 0, false, nullptr, ""}
         };
         return GOMoveCommandTable;
     }
