@@ -1744,3 +1744,19 @@ string PlayerbotAI::HandleRemoteCommand(string command)
     ostringstream out; out << "invalid command: " << command;
     return out.str();
 }
+
+void PlayerbotAI::LogAction(const char* format, ...)
+{
+    char buf[1024];
+
+    va_list ap;
+    va_start(ap, format);
+    vsprintf(buf, format, ap);
+    va_end(ap);
+
+    Player* bot = GetBot();
+    if (sPlayerbotAIConfig.logInGroupOnly && !bot->GetGroup())
+        return;
+
+    sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "%s %s", bot->GetName().c_str(), buf);
+}

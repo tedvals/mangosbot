@@ -29,20 +29,27 @@ namespace ai
             if (!target)
                 return false;
 
+           if (!ai)
+               return false;
+
+            bot->GetPlayerbotAI()->LogAction("Decide to attack");
+
             if (target && target->IsFriendlyTo(bot))
                 return AI_VALUE2(float, "distance", "current target") > distance;
 
-		    list<ObjectGuid> targets = AI_VALUE(list<ObjectGuid>, "possible targets");
+            list<ObjectGuid> targets = AI_VALUE(list<ObjectGuid>, "possible targets");
             list<ObjectGuid> attackers = AI_VALUE(list<ObjectGuid>, "attackers");
 
             if (targets.size() == attackers.size() || ai->IsTank(bot))
+	    {
+                ai->LogAction("Attack:%s", target->GetName().c_str());
                 return AI_VALUE2(float, "distance", "current target") > distance;
+            }
             else
             {
                 for (list<ObjectGuid>::iterator i = targets.begin(); i != targets.end(); ++i)
                 {
-                    Unit* unit = bot->GetPlayerbotAI()->GetUnit(*i);
-
+                    Unit* unit = ai->GetUnit(*i);
                     if (!unit)
                         continue;
 
@@ -54,9 +61,13 @@ namespace ai
 
                     float d = unit->GetDistance(target);
                     if (d <= sPlayerbotAIConfig.aggroDistance)
+                    {
+                       ai->LogAction("No attack");
                         return false;
+                         }
                 }
-                    return AI_VALUE2(float, "distance", "current target") > distance;
+                ai->LogAction("Attack:%s", target->GetName().c_str());
+                return AI_VALUE2(float, "distance", "current target") > distance;
             }
 
 

@@ -212,6 +212,8 @@ public:
         return (i == objectVisited.end());
     }
 
+    void LogAction(const char* format, ...);
+
 protected:
 	Player* bot;
 	Player* master;
