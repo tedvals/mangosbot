@@ -61,9 +61,8 @@ void Corpse::RemoveFromWorld()
     WorldObject::RemoveFromWorld();
 }
 
-bool Corpse::Create(ObjectGuid::LowType guidlow, Map* map)
+bool Corpse::Create(ObjectGuid::LowType guidlow)
 {
-    SetMap(map);
     Object::_Create(guidlow, 0, HighGuid::Corpse);
     return true;
 }
@@ -81,16 +80,12 @@ bool Corpse::Create(ObjectGuid::LowType guidlow, Player* owner)
         return false;
     }
 
-    //we need to assign owner's map for corpse
-    //in other way we will get a crash in Corpse::SaveToDB()
-    SetMap(owner->GetMap());
-
     WorldObject::_Create(guidlow, HighGuid::Corpse, owner->GetPhaseMask());
 
     SetObjectScale(1.0f);
     SetGuidValue(CORPSE_FIELD_OWNER, owner->GetGUID());
 
-    _gridCoord = Trinity::ComputeGridCoord(GetPositionX(), GetPositionY());
+    _cellCoord = Trinity::ComputeCellCoord(GetPositionX(), GetPositionY());
 
     return true;
 }
@@ -123,20 +118,6 @@ void Corpse::SaveToDB()
     trans->Append(stmt);
 
     CharacterDatabase.CommitTransaction(trans);
-}
-
-void Corpse::DeleteBonesFromWorld()
-{
-    ASSERT(GetType() == CORPSE_BONES);
-    Corpse* corpse = ObjectAccessor::GetCorpse(*this, GetGUID());
-
-    if (!corpse)
-    {
-        TC_LOG_ERROR("entities.player", "Bones %u not found in world.", GetGUID().GetCounter());
-        return;
-    }
-
-    AddObjectToRemoveList();
 }
 
 void Corpse::DeleteFromDB(SQLTransaction& trans)
@@ -194,14 +175,14 @@ bool Corpse::LoadCorpseFromDB(ObjectGuid::LowType guid, Field* fields)
         return false;
     }
 
-    _gridCoord = Trinity::ComputeGridCoord(GetPositionX(), GetPositionY());
+    _cellCoord = Trinity::ComputeCellCoord(GetPositionX(), GetPositionY());
     return true;
 }
 
 bool Corpse::IsExpired(time_t t) const
 {
     // Deleted character
-    if (!sWorld->GetCharacterNameData(GetOwnerGUID()))
+    if (!sWorld->GetCharacterInfo(GetOwnerGUID()))
         return true;
 
     if (m_type == CORPSE_BONES)
