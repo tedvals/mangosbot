@@ -58,6 +58,7 @@ void RandomPlayerbotMgr::UpdateAIInternal(uint32 elapsed)
             else
                 hordeNewBots++;
 
+            sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Adding bot %d", bot);
             bots.push_back(bot);
         }
         else
@@ -68,6 +69,9 @@ void RandomPlayerbotMgr::UpdateAIInternal(uint32 elapsed)
     for (list<uint32>::iterator i = bots.begin(); i != bots.end(); ++i)
     {
         uint32 bot = *i;
+
+        sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Processing bot %d", bot);
+
         if (ProcessBot(bot))
             botProcessed++;
 

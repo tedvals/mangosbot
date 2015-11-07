@@ -260,6 +260,7 @@ void RandomPlayerbotFactory::CreateRandomBots()
         }
 
         RandomPlayerbotFactory factory(accountId);
+
         for (uint8 cls = CLASS_WARRIOR; cls < MAX_CLASSES; ++cls)
         {
             if (cls != 10 && cls != CLASS_DEATH_KNIGHT)
