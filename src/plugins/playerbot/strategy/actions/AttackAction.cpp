@@ -77,7 +77,7 @@ bool AttackAction::Attack(Unit* target)
         return false;
     }
 
-	if ((target && target->UnderCc() && !target->isStunned()) || target->isFrozen())
+	if (target && (target->UnderCc() || target->isStunned() || target->isFrozen()))
 	{
 	    float minHealth = 0;
 
