@@ -1251,6 +1251,8 @@ ObjectGuid PlayerbotFactory::GetRandomBot()
 void PlayerbotFactory::InitQuests()
 {
     ObjectMgr::QuestMap const& questTemplates = sObjectMgr->GetQuestTemplates();
+	list<uint32> questIds;
+
     for (ObjectMgr::QuestMap::const_iterator i = questTemplates.begin(); i != questTemplates.end(); ++i)
      {
          uint32 questId = i->first;
@@ -1260,6 +1262,21 @@ void PlayerbotFactory::InitQuests()
                  quest->IsDailyOrWeekly() || quest->IsRepeatable() || quest->IsMonthly())
              continue;
 
+		 for (Quest::PrevQuests::const_iterator iter = quest->prevQuests.begin(); iter != quest->prevQuests.end(); ++iter)
+			  {
+			  uint32 prevId = abs(*iter);
+			  questIds.push_back(prevId);
+			 }
+		 
+			 questIds.push_back(questId);
+		 
+	}
+	
+		for (list<uint32>::iterator i = questIds.begin(); i != questIds.end(); ++i)
+		 {
+		 uint32 questId = *i;
+		 Quest const *quest = sObjectMgr->GetQuestTemplate(questId);
+		
          bot->SetQuestStatus(questId, QUEST_STATUS_NONE);
 
          if (!bot->SatisfyQuestClass(quest, false) ||
