@@ -48,8 +48,7 @@ public:
     {
         static std::vector<ChatCommand> GOMoveCommandTable =
         {
-            { "gomove", rbac::RBAC_PERM_COMMAND_GOBJECT_ADD_TEMP, false, &GOMove_Command, ""},
-            { nullptr, 0, false, nullptr, ""}
+             { "gomove", rbac::RBAC_PERM_COMMAND_GOBJECT_ADD_TEMP, false, &GOMove_Command, "" },
         };
         return GOMoveCommandTable;
     }
