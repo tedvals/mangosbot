@@ -653,8 +653,8 @@ bool GuildTaskMgr::Reward(uint32 owner, uint32 guildId)
     SQLTransaction trans = CharacterDatabase.BeginTransaction();
     MailDraft draft("Thank You", body.str());
 
-    uint32 count = urand(1, 3);
-    for (uint32 i = 0; i < count; ++i)
+    uint32 itemId = sRandomItemMgr.GetRandomItem(RANDOM_ITEM_GUILD_TASK_REWARD);
+    if (itemId)
     {
         uint32 itemId = sRandomItemMgr.GetRandomItem(RANDOM_ITEM_GUILD_TASK_REWARD);
         if (itemId)
