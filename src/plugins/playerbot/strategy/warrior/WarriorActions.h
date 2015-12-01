@@ -206,7 +206,6 @@ namespace ai
 
     //debuffs
     BEGIN_DEBUFF_ACTION(CastRendAction, "rend")
-        virtual NextAction** getPrerequisites();
         virtual bool IsInstant() {return true;}
     END_SPELL_ACTION()
 
@@ -214,7 +213,6 @@ namespace ai
     {
     public:
         CastRendOnAttackerAction(PlayerbotAI* ai) : CastDebuffSpellOnAttackerAction(ai, "rend") {}
-        virtual NextAction** getPrerequisites();
         virtual bool IsInstant() {return true;}
     };
 

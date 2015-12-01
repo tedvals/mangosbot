@@ -92,8 +92,11 @@ bool MovementAction::FleeTo(Unit* target, uint32 mapId, float x, float y, float 
     if (!IsMovingAllowed(mapId, x, y, z))
         return false;
 
+    if (!target)
+        return false;
+
     float distance = bot->GetDistance(x, y, z);
-	float targetDistance = bot->GetDistance(target);
+	float targetDistance = bot->GetDistance2d(target->GetPositionX(), target->GetPositionY());
 
 	if (targetDistance > sPlayerbotAIConfig.tooCloseDistance + 2.0f)
 	{
@@ -263,7 +266,7 @@ bool MovementAction::Follow(Unit* target, float distance, float angle)
     if (!target)
         return false;
 
-    if (bot->GetDistance2d(target->GetPositionX(), target->GetPositionY()) <= sPlayerbotAIConfig.sightDistance &&
+    if (bot->GetDistance2d(target) <= sPlayerbotAIConfig.sightDistance &&
             abs(bot->GetPositionZ() - target->GetPositionZ()) >= sPlayerbotAIConfig.tooCloseDistance)
     {
         mm.Clear();
@@ -290,7 +293,7 @@ bool MovementAction::Follow(Unit* target, float distance, float angle)
     if (target->IsFriendlyTo(bot) && bot->IsMounted() && AI_VALUE(list<ObjectGuid>, "possible targets").empty())
         distance += angle;
 
-    if (bot->GetDistance(target) <= sPlayerbotAIConfig.followDistance)
+    if (bot->GetDistance2d(target) <= sPlayerbotAIConfig.followDistance)
         return false;
 
     if (bot->IsSitState())
@@ -316,7 +319,7 @@ bool MovementAction::GetBehind(Unit* target, float distance, float angle)
     if (!target)
         return false;
 
-    if (bot->GetDistance2d(target->GetPositionX(), target->GetPositionY()) <= sPlayerbotAIConfig.sightDistance &&
+    if (bot->GetDistance2d(target) <= sPlayerbotAIConfig.sightDistance &&
             abs(bot->GetPositionZ() - target->GetPositionZ()) >= sPlayerbotAIConfig.tooCloseDistance)
     {
         mm.Clear();
