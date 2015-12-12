@@ -22334,9 +22334,24 @@ void Player::SendInitialPacketsBeforeAddToMap()
 
     SendEquipmentSetList();
 
+    float speedrate = sWorld->getFloatConfig(CONFIG_SPEED_GAME)/60.f;
+
+    uint32 speedtime = ((sWorld->GetGameTime() - sWorld->GetUptime()) + (sWorld->GetUptime() * speedrate));
+
     data.Initialize(SMSG_LOGIN_SETTIMESPEED, 4 + 4 + 4);
-    data.AppendPackedTime(sWorld->GetGameTime());
-    data << float(0.01666667f);                             // game speed
+    if (speedrate == 1.f)
+    {
+        data.AppendPackedTime(sWorld->GetGameTime());
+        data << float(0.01666667f);              // game speed
+        TC_LOG_DEBUG("entities.player.loading", "PLAYER (Class: %u Race: %u): speed = %f", uint32(getClass()), uint32(getRace()), 1.f);
+    }
+    else
+    {
+        data.AppendPackedTime(speedtime);
+        data << float(0.01666667f) * speedrate; // game speed
+        TC_LOG_DEBUG("entities.player.loading", "PLAYER (Class: %u Race: %u): speed = %f", uint32(getClass()), uint32(getRace()), speedrate);
+    }
+
     data << uint32(0);                                      // added in 3.1.2
     GetSession()->SendPacket(&data);
 
