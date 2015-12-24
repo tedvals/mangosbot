@@ -696,8 +696,11 @@ enum RBACPermissions
     RBAC_PERM_COMMAND_MODIFY_XP                              = 798,
     // 799 - 834 6.x only
     RBAC_PERM_COMMAND_DEBUG_LOADCELLS                        = 835,
+    RBAC_PERM_COMMAND_GUILD_LINFO                            = 1000,
+    RBAC_PERM_COMMAND_GUILD_SET_LEVEL                        = 1001,
+    RBAC_PERM_COMMAND_GUILD_GIVE_XP                          = 1002,
     // custom permissions 1000+
-    RBAC_PERM_BOT_ADD                                        = 1001,
+    RBAC_PERM_BOT_ADD                                        = 1100,
     RBAC_PERM_MAX
 };
 

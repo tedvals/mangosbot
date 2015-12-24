@@ -19,6 +19,7 @@ set(scripts_STAT_SRCS
     Custom/Reforging/Reforging.cpp
     Custom/GOMove/GOMove.cpp
     Custom/Playerbot/MoveBot.cpp
+   Custom/GuildHousing/GuildMaster.cpp
 )
 
 message("  -> Prepared: Custom")

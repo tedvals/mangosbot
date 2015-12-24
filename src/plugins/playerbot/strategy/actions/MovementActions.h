@@ -30,7 +30,7 @@ namespace ai
         bool MoveToUnit(Unit* target);
         bool MoveNear(WorldObject* target, float distance = sPlayerbotAIConfig.followDistance);
         float GetFollowAngle();
-        bool Follow(Unit* target, float distance = sPlayerbotAIConfig.followDistance);
+        bool Follow(Unit* target, float distance = sPlayerbotAIConfig.followDistance * (float)urand(8, 12) / 10.0f);
         bool GetBehind(Unit* target, float distance = sPlayerbotAIConfig.meleeDistance);
         bool Follow(Unit* target, float distance, float angle);
         bool GetBehind(Unit* target, float distance, float angle);

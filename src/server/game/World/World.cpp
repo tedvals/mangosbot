@@ -1133,6 +1133,8 @@ void World::LoadConfigSettings(bool reload)
     m_int_configs[CONFIG_CHARDELETE_HEROIC_MIN_LEVEL] = sConfigMgr->GetIntDefault("CharDelete.Heroic.MinLevel", 0);
     m_int_configs[CONFIG_CHARDELETE_KEEP_DAYS] = sConfigMgr->GetIntDefault("CharDelete.KeepDays", 30);
 
+    //Guild-Level-System
+    LoadGuildBonusInfo();
     // No aggro from gray mobs
     m_int_configs[CONFIG_NO_GRAY_AGGRO_ABOVE] = sConfigMgr->GetIntDefault("NoGrayAggro.Above", 0);
     m_int_configs[CONFIG_NO_GRAY_AGGRO_BELOW] = sConfigMgr->GetIntDefault("NoGrayAggro.Below", 0);
@@ -3324,3 +3326,86 @@ void World::RemoveOldCorpses()
     m_timers[WUPDATE_CORPSES].SetCurrent(m_timers[WUPDATE_CORPSES].GetInterval());
 }
 
+//Guild-Level-System [Start]
+void World::LoadGuildBonusInfo()
+{
+    //Moechte keinen riesigen Abschnitt in die Worldconf hinzufuegen, deswegen
+    //soll das ganze ueber eine Tabelle in der CharDB geregelt werden.
+    //Hier werden die benoetigten Daten geladen.
+    m_req_guildLevel_gold_1 = SelectReqGuildLevelForBonus(GUILD_BONUS_GOLD_1);
+    m_req_guildLevel_xp_1 = SelectReqGuildLevelForBonus(GUILD_BONUS_XP_1);
+    m_req_guildLevel_schneller_geist = SelectReqGuildLevelForBonus(GUILD_BONUS_SCHNELLER_GEIST);
+    m_req_guildLevel_reperatur_1 = SelectReqGuildLevelForBonus(GUILD_BONUS_REPERATUR_1);
+    m_req_guildLevel_gold_2 = SelectReqGuildLevelForBonus(GUILD_BONUS_GOLD_2);
+    m_req_guildLevel_reittempo_1 = SelectReqGuildLevelForBonus(GUILD_BONUS_REITTEMPO_1);
+    m_req_guildLevel_reputation_1 = SelectReqGuildLevelForBonus(GUILD_BONUS_RUF_1);
+    m_req_guildLevel_xp_2 = SelectReqGuildLevelForBonus(GUILD_BONUS_XP_2);
+    m_req_guildLevel_reperatur_2 = SelectReqGuildLevelForBonus(GUILD_BONUS_REPERATUR_2);
+    m_req_guildLevel_reittempo_2 = SelectReqGuildLevelForBonus(GUILD_BONUS_REITTEMPO_2);
+    m_req_guildLevel_reputation_2 = SelectReqGuildLevelForBonus(GUILD_BONUS_RUF_2);
+    m_req_guildLevel_honor_1 = SelectReqGuildLevelForBonus(GUILD_BONUS_EHRE_1);
+    m_req_guildLevel_honor_2 = SelectReqGuildLevelForBonus(GUILD_BONUS_EHRE_2);
+}
+
+uint8 World::SelectReqGuildLevelForBonus(uint8 guildBonus)
+{
+    PreparedStatement* stmt;
+    stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_GUILD_BONUS_INFO);
+    stmt->setUInt8(0, guildBonus);
+    PreparedQueryResult result = CharacterDatabase.Query(stmt);
+
+    if (result)
+        return (*result)[0].GetUInt8();
+    else
+        return 0;
+}
+
+uint8 World::GetReqGuildLevelForBonus(uint8 guildBonus)
+{
+    switch (guildBonus)
+    {
+    case GUILD_BONUS_GOLD_1:
+        return m_req_guildLevel_gold_1;
+        break;
+    case GUILD_BONUS_GOLD_2:
+        return m_req_guildLevel_gold_2;
+        break;
+    case GUILD_BONUS_EHRE_1:
+        return m_req_guildLevel_honor_1;
+        break;
+    case GUILD_BONUS_EHRE_2:
+        return m_req_guildLevel_honor_2;
+        break;
+    case GUILD_BONUS_REITTEMPO_1:
+        return m_req_guildLevel_reittempo_1;
+        break;
+    case GUILD_BONUS_REITTEMPO_2:
+        return m_req_guildLevel_reittempo_2;
+        break;
+    case GUILD_BONUS_REPERATUR_1:
+        return m_req_guildLevel_reperatur_1;
+        break;
+    case GUILD_BONUS_REPERATUR_2:
+        return m_req_guildLevel_reperatur_2;
+        break;
+    case GUILD_BONUS_RUF_1:
+        return m_req_guildLevel_reputation_1;
+        break;
+    case GUILD_BONUS_RUF_2:
+        return m_req_guildLevel_reputation_2;
+        break;
+    case GUILD_BONUS_SCHNELLER_GEIST:
+        return m_req_guildLevel_schneller_geist;
+        break;
+    case GUILD_BONUS_XP_1:
+        return m_req_guildLevel_xp_1;
+        break;
+    case GUILD_BONUS_XP_2:
+        return m_req_guildLevel_xp_2;
+        break;
+    default:
+        return 0;
+        break;
+    }
+}
+//Guild-Level-System [End]
