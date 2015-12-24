@@ -174,33 +174,35 @@ bool Engine::DoNextAction(Unit* unit, int depth, bool instantonly, bool noflee)
                         }
                     }
 
-                    if ((!skipPrerequisites || lastRelevance-relevance > 0.04) &&
-                            MultiplyAndPush(actionNode->getPrerequisites(), relevance + 0.02, false, event,instantonly,actionNode->getName()+= "-prereq"))
+                    if (!skipPrerequisites)
                     {
-                        PushAgain(actionNode, relevance + 0.01, event);
-                        continue;
-                    }
 
+                        if (MultiplyAndPush(actionNode->getPrerequisites(), relevance + 0.02, false, event,instantonly,actionNode->getName()+= "-prereq"))
+                        {
+                            PushAgain(actionNode, relevance + 0.01, event);
+                            continue;
+                        }
+                    }
                     actionExecuted = ListenAndExecute(action, event);
 
                     if (actionExecuted)
                     {
                         LogAction("A:%s - OK", action->getName().c_str());
-                        MultiplyAndPush(actionNode->getContinuers(), 0, false, event, instantonly,(actionNode->getName()+= "-continue"));
+                        MultiplyAndPush(actionNode->getContinuers(), 0, false, event, instantonly,(actionNode->getName()+= "-cont"));
                         lastRelevance = relevance;
                         delete actionNode;
                         break;
                     }
                     else
                     {
-                        MultiplyAndPush(actionNode->getAlternatives(), relevance + 0.03, false, event, instantonly,(actionNode->getName()+= "-alter"));
                         LogAction("A:%s - FAILED", action->getName().c_str());
+                        MultiplyAndPush(actionNode->getAlternatives(), relevance + 0.03, false, event, instantonly,(actionNode->getName()+= "-alt"));
                     }
                 }
                 else
                 {
-                    MultiplyAndPush(actionNode->getAlternatives(), relevance + 0.03, false, event, instantonly,(actionNode->getName()+= "-alter2"));
                     LogAction("A:%s - IMPOSSIBLE", action->getName().c_str());
+                    MultiplyAndPush(actionNode->getAlternatives(), relevance + 0.03, false, event, instantonly,(actionNode->getName()+= "-alt2"));
                 }
             }
             else
@@ -413,7 +415,7 @@ void Engine::ProcessTriggers()
                 continue;
 
             LogAction("T:%s", trigger->getName().c_str());
-            MultiplyAndPush(node->getHandlers(), 0.0f, false, event);
+            MultiplyAndPush(node->getHandlers(), 0.0f, false, event, false,"-trigger");
         }
     }
     for (list<TriggerNode*>::iterator i = triggers.begin(); i != triggers.end(); i++)
@@ -429,7 +431,7 @@ void Engine::PushDefaultActions()
     {
         Strategy* strategy = i->second;
         Event emptyEvent;
-        MultiplyAndPush(strategy->getDefaultActions(), 0.0f, false, emptyEvent);
+        MultiplyAndPush(strategy->getDefaultActions(), 0.0f, false, emptyEvent, false,"default");
     }
 }
 
@@ -453,7 +455,7 @@ void Engine::PushAgain(ActionNode* actionNode, float relevance, Event event)
     NextAction** nextAction = new NextAction*[2];
     nextAction[0] = new NextAction(actionNode->getName(), relevance);
     nextAction[1] = NULL;
-    MultiplyAndPush(nextAction, relevance, true, event);
+    MultiplyAndPush(nextAction, relevance, true, event,false,(actionNode->getName()+= "-default"));
     delete actionNode;
 }
 

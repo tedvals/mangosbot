@@ -76,11 +76,13 @@ bool MovementAction::MoveTo(uint32 mapId, float x, float y, float z)
         }
         else
             mm.MovePoint(mapId, x, y, z, generatePath);
+
+        AI_VALUE(LastMovement&, "last movement").Set(x, y, z, bot->GetOrientation());
+        return true;
     }
 	else ai->ResetMovePoint();
 
-    AI_VALUE(LastMovement&, "last movement").Set(x, y, z, bot->GetOrientation());
-    return true;
+    return false;
 }
 
 bool MovementAction::FleeTo(Unit* target, uint32 mapId, float x, float y, float z)
