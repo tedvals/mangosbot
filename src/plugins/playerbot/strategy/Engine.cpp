@@ -274,7 +274,7 @@ bool Engine::MultiplyAndPush(NextAction** actions, float forceRelevance, bool sk
                     if (instantonly)
                         LogAction("INSTANT PUSH:%s %f %s", action->getName().c_str(), k, referrer.c_str());
                     else
-                        LogAction("PUSH:%s %f %s", action->getName().c_str(), k, referrer.c_str());
+                        LogAction("PUSH:%s - %f %s", action->getName().c_str(), k, referrer.c_str());
 
                     queue.Push(new ActionBasket(action, k, skipPrerequisites, event));
                     pushed = true;
@@ -504,7 +504,14 @@ void Engine::LogAction(const char* format, ...)
     va_start(ap, format);
     vsprintf(buf, format, ap);
     va_end(ap);
-    lastAction = buf;
+	lastAction += "|";
+	lastAction += buf;
+	if (lastAction.size() > 512)
+	{
+		lastAction = lastAction.substr(512);
+		size_t pos = lastAction.find("|");
+		lastAction = (pos == string::npos ? "" : lastAction.substr(pos));
+		}
 
     if (testMode)
     {

@@ -29,6 +29,7 @@ namespace ai
             creators["hand of protection on party"] = &hand_of_protection_on_party;
             creators["blessing of kings on party"] = &blessing_of_kings_on_party;
             creators["blessing of wisdom on party"] = &blessing_of_wisdom_on_party;
+            creators["hammer of wrath"] = &hammer_of_wrath;
         }
     private:
         static ActionNode* seal_of_vengeance(PlayerbotAI* ai)
@@ -184,6 +185,13 @@ namespace ai
             /*P*/ NULL,
             /*A*/ NextAction::array(0, new NextAction("blessing of might on party"), NULL),
             /*C*/ NULL);
+        }
+        static ActionNode* hammer_of_wrath(PlayerbotAI* ai)
+        {
+            return new ActionNode ("hammer of wrath",
+                /*P*/ NULL,
+                /*A*/ NextAction::array(0, new NextAction("melee"), NULL),
+                /*C*/ NULL);
         }
     };
 

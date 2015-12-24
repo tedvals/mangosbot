@@ -43,7 +43,7 @@ namespace ai
             if (targets.size() == attackers.size() || ai->IsTank(bot))
 	    {
                 ai->LogAction("Attack:%s", target->GetName().c_str());
-                return AI_VALUE2(float, "distance", "current target") > distance;
+                return AI_VALUE2(float, "distance", "current target") > (distance + sPlayerbotAIConfig.contactDistance);
             }
             else
             {
@@ -67,7 +67,7 @@ namespace ai
                          }
                 }
                 ai->LogAction("Attack:%s", target->GetName().c_str());
-                return AI_VALUE2(float, "distance", "current target") > distance;
+                return AI_VALUE2(float, "distance", "current target") > (distance + sPlayerbotAIConfig.contactDistance);
             }
 
 
@@ -87,7 +87,7 @@ namespace ai
         }
 		virtual bool isUseful()
 		{
-			return AI_VALUE2(float, "distance", "current target") > distance;
+			return AI_VALUE2(float, "distance", "current target") > (distance + sPlayerbotAIConfig.contactDistance);
 		}
 
     protected:

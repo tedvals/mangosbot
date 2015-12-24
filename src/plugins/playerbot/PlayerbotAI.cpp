@@ -698,7 +698,10 @@ bool PlayerbotAI::DoMovingAction(Player* player, Unit* target)
     if (!target->IsHostileTo(player))
         return true;
 
-    if (!ai->GetMaster()->IsInCombat())
+	if (!GetMaster())
+		return true;
+
+    if (!ai->IsTank(bot) && !ai->GetMaster()->IsInCombat())
         return true;
 
     switch (player->getClass())
@@ -1707,9 +1710,20 @@ string PlayerbotAI::HandleRemoteCommand(string command)
     }
     else if (command == "position")
     {
-        ostringstream out; out << bot->GetMapId() << "," << bot->GetPositionX() << "," << bot->GetPositionY() << "," << bot->GetPositionZ() << "," << bot->GetOrientation();
+        ostringstream out; out << bot->GetPositionX() << " " << bot->GetPositionY() << " " << bot->GetPositionZ() << " " << bot->GetMapId() << " " << bot->GetOrientation();
         return out.str();
     }
+	else if (command == "tpos")
+		 {
+		Unit* target = *GetAiObjectContext()->GetValue<Unit*>("current target");
+		if (!target) {
+			return "";
+
+		}
+
+		ostringstream out; out << target->GetPositionX() << " " << target->GetPositionY() << " " << target->GetPositionZ() << " " << target->GetMapId() << " " << target->GetOrientation();
+		return out.str();
+		}
     else if (command == "target")
     {
         Unit* target = *GetAiObjectContext()->GetValue<Unit*>("current target");
@@ -1718,6 +1732,12 @@ string PlayerbotAI::HandleRemoteCommand(string command)
         }
 
         return target->GetName();
+    }
+     else if (command == "movement")
+    {
+        LastMovement& data = *GetAiObjectContext()->GetValue<LastMovement&>("last movement");
+        ostringstream out; out << data.lastMoveToX << " " << data.lastMoveToY << " " << data.lastMoveToZ << " " << bot->GetMapId() << " " << data.lastMoveToOri;
+        return out.str();
     }
     else if (command == "hp")
     {
@@ -1741,6 +1761,11 @@ string PlayerbotAI::HandleRemoteCommand(string command)
     {
         return currentEngine->GetLastAction();
     }
+    else if (command == "values")
+    {
+        return GetAiObjectContext()->FormatValues();
+    }
+
     ostringstream out; out << "invalid command: " << command;
     return out.str();
 }
