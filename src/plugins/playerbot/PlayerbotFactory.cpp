@@ -1262,39 +1262,40 @@ void AddPrevQuests(uint32 questId, list<uint32>& questIds)
 void PlayerbotFactory::InitQuests()
 {
     ObjectMgr::QuestMap const& questTemplates = sObjectMgr->GetQuestTemplates();
-	list<uint32> questIds;
-
+    list<uint32> questIds;
     for (ObjectMgr::QuestMap::const_iterator i = questTemplates.begin(); i != questTemplates.end(); ++i)
-     {
-         uint32 questId = i->first;
-         Quest const *quest = i->second;
+    {
+        uint32 questId = i->first;
+        Quest const *quest = i->second;
 
-         if (!quest->GetRequiredClasses() ||
-                 quest->GetMinLevel() > bot->getLevel() ||
-                 quest->IsDailyOrWeekly() || quest->IsRepeatable() || quest->IsMonthly())
-             continue;
-
-             AddPrevQuests(questId, questIds);
-			 questIds.push_back(questId);
-
-	}
-
-		for (list<uint32>::iterator i = questIds.begin(); i != questIds.end(); ++i)
-		 {
-		 uint32 questId = *i;
-		 Quest const *quest = sObjectMgr->GetQuestTemplate(questId);
-
-
-         if (!bot->SatisfyQuestClass(quest, false) ||
-            !bot->SatisfyQuestRace(quest, false))
+        if (quest->GetMinLevel() > bot->getLevel() || quest->GetQuestLevel() == -1 ||
+                quest->IsDailyOrWeekly() || quest->IsRepeatable() || quest->IsMonthly())
             continue;
 
-         bot->RemoveActiveQuest(questId, false);
-         bot->RemoveRewardedQuest(questId, false);
+        for (Quest::PrevQuests::const_iterator iter = quest->prevQuests.begin(); iter != quest->prevQuests.end(); ++iter)
+        {
+            uint32 prevId = abs(*iter);
+            questIds.push_back(prevId);
+        }
 
-         bot->SetQuestStatus(questId, QUEST_STATUS_COMPLETE);
-         bot->RewardQuest(quest, 0, bot, false);
-         ClearInventory();
+        questIds.push_back(questId);
+    }
+
+    for (list<uint32>::iterator i = questIds.begin(); i != questIds.end(); ++i)
+    {
+        uint32 questId = *i;
+        Quest const *quest = sObjectMgr->GetQuestTemplate(questId);
+
+        bot->SetQuestStatus(questId, QUEST_STATUS_NONE);
+
+        if (!bot->SatisfyQuestClass(quest, false) ||
+                !bot->SatisfyQuestRace(quest, false) ||
+                !bot->SatisfyQuestStatus(quest, false))
+            continue;
+
+        bot->SetQuestStatus(questId, QUEST_STATUS_COMPLETE);
+        bot->RewardQuest(quest, 0, bot, false);
+        ClearInventory();
     }
 }
 
