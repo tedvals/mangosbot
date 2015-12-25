@@ -1261,16 +1261,18 @@ void AddPrevQuests(uint32 questId, list<uint32>& questIds)
 
 void PlayerbotFactory::InitQuests()
 {
-    ObjectMgr::QuestMap const& questTemplates = sObjectMgr->GetQuestTemplates();
+//    ObjectMgr::QuestMap const& questTemplates = sObjectMgr->GetQuestTemplates();
+
+    ObjectMgr::QuestMap const& questTemplates = sObjectMgr->GetQuestLevelTemplates(-1);
     list<uint32> questIds;
     for (ObjectMgr::QuestMap::const_iterator i = questTemplates.begin(); i != questTemplates.end(); ++i)
     {
         uint32 questId = i->first;
         Quest const *quest = i->second;
 
-        if (quest->GetMinLevel() > bot->getLevel() || quest->GetQuestLevel() == -1 ||
-                quest->IsDailyOrWeekly() || quest->IsRepeatable() || quest->IsMonthly())
-            continue;
+  //      if (quest->GetMinLevel() > bot->getLevel() || quest->GetQuestLevel() == -1 ||
+  //              quest->IsDailyOrWeekly() || quest->IsRepeatable() || quest->IsMonthly())
+  //          continue;
 
         for (Quest::PrevQuests::const_iterator iter = quest->prevQuests.begin(); iter != quest->prevQuests.end(); ++iter)
         {
@@ -1296,6 +1298,75 @@ void PlayerbotFactory::InitQuests()
         bot->SetQuestStatus(questId, QUEST_STATUS_COMPLETE);
         bot->RewardQuest(quest, 0, bot, false);
         ClearInventory();
+    }
+
+    //new
+    questIds.clear();
+    ObjectMgr::QuestMap const& questTemplates1 = sObjectMgr->GetQuestLevelTemplates(bot->getLevel()-1);
+
+    for (ObjectMgr::QuestMap::const_iterator i = questTemplates1.begin(); i != questTemplates1.end(); ++i)
+    {
+        uint32 questId = i->first;
+        Quest const *quest = i->second;
+
+        for (Quest::PrevQuests::const_iterator iter = quest->prevQuests.begin(); iter != quest->prevQuests.end(); ++iter)
+        {
+            uint32 prevId = abs(*iter);
+            questIds.push_back(prevId);
+        }
+
+        questIds.push_back(questId);
+    }
+
+    ObjectMgr::QuestMap const& questTemplates2 = sObjectMgr->GetQuestLevelTemplates(bot->getLevel());
+
+    for (ObjectMgr::QuestMap::const_iterator i = questTemplates2.begin(); i != questTemplates2.end(); ++i)
+    {
+        uint32 questId = i->first;
+        Quest const *quest = i->second;
+
+        for (Quest::PrevQuests::const_iterator iter = quest->prevQuests.begin(); iter != quest->prevQuests.end(); ++iter)
+        {
+            uint32 prevId = abs(*iter);
+            questIds.push_back(prevId);
+        }
+
+        questIds.push_back(questId);
+    }
+
+    int quests;
+    for (list<uint32>::iterator i = questIds.begin(); i != questIds.end(); ++i)
+    {
+        uint32 questId = *i;
+        Quest const *quest = sObjectMgr->GetQuestTemplate(questId);
+
+            if (!bot->SatisfyQuestClass(quest, false) ||
+                !bot->SatisfyQuestRace(quest, false) ||
+                !bot->SatisfyQuestStatus(quest, false))
+            continue;
+
+        Quest const* levelquest = sObjectMgr->GetQuestTemplate(questId);
+
+        if (!levelquest)
+            continue;
+
+        // check item starting quest (it can work incorrectly if added without item in inventory)
+        ItemTemplateContainer const* itc = sObjectMgr->GetItemTemplateStore();
+        ItemTemplateContainer::const_iterator result = find_if (itc->begin(), itc->end(), Finder<uint32, ItemTemplate>(questId, &ItemTemplate::StartQuest));
+
+        if (result != itc->end())
+            continue;
+
+        // ok, normal (creature/GO starting) quest
+        if (bot->CanAddQuest(levelquest, true))
+        {
+            bot->AddQuestAndCheckCompletion(levelquest, NULL);
+            ++quests;
+
+            if (quests > 20)
+                return;
+        }
+
     }
 }
 

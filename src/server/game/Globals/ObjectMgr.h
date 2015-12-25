@@ -801,6 +801,7 @@ class ObjectMgr
         }
 
         QuestMap const& GetQuestTemplates() const { return _questTemplates; }
+        QuestMap const& GetQuestLevelTemplates(int level) const { return _questLevelTemplates[level+1]; }
 
         uint32 GetQuestForAreaTrigger(uint32 Trigger_ID) const
         {
@@ -1347,6 +1348,8 @@ class ObjectMgr
 
         std::map<HighGuid, std::unique_ptr<ObjectGuidGeneratorBase>> _guidGenerators;
         QuestMap _questTemplates;
+//Playerbot add for optimization
+        QuestMap _questLevelTemplates[MAX_LEVEL+1];
 
         typedef std::unordered_map<uint32, GossipText> GossipTextContainer;
         typedef std::unordered_map<uint32, uint32> QuestAreaTriggerContainer;

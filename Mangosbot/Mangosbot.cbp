@@ -1195,6 +1195,7 @@
 		<Unit filename="../src/server/scripts/Commands/cs_titles.cpp" />
 		<Unit filename="../src/server/scripts/Commands/cs_wp.cpp" />
 		<Unit filename="../src/server/scripts/Custom/GOMove/GOMove.cpp" />
+		<Unit filename="../src/server/scripts/Custom/GuildHousing/GuildMaster.cpp" />
 		<Unit filename="../src/server/scripts/Custom/Playerbot/MoveBot.cpp" />
 		<Unit filename="../src/server/scripts/Custom/Reforging/Reforging.cpp" />
 		<Unit filename="../src/server/scripts/Custom/Transmog/Transmogrification.cpp" />
