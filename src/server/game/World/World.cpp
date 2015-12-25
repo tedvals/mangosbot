@@ -2092,8 +2092,10 @@ void World::Update(uint32 diff)
 
     // playerbot mod
     sRandomPlayerbotMgr.UpdateAI(diff);
-    sRandomPlayerbotMgr.UpdateSessions(diff);
+    sRandomPlayerbotMgr1.UpdateAI(diff);
 
+    sRandomPlayerbotMgr.UpdateSessions(diff);
+    sRandomPlayerbotMgr1.UpdateSessions(diff);
 //    std::thread tupdatesessions(&RandomPlayerbotMgr::UpdateSessions,&sRandomPlayerbotMgr,diff);
 //    tupdatesessions.detach();
     if (m_timers[WUPDATE_AUCTIONS_PENDING].Passed())
@@ -2676,6 +2678,7 @@ void World::ShutdownServ(uint32 time, uint32 options, uint8 exitcode, const std:
 
     // playerbot mod
     sRandomPlayerbotMgr.LogoutAllBots();
+    sRandomPlayerbotMgr1.LogoutAllBots();
     // end of playerbot mod
 
     sScriptMgr->OnShutdownInitiate(ShutdownExitCode(exitcode), ShutdownMask(options));
