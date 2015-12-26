@@ -1277,10 +1277,14 @@ void PlayerbotFactory::InitQuests()
         for (Quest::PrevQuests::const_iterator iter = quest->prevQuests.begin(); iter != quest->prevQuests.end(); ++iter)
         {
             uint32 prevId = abs(*iter);
-            questIds.push_back(prevId);
+            list<uint32>::iterator it = find(questIds.begin(), questIds.end(), prevId);
+            if (it == questIds.end())
+                questIds.push_back(prevId);
         }
 
-        questIds.push_back(questId);
+        list<uint32>::iterator it2 = find(questIds.begin(), questIds.end(), questId);
+        if (it2 == questIds.end())
+            questIds.push_back(questId);
     }
 
     for (list<uint32>::iterator i = questIds.begin(); i != questIds.end(); ++i)
@@ -1300,6 +1304,7 @@ void PlayerbotFactory::InitQuests()
         ClearInventory();
     }
 
+    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initialed %u class quests",questIds.size());
     //new
     questIds.clear();
     ObjectMgr::QuestMap const& questTemplates1 = sObjectMgr->GetQuestLevelTemplates(bot->getLevel()-1);
@@ -1312,10 +1317,14 @@ void PlayerbotFactory::InitQuests()
         for (Quest::PrevQuests::const_iterator iter = quest->prevQuests.begin(); iter != quest->prevQuests.end(); ++iter)
         {
             uint32 prevId = abs(*iter);
-            questIds.push_back(prevId);
+            list<uint32>::iterator it = find(questIds.begin(), questIds.end(), prevId);
+            if (it == questIds.end())
+                questIds.push_back(prevId);
         }
 
-        questIds.push_back(questId);
+        list<uint32>::iterator it2 = find(questIds.begin(), questIds.end(), questId);
+        if (it2 == questIds.end())
+            questIds.push_back(questId);
     }
 
     ObjectMgr::QuestMap const& questTemplates2 = sObjectMgr->GetQuestLevelTemplates(bot->getLevel());
@@ -1328,13 +1337,17 @@ void PlayerbotFactory::InitQuests()
         for (Quest::PrevQuests::const_iterator iter = quest->prevQuests.begin(); iter != quest->prevQuests.end(); ++iter)
         {
             uint32 prevId = abs(*iter);
-            questIds.push_back(prevId);
+            list<uint32>::iterator it = find(questIds.begin(), questIds.end(), prevId);
+            if (it == questIds.end())
+                questIds.push_back(prevId);
         }
 
-        questIds.push_back(questId);
+        list<uint32>::iterator it2 = find(questIds.begin(), questIds.end(), questId);
+        if (it2 == questIds.end())
+            questIds.push_back(questId);
     }
 
-    int quests;
+    int quests = 0;
     for (list<uint32>::iterator i = questIds.begin(); i != questIds.end(); ++i)
     {
         uint32 questId = *i;
@@ -1364,10 +1377,11 @@ void PlayerbotFactory::InitQuests()
             ++quests;
 
             if (quests > 20)
-                return;
+                break;
         }
-
     }
+
+    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initialed %u quests for level %u",questIds.size(),quests);
 }
 
 void PlayerbotFactory::ClearInventory()

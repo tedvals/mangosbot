@@ -801,7 +801,9 @@ class ObjectMgr
         }
 
         QuestMap const& GetQuestTemplates() const { return _questTemplates; }
-        QuestMap const& GetQuestLevelTemplates(int level) const { return _questLevelTemplates[level+1]; }
+        QuestMap const& GetQuestLevelTemplates(int level) const {
+            ASSERT(level<=MAX_LEVEL);
+            return _questLevelTemplates[level+1]; }
 
         uint32 GetQuestForAreaTrigger(uint32 Trigger_ID) const
         {
