@@ -14,6 +14,7 @@
 #include "PositionAction.h"
 #include "AttackAction.h"
 #include "CheckMailAction.h"
+#include "SayAction.h"
 
 namespace ai
 {
@@ -77,6 +78,7 @@ namespace ai
             creators["attack duel opponent"] = &ActionContext::attack_duel_opponent;
             creators["drop target"] = &ActionContext::drop_target;
             creators["check mail"] = &ActionContext::check_mail;
+            creators["say"] = &ActionContext::say;
             creators["reposition"] = &ActionContext::reposition;
         }
 
@@ -135,6 +137,7 @@ namespace ai
         static Action* healthstone(PlayerbotAI* ai) { return new UseItemAction(ai, "healthstone"); }
         static Action* move_out_of_enemy_contact(PlayerbotAI* ai) { return new MoveOutOfEnemyContactAction(ai); }
         static Action* set_facing(PlayerbotAI* ai) { return new SetFacingTargetAction(ai); }
+        static Action* say(PlayerbotAI* ai) { return new SayAction(ai); }
         static Action* reposition(PlayerbotAI* ai) { return new RepositionAction(ai); }
     };
 
