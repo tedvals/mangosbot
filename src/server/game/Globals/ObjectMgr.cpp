@@ -3987,10 +3987,11 @@ void ObjectMgr::LoadQuests()
         _questLevelTemplates[level].clear();
 
         int dbLevel = level-1;
+		QueryResult result;
 
         if (dbLevel == - 1)
         {
-            QueryResult result = WorldDatabase.PQuery("SELECT "
+            result = WorldDatabase.PQuery("SELECT "
             //0      1           2         3           4            5                6              7             8
             "ID, QuestType, QuestLevel, MinLevel, QuestSortID, QuestInfoID, SuggestedGroupNum, TimeAllowed, AllowableRaces,"
             //      9                     10                   11                    12
@@ -4021,7 +4022,7 @@ void ObjectMgr::LoadQuests()
         }
         else
         {
-            QueryResult result = WorldDatabase.PQuery("SELECT "
+            result = WorldDatabase.PQuery("SELECT "
             //0      1           2         3           4            5                6              7             8
             "ID, QuestType, QuestLevel, MinLevel, QuestSortID, QuestInfoID, SuggestedGroupNum, TimeAllowed, AllowableRaces,"
             //      9                     10                   11                    12

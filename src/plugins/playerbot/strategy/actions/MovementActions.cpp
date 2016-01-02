@@ -25,7 +25,7 @@ bool MovementAction::MoveNear(WorldObject* target, float distance)
     distance += target->GetObjectSize() / 2.0f;
 
     float followAngle = GetFollowAngle();
-    for (float angle = followAngle - M_PI; angle <= followAngle + M_PI; angle += M_PI / 4)
+    for (float angle = followAngle; angle <= followAngle + 2 * M_PI; angle += M_PI / 4)
     {
         bool moved = MoveTo(target->GetMapId(),
             target->GetPositionX() + cos(angle) * distance,
@@ -404,7 +404,7 @@ bool MovementAction::Flee(Unit *target)
       }
     else
     {
-       FleeManager manager(bot, sPlayerbotAIConfig.fleeDistance, GetFollowAngle());
+       FleeManager manager(bot, sPlayerbotAIConfig.fleeDistance, bot->GetAngle(target) + M_PI);
 
        if (!manager.CalculateDestination(&rx, &ry, &rz))
          return false;
@@ -469,7 +469,7 @@ bool MovementAction::Reposition(Unit *target)
       }
     else
     {
-       FleeManager manager(bot, sPlayerbotAIConfig.tooCloseDistance + 5.0f, GetFollowAngle());
+       FleeManager manager(bot, sPlayerbotAIConfig.fleeDistance, bot->GetAngle(target) + M_PI);
 
        if (!manager.CalculateDestination(&rx, &ry, &rz))
          return false;

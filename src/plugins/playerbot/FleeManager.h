@@ -76,7 +76,6 @@ namespace ai
 		void calculateDistanceToDestination(FleePoint *point);
 		void cleanup(list<FleePoint*> &points);
 		FleePoint* selectOptimalDestination(list<FleePoint*> &points);
-		bool isReasonable(FleePoint* point);
 		bool isBetterThan(FleePoint* point, FleePoint* other);
 
 	private:

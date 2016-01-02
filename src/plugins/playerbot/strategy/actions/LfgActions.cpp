@@ -13,27 +13,17 @@ using namespace lfg;
 
 bool LfgJoinAction::Execute(Event event)
 {
-    Player* master = GetMaster();
-    Group* group = bot->GetGroup();
-    if (group)
-    {
-        Player* inviter = sObjectMgr->GetPlayerByLowGUID(group->GetLeaderGUID());
-
-        if (!inviter || master!=inviter)
-        {
-            if (!sPlayerbotAIConfig.randomBotJoinLfg)
-                return false;
-
-            if (!sRandomPlayerbotMgr.IsRandomBot(bot))
-                return false;
-
-            if (sLFGMgr->GetState(bot->GetGUID()) != LFG_STATE_NONE)
-                return false;
-        }
-    }
+    if (!sPlayerbotAIConfig.randomBotJoinLfg)
+        return false;
 
     if (bot->isDead())
-            return false;
+        return false;
+
+    if (!sRandomPlayerbotMgr.IsRandomBot(bot))
+        return false;
+
+    if (sLFGMgr->GetState(bot->GetGUID()) != LFG_STATE_NONE)
+        return false;
 
     if (bot->IsBeingTeleported())
         return false;
@@ -47,6 +37,15 @@ bool LfgJoinAction::Execute(Event event)
 
 uint8 LfgJoinAction::GetRoles()
 {
+    if (!sRandomPlayerbotMgr.IsRandomBot(bot))
+    {
+        if (ai->IsTank(bot))
+            return PLAYER_ROLE_TANK;
+        if (ai->IsHeal(bot))
+            return PLAYER_ROLE_HEALER;
+        else return PLAYER_ROLE_DAMAGE;
+    }
+
     int spec = AiFactory::GetPlayerSpecTab(bot);
     switch (bot->getClass())
     {
@@ -54,7 +53,7 @@ uint8 LfgJoinAction::GetRoles()
         if (spec == 2)
             return PLAYER_ROLE_HEALER;
         else if (spec == 1 && bot->getLevel() >= 40)
-            return PLAYER_ROLE_TANK | PLAYER_ROLE_DAMAGE;
+            return PLAYER_ROLE_TANK;
         else
             return PLAYER_ROLE_DAMAGE;
         break;
@@ -84,12 +83,6 @@ uint8 LfgJoinAction::GetRoles()
         else
             return PLAYER_ROLE_DAMAGE;
         break;
-    case CLASS_DEATH_KNIGHT:
-        if (ai->IsTank(bot))
-            return PLAYER_ROLE_TANK;
-        else
-            return PLAYER_ROLE_DAMAGE;
-        break;
     default:
         return PLAYER_ROLE_DAMAGE;
         break;
@@ -109,22 +102,8 @@ bool LfgJoinAction::JoinProposal()
     ItemCountByQuality visitor;
     IterateItems(&visitor, ITERATE_ITEMS_IN_EQUIP);
 	bool heroic = urand(0, 100) < 50 && (visitor.count[ITEM_QUALITY_EPIC] >= 3 || visitor.count[ITEM_QUALITY_RARE] >= 10) && bot->getLevel() >= 70;
-    bool random = urand(0, 100) < 50;
+    bool random = urand(0, 100) < 25;
     bool raid = !heroic && (urand(0, 100) < 50 && visitor.count[ITEM_QUALITY_EPIC] >= 5 && (bot->getLevel() == 60 || bot->getLevel() == 70 || bot->getLevel() == 80));
-
-    Group* group = bot->GetGroup();
-    if (group)
-    {
-        Player* master = GetMaster();
-        Player* inviter = sObjectMgr->GetPlayerByLowGUID(group->GetLeaderGUID());
-
-        if (inviter && master==inviter)
-        {
-            heroic = true;
-            random = true;
-            raid = true;
-        }
-    }
 
     LfgDungeonSet list;
     vector<uint32> idx;
@@ -188,11 +167,6 @@ bool LfgJoinAction::JoinProposal()
 		sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "Bot %s joined to LFG_TYPE_DUNGEON as %d", bot->GetName().c_str(), (uint32)roles);
 	}
 
-    Player* master = GetMaster();
-
-    if (master)
-        ai->TellMaster("Bot " + bot->GetName() + " joined lfg");
-
     sLFGMgr->JoinLfg(bot, roles, list, "bot");
     return true;
 }
@@ -202,7 +176,11 @@ bool LfgRoleCheckAction::Execute(Event event)
     Group* group = bot->GetGroup();
     if (group)
     {
-        sLFGMgr->UpdateRoleCheck(group->GetGUID(), bot->GetGUID(), GetRoles());
+        uint8 currentRoles = sLFGMgr->GetRoles(bot->GetGUID());
+        uint8 newRoles = GetRoles();
+        if (currentRoles == newRoles) return false;
+
+        sLFGMgr->UpdateRoleCheck(group->GetGUID(), bot->GetGUID(), newRoles);
         return true;
     }
 
@@ -218,22 +196,6 @@ bool LfgAcceptAction::Execute(Event event)
         {
             sLFGMgr->LeaveLfg(bot->GetGUID());
             return false;
-        }
-
-        Group* group = bot->GetGroup();
-        if (group)
-        {
-            Player* master = GetMaster();
-            Player* inviter = sObjectMgr->GetPlayerByLowGUID(group->GetLeaderGUID());
-
-            if (inviter && master==inviter)
-            {
-
-                ai->GetAiObjectContext()->GetValue<uint32>("lfg proposal")->Set(0);
-                bot->ClearUnitState(UNIT_STATE_ALL_STATE_SUPPORTED);
-                sLFGMgr->UpdateProposal(id, bot->GetGUID(), true);
-                return true;
-            }
         }
 
         ai->ChangeStrategy("-grind", BOT_STATE_NON_COMBAT);

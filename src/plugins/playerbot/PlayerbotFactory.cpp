@@ -1270,17 +1270,12 @@ void PlayerbotFactory::InitQuests()
         uint32 questId = i->first;
         Quest const *quest = i->second;
 
-  //      if (quest->GetMinLevel() > bot->getLevel() || quest->GetQuestLevel() == -1 ||
-  //              quest->IsDailyOrWeekly() || quest->IsRepeatable() || quest->IsMonthly())
-  //          continue;
+		if (!quest->GetRequiredClasses() ||
+			quest->GetMinLevel() > bot->getLevel() ||
+			quest->IsDailyOrWeekly() || quest->IsRepeatable() || quest->IsMonthly())
+			continue;
 
-        for (Quest::PrevQuests::const_iterator iter = quest->prevQuests.begin(); iter != quest->prevQuests.end(); ++iter)
-        {
-            uint32 prevId = abs(*iter);
-            list<uint32>::iterator it = find(questIds.begin(), questIds.end(), prevId);
-            if (it == questIds.end())
-                questIds.push_back(prevId);
-        }
+		AddPrevQuests(questId, questIds);
 
         list<uint32>::iterator it2 = find(questIds.begin(), questIds.end(), questId);
         if (it2 == questIds.end())
@@ -1306,9 +1301,11 @@ void PlayerbotFactory::InitQuests()
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initialed %u class quests",questIds.size());
     //new
-    questIds.clear();
+	bot->ResetToDoQuests();
+
     ObjectMgr::QuestMap const& questTemplates1 = sObjectMgr->GetQuestLevelTemplates(bot->getLevel()-1);
 
+    int quests;
     for (ObjectMgr::QuestMap::const_iterator i = questTemplates1.begin(); i != questTemplates1.end(); ++i)
     {
         uint32 questId = i->first;
@@ -1317,14 +1314,12 @@ void PlayerbotFactory::InitQuests()
         for (Quest::PrevQuests::const_iterator iter = quest->prevQuests.begin(); iter != quest->prevQuests.end(); ++iter)
         {
             uint32 prevId = abs(*iter);
-            list<uint32>::iterator it = find(questIds.begin(), questIds.end(), prevId);
-            if (it == questIds.end())
-                questIds.push_back(prevId);
+			bot->AddToDoQuest(prevId);
+			++quests;
         }
 
-        list<uint32>::iterator it2 = find(questIds.begin(), questIds.end(), questId);
-        if (it2 == questIds.end())
-            questIds.push_back(questId);
+		bot->AddToDoQuest(questId);
+		++quests;
     }
 
     ObjectMgr::QuestMap const& questTemplates2 = sObjectMgr->GetQuestLevelTemplates(bot->getLevel());
@@ -1337,48 +1332,12 @@ void PlayerbotFactory::InitQuests()
         for (Quest::PrevQuests::const_iterator iter = quest->prevQuests.begin(); iter != quest->prevQuests.end(); ++iter)
         {
             uint32 prevId = abs(*iter);
-            list<uint32>::iterator it = find(questIds.begin(), questIds.end(), prevId);
-            if (it == questIds.end())
-                questIds.push_back(prevId);
+			bot->AddToDoQuest(prevId);
+			++quests;
         }
 
-        list<uint32>::iterator it2 = find(questIds.begin(), questIds.end(), questId);
-        if (it2 == questIds.end())
-            questIds.push_back(questId);
-    }
-
-    int quests = 0;
-    for (list<uint32>::iterator i = questIds.begin(); i != questIds.end(); ++i)
-    {
-        uint32 questId = *i;
-        Quest const *quest = sObjectMgr->GetQuestTemplate(questId);
-
-            if (!bot->SatisfyQuestClass(quest, false) ||
-                !bot->SatisfyQuestRace(quest, false) ||
-                !bot->SatisfyQuestStatus(quest, false))
-            continue;
-
-        Quest const* levelquest = sObjectMgr->GetQuestTemplate(questId);
-
-        if (!levelquest)
-            continue;
-
-        // check item starting quest (it can work incorrectly if added without item in inventory)
-        ItemTemplateContainer const* itc = sObjectMgr->GetItemTemplateStore();
-        ItemTemplateContainer::const_iterator result = find_if (itc->begin(), itc->end(), Finder<uint32, ItemTemplate>(questId, &ItemTemplate::StartQuest));
-
-        if (result != itc->end())
-            continue;
-
-        // ok, normal (creature/GO starting) quest
-        if (bot->CanAddQuest(levelquest, true))
-        {
-            bot->AddQuestAndCheckCompletion(levelquest, NULL);
-            ++quests;
-
-            if (quests > 20)
-                break;
-        }
+        bot->AddToDoQuest(questId);
+        ++quests;
     }
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initialed %u quests for level %u",questIds.size(),quests);

@@ -32,6 +32,13 @@ else
                 return false;
         }
 	}
+
+	if (spellInfo->IsAutoRepeatRangedSpell() && bot->GetCurrentSpell(CURRENT_AUTOREPEAT_SPELL) &&
+            bot->GetCurrentSpell(CURRENT_AUTOREPEAT_SPELL)->m_spellInfo->Id == spellid)
+    {
+        return false;
+    }
+
     // TODO: workaround
     if (qualifier == "windfury weapon" || qualifier == "flametongue weapon" || qualifier == "frostbrand weapon" ||
             qualifier == "rockbiter weapon" || qualifier == "earthliving weapon" || qualifier == "spellstone" || qualifier == "firestone"

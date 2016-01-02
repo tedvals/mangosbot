@@ -2291,6 +2291,16 @@ class Player : public Unit, public GridObject<Player>
         bool m_order_mov_point;
         uint32 m_order_mov_mapId;
 
+        typedef std::list<uint32> QuestList;
+		QuestList m_questIds;
+
+		void ResetToDoQuests();
+		void AddToDoQuest(uint32 questId);
+
+		WorldObject* MoveToQuestStarter(uint32& mapId, uint32& areaId, uint32& zoneId,float& x, float& y, float& z, uint32 questId);
+		WorldObject* MoveToQuestEnder(uint32& mapId, uint32& areaId, uint32& zoneId, float& x, float& y, float& z, uint32 questId);
+		bool MoveToQuestPosition(uint32& mapId, float& x, float& y, float& z,uint32 questId);
+
         bool HasMoveOrder() { return m_order_mov_point; }
         void SetMovePoint (uint32 mapId, float x, float y, float z) {m_order_mov_point= true; m_order_mov_mapId = mapId; m_order_mov_x = x; m_order_mov_y = y;m_order_mov_z = z;}
         void ResetMovePoint() {m_order_mov_point = false;}
@@ -2585,7 +2595,7 @@ class Player : public Unit, public GridObject<Player>
         bool IsHasDelayedTeleport() const { return m_bHasDelayedTeleport; }
         void SetDelayedTeleportFlag(bool setting) { m_bHasDelayedTeleport = setting; }
         void ScheduleDelayedOperation(uint32 operation) { if (operation < DELAYED_END) m_DelayedOperations |= operation; }
-        
+
         bool IsInstanceLoginGameMasterException() const;
 
         MapReference m_mapRef;
@@ -2637,6 +2647,7 @@ class Player : public Unit, public GridObject<Player>
         // Playerbot mod:
         PlayerbotAI* m_playerbotAI;
         PlayerbotMgr* m_playerbotMgr;
+
         // variables to save health and mana before duel and restore them after duel
         uint32 healthBeforeDuel;
         uint32 manaBeforeDuel;

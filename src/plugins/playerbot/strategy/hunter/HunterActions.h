@@ -315,6 +315,10 @@ namespace ai
         }
         virtual bool IsInstant() {return true;}
 
+        virtual NextAction** getPrerequisites()
+        {
+            return NULL;
+        }
    //     NextAction** getContinuers()
    //     {
     //        return NextAction::merge( NextAction::array(0, new NextAction("flee"), NULL), CastMeleeSpellAction::getContinuers());
