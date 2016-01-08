@@ -2298,7 +2298,7 @@ class Player : public Unit, public GridObject<Player>
 
 		WorldObject* MoveToQuestStarter(uint32& mapId, uint32& areaId, uint32& zoneId,float& x, float& y, float& z, uint32 questId);
 		WorldObject* MoveToQuestEnder(uint32& mapId, uint32& areaId, uint32& zoneId, float& x, float& y, float& z, uint32 questId);
-		bool MoveToQuestPosition(uint32& mapId, float& x, float& y, float& z,uint32 questId);
+		bool MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& zoneId, float& x, float& y, float& z, uint32 questId);
 
         bool HasMoveOrder() { return m_order_mov_point; }
         void SetMovePoint (uint32 mapId, float x, float y, float z) {m_order_mov_point= true; m_order_mov_mapId = mapId; m_order_mov_x = x; m_order_mov_y = y;m_order_mov_z = z;}

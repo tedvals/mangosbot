@@ -162,6 +162,8 @@
 		<Unit filename="../src/plugins/playerbot/strategy/AiObject.h" />
 		<Unit filename="../src/plugins/playerbot/strategy/AiObjectContext.cpp" />
 		<Unit filename="../src/plugins/playerbot/strategy/AiObjectContext.h" />
+		<Unit filename="../src/plugins/playerbot/strategy/CustomStrategy.cpp" />
+		<Unit filename="../src/plugins/playerbot/strategy/CustomStrategy.h" />
 		<Unit filename="../src/plugins/playerbot/strategy/Engine.cpp" />
 		<Unit filename="../src/plugins/playerbot/strategy/Engine.h" />
 		<Unit filename="../src/plugins/playerbot/strategy/Event.cpp" />
@@ -290,6 +292,8 @@
 		<Unit filename="../src/plugins/playerbot/strategy/actions/RtiAction.h" />
 		<Unit filename="../src/plugins/playerbot/strategy/actions/SaveManaAction.cpp" />
 		<Unit filename="../src/plugins/playerbot/strategy/actions/SaveManaAction.h" />
+		<Unit filename="../src/plugins/playerbot/strategy/actions/SayAction.cpp" />
+		<Unit filename="../src/plugins/playerbot/strategy/actions/SayAction.h" />
 		<Unit filename="../src/plugins/playerbot/strategy/actions/SecurityCheckAction.cpp" />
 		<Unit filename="../src/plugins/playerbot/strategy/actions/SecurityCheckAction.h" />
 		<Unit filename="../src/plugins/playerbot/strategy/actions/SellAction.cpp" />

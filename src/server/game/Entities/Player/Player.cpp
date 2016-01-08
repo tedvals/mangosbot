@@ -26500,9 +26500,9 @@ WorldObject* Player::MoveToQuestStarter(uint32& mapId, uint32& areaId, uint32& z
     result = WorldDatabase.PQuery("SELECT "
 //           0      1      2     3         4          5         6           7
     "q.id,c.GUID,map,c.zoneid,c.areaid,c.position_x,c.position_y,c.position_z"
-    " FROM creature_queststarter q LEFT OUTER JOIN creature c ON c.id = q.id where and quest = '%u'  LIMIT 1", questId);
+    " FROM creature_queststarter q LEFT OUTER JOIN creature c ON c.id = q.id where and quest = '%u' ORDER BY NEWID() LIMIT 1", questId);
 
-    uint32 questGiver;
+    uint32 questGiver = 0;
     ObjectGuid guid;
 
     float position_x;
@@ -26521,7 +26521,7 @@ WorldObject* Player::MoveToQuestStarter(uint32& mapId, uint32& areaId, uint32& z
         position_y = fields[6].GetFloat();
         position_z = fields[7].GetFloat();
     }
-    while (result->NextRow());
+	while (result->NextRow());
 
     if (!questGiver)
         return NULL;
@@ -26609,9 +26609,9 @@ WorldObject* Player::MoveToQuestEnder(uint32& mapId, uint32& areaId, uint32& zon
     result = WorldDatabase.PQuery("SELECT "
 //           0      1      2     3         4          5         6           7
     "q.id,c.GUID,map,c.zoneid,c.areaid,c.position_x,c.position_y,c.position_z"
-    " FROM creature_questender q LEFT OUTER JOIN creature c ON c.id = q.id where and quest = '%u'  LIMIT 1", questId);
+    " FROM creature_questender q LEFT OUTER JOIN creature c ON c.id = q.id where and quest = '%u' ORDER BY NEWID() LIMIT 1", questId);
 
-    uint32 questEnder;
+	uint32 questEnder = 0;
     ObjectGuid guid;
 
     float position_x;
@@ -26679,22 +26679,232 @@ WorldObject* Player::MoveToQuestEnder(uint32& mapId, uint32& areaId, uint32& zon
 }
 
 
-bool MoveToQuestPosition(uint32& mapId, float& x, float& y, float& z,uint32 questId = 0)
+bool Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& zoneId, float& x, float& y, float& z, uint32 questId = 0)
 {
-
-	/*
-	do
+	if (questId != 0)
 	{
-	Field* fields = result->Fetch();
-	uint32 questId = fields[0].GetUInt32();
+		QuestStatusMap::iterator itr = m_QuestStatus.find(questId);
+		if (itr == m_QuestStatus.end())
+			questId = 0;
 
-	auto itr = _questTemplates.find(questId);
-	if (itr != _questTemplates.end())
-	itr->second->LoadQuestDetails(fields);
+		QuestStatusData &q_status = itr->second;
 
-	*/
+		if (q_status.Status == QUEST_STATUS_COMPLETE)
+			questId = 0;
+	}
 
-	return true;
+	if (questId == 0)
+	{
+		uint32 randomQuest = (uint32)(rand() % m_QuestStatus.size() - 1);
+
+		QuestStatusMap::iterator itr = m_QuestStatus.begin();
+		std::advance(itr, randomQuest);
+
+		for (; itr != m_QuestStatus.end(); ++itr)
+		{
+			QuestStatusData &q_status = itr->second;
+
+			if (q_status.Status == QUEST_STATUS_COMPLETE)
+				continue;
+			else
+			{
+				questId = itr->first;
+				break;
+			}
+		}
+	}
+
+	if (questId == 0)
+		return false;
+
+	Quest const* quest = sObjectMgr->GetQuestTemplate(questId);
+	QuestStatusData& questStatusData = m_QuestStatus[questId];
+
+	if (!quest)
+		return false;
+
+	uint32 npcId = NULL;
+
+	for (int count = 0; count < quest->GetReqCreatureOrGOcount(); count++)
+	{
+		if (questStatusData.CreatureOrGOCount[count] < quest->RequiredNpcOrGoCount[count])		
+			npcId = quest->RequiredNpcOrGo[count];
+	}
+	
+	if (npcId)
+	{
+		QueryResult result;
+		result = WorldDatabase.PQuery("SELECT "
+			// 0      1      2     3         4          5         6           7
+			"q.id,q.GUID,map,c.zoneid,c.areaid,c.position_x,c.position_y,c.position_z"
+			" FROM creature q where id = '%u' ORDER BY NEWID() LIMIT 1", npcId);
+		
+		ObjectGuid guid;
+
+		float position_x;
+		float position_y;
+		float position_z;
+
+		do
+		{
+			Field* fields = result->Fetch();
+			npcId = fields[0].GetUInt32();
+			guid = ObjectGuid(fields[1].GetUInt64());
+			mapId = fields[2].GetUInt32();
+			zoneId = fields[3].GetUInt32();
+			areaId = fields[4].GetUInt32();
+			position_x = fields[5].GetFloat();
+			position_y = fields[6].GetFloat();
+			position_z = fields[7].GetFloat();
+		} while (result->NextRow());
+
+		if (npcId)
+		{ 
+		
+			Map* map = sMapMgr->FindMap(mapId, 0);
+			if (!map)
+				return NULL;
+
+			if (!map->IsInWater(position_x, position_y, position_z))
+				return NULL;
+
+			if (map->IsBattlegroundOrArena() || map->IsDungeon() || map->IsRaidOrHeroicDungeon())
+				return NULL;
+
+			areaId = map->GetAreaId(x, y, z);
+
+			if (!areaId)
+				return NULL;
+
+			AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
+			if (!area)
+				return NULL;
+
+			float distance = 50.0f;
+			float ground;
+
+			do
+			{
+				position_x += urand(0, distance) - distance / 2;
+				position_y += urand(0, distance) - distance / 2;
+				UpdateAllowedPositionZ(position_x, position_y, position_z);
+
+				ground = map->GetHeight(position_x, position_y, position_z + 0.5f);
+			} while (ground <= INVALID_HEIGHT);
+
+			x = position_x;
+			y = position_y;
+			z = position_z;
+
+			// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Teleporting bot %s for quest to %s %f,%f,%f", bot->.c_str(), area->area_name[0], x, y, z);
+
+			GetMotionMaster()->Clear();
+			TeleportTo(mapId, x, y, z, 0);
+
+			return true;
+		}		
+	}
+
+	uint32 itemId = NULL;
+
+	for (int count = 0; count < quest->GetReqCreatureOrGOcount(); count++)
+	{
+		if (questStatusData.ItemCount[count] < quest->RequiredItemCount[count])
+			itemId = quest->RequiredItemId[count];
+	}
+
+
+	if (itemId)
+	{
+		QueryResult result;
+		result = WorldDatabase.PQuery("SELECT "
+			// 0     
+			"c.entry"
+			" FROM creature_loot_template c where item = '%u' ORDER BY NEWID() LIMIT 1", itemId);		
+				
+		do
+		{
+			Field* fields = result->Fetch();
+			npcId = fields[0].GetUInt32();			
+		} while (result->NextRow());
+
+	}
+
+	if (npcId)
+	{
+		QueryResult result;
+		result = WorldDatabase.PQuery("SELECT "
+			// 0      1      2     3         4          5         6           7			
+			"q.id,q.GUID,map,c.zoneid,c.areaid,c.position_x,c.position_y,c.position_z"
+			" FROM creature q where id = '%u' ORDER BY NEWID() LIMIT 1", npcId);
+
+		ObjectGuid guid;
+
+		float position_x;
+		float position_y;
+		float position_z;
+
+		do
+		{
+			Field* fields = result->Fetch();
+			npcId = fields[0].GetUInt32();
+			guid = ObjectGuid(fields[1].GetUInt64());
+			mapId = fields[2].GetUInt32();
+			zoneId = fields[3].GetUInt32();
+			areaId = fields[4].GetUInt32();
+			position_x = fields[5].GetFloat();
+			position_y = fields[6].GetFloat();
+			position_z = fields[7].GetFloat();
+		} while (result->NextRow());
+
+		if (npcId)
+		{
+
+			Map* map = sMapMgr->FindMap(mapId, 0);
+			if (!map)
+				return NULL;
+
+			if (!map->IsInWater(position_x, position_y, position_z))
+				return NULL;
+
+			if (map->IsBattlegroundOrArena() || map->IsDungeon() || map->IsRaidOrHeroicDungeon())
+				return NULL;
+
+			areaId = map->GetAreaId(x, y, z);
+
+			if (!areaId)
+				return NULL;
+
+			AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
+			if (!area)
+				return NULL;
+
+			float distance = 50.0f;
+			float ground;
+
+			do
+			{
+				position_x += urand(0, distance) - distance / 2;
+				position_y += urand(0, distance) - distance / 2;
+				UpdateAllowedPositionZ(position_x, position_y, position_z);
+
+				ground = map->GetHeight(position_x, position_y, position_z + 0.5f);
+			} while (ground <= INVALID_HEIGHT);
+
+			x = position_x;
+			y = position_y;
+			z = position_z;
+
+			// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Teleporting bot %s for quest to %s %f,%f,%f", bot->.c_str(), area->area_name[0], x, y, z);
+
+			GetMotionMaster()->Clear();
+			TeleportTo(mapId, x, y, z, 0);
+
+			return true;
+		}
+	}
+
+	return false;
 }
 
 
