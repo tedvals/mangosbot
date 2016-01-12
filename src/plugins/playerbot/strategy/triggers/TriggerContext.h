@@ -18,6 +18,7 @@ namespace ai
             creators["random"] = &TriggerContext::Random;
             creators["seldom"] = &TriggerContext::seldom;
             creators["often"] = &TriggerContext::often;
+			creators["very often"] = &TriggerContext::very_often;
 
             creators["target critical health"] = &TriggerContext::TargetCriticalHealth;
             creators["target almost dead"] = &TriggerContext::TargetAlmostDead;
@@ -165,6 +166,7 @@ namespace ai
             creators.erase("random");
             creators.erase("seldom");
             creators.erase("often");
+			creators.erase("very often");
 
             creators.erase("target critical health");
             creators.erase("target almost dead");
@@ -370,6 +372,7 @@ namespace ai
         static Trigger* Random(PlayerbotAI* ai) { return new RandomTrigger(ai); }
         static Trigger* seldom(PlayerbotAI* ai) { return new SeldomTrigger(ai); }
         static Trigger* often(PlayerbotAI* ai) { return new OftenTrigger(ai); }
+		static Trigger* very_often(PlayerbotAI* ai) { return new VeryOftenTrigger(ai); }
         // static Trigger* TargetOutOfLOS(PlayerbotAI* ai) { return new TargetOutOfLOSSpellTrigger(ai); }
         static Trigger* EnemyOutOfMelee(PlayerbotAI* ai) { return new EnemyOutOfMeleeTrigger(ai); }
         static Trigger* EnemyInMeleeRange(PlayerbotAI* ai) { return new EnemyInMeleeRangeTrigger(ai); }

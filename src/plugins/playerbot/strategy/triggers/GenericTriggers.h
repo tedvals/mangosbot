@@ -417,7 +417,7 @@ namespace ai
     class SeldomTrigger : public RandomTrigger
     {
     public:
-        SeldomTrigger(PlayerbotAI* ai) : RandomTrigger(ai, 9000) {}
+        SeldomTrigger(PlayerbotAI* ai) : RandomTrigger(ai, 5000) {}
         virtual string getName() { return "seldom"; }
     };
 
@@ -427,6 +427,13 @@ namespace ai
         OftenTrigger(PlayerbotAI* ai) : RandomTrigger(ai, 50) {}
         virtual string getName() { return "often"; }
     };
+
+	class VeryOftenTrigger : public RandomTrigger
+	{
+	public:
+		VeryOftenTrigger(PlayerbotAI* ai) : RandomTrigger(ai, 20) {}
+		virtual string getName() { return "very often"; }
+	};
 
     class AndTrigger : public Trigger
     {

@@ -644,3 +644,100 @@ bool SetFacingTargetAction::isUseful()
 {
     return !AI_VALUE2(bool, "facing", "current target");
 }
+
+bool MoveQuestGiverAction::Execute(Event event)
+{	
+	uint32 mapId;
+	uint32 areaId;
+	uint32 zoneId;
+	float go_x, go_y, go_z;
+	uint32 questId = 0;
+
+	WorldObject* QuestStarter;
+
+	QuestStarter = bot->MoveToQuestStarter(mapId, areaId, zoneId, go_x, go_y, go_z, questId);
+
+	if (!QuestStarter)
+		return false;
+
+	AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
+
+	if (area)
+		sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Teleporting bot %s to queststarter for quest to %s %f,%f,%f", bot->GetName().c_str(), area->area_name[0], go_x, go_y, go_z);
+
+	MoveNear(QuestStarter);
+
+	return true;
+}
+
+bool MoveQuestEnderAction::isUseful()
+{
+	return !bot->GetGroup();
+}
+
+bool MoveQuestEnderAction::Execute(Event event)
+{
+	uint32 mapId;
+	uint32 areaId;
+	uint32 zoneId;
+	float go_x, go_y, go_z;
+	uint32 questId = 0;
+
+	WorldObject* QuestEnder;
+
+	QuestEnder = bot->MoveToQuestEnder(mapId, areaId, zoneId, go_x, go_y, go_z, questId);
+
+	if (!QuestEnder)
+		return false;
+
+	AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
+
+	if (area)
+		sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Teleporting bot %s to questender for quest to %s %f,%f,%f", bot->GetName().c_str(), area->area_name[0], go_x, go_y, go_z);
+
+	MoveNear(QuestEnder);
+
+	return true;
+}
+
+bool MoveQuestGiverAction::isUseful()
+{
+	return !bot->GetGroup();
+}
+
+bool MoveQuestPositionAction::Execute(Event event)
+{
+	uint32 mapId;
+	uint32 areaId;
+	uint32 zoneId;
+	float go_x, go_y, go_z;
+	uint32 questId = 0;
+	
+	WorldObject* QuestTarget;
+
+	QuestTarget = bot->MoveToQuestPosition(mapId, areaId, zoneId, go_x, go_y, go_z, questId);
+
+	if (!QuestTarget)
+		return false;
+
+	AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
+
+	if (area)
+		sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Teleporting bot %s to queststarter for quest to %s %f,%f,%f", bot->GetName().c_str(), area->area_name[0], go_x, go_y, go_z);
+
+	if ((bot->GetMapId() != mapId) || (bot->GetDistance2d(QuestTarget) < 200.f))
+	{
+		MotionMaster &mm = *bot->GetMotionMaster();
+		mm.Clear();
+		bot->TeleportTo(mapId, go_x, go_y, go_z, 0);
+	}
+
+	MoveNear(QuestTarget);
+
+	return true;
+}
+
+bool MoveQuestPositionAction::isUseful()
+{
+	return !bot->GetGroup();
+}

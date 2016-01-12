@@ -25,6 +25,10 @@ public:
         creators["healing potion"] = &healing_potion;
         creators["bomb"] = &bomb;
         creators["flee"] = &flee;
+		creators["reposition"] = &reposition;
+		creators["move to guestgiver"] = &move_questgiver;
+		creators["move to guestender"] = &move_questender;
+		creators["move to quest"] = &move_quest;
     }
 
 private:
@@ -119,6 +123,34 @@ private:
             /*A*/ NULL,
             /*C*/ NULL);
     }
+	static ActionNode* reposition(PlayerbotAI* ai)
+	{
+		return new ActionNode("reposition",
+			/*P*/ NULL,
+			/*A*/ NULL,
+			/*C*/ NULL);
+	}
+	static ActionNode* move_questgiver(PlayerbotAI* ai)
+	{
+		return new ActionNode("move to guestgiver",
+			/*P*/ NULL,
+			/*A*/ NULL,
+			/*C*/ NULL);
+	}
+	static ActionNode* move_questender(PlayerbotAI* ai)
+	{
+		return new ActionNode("move to guestender",
+			/*P*/ NULL,
+			/*A*/ NULL,
+			/*C*/ NULL);
+	}
+	static ActionNode* move_quest(PlayerbotAI* ai)
+	{
+		return new ActionNode("move to quest",
+			/*P*/ NULL,
+			/*A*/ NULL,
+			/*C*/ NULL);
+	}
 
     ~ActionNodeFactoryInternal()
     {
@@ -135,6 +167,10 @@ private:
         creators.erase("healing potion");
         creators.erase("bomb");
         creators.erase("flee");
+		creators.erase("reposition");
+		creators.erase("move to guestgiver");
+		creators.erase("move to guestender");
+		creators.erase("move to quest");
     }
 };
 

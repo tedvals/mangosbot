@@ -80,6 +80,9 @@ namespace ai
             creators["check mail"] = &ActionContext::check_mail;
             creators["say"] = &ActionContext::say;
             creators["reposition"] = &ActionContext::reposition;
+			creators["move to guestgiver"] = &ActionContext::move_questgiver;
+			creators["move to guestender"] = &ActionContext::move_questender;
+			creators["move to quest"] = &ActionContext::move_quest;
         }
 
     private:
@@ -139,6 +142,9 @@ namespace ai
         static Action* set_facing(PlayerbotAI* ai) { return new SetFacingTargetAction(ai); }
         static Action* say(PlayerbotAI* ai) { return new SayAction(ai); }
         static Action* reposition(PlayerbotAI* ai) { return new RepositionAction(ai); }
+		static Action* move_questgiver(PlayerbotAI* ai) { return new MoveQuestGiverAction(ai); }
+		static Action* move_questender(PlayerbotAI* ai) { return new MoveQuestEnderAction(ai); }
+		static Action* move_quest(PlayerbotAI* ai) { return new MoveQuestPositionAction(ai); }
     };
 
 };

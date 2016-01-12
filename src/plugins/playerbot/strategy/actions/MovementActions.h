@@ -90,6 +90,36 @@ namespace ai
 		float distance;
     };
 
+	class MoveQuestGiverAction : public MovementAction
+	{
+	public:
+		MoveQuestGiverAction(PlayerbotAI* ai, float distance = sPlayerbotAIConfig.grindDistance) : MovementAction(ai, "move to guestgiver")
+		{
+			this->distance = distance;
+		}
+
+		virtual bool Execute(Event event);
+		virtual bool isUseful();
+
+	private:
+		float distance;
+	};	
+
+	class MoveQuestEnderAction : public MovementAction
+	{
+	public:
+		MoveQuestEnderAction(PlayerbotAI* ai, float distance = sPlayerbotAIConfig.grindDistance) : MovementAction(ai, "move to guestender")
+		{
+			this->distance = distance;
+		}
+
+		virtual bool Execute(Event event);
+		virtual bool isUseful();
+
+	private:
+		float distance;
+	};
+
     class MoveOrderAction : public MovementAction
     {
     public:
@@ -104,6 +134,21 @@ namespace ai
 	private:
 		float distance;
     };
+
+	class MoveQuestPositionAction : public MovementAction
+	{
+	public:
+		MoveQuestPositionAction(PlayerbotAI* ai, float distance = sPlayerbotAIConfig.grindDistance) : MovementAction(ai, "move to quest")
+		{
+			this->distance = distance;
+		}
+
+		virtual bool Execute(Event event);
+		virtual bool isUseful();
+
+	private:
+		float distance;
+	};
 
     class RunAwayAction : public MovementAction
     {

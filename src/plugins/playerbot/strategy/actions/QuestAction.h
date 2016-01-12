@@ -29,5 +29,5 @@ namespace ai
 
     public:
         virtual bool Execute(Event event);
-    };
+    };	
 }

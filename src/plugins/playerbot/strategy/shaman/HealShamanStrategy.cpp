@@ -94,7 +94,7 @@ void HealShamanStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("earthliving weapon", 23.0f), NULL)));
 
       triggers.push_back(new TriggerNode(
-        "seldom",
+        "random",
         NextAction::array(0, new NextAction("earthliving weapon", 23.0f), NULL)));
 
       triggers.push_back(new TriggerNode(

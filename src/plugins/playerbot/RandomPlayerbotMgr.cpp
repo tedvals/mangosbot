@@ -328,7 +328,7 @@ void RandomPlayerbotMgr::RandomTeleportForLevel(Player* bot)
              "(q1.position_x - q.position_x)*(q1.position_x - q.position_x) +"
              "(q1.position_y - q.position_y)*(q1.position_y - q.position_y) +"
              "(q1.position_z - q.position_z)*(q1.position_z - q.position_z)"
-             ") < %u)",
+             ") < %u) ORDER BY RAND() LIMIT 25",
              bot->getLevel(),
              sPlayerbotAIConfig.randomBotTeleLevel,
              sPlayerbotAIConfig.randomBotMapsAsString.c_str(),

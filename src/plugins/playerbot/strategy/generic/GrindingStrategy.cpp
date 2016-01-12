@@ -21,5 +21,10 @@ void GrindingStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "flee",
         NextAction::array(0,
         new NextAction("flee", 5.0f), NULL)));
+
+	  triggers.push_back(new TriggerNode(
+		  "move random",
+		  NextAction::array(0,
+		  new NextAction("move random", 2.0f), NULL)));
 }
 

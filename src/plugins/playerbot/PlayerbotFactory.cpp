@@ -1263,6 +1263,8 @@ void PlayerbotFactory::InitQuests()
 {
 //    ObjectMgr::QuestMap const& questTemplates = sObjectMgr->GetQuestTemplates();
 
+	uint8 level = bot->getLevel();
+
     ObjectMgr::QuestMap const& questTemplates = sObjectMgr->GetQuestLevelTemplates(-1);
     list<uint32> questIds;
     for (ObjectMgr::QuestMap::const_iterator i = questTemplates.begin(); i != questTemplates.end(); ++i)
@@ -1270,11 +1272,22 @@ void PlayerbotFactory::InitQuests()
         uint32 questId = i->first;
         Quest const *quest = i->second;
 
+	//	if (!quest->GetRequiredClasses())
+	//		continue;
+		if (quest->GetMinLevel() > level)
+			continue;
+		if (quest->IsDailyOrWeekly() || quest->IsRepeatable() || quest->IsMonthly())
+			continue;
+
+		if (!bot->SatisfyQuestClass(quest, false) ||
+			!bot->SatisfyQuestRace(quest, false))
+			continue;
+		/*
 		if (!quest->GetRequiredClasses() ||
 			quest->GetMinLevel() > bot->getLevel() ||
 			quest->IsDailyOrWeekly() || quest->IsRepeatable() || quest->IsMonthly())
 			continue;
-
+		*/
 		AddPrevQuests(questId, questIds);
 
         list<uint32>::iterator it2 = find(questIds.begin(), questIds.end(), questId);
@@ -1289,58 +1302,44 @@ void PlayerbotFactory::InitQuests()
 
         bot->SetQuestStatus(questId, QUEST_STATUS_NONE);
 
-        if (!bot->SatisfyQuestClass(quest, false) ||
-                !bot->SatisfyQuestRace(quest, false) ||
-                !bot->SatisfyQuestStatus(quest, false))
-            continue;
+		if (!bot->SatisfyQuestStatus(quest, false))
+			continue;
 
         bot->SetQuestStatus(questId, QUEST_STATUS_COMPLETE);
         bot->RewardQuest(quest, 0, bot, false);
         ClearInventory();
     }
 
-    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initialed %u class quests",questIds.size());
+	sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initialed %u class quests for level %u", questIds.size(), level);
     //new
 	bot->ResetToDoQuests();
+	
+	for (uint8 questlevel = level;questlevel >= level - 5; questlevel--)
+	{
+		ObjectMgr::QuestMap const& questLevelTemplates = sObjectMgr->GetQuestLevelTemplates(questlevel-1);
 
-    ObjectMgr::QuestMap const& questTemplates1 = sObjectMgr->GetQuestLevelTemplates(bot->getLevel()-1);
+		int quests = 0;
+		for (ObjectMgr::QuestMap::const_iterator i = questLevelTemplates.begin(); i != questLevelTemplates.end(); ++i)
+		{
+			uint32 questId = i->first;
+			Quest const *quest = i->second;
 
-    int quests;
-    for (ObjectMgr::QuestMap::const_iterator i = questTemplates1.begin(); i != questTemplates1.end(); ++i)
-    {
-        uint32 questId = i->first;
-        Quest const *quest = i->second;
+			for (Quest::PrevQuests::const_iterator iter = quest->prevQuests.begin(); iter != quest->prevQuests.end(); ++iter)
+			{
+				uint32 prevId = abs(*iter);
+				if (bot->AddToDoQuest(prevId))
+					++quests;
+			}
 
-        for (Quest::PrevQuests::const_iterator iter = quest->prevQuests.begin(); iter != quest->prevQuests.end(); ++iter)
-        {
-            uint32 prevId = abs(*iter);
-			bot->AddToDoQuest(prevId);
-			++quests;
-        }
+			if (bot->AddToDoQuest(questId))
+				++quests;
 
-		bot->AddToDoQuest(questId);
-		++quests;
-    }
-
-    ObjectMgr::QuestMap const& questTemplates2 = sObjectMgr->GetQuestLevelTemplates(bot->getLevel());
-
-    for (ObjectMgr::QuestMap::const_iterator i = questTemplates2.begin(); i != questTemplates2.end(); ++i)
-    {
-        uint32 questId = i->first;
-        Quest const *quest = i->second;
-
-        for (Quest::PrevQuests::const_iterator iter = quest->prevQuests.begin(); iter != quest->prevQuests.end(); ++iter)
-        {
-            uint32 prevId = abs(*iter);
-			bot->AddToDoQuest(prevId);
-			++quests;
-        }
-
-        bot->AddToDoQuest(questId);
-        ++quests;
-    }
-
-    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initialed %u quests for level %u",questIds.size(),quests);
+			if (bot->GetToDoQuestsSize() > 10)
+				break;
+		}
+	}
+	
+	sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initialed %u quests for level %u", bot->GetToDoQuestsSize(), level);
 }
 
 void PlayerbotFactory::ClearInventory()

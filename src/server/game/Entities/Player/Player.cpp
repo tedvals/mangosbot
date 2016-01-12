@@ -26540,18 +26540,19 @@ void Player::RemoveRestFlag(RestFlag restFlag)
 void Player::ResetToDoQuests()
  {m_questIds.clear(); }
 
-void Player::AddToDoQuest(uint32 questId)
+bool Player::AddToDoQuest(uint32 questId)
 {
     QuestList::iterator it = find(m_questIds.begin(), m_questIds.end(), questId);
     if (it != m_questIds.end())
-		return;
+		return false;
 
 	Quest const *quest = sObjectMgr->GetQuestTemplate(questId);
 
-	if (CanTakeQuest(quest, false))
-		return;
+	if (!CanTakeQuest(quest, false))
+		return false;
 
 	m_questIds.push_back(questId);
+	return true;
 }
 
 
@@ -26559,18 +26560,22 @@ WorldObject* Player::MoveToQuestStarter(uint32& mapId, uint32& areaId, uint32& z
 {
     if (questId == 0)
     {
-        uint32 randomQuest = (uint32)(rand() % m_questIds.size());
+		if (m_questIds.size() > 0)
+		{
+			uint32 randomQuest = (uint32)(rand() % m_questIds.size());
 
-        QuestList::iterator it = m_questIds.begin();
-        std::advance(it, randomQuest);
-        questId = *it;
+			QuestList::iterator it = m_questIds.begin();
+			std::advance(it, randomQuest);
+			questId = *it;
+		}
+		else return NULL;
     }
 
     QueryResult result;
     result = WorldDatabase.PQuery("SELECT "
 //           0      1      2     3         4          5         6           7
     "q.id,c.GUID,map,c.zoneid,c.areaid,c.position_x,c.position_y,c.position_z"
-    " FROM creature_queststarter q LEFT OUTER JOIN creature c ON c.id = q.id where and quest = '%u' ORDER BY NEWID() LIMIT 1", questId);
+    " FROM creature_queststarter q LEFT OUTER JOIN creature c ON c.id = q.id where and quest = '%u' ORDER BY RAND() LIMIT 1", questId);
 
     uint32 questGiver = 0;
     ObjectGuid guid;
@@ -26630,8 +26635,8 @@ WorldObject* Player::MoveToQuestStarter(uint32& mapId, uint32& areaId, uint32& z
     x = position_x;
     y = position_y;
     z = position_z;
-
-   // sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Teleporting bot %s for quest to %s %f,%f,%f", bot->.c_str(), area->area_name[0], x, y, z);
+	
+	//sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Teleporting bot %s for quest to %s %f,%f,%f", bot->.c_str(), area->area_name[0], x, y, z);
 
     GetMotionMaster()->Clear();
     TeleportTo(mapId, x, y, z, 0);
@@ -26679,7 +26684,7 @@ WorldObject* Player::MoveToQuestEnder(uint32& mapId, uint32& areaId, uint32& zon
     result = WorldDatabase.PQuery("SELECT "
 //           0      1      2     3         4          5         6           7
     "q.id,c.GUID,map,c.zoneid,c.areaid,c.position_x,c.position_y,c.position_z"
-    " FROM creature_questender q LEFT OUTER JOIN creature c ON c.id = q.id where and quest = '%u' ORDER BY NEWID() LIMIT 1", questId);
+    " FROM creature_questender q LEFT OUTER JOIN creature c ON c.id = q.id where and quest = '%u' ORDER BY RAND() LIMIT 1", questId);
 
 	uint32 questEnder = 0;
     ObjectGuid guid;
@@ -26749,7 +26754,7 @@ WorldObject* Player::MoveToQuestEnder(uint32& mapId, uint32& areaId, uint32& zon
 }
 
 
-bool Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& zoneId, float& x, float& y, float& z, uint32 questId = 0)
+WorldObject* Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& zoneId, float& x, float& y, float& z, uint32 questId = 0)
 {
 	if (questId != 0)
 	{
@@ -26763,7 +26768,8 @@ bool Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& zoneId, 
 			questId = 0;
 	}
 
-	if (questId == 0)
+	
+	if ((questId == 0) && (m_QuestStatus.size() > 0))
 	{
 		uint32 randomQuest = (uint32)(rand() % m_QuestStatus.size() - 1);
 
@@ -26785,7 +26791,7 @@ bool Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& zoneId, 
 	}
 
 	if (questId == 0)
-		return false;
+		return NULL;
 
 	Quest const* quest = sObjectMgr->GetQuestTemplate(questId);
 	QuestStatusData& questStatusData = m_QuestStatus[questId];
@@ -26794,8 +26800,8 @@ bool Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& zoneId, 
 		return false;
 
 	uint32 npcId = NULL;
-
-	for (int count = 0; count < quest->GetReqCreatureOrGOcount(); count++)
+	
+		for (int count = 0; count < quest->GetReqCreatureOrGOcount(); count++)
 	{
 		if (questStatusData.CreatureOrGOCount[count] < quest->RequiredNpcOrGoCount[count])		
 			npcId = quest->RequiredNpcOrGo[count];
@@ -26806,8 +26812,8 @@ bool Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& zoneId, 
 		QueryResult result;
 		result = WorldDatabase.PQuery("SELECT "
 			// 0      1      2     3         4          5         6           7
-			"q.id,q.GUID,map,c.zoneid,c.areaid,c.position_x,c.position_y,c.position_z"
-			" FROM creature q where id = '%u' ORDER BY NEWID() LIMIT 1", npcId);
+			"id,GUID,map,zoneid,areaid,position_x,position_y,position_z"
+			" FROM creature where id = '%u' ORDER BY RAND() LIMIT 1", npcId);
 		
 		ObjectGuid guid;
 
@@ -26845,11 +26851,7 @@ bool Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& zoneId, 
 
 			if (!areaId)
 				return NULL;
-
-			AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
-			if (!area)
-				return NULL;
-
+			
 			float distance = 50.0f;
 			float ground;
 
@@ -26864,14 +26866,9 @@ bool Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& zoneId, 
 
 			x = position_x;
 			y = position_y;
-			z = position_z;
+			z = position_z;												
 
-			// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Teleporting bot %s for quest to %s %f,%f,%f", bot->.c_str(), area->area_name[0], x, y, z);
-
-			GetMotionMaster()->Clear();
-			TeleportTo(mapId, x, y, z, 0);
-
-			return true;
+			return  map->GetGameObject(guid);
 		}		
 	}
 
@@ -26890,7 +26887,7 @@ bool Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& zoneId, 
 		result = WorldDatabase.PQuery("SELECT "
 			// 0     
 			"c.entry"
-			" FROM creature_loot_template c where item = '%u' ORDER BY NEWID() LIMIT 1", itemId);		
+			" FROM creature_loot_template c where item = '%u' ORDER BY RAND() LIMIT 1", itemId);		
 				
 		do
 		{
@@ -26905,7 +26902,7 @@ bool Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& zoneId, 
 		QueryResult result;
 		result = WorldDatabase.PQuery("SELECT "
 			// 0      1      2     3         4          5         6           7			
-			"q.id,q.GUID,map,c.zoneid,c.areaid,c.position_x,c.position_y,c.position_z"
+			"id,GUID,map,zoneid,areaid,position_x,position_y,position_z"
 			" FROM creature q where id = '%u' ORDER BY NEWID() LIMIT 1", npcId);
 
 		ObjectGuid guid;
@@ -26965,12 +26962,9 @@ bool Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& zoneId, 
 			y = position_y;
 			z = position_z;
 
-			// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Teleporting bot %s for quest to %s %f,%f,%f", bot->.c_str(), area->area_name[0], x, y, z);
+			// sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Teleporting bot %s for quest to %s %f,%f,%f", bot->.c_str(), area->area_name[0], x, y, z);			
 
-			GetMotionMaster()->Clear();
-			TeleportTo(mapId, x, y, z, 0);
-
-			return true;
+			return  map->GetGameObject(guid);
 		}
 	}
 
