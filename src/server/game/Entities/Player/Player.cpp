@@ -26569,7 +26569,7 @@ WorldObject* Player::MoveToQuestStarter(uint32& mapId, uint32& areaId, uint32& z
     result = WorldDatabase.PQuery("SELECT "
 //           0      1      2     3         4          5         6           7
     "q.id,c.GUID,map,c.zoneid,c.areaid,c.position_x,c.position_y,c.position_z"
-    " FROM creature_queststarter q LEFT OUTER JOIN creature c ON c.id = q.id where and quest = '%u' ORDER BY RAND() LIMIT 1", questId);
+    " FROM creature_queststarter q LEFT OUTER JOIN creature c ON c.id = q.id where quest = '%u' ORDER BY RAND() LIMIT 1", questId);
 
     uint32 questGiver = 0;
     ObjectGuid guid;
