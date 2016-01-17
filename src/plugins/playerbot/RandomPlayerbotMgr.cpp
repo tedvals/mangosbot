@@ -283,6 +283,9 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
                 continue;
         }
 
+		if (strstr(area->area_name[0], "UNUSED"))
+			continue;
+
         float ground = map->GetHeight(x, y, z + 0.5f);
         if (ground <= INVALID_HEIGHT)
             continue;
@@ -402,7 +405,7 @@ void RandomPlayerbotMgr::IncreaseLevel(Player* bot)
 
 void RandomPlayerbotMgr::RandomizeFirst(Player* bot)
 {
-     uint32 maxLevel = sPlayerbotAIConfig.randomBotMaxLevel;
+    uint32 maxLevel = sPlayerbotAIConfig.randomBotMaxLevel;
     if (maxLevel > sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL))
         maxLevel = sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL);
 
@@ -1267,6 +1270,9 @@ void RandomPlayerbotMgr1::RandomTeleport(Player* bot, vector<WorldLocation> &loc
             if (i != alliance_areas.end())
                 continue;
         }
+
+		if (strstr(area->area_name[0], "UNUSED"))
+			continue;
 
         float ground = map->GetHeight(x, y, z + 0.5f);
         if (ground <= INVALID_HEIGHT)

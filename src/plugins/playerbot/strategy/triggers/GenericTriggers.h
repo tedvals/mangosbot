@@ -424,14 +424,14 @@ namespace ai
     class OftenTrigger : public RandomTrigger
     {
     public:
-        OftenTrigger(PlayerbotAI* ai) : RandomTrigger(ai, 50) {}
+        OftenTrigger(PlayerbotAI* ai) : RandomTrigger(ai, 100) {}
         virtual string getName() { return "often"; }
     };
 
 	class VeryOftenTrigger : public RandomTrigger
 	{
 	public:
-		VeryOftenTrigger(PlayerbotAI* ai) : RandomTrigger(ai, 20) {}
+		VeryOftenTrigger(PlayerbotAI* ai) : RandomTrigger(ai, 10) {}
 		virtual string getName() { return "very often"; }
 	};
 

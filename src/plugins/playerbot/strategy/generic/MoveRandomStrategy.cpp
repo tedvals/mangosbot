@@ -11,7 +11,7 @@ void MoveRandomStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         NextAction::array(0, new NextAction("move random", 2.0f), NULL)));
 
 	triggers.push_back(new TriggerNode(
-		"often",
+		"very often",
 		NextAction::array(0, new NextAction("move to guestgiver", 3.f), NULL)));
 
 	triggers.push_back(new TriggerNode(

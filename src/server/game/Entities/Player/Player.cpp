@@ -26554,15 +26554,48 @@ WorldObject* Player::MoveToQuestStarter(uint32& mapId, uint32& areaId, uint32& z
 {
     if (questId == 0)
     {
-		if (m_questIds.size() > 0)
+		uint8 level = getLevel();
+
+		if (m_questIds.size() == 0)
+		{
+			ResetToDoQuests();
+
+			for (uint8 questlevel = level; questlevel >= level - 5; questlevel--)
+			{
+				ObjectMgr::QuestMap const& questLevelTemplates = sObjectMgr->GetQuestLevelTemplates(questlevel - 1);
+
+				int quests = 0;
+				for (ObjectMgr::QuestMap::const_iterator i = questLevelTemplates.begin(); i != questLevelTemplates.end(); ++i)
+				{
+					uint32 questId = i->first;
+					Quest const *quest = i->second;
+
+					for (Quest::PrevQuests::const_iterator iter = quest->prevQuests.begin(); iter != quest->prevQuests.end(); ++iter)
+					{
+						uint32 prevId = abs(*iter);
+						if (AddToDoQuest(prevId))
+							++quests;
+					}
+
+					if (AddToDoQuest(questId))
+						++quests;
+
+					if (GetToDoQuestsSize() > 10)
+						break;
+				}
+			}
+
+			sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initialed %u quests for level %u", GetToDoQuestsSize(), level);
+			return NULL;
+		}
+		else
 		{
 			uint32 randomQuest = (uint32)(rand() % m_questIds.size());
 
 			QuestList::iterator it = m_questIds.begin();
 			std::advance(it, randomQuest);
 			questId = *it;
-		}
-		else return NULL;
+		}		
     }
 
     QueryResult result;

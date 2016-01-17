@@ -1083,6 +1083,18 @@ void Unit::CalculateSpellDamageTaken(SpellNonMeleeDamage* damageInfo, int32 dama
     // Script Hook For CalculateSpellDamageTaken -- Allow scripts to change the Damage post class mitigation calculations
     sScriptMgr->ModifySpellDamageTaken(damageInfo->target, damageInfo->attacker, damage);
 
+	//Resistance Penalty Mod
+	bool resPenalty = sWorld->getBoolConfig(CONFIG_RESISTANCE_PENALTY);
+
+	if (Player const* player = ToPlayer())
+	{
+		uint32 spellResistance = GetResistance(damageSchoolMask);
+
+		if (resPenalty && (spellResistance - getLevel() < 0))
+			damage = (getLevel() - spellResistance) / 100.f * damageInfo->absorb;
+	}
+	//End
+
     // Calculate absorb resist
     if (damage > 0)
     {
@@ -1311,6 +1323,18 @@ void Unit::CalculateMeleeDamage(Unit* victim, uint32 damage, CalcDamageInfo* dam
         damageInfo->procVictim |= PROC_FLAG_TAKEN_DAMAGE;
         // Calculate absorb & resists
         CalcAbsorbResist(damageInfo->target, SpellSchoolMask(damageInfo->damageSchoolMask), DIRECT_DAMAGE, damageInfo->damage, &damageInfo->absorb, &damageInfo->resist);
+
+		//Resistance Penalty Mod
+		bool resPenalty = sWorld->getBoolConfig(CONFIG_RESISTANCE_PENALTY);
+
+		if (Player const* player = ToPlayer())
+		{ 
+			uint32 spellResistance = GetResistance(SpellSchoolMask(damageInfo->damageSchoolMask));
+
+			if (resPenalty && (spellResistance - getLevel() < 0))
+				damageInfo->damage = (getLevel() - spellResistance) / 100.f * damageInfo->absorb;
+		}
+		//End
 
         if (damageInfo->absorb)
         {
@@ -12003,12 +12027,18 @@ bool Unit::_IsValidAttackTarget(Unit const* target, SpellInfo const* bySpell, Wo
 
     // PvP, PvC, CvP case
     // can't attack friendly targets
-    if ( GetReactionTo(target) > REP_NEUTRAL
+	// Friendly Fire mod
+	bool ff = sWorld->getBoolConfig(CONFIG_FRIENDLY_FIRE);
+
+	if (target->GetByteValue(UNIT_FIELD_BYTES_2, 1) & UNIT_BYTE2_FLAG_SANCTUARY)
+		ff = false;
+
+    if (!ff && GetReactionTo(target) > REP_NEUTRAL
         || target->GetReactionTo(this) > REP_NEUTRAL)
         return false;
 
     // Not all neutral creatures can be attacked (even some unfriendly faction does not react aggresive to you, like Sporaggar)
-    if (GetReactionTo(target) == REP_NEUTRAL &&
+    if (!ff && GetReactionTo(target) == REP_NEUTRAL &&
         target->GetReactionTo(this) <= REP_NEUTRAL)
     {
         if  (!(target->GetTypeId() == TYPEID_PLAYER && GetTypeId() == TYPEID_PLAYER) &&
@@ -12038,7 +12068,7 @@ bool Unit::_IsValidAttackTarget(Unit const* target, SpellInfo const* bySpell, Wo
 
     // check duel - before sanctuary checks
     if (playerAffectingAttacker && playerAffectingTarget)
-        if (playerAffectingAttacker->duel && playerAffectingAttacker->duel->opponent == playerAffectingTarget && playerAffectingAttacker->duel->startTime != 0)
+        if (ff || (playerAffectingAttacker->duel && playerAffectingAttacker->duel->opponent == playerAffectingTarget && playerAffectingAttacker->duel->startTime != 0))
             return true;
 
     // PvP case - can't attack when attacker or target are in sanctuary
