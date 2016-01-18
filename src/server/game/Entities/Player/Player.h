@@ -2293,12 +2293,14 @@ class Player : public Unit, public GridObject<Player>
         float GetMinTargetDistance() {return m_minTargetDistance;}
         float GetMinMasterDistance() {return m_minMasterDistance;}
 
+	private:
         float m_order_mov_x;
         float m_order_mov_y;
         float m_order_mov_z;
         bool m_order_mov_point;
         uint32 m_order_mov_mapId;
-
+		bool mSemaphore_Process = false;
+	public:
         typedef std::list<uint32> QuestList;
 		QuestList m_questIds;
 
@@ -2313,6 +2315,10 @@ class Player : public Unit, public GridObject<Player>
         bool HasMoveOrder() { return m_order_mov_point; }
         void SetMovePoint (uint32 mapId, float x, float y, float z) {m_order_mov_point= true; m_order_mov_mapId = mapId; m_order_mov_x = x; m_order_mov_y = y;m_order_mov_z = z;}
         void ResetMovePoint() {m_order_mov_point = false;}
+
+		void StartProcessing() { mSemaphore_Process = true; }
+		void StopProcessing() { mSemaphore_Process = false; }
+		bool CanProcess() { return !mSemaphore_Process; }
 
         bool GetMovePoint( uint32 mapId, float& x, float& y, float& z)
         {

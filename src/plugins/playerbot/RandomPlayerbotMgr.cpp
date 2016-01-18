@@ -92,7 +92,13 @@ uint32 RandomPlayerbotMgr::AddRandomBot(bool alliance)
     if (bots.size() == 0)
         return 0;
 
-    int index = urand(0, bots.size() - 1);
+	int index;
+		
+	do
+	{
+		index = urand(0, bots.size() - 1);
+	} while (index%RANDOM_BOT_INSTANCES != 0);
+	
     uint32 bot = bots[index];
     SetEventValue(bot, "add", 1, urand(sPlayerbotAIConfig.minRandomBotInWorldTime, sPlayerbotAIConfig.maxRandomBotInWorldTime));
     uint32 randomTime = 30 + urand(sPlayerbotAIConfig.randomBotUpdateInterval, sPlayerbotAIConfig.randomBotUpdateInterval * 3);
@@ -197,9 +203,9 @@ bool RandomPlayerbotMgr::ProcessBot(uint32 bot)
     if (!randomize)
     {
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Randomizing bot %d", bot);
-        Randomize(player);
-        //std::thread randomize(&RandomPlayerbotMgr::Randomize,this,player);
-        //randomize.detach();
+        //Randomize(player);
+        std::thread randomize(&RandomPlayerbotMgr::Randomize,this,player);
+        randomize.detach();
         uint32 randomTime = urand(sPlayerbotAIConfig.minRandomBotRandomizeTime, sPlayerbotAIConfig.maxRandomBotRandomizeTime);
         ScheduleRandomize(bot, randomTime);
         return true;
@@ -382,10 +388,17 @@ void RandomPlayerbotMgr::RandomTeleporting(Player* bot, uint16 mapId, float tele
 
 void RandomPlayerbotMgr::Randomize(Player* bot)
 {
+	if (!bot->CanProcess())
+		return;
+
+	bot->StartProcessing();
+
      if (bot->getLevel() == 1)
         RandomizeFirst(bot);
     else
         IncreaseLevel(bot);
+
+	 bot->StopProcessing();
 }
 
 void RandomPlayerbotMgr::IncreaseLevel(Player* bot)
@@ -1080,7 +1093,13 @@ uint32 RandomPlayerbotMgr1::AddRandomBot(bool alliance)
     if (bots.size() == 0)
         return 0;
 
-    int index = urand(0, bots.size() - 1);
+	int index;
+
+	do
+	{
+		index = urand(0, bots.size() - 1);
+	} while (index%RANDOM_BOT_INSTANCES != 1);
+
     uint32 bot = bots[index];
     SetEventValue(bot, "add", 1, urand(sPlayerbotAIConfig.minRandomBotInWorldTime, sPlayerbotAIConfig.maxRandomBotInWorldTime));
     uint32 randomTime = 30 + urand(sPlayerbotAIConfig.randomBotUpdateInterval, sPlayerbotAIConfig.randomBotUpdateInterval * 3);
@@ -1185,9 +1204,9 @@ bool RandomPlayerbotMgr1::ProcessBot(uint32 bot)
     if (!randomize)
     {
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Randomizing bot %d", bot);
-        Randomize(player);
-        //std::thread randomize(&RandomPlayerbotMgr::Randomize,this,player);
-        //randomize.detach();
+        //Randomize(player);
+        std::thread randomize(&RandomPlayerbotMgr1::Randomize,this,player);
+        randomize.detach();
         uint32 randomTime = urand(sPlayerbotAIConfig.minRandomBotRandomizeTime, sPlayerbotAIConfig.maxRandomBotRandomizeTime);
         ScheduleRandomize(bot, randomTime);
         return true;
@@ -1367,10 +1386,17 @@ void RandomPlayerbotMgr1::RandomTeleporting(Player* bot, uint16 mapId, float tel
 
 void RandomPlayerbotMgr1::Randomize(Player* bot)
 {
-     if (bot->getLevel() == 1)
-        RandomizeFirst(bot);
-    else
-        IncreaseLevel(bot);
+	if (!bot->CanProcess())
+		return;
+
+	bot->StartProcessing();
+
+	if (bot->getLevel() == 1)
+		RandomizeFirst(bot);
+	else
+		IncreaseLevel(bot);
+
+	bot->StopProcessing();
 }
 
 void RandomPlayerbotMgr1::IncreaseLevel(Player* bot)

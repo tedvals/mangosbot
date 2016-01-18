@@ -197,7 +197,7 @@ bool SpellCanBeCastTrigger::IsActive()
 
 bool RandomTrigger::IsActive()
 {
-    int vl  = rand() % (int)(1 + probability * 10 / sPlayerbotAIConfig.randomChangeMultiplier);
+    int vl  = rand() % (int)(1 + probability * 10 / sPlayerbotAIConfig.randomChangeMultiplier*sPlayerbotAIConfig.randomBotUpdateInterval);
     return vl == 0;
 }
 
