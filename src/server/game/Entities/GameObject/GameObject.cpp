@@ -1412,7 +1412,10 @@ void GameObject::Use(Unit* user)
                 player->SendCinematicStart(info->camera.cinematicId);
 
             if (info->camera.eventID)
+            {
                 GetMap()->ScriptsStart(sEventScripts, info->camera.eventID, player, this);
+                EventInform(info->camera.eventID, user);
+            }
 
             return;
         }

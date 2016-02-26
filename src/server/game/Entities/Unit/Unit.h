@@ -1577,7 +1577,7 @@ class Unit : public WorldObject
 
         void KnockbackFrom(float x, float y, float speedXY, float speedZ);
         void JumpTo(float speedXY, float speedZ, bool forward = true);
-        void JumpTo(WorldObject* obj, float speedZ);
+        void JumpTo(WorldObject* obj, float speedZ, bool withOrientation = false);
 
         void MonsterMoveWithSpeed(float x, float y, float z, float speed, bool generatePath = false, bool forceDestination = false);
         //void SetFacing(float ori, WorldObject* obj = NULL);
@@ -1717,6 +1717,16 @@ class Unit : public WorldObject
         void RemoveAura(uint32 spellId, ObjectGuid casterGUID = ObjectGuid::Empty, uint8 reqEffMask = 0, AuraRemoveMode removeMode = AURA_REMOVE_BY_DEFAULT);
         void RemoveAura(AuraApplication * aurApp, AuraRemoveMode mode = AURA_REMOVE_BY_DEFAULT);
         void RemoveAura(Aura* aur, AuraRemoveMode mode = AURA_REMOVE_BY_DEFAULT);
+
+        // Convenience methods removing auras by predicate
+        void RemoveAppliedAuras(std::function<bool(AuraApplication const*)> const& check);
+        void RemoveOwnedAuras(std::function<bool(Aura const*)> const& check);
+
+        // Optimized overloads taking advantage of map key
+        void RemoveAppliedAuras(uint32 spellId, std::function<bool(AuraApplication const*)> const& check);
+        void RemoveOwnedAuras(uint32 spellId, std::function<bool(Aura const*)> const& check);
+
+        void RemoveAurasByType(AuraType auraType, std::function<bool(AuraApplication const*)> const& check);
 
         void RemoveAurasDueToSpell(uint32 spellId, ObjectGuid casterGUID = ObjectGuid::Empty, uint8 reqEffMask = 0, AuraRemoveMode removeMode = AURA_REMOVE_BY_DEFAULT);
         void RemoveAuraFromStack(uint32 spellId, ObjectGuid casterGUID = ObjectGuid::Empty, AuraRemoveMode removeMode = AURA_REMOVE_BY_DEFAULT);

@@ -379,13 +379,13 @@ bool Creature::InitEntry(uint32 entry, CreatureData const* data /*= nullptr*/)
     SetByteValue(UNIT_FIELD_BYTES_0, 2, minfo->gender);
 
     // Load creature equipment
-    if (!data || data->equipmentId == 0)
-        LoadEquipment(); // use default equipment (if available)
-    else if (data && data->equipmentId != 0)                // override, 0 means no equipment
+    if (data && data->equipmentId != 0)
     {
         m_originalEquipmentId = data->equipmentId;
         LoadEquipment(data->equipmentId);
     }
+    else
+        LoadEquipment(0, true);
 
     SetName(normalInfo->Name);                              // at normal entry always
 
@@ -915,6 +915,12 @@ bool Creature::Create(ObjectGuid::LowType guidlow, Map* map, uint32 phaseMask, u
     if (GetCreatureTemplate()->flags_extra & CREATURE_FLAG_EXTRA_IGNORE_PATHFINDING)
         AddUnitState(UNIT_STATE_IGNORE_PATHFINDING);
 
+    if (GetCreatureTemplate()->flags_extra & CREATURE_FLAG_EXTRA_IMMUNITY_KNOCKBACK)
+    {
+        ApplySpellImmune(0, IMMUNITY_EFFECT, SPELL_EFFECT_KNOCK_BACK, true);
+        ApplySpellImmune(0, IMMUNITY_EFFECT, SPELL_EFFECT_KNOCK_BACK_DEST, true);
+    }
+
     return true;
 }
 
@@ -1413,6 +1419,7 @@ void Creature::LoadEquipment(int8 id, bool force /*= true*/)
                 SetUInt32Value(UNIT_VIRTUAL_ITEM_SLOT_ID + i, 0);
             m_equipmentId = 0;
         }
+
         return;
     }
 
@@ -1421,7 +1428,7 @@ void Creature::LoadEquipment(int8 id, bool force /*= true*/)
         return;
 
     m_equipmentId = id;
-    for (uint8 i = 0; i < 3; ++i)
+    for (uint8 i = 0; i < MAX_EQUIPMENT_ITEMS; ++i)
         SetUInt32Value(UNIT_VIRTUAL_ITEM_SLOT_ID + i, einfo->ItemEntry[i]);
 }
 
@@ -2151,6 +2158,11 @@ bool Creature::CanCreatureAttack(Unit const* victim, bool /*force*/) const
 
     if (GetMap()->IsDungeon())
         return true;
+
+    // if the mob is actively being damaged, do not reset due to distance unless it's a world boss
+    if (!isWorldBoss())
+        if (time(NULL) - GetLastDamagedTime() <= MAX_AGGRO_RESET_TIME)
+            return true;
 
     //Use AttackDistance in distance check if threat radius is lower. This prevents creature bounce in and out of combat every update tick.
     float dist = std::max(GetAttackDistance(victim), sWorld->getFloatConfig(CONFIG_THREAT_RADIUS)) + m_CombatDistance;
