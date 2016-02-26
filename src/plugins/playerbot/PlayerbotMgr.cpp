@@ -210,6 +210,7 @@ string PlayerbotHolder::ProcessBotCommand(string cmd, ObjectGuid guid, bool admi
         else if (cmd == "random")
         {
             sRandomPlayerbotMgr.Randomize(bot);
+			sRandomPlayerbotMgr1.Randomize(bot);
             return "ok";
         }
         else if (cmd == "distance=none")

@@ -92,13 +92,6 @@ void PlayerbotFactory::Prepare()
     ClearInventory();
     bot->SaveToDB();
 
-    sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing quests...");
-    InitQuests();
-     // quest rewards boost bot level, so reduce back
-    bot->SetLevel(level);
-    CancelAuras();
-    bot->SaveToDB();
-
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing spells (step 1)...");
     InitAvailableSpells();
 
@@ -153,6 +146,14 @@ void PlayerbotFactory::Prepare()
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Saving to DB...");
     bot->SetMoney(urand(level * 1000, level * 5 * 1000));
     bot->SaveToDB();
+
+	sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing quests...");
+
+	InitQuests();
+	// quest rewards boost bot level, so reduce back
+	bot->SetLevel(level);
+	CancelAuras();
+	bot->SaveToDB();
  }
 
 void PlayerbotFactory::InitPet()
@@ -1274,7 +1275,7 @@ void PlayerbotFactory::InitQuests()
 
 	//	if (!quest->GetRequiredClasses())
 	//		continue;
-		if (quest->GetMinLevel() > level)
+		if (quest->GetMinLevel() > level || quest->GetMinLevel() < 2)
 			continue;
 		if (quest->IsDailyOrWeekly() || quest->IsRepeatable() || quest->IsMonthly())
 			continue;
@@ -1307,13 +1308,16 @@ void PlayerbotFactory::InitQuests()
 
         bot->SetQuestStatus(questId, QUEST_STATUS_COMPLETE);
         bot->RewardQuest(quest, 0, bot, false);
-        ClearInventory();
+//        ClearInventory();
     }
 
 	sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initialed %u class quests for level %u", questIds.size(), level);
     //new
 	bot->ResetToDoQuests();
 	
+	if (level < 6)
+		level = 6;
+
 	for (uint8 questlevel = level;questlevel >= level - 5; questlevel--)
 	{
 		ObjectMgr::QuestMap const& questLevelTemplates = sObjectMgr->GetQuestLevelTemplates(questlevel-1);

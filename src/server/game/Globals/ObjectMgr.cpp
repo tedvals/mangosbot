@@ -4018,7 +4018,7 @@ void ObjectMgr::LoadQuests()
             "RequiredItemId1, RequiredItemId2, RequiredItemId3, RequiredItemId4, RequiredItemId5, RequiredItemId6, RequiredItemCount1, RequiredItemCount2, RequiredItemCount3, RequiredItemCount4, RequiredItemCount5, RequiredItemCount6, "
             //  99          100             101             102             103
             "Unknown0, ObjectiveText1, ObjectiveText2, ObjectiveText3, ObjectiveText4"
-            " FROM quest_template where QuestLevel = '%d' and ID in (select ID from quest_template_addon where AllowableClasses <> 0)",dbLevel);
+            " FROM quest_template where RewardSpell > 0 and ID in (select ID from quest_template_addon where AllowableClasses <> 0)");
         }
         else
         {
@@ -4049,7 +4049,7 @@ void ObjectMgr::LoadQuests()
             "RequiredItemId1, RequiredItemId2, RequiredItemId3, RequiredItemId4, RequiredItemId5, RequiredItemId6, RequiredItemCount1, RequiredItemCount2, RequiredItemCount3, RequiredItemCount4, RequiredItemCount5, RequiredItemCount6, "
             //  99          100             101             102             103
             "Unknown0, ObjectiveText1, ObjectiveText2, ObjectiveText3, ObjectiveText4"
-            " FROM quest_template where QuestLevel = '%d'",dbLevel);
+            " FROM quest_template where QuestLevel = '%d' and ID in (select id FROM creature_queststarter)",dbLevel);
         }
 
         if (!result)
