@@ -269,7 +269,7 @@ void RandomPlayerbotMgr::RandomTeleport(Player* bot, vector<WorldLocation> &locs
         if (!areaId)
             continue;
 
-        AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
+		AreaTableEntry const* area = sAreaTableStore.LookupEntry(areaId);
         if (!area)
             continue;
 
@@ -1278,7 +1278,7 @@ void RandomPlayerbotMgr1::RandomTeleport(Player* bot, vector<WorldLocation> &loc
         if (!areaId)
             continue;
 
-        AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
+		AreaTableEntry const* area = sAreaTableStore.LookupEntry(areaId);
         if (!area)
             continue;
 

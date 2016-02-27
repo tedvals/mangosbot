@@ -141,12 +141,9 @@ set_target_properties(worldserver PROPERTIES LINK_FLAGS "${worldserver_LINK_FLAG
 
 target_link_libraries(worldserver
   game
-<<<<<<< HEAD
   plugins
   common
-=======
   scripts
->>>>>>> a3b2144750d4824a6b3d94766e7019f940a9a470
   shared
   database
   common

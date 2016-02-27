@@ -660,7 +660,7 @@ bool MoveQuestGiverAction::Execute(Event event)
 	if (!QuestStarter)
 		return false;
 
-	AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
+	AreaTableEntry const* area = sAreaTableStore.LookupEntry(areaId);
 
 	if (area)
 		sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Teleporting bot %s to queststarter for quest to %s %f,%f,%f", bot->GetName().c_str(), area->area_name[0], go_x, go_y, go_z);
@@ -690,7 +690,7 @@ bool MoveQuestEnderAction::Execute(Event event)
 	if (!QuestEnder)
 		return false;
 
-	AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
+	AreaTableEntry const* area = sAreaTableStore.LookupEntry(areaId);
 
 	if (area)
 		sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Teleporting bot %s to questender for quest to %s %f,%f,%f", bot->GetName().c_str(), area->area_name[0], go_x, go_y, go_z);
@@ -720,7 +720,7 @@ bool MoveQuestPositionAction::Execute(Event event)
 	if (!QuestTarget)
 		return false;
 
-	AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
+	AreaTableEntry const* area = sAreaTableStore.LookupEntry(areaId);
 
 	if (area)
 		sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Teleporting bot %s to queststarter for quest to %s %f,%f,%f", bot->GetName().c_str(), area->area_name[0], go_x, go_y, go_z);

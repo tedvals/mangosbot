@@ -26676,7 +26676,7 @@ WorldObject* Player::MoveToQuestStarter(uint32& mapId, uint32& areaId, uint32& z
 			if (!areaId)
 				return NULL;
 
-			AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
+			AreaTableEntry const* area = sAreaTableStore.LookupEntry(areaId);
 			if (!area)
 				return NULL;
 
@@ -26795,7 +26795,7 @@ WorldObject* Player::MoveToQuestEnder(uint32& mapId, uint32& areaId, uint32& zon
     if (!areaId)
         return NULL;
 
-    AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
+	AreaTableEntry const* area = sAreaTableStore.LookupEntry(areaId);
     if (!area)
         return NULL;
 
@@ -27012,7 +27012,7 @@ WorldObject* Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& 
 			if (!areaId)
 				return NULL;
 
-			AreaTableEntry const* area = sAreaStore.LookupEntry(areaId);
+			AreaTableEntry const* area = sAreaTableStore.LookupEntry(areaId);
 			if (!area)
 				return NULL;
 
