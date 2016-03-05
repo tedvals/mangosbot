@@ -56,7 +56,8 @@ char const* const ConditionMgr::StaticSourceTypeData[CONDITION_SOURCE_TYPE_MAX] 
     "SmartScript",
     "Npc Vendor",
     "Spell Proc",
-    "Phase Def"
+    "Terrain Swap",
+    "Phase"
 };
 
 ConditionMgr::ConditionTypeInfo const ConditionMgr::StaticConditionTypeData[CONDITION_MAX] =
@@ -102,6 +103,7 @@ ConditionMgr::ConditionTypeInfo const ConditionMgr::StaticConditionTypeData[COND
     { "Health Pct",           true, true, false  },
     { "Realm Achievement",    true, false, false },
     { "In Water",            false, false, false },
+    { "Terrain Swap",        false, false, false },
     { "Sit/stand state",      true,  true, false }
 };
 
@@ -1661,9 +1663,14 @@ bool ConditionMgr::isSourceTypeValid(Condition* cond) const
             }
             break;
         }
-        case CONDITION_SOURCE_TYPE_PHASE_DEFINITION:
+        case CONDITION_SOURCE_TYPE_TERRAIN_SWAP:
         {
-            TC_LOG_ERROR("sql.sql", "CONDITION_SOURCE_TYPE_PHASE_DEFINITION:: is only for 4.3.4 branch, skipped");
+            TC_LOG_ERROR("sql.sql", "CONDITION_SOURCE_TYPE_TERRAIN_SWAP: is only for 6.x branch, skipped");
+            return false;
+        }
+        case CONDITION_SOURCE_TYPE_PHASE:
+        {
+            TC_LOG_ERROR("sql.sql", "CONDITION_SOURCE_TYPE_PHASE: is only for 6.x branch, skipped");
             return false;
         }
         case CONDITION_SOURCE_TYPE_GOSSIP_MENU:
@@ -1681,7 +1688,7 @@ bool ConditionMgr::isConditionTypeValid(Condition* cond) const
 {
     if (cond->ConditionType == CONDITION_NONE || cond->ConditionType >= CONDITION_MAX)
     {
-        TC_LOG_ERROR("sql.sql", "%s Invalid ConditionType in `condition` table, ignoring.", cond->ToString().c_str());
+        TC_LOG_ERROR("sql.sql", "%s Invalid ConditionType in `condition` table, ignoring.", cond->ToString(true).c_str());
         return false;
     }
 
@@ -2118,6 +2125,11 @@ bool ConditionMgr::isConditionTypeValid(Condition* cond) const
         }
         case CONDITION_IN_WATER:
             break;
+        case CONDITION_TERRAIN_SWAP:
+            TC_LOG_ERROR("sql.sql", "%s is not valid for this branch, skipped.", cond->ToString(true).c_str());
+            return false;
+        }
+
         case CONDITION_GUILD_LEVEL:
         {
             if (cond->ConditionValue2 >= COMP_TYPE_MAX)
@@ -2129,6 +2141,8 @@ bool ConditionMgr::isConditionTypeValid(Condition* cond) const
                 TC_LOG_ERROR("sql.sql", "Guildlevel condition has useless data in value3 (%u)!", cond->ConditionValue3);
 			break;
 		}
+            return false;
+        }
         case CONDITION_STAND_STATE:
         {
             bool valid = false;
