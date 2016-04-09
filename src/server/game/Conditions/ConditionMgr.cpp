@@ -2127,9 +2127,7 @@ bool ConditionMgr::isConditionTypeValid(Condition* cond) const
             break;
         case CONDITION_TERRAIN_SWAP:
             TC_LOG_ERROR("sql.sql", "%s is not valid for this branch, skipped.", cond->ToString(true).c_str());
-            return false;
-        }
-
+            return false;        
         case CONDITION_GUILD_LEVEL:
         {
             if (cond->ConditionValue2 >= COMP_TYPE_MAX)
@@ -2137,11 +2135,12 @@ bool ConditionMgr::isConditionTypeValid(Condition* cond) const
                 TC_LOG_ERROR("sql.sql", "Guildlevel condition has invalid option (%u), skipped", cond->ConditionValue2);
                 return false;
             }
-            if (cond->ConditionValue3)
-                TC_LOG_ERROR("sql.sql", "Guildlevel condition has useless data in value3 (%u)!", cond->ConditionValue3);
+			if (cond->ConditionValue3)
+			{
+				TC_LOG_ERROR("sql.sql", "Guildlevel condition has useless data in value3 (%u)!", cond->ConditionValue3);
+				return false; 
+			}
 			break;
-		}
-            return false;
         }
         case CONDITION_STAND_STATE:
         {
