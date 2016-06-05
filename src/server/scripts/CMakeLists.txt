@@ -54,7 +54,6 @@ message("")
 
 include_directories(
   ${CMAKE_SOURCE_DIR}/dep/cppformat
-<<<<<<< HEAD
   ${CMAKE_SOURCE_DIR}/dep/zlib
   ${CMAKE_SOURCE_DIR}/src/server/database
   ${CMAKE_SOURCE_DIR}/src/server/database/Database
@@ -69,10 +68,8 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/src/server/shared/Updater
   ${CMAKE_SOURCE_DIR}/src/LuaEngine
   ${CMAKE_SOURCE_DIR}/dep/lualib
-=======
   ${CMAKE_SOURCE_DIR}/dep/g3dlite/include
   ${CMAKE_SOURCE_DIR}/dep/recastnavigation/Detour/Include
->>>>>>> 4ada913d02bb5376914e46843873b3285116154f
   ${CMAKE_SOURCE_DIR}/src/common/
   ${CMAKE_SOURCE_DIR}/src/common/Collision
   ${CMAKE_SOURCE_DIR}/src/common/Collision/Management
