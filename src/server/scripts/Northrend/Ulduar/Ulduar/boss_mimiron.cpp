@@ -359,9 +359,9 @@ static bool IsEncounterFinished(Unit* who)
     if (!mkii || !vx001 || !aerial)
         return false;
 
-    if (mkii->getStandState() == UNIT_STAND_STATE_DEAD &&
-        vx001->getStandState() == UNIT_STAND_STATE_DEAD &&
-        aerial->getStandState() == UNIT_STAND_STATE_DEAD)
+    if (mkii->GetStandState() == UNIT_STAND_STATE_DEAD &&
+        vx001->GetStandState() == UNIT_STAND_STATE_DEAD &&
+        aerial->GetStandState() == UNIT_STAND_STATE_DEAD)
     {
         who->Kill(mkii);
         who->Kill(vx001);
@@ -703,7 +703,7 @@ class boss_leviathan_mk_ii : public CreatureScript
                         if (Unit* turret = me->GetVehicleKit()->GetPassenger(3))
                             turret->KillSelf();
 
-                        me->SetSpeed(MOVE_RUN, 1.5f, true);
+                        me->SetSpeedRate(MOVE_RUN, 1.5f);
                         me->GetMotionMaster()->MovePoint(WP_MKII_P1_IDLE, VehicleRelocation[WP_MKII_P1_IDLE]);
                     }
                     else if (events.IsInPhase(PHASE_VOL7RON))
@@ -2759,7 +2759,7 @@ class achievement_setup_boom : public AchievementCriteriaScript
     public:
         achievement_setup_boom() : AchievementCriteriaScript("achievement_setup_boom") { }
 
-        bool OnCheck(Player* /*source*/, Unit* target)
+        bool OnCheck(Player* /*source*/, Unit* target) override
         {
             return target && target->GetAI()->GetData(DATA_SETUP_BOMB);
         }
@@ -2770,7 +2770,7 @@ class achievement_setup_mine : public AchievementCriteriaScript
     public:
         achievement_setup_mine() : AchievementCriteriaScript("achievement_setup_mine") { }
 
-        bool OnCheck(Player* /*source*/, Unit* target)
+        bool OnCheck(Player* /*source*/, Unit* target) override
         {
             return target && target->GetAI()->GetData(DATA_SETUP_MINE);
         }
@@ -2781,7 +2781,7 @@ class achievement_setup_rocket : public AchievementCriteriaScript
     public:
         achievement_setup_rocket() : AchievementCriteriaScript("achievement_setup_rocket") { }
 
-        bool OnCheck(Player* /*source*/, Unit* target)
+        bool OnCheck(Player* /*source*/, Unit* target) override
         {
             return target && target->GetAI()->GetData(DATA_SETUP_ROCKET);
         }
@@ -2792,7 +2792,7 @@ class achievement_firefighter : public AchievementCriteriaScript
     public:
         achievement_firefighter() : AchievementCriteriaScript("achievement_firefighter") { }
 
-        bool OnCheck(Player* /*source*/, Unit* target)
+        bool OnCheck(Player* /*source*/, Unit* target) override
         {
             return target && target->GetAI()->GetData(DATA_FIREFIGHTER);
         }

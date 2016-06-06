@@ -1,4 +1,4 @@
- #include "../../pchdef.h"
+#include "../../pchdef.h"
 #include "../playerbot.h"
 #include "CustomStrategy.h"
 #include <regex>
@@ -62,13 +62,14 @@ void CustomStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         else
         {
             vector<string> tokens = split(actionLinesCache[qualifier], '\n');
-            std::regex tpl("\\(NULL,\\s*'.+',\\s*'(.+)'\\)(,|;)");
+
+            regex tpl("\\(NULL,\\s*'.+',\\s*'(.+)'\\)(,|;)");
             for (vector<string>::iterator i = tokens.begin(); i != tokens.end(); ++i)
             {
                 string line = *i;
-                for (std::sregex_iterator j = std::sregex_iterator(line.begin(), line.end(), tpl); j != std::sregex_iterator(); ++j)
+                for (sregex_iterator j = sregex_iterator(line.begin(), line.end(), tpl); j != sregex_iterator(); ++j)
                 {
-                    std::smatch match = *j;
+                    smatch match = *j;
                     string actionLine = match[1].str();
                     if (!actionLine.empty())
                         this->actionLines.push_back(actionLine);

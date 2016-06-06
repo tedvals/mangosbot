@@ -465,13 +465,13 @@ void PlayerbotAI::DoNextAction(int depth, bool instantonly, bool noflee)
     {
         bot->m_movementInfo.SetMovementFlags((MovementFlags)(MOVEMENTFLAG_FLYING|MOVEMENTFLAG_CAN_FLY));
 
-        bot->SetSpeed(MOVE_FLIGHT, 1.0f, true);
-        bot->SetSpeed(MOVE_RUN, 1.0f, true);
+        bot->SetSpeed(MOVE_FLIGHT, 1.0f);
+        bot->SetSpeed(MOVE_RUN, 1.0f);
 
         if (master)
         {
-            bot->SetSpeed(MOVE_FLIGHT, master->GetSpeedRate(MOVE_FLIGHT), true);
-            bot->SetSpeed(MOVE_RUN, master->GetSpeedRate(MOVE_FLIGHT), true);
+            bot->SetSpeed(MOVE_FLIGHT, master->GetSpeedRate(MOVE_FLIGHT));
+            bot->SetSpeed(MOVE_RUN, master->GetSpeedRate(MOVE_FLIGHT));
         }
 
     }
@@ -1097,6 +1097,9 @@ bool PlayerbotAI::CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell,
 
     if (checkHasSpell && !bot->HasSpell(spellid))
         return false;
+//?
+    if (bot->GetSpellHistory()->HasCooldown(spellid))
+       return false;
 
     SpellInfo const *spellInfo = sSpellMgr->GetSpellInfo(spellid );
     if (!spellInfo)
@@ -1711,6 +1714,22 @@ string PlayerbotAI::HandleRemoteCommand(string command)
     else if (command == "position")
     {
         ostringstream out; out << bot->GetPositionX() << " " << bot->GetPositionY() << " " << bot->GetPositionZ() << " " << bot->GetMapId() << " " << bot->GetOrientation();
+        return out.str();
+    }
+    else if (command == "tpos")
+    {
+        Unit* target = *GetAiObjectContext()->GetValue<Unit*>("current target");
+        if (!target) {
+            return "";
+        }
+
+        ostringstream out; out << target->GetPositionX() << " " << target->GetPositionY() << " " << target->GetPositionZ() << " " << target->GetMapId() << " " << target->GetOrientation();
+        return out.str();
+    }
+    else if (command == "movement")
+    {
+        LastMovement& data = *GetAiObjectContext()->GetValue<LastMovement&>("last movement");
+        ostringstream out; out << data.lastMoveToX << " " << data.lastMoveToY << " " << data.lastMoveToZ << " " << bot->GetMapId() << " " << data.lastMoveToOri;
         return out.str();
     }
 	else if (command == "tpos")

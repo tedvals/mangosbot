@@ -2,13 +2,12 @@
 #include "playerbot.h"
 #include "PlayerbotAIConfig.h"
 #include "PlayerbotFactory.h"
-#include "../../database/Database/DatabaseEnv.h"
+#include "../../server/database/Database/DatabaseEnv.h"
 #include "PlayerbotAI.h"
 #include "../../server/game/Entities/Player/Player.h"
 #include "../../server/game/Guilds/Guild.h"
 #include "../../server/game/Guilds/GuildMgr.h"
 #include "RandomPlayerbotFactory.h"
-
 
 map<uint8, vector<uint8> > RandomPlayerbotFactory::availableRaces;
 
@@ -127,7 +126,6 @@ bool RandomPlayerbotFactory::CreateRandomBot(uint8 cls)
     CharSectionsEntry const* face = GetRandomCharSection(race, SECTION_TYPE_FACE, gender, skin->Color);
     CharSectionsEntry const* hair = GetRandomCharSection(race, SECTION_TYPE_HAIR, gender);
     CharSectionsEntry const* facialHair = GetRandomCharSection(race, SECTION_TYPE_FACIAL_HAIR, gender, hair->Color);
-
     uint8 outfitId = 0;
 
     WorldSession* session = new WorldSession(accountId, "rndbot", NULL, SEC_PLAYER, 2, 0, LOCALE_enUS, 0, false);
@@ -139,6 +137,7 @@ bool RandomPlayerbotFactory::CreateRandomBot(uint8 cls)
     }
 
     Player *player = new Player(session);
+
     CharacterCreateInfo cci;
     cci.Name = name;
     cci.Race = race;

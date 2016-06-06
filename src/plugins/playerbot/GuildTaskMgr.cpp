@@ -225,7 +225,6 @@ bool GuildTaskMgr::SendAdvertisement(uint32 owner, uint32 guildId)
     if (!leader)
         return false;
 
-
     uint32 validIn;
     uint32 itemTask = GetTaskValue(owner, guildId, "itemTask", &validIn);
     if (itemTask)
@@ -689,13 +688,9 @@ bool GuildTaskMgr::Reward(uint32 owner, uint32 guildId)
     uint32 itemId = sRandomItemMgr.GetRandomItem(RANDOM_ITEM_GUILD_TASK_REWARD);
     if (itemId)
     {
-        uint32 itemId = sRandomItemMgr.GetRandomItem(RANDOM_ITEM_GUILD_TASK_REWARD);
-        if (itemId)
-        {
-            Item* item = Item::CreateItem(itemId, 1, leader);
-            item->SaveToDB(trans);
-            draft.AddItem(item);
-        }
+        Item* item = Item::CreateItem(itemId, 1, leader);
+        item->SaveToDB(trans);
+        draft.AddItem(item);
     }
 
     draft.AddMoney(GetTaskValue(owner, guildId, "payment")).SendMailTo(trans, MailReceiver(player), MailSender(leader));

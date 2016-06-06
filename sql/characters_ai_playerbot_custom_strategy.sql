@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 55b583d1726fe70d55c4b9efab476d3fa0710ae4
 DROP TABLE IF EXISTS `ai_playerbot_custom_strategy`;
 
 CREATE TABLE `ai_playerbot_custom_strategy` (
@@ -17,4 +20,8 @@ INSERT INTO `ai_playerbot_custom_strategy` VALUES
 (NULL, 'say', 'low mana>say::low mana|99'),
 (NULL, 'say', 'tank aoe>say::taunt|99'),
 (NULL, 'say', 'medium aoe>say::aoe|99'),
+<<<<<<< HEAD
 (NULL, 'say', 'can loot>say::loot|99'); 
+=======
+(NULL, 'say', 'can loot>say::loot|99');
+>>>>>>> 55b583d1726fe70d55c4b9efab476d3fa0710ae4

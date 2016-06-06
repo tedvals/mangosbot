@@ -700,6 +700,10 @@ enum RBACPermissions
     RBAC_PERM_COMMAND_GUILD_SET_LEVEL                        = 1001,
     RBAC_PERM_COMMAND_GUILD_GIVE_XP                          = 1002,
     RBAC_PERM_COMMAND_DEBUG_BOUNDARY                         = 836,
+    RBAC_PERM_COMMAND_NPC_EVADE                              = 837,
+    RBAC_PERM_COMMAND_PET_LEVEL                              = 838,
+    RBAC_PERM_COMMAND_SERVER_SHUTDOWN_FORCE                  = 839,
+    RBAC_PERM_COMMAND_SERVER_RESTART_FORCE                   = 840,
 
     // custom permissions 1000+
     RBAC_PERM_BOT_ADD                                        = 1100,
@@ -718,7 +722,7 @@ enum RBACCommandResult
 
 typedef std::set<uint32> RBACPermissionContainer;
 
-class RBACPermission
+class TC_GAME_API RBACPermission
 {
     public:
         RBACPermission(uint32 id = 0, std::string const& name = ""):
@@ -753,7 +757,7 @@ class RBACPermission
  * - Granted permissions: through linked permissions and directly assigned
  * - Denied permissions: through linked permissions and directly assigned
  */
-class RBACData
+class TC_GAME_API RBACData
 {
     public:
         RBACData(uint32 id, std::string const& name, int32 realmId, uint8 secLevel = 255):
@@ -942,8 +946,8 @@ class RBACData
         /// Adds a list of permissions to another list
         void AddPermissions(RBACPermissionContainer const& permsFrom, RBACPermissionContainer& permsTo);
 
-        /// Removes a list of permissions to another list
-        void RemovePermissions(RBACPermissionContainer const& permsFrom, RBACPermissionContainer& permsTo);
+        /// Removes a list of permissions from another list
+        void RemovePermissions(RBACPermissionContainer& permsFrom, RBACPermissionContainer const& permsToRemove);
 
         /**
          * @name ExpandPermissions

@@ -102,7 +102,7 @@ void Engine::Init()
         strategy->InitMultipliers(multipliers);
         strategy->InitTriggers(triggers);
         Event emptyEvent;
-        MultiplyAndPush(strategy->getDefaultActions(), 0.0f, false, emptyEvent);
+        MultiplyAndPush(strategy->getDefaultActions(), 0.0f, false, emptyEvent, "default");
     }
 
 	if (testMode)
@@ -320,7 +320,7 @@ ActionResult Engine::ExecuteAction(string name)
     Event emptyEvent;
 
     result = ListenAndExecute(action, emptyEvent);
-    MultiplyAndPush(action->getContinuers(), 0.0f, false, emptyEvent);
+    MultiplyAndPush(action->getContinuers(), 0.0f, false, emptyEvent, "default");
     delete actionNode;
 	return result ? ACTION_RESULT_OK : ACTION_RESULT_FAILED;
 }

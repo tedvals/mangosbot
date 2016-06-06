@@ -167,6 +167,8 @@ Unit* SimpleCharmedPlayerAI::SelectAttackTarget() const
 void SimpleCharmedPlayerAI::UpdateAI(const uint32 /*diff*/)
 {
     Creature* charmer = me->GetCharmer() ? me->GetCharmer()->ToCreature() : nullptr;
+    if (!charmer)
+        return;
 
     //kill self if charm aura has infinite duration
     if (charmer->IsInEvadeMode())
@@ -175,7 +177,7 @@ void SimpleCharmedPlayerAI::UpdateAI(const uint32 /*diff*/)
         for (Player::AuraEffectList::const_iterator iter = auras.begin(); iter != auras.end(); ++iter)
             if ((*iter)->GetCasterGUID() == charmer->GetGUID() && (*iter)->GetBase()->IsPermanent())
             {
-                me->Kill(me);
+                me->KillSelf();
                 return;
             }
     }

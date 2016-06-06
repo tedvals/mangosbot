@@ -10,7 +10,11 @@ uint32 realmID;                                             ///< Id of the realm
 int main(int argc, char* argv[])
 {
 
+<<<<<<< HEAD
  //   std::string configError;
+=======
+    /*std::string configError;
+>>>>>>> 55b583d1726fe70d55c4b9efab476d3fa0710ae4
     if (!sConfigMgr->LoadInitial("worldserver.conf", configError))
     {
         printf("Error in config file: %s\n", configError.c_str());
@@ -19,19 +23,34 @@ int main(int argc, char* argv[])
 
     MySQL::Library_Init();
 
-    if (!WorldDatabase.Open(sConfigMgr->GetStringDefault("WorldDatabaseInfo", ""), 1, 1))
+    WorldDatabase.SetConnectionInfo(sConfigMgr->GetStringDefault("WorldDatabaseInfo", ""), 1, 1);
+    if (!WorldDatabase.Open())
     {
+<<<<<<< HEAD
         printf(("server.worldserver", "Cannot connect to world database");
+=======
+        printf("Cannot connect to world database");
+>>>>>>> 55b583d1726fe70d55c4b9efab476d3fa0710ae4
         return false;
     }
-    if (!CharacterDatabase.Open(sConfigMgr->GetStringDefault("CharacterDatabaseInfo", ""), 1, 1))
+    CharacterDatabase.SetConnectionInfo(sConfigMgr->GetStringDefault("CharacterDatabaseInfo", ""), 1, 1);
+    if (!CharacterDatabase.Open())
     {
+<<<<<<< HEAD
         printf(("server.worldserver", "Cannot connect to Character database");
+=======
+        printf("Cannot connect to Character database");
+>>>>>>> 55b583d1726fe70d55c4b9efab476d3fa0710ae4
         return false;
     }
-    if (!LoginDatabase.Open(sConfigMgr->GetStringDefault("LoginDatabaseInfo", ""), 1, 1))
+    LoginDatabase.SetConnectionInfo(sConfigMgr->GetStringDefault("LoginDatabaseInfo", ""), 1, 1);
+    if (!LoginDatabase.Open())
     {
+<<<<<<< HEAD
         printf(("server.worldserver", "Cannot connect to Login database");
+=======
+        printf("Cannot connect to Login database");
+>>>>>>> 55b583d1726fe70d55c4b9efab476d3fa0710ae4
         return false;
     }
 
@@ -45,6 +64,7 @@ int main(int argc, char* argv[])
      LoadDBCStores(dataPath);
 
      auctionbot.Init();
+*/
 
     //sPlayerbotAIConfig.Initialize();
     sPlayerbotAIConfig.enabled = true;

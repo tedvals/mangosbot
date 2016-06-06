@@ -34,7 +34,6 @@ bool UseMeetingStoneAction::Execute(Event event)
         return NULL;
 
     GameObject *gameObject = map->GetGameObject(guid);
-
     if (!gameObject)
         return false;
 

@@ -371,6 +371,10 @@ namespace ai
         {
             return CastMeleeSpellAction::isUseful();
         }
+        virtual NextAction** getPrerequisites()
+        {
+            return NULL;
+        }
     };
 
     class CastSerpentStingOnAttackerAction : public CastDebuffSpellOnAttackerAction

@@ -238,4 +238,8 @@ INSERT INTO `ai_playerbot_speech` VALUES
 (NULL, 'loot', 'I hope they carry tasties', 'say'),
 (NULL, 'loot', 'The gold is mine. I''l leave everyting, I promise', 'say'),
 (NULL, 'loot', 'No, I can''t resist', 'say'),
+<<<<<<< HEAD
 (NULL, 'loot', 'I want more!', 'say'); 
+=======
+(NULL, 'loot', 'I want more!', 'say');
+>>>>>>> 55b583d1726fe70d55c4b9efab476d3fa0710ae4

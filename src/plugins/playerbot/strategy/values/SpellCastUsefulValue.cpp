@@ -22,7 +22,7 @@ bool SpellCastUsefulValue::Calculate()
 		if (spell && spell->m_spellInfo->Id == spellid && spell->IsNextMeleeSwingSpell() && bot->HasUnitState(UNIT_STATE_MELEE_ATTACKING))
 			return false;
 	}
-else
+	else
 	{
         uint32 lastSpellId = AI_VALUE(LastSpellCast&, "last spell cast").id;
         if (spellid == lastSpellId)

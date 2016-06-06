@@ -8,34 +8,16 @@
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-file(GLOB_RECURSE sources_CommandLine CommandLine/*.cpp CommandLine/*.h)
-file(GLOB_RECURSE sources_RemoteAccess RemoteAccess/*.cpp RemoteAccess/*.h)
-file(GLOB_RECURSE sources_TCSoap TCSoap/*.cpp TCSoap/*.h)
-file(GLOB sources_localdir *.cpp *.h)
-
-if (USE_COREPCH)
-  set(worldserver_PCH_HDR PrecompiledHeaders/worldPCH.h)
-  set(worldserver_PCH_SRC PrecompiledHeaders/worldPCH.cpp)
-endif()
-
-set(worldserver_SRCS
-  ${worldserver_SRCS}
-  ${sources_CommandLine}
-  ${sources_RemoteAccess}
-  ${sources_TCSoap}
-  ${sources_localdir}
-)
+CollectSourceFiles(
+  ${CMAKE_CURRENT_SOURCE_DIR}
+  PRIVATE_SOURCES
+  # Exclude
+  ${CMAKE_CURRENT_SOURCE_DIR}/PrecompiledHeaders)
 
 if( WIN32 )
-  set(worldserver_SRCS
-    ${worldserver_SRCS}
-    ${sources_windows_Debugging}
-  )
+  list(APPEND PRIVATE_SOURCES ${sources_windows})
   if ( MSVC )
-    set(worldserver_SRCS
-      ${worldserver_SRCS}
-      worldserver.rc
-    )
+    list(APPEND PRIVATE_SOURCES worldserver.rc)
   endif()
 endif()
 
@@ -119,12 +101,16 @@ include_directories(
   ${OPENSSL_INCLUDE_DIR}
   ${VALGRIND_INCLUDE_DIR}
 )
+if (USE_COREPCH)
+  set(PRIVATE_PCH_HEADER PrecompiledHeaders/worldPCH.h)
+  set(PRIVATE_PCH_SOURCE PrecompiledHeaders/worldPCH.cpp)
+endif()
 
 GroupSources(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(worldserver
-  ${worldserver_SRCS}
-  ${worldserver_PCH_SRC}
+  ${PRIVATE_PCH_SOURCE}
+  ${PRIVATE_SOURCES}
 )
 
 if( NOT WIN32 )
@@ -140,26 +126,34 @@ endif()
 set_target_properties(worldserver PROPERTIES LINK_FLAGS "${worldserver_LINK_FLAGS}")
 
 target_link_libraries(worldserver
-  game
+  PUBLIC
   plugins
-  common
-  scripts
-  shared
-  database
-  common
-  g3dlib
-  gsoap
-  Detour
-  format
-  ${JEMALLOC_LIBRARY}
-  ${READLINE_LIBRARY}
-  ${TERMCAP_LIBRARY}
-  ${MYSQL_LIBRARY}
-  ${OPENSSL_LIBRARIES}
-  ${ZLIB_LIBRARIES}
-  ${CMAKE_THREAD_LIBS_INIT}
-  ${Boost_LIBRARIES}
-)
+    scripts
+    game
+    gsoap
+    readline)
+
+CollectIncludeDirectories(
+  ${CMAKE_CURRENT_SOURCE_DIR}
+  PUBLIC_INCLUDES
+  # Exclude
+  ${CMAKE_CURRENT_SOURCE_DIR}/PrecompiledHeaders)
+
+target_include_directories(worldserver
+  PUBLIC
+    ${PUBLIC_INCLUDES}
+  PRIVATE
+    ${CMAKE_CURRENT_BINARY_DIR})
+
+set_target_properties(worldserver
+    PROPERTIES
+      FOLDER
+        "server")
+
+# Add all dynamic projects as dependency to the worldserver
+if (WORLDSERVER_DYNAMIC_SCRIPT_MODULES_DEPENDENCIES)
+  add_dependencies(worldserver ${WORLDSERVER_DYNAMIC_SCRIPT_MODULES_DEPENDENCIES})
+endif()
 
 if( WIN32 )
   if ( MSVC )
@@ -185,5 +179,5 @@ endif()
 
 # Generate precompiled header
 if( USE_COREPCH )
-  add_cxx_pch(worldserver ${worldserver_PCH_HDR} ${worldserver_PCH_SRC})
+  add_cxx_pch(worldserver ${PRIVATE_PCH_HEADER} ${PRIVATE_PCH_SOURCE})
 endif()

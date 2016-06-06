@@ -81,8 +81,8 @@ void PlayerbotFactory::Prepare()
     bot->SetFlag(PLAYER_FLAGS, PLAYER_FLAGS_HIDE_CLOAK);
 }
 
- void PlayerbotFactory::Randomize(bool incremental)
- {
+void PlayerbotFactory::Randomize(bool incremental)
+{
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Preparing to randomize...");
     Prepare();
 
@@ -91,6 +91,7 @@ void PlayerbotFactory::Prepare()
     ClearSpells();
     ClearInventory();
     bot->SaveToDB();
+
 
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing spells (step 1)...");
     InitAvailableSpells();
@@ -149,11 +150,13 @@ void PlayerbotFactory::Prepare()
 
 	sLog->outMessage("playerbot", LOG_LEVEL_INFO, "Initializing quests...");
 
-	InitQuests();
+	    InitQuests();
 	// quest rewards boost bot level, so reduce back
-	bot->SetLevel(level);
-	CancelAuras();
-	bot->SaveToDB();
+	    bot->SetLevel(level);
+	    ClearInventory();
+	    bot->SetUInt32Value(PLAYER_XP, 0);
+	    CancelAuras();
+	    bot->SaveToDB();
  }
 
 void PlayerbotFactory::InitPet()

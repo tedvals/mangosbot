@@ -538,7 +538,6 @@ int AhBot::AddAuction(int auction, Category* category, ItemTemplate const* proto
     auctionEntry->owner = owner;
     auctionEntry->startbid = bidPrice;
     auctionEntry->buyout = buyoutPrice;
-    //auctionEntry->auctioneer = auctioneers[auction];
     auctionEntry->bidder = 0;
     auctionEntry->bid = 0;
     auctionEntry->deposit = 0;

@@ -45,7 +45,10 @@ protected:
         assertActions(">S:runaway>S:runaway");
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 55b583d1726fe70d55c4b9efab476d3fa0710ae4
     void stay()
     {
 		engine->addStrategy("stay");

@@ -48,7 +48,7 @@ bool MovementAction::MoveTo(uint32 mapId, float x, float y, float z)
 
     float distance = bot->GetDistance2d(x, y);
 
-    if (distance > sPlayerbotAIConfig.contactDistance)
+	if (distance > sPlayerbotAIConfig.contactDistance)
     {
         WaitForReach(distance);
 

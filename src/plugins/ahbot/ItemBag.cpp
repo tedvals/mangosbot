@@ -6,9 +6,9 @@
 #include "AhBotConfig.h"
 #include "../DataStores/DBCStructure.h"
 #include "../../common/Logging/Log.h"
-#include "../../database/Database/QueryResult.h"
-#include "../../database/Database/DatabaseEnv.h"
-#include "../DataStores/DBCStructure.h"
+#include "../../server/database/Database/QueryResult.h"
+#include "../../server/database/Database/DatabaseEnv.h"
+#include "../../shared/DataStores/DBCStore.h"
 #include "../AuctionHouse/AuctionHouseMgr.h"
 
 using namespace ahbot;

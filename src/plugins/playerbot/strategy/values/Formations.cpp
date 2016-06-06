@@ -294,8 +294,8 @@ bool SetFormationAction::Execute(Event event)
     {
         if (value->Get()) delete value->Get();
         value->Set(new ArrowFormation(ai));
-    }
-     else if (formation == "near" || formation == "default")
+    }     
+    else if (formation == "near" || formation == "default")
     {
         if (value->Get()) delete value->Get();
         value->Set(new NearFormation(ai));
@@ -304,7 +304,7 @@ bool SetFormationAction::Execute(Event event)
     {
         ostringstream str; str << "Invalid formation: |cffff0000" << formation;
         ai->TellMaster(str);
-        ai->TellMaster("Please set to any of:|cffffffff melee (default), queue, chaos, circle, line, shield, arrow,near");
+        ai->TellMaster("Please set to any of:|cffffffff melee (default), queue, chaos, circle, line, shield, arrow, near");
         return false;
     }
 

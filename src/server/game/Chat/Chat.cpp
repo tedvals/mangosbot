@@ -35,18 +35,19 @@
 #include "LuaEngine.h"
 #endif
 
-bool ChatHandler::load_command_table = true;
+// Lazy loading of the command table cache from commands and the
+// ScriptMgr should be thread safe since the player commands,
+// cli commands and ScriptMgr updates are all dispatched one after
+// one inside the world update loop.
+static Optional<std::vector<ChatCommand>> commandTableCache;
 
 std::vector<ChatCommand> const& ChatHandler::getCommandTable()
 {
-    static std::vector<ChatCommand> commandTableCache;
-
-    if (LoadCommandTable())
+    if (!commandTableCache)
     {
-        SetLoadCommandTable(false);
-
-        std::vector<ChatCommand> cmds = sScriptMgr->GetChatCommands();
-        commandTableCache.swap(cmds);
+        // We need to initialize this at top since SetDataForCommandInTable
+        // calls getCommandTable() recursively.
+        commandTableCache = sScriptMgr->GetChatCommands();
 
         PreparedStatement* stmt = WorldDatabase.GetPreparedStatement(WORLD_SEL_COMMANDS);
         PreparedQueryResult result = WorldDatabase.Query(stmt);
@@ -57,13 +58,18 @@ std::vector<ChatCommand> const& ChatHandler::getCommandTable()
                 Field* fields = result->Fetch();
                 std::string name = fields[0].GetString();
 
-                SetDataForCommandInTable(commandTableCache, name.c_str(), fields[1].GetUInt16(), fields[2].GetString(), name);
+                SetDataForCommandInTable(*commandTableCache, name.c_str(), fields[1].GetUInt16(), fields[2].GetString(), name);
             }
             while (result->NextRow());
         }
     }
 
-    return commandTableCache;
+    return *commandTableCache;
+}
+
+void ChatHandler::invalidateCommandTable()
+{
+    commandTableCache.reset();
 }
 
 char const* ChatHandler::GetTrinityString(uint32 entry) const
@@ -111,7 +117,7 @@ bool ChatHandler::HasLowerSecurityAccount(WorldSession* target, uint32 target_ac
     if (target)
         target_sec = target->GetSecurity();
     else if (target_account)
-        target_sec = AccountMgr::GetSecurity(target_account, realmID);
+        target_sec = AccountMgr::GetSecurity(target_account, realm.Id.Realm);
     else
         return true;                                        // caller must report error for (target == NULL && target_account == 0)
 

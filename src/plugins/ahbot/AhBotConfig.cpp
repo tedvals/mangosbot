@@ -26,7 +26,8 @@ void LoadSet(string value, T &res)
 bool AhBotConfig::Initialize()
 {
     string error;
-    if (!config.LoadInitial("ahbot.conf", error))
+	vector<string> args;
+    if (!config.LoadInitial("ahbot.conf", args, error))
     {
         sLog->outMessage("ahbot", LOG_LEVEL_INFO, "AhBot is Disabled. Unable to open configuration file ahbot.conf");
         return false;
@@ -40,10 +41,10 @@ bool AhBotConfig::Initialize()
     guid = (uint64)config.GetIntDefault("AhBot.GUID", 0);
     updateInterval = config.GetIntDefault("AhBot.UpdateIntervalInSeconds", 300);
     historyDays = config.GetIntDefault("AhBot.History.Days", 30);
-    itemBuyMinInterval = config.GetIntDefault("AhBot.ItemBuyMinInterval", 7200);
-    itemBuyMaxInterval = config.GetIntDefault("AhBot.ItemBuyMaxInterval", 28800);
-    itemSellMinInterval = config.GetIntDefault("AhBot.ItemSellMinInterval", 7200);
-    itemSellMaxInterval = config.GetIntDefault("AhBot.ItemSellMaxInterval", 28800);
+    itemBuyMinInterval = config.GetIntDefault("AhBot.ItemBuyMinInterval", 600);
+    itemBuyMaxInterval = config.GetIntDefault("AhBot.ItemBuyMaxInterval", 7200);
+    itemSellMinInterval = config.GetIntDefault("AhBot.ItemSellMinInterval", 600);
+    itemSellMaxInterval = config.GetIntDefault("AhBot.ItemSellMaxInterval", 7200);
     maxSellInterval = config.GetIntDefault("AhBot.MaxSellInterval", 3600 * 8);
     alwaysAvailableMoney = config.GetIntDefault("AhBot.AlwaysAvailableMoney", 200000);
     priceMultiplier = config.GetFloatDefault("AhBot.PriceMultiplier", 1.0f);

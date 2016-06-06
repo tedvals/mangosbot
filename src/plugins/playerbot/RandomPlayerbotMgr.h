@@ -139,6 +139,7 @@ class RandomPlayerbotMgr1 : public PlayerbotHolder
         vector<Player*> players;
 
         int processTicks;
+		map<uint8, vector<WorldLocation> > locsPerLevelCache;
 };
 
 #define sRandomPlayerbotMgr1 RandomPlayerbotMgr1::instance()
