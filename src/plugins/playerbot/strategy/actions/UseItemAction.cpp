@@ -252,7 +252,7 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
         break;
     }
 
-    if (item->GetTemplate()->Flags & ITEM_PROTO_FLAG_OPENABLE)
+	if (item->GetTemplate()->Flags & ITEM_PROTO_FLAG_HAS_LOOT)
     {
         // Open quest item in inventory, containing related items (e.g Gnarlpine necklace, containing Tallonkai's Jewel)
         WorldPacket* const packet = new WorldPacket(CMSG_OPEN_ITEM, 2);
