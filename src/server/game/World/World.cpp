@@ -1333,6 +1333,8 @@ void World::LoadConfigSettings(bool reload)
 
     m_bool_configs[CONFIG_CALCULATE_CREATURE_ZONE_AREA_DATA] = sConfigMgr->GetBoolDefault("Calculate.Creature.Zone.Area.Data", false);
     m_bool_configs[CONFIG_CALCULATE_GAMEOBJECT_ZONE_AREA_DATA] = sConfigMgr->GetBoolDefault("Calculate.Gameoject.Zone.Area.Data", false);
+	//Custom Rules
+	m_bool_configs[CONFIG_CUSTOM_RULES] = sConfigMgr->GetBoolDefault("Custom.CustomRules", false);
 	//Friendly Fire
 	m_bool_configs[CONFIG_FRIENDLY_FIRE] = sConfigMgr->GetBoolDefault("Custom.FriendlyFire", false);
 	//Resistance Penaty

@@ -802,23 +802,186 @@ void Player::UpdateArmorPenetration(int32 amount)
     SetUInt32Value(PLAYER_FIELD_COMBAT_RATING_1 + CR_ARMOR_PENETRATION, amount);
 }
 
+//custom
 void Player::UpdateMeleeHitChances()
 {
-    m_modMeleeHitChance = (float)GetTotalAuraModifier(SPELL_AURA_MOD_HIT_CHANCE);
-    m_modMeleeHitChance += GetRatingBonusValue(CR_HIT_MELEE);
+	if (sWorld->getBoolConfig(CONFIG_CUSTOM_RULES))
+	{
+		float health = GetHealthPct();
+		float penalty;
+
+		if (health >= 90.f)
+		{
+			penalty = 1.05f;
+			//Remove Wounded Auras
+			if (HasAura(95001))
+				RemoveAura(95001);
+			if (HasAura(95002))
+				RemoveAura(95002);
+			//Add Empowered Aura
+			if (!HasAura(95000))
+				CastSpell(this, 95000, true);
+		}
+		else if (health < 20.f)
+		{
+			penalty = 0.8f;
+			//Remove Empowered - Wounded Auras
+			if (HasAura(95000))
+				RemoveAura(95000);
+			if (HasAura(95001))
+				RemoveAura(95001);
+			//Add Grevious Wounded Aura
+			if (!HasAura(95002))
+				CastSpell(this, 95002, true);
+		}
+		else
+		{
+			penalty = 1.f - (health / 5);
+
+			//Remove Empowered - Grevious Wounded Auras
+			if (HasAura(95000))
+				RemoveAura(95000);
+			if (HasAura(95002))
+				RemoveAura(95002);
+			//Add Wounded Aura
+			if (!HasAura(95001))
+				CastSpell(this, 95001, true);
+		}
+
+		m_modMeleeHitChance = penalty*(float)GetTotalAuraModifier(SPELL_AURA_MOD_HIT_CHANCE);
+		m_modMeleeHitChance += penalty*GetRatingBonusValue(CR_HIT_MELEE);
+	}
+	else
+	{
+		m_modMeleeHitChance = (float)GetTotalAuraModifier(SPELL_AURA_MOD_HIT_CHANCE);
+		m_modMeleeHitChance += GetRatingBonusValue(CR_HIT_MELEE);
+	}
+
+	//Custom
 }
 
 void Player::UpdateRangedHitChances()
 {
-    m_modRangedHitChance = (float)GetTotalAuraModifier(SPELL_AURA_MOD_HIT_CHANCE);
-    m_modRangedHitChance += GetRatingBonusValue(CR_HIT_RANGED);
-}
+	if (sWorld->getBoolConfig(CONFIG_CUSTOM_RULES))
+	{
+		float health = GetHealthPct();
+		float penalty;
 
+		if (health >= 90.f)
+		{
+			penalty = 1.05f;
+			//Remove Wounded Auras
+			if (HasAura(95001))
+				RemoveAura(95001);
+			if (HasAura(95002))
+				RemoveAura(95002);
+			//Add Empowered Aura
+			if (!HasAura(95000))
+				CastSpell(this, 95000, true);
+		}
+		else if (health < 20.f)
+		{
+			penalty = 0.8f;
+			//Remove Empowered - Grevious Wounded Auras
+			if (HasAura(95000))
+				RemoveAura(95000);
+			if (HasAura(95002))
+				RemoveAura(95002);
+			//Add Wounded Aura
+			if (!HasAura(95001))
+				CastSpell(this, 95001, true);
+		}
+		else
+		{
+			penalty = 1.f - (health / 5);
+
+			//Remove Woundeded - Grevious Wounded Auras
+			if (HasAura(95000))
+				RemoveAura(95000);
+			if (HasAura(95001))
+				RemoveAura(95001);
+			//Add Grevious Wounded Aura
+			if (!HasAura(95002))
+				CastSpell(this, 95002, true);
+		}
+
+		m_modRangedHitChance = penalty*(float)GetTotalAuraModifier(SPELL_AURA_MOD_HIT_CHANCE);
+		m_modRangedHitChance += penalty*GetRatingBonusValue(CR_HIT_RANGED);
+	}
+	else
+	{
+		m_modRangedHitChance = (float)GetTotalAuraModifier(SPELL_AURA_MOD_HIT_CHANCE);
+		m_modRangedHitChance += GetRatingBonusValue(CR_HIT_RANGED);
+	}
+}
+//custom
 void Player::UpdateSpellHitChances()
 {
-    m_modSpellHitChance = (float)GetTotalAuraModifier(SPELL_AURA_MOD_SPELL_HIT_CHANCE);
-    m_modSpellHitChance += GetRatingBonusValue(CR_HIT_SPELL);
+	if (sWorld->getBoolConfig(CONFIG_CUSTOM_RULES))
+	{
+		float health = GetHealthPct();
+		float penalty;
+
+		if (health >= 90.f)
+		{
+			penalty = 1.05f;
+			//Remove Wounded Auras
+			if (HasAura(95001))
+				RemoveAura(95001);
+			if (HasAura(95002))
+				RemoveAura(95002);
+			//Add Empowered Aura
+			if (!HasAura(95000))
+				CastSpell(this, 95000, true);
+		}
+		else if (getClass() == CLASS_WARLOCK && health >= 50.f)
+		{
+			penalty = .95f;
+			//Remove Empowered - Grevious Wounded Auras
+			if (HasAura(95000))
+				RemoveAura(95000);
+			if (HasAura(95002))
+				RemoveAura(95002);
+			//Add Wounded Aura
+			if (!HasAura(95001))
+				CastSpell(this, 95001, true);
+		}
+		else if (health < 20.f)
+		{
+			penalty = 0.8f;
+			//Remove Empowered - Grevious Wounded Auras
+			if (HasAura(95000))
+				RemoveAura(95000);
+			if (HasAura(95002))
+				RemoveAura(95002);
+			//Add Wounded Aura
+			if (!HasAura(95001))
+				CastSpell(this, 95001, true);
+		}
+		else
+		{
+			penalty = 1.f - (health / 5);
+
+			//Remove Woundeded - Grevious Wounded Auras
+			if (HasAura(95000))
+				RemoveAura(95000);
+			if (HasAura(95001))
+				RemoveAura(95001);
+			//Add Grevious Wounded Aura
+			if (!HasAura(95002))
+				CastSpell(this, 95002, true);
+		}
+
+		m_modSpellHitChance = penalty*(float)GetTotalAuraModifier(SPELL_AURA_MOD_SPELL_HIT_CHANCE);
+		m_modSpellHitChance += penalty*GetRatingBonusValue(CR_HIT_SPELL);
+	}
+	else
+	{
+		m_modSpellHitChance = (float)GetTotalAuraModifier(SPELL_AURA_MOD_SPELL_HIT_CHANCE);
+		m_modSpellHitChance += GetRatingBonusValue(CR_HIT_SPELL);
+	}
 }
+
 
 void Player::UpdateAllSpellCritChances()
 {
