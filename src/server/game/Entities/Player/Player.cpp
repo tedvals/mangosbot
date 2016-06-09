@@ -16,7 +16,6 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../../../scripts/Custom/Transmog/Transmogrification.h"
 #include "Player.h"
 #include "AccountMgr.h"
 #include "AchievementMgr.h"
@@ -86,6 +85,8 @@
 // Playerbot mod:
 #include "../../../../plugins/playerbot/playerbot.h"
 #include "../../../../plugins/playerbot/GuildTaskMgr.h"
+
+#include "Transmogrification.h"
 
 #ifdef ELUNA
 #include "LuaEngine.h"

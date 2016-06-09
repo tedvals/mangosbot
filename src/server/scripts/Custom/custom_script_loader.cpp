@@ -20,6 +20,21 @@
 
 // The name of this function should match:
 // void Add${NameOfDirectory}Scripts()
+
+void AddSC_Transmogrification();
+void AddSC_REFORGER_NPC();
+
+void AddSC_GOMove_commandscript();
+void AddSC_MoveBot_commandscript();
+// GuildHouse NPC
+void    AddSC_guildmaster();
+
 void AddCustomScripts()
 {
+	AddSC_Transmogrification();
+	AddSC_REFORGER_NPC();
+	AddSC_GOMove_commandscript();
+	AddSC_MoveBot_commandscript();
+	// GuildHouse NPC
+	AddSC_guildmaster();
 }
