@@ -214,6 +214,12 @@ bool Player::UpdateAllStats()
     UpdateExpertise(BASE_ATTACK);
     UpdateExpertise(OFF_ATTACK);
     RecalculateRating(CR_ARMOR_PENETRATION);
+
+	// custom
+	float bonus = 0.f;
+	if (sWorld->getBoolConfig(CONFIG_CUSTOM_RULES))
+		bonus = CalculateBonusResistance();
+
     UpdateAllResistances();
 
     return true;
@@ -223,6 +229,34 @@ void Player::ApplySpellPenetrationBonus(int32 amount, bool apply)
 {
     ApplyModInt32Value(PLAYER_FIELD_MOD_TARGET_RESISTANCE, -amount, apply);
     m_spellPenetrationItemMod += apply ? amount : -amount;
+}
+
+//custom here
+float Player::CalculateBonusResistance()
+{
+	float bonusResistance = 0.0f;
+
+	for (uint8 school = SPELL_SCHOOL_HOLY; school < MAX_SPELL_SCHOOL; ++school)
+	{
+		float value = 0.0f;
+		UnitMods unitMod = UnitMods(UNIT_MOD_RESISTANCE_START + school);
+
+		value = GetModifierValue(unitMod, BASE_VALUE);
+		value *= GetModifierValue(unitMod, BASE_PCT);
+		value += GetModifierValue(unitMod, TOTAL_VALUE);
+
+		AuraEffectList const& mResbyIntellect = GetAuraEffectsByType(SPELL_AURA_MOD_RESISTANCE_OF_STAT_PERCENT);
+		for (AuraEffectList::const_iterator i = mResbyIntellect.begin(); i != mResbyIntellect.end(); ++i)
+		{
+			if ((*i)->GetMiscValue() & (1 << (school - 1)))
+				value += int32(GetStat(Stats((*i)->GetMiscValueB())) * (*i)->GetAmount() / 100.0f);
+		}
+
+		value *= GetModifierValue(unitMod, TOTAL_PCT);
+		bonusResistance += (value / 4);
+	}
+
+	return bonusResistance;
 }
 
 void Player::UpdateResistances(uint32 school)

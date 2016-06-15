@@ -1750,6 +1750,9 @@ class TC_GAME_API Player : public Unit, public GridObject<Player>
         bool UpdateStats(Stats stat) override;
         bool UpdateAllStats() override;
         void ApplySpellPenetrationBonus(int32 amount, bool apply);
+		//custom
+		float CalculateBonusResistance();
+
         void UpdateResistances(uint32 school) override;
         void UpdateArmor() override;
         void UpdateMaxHealth() override;
