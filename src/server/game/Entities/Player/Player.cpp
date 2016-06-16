@@ -12275,7 +12275,8 @@ void Player::RemoveItem(uint8 bag, uint8 slot, bool update)
                 // remove item dependent auras and casts (only weapon and armor slots)
                 if (slot < EQUIPMENT_SLOT_END)
                 {
-                    RemoveItemDependentAurasAndCasts(pItem);
+                    if (update)
+                        RemoveItemDependentAurasAndCasts(pItem);
 
                     // remove held enchantments, update expertise
                     if (slot == EQUIPMENT_SLOT_MAINHAND)
@@ -15196,6 +15197,8 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
 
     SendQuestUpdate(quest_id);
 
+    SendQuestGiverStatusMultiple();
+
     //lets remove flag for delayed teleports
     SetCanDelayTeleport(false);
 }
@@ -16737,6 +16740,50 @@ void Player::SendQuestUpdateAddPlayer(Quest const* quest, uint16 old_count, uint
     uint16 log_slot = FindQuestSlot(quest->GetQuestId());
     if (log_slot < MAX_QUEST_LOG_SIZE)
         SetQuestSlotCounter(log_slot, QUEST_PVP_KILL_SLOT, GetQuestSlotCounter(log_slot, QUEST_PVP_KILL_SLOT) + add_count);
+}
+
+void Player::SendQuestGiverStatusMultiple()
+{
+    uint32 count = 0;
+
+    WorldPacket data(SMSG_QUESTGIVER_STATUS_MULTIPLE, 4);
+    data << uint32(count);                                  // placeholder
+
+    for (auto itr = m_clientGUIDs.begin(); itr != m_clientGUIDs.end(); ++itr)
+    {
+        uint32 questStatus = DIALOG_STATUS_NONE;
+
+        if (itr->IsAnyTypeCreature())
+        {
+            // need also pet quests case support
+            Creature* questgiver = ObjectAccessor::GetCreatureOrPetOrVehicle(*this, *itr);
+            if (!questgiver || questgiver->IsHostileTo(this))
+                continue;
+            if (!questgiver->HasFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_QUESTGIVER))
+                continue;
+
+            questStatus = GetQuestDialogStatus(questgiver);
+
+            data << uint64(questgiver->GetGUID());
+            data << uint8(questStatus);
+            ++count;
+        }
+        else if (itr->IsGameObject())
+        {
+            GameObject* questgiver = GetMap()->GetGameObject(*itr);
+            if (!questgiver || questgiver->GetGoType() != GAMEOBJECT_TYPE_QUESTGIVER)
+                continue;
+
+            questStatus = GetQuestDialogStatus(questgiver);
+
+            data << uint64(questgiver->GetGUID());
+            data << uint8(questStatus);
+            ++count;
+        }
+    }
+
+    data.put<uint32>(0, count);                             // write real count
+    GetSession()->SendPacket(&data);
 }
 
 bool Player::HasPvPForcingQuest() const
@@ -24183,6 +24230,7 @@ void Player::SetViewpoint(WorldObject* target, bool apply)
 
         if (target->isType(TYPEMASK_UNIT) && target != GetVehicleBase())
             static_cast<Unit*>(target)->AddPlayerToVision(this);
+        SetSeer(target);
     }
     else
     {
@@ -24198,7 +24246,7 @@ void Player::SetViewpoint(WorldObject* target, bool apply)
             static_cast<Unit*>(target)->RemovePlayerFromVision(this);
 
         //must immediately set seer back otherwise may crash
-        m_seer = this;
+        SetSeer(this);
 
         //WorldPacket data(SMSG_CLEAR_FAR_SIGHT_IMMEDIATE, 0);
         //GetSession()->SendPacket(&data);
