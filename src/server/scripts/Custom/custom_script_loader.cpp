@@ -28,6 +28,7 @@ void AddSC_GOMove_commandscript();
 void AddSC_MoveBot_commandscript();
 // GuildHouse NPC
 void    AddSC_guildmaster();
+void AddSC_LearnSpellsOnLevelUp();
 
 void AddCustomScripts()
 {
@@ -37,4 +38,5 @@ void AddCustomScripts()
 	AddSC_MoveBot_commandscript();
 	// GuildHouse NPC
 	AddSC_guildmaster();
+	AddSC_LearnSpellsOnLevelUp();
 }

@@ -13697,10 +13697,6 @@ Player* Unit::GetPlayerMover() const
     return nullptr;
 }
 
-bool Unit::isFrozen() const
-{
-    return HasAuraState(AURA_STATE_FROZEN);
-}
 
 struct ProcTriggeredData
 {
