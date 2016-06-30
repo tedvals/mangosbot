@@ -196,6 +196,7 @@ namespace ai
             creators["item usage"] = &ValueContext::item_usage;
             creators["speed"] = &ValueContext::speed;
             creators["last said"] = &ValueContext::last_said;
+            creators["last emote"] = &ValueContext::last_emote;
         }
 
     private:
@@ -324,5 +325,6 @@ namespace ai
         static UntypedValue* enemy_healer_target(PlayerbotAI* ai) { return new EnemyHealerTargetValue(ai); }
         static UntypedValue* speed(PlayerbotAI* ai) { return new SpeedValue(ai); }
         static UntypedValue* last_said(PlayerbotAI* ai) { return new LastSaidValue(ai); }
+        static UntypedValue* last_emote(PlayerbotAI* ai) { return new LastEmoteValue(ai); }
     };
 };
