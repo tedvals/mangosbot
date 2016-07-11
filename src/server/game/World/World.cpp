@@ -1351,6 +1351,8 @@ void World::LoadConfigSettings(bool reload)
 	// Gain Honor for elite
 	m_bool_configs[CONFIG_GAIN_HONOR_GUARD] = sConfigMgr->GetBoolDefault("Custom.GainHonorOnGuardKill", false);
 	m_bool_configs[CONFIG_GAIN_HONOR_ELITE] = sConfigMgr->GetBoolDefault("Custom.GainHonorOnEliteKill", false);
+    // prevent character rename on character customization
+    m_bool_configs[CONFIG_PREVENT_RENAME_CUSTOMIZATION] = sConfigMgr->GetBoolDefault("PreventRenameCharacterOnCustomization", false);
 
     // call ScriptMgr if we're reloading the configuration
     if (reload)

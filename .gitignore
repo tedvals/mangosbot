@@ -19,6 +19,10 @@ CMakeLists.txt.user
 /cmake/
 nbproject/*
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 workspace
 >>>>>>> 55b583d1726fe70d55c4b9efab476d3fa0710ae4
+=======
+.idea/*
+>>>>>>> baf54cff3be034e98874f2e2298f6164f826e2ae
