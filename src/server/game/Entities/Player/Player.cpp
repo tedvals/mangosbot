@@ -24860,7 +24860,7 @@ void Player::_LoadSkills(PreparedQueryResult result)
             }
 
             uint16 skillStep = 0;
-            if (SkillTiersEntry const* skillTier = sSkillTiersStore.LookupEntry(skill)
+            if (SkillTiersEntry const* skillTier = sSkillTiersStore.LookupEntry(skill))
             {
                 for (uint32 i = 0; i < MAX_SKILL_STEP; ++i)
                 {
