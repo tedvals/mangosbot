@@ -16,4 +16,8 @@ void GenericWarriorNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trig
     triggers.push_back(new TriggerNode(
         "vigilance",
         NextAction::array(0, new NextAction("vigilance on master", 21.0f), NULL)));
+
+	triggers.push_back(new TriggerNode(
+		"in battleground without flag",
+		NextAction::array(0, new NextAction("mount", 1.0f), NULL)));
 }

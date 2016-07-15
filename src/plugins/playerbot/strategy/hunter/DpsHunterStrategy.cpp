@@ -131,6 +131,14 @@ void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 {
     GenericHunterStrategy::InitTriggers(triggers);
 
+	triggers.push_back(new TriggerNode(
+		"enemy in melee range",
+		NextAction::array(0, new NextAction("freezing trap", ACTION_HIGH + 7), NULL)));
+
+	triggers.push_back(new TriggerNode(
+		"enemy too close for spell",
+		NextAction::array(0, new NextAction("wing clip", ACTION_HIGH + 6), new NextAction("flee", ACTION_HIGH + 5), new NextAction("concussive shot", ACTION_HIGH + 3), NULL)));
+
     triggers.push_back(new TriggerNode(
         "black arrow",
         NextAction::array(0, new NextAction("black arrow", ACTION_NORMAL + 6), NULL)));
@@ -145,12 +153,8 @@ void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "hunters pet low health",
-        NextAction::array(0, new NextAction("mend pet", ACTION_HIGH + 4), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "enemy in melee range",
-        NextAction::array(0, new NextAction("freezing trap", ACTION_HIGH + 4), NULL)));
-
+        NextAction::array(0, new NextAction("mend pet", ACTION_HIGH + 1), NULL)));
+    
     triggers.push_back(new TriggerNode(
         "hunter's mark",
         NextAction::array(0, new NextAction("hunter's mark", ACTION_HIGH + 9), NULL)));
@@ -161,7 +165,7 @@ void DpsHunterStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "medium threat",
-        NextAction::array(0, new NextAction("intimidation", ACTION_HIGH + 7), NULL)));
+        NextAction::array(0, new NextAction("intimidation", ACTION_HIGH + 2), NULL)));
 
      triggers.push_back(new TriggerNode(
         "target critical health",

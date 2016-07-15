@@ -70,7 +70,7 @@ bool AttackAction::Attack(Unit* target)
         if (verbose) ai->TellMaster(msg.str());
         return false;
     }
-    if (!bot->IsWithinLOSInMap(target))
+	if( !bot->InBattleground() && !bot->IsWithinLOSInMap(target))
     {
         msg << " is not on my sight";
         if (verbose) ai->TellMaster(msg.str());
@@ -79,49 +79,49 @@ bool AttackAction::Attack(Unit* target)
 
 	if (target && (target->UnderCc() || target->isStunned() || target->isFrozen()))
 	{
-	    float minHealth = 0;
+		float minHealth = 0;
 
-        if (AI_VALUE(uint8, "my attacker count") >= 2)
-        {
-             list<ObjectGuid> attackers = AI_VALUE(list<ObjectGuid>, "attackers");
-             for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); ++i)
-            {
-                Unit* unit = ai->GetUnit(*i);
+		if (AI_VALUE(uint8, "my attacker count") >= 2)
+		{
+			list<ObjectGuid> attackers = AI_VALUE(list<ObjectGuid>, "attackers");
+			for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); ++i)
+			{
+				Unit* unit = ai->GetUnit(*i);
 
-                if (!unit || (unit == target) || unit->UnderCc())
-                    continue;
+				if (!unit || (unit == target) || unit->UnderCc())
+					continue;
 
-                float health = unit->GetHealth();
+				float health = unit->GetHealth();
 
-                if (minHealth == 0 || minHealth > health)
-                {
-                    minHealth = health;
-                    target = unit;
-                    msg << "new target due to cc";
-                    }
-                }
-            }
-            else if (!bot->GetGroup())
-            {
-                if (ai->CanHeal(bot) && bot->GetHealthPct() < 60)
-                {
-                    ai->DoSpecificAction("urgent heal");
-                    return false;
-                }
-                else if (ai->IsRanged(bot) && AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance)
-                {
-                    ai->DoSpecificAction("flee");
-                    return false;
-                }
-                else if (bot->GetHealthPct() < 50)
-                {
-                   ai->DoSpecificAction("bandage");
-                   return false;
-                }
-            }
+				if (minHealth == 0 || minHealth > health)
+				{
+					minHealth = health;
+					target = unit;
+					msg << "new target due to cc";
+				}
+			}
+		}
+		else if (!bot->GetGroup())
+		{
+			if (ai->CanHeal(bot) && bot->GetHealthPct() < 60)
+			{
+				ai->DoSpecificAction("urgent heal");
+				return false;
+			}
+			else if (ai->IsRanged(bot) && AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance)
+			{
+				ai->DoSpecificAction("flee");
+				return false;
+			}
+			else if (bot->GetHealthPct() < 50)
+			{
+				ai->DoSpecificAction("bandage");
+				return false;
+			}
+		}
 	}
 
-    if (bot->IsMounted())
+	if (bot->IsMounted() && bot->IsWithinLOSInMap(target))
     {
         WorldPacket emptyPacket;
         bot->GetSession()->HandleCancelMountAuraOpcode(emptyPacket);

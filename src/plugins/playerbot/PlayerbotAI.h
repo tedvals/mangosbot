@@ -152,6 +152,9 @@ public:
     void WaitForSpellCast(Spell *spell);
     bool PlaySound(uint32 emote);
 
+	//thesawolf - emote reactions
+	void ReceiveEmote(Player* player, uint32 emote);
+
     virtual bool CanCastSpell(string name, Unit* target, bool interruptcasting = false);
     virtual bool CastSpell(string name, Unit* target);
     virtual bool HasAura(string spellName, Unit* player, BotAuraType auratype = BOT_AURA_NORMAL);

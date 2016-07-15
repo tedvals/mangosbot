@@ -107,7 +107,11 @@ void Engine::Init()
 
 	if (testMode)
 	{
-        FILE* file = fopen("test.log", "w");
+		FILE* file;
+		if (testPrefix.length()>0)
+			 file = fopen((testPrefix + ".log").c_str(), "a");
+		else
+			 file = fopen("test.log", "a");
         fprintf(file, "\n");
         fclose(file);
 	}

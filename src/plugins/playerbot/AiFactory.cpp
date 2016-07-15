@@ -90,11 +90,21 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
 {
     int tab = GetPlayerSpecTab(player);
 
-    if (player->getClass() == CLASS_DEATH_KNIGHT || player->getClass() == CLASS_WARRIOR || player->getClass() == CLASS_ROGUE)
-        engine->addStrategies("attack weak", "racials", "chat", "default", "aoe", "potions", "cast time", "duel", "pvp", NULL);
-    else
-        engine->addStrategies("attack weak", "racials", "chat", "default", "aoe", "potions", "cast time", "conserve mana", "duel", "pvp", NULL);
+	if (player->InBattleground() && player->GetBattlegroundTypeId() == BattlegroundTypeId::BATTLEGROUND_WS)
+	{
+		engine->addStrategies("grind", "warsong", "tank", "dps", "heal", "racials", "chat", "default", "aoe", "potions", "cast time", "conserve mana", "duel", "pvp", NULL);
+		}
+	else {
+		if (player->getClass() == CLASS_DEATH_KNIGHT || player->getClass() == CLASS_WARRIOR || player->getClass() == CLASS_ROGUE)
+			engine->addStrategies("attack weak", "racials", "chat", "default", "aoe", "potions", "cast time", "duel", "pvp", NULL);
+		else
+			engine->addStrategies("attack weak", "racials", "chat", "default", "aoe", "potions", "cast time", "conserve mana", "duel", "pvp", NULL);
 
+//		engine->addStrategies("tank", "dps", "heal", "racials", "chat", "default", "aoe", "potions", "cast time", "conserve mana", "duel", "pvp", NULL);
+		
+	}
+	
+	
     switch (player->getClass())
     {
         case CLASS_DEATH_KNIGHT:
@@ -263,8 +273,18 @@ void AiFactory::AddDefaultNonCombatStrategies(Player* player, PlayerbotAI* const
                 nonCombatEngine->addStrategies("imp", NULL);
             }
     }
-    nonCombatEngine->addStrategies("nc", "attack weak", "food", "stay", "chat",
-            "default", "quest", "loot", "gather", "duel", "emote", NULL);
+
+	if (player->InBattleground())
+	{
+		nonCombatEngine->addStrategies("grind", "warsong", "attack weak", "nc", "food", "stay", "follow", "chat","default", "quest", "loot", "gather", "duel", "emote", "lfg", "bg", "bhealth", "bmana", NULL);
+		
+			}
+	else {
+		nonCombatEngine->addStrategies("attack weak", "nc", "food", "stay", "follow", "chat","default", "quest", "loot", "gather", "duel", "emote", "lfg", "bg", "bhealth", "bmana", NULL);		
+	}
+
+    //nonCombatEngine->addStrategies("nc", "attack weak", "food", "stay", "chat",
+    //        "default", "quest", "loot", "gather", "duel", "emote", NULL);
 
     if (sRandomPlayerbotMgr.IsRandomBot(player) && !player->GetGroup())
     {

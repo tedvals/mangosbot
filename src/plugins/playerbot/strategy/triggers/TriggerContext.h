@@ -159,6 +159,10 @@ namespace ai
             creators["almost full aoe heal"] = &TriggerContext::almost_full_aoe_heal;
             creators["invalid target"] = &TriggerContext::invalid_target;
             creators["lfg proposal active"] = &TriggerContext::lfg_proposal_active;
+
+			creators["has no flag"] = &TriggerContext::player_has_no_flag;
+			creators["in battleground"] = &TriggerContext::player_is_in_battleground;
+			creators["in battleground without flag"] = &TriggerContext::player_is_in_battleground_no_flag;
         }
         ~TriggerContext()
         {
@@ -307,6 +311,10 @@ namespace ai
             creators.erase("almost full aoe heal");
             creators.erase("invalid target");
             creators.erase("lfg proposal active");
+
+			creators.erase("has no flag");
+			creators.erase("in battleground");
+			creators.erase("in battleground without flag");			
         }
 
     private:
@@ -434,6 +442,9 @@ namespace ai
         static Trigger* MasterCriticalHealth(PlayerbotAI* ai) { return new MasterCriticalHealthTrigger(ai); }
         static Trigger* no_pet(PlayerbotAI* ai) { return new NoPetTrigger(ai); }
         static Trigger* has_attackers(PlayerbotAI* ai) { return new HasAttackersTrigger(ai); }
+		static Trigger* player_has_no_flag(PlayerbotAI* ai) { return new PlayerHasNoFlag(ai); }
+		static Trigger* player_is_in_battleground(PlayerbotAI *ai) { return new PlayerIsInBattleground(ai); }
+		static Trigger* player_is_in_battleground_no_flag(PlayerbotAI *ai) { return new PlayerIsInBattlegroundWithoutFlag(ai); }
 
     };
 };

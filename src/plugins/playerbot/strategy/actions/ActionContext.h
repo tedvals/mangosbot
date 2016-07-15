@@ -15,6 +15,7 @@
 #include "AttackAction.h"
 #include "CheckMailAction.h"
 #include "SayAction.h"
+#include "CheckMountStateAction.h"
 
 namespace ai
 {
@@ -83,6 +84,7 @@ namespace ai
 			creators["move to guestgiver"] = &ActionContext::move_questgiver;
 			creators["move to guestender"] = &ActionContext::move_questender;
 			creators["move to quest"] = &ActionContext::move_quest;
+			creators["mount"] = &ActionContext::mount;
         }
 
     private:
@@ -145,6 +147,7 @@ namespace ai
 		static Action* move_questgiver(PlayerbotAI* ai) { return new MoveQuestGiverAction(ai); }
 		static Action* move_questender(PlayerbotAI* ai) { return new MoveQuestEnderAction(ai); }
 		static Action* move_quest(PlayerbotAI* ai) { return new MoveQuestPositionAction(ai); }
+		static Action* mount(PlayerbotAI *ai) { return new CastSpellAction(ai, "mount"); }
     };
 
 };

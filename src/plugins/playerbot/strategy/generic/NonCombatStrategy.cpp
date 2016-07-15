@@ -25,4 +25,9 @@ void LfgStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "lfg proposal active",
         NextAction::array(0, new NextAction("lfg accept", 10.0f), NULL)));
+
+	triggers.push_back(new TriggerNode(
+		"in battleground without flag",
+		NextAction::array(0,
+		new NextAction("attack anything", 5.0f), NULL)));
 }

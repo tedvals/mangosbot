@@ -63,6 +63,9 @@ void GenericWarlockNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trig
 		"no soulstone on master",
 		NextAction::array(0, new NextAction("soulstone on master", 13.0f), NULL)));
 
+	triggers.push_back(new TriggerNode(
+		"in battleground without flag",
+		NextAction::array(0, new NextAction("mount", 1.0f), NULL)));
 }
 
 class WarlockImpStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>

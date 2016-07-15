@@ -694,9 +694,9 @@ class TC_GAME_API SpellMgr
         // Use this only with 100% valid spellIds
         SpellInfo const* AssertSpellInfo(uint32 spellId) const
         {
-            ASSERT(spellId < GetSpellInfoStoreSize());
+           // ASSERT(spellId < GetSpellInfoStoreSize());
             SpellInfo const* spellInfo = mSpellInfoMap[spellId];
-            ASSERT(spellInfo);
+           // ASSERT(spellInfo);
             return spellInfo;
         }
         uint32 GetSpellInfoStoreSize() const { return mSpellInfoMap.size(); }

@@ -139,6 +139,7 @@ class TC_GAME_API BattlegroundMgr
         BattlegroundQueue m_BattlegroundQueues[MAX_BATTLEGROUND_QUEUE_TYPES];
 
         std::vector<uint64> m_QueueUpdateScheduler;
+		uint32 m_NextBGUpdate;
         uint32 m_NextRatedArenaUpdate;
         time_t m_NextAutoDistributionTime;
         uint32 m_AutoDistributionTimeChecker;

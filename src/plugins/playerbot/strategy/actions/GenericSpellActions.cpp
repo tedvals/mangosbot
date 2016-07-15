@@ -6,6 +6,33 @@ using namespace ai;
 
 bool CastSpellAction::Execute(Event event)
 {
+	if (spell == "mount")
+	{
+		if (bot->InBattleground() && !bot->IsInCombat())
+		{
+			if (!bot->IsMounted())
+			{
+				//Mounts
+				if (bot->getLevel() > 39 && bot->GetTeamId() == TeamId::TEAM_ALLIANCE)
+				{
+					return ai->CastSpell(23240, bot);
+				}
+				if (bot->getLevel() > 39 && bot->GetTeamId() == TeamId::TEAM_HORDE)
+				{
+					return ai->CastSpell(23242, bot);
+				}
+				if (bot->getLevel() > 19 && bot->GetTeamId() == TeamId::TEAM_ALLIANCE)
+				{
+					return ai->CastSpell(6899, bot);
+				}
+				if (bot->getLevel() > 19 && bot->GetTeamId() == TeamId::TEAM_HORDE)
+				{
+					return ai->CastSpell(8395, bot);
+				}
+			}
+		}
+		return false;
+	}
 	return ai->CastSpell(spell, GetTarget());
 }
 
@@ -16,6 +43,14 @@ bool CastSpellAction::isPossible()
 
 	//if (ai->IsMoving() && !isInstant())
 	//	return false;
+	if (spell == "mount" && !bot->IsMounted() && !bot->IsInCombat())
+		return true;
+
+	if (spell == "mount" && bot->IsInCombat())
+	{
+		bot->Dismount();
+		return false;
+	}
 
 	Unit* target = GetTarget();
 
@@ -40,6 +75,15 @@ bool CastSpellAction::isPossible()
 
 bool CastSpellAction::isUseful()
 {
+	if (spell == "mount" && !bot->IsMounted() && !bot->IsInCombat())
+		return true;
+
+	if (spell == "mount" && bot->IsInCombat())
+	{
+		bot->Dismount();
+		return false;
+	}
+
 	return GetTarget() && AI_VALUE2(bool, "spell cast useful", spell);
 }
 

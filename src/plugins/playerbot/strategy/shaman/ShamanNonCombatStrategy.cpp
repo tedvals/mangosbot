@@ -45,6 +45,10 @@ void ShamanNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "prepare attack",
         NextAction::array(0, new NextAction("call of the elements", 52.0f), NULL)));
 
+	triggers.push_back(new TriggerNode(
+		"in battleground without flag",
+		NextAction::array(0, new NextAction("mount", 1.0f), NULL)));
+
   //  triggers.push_back(new TriggerNode(
   //      "recall all totems",
   //      NextAction::array(0, new NextAction("recall totems", 27.0f), NULL)));

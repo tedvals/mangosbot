@@ -63,8 +63,11 @@ namespace ai
             creators["lfg role check"] = &WorldPacketActionContext::lfg_role_check;
             creators["lfg leave"] = &WorldPacketActionContext::lfg_leave;
             creators["lfg teleport"] = &WorldPacketActionContext::lfg_teleport;
-            creators["security check"] = &WorldPacketActionContext::security_check;
             creators["guild accept"] = &WorldPacketActionContext::guild_accept;
+			creators["bg join"] = &WorldPacketActionContext::bg_join;
+			creators["bg status"] = &WorldPacketActionContext::bg_status;
+			creators["bg tactics ws"] = &WorldPacketActionContext::bg_tactics_ws;
+			creators["security check"] = &WorldPacketActionContext::security_check;
         }
 
     private:
@@ -102,6 +105,10 @@ namespace ai
         static Action* accept_all_quests(PlayerbotAI* ai) { return new AcceptAllQuestsAction(ai); }
         static Action* accept_quest_share(PlayerbotAI* ai) { return new AcceptQuestShareAction(ai); }
         static Action* loot_roll(PlayerbotAI* ai) { return (QueryItemUsageAction*)new LootRollAction(ai); }
+		static Action* bg_status(PlayerbotAI* ai) { return new BGStatusAction(ai); }
+		static Action* bg_join(PlayerbotAI* ai) { return new BGJoinAction(ai); }
+		static Action* bg_tactics_ws(PlayerbotAI* ai) {return new BGTacticsWS(ai);}
+
     };
 
 

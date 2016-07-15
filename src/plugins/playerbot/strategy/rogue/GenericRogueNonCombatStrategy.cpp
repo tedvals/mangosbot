@@ -57,6 +57,10 @@ void GenericRogueNonCombatStrategy::InitTriggers(std::list<TriggerNode*> &trigge
     triggers.push_back(new TriggerNode(
         "critical health",
         NextAction::array(0, new NextAction("bandage", 20.0f), NULL)));
+
+	triggers.push_back(new TriggerNode(
+		"in battleground without flag",
+		NextAction::array(0, new NextAction("stealth", 1.0f), NULL)));
 }
 
 class GenericRogueNonCombatStealthStrategyActionNodeFactory : public NamedObjectFactory<ActionNode>

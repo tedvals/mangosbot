@@ -91,7 +91,7 @@ namespace ai
             }
             //ai->InterruptSpell();
 
-			return true;
+			return false;
         }
     };
 
