@@ -1334,6 +1334,8 @@ class TC_GAME_API Unit : public WorldObject
         bool IsTotem() const    { return (m_unitTypeMask & UNIT_MASK_TOTEM) != 0; }
         bool IsVehicle() const  { return (m_unitTypeMask & UNIT_MASK_VEHICLE) != 0; }
 
+		bool IsPlayer() const { return GetTypeId() == TYPEID_PLAYER; }
+
         uint8 getLevel() const { return uint8(GetUInt32Value(UNIT_FIELD_LEVEL)); }
         uint8 getLevelForTarget(WorldObject const* /*target*/) const override { return getLevel(); }
         void SetLevel(uint8 lvl);
@@ -1416,6 +1418,8 @@ class TC_GAME_API Unit : public WorldObject
 
         uint32 GetCreatureType() const;
         uint32 GetCreatureTypeMask() const;
+		
+		uint32 GetCreatureRank() const;
 
         uint8 GetStandState() const { return GetByteValue(UNIT_FIELD_BYTES_1, 0); }
         bool IsSitState() const;
@@ -1538,7 +1542,18 @@ class TC_GAME_API Unit : public WorldObject
         bool isInRoots() const { return HasAuraType(SPELL_AURA_MOD_ROOT); }
         bool IsPolymorphed() const;
 
-        bool isFrozen() const;
+		bool isStunned() const { return HasAuraType(SPELL_AURA_MOD_STUN); }
+		bool isSnared() const { return HasAuraType(SPELL_AURA_MOD_DECREASE_SPEED); }
+
+		bool isAsleep() const { return HasAuraWithMechanic(MECHANIC_SLEEP); }
+		bool isSilenced()  const { return HasAuraWithMechanic(MECHANIC_SILENCE); }
+		bool TakesPeriodicDamage() const { return HasAuraType(SPELL_AURA_PERIODIC_DAMAGE); }
+		bool hasCriticalHealth() const;
+		bool hasLowHealth() const;
+		bool hasHighHealth() const;
+		
+		bool isBleeding() const { return HasAuraWithMechanic(MECHANIC_BLEED); }
+		bool isFrozen() const { return HasAuraWithMechanic(MECHANIC_FREEZE); }
 
         bool isTargetableForAttack(bool checkFakeDeath = true) const;
 
@@ -1682,6 +1697,8 @@ class TC_GAME_API Unit : public WorldObject
 
         bool IsCharmed() const { return !GetCharmerGUID().IsEmpty(); }
         bool isPossessed() const { return HasUnitState(UNIT_STATE_POSSESSED); }
+		bool isDisoriented() { return HasUnitState(UNIT_STATE_CONFUSED); }
+		bool UnderCc() { return isStunned() || isDisoriented() || IsPolymorphed() || isPossessed() || isFeared() || isInRoots(); }
         bool isPossessedByPlayer() const;
         bool isPossessing() const;
         bool isPossessing(Unit* u) const;
@@ -1860,6 +1877,7 @@ class TC_GAME_API Unit : public WorldObject
         // delayed+channeled spells are always accounted as cast
         // we can skip channeled or delayed checks using flags
         bool IsNonMeleeSpellCast(bool withDelayed, bool skipChanneled = false, bool skipAutorepeat = false, bool isAutoshoot = false, bool skipInstant = true) const;
+		bool IsNonPositiveSpellCast(bool withDelayed, bool skipChanneled = false, bool skipAutorepeat = false, bool isAutoshoot = false, bool skipInstant = true) const;
 
         // set withDelayed to true to interrupt delayed spells too
         // delayed+channeled spells are always interrupted
@@ -2057,6 +2075,7 @@ class TC_GAME_API Unit : public WorldObject
 
         bool IsStopped() const { return !(HasUnitState(UNIT_STATE_MOVING)); }
         void StopMoving();
+		bool IsFleeing() const { return (HasUnitState(UNIT_STATE_FLEEING) || HasUnitState(UNIT_STATE_FLEEING_MOVE)); }
 
         void AddUnitMovementFlag(uint32 f) { m_movementInfo.flags |= f; }
         void RemoveUnitMovementFlag(uint32 f) { m_movementInfo.flags &= ~f; }

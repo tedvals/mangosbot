@@ -49,6 +49,19 @@ bool AttackAction::Attack(Unit* target)
         return false;
     }
 
+    Player* master = GetMaster();
+    if (AI_VALUE(uint8, "balance") < 75 && (master && master->isDead() && !bot->IsInCombat()))
+    {
+        if (verbose) ai->TellMaster("target too strong!");
+        return false;
+    }
+
+    if (AI_VALUE(uint8, "balance") < 75 && !(master || bot->GetGroup()))
+    {
+        if (verbose) ai->TellMaster("target too strong!");
+        return false;
+    }
+
     ostringstream msg;
     msg << target->GetName();
     if (bot->IsFriendlyTo(target))
@@ -57,12 +70,56 @@ bool AttackAction::Attack(Unit* target)
         if (verbose) ai->TellMaster(msg.str());
         return false;
     }
-    if (!bot->InBattleground() && !bot->IsWithinLOSInMap(target))
+	if( !bot->InBattleground() && !bot->IsWithinLOSInMap(target))
     {
         msg << " is not on my sight";
         if (verbose) ai->TellMaster(msg.str());
         return false;
     }
+
+	if (target && (target->UnderCc() || target->isStunned() || target->isFrozen()))
+	{
+		float minHealth = 0;
+
+		if (AI_VALUE(uint8, "my attacker count") >= 2)
+		{
+			list<ObjectGuid> attackers = AI_VALUE(list<ObjectGuid>, "attackers");
+			for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); ++i)
+			{
+				Unit* unit = ai->GetUnit(*i);
+
+				if (!unit || (unit == target) || unit->UnderCc())
+					continue;
+
+				float health = unit->GetHealth();
+
+				if (minHealth == 0 || minHealth > health)
+				{
+					minHealth = health;
+					target = unit;
+					msg << "new target due to cc";
+				}
+			}
+		}
+		else if (!bot->GetGroup())
+		{
+			if (ai->CanHeal(bot) && bot->GetHealthPct() < 60)
+			{
+				ai->DoSpecificAction("urgent heal");
+				return false;
+			}
+			else if (ai->IsRanged(bot) && AI_VALUE2(float, "distance", "current target") <= sPlayerbotAIConfig.tooCloseDistance)
+			{
+				ai->DoSpecificAction("flee");
+				return false;
+			}
+			else if (bot->GetHealthPct() < 50)
+			{
+				ai->DoSpecificAction("bandage");
+				return false;
+			}
+		}
+	}
 
 	if (bot->IsMounted() && bot->IsWithinLOSInMap(target))
     {
@@ -88,7 +145,10 @@ bool AttackAction::Attack(Unit* target)
 		pet->AI()->AttackStart(target);
     }
 
-    bot->Attack(target, true);
+    if (!((bot->getLevel() > 19 && ai->HasAura("stealth",bot)) || (bot->getLevel() > 31 && ai->HasAura("prowl",bot))))
+        bot->Attack(target, true);
+    //else bot->Attack(target, false);
+
     ai->ChangeEngine(BOT_STATE_COMBAT);
     return true;
 }

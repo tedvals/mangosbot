@@ -32,10 +32,59 @@ bool HasAggroValue::Calculate()
     return false;
 }
 
+uint8 AoeAttackerCountValue::Calculate()
+{
+    int count = 0;
+    float range = sPlayerbotAIConfig.spellDistance;
+
+    list<ObjectGuid> attackers = context->GetValue<list<ObjectGuid> >("attackers")->Get();
+    for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); i++)
+    {
+        Unit* unit = ai->GetUnit(*i);
+        if (!unit || !unit->IsAlive())
+            continue;
+
+        //if (unit->GetCreatureRank() != CREATURE_ELITE_NORMAL)
+        //    continue;
+
+        if (unit->UnderCc())
+            continue;
+
+        float distance = bot->GetDistance(unit);
+        if (distance <= range)
+            count++;
+    }
+
+    return count;
+}
+
+uint8 MeleeAttackerCountValue::Calculate()
+{
+    int count = 0;
+    float range = sPlayerbotAIConfig.meleeDistance;
+
+    list<ObjectGuid> attackers = context->GetValue<list<ObjectGuid> >("attackers")->Get();
+    for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); i++)
+    {
+        Unit* unit = ai->GetUnit(*i);
+        if (!unit || !unit->IsAlive())
+            continue;
+
+        if (unit->UnderCc())
+            continue;
+
+        float distance = bot->GetDistance(unit);
+        if (distance <= range)
+            count++;
+    }
+
+    return count;
+}
+
 uint8 AttackerCountValue::Calculate()
 {
     int count = 0;
-    float range = sPlayerbotAIConfig.sightDistance;
+    float range = sPlayerbotAIConfig.spellDistance;
 
     list<ObjectGuid> attackers = context->GetValue<list<ObjectGuid> >("attackers")->Get();
     for (list<ObjectGuid>::iterator i = attackers.begin(); i != attackers.end(); i++)
@@ -77,6 +126,9 @@ uint8 BalancePercentValue::Calculate()
     {
         Creature* creature = ai->GetCreature((*i));
         if (!creature || !creature->IsAlive())
+            continue;
+
+        if (creature->UnderCc())
             continue;
 
         uint32 level = creature->getLevel();

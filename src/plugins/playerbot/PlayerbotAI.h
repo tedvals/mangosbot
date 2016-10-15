@@ -64,6 +64,15 @@ enum BotState
 
 #define BOT_STATE_MAX 3
 
+enum BotAuraType
+{
+    BOT_AURA_NORMAL = 0,
+    BOT_AURA_DAMAGE = 1,
+    BOT_AURA_HEAL = 2
+};
+
+#define BOT_AURA_TYPE_MAX 3
+
 class PacketHandlingHelper
 {
 public:
@@ -115,8 +124,9 @@ public:
     void HandleMasterOutgoingPacket(const WorldPacket& packet);
 	void HandleTeleportAck();
     void ChangeEngine(BotState type);
-    void DoNextAction();
+	void DoNextAction(int depth = 0, bool instantonly = false, bool noflee = false);
     void DoSpecificAction(string name);
+    bool DoMovingAction(Player* player, Unit* target);
     void ChangeStrategy(string name, BotState type);
     bool ContainsStrategy(StrategyType type);
     bool HasStrategy(string name, BotState type);
@@ -125,7 +135,9 @@ public:
     void Reset();
     bool IsTank(Player* player);
     bool IsHeal(Player* player);
+    bool IsSpellcaster(Player* player);
     bool IsRanged(Player* player);
+    bool CanHeal(Player* player);
     Creature* GetCreature(ObjectGuid guid);
     Unit* GetUnit(ObjectGuid guid);
     GameObject* GetGameObject(ObjectGuid guid);
@@ -140,19 +152,21 @@ public:
     void WaitForSpellCast(Spell *spell);
     bool PlaySound(uint32 emote);
 
-    //thesawolf - emote reactions
-    void ReceiveEmote(Player* player, uint32 emote);
+	//thesawolf - emote reactions
+	void ReceiveEmote(Player* player, uint32 emote);
 
-    virtual bool CanCastSpell(string name, Unit* target);
+    virtual bool CanCastSpell(string name, Unit* target, bool interruptcasting = false);
     virtual bool CastSpell(string name, Unit* target);
-    virtual bool HasAura(string spellName, Unit* player);
+    virtual bool HasAura(string spellName, Unit* player, BotAuraType auratype = BOT_AURA_NORMAL);
+    virtual bool HasOwnAura(string spellName, Unit* player, BotAuraType auratype = BOT_AURA_NORMAL);
     virtual bool HasAnyAuraOf(Unit* player, ...);
 
     virtual bool IsInterruptableSpellCasting(Unit* player, string spell);
     virtual bool HasAuraToDispel(Unit* player, uint32 dispelType);
-    bool CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell = true);
+    bool CanCastSpell(uint32 spellid, Unit* target, bool checkHasSpell = true, bool interruptcasting = false);
 
-    bool HasAura(uint32 spellId, const Unit* player);
+    bool HasAura(uint32 spellId, const Unit* player, BotAuraType auratype = BOT_AURA_NORMAL);
+    bool HasOwnAura(uint32 spellId, const Unit* player, BotAuraType auratype = BOT_AURA_NORMAL);
     bool CastSpell(uint32 spellId, Unit* target);
     bool canDispel(const SpellInfo* entry, uint32 dispelType);
 
@@ -170,6 +184,39 @@ public:
     bool IsOpposing(Player* player);
     static bool IsOpposing(uint8 race1, uint8 race2);
     PlayerbotSecurity* GetSecurity() { return &security; }
+    void SetMovePoint (uint32 mapId, float x, float y, float z) {go_point= true; go_mapId = mapId; go_x = x; go_y = y;go_z = z;}
+	void ResetMovePoint() {go_point = false;}
+	bool IsMoving() { return go_point; }
+	bool GetMovePoint( uint32 mapId, float& x, float& y, float& z)
+    {
+        if (mapId != go_mapId)
+            return false;
+
+        if (go_point)
+        {
+            x = go_x;
+            y = go_y;
+            z = go_z;
+            return true;
+        }
+        else return false;
+    }
+
+    void VisitObject(ObjectGuid Id)
+    {
+        if (objectVisited.size() > 9)
+            objectVisited.empty();
+
+        objectVisited.push_back(Id);
+    }
+
+    bool ObjectNotVisited(ObjectGuid Id)
+    {
+        vector<ObjectGuid>::iterator i = find(objectVisited.begin(), objectVisited.end(), Id);
+        return (i == objectVisited.end());
+    }
+
+    void LogAction(const char* format, ...);
 
 protected:
 	Player* bot;
@@ -186,5 +233,14 @@ protected:
     PacketHandlingHelper masterOutgoingPacketHandlers;
     CompositeChatFilter chatFilter;
     PlayerbotSecurity security;
+    float go_x;
+    float go_y;
+    float go_z;
+    bool go_point;
+
+    uint32 go_mapId;
+
+    vector<ObjectGuid> objectVisited;
+
 };
 

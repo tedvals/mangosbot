@@ -48,7 +48,6 @@ namespace ai
         virtual float GetMaxDistance() { return sPlayerbotAIConfig.followDistance; }
     };
 
-
     class ChaosFormation : public MoveFormation
     {
     public:
@@ -96,15 +95,15 @@ namespace ai
             case CLASS_MAGE:
             case CLASS_PRIEST:
             case CLASS_WARLOCK:
-                range = sPlayerbotAIConfig.fleeDistance;
+                range = sPlayerbotAIConfig.fleeDistance + (float)urand(8, 15) / 10;
                 break;
             case CLASS_DRUID:
                 if (!ai->IsTank(bot))
-                    range = sPlayerbotAIConfig.fleeDistance;
+                    range = sPlayerbotAIConfig.fleeDistance + (float)urand(8, 15) / 10;
                 break;
             case CLASS_SHAMAN:
-                if (ai->IsHeal(bot))
-                    range = sPlayerbotAIConfig.fleeDistance;
+                if (ai->IsHeal(bot) || ai->IsRanged(bot))
+                    range = sPlayerbotAIConfig.fleeDistance + (float)urand(8, 15) / 10;
                 break;
             }
 
@@ -295,7 +294,7 @@ bool SetFormationAction::Execute(Event event)
     {
         if (value->Get()) delete value->Get();
         value->Set(new ArrowFormation(ai));
-    }
+    }     
     else if (formation == "near" || formation == "default")
     {
         if (value->Get()) delete value->Get();

@@ -62,6 +62,7 @@ void CustomStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         else
         {
             vector<string> tokens = split(actionLinesCache[qualifier], '\n');
+
             regex tpl("\\(NULL,\\s*'.+',\\s*'(.+)'\\)(,|;)");
             for (vector<string>::iterator i = tokens.begin(); i != tokens.end(); ++i)
             {

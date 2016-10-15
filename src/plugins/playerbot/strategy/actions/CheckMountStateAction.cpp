@@ -10,6 +10,7 @@ uint64 extractGuid(WorldPacket& packet);
 bool CheckMountStateAction::Execute(Event event)
 {
     Player* master = GetMaster();
+
 	if (bot->InBattleground())
 	{
 		if (!ai->HasStrategy("warsong", BotState::BOT_STATE_NON_COMBAT))
@@ -26,13 +27,14 @@ bool CheckMountStateAction::Execute(Event event)
 			ai->ChangeStrategy("+heal", BOT_STATE_COMBAT);
 		return false;
 	}
+
     if (!bot->GetGroup() || !master)
         return false;
 
     if (bot->IsFlying())
         return false;
 
-    if (bot->InBattleground() || (master->IsMounted() && !bot->IsMounted()))
+	if (bot->InBattleground() || master->IsMounted() && !bot->IsMounted())
     {
         return Mount();
     }
@@ -113,5 +115,5 @@ bool CheckMountStateAction::Mount()
 		ai->CastSpell(ids[index], bot);
 		return true;
 	}
-    return false;
+	return false;
 }

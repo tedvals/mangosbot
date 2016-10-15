@@ -38,6 +38,7 @@ private:
     uint32 effectId;
 };
 
+
 class FindFoodVisitor : public FindUsableItemVisitor
 {
 public:
@@ -56,6 +57,32 @@ public:
 private:
     uint32 spellCategory;
 };
+
+
+class FindBandageVisitor : public FindUsableItemVisitor
+{
+public:
+    FindBandageVisitor(Player* bot) : FindUsableItemVisitor(bot){}
+
+    virtual bool Accept(const ItemTemplate* proto)
+    {
+        return proto->Class == ITEM_CLASS_CONSUMABLE &&
+            proto->SubClass == ITEM_SUBCLASS_BANDAGE;
+    }
+};
+
+class FindBombVisitor : public FindUsableItemVisitor
+{
+public:
+    FindBombVisitor(Player* bot) : FindUsableItemVisitor(bot){}
+
+    virtual bool Accept(const ItemTemplate* proto)
+    {
+        return proto->Class == ITEM_CLASS_CONSUMABLE &&
+            proto->SubClass == ITEM_SUBCLASS_EXPLOSIVES;
+    }
+};
+
 
 void InventoryAction::IterateItems(IterateItemsVisitor* visitor, IterateItemsMask mask)
 {
@@ -235,6 +262,20 @@ list<Item*> InventoryAction::parseItems(string text)
         found.insert(visitor.GetResult().begin(), visitor.GetResult().end());
     }
 
+    if (text == "bandage")
+    {
+        FindBandageVisitor visitor(bot);
+        IterateItems(&visitor, ITERATE_ITEMS_IN_BAGS);
+        found.insert(visitor.GetResult().begin(), visitor.GetResult().end());
+    }
+
+    if (text == "bomb")
+    {
+        FindBombVisitor visitor(bot);
+        IterateItems(&visitor, ITERATE_ITEMS_IN_BAGS);
+        found.insert(visitor.GetResult().begin(), visitor.GetResult().end());
+    }
+
     if (text == "healing potion")
     {
         FindPotionVisitor visitor(bot, SPELL_EFFECT_HEAL);
@@ -285,4 +326,112 @@ list<Item*> InventoryAction::parseItems(string text)
     result.sort(compare_items_by_level);
 
     return result;
+}
+
+bool InventoryAction::UseItem(Item* item,  Item* itemTarget)
+{
+    if (bot->CanUseItem(item) != EQUIP_ERR_OK)
+        return false;
+
+    if (bot->IsNonMeleeSpellCast(true))
+        return false;
+
+    uint8 bagIndex = item->GetBagSlot();
+    uint8 slot = item->GetSlot();
+    uint8 cast_count = 1;
+    uint64 item_guid = item->GetGUID();
+    uint32 glyphIndex = 0;
+    uint8 unk_flags = 0;
+
+    WorldPacket* const packet = new WorldPacket(CMSG_USE_ITEM, 1 + 1 + 1 + 4 + 8 + 4 + 1 + 8 + 1);
+    *packet << bagIndex << slot << cast_count << uint32(0) << item_guid
+        << glyphIndex << unk_flags;
+
+    bool targetSelected = false;
+    ostringstream out; out << "Using " << chat->formatItem(item->GetTemplate());
+    if (item->GetTemplate()->Stackable)
+    {
+        uint32 count = item->GetCount();
+        if (count > 1)
+            out << " (" << count << " available) ";
+        else
+            out << " (the last one!)";
+    }
+
+
+    if (itemTarget)
+    {
+            uint32 targetFlag = TARGET_FLAG_ITEM;
+            *packet << targetFlag;
+            packet->appendPackGUID(itemTarget->GetGUID());
+            out << " on " << chat->formatItem(itemTarget->GetTemplate());
+            targetSelected = true;
+    }
+
+    MotionMaster &mm = *bot->GetMotionMaster();
+    mm.Clear();
+    bot->ClearUnitState( UNIT_STATE_CHASE );
+    bot->ClearUnitState( UNIT_STATE_FOLLOW );
+
+    if (bot->isMoving())
+        return false;
+
+    for (int i=0; i<MAX_ITEM_PROTO_SPELLS; i++)
+    {
+        uint32 spellId = item->GetTemplate()->Spells[i].SpellId;
+        if (!spellId)
+            continue;
+
+        if (!ai->CanCastSpell(spellId, bot, false))
+            continue;
+
+        const SpellInfo* const pSpellInfo = sSpellMgr->GetSpellInfo(spellId);
+        if (pSpellInfo->Targets & TARGET_FLAG_ITEM)
+        {
+            Item* itemForSpell = AI_VALUE2(Item*, "item for spell", spellId);
+            if (!itemForSpell)
+                continue;
+
+            if (itemForSpell->GetEnchantmentId(TEMP_ENCHANTMENT_SLOT))
+                continue;
+
+            *packet << TARGET_FLAG_ITEM;
+             packet->appendPackGUID(itemForSpell->GetGUID());
+             targetSelected = true;
+             out << " on "<< chat->formatItem(itemForSpell->GetTemplate());
+
+
+            Spell *spell = new Spell(bot, pSpellInfo, TRIGGERED_NONE, ObjectGuid::Empty, true);
+            ai->WaitForSpellCast(spell);
+            delete spell;
+        }
+        else
+        {
+            *packet << TARGET_FLAG_NONE;
+            targetSelected = true;
+            out << " on self";
+        }
+        break;
+    }
+
+    if (!targetSelected)
+        return false;
+
+    if (item->GetTemplate()->Class == ITEM_CLASS_CONSUMABLE && item->GetTemplate()->SubClass == ITEM_SUBCLASS_FOOD)
+    {
+        if (bot->IsInCombat())
+            return false;
+
+        ai->InterruptSpell();
+        ai->SetNextCheckDelay(30000);
+    }
+    else
+    {
+        ai->InterruptSpell();
+        ai->SetNextCheckDelay(3000);
+    }
+
+    ai->TellMasterNoFacing(out.str());
+    bot->GetSession()->QueuePacket(packet);
+    return true;
 }

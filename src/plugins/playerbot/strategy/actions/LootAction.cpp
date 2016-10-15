@@ -31,10 +31,25 @@ enum ProfessionSpells
     FIRST_AID                    = 3273,
     FISHING                      = 7620,
     HERB_GATHERING               = 2366,
+    HERB_GATHERING_J             = 2368,
+    HERB_GATHERING_E             = 3570,
+    HERB_GATHERING_A             = 11993,
+    HERB_GATHERING_M             = 28695,
+    HERB_GATHERING_GM            = 50300,
     INSCRIPTION                  = 45357,
     JEWELCRAFTING                = 25229,
     MINING                       = 2575,
+    MINING_J                     = 2576,
+    MINING_E                     = 3564,
+    MINING_A                     = 10248,
+    MINING_M                     = 29354,
+    MINING_GM                    = 50310,
     SKINNING                     = 8613,
+    SKINNING_J                   = 8617,
+    SKINNING_E                   = 8618,
+    SKINNING_A                   = 10768,
+    SKINNING_M                   = 32678,
+    SKINNING_GM                  = 50305,
     TAILORING                    = 3908
 };
 
@@ -66,6 +81,7 @@ bool OpenLootAction::DoLoot(LootObject& lootObject)
         *packet << lootObject.guid;
         bot->GetSession()->QueuePacket(packet);
         return true;
+
     }
 
     if (creature)
@@ -84,7 +100,7 @@ bool OpenLootAction::DoLoot(LootObject& lootObject)
         case SKILL_MINING:
             return bot->HasSkill(SKILL_MINING) ? ai->CastSpell(32606, creature) : false;
         default:
-            return bot->HasSkill(SKILL_SKINNING) ? ai->CastSpell(SKINNING, creature) : false;
+           return bot->HasSkill(SKILL_SKINNING) ? ai->CastSpell(SKINNING, creature) : false;
         }
     }
 

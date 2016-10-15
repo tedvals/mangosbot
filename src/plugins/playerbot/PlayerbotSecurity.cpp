@@ -13,7 +13,7 @@ PlayerbotSecurity::PlayerbotSecurity(Player* const bot) : bot(bot)
 
 PlayerbotSecurityLevel PlayerbotSecurity::LevelFor(Player* from, DenyReason* reason, bool ignoreGroup)
 {
-	if (from->GetSession()->GetSecurity() >= SEC_PLAYER) //SEC_GAMEMASTER) thesawolf
+    if (from->GetSession()->GetSecurity() >= SEC_GAMEMASTER)
         return PLAYERBOT_SECURITY_ALLOW_ALL;
 
     if (from->GetPlayerbotAI())
@@ -57,8 +57,8 @@ PlayerbotSecurityLevel PlayerbotSecurity::LevelFor(Player* from, DenyReason* rea
         {
             if (!bot->GetGuildId() || bot->GetGuildId() != from->GetGuildId())
             {
-				/*if (reason) *reason = PLAYERBOT_DENY_FAR;
-                return PLAYERBOT_SECURITY_TALK;*/
+                if (reason) *reason = PLAYERBOT_DENY_FAR;
+                return PLAYERBOT_SECURITY_TALK;
             }
         }
 
@@ -66,8 +66,8 @@ PlayerbotSecurityLevel PlayerbotSecurity::LevelFor(Player* from, DenyReason* rea
         int fromGS = (int)bot->GetPlayerbotAI()->GetEquipGearScore(from, false, false);
         if (botGS && bot->getLevel() > 15 && (100 * (botGS - fromGS) / botGS) >= 20)
         {
-			/*if (reason) *reason = PLAYERBOT_DENY_GEARSCORE;
-            return PLAYERBOT_SECURITY_TALK;*/
+            if (reason) *reason = PLAYERBOT_DENY_GEARSCORE;
+            return PLAYERBOT_SECURITY_TALK;
         }
 
         if (bot->isDead())
@@ -114,7 +114,7 @@ bool PlayerbotSecurity::CheckLevelFor(PlayerbotSecurityLevel level, bool silent,
         return false;
 
     Player* master = bot->GetPlayerbotAI()->GetMaster();
-	if (master && bot->GetPlayerbotAI() && bot->GetPlayerbotAI()->IsOpposing(master) && master->GetSession()->GetSecurity() < SEC_PLAYER)//SEC_GAMEMASTER) thesawolf
+    if (master && bot->GetPlayerbotAI() && bot->GetPlayerbotAI()->IsOpposing(master) && master->GetSession()->GetSecurity() < SEC_GAMEMASTER)
         return false;
 
     ostringstream out;

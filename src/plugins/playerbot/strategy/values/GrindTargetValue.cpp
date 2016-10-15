@@ -43,7 +43,12 @@ Unit* GrindTargetValue::FindTargetForGrinding(int assistCount)
     list<ObjectGuid> targets = *context->GetValue<list<ObjectGuid> >("possible targets");
 
     if(targets.empty())
-        return NULL;
+    {
+        targets = *context->GetValue<list<ObjectGuid> >("far targets");
+
+        if (targets.empty())
+            return NULL;
+    }
 
     float distance = 0;
     Unit* result = NULL;
@@ -53,7 +58,7 @@ Unit* GrindTargetValue::FindTargetForGrinding(int assistCount)
         if (!unit)
             continue;
 
-        if (!bot->InBattleground() && abs(bot->GetPositionZ() - unit->GetPositionZ()) > sPlayerbotAIConfig.spellDistance)
+		if (!bot->InBattleground() && abs(bot->GetPositionZ() - unit->GetPositionZ()) > sPlayerbotAIConfig.spellDistance)
             continue;
 
 		if (!bot->InBattleground() && GetTargetingPlayerCount(unit) > assistCount)

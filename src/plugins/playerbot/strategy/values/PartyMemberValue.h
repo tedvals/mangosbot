@@ -28,4 +28,21 @@ namespace ai
         Unit* FindPartyMember(list<Player*>* party, FindPlayerPredicate &predicate);
         bool Check(Unit* player);
 	};
+
+
+    class IsPartyValue : public BoolCalculatedValue, public Qualified
+    {
+    public:
+        IsPartyValue(PlayerbotAI* ai) : BoolCalculatedValue(ai) {}
+
+        Unit* GetTarget()
+        {
+            AiObjectContext* ctx = AiObject::context;
+            return ctx->GetValue<Unit*>(qualifier)->Get();
+        }
+        virtual bool Calculate()
+        {
+            return ((bot->GetGroup()) ? true:false);
+        }
+    };
 }
