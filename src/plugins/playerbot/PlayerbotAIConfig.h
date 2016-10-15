@@ -22,16 +22,13 @@ public:
     bool IsInRandomQuestItemList(uint32 id);
 
     bool enabled;
-    //thesawolf - for notsorandom
-    bool notrandom;
-    //thesawolf - for ARAC support
-    bool aracgen;
     bool allowGuildBots;
     uint32 globalCoolDown, reactDelay, maxWaitForMove;
-    float sightDistance, spellDistance, reactDistance, grindDistance, lootDistance,
+    float sightDistance, spellDistance, reactDistance, aggroDistance, grindDistance, lootDistance, disperseDistance,
         fleeDistance, tooCloseDistance, meleeDistance, followDistance, whisperDistance, contactDistance;
-    uint32 criticalHealth, lowHealth, mediumHealth, almostFullHealth;
-    uint32 lowMana, mediumMana;
+    float closeDistance, mediumDistance, farDistance, extremeDistance;
+    uint32 criticalHealth, lowHealth, mediumHealth, highHealth, almostFullHealth, almostDead;
+    uint32 lowMana, mediumMana, almostFullMana, almostNoMana;
 
     bool randomBotAutologin;
     std::string randomBotMapsAsString;
@@ -52,14 +49,18 @@ public:
     uint32 minRandomBotsPriceChangeInterval, maxRandomBotsPriceChangeInterval;
     bool randomBotJoinLfg;
     bool randomBotLoginAtStartup;
+
 	bool randomBotJoinBG;
 	bool randomBotBracketPlayer;
+
     uint32 randomBotTeleLevel;
     bool logInGroupOnly, logValuesPerTick;
     bool fleeingEnabled;
     std::string randomBotCombatStrategies, randomBotNonCombatStrategies;
     uint32 randomBotMinLevel, randomBotMaxLevel;
+    int checkTriggerInterval;
     float randomChangeMultiplier;
+    bool outputTriggers;
     uint32 specProbability[MAX_CLASSES][3];
     std::string commandPrefix;
     std::string randomBotAccountPrefix;

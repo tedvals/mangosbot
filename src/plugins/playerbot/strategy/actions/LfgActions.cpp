@@ -189,6 +189,8 @@ bool LfgAcceptAction::Execute(Event event)
     uint32 id = AI_VALUE(uint32, "lfg proposal");
     if (id)
     {
+        //if (urand(0, 1 + 10 / sPlayerbotAIConfig.randomChangeMultiplier))
+        //    return false;
 
         if (bot->IsInCombat() || bot->isDead())
         {
@@ -197,6 +199,9 @@ bool LfgAcceptAction::Execute(Event event)
         }
 
         ai->ChangeStrategy("-grind", BOT_STATE_NON_COMBAT);
+
+     //   if (sRandomPlayerbotMgr.IsRandomBot(bot) && !bot->GetGroup())
+     //       ai->ChangeStrategy("-grind", BOT_STATE_NON_COMBAT);
 
         sLog->outMessage("playerbot", LOG_LEVEL_DEBUG, "Bot %s updated proposal %d", bot->GetName().c_str(), id);
         ai->GetAiObjectContext()->GetValue<uint32>("lfg proposal")->Set(0);
@@ -285,7 +290,7 @@ bool BGJoinAction::JoinProposal()
 	BattlegroundTypeId bgTypeId = BattlegroundTypeId::BATTLEGROUND_WS;
 
 	// can do this, since it's battleground, not arena
-	BattlegroundQueueTypeId bgQueueTypeId = BattlegroundMgr::BGQueueTypeId(bgTypeId,0);
+	BattlegroundQueueTypeId bgQueueTypeId = BattlegroundMgr::BGQueueTypeId(bgTypeId, 0);
 
 	// ignore if player is already in BG
 	if (bot->InBattleground())
@@ -357,7 +362,7 @@ bool BGStatusAction::Execute(Event event)
 
 	//on status 0, the packet has a uint64 as payload only. Took me two suicide tries and a gnomen porn video to find out
 	p >> QueueSlot >> arenatype >> arenaByte >> battleId >> x1f90;
-	if (x1f90!=0)
+	if (x1f90 != 0)
 		p >> minlevel >> maxlevel >> instanceId >> isRated >> statusid;
 
 	if (statusid == STATUS_WAIT_LEAVE) //battleground is over, bot needs to leave
@@ -583,7 +588,7 @@ bool BGTacticsWS::homerun(BattlegroundWS *bg)
 			if (ourGuy != NULL)
 			{
 				if (!bot->IsWithinDist(ourGuy, 40))
-					return runPathTo(ourGuy,bg);
+					return runPathTo(ourGuy, bg);
 				return Follow(ourGuy);
 			}
 		}
@@ -592,7 +597,7 @@ bool BGTacticsWS::homerun(BattlegroundWS *bg)
 			Player* theirGuy = ObjectAccessor::FindPlayer(guid);
 			if (theirGuy != NULL)
 			{
-				return runPathTo(theirGuy,bg);
+				return runPathTo(theirGuy, bg);
 			}
 		}
 	}
@@ -620,7 +625,7 @@ bool BGTacticsWS::homerun(BattlegroundWS *bg)
 //get back to alliance base
 
 //cross the battleground to get to flags or flag carriers
-bool BGTacticsWS::runPathTo(WorldObject *unit,Battleground *bg)
+bool BGTacticsWS::runPathTo(WorldObject *unit, Battleground *bg)
 {
 	if (unit == NULL)
 		return false;
@@ -644,15 +649,15 @@ bool BGTacticsWS::runPathTo(WorldObject *unit,Battleground *bg)
 				return  true;
 			}
 		}
-		else if(bot->Preference<7) { // preference < 7 = move through graveyard
+		else if (bot->Preference<7) { // preference < 7 = move through graveyard
 			if (bot->m_positionX < 985) //to the gate at the upper tunnel
 			{
-				MoveTo(bg->GetMapId(), 985.940125f,1423.260254f,345.418121f);
+				MoveTo(bg->GetMapId(), 985.940125f, 1423.260254f, 345.418121f);
 				return  true;
 			}
 			else if (bot->m_positionX < 1054.5) //to the gate at the upper tunnel
 			{
-				MoveTo(bg->GetMapId(), 1055.182251f,1396.967529f,339.361511f);
+				MoveTo(bg->GetMapId(), 1055.182251f, 1396.967529f, 339.361511f);
 				return  true;
 			}
 			else if (bot->m_positionX < 1125) //to the horde entrance
@@ -750,7 +755,7 @@ bool BGTacticsWS::runPathTo(WorldObject *unit,Battleground *bg)
 				return  true;
 			}
 		}
-	} 
+	}
 	else //move towards horde base
 	{
 		if (bot->Preference < 4) //through the tunnel
@@ -965,7 +970,7 @@ bool BGTacticsWS::Execute(Event event)
 					for (std::map<ObjectGuid, BattlegroundPlayer>::const_iterator itr = bg->GetPlayers().begin(); itr != bg->GetPlayers().end(); ++itr)
 					{
 						if (urand(0, 100) < 2)
-							return MoveNear(bg->GetMapId(),pos->m_positionX,pos->m_positionY,pos->m_positionZ, frand(1.0, 5.0));
+							return MoveNear(bg->GetMapId(), pos->m_positionX, pos->m_positionY, pos->m_positionZ, frand(1.0, 5.0));
 					}
 				}
 				return true;
@@ -1009,7 +1014,7 @@ bool BGTacticsWS::Execute(Event event)
 							break;
 					}
 				}
-				else 
+				else
 				{
 					AttackAnythingAction* action = new AttackAnythingAction(ai);
 					action->Execute(event);
@@ -1019,4 +1024,3 @@ bool BGTacticsWS::Execute(Event event)
 	}
 	return true;
 }
-

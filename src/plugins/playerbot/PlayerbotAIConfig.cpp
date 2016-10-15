@@ -30,7 +30,7 @@ bool PlayerbotAIConfig::Initialize()
 
     string error;
 	vector<string> args;
-    if (!config.LoadInitial("Settings/bots.conf", args, error))
+    if (!config.LoadInitial("aiplayerbot.conf", args, error))
     {
         sLog->outMessage("playerbot", LOG_LEVEL_INFO, "AI Playerbot is Disabled. Unable to open configuration file aiplayerbot.conf");
         return false;
@@ -43,34 +43,39 @@ bool PlayerbotAIConfig::Initialize()
         return false;
     }
 
-    // thesawolf - not so random bot creation
-    notrandom = config.GetBoolDefault("AiPlayerbot.NotSoRandom", true);
-    
-    // thesawolf - ARAC chargen support
-    aracgen = config.GetBoolDefault("AiPlayerbot.ARAC", true);
-    
     globalCoolDown = (uint32) config.GetIntDefault("AiPlayerbot.GlobalCooldown", 500);
     maxWaitForMove = config.GetIntDefault("AiPlayerbot.MaxWaitForMove", 3000);
     reactDelay = (uint32) config.GetIntDefault("AiPlayerbot.ReactDelay", 100);
 
-    sightDistance = config.GetFloatDefault("AiPlayerbot.SightDistance", 50.0f);
+    sightDistance = config.GetFloatDefault("AiPlayerbot.SightDistance", 60.0f);
     spellDistance = config.GetFloatDefault("AiPlayerbot.SpellDistance", 25.0f);
     reactDistance = config.GetFloatDefault("AiPlayerbot.ReactDistance", 150.0f);
     grindDistance = config.GetFloatDefault("AiPlayerbot.GrindDistance", 100.0f);
     lootDistance = config.GetFloatDefault("AiPlayerbot.LootDistance", 20.0f);
+    disperseDistance = config.GetFloatDefault("AiPlayerbot.DisperseDistance", 6.0f);
+    aggroDistance = config.GetFloatDefault("AiPlayerbot.AggroDistance", 12.0f);
     fleeDistance = config.GetFloatDefault("AiPlayerbot.FleeDistance", 20.0f);
-    tooCloseDistance = config.GetFloatDefault("AiPlayerbot.TooCloseDistance", 5.0f);
+    tooCloseDistance = config.GetFloatDefault("AiPlayerbot.TooCloseDistance", 7.0f);
     meleeDistance = config.GetFloatDefault("AiPlayerbot.MeleeDistance", 0.5f);
     followDistance = config.GetFloatDefault("AiPlayerbot.FollowDistance", 1.5f);
     whisperDistance = config.GetFloatDefault("AiPlayerbot.WhisperDistance", 6000.0f);
     contactDistance = config.GetFloatDefault("AiPlayerbot.ContactDistance", 0.5f);
 
-    criticalHealth = config.GetIntDefault("AiPlayerbot.CriticalHealth", 20);
-    lowHealth = config.GetIntDefault("AiPlayerbot.LowHealth", 50);
-    mediumHealth = config.GetIntDefault("AiPlayerbot.MediumHealth", 70);
-    almostFullHealth = config.GetIntDefault("AiPlayerbot.AlmostFullHealth", 85);
+    closeDistance = config.GetFloatDefault("AiPlayerbot.CloseDistance", 8.0f);
+    mediumDistance = config.GetFloatDefault("AiPlayerbot.MediumDistance", 15.0f);
+    farDistance = config.GetFloatDefault("AiPlayerbot.FarDistance", 25.0f);
+    extremeDistance = config.GetFloatDefault("AiPlayerbot.ExtremeDistance", 30.0f);
+
+    criticalHealth = config.GetIntDefault("AiPlayerbot.CriticalHealth", 25);
+    lowHealth = config.GetIntDefault("AiPlayerbot.LowHealth", 45);
+    mediumHealth = config.GetIntDefault("AiPlayerbot.MediumHealth", 60);
+    highHealth = config.GetIntDefault("AiPlayerbot.HighHealth", 75);
+    almostFullHealth = config.GetIntDefault("AiPlayerbot.AlmostFullHealth", 90);
+    almostDead = config.GetIntDefault("AiPlayerbot.AlmostDead", 10);
     lowMana = config.GetIntDefault("AiPlayerbot.LowMana", 15);
+    almostNoMana = config.GetIntDefault("AiPlayerbot.AlmostNoMana", 4);
     mediumMana = config.GetIntDefault("AiPlayerbot.MediumMana", 40);
+    almostFullMana = config.GetIntDefault("AiPlayerbot.AlmostFullMana", 85);
 
     randomGearLoweringChance = config.GetFloatDefault("AiPlayerbot.RandomGearLoweringChance", 0.15);
     randomBotMaxLevelChance = config.GetFloatDefault("AiPlayerbot.RandomBotMaxLevelChance", 0.4);
@@ -90,11 +95,11 @@ bool PlayerbotAIConfig::Initialize()
     randomBotUpdateInterval = config.GetIntDefault("AiPlayerbot.RandomBotUpdateInterval", 60);
     randomBotCountChangeMinInterval = config.GetIntDefault("AiPlayerbot.RandomBotCountChangeMinInterval", 24 * 3600);
     randomBotCountChangeMaxInterval = config.GetIntDefault("AiPlayerbot.RandomBotCountChangeMaxInterval", 3 * 24 * 3600);
-    minRandomBotInWorldTime = config.GetIntDefault("AiPlayerbot.MinRandomBotInWorldTime", 24 * 3600);
+    minRandomBotInWorldTime = config.GetIntDefault("AiPlayerbot.MinRandomBotInWorldTime", 2 * 3600);
     maxRandomBotInWorldTime = config.GetIntDefault("AiPlayerbot.MaxRandomBotInWorldTime", 14 * 24 * 3600);
     minRandomBotRandomizeTime = config.GetIntDefault("AiPlayerbot.MinRandomBotRandomizeTime", 2 * 3600);
     maxRandomBotRandomizeTime = config.GetIntDefault("AiPlayerbot.MaxRandomRandomizeTime", 14 * 24 * 3600);
-    minRandomBotReviveTime = config.GetIntDefault("AiPlayerbot.MinRandomBotReviveTime", 60);
+    minRandomBotReviveTime = config.GetIntDefault("AiPlayerbot.MinRandomBotReviveTime", 100);
     maxRandomBotReviveTime = config.GetIntDefault("AiPlayerbot.MaxRandomReviveTime", 300);
     randomBotTeleportDistance = config.GetIntDefault("AiPlayerbot.RandomBotTeleportDistance", 1000);
     minRandomBotsPerInterval = config.GetIntDefault("AiPlayerbot.MinRandomBotsPerInterval", 50);
@@ -103,12 +108,13 @@ bool PlayerbotAIConfig::Initialize()
     maxRandomBotsPriceChangeInterval = config.GetIntDefault("AiPlayerbot.MaxRandomBotsPriceChangeInterval", 48 * 3600);
     randomBotJoinLfg = config.GetBoolDefault("AiPlayerbot.RandomBotJoinLfg", true);
 	randomBotJoinBG = config.GetBoolDefault("AiPlayerbot.RandomBotJoinBG", true);
+	randomBotBracketPlayer = config.GetBoolDefault("AIPlayerbot.RandomBotBracketPlayer", true);
+
     logInGroupOnly = config.GetBoolDefault("AiPlayerbot.LogInGroupOnly", true);
     logValuesPerTick = config.GetBoolDefault("AiPlayerbot.LogValuesPerTick", false);
     fleeingEnabled = config.GetBoolDefault("AiPlayerbot.FleeingEnabled", true);
     randomBotMinLevel = config.GetIntDefault("AiPlayerbot.RandomBotMinLevel", 1);
-    randomBotMaxLevel = config.GetIntDefault("AiPlayerbot.RandomBotMaxLevel", 255);
-	randomBotBracketPlayer = config.GetBoolDefault("AIPlayerbot.RandomBotBracketPlayer", true);
+    randomBotMaxLevel = config.GetIntDefault("AiPlayerbot.RandomBotMaxLevel", 80);
     randomBotLoginAtStartup = config.GetBoolDefault("AiPlayerbot.RandomBotLoginAtStartup", true);
     randomBotTeleLevel = config.GetIntDefault("AiPlayerbot.RandomBotTeleLevel", 3);
 
@@ -139,12 +145,16 @@ bool PlayerbotAIConfig::Initialize()
     guildTaskEnabled = config.GetBoolDefault("AiPlayerbot.EnableGuildTasks", true);
     minGuildTaskChangeTime = config.GetIntDefault("AiPlayerbot.MinGuildTaskChangeTime", 2 * 24 * 3600);
     maxGuildTaskChangeTime = config.GetIntDefault("AiPlayerbot.MaxGuildTaskChangeTime", 5 * 24 * 3600);
+
+    outputTriggers = config.GetBoolDefault("AiPlayerbot.OutputTriggers", true);
+    checkTriggerInterval = config.GetIntDefault("AiPlayerbot.CheckTriggerInterval", 1);
+    RandomPlayerbotFactory::CreateRandomBots();
+
     minGuildTaskAdvertisementTime = config.GetIntDefault("AiPlayerbot.MinGuildTaskAdvertisementTime", 8 * 3600);
     maxGuildTaskAdvertisementTime = config.GetIntDefault("AiPlayerbot.MaxGuildTaskAdvertisementTime", 4 * 24 * 3600);
     minGuildTaskRewardTime = config.GetIntDefault("AiPlayerbot.MinGuildTaskRewardTime", 60);
     maxGuildTaskRewardTime = config.GetIntDefault("AiPlayerbot.MaxGuildTaskRewardTime", 600);
 
-    RandomPlayerbotFactory::CreateRandomBots();
     sLog->outMessage("playerbot", LOG_LEVEL_INFO, "AI Playerbot configuration loaded");
 
     return true;

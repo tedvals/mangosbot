@@ -38,13 +38,38 @@ bool CastSpellAction::Execute(Event event)
 
 bool CastSpellAction::isPossible()
 {
+    //if (AI_VALUE2(float, "distance", GetTargetName()) > range)
+    //    return false;
+
+	//if (ai->IsMoving() && !isInstant())
+	//	return false;
 	if (spell == "mount" && !bot->IsMounted() && !bot->IsInCombat())
 		return true;
+
 	if (spell == "mount" && bot->IsInCombat())
 	{
 		bot->Dismount();
 		return false;
 	}
+
+	Unit* target = GetTarget();
+
+	if (!target)
+    {
+        target = bot;
+        return  ai->CanCastSpell(spell, GetTarget());
+    }
+
+	if (!bot->IsWithinLOSInMap(target))
+		return false;
+
+	if (!bot->IsFriendlyTo(target) && target->UnderCc() && !target->isStunned())
+	{
+		if (target->isFrozen() && bot->getClass() == CLASS_MAGE)
+			return  ai->CanCastSpell(spell, GetTarget());
+		else return false;
+	}
+
 	return ai->CanCastSpell(spell, GetTarget());
 }
 
@@ -52,17 +77,47 @@ bool CastSpellAction::isUseful()
 {
 	if (spell == "mount" && !bot->IsMounted() && !bot->IsInCombat())
 		return true;
+
 	if (spell == "mount" && bot->IsInCombat())
 	{
 		bot->Dismount();
 		return false;
 	}
+
 	return GetTarget() && AI_VALUE2(bool, "spell cast useful", spell);
 }
 
 bool CastAuraSpellAction::isUseful()
 {
 	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget());
+}
+
+bool CastDebuffSpellAction::isUseful()
+{
+    if (AI_VALUE(uint8, "balance") > 50)
+    {
+	if (AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.almostDead && ((AI_VALUE2(bool, "target normal", "current target") || AI_VALUE2(bool, "target player", "current target"))))
+        	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget(), BOT_AURA_DAMAGE);
+	}
+    else if (AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.almostDead/2 && AI_VALUE2(bool, "target elite", "current target"))
+    {
+        	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget(), BOT_AURA_DAMAGE);
+	}
+    else if (AI_VALUE2(uint8, "health", "current target") > sPlayerbotAIConfig.almostDead/3 && AI_VALUE2(bool, "target boss", "current target"))
+    {
+    	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget(), BOT_AURA_DAMAGE);
+	}
+    else return false;
+}
+
+bool CastOwnDebuffSpellAction::isUseful()
+{
+	return CastSpellAction::isUseful() && !ai->HasOwnAura(spell, GetTarget(), BOT_AURA_DAMAGE);
+}
+
+bool CastHotSpellAction::isUseful()
+{
+	return CastSpellAction::isUseful() && !ai->HasAura(spell, GetTarget(), BOT_AURA_HEAL);
 }
 
 bool CastEnchantItemAction::isUseful()
@@ -76,7 +131,7 @@ bool CastEnchantItemAction::isUseful()
 
 bool CastHealingSpellAction::isUseful()
 {
-	return CastAuraSpellAction::isUseful() && AI_VALUE2(uint8, "health", GetTargetName()) < (100 - estAmount);
+	return CastHotSpellAction::isUseful() && AI_VALUE2(uint8, "health", GetTargetName()) < (100 - estAmount);
 }
 
 bool CastAoeHealSpellAction::isUseful()
@@ -88,6 +143,41 @@ bool CastAoeHealSpellAction::isUseful()
 Value<Unit*>* CurePartyMemberAction::GetTargetValue()
 {
     return context->GetValue<Unit*>("party member to dispel", dispelType);
+}
+
+Value<Unit*>* DispelFrozenPartyMemberAction::GetTargetValue()
+{
+    return context->GetValue<Unit*>("party member dispel frozen");
+}
+
+Value<Unit*>* DispelRootPartyMemberAction::GetTargetValue()
+{
+    return context->GetValue<Unit*>("party member dispel root");
+}
+
+Value<Unit*>* DispelSnarePartyMemberAction::GetTargetValue()
+{
+    return context->GetValue<Unit*>("party member dispel snare");
+}
+
+Value<Unit*>* DispelCharmPartyMemberAction::GetTargetValue()
+{
+    return context->GetValue<Unit*>("party member dispel charm");
+}
+
+Value<Unit*>* DispelPossessPartyMemberAction::GetTargetValue()
+{
+    return context->GetValue<Unit*>("party member dispel possess");
+}
+
+Value<Unit*>* DispelPolymorphPartyMemberAction::GetTargetValue()
+{
+    return context->GetValue<Unit*>("party member dispel polymorph");
+}
+
+Value<Unit*>* DispelFearPartyMemberAction::GetTargetValue()
+{
+    return context->GetValue<Unit*>("party member dispel fear");
 }
 
 Value<Unit*>* BuffOnPartyAction::GetTargetValue()

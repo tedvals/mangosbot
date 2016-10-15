@@ -63,11 +63,11 @@ namespace ai
             creators["lfg role check"] = &WorldPacketActionContext::lfg_role_check;
             creators["lfg leave"] = &WorldPacketActionContext::lfg_leave;
             creators["lfg teleport"] = &WorldPacketActionContext::lfg_teleport;
+            creators["guild accept"] = &WorldPacketActionContext::guild_accept;
 			creators["bg join"] = &WorldPacketActionContext::bg_join;
 			creators["bg status"] = &WorldPacketActionContext::bg_status;
 			creators["bg tactics ws"] = &WorldPacketActionContext::bg_tactics_ws;
 			creators["security check"] = &WorldPacketActionContext::security_check;
-            creators["guild accept"] = &WorldPacketActionContext::guild_accept;
         }
 
     private:
@@ -78,10 +78,7 @@ namespace ai
         static Action* lfg_accept(PlayerbotAI* ai) { return new LfgAcceptAction(ai); }
         static Action* lfg_role_check(PlayerbotAI* ai) { return new LfgRoleCheckAction(ai); }
         static Action* lfg_join(PlayerbotAI* ai) { return new LfgJoinAction(ai); }
-		static Action* bg_status(PlayerbotAI* ai) { return new BGStatusAction(ai); }
-		static Action* bg_join(PlayerbotAI* ai) { return new BGJoinAction(ai); }
-		static Action* bg_tactics_ws(PlayerbotAI* ai) { return new BGTacticsWS(ai); }
-		static Action* uninvite(PlayerbotAI* ai) { return new UninviteAction(ai); }
+        static Action* uninvite(PlayerbotAI* ai) { return new UninviteAction(ai); }
         static Action* ready_check_finished(PlayerbotAI* ai) { return new FinishReadyCheckAction(ai); }
         static Action* ready_check(PlayerbotAI* ai) { return new ReadyCheckAction(ai); }
         static Action* accept_duel(PlayerbotAI* ai) { return new AcceptDuelAction(ai); }
@@ -108,6 +105,10 @@ namespace ai
         static Action* accept_all_quests(PlayerbotAI* ai) { return new AcceptAllQuestsAction(ai); }
         static Action* accept_quest_share(PlayerbotAI* ai) { return new AcceptQuestShareAction(ai); }
         static Action* loot_roll(PlayerbotAI* ai) { return (QueryItemUsageAction*)new LootRollAction(ai); }
+		static Action* bg_status(PlayerbotAI* ai) { return new BGStatusAction(ai); }
+		static Action* bg_join(PlayerbotAI* ai) { return new BGJoinAction(ai); }
+		static Action* bg_tactics_ws(PlayerbotAI* ai) {return new BGTacticsWS(ai);}
+
     };
 
 

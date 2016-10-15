@@ -3389,6 +3389,39 @@ bool Unit::IsNonMeleeSpellCast(bool withDelayed, bool skipChanneled, bool skipAu
     return false;
 }
 
+bool Unit::IsNonPositiveSpellCast(bool withDelayed, bool skipChanneled, bool skipAutorepeat, bool isAutoshoot, bool skipInstant) const
+{
+		// We don't do loop here to explicitly show that melee spell is excluded.
+			// Maybe later some special spells will be excluded too.
+		
+			// generic spells are cast when they are not finished and not delayed
+		if (m_currentSpells[CURRENT_GENERIC_SPELL] &&
+			(m_currentSpells[CURRENT_GENERIC_SPELL]->getState() != SPELL_STATE_FINISHED) &&
+			(withDelayed || m_currentSpells[CURRENT_GENERIC_SPELL]->getState() != SPELL_STATE_DELAYED))
+		 {
+		if (!skipInstant || m_currentSpells[CURRENT_GENERIC_SPELL]->GetCastTime())
+			 {
+			if (!isAutoshoot || !(m_currentSpells[CURRENT_GENERIC_SPELL]->m_spellInfo->HasAttribute(SPELL_ATTR2_NOT_RESET_AUTO_ACTIONS)))
+				 if (!m_currentSpells[CURRENT_GENERIC_SPELL]->m_spellInfo->IsPositive())
+					return true;
+			}
+		}
+		// channeled spells may be delayed, but they are still considered cast
+		if (!skipChanneled && m_currentSpells[CURRENT_CHANNELED_SPELL] &&
+			(m_currentSpells[CURRENT_CHANNELED_SPELL]->getState() != SPELL_STATE_FINISHED))
+		{
+		if (!isAutoshoot || !(m_currentSpells[CURRENT_CHANNELED_SPELL]->m_spellInfo->HasAttribute(SPELL_ATTR2_NOT_RESET_AUTO_ACTIONS)))
+			if (!m_currentSpells[CURRENT_CHANNELED_SPELL]->m_spellInfo->IsPositive())
+				return true;
+		}
+		// autorepeat spells may be finished or delayed, but they are still considered cast
+		if (!skipAutorepeat && m_currentSpells[CURRENT_AUTOREPEAT_SPELL])
+			if (m_currentSpells[CURRENT_AUTOREPEAT_SPELL]->m_spellInfo->IsPositive())
+			return true;
+	
+		return false;
+	}
+
 void Unit::InterruptNonMeleeSpells(bool withDelayed, uint32 spell_id, bool withInstant)
 {
     // generic spells are interrupted if they are not finished or delayed
@@ -13120,6 +13153,16 @@ uint32 Unit::GetCreatureType() const
         return ToCreature()->GetCreatureTemplate()->type;
 }
 
+uint32 Unit::GetCreatureRank() const
+{
+	if (GetTypeId() == TYPEID_PLAYER)
+		{
+		return CREATURE_UNKNOWN;
+		}
+	else
+		 return ToCreature()->GetCreatureTemplate()->rank;
+	}
+
 uint32 Unit::GetCreatureTypeMask() const
 {
     uint32 creatureType = GetCreatureType();
@@ -13989,10 +14032,9 @@ Player* Unit::GetPlayerBeingMoved() const
     return nullptr;
 }
 
-bool Unit::isFrozen() const
-{
-    return HasAuraState(AURA_STATE_FROZEN);
-}
+bool Unit::hasCriticalHealth() const { return HasAuraState(AURA_STATE_HEALTHLESS_20_PERCENT); }
+bool Unit::hasLowHealth() const { return HasAuraState(AURA_STATE_HEALTHLESS_35_PERCENT); }
+bool Unit::hasHighHealth() const { return HasAuraState(AURA_STATE_HEALTH_ABOVE_75_PERCENT); }
 
 struct ProcTriggeredData
 {

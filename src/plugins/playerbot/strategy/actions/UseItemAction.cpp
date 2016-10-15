@@ -10,6 +10,9 @@ bool UseItemAction::Execute(Event event)
     if (name.empty())
         name = getName();
 
+
+    ai->TellMaster("Using Item" + name);
+
     list<Item*> items = AI_VALUE2(list<Item*>, "inventory items", name);
     list<ObjectGuid> gos = chat->parseGameobjects(name);
 
@@ -20,19 +23,37 @@ bool UseItemAction::Execute(Event event)
             list<Item*>::iterator i = items.begin();
             Item* itemTarget = *i++;
             Item* item = *i;
-            return UseItemOnItem(item, itemTarget);
+
+            if (item->GetGUID() == itemTarget->GetGUID())
+                UseItemOnItem(item, itemTarget);
         }
-        else if (!items.empty())
-            return UseItemAuto(*items.begin());
-    }
+
+        if (!items.empty())
+        {
+            if (targetSlot)
+            {
+                Item* actionTarget= bot->GetItemByPos(INVENTORY_SLOT_BAG_0,targetSlot);
+                if (actionTarget)
+                    return UseItemOnItem(*items.begin(), actionTarget);
+            }
+
+            if (actionUnit)
+            {
+                //string unitName = actionUnit->GetName().c_str();
+                //ai->TellMaster("on " + unitName);
+                return UseItemOnUnit(*items.begin(),actionUnit);
+            }
+            else
+                return UseItemAuto(*items.begin());
+        }
     else
     {
         if (items.empty())
             return UseGameObject(*gos.begin());
         else
             return UseItemOnGameObject(*items.begin(), *gos.begin());
+        }
     }
-
     ai->TellMaster("No items (or game objects) available");
     return false;
 }
@@ -82,8 +103,21 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
     uint32 glyphIndex = 0;
     uint8 unk_flags = 0;
 
+    uint32 spellId = 0;
+
+    for (uint8 i = 0; i < MAX_ITEM_PROTO_SPELLS; ++i)
+    {
+        if (item->GetTemplate()->Spells[i].SpellId > 0)
+        {
+            spellId = item->GetTemplate()->Spells[i].SpellId;
+
+            if (ai->CanCastSpell(spellId, bot, false))
+                break;
+        }
+    }
+
     WorldPacket* const packet = new WorldPacket(CMSG_USE_ITEM, 1 + 1 + 1 + 4 + 8 + 4 + 1 + 8 + 1);
-    *packet << bagIndex << slot << cast_count << uint32(0) << item_guid
+    *packet << bagIndex << slot << cast_count << spellId  << item_guid
         << glyphIndex << unk_flags;
 
     bool targetSelected = false;
@@ -119,6 +153,7 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
                 ai->TellMaster("Socket does not fit");
             return fit;
         }
+
         else
         {
             uint32 targetFlag = TARGET_FLAG_ITEM;
@@ -127,20 +162,7 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
             out << " on " << chat->formatItem(itemTarget->GetTemplate());
             targetSelected = true;
         }
-    }
 
-    Player* master = GetMaster();
-    if (!targetSelected && item->GetTemplate()->Class != ITEM_CLASS_CONSUMABLE && master)
-    {
-        Unit* masterSelection = master->GetSelectedUnit();
-        if (masterSelection)
-        {
-            uint32 targetFlag = TARGET_FLAG_UNIT;
-            *packet << targetFlag;
-            packet->appendPackGUID(masterSelection->GetGUID());
-            out << " on " << masterSelection->GetName();
-            targetSelected = true;
-        }
     }
 
     if(uint32 questid = item->GetTemplate()->StartQuest)
@@ -156,6 +178,20 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
             ostringstream out; out << "Got quest " << chat->formatQuest(qInfo);
             ai->TellMasterNoFacing(out.str());
             return true;
+        }
+    }
+
+    Player* master = GetMaster();
+    if (!targetSelected && item->GetTemplate()->Class != ITEM_CLASS_CONSUMABLE && master)
+    {
+        Unit* masterSelection = master->GetSelectedUnit();
+        if (masterSelection)
+        {
+            uint32 targetFlag = TARGET_FLAG_UNIT;
+            *packet << targetFlag;
+            packet->appendPackGUID(masterSelection->GetGUID());
+            out << " on " << masterSelection->GetName();
+            targetSelected = true;
         }
     }
 
@@ -195,7 +231,7 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
                 targetSelected = true;
                 out << " on traded item";
             }
-            else
+            else if (!targetSelected)
             {
                 *packet << TARGET_FLAG_ITEM;
                 packet->appendPackGUID(itemForSpell->GetGUID());
@@ -216,6 +252,16 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
         break;
     }
 
+	if (item->GetTemplate()->Flags & ITEM_PROTO_FLAG_HAS_LOOT)
+    {
+        // Open quest item in inventory, containing related items (e.g Gnarlpine necklace, containing Tallonkai's Jewel)
+        WorldPacket* const packet = new WorldPacket(CMSG_OPEN_ITEM, 2);
+        *packet << item->GetBagSlot();
+        *packet << item->GetSlot();
+        bot->GetSession()->QueuePacket(packet);           // queue the packet to get around race condition
+        return true;
+    }
+
     if (!targetSelected)
         return false;
 
@@ -225,11 +271,89 @@ bool UseItemAction::UseItem(Item* item, ObjectGuid goGuid, Item* itemTarget)
             return false;
 
         ai->InterruptSpell();
-        ai->SetNextCheckDelay(30000);
+        ai->SetNextCheckDelay(25000);
     }
+    else
+        ai->SetNextCheckDelay(5000);
 
     ai->TellMasterNoFacing(out.str());
     bot->GetSession()->QueuePacket(packet);
+    return true;
+}
+
+bool UseItemAction::UseItemOnUnit(Item* item, Unit* unitTarget)
+{
+    if (bot->CanUseItem(item) != EQUIP_ERR_OK)
+        return false;
+
+    if (bot->IsNonMeleeSpellCast(true))
+        return false;
+
+    if (!unitTarget)
+        return false;
+
+    if (bot->IsInCombat())
+            return false;
+
+    uint8 bagIndex = item->GetBagSlot();
+    uint8 slot = item->GetSlot();
+    uint8 cast_count = 1;
+    uint64 item_guid = item->GetGUID();
+    uint32 glyphIndex = 0;
+    uint8 unk_flags = 0;
+
+    ostringstream out; out << "Using " << chat->formatItem(item->GetTemplate());
+    if (item->GetTemplate()->Stackable)
+    {
+        uint32 count = item->GetCount();
+        if (count > 1)
+            out << " (" << count << " available) ";
+        else
+            out << " (the last one!)";
+    }
+
+    MotionMaster &mm = *bot->GetMotionMaster();
+    mm.Clear();
+    bot->ClearUnitState( UNIT_STATE_CHASE );
+    bot->ClearUnitState( UNIT_STATE_FOLLOW );
+
+    if (bot->isMoving())
+        return false;
+
+	uint32 spellId = 0;
+
+    for (int i=0; i<MAX_ITEM_PROTO_SPELLS; i++)
+    {
+        uint32 spellId = item->GetTemplate()->Spells[i].SpellId;
+        if (!spellId)
+            continue;
+
+        if (!ai->CanCastSpell(spellId, bot, false))
+            continue;
+    }
+
+    if (!spellId)
+        return false;
+
+    uint32 targetFlag = TARGET_FLAG_UNIT;
+
+    WorldPacket *packet = new WorldPacket(CMSG_USE_ITEM, 1 + 1 + 1 + 4 + 8 + 4 + 1 + 8 + 1);
+        *packet << bagIndex << slot << cast_count << spellId << item_guid
+        << glyphIndex << unk_flags << targetFlag;
+
+    ai->TellMasterNoFacing(out.str());
+
+    const SpellInfo* const pSpellInfo = sSpellMgr->GetSpellInfo(spellId);
+
+    Spell *spell = new Spell(bot, pSpellInfo, TRIGGERED_NONE, ObjectGuid::Empty, true);
+    ai->WaitForSpellCast(spell);
+    delete spell;
+
+    packet->appendPackGUID(unitTarget->GetGUID());
+    out << " on " << unitTarget->GetName();
+    bot->GetSession()->QueuePacket(packet);
+
+    ai->SetNextCheckDelay(3000);
     return true;
 }
 
@@ -290,6 +414,15 @@ bool UseItemAction::SocketItem(Item* item, Item* gem, bool replace)
     return fits;
 }
 
+void UseItemAction::setTargetMainhand()
+{
+     targetSlot= EQUIPMENT_SLOT_MAINHAND;
+}
+
+void UseItemAction::setTargetOffhand()
+{
+     targetSlot= EQUIPMENT_SLOT_OFFHAND;
+}
 
 bool UseItemAction::isPossible()
 {

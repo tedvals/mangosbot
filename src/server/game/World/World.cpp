@@ -2351,8 +2351,12 @@ void World::Update(uint32 diff)
     }
 
     // playerbot mod
-    sRandomPlayerbotMgr.UpdateAI(diff);
-    sRandomPlayerbotMgr.UpdateSessions(diff);
+    
+	sRandomPlayerbotMgr.UpdateAI(diff);
+	sRandomPlayerbotMgr.UpdateSessions(diff);
+
+	sRandomPlayerbotMgr1.UpdateAI(diff);
+	sRandomPlayerbotMgr1.UpdateSessions(diff);
     
     if (m_timers[WUPDATE_AUCTIONS_PENDING].Passed())
     {
