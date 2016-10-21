@@ -217,7 +217,8 @@ bool MovementAction::MoveToUnit(Unit* target)
     bot->GetMotionMaster()->Clear();
     bot->GetMotionMaster()->MoveChase(target);
 
-    ai->DoNextAction(1,true);
+   // ai->DoNextAction(1,true);
+	return true;
 }
 
 float MovementAction::GetFollowAngle()

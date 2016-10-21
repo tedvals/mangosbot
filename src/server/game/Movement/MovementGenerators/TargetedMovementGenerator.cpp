@@ -39,7 +39,7 @@ void TargetedMovementGeneratorMedium<T, D>::_setTargetLocation(T* owner, bool up
     if (owner->HasUnitState(UNIT_STATE_CASTING) && !owner->CanMoveDuringChannel())
         return;
 
-    if (i_target.getTarget()->GetTypeId() == TYPEID_UNIT && !((Unit *)i_target.getTarget())->isInAccessiblePlaceFor(owner->ToCreature()))
+    if (i_target.getTarget()->GetTypeId() == TYPEID_UNIT && owner->ToCreature() && !((Unit *)i_target.getTarget())->isInAccessiblePlaceFor(owner->ToCreature()))
     {
         owner->ToCreature()->SetCannotReachTarget(true);
         return;
