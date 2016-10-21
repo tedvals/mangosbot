@@ -27282,7 +27282,7 @@ WorldObject* Player::MoveToQuestEnder(uint32& mapId, uint32& areaId, uint32& zon
 	}
 
 	if (questId == 0)
-		return NULL;
+		return nullptr;
 
 	QueryResult result = WorldDatabase.PQuery("SELECT "
 		//           0      1      2     3         4          5         6           7
@@ -27318,26 +27318,26 @@ WorldObject* Player::MoveToQuestEnder(uint32& mapId, uint32& areaId, uint32& zon
 	} while (result->NextRow());
 
 	if (!questEnder)
-		return NULL;
+		return nullptr;
 
 	Map* map = sMapMgr->FindMap(mapId, 0);
 	if (!map)
-		return NULL;
+		return nullptr;
 
 	if (!map->IsInWater(position_x, position_y, position_z))
-		return NULL;
+		return nullptr;
 
 	if (map->IsBattlegroundOrArena() || map->IsDungeon() || map->IsRaidOrHeroicDungeon())
-		return NULL;
+		return nullptr;
 
 	areaId = map->GetAreaId(x, y, z);
 
 	if (!areaId)
-		return NULL;
+		return nullptr;
 
 	AreaTableEntry const* area = sAreaTableStore.LookupEntry(areaId);
 	if (!area)
-		return NULL;
+		return nullptr;
 
 	float distance = 50.0f;
 	float ground;
@@ -27401,15 +27401,15 @@ WorldObject* Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& 
 	}
 
 	if (questId == 0)
-		return NULL;
+		return nullptr;
 
 	Quest const* quest = sObjectMgr->GetQuestTemplate(questId);
 	QuestStatusData& questStatusData = m_QuestStatus[questId];
 
 	if (!quest)
-		return false;
+		return nullptr;
 
-	uint32 npcId = NULL;
+	uint32 npcId = 0;
 
 	for (int count = 0; count < quest->GetReqCreatureOrGOcount(); count++)
 	{
@@ -27449,18 +27449,18 @@ WorldObject* Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& 
 
 			Map* map = sMapMgr->FindMap(mapId, 0);
 			if (!map)
-				return NULL;
+				return nullptr;
 
 			if (!map->IsInWater(position_x, position_y, position_z))
-				return NULL;
+				return nullptr;
 
 			if (map->IsBattlegroundOrArena() || map->IsDungeon() || map->IsRaidOrHeroicDungeon())
-				return NULL;
+				return nullptr;
 
 			areaId = map->GetAreaId(x, y, z);
 
 			if (!areaId)
-				return NULL;
+				return nullptr;
 
 			float distance = 50.0f;
 			float ground;
@@ -27482,7 +27482,7 @@ WorldObject* Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& 
 		}
 	}
 
-	uint32 itemId = NULL;
+	uint32 itemId = 0;
 
 	for (int count = 0; count < quest->GetReqCreatureOrGOcount(); count++)
 	{
@@ -27539,22 +27539,22 @@ WorldObject* Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& 
 
 			Map* map = sMapMgr->FindMap(mapId, 0);
 			if (!map)
-				return NULL;
+				return nullptr;
 
 			if (!map->IsInWater(position_x, position_y, position_z))
-				return NULL;
+				return nullptr;
 
 			if (map->IsBattlegroundOrArena() || map->IsDungeon() || map->IsRaidOrHeroicDungeon())
-				return NULL;
+				return nullptr;
 
 			areaId = map->GetAreaId(x, y, z);
 
 			if (!areaId)
-				return NULL;
+				return nullptr;
 
 			AreaTableEntry const* area = sAreaTableStore.LookupEntry(areaId);
 			if (!area)
-				return NULL;
+				return nullptr;
 
 			float distance = 50.0f;
 			float ground;
@@ -27578,7 +27578,7 @@ WorldObject* Player::MoveToQuestPosition(uint32& mapId, uint32& areaId, uint32& 
 		}
 	}
 
-	return false;
+	return nullptr;
 }
 
 uint32 Player::DoRandomRoll(uint32 minimum, uint32 maximum)
