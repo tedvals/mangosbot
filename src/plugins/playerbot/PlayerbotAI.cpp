@@ -1786,7 +1786,7 @@ void PlayerbotAI::WaitForSpellCast(Spell *spell)
 {
     const SpellInfo* const pSpellInfo = spell->GetSpellInfo();
 
-    float castTime = spell->GetCastTime() + sPlayerbotAIConfig.reactDelay;
+    float castTime = spell->GetCastTime();
     if (pSpellInfo->IsChanneled())
     {
         int32 duration = pSpellInfo->GetDuration();
@@ -1800,7 +1800,7 @@ void PlayerbotAI::WaitForSpellCast(Spell *spell)
     if (castTime < globalCooldown)
         castTime = globalCooldown;
 
-    SetNextCheckDelay(castTime);
+    SetNextCheckDelay(castTime + sPlayerbotAIConfig.reactDelay);
 }
 
 void PlayerbotAI::InterruptSpell()
@@ -1816,6 +1816,9 @@ void PlayerbotAI::InterruptSpell()
         Spell* spell = bot->GetCurrentSpell((CurrentSpellTypes)type);
         if (!spell)
             continue;
+
+		if (spell->m_spellInfo->IsPositive())
+			continue;
 
         bot->InterruptSpell((CurrentSpellTypes)type);
 

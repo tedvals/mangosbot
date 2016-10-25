@@ -56,6 +56,7 @@ public:
     uint32 randomBotTeleLevel;
     bool logInGroupOnly, logValuesPerTick;
     bool fleeingEnabled;
+	std::string combatStrategies, nonCombatStrategies;
     std::string randomBotCombatStrategies, randomBotNonCombatStrategies;
     uint32 randomBotMinLevel, randomBotMaxLevel;
     int checkTriggerInterval;

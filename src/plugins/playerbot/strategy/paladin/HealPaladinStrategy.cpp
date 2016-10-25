@@ -126,10 +126,6 @@ void MeleeHealPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
         "judgement of wisdom",
         NextAction::array(0, new NextAction("judgement of wisdom", ACTION_NORMAL + 2), NULL)));
 
-    triggers.push_back(new TriggerNode(
-        "blessing",
-        NextAction::array(0, new NextAction("blessing of kings", ACTION_HIGH + 8), NULL)));
-
      triggers.push_back(new TriggerNode(
         "not facing target",
         NextAction::array(0, new NextAction("set facing", ACTION_MOVE + 7), NULL)));

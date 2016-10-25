@@ -10,14 +10,14 @@ class TankPaladinStrategyActionNodeFactory : public NamedObjectFactory<ActionNod
 public:
     TankPaladinStrategyActionNodeFactory()
     {
-        creators["blessing of sanctuary"] = &blessing_of_sanctuary;
+        creators["hammer of the righteous"] = &hammer_of_righteous;
     }
 private:
-    static ActionNode* blessing_of_sanctuary(PlayerbotAI* ai)
+    static ActionNode* hammer_of_righteous(PlayerbotAI* ai)
     {
-        return new ActionNode ("blessing of sanctuary",
+        return new ActionNode ("hammer of the righteous",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("blessing of kings"), NULL),
+            /*A*/ NextAction::array(0, new NextAction("holy shield"), NULL),
             /*C*/ NULL);
     }
 };
@@ -50,11 +50,11 @@ void TankPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 
     triggers.push_back(new TriggerNode(
         "no aoe",
-        NextAction::array(0, new NextAction("seal of vengeance", ACTION_HIGH + 6), NULL)));
+        NextAction::array(0, new NextAction("seal of vengeance", ACTION_HIGH + 2), NULL)));
 
     triggers.push_back(new TriggerNode(
         "light aoe",
-        NextAction::array(0, new NextAction("hammer of the righteous", ACTION_HIGH + 6), new NextAction("avenger's shield", ACTION_HIGH + 6), NULL)));
+        NextAction::array(0,  new NextAction("avenger's shield", ACTION_HIGH + 3), NULL)));
 
     triggers.push_back(new TriggerNode(
         "medium aoe",
@@ -71,8 +71,4 @@ void TankPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
 	triggers.push_back(new TriggerNode(
 		"holy shield",
 		NextAction::array(0, new NextAction("holy shield", ACTION_HIGH + 7), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "blessing",
-        NextAction::array(0, new NextAction("blessing of sanctuary", ACTION_HIGH + 9), NULL)));
 }

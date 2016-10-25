@@ -28,25 +28,63 @@ namespace ai
             creators["lay on hands"] = &lay_on_hands;
             creators["lay on hands on party"] = &lay_on_hands_on_party;
             creators["hand of protection on party"] = &hand_of_protection_on_party;
-            creators["blessing of kings on party"] = &blessing_of_kings_on_party;
-            creators["blessing of wisdom on party"] = &blessing_of_wisdom_on_party;
             creators["hammer of wrath"] = &hammer_of_wrath;
+			creators["blessing of kings"] = &blessing_of_kings;
+			creators["blessing of wisdom"] = &blessing_of_wisdom;
+			creators["blessing of kings on party"] = &blessing_of_kings_on_party;
+			creators["blessing of wisdom on party"] = &blessing_of_wisdom_on_party;
+			creators["blessing of sanctuary"] = &blessing_of_sanctuary;
         }
     private:
+		static ActionNode* blessing_of_sanctuary(PlayerbotAI* ai)
+		{
+			return new ActionNode("blessing of sanctuary",
+				/*P*/ NULL,
+				/*A*/ NextAction::array(0, new NextAction("blessing of kings"), NULL),
+				/*C*/ NULL);
+		}
+		static ActionNode* blessing_of_kings(PlayerbotAI* ai)
+		{
+			return new ActionNode("blessing of kings",
+				/*P*/ NULL,
+				/*A*/ NULL,
+				/*C*/ NULL);
+		}
+		static ActionNode* blessing_of_wisdom(PlayerbotAI* ai)
+		{
+			return new ActionNode("blessing of wisdom",
+				/*P*/ NULL,
+				/*A*/ NULL,
+				/*C*/ NULL);
+		}
+		static ActionNode* blessing_of_kings_on_party(PlayerbotAI* ai)
+		{
+			return new ActionNode("blessing of kings on party",
+				/*P*/ NULL,
+				/*A*/ NULL,
+				/*C*/ NULL);
+		}
+		static ActionNode* blessing_of_wisdom_on_party(PlayerbotAI* ai)
+		{
+			return new ActionNode("blessing of wisdom on party",
+				/*P*/ NULL,
+				/*A*/ NULL,
+				/*C*/ NULL);
+		}
         static ActionNode* seal_of_vengeance(PlayerbotAI* ai)
-    {
-        return new ActionNode ("seal of vengeance",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("seal of righteousness"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* seal_of_command(PlayerbotAI* ai)
-    {
-        return new ActionNode ("seal of command",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("seal of righteousness"), NULL),
-            /*C*/ NULL);
-    }
+		{
+			return new ActionNode ("seal of vengeance",
+				/*P*/ NULL,
+				/*A*/ NextAction::array(0, new NextAction("seal of righteousness"), NULL),
+				/*C*/ NULL);
+		}
+		static ActionNode* seal_of_command(PlayerbotAI* ai)
+		{
+			return new ActionNode ("seal of command",
+				/*P*/ NULL,
+				/*A*/ NextAction::array(0, new NextAction("seal of righteousness"), NULL),
+				/*C*/ NULL);
+		}
         static ActionNode* lay_on_hands(PlayerbotAI* ai)
         {
             return new ActionNode ("lay on hands",
@@ -172,20 +210,6 @@ namespace ai
                 /*P*/ NULL,
                 /*A*/ NextAction::array(0, new NextAction("hand of salvation on party"), NULL),
                 /*C*/ NULL);
-        }
-        static ActionNode* blessing_of_kings_on_party(PlayerbotAI* ai)
-        {
-            return new ActionNode ("blessing of kings on party",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("blessing of wisdom on party"), NULL),
-            /*C*/ NULL);
-        }
-        static ActionNode* blessing_of_wisdom_on_party(PlayerbotAI* ai)
-        {
-            return new ActionNode ("blessing of wisdom on party",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("blessing of might on party"), NULL),
-            /*C*/ NULL);
         }
         static ActionNode* hammer_of_wrath(PlayerbotAI* ai)
         {

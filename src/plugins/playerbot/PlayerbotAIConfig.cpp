@@ -123,6 +123,9 @@ bool PlayerbotAIConfig::Initialize()
     randomBotCombatStrategies = config.GetStringDefault("AiPlayerbot.RandomBotCombatStrategies", "+dps,+attack weak,-threat");
     randomBotNonCombatStrategies = config.GetStringDefault("AiPlayerbot.RandomBotNonCombatStrategies", "+grind,+move random,+loot");
 
+	combatStrategies = config.GetStringDefault("AiPlayerbot.CombatStrategies", "+custom::say");
+	nonCombatStrategies = config.GetStringDefault("AiPlayerbot.NonCombatStrategies", "+custom::say");
+
     commandPrefix = config.GetStringDefault("AiPlayerbot.CommandPrefix", "");
 
     commandServerPort = config.GetIntDefault("AiPlayerbot.CommandServerPort", 0);

@@ -169,7 +169,7 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
                 else
                     engine->addStrategies("melee heal", "bmana", "threat", NULL);
             else if (tab == 1)
-                engine->addStrategies("tank", "tank aoe", "barmor", NULL);
+                engine->addStrategies("tank", "tank aoe", "barmor", "bthreat", NULL);
             else
                 engine->addStrategies("dps", "bdps", "threat", NULL);
             break;
@@ -212,12 +212,21 @@ void AiFactory::AddDefaultCombatStrategies(Player* player, PlayerbotAI* const fa
             break;
     }
 
-    if (sRandomPlayerbotMgr.IsRandomBot(player) && !player->GetGroup())
-    {
-        engine->ChangeStrategy(sPlayerbotAIConfig.randomBotCombatStrategies);
-        if (player->getClass() == CLASS_DRUID && player->getLevel() < 20)
-            engine->addStrategies("bear", NULL);
-    }
+	if (sRandomPlayerbotMgr.IsRandomBot(player))
+	{
+		if (!player->GetGroup())
+		{
+			engine->ChangeStrategy(sPlayerbotAIConfig.randomBotCombatStrategies);
+			if (player->getClass() == CLASS_DRUID && player->getLevel() < 20)
+			{
+				engine->addStrategies("bear", NULL);
+			}
+		}
+	}
+	else
+	{
+		engine->ChangeStrategy(sPlayerbotAIConfig.combatStrategies);
+	}
 }
 
 Engine* AiFactory::createCombatEngine(Player* player, PlayerbotAI* const facade, AiObjectContext* AiObjectContext) {
@@ -241,10 +250,19 @@ void AiFactory::AddDefaultNonCombatStrategies(Player* player, PlayerbotAI* const
             nonCombatEngine->addStrategy("bspeed");
             break;
         case CLASS_PALADIN:
+			if (tab == 1)
+				nonCombatEngine->addStrategy("bthreat");
+			else
+				nonCombatEngine->addStrategy("bdps");
+			break;
         case CLASS_HUNTER:
+			nonCombatEngine->addStrategy("bdps");
+			break;
         case CLASS_SHAMAN:
-            nonCombatEngine->addStrategy("bmana");
-            break;
+			if (tab == 0 || tab == 2)
+				 nonCombatEngine->addStrategy("bmana");
+			else
+				 nonCombatEngine->addStrategy("bdps");
         case CLASS_ROGUE:
             nonCombatEngine->addStrategy("stealth");
             break;
@@ -286,12 +304,25 @@ void AiFactory::AddDefaultNonCombatStrategies(Player* player, PlayerbotAI* const
     //nonCombatEngine->addStrategies("nc", "attack weak", "food", "stay", "chat",
     //        "default", "quest", "loot", "gather", "duel", "emote", NULL);
 
+
     if (sRandomPlayerbotMgr.IsRandomBot(player) && !player->GetGroup())
     {
         //nonCombatEngine->ChangeStrategy(sPlayerbotAIConfig.randomBotNonCombatStrategies);
         //debug only
         nonCombatEngine->addStrategies("move random", "grind", "food", NULL);
+		nonCombatEngine->ChangeStrategy(sPlayerbotAIConfig.randomBotNonCombatStrategies);
     }
+	else if (sRandomPlayerbotMgr.IsRandomBot(player))
+		{
+			if (!player->GetGroup())
+			{
+				nonCombatEngine->ChangeStrategy(sPlayerbotAIConfig.randomBotNonCombatStrategies);
+			}
+		}
+		else
+		{
+			nonCombatEngine->ChangeStrategy(sPlayerbotAIConfig.nonCombatStrategies);
+		}
 
 }
 

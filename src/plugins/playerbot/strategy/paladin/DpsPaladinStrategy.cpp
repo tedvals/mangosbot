@@ -10,28 +10,12 @@ class DpsPaladinStrategyActionNodeFactory : public NamedObjectFactory<ActionNode
 public:
     DpsPaladinStrategyActionNodeFactory()
     {
-        creators["blessing of might"] = &blessing_of_might;
-        creators["blessing of kings"] = &blessing_of_kings;
         creators["crusader strike"] = &crusader_strike;
         creators["instant flash of light on master"] = &instant_exorcism;
         creators["instant exorcism"] = &instant_flash_of_light;
     }
 
-private:
-    static ActionNode* blessing_of_might(PlayerbotAI* ai)
-    {
-        return new ActionNode ("blessing of might",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("blessing of kings"), NULL),
-            /*C*/ NULL);
-    }
-    static ActionNode* blessing_of_kings(PlayerbotAI* ai)
-    {
-        return new ActionNode ("blessing of kings",
-            /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("blessing of wisdom"), NULL),
-            /*C*/ NULL);
-    }
+private:   
     static ActionNode* crusader_strike(PlayerbotAI* ai)
     {
         return new ActionNode ("crusader strike",
@@ -92,11 +76,7 @@ void DpsPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "judgement of wisdom",
         NextAction::array(0, new NextAction("judgement of wisdom", ACTION_NORMAL + 2), NULL)));
-
-    triggers.push_back(new TriggerNode(
-        "blessing",
-        NextAction::array(0, new NextAction("blessing of might", ACTION_HIGH + 8), NULL)));
-
+    
 	triggers.push_back(new TriggerNode(
 		"melee medium aoe",
 		NextAction::array(0, new NextAction("seal of command", ACTION_HIGH + 2), new NextAction("divine storm", ACTION_HIGH + 1), new NextAction("consecration", ACTION_HIGH + 1), NULL)));

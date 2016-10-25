@@ -50,6 +50,7 @@
 #include "WhoAction.h"
 #include "SaveManaAction.h"
 #include "../values/Formations.h"
+#include "SendMailAction.h"
 
 namespace ai
 {
@@ -126,9 +127,11 @@ namespace ai
             creators["disperse chat shortcut"] = &ChatActionContext::disperse_chat_shortcut;
             creators["boost chat shortcut"] = &ChatActionContext::boost_chat_shortcut;
             creators["burst chat shortcut"] = &ChatActionContext::burst_chat_shortcut;
+			creators["sendmail"] = &ChatActionContext::sendmail;
         }
 
     private:
+		static Action* sendmail(PlayerbotAI* ai) { return new SendMailAction(ai); }
         static Action* formation(PlayerbotAI* ai) { return new SetFormationAction(ai); }
         static Action* tell_attackers(PlayerbotAI* ai) { return new TellAttackersAction(ai); }
         static Action* max_dps_chat_shortcut(PlayerbotAI* ai) { return new MaxDpsChatShortcutAction(ai); }

@@ -118,7 +118,7 @@ void DisperseManager::calculatePossibleDestinations(list<FleePoint*> &points)
 	float botPosZ = bot->GetPositionZ();
 	float oldPosX;
 	float oldPosY;
-	float oldPosZ;
+
 	float maxDistance;
 	float minDistance;
 	float distanceStep;

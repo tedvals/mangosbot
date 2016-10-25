@@ -57,8 +57,12 @@ bool CheckMountStateAction::Mount()
 	if (master != NULL && master->GetAuraEffectsByType(SPELL_AURA_MOUNTED).size() > 0)
 	{
 		Unit::AuraEffectList const& auras = master->GetAuraEffectsByType(SPELL_AURA_MOUNTED);
+		if (auras.empty()) return false;
 
-		masterSpell = auras.front()->GetSpellInfo();
+		AuraEffect* front = auras.front();
+		if (!front) return false;
+		
+		const SpellInfo* masterSpell = front->GetSpellInfo();
 		masterSpeed = max(masterSpell->Effects[1].BasePoints, masterSpell->Effects[2].BasePoints);
 	}
 	else {
