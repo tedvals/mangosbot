@@ -17,7 +17,7 @@ private:
     {
         return new ActionNode ("hammer of the righteous",
             /*P*/ NULL,
-            /*A*/ NextAction::array(0, new NextAction("holy shield"), NULL),
+            /*A*/ NULL,
             /*C*/ NULL);
     }
 };
@@ -47,6 +47,10 @@ void TankPaladinStrategy::InitTriggers(std::list<TriggerNode*> &triggers)
     triggers.push_back(new TriggerNode(
         "righteous fury",
         NextAction::array(0, new NextAction("righteous fury", ACTION_HIGH + 8), NULL)));
+
+	triggers.push_back(new TriggerNode(
+		"holy shield",
+		NextAction::array(0, new NextAction("holy shield", ACTION_HIGH + 1), NULL)));
 
     triggers.push_back(new TriggerNode(
         "no aoe",

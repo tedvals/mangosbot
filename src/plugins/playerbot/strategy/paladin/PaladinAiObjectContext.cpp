@@ -272,8 +272,7 @@ namespace ai
             static Action* blessing_of_kings_on_party(PlayerbotAI* ai) { return new CastBlessingOfKingsOnPartyAction(ai); }
             static Action* blessing_of_wisdom_on_party(PlayerbotAI* ai) { return new CastBlessingOfWisdomOnPartyAction(ai); }
 			static Action* blessing_of_might_on_party(PlayerbotAI* ai) { return new CastBlessingOfMightOnPartyAction(ai); }
-			static Action* blessing_of_wisdom_on_party(PlayerbotAI* ai) { return new CastBlessingOfWisdomOnPartyAction(ai); }
-            static Action* redemption(PlayerbotAI* ai) { return new CastRedemptionAction(ai); }
+			static Action* redemption(PlayerbotAI* ai) { return new CastRedemptionAction(ai); }
             static Action* crusader_strike(PlayerbotAI* ai) { return new CastCrusaderStrikeAction(ai); }
             static Action* crusader_aura(PlayerbotAI* ai) { return new CastCrusaderAuraAction(ai); }
             static Action* seal_of_light(PlayerbotAI* ai) { return new CastSealOfLightAction(ai); }
