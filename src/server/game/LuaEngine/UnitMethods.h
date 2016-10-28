@@ -2574,7 +2574,9 @@ namespace LuaUnit
             uint32 absorb = 0;
             uint32 resist = 0;
 #ifdef TRINITY
-            unit->CalcAbsorbResist(target, schoolmask, SPELL_DIRECT_DAMAGE, damage, &absorb, &resist);
+			DamageInfo dmgInfo(unit, target, damage, nullptr, schoolmask, SPELL_DIRECT_DAMAGE, BASE_ATTACK);
+			unit->CalcAbsorbResist(dmgInfo);
+			//unit->CalcAbsorbResist(target, schoolmask, SPELL_DIRECT_DAMAGE, damage, &absorb, &resist);
 #else
             target->CalculateDamageAbsorbAndResist(unit, schoolmask, SPELL_DIRECT_DAMAGE, damage, &absorb, &resist);
 #endif
@@ -2619,7 +2621,11 @@ namespace LuaUnit
             unit->DealHeal(target, amount, info, critical);
 #else
         if (const SpellInfo* info = sSpellMgr->GetSpellInfo(spell))
-            unit->HealBySpell(target, info, amount, critical);
+		{
+			HealInfo healInfo(unit, target, amount, info, info->GetSchoolMask());
+			unit->HealBySpell(healInfo, critical);
+			
+		}
 #endif
         return 0;
     }

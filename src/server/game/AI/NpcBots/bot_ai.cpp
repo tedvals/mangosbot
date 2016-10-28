@@ -1145,9 +1145,9 @@ void bot_ai::_listAuras(Player* player, Unit* unit) const
     ch.PSendSysMessage("Ranged AP: %.1f", unit->GetTotalAttackPowerValue(RANGED_ATTACK));
     ch.PSendSysMessage("armor: %u", unit->GetArmor());
     ch.PSendSysMessage("crit: %.2f pct", unit->GetUnitCriticalChance(BASE_ATTACK, me));
-    ch.PSendSysMessage("dodge: %.2f pct", unit->GetUnitDodgeChance());
-    ch.PSendSysMessage("parry: %.2f pct", unit->GetUnitParryChance());
-    ch.PSendSysMessage("block: %.2f pct", unit->GetUnitBlockChance());
+    ch.PSendSysMessage("dodge: %.2f pct", unit->GetUnitDodgeChance(BASE_ATTACK, me));
+    ch.PSendSysMessage("parry: %.2f pct", unit->GetUnitParryChance(BASE_ATTACK, me));
+    ch.PSendSysMessage("block: %.2f pct", unit->GetUnitBlockChance(BASE_ATTACK, me));
     ch.PSendSysMessage("block value: %u", unit->GetShieldBlockValue());
     ch.PSendSysMessage("Damage taken melee: %.3f", unit->GetTotalAuraMultiplierByMiscMask(SPELL_AURA_MOD_DAMAGE_PERCENT_TAKEN, SPELL_SCHOOL_MASK_NORMAL));
     ch.PSendSysMessage("Damage taken spell: %.3f", unit->GetTotalAuraMultiplierByMiscMask(SPELL_AURA_MOD_DAMAGE_PERCENT_TAKEN, SPELL_SCHOOL_MASK_MAGIC));
@@ -1861,14 +1861,14 @@ void bot_pet_ai::SetStats(bool force, bool /*unk*/)
     //PARRY
     if (CanParry())
     {
-        value = m_creatureOwner->GetUnitParryChance();
+        value = m_creatureOwner->GetUnitParryChance((BASE_ATTACK), me);
         parry = value;
     }
 
     //DODGE
     if (CanDodge())
     {
-        value = m_creatureOwner->GetUnitDodgeChance();
+        value = m_creatureOwner->GetUnitDodgeChance((BASE_ATTACK), me);
         value += IsTank() * 10;
         dodge = value;
     }
@@ -8890,7 +8890,7 @@ void bot_ai::KillEvents(bool force)
 
 bool bot_ai::IsBotImmuneToSpell(SpellInfo const* spellInfo) const
 {
-    if (spellInfo->_IsPositiveSpell())
+    if (spellInfo->IsPositiveSpell())
         return false;
 
     if (_botclass >= BOT_CLASS_EX_START)

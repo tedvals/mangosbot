@@ -690,7 +690,7 @@ public:
                 SPELL_SCHOOL_MASK_NORMAL, dinfo->absorb, dinfo->resist, true, dinfo->blocked_amount, true);
             CleanDamage cl(0, 0, BASE_ATTACK, MELEE_HIT_CRIT);
             me->DealDamage(target, dinfo->damage, &cl);
-            me->ProcDamageAndSpell(dinfo->target, dinfo->procAttacker, dinfo->procVictim, dinfo->procEx, dinfo->damage, dinfo->attackType);
+           // me->ProcSkillsAndAuras(dinfo->target, dinfo->procAttacker, dinfo->procVictim, PROC_SPELL_TYPE_NONE, PROC_SPELL_PHASE_NONE, dinfo->HitInfo, nullptr, dinfo, nullptr);
             me->CombatStart(target);
 
             Windwalk_Timer = 0;
